@@ -1,0 +1,7 @@
+# build artifacts
+/build/
+/qgrep
+
+# visual studio temporary files
+/.vs/
+*.suo

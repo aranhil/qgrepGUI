@@ -1,0 +1,2 @@
+﻿  qgrepInterop.cpp
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepInterop\qgrepInterop.cpp(9,10): fatal error C1083: Cannot open include file: '../qgrep-master/src/main.hpp': No such file or directory

@@ -1,0 +1,135 @@
+C:\Users\sichivu\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.dll.config
+C:\Users\sichivu\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.dll
+C:\Users\sichivu\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.pkgdef
+C:\Users\sichivu\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.vsix
+C:\Users\sichivu\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\extension.vsixmanifest
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csprojAssemblyReference.cache
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ColorsWindow.g.cs
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\qgrepSearchWindow.g.cs
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool_MarkupCompile.cache
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool_MarkupCompile.lref
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ColorsWindow.baml
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\qgrepSearchWindow.baml
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.g.resources
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSPackage.resources
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.GenerateResource.cache
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCommandTable.cto
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCT.read.1.tlog
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCT.write.1.tlog
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\CtoResourceMerger.cache
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSPackage.resources.original
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.CoreCompileInputs.cache
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.CopyComplete
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.dll
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.pdb
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.pkgdef
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.latest.pkgdef
+C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\extension.vsixmanifest
+C:\Users\Iulian\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.dll.config
+C:\Users\Iulian\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.dll
+C:\Users\Iulian\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.pkgdef
+C:\Users\Iulian\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.vsix
+C:\Users\Iulian\Desktop\qgrepSearchTool\bin\qgrepSearchTool\Release\extension.vsixmanifest
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csprojAssemblyReference.cache
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ResourceDictionary.baml
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ColorsWindow.g.cs
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\qgrepSearchWindow.g.cs
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool_MarkupCompile.cache
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool_MarkupCompile.lref
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ColorsWindow.baml
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\qgrepSearchWindow.baml
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.g.resources
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSPackage.resources
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.GenerateResource.cache
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCommandTable.cto
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCT.read.1.tlog
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCT.write.1.tlog
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\CtoResourceMerger.cache
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\VSPackage.resources.original
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.CoreCompileInputs.cache
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.CopyComplete
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.dll
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.pdb
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.pkgdef
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.latest.pkgdef
+C:\Users\Iulian\Desktop\qgrepSearchTool\qgrepSearchTool\obj\Release\extension.vsixmanifest
+F:\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.dll.config
+F:\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.dll
+F:\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.pkgdef
+F:\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.vsix
+F:\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\extension.vsixmanifest
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.AssemblyReference.cache
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ResourceDictionary.baml
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\FileExtensionRow.g.cs
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ErrorsWindow.g.cs
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\FileExtensionWindow.g.cs
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\SettingsWindow.g.cs
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ColorsWindow.g.cs
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\qgrepSearchWindow.g.cs
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool_MarkupCompile.cache
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool_MarkupCompile.lref
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\FileExtensionRow.baml
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ErrorsWindow.baml
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\FileExtensionWindow.baml
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\SettingsWindow.baml
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ColorsWindow.baml
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\qgrepSearchWindow.baml
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.g.resources
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSPackage.resources
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.GenerateResource.cache
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCommandTable.cto
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCT.read.1.tlog
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCT.write.1.tlog
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\resources.json
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ctoFiles.json
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\mergeCto.cache
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.CoreCompileInputs.cache
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.dll
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.pdb
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.pkgdef
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.latest.pkgdef
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\extension.vsixmanifest
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\files.json
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\createTemplateManifests.cache
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSPackage.resources.original
+F:\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.CopyComplete
+D:\The great move\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.dll.config
+D:\The great move\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.dll
+D:\The great move\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.pkgdef
+D:\The great move\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\qgrepSearchTool.vsix
+D:\The great move\Development\Backup\qgrepSearchTool\bin\qgrepSearchTool\Release\extension.vsixmanifest
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.AssemblyReference.cache
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ResourceDictionary.baml
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\FileExtensionRow.g.cs
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ErrorsWindow.g.cs
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\FileExtensionWindow.g.cs
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\SettingsWindow.g.cs
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ColorsWindow.g.cs
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\qgrepSearchWindow.g.cs
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool_MarkupCompile.cache
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool_MarkupCompile.lref
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\FileExtensionRow.baml
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ErrorsWindow.baml
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\FileExtensionWindow.baml
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\SettingsWindow.baml
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\ColorsWindow.baml
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ToolWindows\qgrepSearchWindow.baml
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.g.resources
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSPackage.resources
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.GenerateResource.cache
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCommandTable.cto
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCT.read.1.tlog
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSCT.write.1.tlog
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\resources.json
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\ctoFiles.json
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\mergeCto.cache
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.CoreCompileInputs.cache
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.csproj.CopyComplete
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.dll
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.pdb
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.pkgdef
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\qgrepSearchTool.latest.pkgdef
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\extension.vsixmanifest
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\files.json
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\createTemplateManifests.cache
+D:\The great move\Development\Backup\qgrepSearchTool\qgrepSearchTool\obj\Release\VSPackage.resources.original

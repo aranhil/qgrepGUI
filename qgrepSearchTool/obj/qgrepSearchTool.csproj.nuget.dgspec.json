@@ -1,0 +1,124 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Development\\qgrepSearchTool\\qgrepSearchTool\\qgrepSearchTool.csproj": {}
+  },
+  "projects": {
+    "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj",
+        "projectName": "qgrepInterop",
+        "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj",
+        "frameworks": {
+          "native": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "native": {}
+      }
+    },
+    "C:\\Development\\qgrepSearchTool\\qgrepSearchTool\\qgrepSearchTool.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Development\\qgrepSearchTool\\qgrepSearchTool\\qgrepSearchTool.csproj",
+        "projectName": "qgrepSearchTool",
+        "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepSearchTool\\qgrepSearchTool.csproj",
+        "packagesPath": "C:\\Users\\Iulian\\.nuget\\packages\\",
+        "outputPath": "C:\\Development\\qgrepSearchTool\\qgrepSearchTool\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\Iulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+                "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj"
+              },
+              "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj": {
+                "projectPath": "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "dependencies": {
+            "Extended.Wpf.Toolkit": {
+              "target": "Package",
+              "version": "[3.8.1, )"
+            },
+            "Microsoft.VSSDK.BuildTools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[17.0.3177-preview3, )"
+            },
+            "Microsoft.VisualStudio.SDK": {
+              "target": "Package",
+              "version": "[17.0.0-previews-1-31410-273, )"
+            },
+            "Microsoft.VisualStudio.Text.Data": {
+              "target": "Package",
+              "version": "[17.0.255-preview-ga4c683bf62, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[17.0.32-alpha, )"
+            },
+            "Microsoft.VisualStudio.Validation": {
+              "target": "Package",
+              "version": "[17.0.21-alpha, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "StreamJsonRpc": {
+              "target": "Package",
+              "version": "[2.9.12-alpha, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj",
+        "projectName": "qgrep",
+        "projectPath": "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj",
+        "frameworks": {
+          "native": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "native": {}
+      }
+    }
+  }
+}
