@@ -115,6 +115,7 @@
                       Name="SearchItemsControl"
                       VirtualizingStackPanel.IsVirtualizing="True"
                       ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       ItemsSource="{Binding}" Background="{DynamicResource BackgroundColor}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
