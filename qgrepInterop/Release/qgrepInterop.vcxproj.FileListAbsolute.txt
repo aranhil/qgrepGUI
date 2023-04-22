@@ -1,2 +1,0 @@
-C:\Users\sichivu\Desktop\AsyncToolWindow\qgrepInterop\Release\qgrepInterop.vcxprojAssemblyReference.cache
-C:\Users\sichivu\Desktop\qgrepSearchTool\qgrepInterop\Release\qgrepInterop.vcxprojAssemblyReference.cache
