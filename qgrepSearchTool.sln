@@ -14,22 +14,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qgrep", "qgrep\qgrep.vcxpro
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Debug|Any CPU.Build.0 = Debug|Win32
-		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Release|Any CPU.ActiveCfg = Release|x64
-		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Release|Any CPU.Build.0 = Release|x64
-		{6827D800-E969-478D-BF86-2B821F084585}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{6827D800-E969-478D-BF86-2B821F084585}.Debug|Any CPU.Build.0 = Debug|Win32
-		{6827D800-E969-478D-BF86-2B821F084585}.Release|Any CPU.ActiveCfg = Release|x64
-		{6827D800-E969-478D-BF86-2B821F084585}.Release|Any CPU.Build.0 = Release|x64
+		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Debug|x64.ActiveCfg = Debug|x64
+		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Debug|x64.Build.0 = Debug|x64
+		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Release|x64.ActiveCfg = Release|x64
+		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Release|x64.Build.0 = Release|x64
+		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Debug|x64.ActiveCfg = Debug|x64
+		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Debug|x64.Build.0 = Debug|x64
+		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Release|x64.ActiveCfg = Release|x64
+		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Release|x64.Build.0 = Release|x64
+		{6827D800-E969-478D-BF86-2B821F084585}.Debug|x64.ActiveCfg = Debug|x64
+		{6827D800-E969-478D-BF86-2B821F084585}.Debug|x64.Build.0 = Debug|x64
+		{6827D800-E969-478D-BF86-2B821F084585}.Release|x64.ActiveCfg = Release|x64
+		{6827D800-E969-478D-BF86-2B821F084585}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
