@@ -43,13 +43,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)</OutDir>
-    <IntDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\obj</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)</OutDir>
-    <IntDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\obj</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

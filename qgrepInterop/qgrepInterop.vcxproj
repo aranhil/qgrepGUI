@@ -47,59 +47,47 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>..\qgrep-master\build\ReleaseDLL_x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)</OutDir>
-    <IntDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\obj</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>..\qgrep\src\;$(IncludePath)</IncludePath>
     <LibraryPath>..\bin\qgrep\Release_x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)</OutDir>
-    <IntDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\obj</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)_$(Platform)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)qgrep\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)qgrep\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>qgrep.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrep;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrep\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)qgrep\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)qgrep\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>qgrep.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrep;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrep\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="qgrepInterop.h" />
-    <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="qgrepInterop.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="app.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

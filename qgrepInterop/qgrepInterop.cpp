@@ -1,12 +1,10 @@
-#include "pch.h"
-
 #include <vector>
 #include <string>
 
 #include <msclr\marshal.h>
 #include <msclr\marshal_cppstd.h>
 
-#include "qgrep.hpp"
+#include <qgrep.hpp>
 
 #include "qgrepInterop.h"
 

@@ -5,7 +5,7 @@
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <OutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\obj</IntermediateOutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\obj\</IntermediateOutputPath>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
