@@ -4,3 +4,6 @@
 # Build folders
 build
 qgrepSearchTool/obj
+
+# qgrep index folder
+.qgrep
