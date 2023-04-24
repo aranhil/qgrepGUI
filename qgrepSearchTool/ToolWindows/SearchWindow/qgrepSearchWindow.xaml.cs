@@ -643,6 +643,7 @@ namespace qgrepSearch.ToolWindows
                     InitProgress.Visibility = Visibility.Collapsed;
                     InitButton.IsEnabled = true;
                     CleanButton.IsEnabled = true;
+                    PathsButton.IsEnabled = true;
                     sw.Stop();
 
                     EngineBusy = false;
@@ -657,6 +658,7 @@ namespace qgrepSearch.ToolWindows
             InitProgress.Value = 0;
             InitButton.IsEnabled = false;
             CleanButton.IsEnabled = false;
+            PathsButton.IsEnabled = false;
         }
 
         private void InitButton_Click(object sender, RoutedEventArgs e)
@@ -689,6 +691,11 @@ namespace qgrepSearch.ToolWindows
 
         private void PathsButton_Click(object sender, RoutedEventArgs e)
         {
+            if(EngineBusy)
+            {
+                return;
+            }
+
             DialogWindow window = new DialogWindow
             {
                 Title = "Projects configuration",

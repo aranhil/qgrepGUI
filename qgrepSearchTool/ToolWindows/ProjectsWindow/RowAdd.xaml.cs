@@ -27,12 +27,13 @@ namespace qgrepSearch.ToolWindows
         public delegate void ClickCallbackFunction();
         private ClickCallbackFunction ClickCallback;
 
-        public RowAdd(ProjectsWindow Parent, ClickCallbackFunction ClickCallback)
+        public RowAdd(ProjectsWindow Parent, string tooltip, ClickCallbackFunction ClickCallback)
         {
             InitializeComponent();
 
             this.Parent = Parent;
             this.ClickCallback = ClickCallback;
+            this.ToolTip = tooltip;
 
             LoadColorsFromResources();
         }
