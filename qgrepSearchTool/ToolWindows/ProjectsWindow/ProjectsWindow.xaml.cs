@@ -1,0 +1,418 @@
+﻿using Microsoft.VisualStudio.PlatformUI;
+using qgrepSearch.Classes;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace qgrepSearch.ToolWindows
+{
+    /// <summary>
+    /// Interaction logic for ProjectsWindow.xaml
+    /// </summary>
+    public partial class ProjectsWindow : System.Windows.Controls.UserControl
+    {
+        public qgrepSearchWindowControl Parent;
+
+        private ProjectRow SelectedProject = null;
+        private GroupRow SelectedGroup = null;
+
+        public ProjectsWindow(qgrepSearchWindowControl Parent)
+        {
+            this.Parent = Parent;
+            InitializeComponent();
+
+            LoadFromConfig();
+            LoadColorsFromResources();
+        }
+
+        public void LoadFromConfig()
+        {
+            LoadProjectsFromConfig();
+            LoadGroupsFromConfig();
+        }
+
+        private void LoadColorsFromResources()
+        {
+            Dictionary<string, System.Windows.Media.Color> colors = Parent.GetColorsFromResources();
+
+            foreach (var color in colors)
+            {
+                Resources[color.Key] = new SolidColorBrush(color.Value);
+            }
+        }
+
+        public void LoadProjectsFromConfig()
+        {
+            ProjectsPanel.Children.Clear();
+
+            foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+            {
+                string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                ProjectsPanel.Children.Add(new ProjectRow(this, new ProjectRow.ProjectRowData(projectName)));
+            }
+
+            ProjectsPanel.Children.Add(new RowAdd(this, new RowAdd.ClickCallbackFunction(AddProject)));
+
+            if (SelectedProject != null)
+            {
+                bool foundOldProject = false;
+                foreach (UIElement child in ProjectsPanel.Children)
+                {
+                    ProjectRow row = child as ProjectRow;
+                    if (row != null)
+                    {
+                        if (row.Data.ProjectName == SelectedProject.Data.ProjectName)
+                        {
+                            foundOldProject = true;
+                            SelectProject(row);
+                            break;
+                        }
+                    }
+                }
+
+                if(!foundOldProject)
+                {
+                    SelectedProject = null;
+                }
+            }
+            else
+            {
+                if(ProjectsPanel.Children.Count > 1)
+                {
+                    SelectProject(ProjectsPanel.Children[0] as ProjectRow);
+                }
+            }
+        }
+
+        public void LoadGroupsFromConfig()
+        {
+            GroupsPanel.Children.Clear();
+
+            if (SelectedProject != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                    if (projectName == SelectedProject.Data.ProjectName)
+                    {
+                        for(int i = 0; i < configProject.Groups.Count; i++)
+                        {
+                            GroupsPanel.Children.Add(new GroupRow(this, new GroupRow.GroupRowData(i == 0 ? "<root>" : "Group" + i, i == 0, i)));
+                        }
+
+                        GroupsPanel.Children.Add(new RowAdd(this, new RowAdd.ClickCallbackFunction(AddGroup)));
+
+                        if (SelectedGroup != null)
+                        {
+                            bool foundOldGroup = false;
+                            foreach (UIElement child in GroupsPanel.Children)
+                            {
+                                GroupRow row = child as GroupRow;
+                                if (row != null)
+                                {
+                                    if (row.Data.Index == SelectedGroup.Data.Index)
+                                    {
+                                        foundOldGroup = true;
+                                        SelectGroup(row);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (!foundOldGroup)
+                            {
+                                SelectedGroup = null;
+                            }
+                        }
+                        else
+                        {
+                            if (GroupsPanel.Children.Count > 1)
+                            {
+                                SelectGroup(GroupsPanel.Children[0] as GroupRow);
+                            }
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void SelectProject(ProjectRow project)
+        {
+            if (project != SelectedProject)
+            {
+                foreach (UIElement child in ProjectsPanel.Children)
+                {
+                    ProjectRow row = child as ProjectRow;
+                    if (row != null)
+                    {
+                        bool isSelected = (row == project);
+
+                        if (isSelected)
+                        {
+                            SelectedProject = row;
+                        }
+
+                        row.Select(isSelected);
+                    }
+                }
+
+                LoadGroupsFromConfig();
+            }
+        }
+
+        public void DeleteProject(ProjectRow project)
+        {
+            Parent.ConfigParser.RemoveProject(project.Data.ProjectName);
+            LoadFromConfig();
+        }
+
+        public void AddProject()
+        {
+            Parent.ConfigParser.AddNewProject();
+
+            Parent.ConfigParser.SaveConfig();
+            LoadProjectsFromConfig();
+
+            //if (ProjectsPanel.Children.Count > 1)
+            //{
+            //    SelectProject(ProjectsPanel.Children[ProjectsPanel.Children.Count - 2] as ProjectRow);
+            //}
+        }
+
+        //private void Border_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    (ProjectsPanel.Children[ProjectsPanel.Children.Count - 1] as RowAdd).Visibility = Visibility.Visible;
+        //}
+
+        //private void Border_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    (ProjectsPanel.Children[ProjectsPanel.Children.Count - 1] as RowAdd).Visibility = Visibility.Hidden;
+        //}
+
+        public void SelectGroup(GroupRow group)
+        {
+            foreach (UIElement child in GroupsPanel.Children)
+            {
+                GroupRow row = child as GroupRow;
+                if (row != null)
+                {
+                    bool isSelected = (row == group);
+
+                    if (isSelected)
+                    {
+                        SelectedGroup = group;
+                    }
+
+                    row.Select(isSelected);
+                }
+            }
+
+            LoadPathsFromConfig();
+            LoadRulesFromConfig();
+        }
+
+        public void DeleteGroup(GroupRow group)
+        {
+            if(SelectedProject != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                    if (projectName == SelectedProject.Data.ProjectName)
+                    {
+                        configProject.Groups.RemoveAt(group.Data.Index);
+                        break;
+                    }
+                }
+
+                LoadFromConfig();
+            }
+        }
+
+        public void AddGroup()
+        {
+            if (SelectedProject != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                    if (projectName == SelectedProject.Data.ProjectName)
+                    {
+                        configProject.Groups.Add(new ConfigGroup());
+                        break;
+                    }
+                }
+
+                Parent.ConfigParser.SaveConfig();
+                LoadFromConfig();
+            }
+        }
+
+        public void LoadPathsFromConfig()
+        {
+            PathsPanel.Children.Clear();
+
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                    if (projectName == SelectedProject.Data.ProjectName)
+                    {
+                        foreach(string Path in configProject.Groups[SelectedGroup.Data.Index].Paths)
+                        {
+                            PathsPanel.Children.Add(new PathRow(this, new PathRow.PathRowData(Path)));
+                        }
+
+                        PathsPanel.Children.Add(new RowAdd(this, new RowAdd.ClickCallbackFunction(AddPath)));
+                        break;
+                    }
+                }
+            }
+        }
+        public void AddPath()
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    fbd.Reset();
+                    fbd.RootFolder = Environment.SpecialFolder.MyComputer;
+                    //fbd.SelectedPath = CacheLocation.Text;
+
+                    DialogResult result = fbd.ShowDialog();
+
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        if (Directory.Exists(fbd.SelectedPath))
+                        {
+                            foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                            {
+                                string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                                if (projectName == SelectedProject.Data.ProjectName)
+                                {
+                                    configProject.Groups[SelectedGroup.Data.Index].Paths.Add(fbd.SelectedPath);
+                                    Parent.ConfigParser.SaveConfig();
+                                    LoadFromConfig();
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        public void DeletePath(PathRow path)
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                    if (projectName == SelectedProject.Data.ProjectName)
+                    {
+                        configProject.Groups[SelectedGroup.Data.Index].Paths.Remove(path.Data.Path);
+                        LoadFromConfig();
+                        break;
+                    }
+                }
+            }
+        }
+        public void LoadRulesFromConfig()
+        {
+            RulesPanel.Children.Clear();
+
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                    if (projectName == SelectedProject.Data.ProjectName)
+                    {
+                        int index = 0;
+                        foreach (ConfigRule rule in configProject.Groups[SelectedGroup.Data.Index].Rules)
+                        {
+                            RulesPanel.Children.Add(new RuleRow(this, new RuleRow.RuleRowData(rule.IsExclude, rule.Rule, index++)));
+                        }
+
+                        RulesPanel.Children.Add(new RowAdd(this, new RowAdd.ClickCallbackFunction(AddRule)));
+                        break;
+                    }
+                }
+            }
+        }
+        public void DeleteRule(RuleRow rule)
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                    if (projectName == SelectedProject.Data.ProjectName)
+                    {
+                        configProject.Groups[SelectedGroup.Data.Index].Rules.RemoveAt(rule.Data.Index);
+                        LoadFromConfig();
+                        break;
+                    }
+                }
+            }
+        }
+        public void AddRule()
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                RuleWindow ruleWindow = new RuleWindow(this);
+                ruleWindow.GroupRegEx.Text = "";
+
+                DialogWindow ruleDialog = new DialogWindow
+                {
+                    Title = "Add rule",
+                    Content = ruleWindow,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    ResizeMode = ResizeMode.NoResize,
+                    HasMinimizeButton = false,
+                    HasMaximizeButton = false,
+                };
+
+                ruleWindow.Dialog = ruleDialog;
+                ruleDialog.ShowModal();
+
+                if(ruleWindow.IsOK)
+                {
+                    foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                    {
+                        string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
+                        if (projectName == SelectedProject.Data.ProjectName)
+                        {
+                            ConfigRule newRule = new ConfigRule();
+                            newRule.Rule = ruleWindow.GroupRegEx.Text;
+                            newRule.IsExclude = ruleWindow.GroupType.SelectedIndex == 1;
+
+                            configProject.Groups[SelectedGroup.Data.Index].Rules.Add(newRule);
+                            Parent.ConfigParser.SaveConfig();
+                            LoadFromConfig();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

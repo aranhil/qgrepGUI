@@ -172,6 +172,7 @@
             <Button Name="ErrorsButton" Style="{StaticResource SomeButtonStyle}" Click="ErrorsButton_Click" Content="⚠" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,0" FontSize="14" ToolTip="Errors log"/>
             <Button Name="ColorsButton" Style="{StaticResource SomeButtonStyle}" Click="Colors_Click" Content="✎" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,0" FontSize="14" ToolTip="Customize colors"/>
             <Button Name="AdvancedButton" Style="{StaticResource SomeButtonStyle}" Click="AdvancedButton_Click" Content="⚙" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,0" FontSize="14" ToolTip="Settings"/>
+            <Button Name="PathsButton" Style="{StaticResource SomeButtonStyle}" Click="PathsButton_Click" Content="📁" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,0" FontSize="14" ToolTip="Settings"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="qgrepSearch.ToolWindows.FileExtensionWindow"
+﻿<UserControl x:Class="qgrepSearch.ToolWindows.RuleWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
              mc:Ignorable="d" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" PreviewKeyDown="UserControl_PreviewKeyDown"
-             Width="500" Height="90"
+             Width="500" Height="90" PreviewMouseDown="UserControl_PreviewMouseDown"
              d:DesignHeight="200" d:DesignWidth="800">
     <UserControl.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="Black" />
@@ -81,13 +81,43 @@
             <RowDefinition Height="24"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="79"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="RegEx" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="5,0"/>
-        <TextBox x:Name="GroupName" Style="{StaticResource SomeTextBoxStyle}" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Grid.Row="0" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" Grid.Column="1" Margin="2,0,5,0"/>
-        <TextBox x:Name="GroupRegEx" Style="{StaticResource SomeTextBoxStyle}" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Grid.Row="1" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" Grid.Column="1" Margin="2,0,5,0"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Type:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="79"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="RegEx:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="5,0"/>
+        <ComboBox x:Name="GroupType" SelectedIndex="0" Grid.Row="0" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" Width="100" HorizontalAlignment="Left" Grid.Column="1" Margin="2,0,5,0">
+            <ComboBoxItem>Include</ComboBoxItem>
+            <ComboBoxItem>Exclude</ComboBoxItem>
+        </ComboBox>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0">
+            <TextBox x:Name="GroupRegEx" Style="{StaticResource SomeTextBoxStyle}" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Grid.Row="1" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" Grid.Column="1" Margin="2,0,5,0"/>
+            <Button Name="PredefinedButton" Focusable="False" Style="{StaticResource SomeButtonStyle}" Margin="5,0,5,0" Background="{x:Null}" BorderBrush="{x:Null}" Content="💡" Padding="0" HorizontalContentAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" ToolTip="A list of predefined regexes" Click="PredefinedButton_Click">
+            </Button>
+            <Popup x:Name="PredefinedPopup" IsOpen="False" PlacementTarget="{Binding ElementName=PredefinedButton}">
+                <StackPanel>
+                    <ComboBoxItem Tag="\.(cs|vb)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">C#, VB.NET</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(cpp|cxx|cc|c|hpp|hxx|hh|h|inl)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">C/C++</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(d)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">D</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(dpr|pas|pp|inc|dfm|lfm|lpi|lpr|dpk|dproj|spp)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Delphi, Pascal</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(fs|fsi|fsx|ml|mli|hs)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">F#, OCaml, Haskell</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(go)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Go</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(htm|html|css|sass|scss)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">HTML, CSS</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(java|js|kt|kts|ts|tsx)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Java, JavaScript, Kotlin, TypeScript</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(jl)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Julia</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(lua|nut)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Lua, Squirrel</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(md|rst|txt)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Markdown, reStructuredText, simple text</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(nim)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Nim</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(m|mm)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Objective C/C++</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(pl|py|pm|rb)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Perl, Python, Ruby</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(php|as)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">PHP, ActionScript</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(rs)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Rust</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(hlsl|glsl|cg|fx|cgfx)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Shaders</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(xml|json|csv)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">XML, JSON, CSV</ComboBoxItem>
+                    <ComboBoxItem Tag="\.(zig)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Zig</ComboBoxItem>
+                </StackPanel>
+            </Popup>
+        </Grid>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
-            <Button x:Name="SaveGroup" Content="Save" HorizontalAlignment="Center" Margin="0,0,5,0" Click="SaveGroup_Click" Padding="5,2"/>
-            <Button x:Name="CancelGroup" Content="Cancel" HorizontalAlignment="Center" Margin="0,0,5,0" Click="CancelGroup_Click" Padding="5,2"/>
+            <Button x:Name="OK" Content="Save" HorizontalAlignment="Center" Margin="0,0,5,0" Click="OK_Click" Padding="5,2"/>
+            <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Cancel_Click" Padding="5,2"/>
         </StackPanel>
     </Grid>
 </UserControl>

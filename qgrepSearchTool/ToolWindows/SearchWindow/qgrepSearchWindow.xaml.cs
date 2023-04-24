@@ -2,6 +2,7 @@
 using EnvDTE80;
 using Microsoft.VisualStudio.PlatformUI;
 using qgrepInterop;
+using qgrepSearch.Classes;
 using qgrepSearch.Properties;
 using System;
 using System.Collections.Generic;
@@ -62,15 +63,12 @@ namespace qgrepSearch.ToolWindows
         private EnvDTE80.DTE2 DTE;
         private qgrepSearchPackage Package;
         public string ConfigPath = "";
-        public string SearchPath = "";
+        public ConfigParser ConfigParser = null;
         static public string[] colorsAvailable = new string[]{ "BackgroundColor", "ForegroundColor", "BorderColor", "BorderSelectionColor", "BorderHoverColor", 
             "ResultFileColor", "ResultTextColor", "ResultHighlightColor", "ResultHoverColor", "ResultSelectedColor", "ButtonColor", "ButtonHoverColor", "InputHintColor", "OverlayBusyColor" };
 
-        private FileStream ConfigStreamLock = null;
         public string Errors = "";
         private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
-        private FileSystemWatcher FileWatcher = new FileSystemWatcher();
-        public List<string> FileWatcherRegExs = new List<string>();
         private int ChangesCounter = 0;
         private string LastResults = "";
 
@@ -106,73 +104,8 @@ namespace qgrepSearch.ToolWindows
 
             UpdateTimer.Enabled = true;
 
-            FileWatcher.NotifyFilter = NotifyFilters.Attributes
-                                  | NotifyFilters.CreationTime
-                                  | NotifyFilters.DirectoryName
-                                  | NotifyFilters.FileName
-                                  | NotifyFilters.LastAccess
-                                  | NotifyFilters.LastWrite
-                                  | NotifyFilters.Security
-                                  | NotifyFilters.Size;
-
-            FileWatcher.Changed += OnFileChanged;
-            FileWatcher.Created += OnFileChanged;
-            FileWatcher.Deleted += OnFileChanged;
-            FileWatcher.Renamed += OnFileRenamed;
-
-            FileWatcher.IncludeSubdirectories = true;
-
             UpdateColorsFromSettings();
             UpdateFromSettings();
-        }
-        private void OnFileChanged(object sender, FileSystemEventArgs e)
-        {
-            bool matched = false;
-            foreach (var extensionRegEx in FileWatcherRegExs)
-            {
-                if (Regex.IsMatch(e.Name, extensionRegEx))
-                {
-                    matched = true;
-                    break;
-                }
-            }
-
-            if (matched)
-            {
-                ChangesCounter++;
-                if (ChangesCounter >= Settings.Default.UpdateChangesCount)
-                {
-                    UpdateTimer.Elapsed -= OnTimedEvent;
-                    UpdateTimer.Interval = Settings.Default.UpdateDelay * 1000;
-                    UpdateTimer.Elapsed += OnTimedEvent;
-                    ChangesCounter = 0;
-                }
-            }
-        }
-
-        private void OnFileRenamed(object sender, RenamedEventArgs e)
-        {
-            bool matched = false;
-            foreach (var extensionRegEx in FileWatcherRegExs)
-            {
-                if (Regex.IsMatch(e.Name, extensionRegEx))
-                {
-                    matched = true;
-                    break;
-                }
-            }
-
-            if (matched)
-            {
-                ChangesCounter++;
-                if (ChangesCounter >= Settings.Default.UpdateChangesCount)
-                {
-                    UpdateTimer.Elapsed -= OnTimedEvent;
-                    UpdateTimer.Interval = Settings.Default.UpdateDelay * 1000;
-                    UpdateTimer.Elapsed += OnTimedEvent;
-                    ChangesCounter = 0;
-                }
-            }
         }
 
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
@@ -197,67 +130,8 @@ namespace qgrepSearch.ToolWindows
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B); ;
         }
 
-        public String GetSearchPath()
-        {
-            if(File.Exists(ConfigPath))
-            {
-                using (StreamReader configReader = File.OpenText(ConfigPath))
-                {
-                    string pathLine = configReader.ReadLine();
-                    if(pathLine.StartsWith("path "))
-                    {
-                        return pathLine.Substring(5);
-                    }
-                }
-            }
-
-            return "";
-        }
-
-        public void SetSearchPath(String searchPath)
-        {
-            if (File.Exists(ConfigPath))
-            {
-                var lines = File.ReadAllLines(ConfigPath);
-                lines[0] = "path " + searchPath;
-                File.WriteAllLines(ConfigPath, lines);
-
-                SearchPath = GetSearchPath();
-                FileWatcher.Path = SearchPath;
-            }
-        }
-
-        private bool LockConfig()
-        {
-            try
-            {
-                ConfigStreamLock = new FileStream(ConfigPath + ".lock", FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Dispatcher.Invoke(new Action(() =>
-                {
-                    ProcessErrorMessage("Cannot lock config file: " + ex.Message + "\n");
-                }));
-            }
-
-            return false;
-        }
-
-        private void UnlockConfig()
-        {
-            if(ConfigStreamLock != null)
-            {
-                ConfigStreamLock.Close();
-                ConfigStreamLock = null;
-            }
-        }
-
         public void LoadExtensions()
         {
-            FileWatcherRegExs.Clear();
-
             if (File.Exists(ConfigPath))
             {
                 string[] allConfigLines = File.ReadAllLines(ConfigPath);
@@ -266,7 +140,6 @@ namespace qgrepSearch.ToolWindows
                     if (allConfigLines[i].StartsWith("# ") && i + 1 < allConfigLines.Length && allConfigLines[i + 1].StartsWith("include "))
                     {
                         string groupRegEx = allConfigLines[i + 1].Substring(8);
-                        FileWatcherRegExs.Add(groupRegEx);
                         i++;
                     }
                 }
@@ -284,37 +157,14 @@ namespace qgrepSearch.ToolWindows
                     solutionPath = solutionPath.Substring(0, DTE.Solution.FullName.LastIndexOf('\\'));
                 }
 
-                ConfigPath = solutionPath + "\\.qgrep\\searchdb.cfg";
+                ConfigParser = new ConfigParser(solutionPath);
+                ConfigParser.LoadConfig();
 
-                if (!File.Exists(ConfigPath))
-                {
-                    string errors = "";
-                    List<string> parameters = new List<string>();
-                    parameters.Add("qgrep");
-                    parameters.Add("init");
-                    parameters.Add(ConfigPath);
-                    parameters.Add(solutionPath);
-                    QGrepWrapper.CallQGrep(parameters, ref errors);
-                    Errors += errors;
-                }
-
-                SearchPath = GetSearchPath();
-                FileWatcher.Path = SearchPath;
-                LoadExtensions();
-
-                try
-                {
-                    FileWatcher.EnableRaisingEvents = true;
-                }
-                catch(Exception ex)
-                {
-                }
+                UpdateDatabase();
 
                 WarningText.Visibility = Visibility.Hidden;
                 InitButton.Visibility = Visibility.Visible;
                 CleanButton.Visibility = Visibility.Visible;
-
-                UpdateDatabase();
             }
         }
 
@@ -405,11 +255,6 @@ namespace qgrepSearch.ToolWindows
 
         private void Find()
         {
-            if (ConfigPath.Length == 0)
-            {
-                return;
-            }
-
             if (EngineBusy)
             {
                 QueueFind = true;
@@ -439,7 +284,17 @@ namespace qgrepSearch.ToolWindows
 
             arguments.Add("qgrep");
             arguments.Add("search");
-            arguments.Add(ConfigPath);
+
+            string configs = "";
+            for(int i = 0; i < ConfigParser.ConfigProjects.Count; i++)
+            {
+                configs += ConfigParser.ConfigProjects[i].Path;
+                if(i < ConfigParser.ConfigProjects.Count - 1)
+                {
+                    configs += ",";
+                }
+            }
+            arguments.Add(configs);
 
             if (SearchCaseSensitive.IsChecked == false) arguments.Add("i");
 
@@ -492,99 +347,94 @@ namespace qgrepSearch.ToolWindows
                 ObservableCollection<SearchResult> newItems = new ObservableCollection<SearchResult>();
                 string errors = "";
 
-                if (LockConfig())
+                string results = QGrepWrapper.CallQGrep(arguments, ref errors);
+                LastResults = results;
+
+                int resultIndex = 0;
+                int lastIndex = 0;
+                for (int index = 0; index < results.Length; index++)
                 {
-                    string results = QGrepWrapper.CallQGrep(arguments, ref errors);
-                    LastResults = results;
-
-                    int resultIndex = 0;
-                    int lastIndex = 0;
-                    for (int index = 0; index < results.Length; index++)
+                    if (results[index] == '\n')
                     {
-                        if (results[index] == '\n')
+                        string currentLine = results.Substring(lastIndex, index - lastIndex);
+                        string file = "", beginText = "", endText = "", highlightedText = "";
+
+                        int currentIndex = currentLine.IndexOf('\xB0');
+                        if (currentIndex >= 0)
                         {
-                            string currentLine = results.Substring(lastIndex, index - lastIndex);
-                            string file = "", beginText = "", endText = "", highlightedText = "";
+                            file = currentLine.Substring(0, currentIndex);
+                            //file.Replace(SearchPath, "");
 
-                            int currentIndex = currentLine.IndexOf('\xB0');
-                            if (currentIndex >= 0)
+                            if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
                             {
-                                file = currentLine.Substring(0, currentIndex);
-                                file.Replace(SearchPath, "");
-
-                                if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
-                                {
-                                    currentLine = currentLine.Substring(currentIndex + 1);
-                                }
-                                else
-                                {
-                                    currentLine = "";
-                                }
+                                currentLine = currentLine.Substring(currentIndex + 1);
                             }
                             else
                             {
-                            }
-
-                            currentIndex = currentLine.IndexOf('\xB1');
-                            if (currentIndex >= 0)
-                            {
-                                beginText = " " + currentLine.Substring(0, currentIndex);
-
-                                if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
-                                {
-                                    currentLine = currentLine.Substring(currentIndex + 1);
-                                }
-                                else
-                                {
-                                    currentLine = "";
-                                }
-                            }
-                            else
-                            {
-                                beginText = " " + currentLine;
                                 currentLine = "";
                             }
+                        }
+                        else
+                        {
+                        }
 
-                            currentIndex = currentLine.IndexOf('\xB2');
-                            if (currentIndex >= 0)
+                        currentIndex = currentLine.IndexOf('\xB1');
+                        if (currentIndex >= 0)
+                        {
+                            beginText = " " + currentLine.Substring(0, currentIndex);
+
+                            if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
                             {
-                                highlightedText = currentLine.Substring(0, currentIndex);
-                                file.Replace(SearchPath, "");
-
-                                if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
-                                {
-                                    currentLine = currentLine.Substring(currentIndex + 1);
-                                }
-                                else
-                                {
-                                    currentLine = "";
-                                }
+                                currentLine = currentLine.Substring(currentIndex + 1);
                             }
                             else
                             {
+                                currentLine = "";
                             }
-
-                            currentLine = currentLine.Replace("\xB1", "");
-                            currentLine = currentLine.Replace("\xB2", "");
-                            endText = currentLine;
-
-                            newItems.Add(new SearchResult()
-                            {
-                                Index = resultIndex,
-                                File = file,
-                                BeginText = beginText,
-                                EndText = endText,
-                                HighlightedText = highlightedText,
-                                IsSelected = false,
-                            });
-
-                            resultIndex++;
-                            lastIndex = index + 1;
                         }
+                        else
+                        {
+                            beginText = " " + currentLine;
+                            currentLine = "";
+                        }
+
+                        currentIndex = currentLine.IndexOf('\xB2');
+                        if (currentIndex >= 0)
+                        {
+                            highlightedText = currentLine.Substring(0, currentIndex);
+                            //file.Replace(SearchPath, "");
+
+                            if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
+                            {
+                                currentLine = currentLine.Substring(currentIndex + 1);
+                            }
+                            else
+                            {
+                                currentLine = "";
+                            }
+                        }
+                        else
+                        {
+                        }
+
+                        currentLine = currentLine.Replace("\xB1", "");
+                        currentLine = currentLine.Replace("\xB2", "");
+                        endText = currentLine;
+
+                        newItems.Add(new SearchResult()
+                        {
+                            Index = resultIndex,
+                            File = file,
+                            BeginText = beginText,
+                            EndText = endText,
+                            HighlightedText = highlightedText,
+                            IsSelected = false,
+                        });
+
+                        resultIndex++;
+                        lastIndex = index + 1;
                     }
                 }
-
-                UnlockConfig();
 
                 Dispatcher.Invoke(new Action(() =>
                 {
@@ -756,10 +606,10 @@ namespace qgrepSearch.ToolWindows
         {
             UpdateTimer.Start();
 
-            if (ConfigPath.Length == 0)
-            {
-                return;
-            }
+            //if (ConfigPath.Length == 0)
+            //{
+            //    return;
+            //}
 
             if (EngineBusy || (IsKeyboardFocusWithin && !Settings.Default.UpdateFocused))
             {
@@ -776,18 +626,16 @@ namespace qgrepSearch.ToolWindows
 
             Task.Run(() =>
             {
-                if (LockConfig())
+                foreach(ConfigProject configProject in ConfigParser.ConfigProjects)
                 {
                     QGrepWrapper.Callback callback = new QGrepWrapper.Callback(ProcessInitMessage);
                     QGrepWrapper.Callback errorsCallback = new QGrepWrapper.Callback(ProcessErrorMessage);
                     List<string> parameters = new List<string>();
                     parameters.Add("qgrep");
                     parameters.Add("update");
-                    parameters.Add(ConfigPath);
+                    parameters.Add(configProject.Path);
                     QGrepWrapper.CallQGrepAsync(parameters, callback, errorsCallback);
                 }
-
-                UnlockConfig();
 
                 Dispatcher.Invoke(new Action(() =>
                 {
@@ -839,22 +687,34 @@ namespace qgrepSearch.ToolWindows
             SaveOptions();
         }
 
+        private void PathsButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogWindow window = new DialogWindow
+            {
+                Title = "Projects configuration",
+                Content = new qgrepSearch.ToolWindows.ProjectsWindow(this),
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.NoResize,
+                HasMinimizeButton = false,
+                HasMaximizeButton = false,
+            };
+
+            window.ShowModal();
+        }
+
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ConfigPath.Length > 0)
+            DialogWindow window = new DialogWindow
             {
-                DialogWindow window = new DialogWindow
-                {
-                    Title = "Advanced settings",
-                    Content = new qgrepSearch.ToolWindows.SettingsWindow(this),
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    HasMinimizeButton = false,
-                    HasMaximizeButton = false,
-                };
+                Title = "Advanced settings",
+                Content = new qgrepSearch.ToolWindows.SettingsWindow(this),
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.NoResize,
+                HasMinimizeButton = false,
+                HasMaximizeButton = false,
+            };
 
-                window.ShowModal();
-            }
+            window.ShowModal();
         }
 
         private void ErrorsButton_Click(object sender, RoutedEventArgs e)

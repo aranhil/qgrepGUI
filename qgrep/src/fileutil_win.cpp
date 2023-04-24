@@ -9,6 +9,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <iostream>
 
 const size_t kMaxPathLength = 32768;
 
@@ -157,7 +158,19 @@ FILE* openFile(const char* path, const char* mode)
 	assert(strlen(mode) < ARRAYSIZE(wmode));
 	std::copy(mode, mode + strlen(mode), wmode);
 
-	return _wfopen(wpath.c_str(), wmode);
+	FILE* toReturn = _wfopen(wpath.c_str(), wmode);
+	if (toReturn == NULL)
+	{
+		DWORD error = GetLastError();
+		LPWSTR buffer;
+		FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&buffer, 0, NULL);
+		std::wcerr << L"Failed to open file: " << wpath << L". Error: " << buffer << std::endl;
+		LocalFree(buffer);
+		return nullptr;
+	}
+
+	return toReturn;
 }
 
 bool watchDirectory(const char* path, const std::function<void (const char* name)>& callback)

@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
              mc:Ignorable="d" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"
-             Width="700" Height="500"
+             Width="450" Height="120"
              d:DesignHeight="200" d:DesignWidth="800">
     <UserControl.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="Black" />
@@ -81,10 +81,6 @@
             <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Update after:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="79"/>
         <Label Grid.Row="1" Grid.Column="0" Content="Update when focused:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
@@ -99,21 +95,5 @@
         <CheckBox x:Name="UpdateFocused" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="1"/>
         <CheckBox x:Name="ShowIncludes" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="2"/>
         <CheckBox x:Name="ShowExcludes" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="3"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Search location:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="90"/>
-        <TextBox x:Name="CacheLocation" Grid.Column="1" Grid.Row="4" Style="{StaticResource SomeTextBoxStyle}" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="5,2,2,2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" LostFocus="UpdateInterval_LostFocus" KeyDown="UpdateInterval_KeyDown" HorizontalContentAlignment="Right" Margin="2" TextAlignment="Left"/>
-        <StackPanel Grid.Row="5" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
-            <Button x:Name="Browse" Content="Browse" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Browse_Click" Padding="5,2"/>
-            <Button x:Name="Save" Content="Save and rebuild cache" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Save_Click" Padding="5,2"/>
-        </StackPanel>
-        <Label Grid.Row="6" Grid.Column="0" Content="File extension groups:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Top"/>
-        <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Grid.Row="6" Grid.Column="2" Margin="0,0,2,0">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
-                <StackPanel x:Name="ExtensionsPanel"/>
-            </ScrollViewer>
-        </Border>
-        <StackPanel Grid.Row="7" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
-            <Button x:Name="AddExtension" Content="Add group" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AddExtension_Click" Padding="5,2"/>
-            <Button x:Name="ResetExtensions" Content="Reset to default" HorizontalAlignment="Center" Margin="0,0,5,0" Click="ResetExtensions_Click" Padding="5,2"/>
-        </StackPanel>
     </Grid>
 </UserControl>

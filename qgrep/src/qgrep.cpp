@@ -335,8 +335,7 @@ std::tuple<unsigned int, unsigned int, std::string, std::string> getSearchOption
 
 void processSearchCommand(Output* output, int argc, const char** argv, unsigned int (*search)(Output*, const char*, const char*, unsigned int, unsigned int, const char*, const char*))
 {
-	std::vector<std::string> paths = { std::string(argv[2]) };
-	//getProjectPaths(argv[2]);
+	std::vector<std::string> paths = getProjectPaths(argv[2]);
 
 	const char* query = argc > 3 ? argv[argc - 1] : "";
 
