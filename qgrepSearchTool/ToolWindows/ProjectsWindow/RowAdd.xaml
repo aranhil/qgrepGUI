@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
              mc:Ignorable="d"
-             Width="Auto" Height="16"
+             Width="Auto" Height="16" Visibility="Hidden"
              d:DesignHeight="16" d:DesignWidth="600">
     <UserControl.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="Black" />
@@ -43,6 +43,6 @@
         </Style>
     </UserControl.Resources>
     <Grid Name="AddGrid" MouseEnter="AddGrid_MouseEnter" MouseLeave="AddGrid_MouseLeave" MouseDown="AddGrid_MouseDown" Background="{DynamicResource BackgroundColor}">
-        <Button Name="AddButton" Click="AddButton_Click" Style="{StaticResource SomeButtonStyle}" Margin="0,-3,0,0" BorderBrush="{x:Null}" Content="+" Padding="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" FontFamily="Consolas" ToolTip="Add project" FontSize="17" />
+        <Button Name="AddButton" Click="AddButton_Click" Style="{StaticResource SomeButtonStyle}" Margin="0,-3,0,0" BorderBrush="{x:Null}" Content="+" Padding="0" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" FontFamily="Consolas" FontSize="17" />
     </Grid>
 </UserControl>

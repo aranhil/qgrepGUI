@@ -122,7 +122,7 @@ namespace qgrepSearch.Classes
     }
     public class ConfigParser
     {
-        private string Path = "";
+        public string Path = "";
         private string PathSuffix = @"\.qgrep\";
 
         public List<ConfigProject> ConfigProjects = new List<ConfigProject>();
@@ -134,7 +134,9 @@ namespace qgrepSearch.Classes
 
         public void LoadConfig()
         {
-            if(!Directory.Exists(Path + PathSuffix))
+            ConfigProjects.Clear();
+
+            if (!Directory.Exists(Path + PathSuffix))
             {
                 Directory.CreateDirectory(Path + PathSuffix);
             }

@@ -40,8 +40,13 @@ namespace qgrepSearch.ToolWindows
 
         public void LoadFromConfig()
         {
-            LoadProjectsFromConfig();
-            LoadGroupsFromConfig();
+            if (Parent.ConfigParser != null)
+            {
+                Parent.ConfigParser.SaveConfig();
+                Parent.ConfigParser.LoadConfig();
+                LoadProjectsFromConfig();
+                LoadGroupsFromConfig();
+            }
         }
 
         private void LoadColorsFromResources()
@@ -64,7 +69,7 @@ namespace qgrepSearch.ToolWindows
                 ProjectsPanel.Children.Add(new ProjectRow(this, new ProjectRow.ProjectRowData(projectName)));
             }
 
-            ProjectsPanel.Children.Add(new RowAdd(this, new RowAdd.ClickCallbackFunction(AddProject)));
+            ProjectsPanel.Children.Add(new RowAdd(this, "Add new project", new RowAdd.ClickCallbackFunction(AddProject)));
 
             if (SelectedProject != null)
             {
@@ -113,7 +118,7 @@ namespace qgrepSearch.ToolWindows
                             GroupsPanel.Children.Add(new GroupRow(this, new GroupRow.GroupRowData(i == 0 ? "<root>" : "Group" + i, i == 0, i)));
                         }
 
-                        GroupsPanel.Children.Add(new RowAdd(this, new RowAdd.ClickCallbackFunction(AddGroup)));
+                        GroupsPanel.Children.Add(new RowAdd(this, "Add new group", new RowAdd.ClickCallbackFunction(AddGroup)));
 
                         if (SelectedGroup != null)
                         {
@@ -187,22 +192,7 @@ namespace qgrepSearch.ToolWindows
 
             Parent.ConfigParser.SaveConfig();
             LoadProjectsFromConfig();
-
-            //if (ProjectsPanel.Children.Count > 1)
-            //{
-            //    SelectProject(ProjectsPanel.Children[ProjectsPanel.Children.Count - 2] as ProjectRow);
-            //}
         }
-
-        //private void Border_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    (ProjectsPanel.Children[ProjectsPanel.Children.Count - 1] as RowAdd).Visibility = Visibility.Visible;
-        //}
-
-        //private void Border_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    (ProjectsPanel.Children[ProjectsPanel.Children.Count - 1] as RowAdd).Visibility = Visibility.Hidden;
-        //}
 
         public void SelectGroup(GroupRow group)
         {
@@ -279,7 +269,7 @@ namespace qgrepSearch.ToolWindows
                             PathsPanel.Children.Add(new PathRow(this, new PathRow.PathRowData(Path)));
                         }
 
-                        PathsPanel.Children.Add(new RowAdd(this, new RowAdd.ClickCallbackFunction(AddPath)));
+                        PathsPanel.Children.Add(new RowAdd(this, "Add new path", new RowAdd.ClickCallbackFunction(AddPath)));
                         break;
                     }
                 }
@@ -294,7 +284,7 @@ namespace qgrepSearch.ToolWindows
                 {
                     fbd.Reset();
                     fbd.RootFolder = Environment.SpecialFolder.MyComputer;
-                    //fbd.SelectedPath = CacheLocation.Text;
+                    fbd.SelectedPath = Parent.ConfigParser.Path;
 
                     DialogResult result = fbd.ShowDialog();
 
@@ -352,7 +342,7 @@ namespace qgrepSearch.ToolWindows
                             RulesPanel.Children.Add(new RuleRow(this, new RuleRow.RuleRowData(rule.IsExclude, rule.Rule, index++)));
                         }
 
-                        RulesPanel.Children.Add(new RowAdd(this, new RowAdd.ClickCallbackFunction(AddRule)));
+                        RulesPanel.Children.Add(new RowAdd(this, "Add new rule", new RowAdd.ClickCallbackFunction(AddRule)));
                         break;
                     }
                 }
@@ -412,6 +402,61 @@ namespace qgrepSearch.ToolWindows
                         }
                     }
                 }
+            }
+        }
+
+        private void GroupsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ShowPanel(GroupsPanel);
+        }
+
+        private void GroupsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            HidePanel(GroupsPanel);
+        }
+
+        private void ProjectsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ShowPanel(ProjectsPanel);
+        }
+
+        private void ProjectsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            HidePanel(ProjectsPanel);
+        }
+
+        private void PathsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ShowPanel(PathsPanel);
+        }
+
+        private void PathsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            HidePanel(PathsPanel);
+        }
+
+        private void RulesPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ShowPanel(RulesPanel);
+        }
+
+        private void RulesPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            HidePanel(RulesPanel);
+        }
+
+        void HidePanel(StackPanel panel)
+        {
+            if (panel.Children.Count > 0)
+            {
+                panel.Children[panel.Children.Count - 1].Visibility = Visibility.Hidden;
+            }
+        }
+        void ShowPanel(StackPanel panel)
+        {
+            if (panel.Children.Count > 0)
+            {
+                panel.Children[panel.Children.Count - 1].Visibility = Visibility.Visible;
             }
         }
     }
