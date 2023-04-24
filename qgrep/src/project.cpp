@@ -118,7 +118,7 @@ std::vector<std::string> getProjectPaths(const char* name)
 	std::vector<std::string> paths;
 
 	for (auto& n: names)
-		paths.push_back(getProjectPath(n.c_str()));
+		paths.push_back(n.c_str());
 
 	return paths;
 }

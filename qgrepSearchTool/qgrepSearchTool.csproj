@@ -57,6 +57,7 @@
     <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\ConfigParser.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -68,23 +69,38 @@
     <Compile Include="ResourceDictionary.xaml.cs">
       <DependentUpon>ResourceDictionary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\FileExtensionRow.xaml.cs">
-      <DependentUpon>FileExtensionRow.xaml</DependentUpon>
+    <Compile Include="ToolWindows\ProjectsWindow\RuleRow.xaml.cs">
+      <DependentUpon>RuleRow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\ErrorsWindow.xaml.cs">
+    <Compile Include="ToolWindows\ProjectsWindow\PathRow.xaml.cs">
+      <DependentUpon>PathRow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\ProjectsWindow\GroupRow.xaml.cs">
+      <DependentUpon>GroupRow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\ProjectsWindow\RowAdd.xaml.cs">
+      <DependentUpon>RowAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\ProjectsWindow\ProjectRow.xaml.cs">
+      <DependentUpon>ProjectRow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\SearchWindow\ErrorsWindow.xaml.cs">
       <DependentUpon>ErrorsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\FileExtensionWindow.xaml.cs">
-      <DependentUpon>FileExtensionWindow.xaml</DependentUpon>
+    <Compile Include="ToolWindows\ProjectsWindow\RuleWindow.xaml.cs">
+      <DependentUpon>RuleWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\SettingsWindow.xaml.cs">
+    <Compile Include="ToolWindows\ProjectsWindow\ProjectsWindow.xaml.cs">
+      <DependentUpon>ProjectsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\SettingsWindow\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\ColorsWindow.xaml.cs">
+    <Compile Include="ToolWindows\SearchWindow\ColorsWindow.xaml.cs">
       <DependentUpon>ColorsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\qgrepSearchWindow.cs" />
-    <Compile Include="ToolWindows\qgrepSearchWindow.xaml.cs">
+    <Compile Include="ToolWindows\SearchWindow\qgrepSearchWindow.xaml.cs">
       <DependentUpon>qgrepSearchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\qgrepSearchWindowState.cs" />
@@ -154,27 +170,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ToolWindows\FileExtensionRow.xaml">
+    <Page Include="ToolWindows\ProjectsWindow\RuleRow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ToolWindows\ErrorsWindow.xaml">
+    <Page Include="ToolWindows\ProjectsWindow\PathRow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ToolWindows\FileExtensionWindow.xaml">
+    <Page Include="ToolWindows\ProjectsWindow\GroupRow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ToolWindows\SettingsWindow.xaml">
+    <Page Include="ToolWindows\ProjectsWindow\RowAdd.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ToolWindows\ColorsWindow.xaml">
+    <Page Include="ToolWindows\ProjectsWindow\ProjectRow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\SearchWindow\ErrorsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\ProjectsWindow\RuleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\ProjectsWindow\ProjectsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ToolWindows\qgrepSearchWindow.xaml">
+    <Page Include="ToolWindows\SettingsWindow\SettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\SearchWindow\ColorsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToolWindows\SearchWindow\qgrepSearchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,6 +249,7 @@
       <Version>2.9.12-alpha</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
