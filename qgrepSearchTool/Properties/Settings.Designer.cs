@@ -334,5 +334,41 @@ namespace qgrepSearch.Properties {
                 this["TextButtonPressedColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30, 129, 176")]
+        public global::System.Drawing.Color ComboBoxColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ComboBoxColor"]));
+            }
+            set {
+                this["ComboBoxColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6, 57, 112")]
+        public global::System.Drawing.Color ComboBoxHoverColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ComboBoxHoverColor"]));
+            }
+            set {
+                this["ComboBoxHoverColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color ComboBoxTextColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ComboBoxTextColor"]));
+            }
+            set {
+                this["ComboBoxTextColor"] = value;
+            }
+        }
     }
 }

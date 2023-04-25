@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
              mc:Ignorable="d" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"
-             Width="250" Height="530">
+             Width="250" Height="600">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml">
             <ResourceDictionary.MergedDictionaries>
@@ -20,6 +20,9 @@
             <ColumnDefinition Width="80"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
@@ -61,6 +64,9 @@
         <Label Grid.Row="16" Grid.Column="0" Content="Button color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         <Label Grid.Row="17" Grid.Column="0" Content="Button hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         <Label Grid.Row="18" Grid.Column="0" Content="Button pressed color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="19" Grid.Column="0" Content="ComboBox color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="20" Grid.Column="0" Content="ComboBox hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="21" Grid.Column="0" Content="ComboBox text color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         <wpfTool:ColorPicker Grid.Row="0" Grid.Column="1" x:Name="BackgroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="1" Grid.Column="1" x:Name="ForegroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="2" Grid.Column="1" x:Name="BorderColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
@@ -80,12 +86,15 @@
         <wpfTool:ColorPicker Grid.Row="16" Grid.Column="1" x:Name="TextButtonBackgroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="17" Grid.Column="1" x:Name="TextButtonHoverColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="18" Grid.Column="1" x:Name="TextButtonPressedColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
-        <StackPanel Grid.Row="19" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+        <wpfTool:ColorPicker Grid.Row="19" Grid.Column="1" x:Name="ComboBoxColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
+        <wpfTool:ColorPicker Grid.Row="20" Grid.Column="1" x:Name="ComboBoxHoverColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
+        <wpfTool:ColorPicker Grid.Row="21" Grid.Column="1" x:Name="ComboBoxTextColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
+        <StackPanel Grid.Row="22" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
             <Button x:Name="Load" Content="Load" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Load_Click" Padding="5,2,8,2"/>
             <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Save_Click" Padding="5,2"/>
             <Button x:Name="Apply" Content="Apply" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Apply_Click" Padding="5,2"/>
             <Button x:Name="Reset" Content="Reset" HorizontalAlignment="Center" Padding="5,2" Click="Reset_Click"/>
         </StackPanel>
-        <Label x:Name="Feedback" Content="Info" Grid.Row="20" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="{DynamicResource ForegroundColor}" />
+        <Label x:Name="Feedback" Content="Info" Grid.Row="23" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="{DynamicResource ForegroundColor}" />
     </Grid>
 </UserControl>
