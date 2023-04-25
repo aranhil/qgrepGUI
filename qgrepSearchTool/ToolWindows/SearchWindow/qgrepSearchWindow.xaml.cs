@@ -66,7 +66,8 @@ namespace qgrepSearch.ToolWindows
         public ConfigParser ConfigParser = null;
         static public string[] colorsAvailable = new string[]{ "BackgroundColor", "ForegroundColor", "BorderColor", "BorderSelectionColor", "BorderHoverColor", 
             "ResultFileColor", "ResultTextColor", "ResultHighlightColor", "ResultHoverColor", "ResultSelectedColor", "ButtonColor", "ButtonHoverColor", "InputHintColor", "OverlayBusyColor",
-            "TextButtonDisabledBackgroundColor", "TextButtonDisabledForegroundColor", "TextButtonBackgroundColor", "TextButtonHoverColor", "TextButtonPressedColor"};
+            "TextButtonDisabledBackgroundColor", "TextButtonDisabledForegroundColor", "TextButtonBackgroundColor", "TextButtonHoverColor", "TextButtonPressedColor",
+            "ComboBoxColor", "ComboBoxHoverColor", "ComboBoxTextColor"};
 
         public string Errors = "";
         private System.Timers.Timer UpdateTimer = new System.Timers.Timer();

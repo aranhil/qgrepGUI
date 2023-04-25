@@ -80,5 +80,14 @@
     <Setting Name="TextButtonPressedColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">2, 23, 45</Value>
     </Setting>
+    <Setting Name="ComboBoxColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 129, 176</Value>
+    </Setting>
+    <Setting Name="ComboBoxHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">6, 57, 112</Value>
+    </Setting>
+    <Setting Name="ComboBoxTextColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
