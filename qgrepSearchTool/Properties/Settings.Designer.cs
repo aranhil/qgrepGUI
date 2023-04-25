@@ -274,5 +274,17 @@ namespace qgrepSearch.Properties {
                 this["WholeWord"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color TextButtonPressedColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextButtonPressedColor"]));
+            }
+            set {
+                this["TextButtonPressedColor"] = value;
+            }
+        }
     }
 }

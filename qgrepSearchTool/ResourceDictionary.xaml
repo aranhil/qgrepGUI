@@ -14,6 +14,11 @@
     <SolidColorBrush x:Key="BorderSelectionColor" />
     <SolidColorBrush x:Key="InputHintColor" Color="Gray"/>
     <SolidColorBrush x:Key="OverlayBusyColor" Color="#7C000000" />
+    <Color x:Key="TextButtonDisabledBackgroundColor">#38618d</Color>
+    <Color x:Key="TextButtonDisabledForegroundColor">#b4c4d4</Color>
+    <Color x:Key="TextButtonBackgroundColor">#1e81b0</Color>
+    <Color x:Key="TextButtonHoverColor">#063970</Color>
+    <SolidColorBrush x:Key="TextButtonPressedColor" Color="#02172d" />
     <Style x:Key="SomeButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
@@ -61,9 +66,50 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <!--<Style TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="FontFamily" Value="Comic Sans MS"/>
-        <Setter Property="FontSize" Value="14"/>
-    </Style>-->
+    <Style TargetType="Button">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" x:Name="Border" CornerRadius="1" BorderThickness="0" Padding="5,0">
+                        <Border.Background>
+                            <SolidColorBrush Color="{DynamicResource TextButtonBackgroundColor}">
+                            </SolidColorBrush>
+                        </Border.Background>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{Binding Source={StaticResource TextButtonPressedColor}, Path=Color}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{Binding Source={StaticResource TextButtonPressedColor}, Path=Color}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{Binding Source={StaticResource TextButtonPressedColor}, Path=Color}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{Binding Source={StaticResource TextButtonPressedColor}, Path=Color}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
