@@ -9,38 +9,11 @@
              Width="Auto" Height="16"
              d:DesignHeight="16" d:DesignWidth="600">
     <UserControl.Resources>
-        <SolidColorBrush x:Key="BackgroundColor" Color="Black" />
-        <SolidColorBrush x:Key="ForegroundColor" Color="White" />
-        <SolidColorBrush x:Key="ResultFileColor" Color="White"/>
-        <SolidColorBrush x:Key="ResultTextColor" Color="White" />
-        <SolidColorBrush x:Key="ResultHighlightColor" Color="White" />
-        <SolidColorBrush x:Key="ResultHoverColor" Color="White" />
-        <SolidColorBrush x:Key="ResultSelectedColor" Color="White" />
-        <SolidColorBrush x:Key="ButtonColor" Color="Gray" />
-        <SolidColorBrush x:Key="ButtonHoverColor" Color="Black" />
-        <SolidColorBrush x:Key="BorderColor" Color="Gray" />
-        <SolidColorBrush x:Key="BorderHoverColor" Color="White" />
-        <SolidColorBrush x:Key="BorderSelectionColor" />
-        <SolidColorBrush x:Key="InputHintColor" Color="Gray"/>
-        <SolidColorBrush x:Key="OverlayBusyColor" Color="#7C000000" />
-        <Style x:Key="SomeButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Button.Foreground" Value="{DynamicResource ButtonHoverColor}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid Name="RuleGrid" MouseEnter="RuleGrid_MouseEnter" MouseLeave="RuleGrid_MouseLeave" MouseDown="RuleGrid_MouseDown" Background="{DynamicResource BackgroundColor}">
         <Grid Width="Auto">

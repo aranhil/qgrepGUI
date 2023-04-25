@@ -8,36 +8,10 @@
              mc:Ignorable="d" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"
              Width="900" Height="400">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <Style x:Key="SomeTextBoxStyle" TargetType="TextBox">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type TextBox}">
-                            <Border x:Name="border" BorderBrush="{DynamicResource BorderColor}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsFocused" Value="true">
-                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderSelectionColor}"/>
-                                    <Setter Property="Panel.ZIndex" TargetName="border" Value="3"/>
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderHoverColor}"/>
-                                    <Setter Property="Panel.ZIndex" TargetName="border" Value="3"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverColor}"/>
-                    </Trigger>
-                    <Trigger Property="IsFocused" Value="True">
-                        <Setter Property="BorderBrush" Value="{DynamicResource BorderSelectionColor}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
+        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
