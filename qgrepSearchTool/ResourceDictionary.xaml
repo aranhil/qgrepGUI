@@ -14,6 +14,11 @@
     <SolidColorBrush x:Key="BorderSelectionColor" />
     <SolidColorBrush x:Key="InputHintColor" Color="Gray"/>
     <SolidColorBrush x:Key="OverlayBusyColor" Color="#7C000000" />
+    <SolidColorBrush x:Key="TextButtonDisabledBackgroundColor" Color="#38618d" />
+    <SolidColorBrush x:Key="TextButtonDisabledForegroundColor" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="TextButtonBackgroundColor" Color="#1e81b0" />
+    <SolidColorBrush x:Key="TextButtonHoverColor" Color="#063970" />
+    <SolidColorBrush x:Key="TextButtonPressedColor" Color="#02172d" />
     <Style x:Key="SomeButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
@@ -61,9 +66,30 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <!--<Style TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="FontFamily" Value="Comic Sans MS"/>
-        <Setter Property="FontSize" Value="14"/>
-    </Style>-->
+    <Style TargetType="Button">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Background" Value="{DynamicResource TextButtonBackgroundColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" x:Name="Border" CornerRadius="1" BorderThickness="0" Padding="5,0">
+                        <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Button.Background" Value="{DynamicResource TextButtonHoverColor}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Button.Background" Value="{DynamicResource TextButtonPressedColor}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Button.Background" Value="{DynamicResource TextButtonDisabledBackgroundColor}"/>
+                <Setter Property="Button.Foreground" Value="{DynamicResource TextButtonDisabledForegroundColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

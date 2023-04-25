@@ -12,7 +12,7 @@ namespace qgrepSearch.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -272,6 +272,66 @@ namespace qgrepSearch.Properties {
             }
             set {
                 this["WholeWord"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("56, 97, 141")]
+        public global::System.Drawing.Color TextButtonDisabledBackgroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextButtonDisabledBackgroundColor"]));
+            }
+            set {
+                this["TextButtonDisabledBackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("180, 196, 212")]
+        public global::System.Drawing.Color TextButtonDisabledForegroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextButtonDisabledForegroundColor"]));
+            }
+            set {
+                this["TextButtonDisabledForegroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30, 129, 176")]
+        public global::System.Drawing.Color TextButtonBackgroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextButtonBackgroundColor"]));
+            }
+            set {
+                this["TextButtonBackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6, 57, 112")]
+        public global::System.Drawing.Color TextButtonHoverColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextButtonHoverColor"]));
+            }
+            set {
+                this["TextButtonHoverColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2, 23, 45")]
+        public global::System.Drawing.Color TextButtonPressedColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextButtonPressedColor"]));
+            }
+            set {
+                this["TextButtonPressedColor"] = value;
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using qgrepSearch.Properties;
+﻿using Microsoft.VisualStudio.Package;
+using qgrepSearch.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;

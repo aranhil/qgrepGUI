@@ -65,5 +65,20 @@
     <Setting Name="WholeWord" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="TextButtonDisabledBackgroundColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">56, 97, 141</Value>
+    </Setting>
+    <Setting Name="TextButtonDisabledForegroundColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">180, 196, 212</Value>
+    </Setting>
+    <Setting Name="TextButtonBackgroundColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 129, 176</Value>
+    </Setting>
+    <Setting Name="TextButtonHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">6, 57, 112</Value>
+    </Setting>
+    <Setting Name="TextButtonPressedColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">2, 23, 45</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
