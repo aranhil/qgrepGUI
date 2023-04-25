@@ -33,9 +33,6 @@ namespace qgrepSearch.ToolWindows
             
             ShowIncludes.IsChecked = Settings.Default.ShowIncludes;
             ShowExcludes.IsChecked = Settings.Default.ShowExcludes;
-            FileCountThreshold.Text = Settings.Default.UpdateChangesCount + "";
-            UpdateDelay.Text = Settings.Default.UpdateDelay + "";
-            UpdateFocused.IsChecked = Settings.Default.UpdateFocused;
 
             LoadColorsFromResources();
         }
@@ -54,27 +51,6 @@ namespace qgrepSearch.ToolWindows
         {
             Settings.Default.ShowIncludes = ShowIncludes.IsChecked == true;
             Settings.Default.ShowExcludes = ShowExcludes.IsChecked == true;
-            Settings.Default.UpdateFocused = UpdateFocused.IsChecked == true;
-
-            try
-            {
-                int updateDelay = Int32.Parse(UpdateDelay.Text);
-                updateDelay = Math.Max(1, Math.Min(3600, updateDelay));
-                Settings.Default.UpdateDelay = updateDelay;
-            }
-            catch (Exception ex)
-            {
-            }
-
-            try
-            {
-                int fileCountThreshold = Int32.Parse(FileCountThreshold.Text);
-                fileCountThreshold = Math.Max(0, Math.Min(10000, fileCountThreshold));
-                Settings.Default.UpdateChangesCount = fileCountThreshold;
-            }
-            catch (Exception ex)
-            {
-            }
 
             Settings.Default.Save();
         }
@@ -83,8 +59,6 @@ namespace qgrepSearch.ToolWindows
         {
             SaveOptions();
             SearchWindow.UpdateFromSettings();
-            UpdateDelay.Text = Settings.Default.UpdateDelay + "";
-            FileCountThreshold.Text = Settings.Default.UpdateChangesCount + "";
         }
 
         private void UpdateInterval_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -93,8 +67,6 @@ namespace qgrepSearch.ToolWindows
             {
                 SaveOptions();
                 SearchWindow.UpdateFromSettings();
-                UpdateDelay.Text = Settings.Default.UpdateDelay + "";
-                FileCountThreshold.Text = Settings.Default.UpdateChangesCount + "";
             }
         }
         private void Option_Click(object sender, RoutedEventArgs e)

@@ -108,19 +108,6 @@ namespace qgrepSearch.ToolWindows
             UpdateFromSettings();
         }
 
-        private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            if (Settings.Default.UpdateChangesCount != 0)
-            {
-                UpdateTimer.Elapsed -= OnTimedEvent;
-            }
-
-            Dispatcher.Invoke(new Action(() =>
-            {
-                UpdateDatabase();
-            }));
-        }
-
         public System.Windows.Media.Color ConvertColor(System.Drawing.Color color)
         {
             return System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
@@ -175,17 +162,6 @@ namespace qgrepSearch.ToolWindows
 
             visibility = Settings.Default.ShowExcludes == true ? Visibility.Visible : Visibility.Collapsed;
             ExcludeFilesContainer.Visibility = visibility;
-
-            if (Settings.Default.UpdateChangesCount == 0)
-            {
-                UpdateTimer.Elapsed -= OnTimedEvent;
-                UpdateTimer.Interval = Settings.Default.UpdateDelay * 1000;
-                UpdateTimer.Elapsed += OnTimedEvent;
-            }
-            else
-            {
-                UpdateTimer.Elapsed -= OnTimedEvent;
-            }
 
             ChangesCounter = 0;
         }
@@ -606,12 +582,7 @@ namespace qgrepSearch.ToolWindows
         {
             UpdateTimer.Start();
 
-            //if (ConfigPath.Length == 0)
-            //{
-            //    return;
-            //}
-
-            if (EngineBusy || (IsKeyboardFocusWithin && !Settings.Default.UpdateFocused))
+            if (EngineBusy)
             {
                 QueueUpdate = true;
                 return;

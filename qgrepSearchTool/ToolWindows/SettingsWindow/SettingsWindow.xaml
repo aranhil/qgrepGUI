@@ -6,8 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
              mc:Ignorable="d" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"
-             Width="450" Height="120"
-             d:DesignHeight="200" d:DesignWidth="800">
+             Width="300" Height="70">
     <UserControl.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="Black" />
         <SolidColorBrush x:Key="ForegroundColor" Color="White" />
@@ -79,21 +78,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Update after:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="79"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Update when focused:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Include files:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="75"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Exclude files:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="77" />
-        <StackPanel Orientation="Horizontal" Margin="0" Grid.Column="1">
-            <TextBox x:Name="FileCountThreshold" Style="{StaticResource SomeTextBoxStyle}" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Grid.Row="0" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" Width="40" LostFocus="UpdateInterval_LostFocus" KeyDown="UpdateInterval_KeyDown" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
-            <Label Foreground="{DynamicResource ForegroundColor}" Padding="5,0" VerticalContentAlignment="Stretch" VerticalAlignment="Center">file change(s), delay with </Label>
-            <TextBox x:Name="UpdateDelay" Style="{StaticResource SomeTextBoxStyle}" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Grid.Row="0" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" Width="40" LostFocus="UpdateInterval_LostFocus" KeyDown="UpdateInterval_KeyDown" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
-            <Label Foreground="{DynamicResource ForegroundColor}" Padding="5,0" VerticalContentAlignment="Stretch" VerticalAlignment="Center"> second(s)</Label>
-        </StackPanel>
-        <CheckBox x:Name="UpdateFocused" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="1"/>
-        <CheckBox x:Name="ShowIncludes" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="2"/>
-        <CheckBox x:Name="ShowExcludes" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="3"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Include files:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="75"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Exclude files:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="77" />
+        <CheckBox x:Name="ShowIncludes" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="0"/>
+        <CheckBox x:Name="ShowExcludes" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="1"/>
     </Grid>
 </UserControl>
