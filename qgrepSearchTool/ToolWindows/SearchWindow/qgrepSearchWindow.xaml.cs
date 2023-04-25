@@ -695,21 +695,6 @@ namespace qgrepSearch.ToolWindows
             window.ShowModal();
         }
 
-        private void ErrorsButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogWindow window = new DialogWindow
-            {
-                Title = "Errors log",
-                Content = new qgrepSearch.ToolWindows.ErrorsWindow(this),
-                SizeToContent = SizeToContent.WidthAndHeight,
-                ResizeMode = ResizeMode.NoResize,
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
-            };
-
-            window.ShowModal();
-        }
-
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
         {
             if (Package.WindowOpened)

@@ -84,9 +84,6 @@
     <Compile Include="ToolWindows\ProjectsWindow\ProjectRow.xaml.cs">
       <DependentUpon>ProjectRow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\SearchWindow\ErrorsWindow.xaml.cs">
-      <DependentUpon>ErrorsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ToolWindows\ProjectsWindow\RuleWindow.xaml.cs">
       <DependentUpon>RuleWindow.xaml</DependentUpon>
     </Compile>
@@ -187,10 +184,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolWindows\ProjectsWindow\ProjectRow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ToolWindows\SearchWindow\ErrorsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
