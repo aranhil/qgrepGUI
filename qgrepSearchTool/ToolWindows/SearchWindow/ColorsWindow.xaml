@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
              mc:Ignorable="d" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"
-             Width="250" Height="450">
+             Width="250" Height="530">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml">
             <ResourceDictionary.MergedDictionaries>
@@ -17,9 +17,13 @@
     <Grid Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="80"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
             <RowDefinition Height="24"/>
@@ -52,7 +56,11 @@
         <Label Grid.Row="11" Grid.Column="0" Content="Button hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         <Label Grid.Row="12" Grid.Column="0" Content="Input hint color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         <Label Grid.Row="13" Grid.Column="0" Content="Overlay busy color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="14" Grid.Column="0" Content="Overlay busy color:" Foreground="{DynamicResource TextButtonPressedColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="14" Grid.Column="0" Content="Button disabled color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="15" Grid.Column="0" Content="Button disabled text color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="16" Grid.Column="0" Content="Button color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="17" Grid.Column="0" Content="Button hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="18" Grid.Column="0" Content="Button pressed color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         <wpfTool:ColorPicker Grid.Row="0" Grid.Column="1" x:Name="BackgroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="1" Grid.Column="1" x:Name="ForegroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="2" Grid.Column="1" x:Name="BorderColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
@@ -67,13 +75,17 @@
         <wpfTool:ColorPicker Grid.Row="11" Grid.Column="1" x:Name="ButtonHoverColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="12" Grid.Column="1" x:Name="InputHintColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="13" Grid.Column="1" x:Name="OverlayBusyColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
-        <wpfTool:ColorPicker Grid.Row="14" Grid.Column="1" x:Name="TextButtonPressedColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
-        <StackPanel Grid.Row="15" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+        <wpfTool:ColorPicker Grid.Row="14" Grid.Column="1" x:Name="TextButtonDisabledBackgroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
+        <wpfTool:ColorPicker Grid.Row="15" Grid.Column="1" x:Name="TextButtonDisabledForegroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
+        <wpfTool:ColorPicker Grid.Row="16" Grid.Column="1" x:Name="TextButtonBackgroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
+        <wpfTool:ColorPicker Grid.Row="17" Grid.Column="1" x:Name="TextButtonHoverColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
+        <wpfTool:ColorPicker Grid.Row="18" Grid.Column="1" x:Name="TextButtonPressedColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
+        <StackPanel Grid.Row="19" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
             <Button x:Name="Load" Content="Load" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Load_Click" Padding="5,2,8,2"/>
             <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Save_Click" Padding="5,2"/>
             <Button x:Name="Apply" Content="Apply" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Apply_Click" Padding="5,2"/>
             <Button x:Name="Reset" Content="Reset" HorizontalAlignment="Center" Padding="5,2" Click="Reset_Click"/>
         </StackPanel>
-        <Label x:Name="Feedback" Content="Info" Grid.Row="16" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="{DynamicResource ForegroundColor}" />
+        <Label x:Name="Feedback" Content="Info" Grid.Row="20" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="{DynamicResource ForegroundColor}" />
     </Grid>
 </UserControl>

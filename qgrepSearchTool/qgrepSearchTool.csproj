@@ -69,6 +69,7 @@
     <Compile Include="ResourceDictionary.xaml.cs">
       <DependentUpon>ResourceDictionary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="ToolWindows\ProjectsWindow\RuleRow.xaml.cs">
       <DependentUpon>RuleRow.xaml</DependentUpon>
     </Compile>
