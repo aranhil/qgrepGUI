@@ -70,6 +70,7 @@ namespace qgrepSearch.ToolWindows
             }
 
             ProjectsPanel.Children.Add(new RowAdd(this, "Add new project", new RowAdd.ClickCallbackFunction(AddProject)));
+            CheckAddButtonVisibility();
 
             if (SelectedProject != null)
             {
@@ -119,6 +120,7 @@ namespace qgrepSearch.ToolWindows
                         }
 
                         GroupsPanel.Children.Add(new RowAdd(this, "Add new group", new RowAdd.ClickCallbackFunction(AddGroup)));
+                        CheckAddButtonVisibility();
 
                         if (SelectedGroup != null)
                         {
@@ -270,6 +272,7 @@ namespace qgrepSearch.ToolWindows
                         }
 
                         PathsPanel.Children.Add(new RowAdd(this, "Add new path", new RowAdd.ClickCallbackFunction(AddPath)));
+                        CheckAddButtonVisibility();
                         break;
                     }
                 }
@@ -343,6 +346,7 @@ namespace qgrepSearch.ToolWindows
                         }
 
                         RulesPanel.Children.Add(new RowAdd(this, "Add new rule", new RowAdd.ClickCallbackFunction(AddRule)));
+                        CheckAddButtonVisibility();
                         break;
                     }
                 }
@@ -443,6 +447,26 @@ namespace qgrepSearch.ToolWindows
         private void RulesPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             HidePanel(RulesPanel);
+        }
+
+        private void CheckAddButtonVisibility()
+        {
+            if (ProjectsPanel.IsMouseOver)
+            {
+                ShowPanel(ProjectsPanel);
+            }
+            if (GroupsPanel.IsMouseOver)
+            {
+                ShowPanel(GroupsPanel);
+            }
+            if (PathsPanel.IsMouseOver)
+            {
+                ShowPanel(PathsPanel);
+            }
+            if (RulesPanel.IsMouseOver)
+            {
+                ShowPanel(RulesPanel);
+            }
         }
 
         void HidePanel(StackPanel panel)

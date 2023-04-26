@@ -12,7 +12,7 @@ namespace qgrepSearch.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.5.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -368,6 +368,90 @@ namespace qgrepSearch.Properties {
             }
             set {
                 this["ComboBoxTextColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("87, 93, 122")]
+        public global::System.Drawing.Color InputCheckboxColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InputCheckboxColor"]));
+            }
+            set {
+                this["InputCheckboxColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("171, 174, 189")]
+        public global::System.Drawing.Color InputCheckboxHoverColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InputCheckboxHoverColor"]));
+            }
+            set {
+                this["InputCheckboxHoverColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color InputCheckboxCheckedColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InputCheckboxCheckedColor"]));
+            }
+            set {
+                this["InputCheckboxCheckedColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("221, 223, 228")]
+        public global::System.Drawing.Color InputCheckboxCheckedHoverColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InputCheckboxCheckedHoverColor"]));
+            }
+            set {
+                this["InputCheckboxCheckedHoverColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30, 129, 176")]
+        public global::System.Drawing.Color CheckboxColor {
+            get {
+                return ((global::System.Drawing.Color)(this["CheckboxColor"]));
+            }
+            set {
+                this["CheckboxColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color CheckboxMarkColor {
+            get {
+                return ((global::System.Drawing.Color)(this["CheckboxMarkColor"]));
+            }
+            set {
+                this["CheckboxMarkColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color CheckboxTextColor {
+            get {
+                return ((global::System.Drawing.Color)(this["CheckboxTextColor"]));
+            }
+            set {
+                this["CheckboxTextColor"] = value;
             }
         }
     }

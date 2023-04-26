@@ -23,6 +23,13 @@
     <SolidColorBrush x:Key="ComboBoxColor" Color="#1e81b0" />
     <SolidColorBrush x:Key="ComboBoxHoverColor" Color="#063970" />
     <SolidColorBrush x:Key="ComboBoxTextColor" Color="White" />
+    <SolidColorBrush x:Key="InputCheckboxColor" Color="#575d7a" />
+    <SolidColorBrush x:Key="InputCheckboxHoverColor" Color="#abaebd" />
+    <SolidColorBrush x:Key="InputCheckboxCheckedColor" Color="White" />
+    <SolidColorBrush x:Key="InputCheckboxCheckedHoverColor" Color="#dddfe4" />
+    <SolidColorBrush x:Key="CheckboxColor" Color="#1e81b0" />
+    <SolidColorBrush x:Key="CheckboxMarkColor" Color="White" />
+    <SolidColorBrush x:Key="CheckboxTextColor" Color="White" />
     <Style x:Key="SomeButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
@@ -168,5 +175,74 @@
                 <Setter Property="Background" Value="{DynamicResource ComboBoxHoverColor}"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+    <Style x:Key="SomeCheckbox" TargetType="{x:Type CheckBox}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Foreground" Value="{DynamicResource InputCheckboxColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <BulletDecorator Background="Transparent">
+                        <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsChecked" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource InputCheckboxCheckedHoverColor}" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsChecked" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource InputCheckboxHoverColor}" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="False" />
+                    <Condition Property="IsChecked" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource InputCheckboxCheckedColor}" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Foreground" Value="{DynamicResource CheckboxTextColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Border x:Name="Border" Width="13" Height="13" CornerRadius="0" BorderThickness="0" Background="{DynamicResource CheckboxColor}">
+                                <Grid>
+                                    <Path Visibility="Collapsed" Width="7" Height="7" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckboxMarkColor}" Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+                                    <Path Visibility="Collapsed" Width="7" Height="7" x:Name="InderminateMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckboxMarkColor}" Data="M 0 7 L 7 0" />
+                                </Grid>
+                            </Border>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
