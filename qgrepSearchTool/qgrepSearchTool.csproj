@@ -119,6 +119,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\colors-schemes.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
