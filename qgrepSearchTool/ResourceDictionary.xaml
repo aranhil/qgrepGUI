@@ -25,12 +25,34 @@
     <SolidColorBrush x:Key="ComboBoxTextColor" Color="White" />
     <SolidColorBrush x:Key="InputCheckboxColor" Color="#575d7a" />
     <SolidColorBrush x:Key="InputCheckboxHoverColor" Color="#abaebd" />
-    <SolidColorBrush x:Key="InputCheckboxCheckedColor" Color="White" />
+    <SolidColorBrush x:Key="InputCheckboxCheckedColor" Color="Black" />
     <SolidColorBrush x:Key="InputCheckboxCheckedHoverColor" Color="#dddfe4" />
     <SolidColorBrush x:Key="CheckboxColor" Color="#1e81b0" />
     <SolidColorBrush x:Key="CheckboxMarkColor" Color="White" />
     <SolidColorBrush x:Key="CheckboxTextColor" Color="White" />
+    <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
+        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="NormalText" TargetType="{x:Type Control}">
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="MonospacedTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Consolas" />
+    </Style>
+    <Style x:Key="NormalTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Segoe UI" />
+    </Style>
     <Style x:Key="SomeButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Margin" Value="5,0,0,0" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
         <Setter Property="Template">
@@ -48,11 +70,20 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="SomeTextBoxStyle" TargetType="{x:Type TextBox}">
+    <Style x:Key="SomeTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MonospacedText}">
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource BorderSelectionColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Padding" Value="5,0,5,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border x:Name="border" BorderBrush="{DynamicResource BorderColor}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                         <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -180,6 +211,10 @@
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Foreground" Value="{DynamicResource InputCheckboxColor}" />
+        <Setter Property="Margin" Value="5,0,0,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
@@ -244,5 +279,80 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style x:Key="SomeWindow" TargetType="{x:Type UserControl}">
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+    </Style>
+    <Style TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+    </Style>
+    <Style x:Key="SomeHintLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource MonospacedText}">
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{DynamicResource InputHintColor}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="8,0,0,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="ResultPanel" TargetType="{x:Type VirtualizingStackPanel}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ResultHoverColor}"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ResultSelectedColor}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="Result" TargetType="TextBlock" BasedOn="{StaticResource MonospacedTextBlock}">
+        <Setter Property="Margin" Value="0,0,0,0" />
+    </Style>
+    <Style x:Key="ResultFile" TargetType="TextBlock" BasedOn="{StaticResource Result}">
+        <Setter Property="Margin" Value="5,0,0,0" />
+        <Setter Property="Foreground" Value="{DynamicResource ResultFileColor}" />
+    </Style>
+    <Style x:Key="ResultText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
+        <Setter Property="Foreground" Value="{DynamicResource ResultTextColor}" />
+    </Style>
+    <Style x:Key="ResultHighlightedText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
+        <Setter Property="Foreground" Value="{DynamicResource ResultHighlightColor}"/>
+        <Setter Property="FontWeight" Value="Heavy" />
+    </Style>
+    <Style x:Key="ResultsItemsList" TargetType="ItemsControl">
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ItemsControl.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+                        <ScrollViewer Name="SearchScrollbar" Padding="{TemplateBinding Control.Padding}" Focusable="False">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsControl.ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="OverlayBorder" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource OverlayBusyColor}" />
+    </Style>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource NormalTextBlock}">
+    </Style>
+    <Style x:Key="OverlayText" TargetType="TextBlock" BasedOn="{StaticResource NormalTextBlock}">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 </ResourceDictionary>

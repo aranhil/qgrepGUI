@@ -32,6 +32,8 @@ namespace qgrepSearch.ToolWindows
     {
         private bool isSelected;
 
+        TextBox asd;
+
         public int Index { get; set; }
         public string File { get; set; }
         public string BeginText { get; set; }

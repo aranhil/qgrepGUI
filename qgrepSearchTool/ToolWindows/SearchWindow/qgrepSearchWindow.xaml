@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
-             mc:Ignorable="d" BorderBrush="{DynamicResource BorderColor}" Foreground="{DynamicResource ForegroundColor}"
+             mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown" LostFocus="UserControl_LostFocus">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml">
@@ -13,7 +13,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Background="{DynamicResource BackgroundColor}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
             <RowDefinition Height="Auto" />
@@ -21,99 +21,63 @@
             <RowDefinition />
             <RowDefinition Height="24" />
         </Grid.RowDefinitions>
-        <Grid x:Name="SearchContainer" Grid.Row="0" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
-            <TextBox x:Name="SearchInput" TabIndex="0" Style="{StaticResource SomeTextBoxStyle}" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Grid.Row="0" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" TextChanged="SearchInput_TextChanged" Height="24"/>
-            <Label x:Name="SearchLabel" Content="Search..." IsHitTestVisible="False"  HorizontalAlignment="Left" Margin="0" Height="24" Background="{x:Null}" Foreground="{DynamicResource InputHintColor}" VerticalAlignment="Center" Padding="8,0,0,0" VerticalContentAlignment="Center" FontFamily="Consolas"/>
-            <StackPanel Name="AdvancedSearchPanel" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel Name="AdvancedSearchInnerPanel" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="SearchCaseSensitive" Margin="5,0,0,0" VerticalAlignment="Center" Height="16" Click="CaseSensitive_Click" VerticalContentAlignment="Center" Style="{DynamicResource SomeCheckbox}">Case sensitive</CheckBox>
-                    <CheckBox Name="SearchWholeWord" IsChecked="False" Margin="5,0,0,0" VerticalAlignment="Center" Height="16" Click="SearchWholeWord_Click" VerticalContentAlignment="Center" Style="{DynamicResource SomeCheckbox}">Whole word</CheckBox>
-                    <CheckBox Name="SearchRegEx" Margin="5,0,10,0" VerticalAlignment="Center" Height="16" Click="SearchRegEx_Click" VerticalContentAlignment="Center" Style="{DynamicResource SomeCheckbox}" IsChecked="True">RegEx</CheckBox>
+        <Grid Grid.Row="0" x:Name="SearchContainer" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
+            <TextBox x:Name="SearchInput" TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+            <Label x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
+            <StackPanel Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+                <StackPanel Name="AdvancedSearchInnerPanel" Margin="0,0,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox Name="SearchCaseSensitive" Style="{DynamicResource SomeCheckbox}" Click="CaseSensitive_Click" Content="Case sensitive"/>
+                    <CheckBox Name="SearchWholeWord" Style="{DynamicResource SomeCheckbox}" IsChecked="False" Click="SearchWholeWord_Click" Content="Whole word" />
+                    <CheckBox Name="SearchRegEx" Style="{DynamicResource SomeCheckbox}" IsChecked="True" Click="SearchRegEx_Click" Content="RegEx" />
                 </StackPanel>
-                <!--<Button Name="AdvancedSearchButton" Focusable="False" Style="{StaticResource SomeButtonStyle}" Click="AdvancedSearchButton_Click" Margin="5,0,5,0" Background="{x:Null}" BorderBrush="{x:Null}" Content="⚙" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" ToolTip="Search options"/>-->
             </StackPanel>
         </Grid>
-        <Grid x:Name="IncludeFilesContainer" Grid.Row="1" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
-            <TextBox x:Name="IncludeFilesInput" TabIndex="1" Style="{StaticResource SomeTextBoxStyle}" Grid.Row="1" Grid.Column="0" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" TextChanged="SearchInput_TextChanged" Height="24"/>
-            <Label x:Name="IncludeFilesLabel" Content="Include files..." IsHitTestVisible="False" Grid.Row="1" HorizontalAlignment="Left" Margin="0" Height="24" Background="{x:Null}" Foreground="{DynamicResource InputHintColor}" VerticalAlignment="Center" Padding="8,0,0,0" VerticalContentAlignment="Center" FontFamily="Consolas"/>
-            <StackPanel Name="AdvancedIncludePanel" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel Name="AdvancedIncludeInnerPanel" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="IncludeRegEx" Margin="5,-1,10,0" VerticalAlignment="Center" Height="16" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" Style="{DynamicResource SomeCheckbox}" IsChecked="True">RegEx</CheckBox>
+        <Grid Grid.Row="1" x:Name="IncludeFilesContainer" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
+            <TextBox x:Name="IncludeFilesInput" TabIndex="1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+            <Label x:Name="IncludeFilesLabel" Content="Include files..." Style="{DynamicResource SomeHintLabel}"/>
+            <StackPanel Name="AdvancedIncludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+                <StackPanel Name="AdvancedIncludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox Name="IncludeRegEx" Style="{DynamicResource SomeCheckbox}" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" IsChecked="True">RegEx</CheckBox>
                 </StackPanel>
-                <!--<Button Name="AdvancedIncludeButton" Focusable="False" Style="{StaticResource SomeButtonStyle}" Margin="5,0,5,0" Background="{x:Null}" BorderBrush="{x:Null}" Content="⚙" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Click="AdvancedIncludeButton_Click" ToolTip="Files to include search options"/>-->
             </StackPanel>
         </Grid>
-        <Grid x:Name="ExcludeFilesContainer" Grid.Row="2" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
-            <TextBox x:Name="ExcludeFilesInput" TabIndex="2" Style="{StaticResource SomeTextBoxStyle}" Grid.Row="2" Grid.Column="0" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" TextChanged="SearchInput_TextChanged" Height="24"/>
-            <Label x:Name="ExcludeFilesLabel" Content="Exclude files..." IsHitTestVisible="False" Grid.Row="2" HorizontalAlignment="Left" Margin="0" Height="24" Background="{x:Null}" Foreground="{DynamicResource InputHintColor}" VerticalAlignment="Center" Padding="8,0,0,0" VerticalContentAlignment="Center" FontFamily="Consolas"/>
-            <StackPanel Name="AdvancedExcludePanel" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel Name="AdvancedExcludeInnerPanel" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="ExcludeRegEx" IsChecked="True" Margin="5,-1,10,0" VerticalAlignment="Center" Height="16" Click="ExcludeRegEx_Click" VerticalContentAlignment="Center" Style="{DynamicResource SomeCheckbox}">RegEx</CheckBox>
+        <Grid Grid.Row="2" x:Name="ExcludeFilesContainer" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
+            <TextBox x:Name="ExcludeFilesInput" TabIndex="2" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+            <Label x:Name="ExcludeFilesLabel" Content="Exclude files..." Style="{DynamicResource SomeHintLabel}" />
+            <StackPanel Name="AdvancedExcludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+                <StackPanel Name="AdvancedExcludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox Name="ExcludeRegEx" Style="{DynamicResource SomeCheckbox}" IsChecked="True" Click="ExcludeRegEx_Click" Content="RegEx" />
                 </StackPanel>
-                <!--<Button Name="AdvancedExcludeButton" Focusable="False" Style="{StaticResource SomeButtonStyle}" Margin="5,0,5,0" Background="{x:Null}" BorderBrush="{x:Null}" Content="⚙" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Click="AdvancedExcludeButton_Click" ToolTip="Files to exclude search options"/>-->
             </StackPanel>
         </Grid>
-        <ItemsControl Grid.Row="3"
-                      Name="SearchItemsControl"
-                      VirtualizingStackPanel.IsVirtualizing="True"
-                      ScrollViewer.CanContentScroll="True"
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      ItemsSource="{Binding}" Background="{DynamicResource BackgroundColor}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal" MouseDown="VirtualizingStackPanel_MouseDown">
-                        <TextBlock Height="16" FontFamily="Consolas" FontSize="12" Text="{Binding Path=File}" Foreground="{DynamicResource ResultFileColor}"/>
-                        <TextBlock Height="16" FontFamily="Consolas" FontSize="12" Text="{Binding Path=BeginText}" Foreground="{DynamicResource ResultTextColor}"/>
-                        <TextBlock Height="16" FontFamily="Consolas" FontSize="12" Text="{Binding Path=HighlightedText}" Foreground="{DynamicResource ResultHighlightColor}" FontWeight="Heavy"/>
-                        <TextBlock Height="16" FontFamily="Consolas" FontSize="12" Text="{Binding Path=EndText}" Foreground="{DynamicResource ResultTextColor}"/>
-                        <VirtualizingStackPanel.Style>
-                            <Style TargetType="VirtualizingStackPanel">
-                                <Setter Property="VirtualizingStackPanel.Background" Value="Transparent"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="VirtualizingStackPanel.Background" Value="{DynamicResource ResultHoverColor}"/>
-                                    </Trigger>
-                                    <DataTrigger Binding="{Binding Path=IsSelected}"
-                                                 Value="True">
-                                        <Setter Property="VirtualizingStackPanel.Background" Value="{DynamicResource ResultSelectedColor}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </VirtualizingStackPanel.Style>
-                    </VirtualizingStackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.Template>
-                <ControlTemplate>
-                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
-                            Padding="{TemplateBinding Control.Padding}"
-                            BorderBrush="{TemplateBinding Border.BorderBrush}"
-                            Background="{TemplateBinding Panel.Background}"
-                            SnapsToDevicePixels="True">
-                        <ScrollViewer Name="SearchScrollbar" Padding="{TemplateBinding Control.Padding}" Focusable="False">
-                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-                        </ScrollViewer>
-                    </Border>
-                </ControlTemplate>
-            </ItemsControl.Template>
-        </ItemsControl>
-        <Border Name="Overlay" Grid.Row="3" Background="{DynamicResource OverlayBusyColor}"></Border>
-        <TextBlock x:Name="WarningText" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="No solution loaded."/>
-        <StackPanel Name="InitPanel" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock Name="InitInfo" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="12" Height="16"/>
-            <ProgressBar Name="InitProgress" Width="250" Margin="3,3,0,3"/>
-            <Button Name="InitButton" Style="{StaticResource SomeButtonStyle}" Click="InitButton_Click" Margin="5,0,0,0" BorderBrush="{x:Null}" Content="⟲" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Consolas" ToolTip="Update cache"/>
-            <Button Name="CleanButton" Style="{StaticResource SomeButtonStyle}" Click="CleanButton_Click" Margin="0,0,5,0" BorderBrush="{x:Null}" Content="⊗" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" HorizontalAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" ToolTip="Clean and update cache"/>
-        </StackPanel>
-        <StackPanel Name="AdvancedPanel" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Name="ColorsButton" Style="{StaticResource SomeButtonStyle}" Click="Colors_Click" Content="🎨" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,0" FontSize="14" ToolTip="Customize colors"/>
-            <Button Name="AdvancedButton" Style="{StaticResource SomeButtonStyle}" Click="AdvancedButton_Click" Content="⚙" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,0" FontSize="14" ToolTip="Settings"/>
-            <Button Name="PathsButton" Style="{StaticResource SomeButtonStyle}" Click="PathsButton_Click" Content="📁" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,0" FontSize="14" ToolTip="Settings"/>
-        </StackPanel>
+        <Grid Grid.Row="3">
+            <ItemsControl Grid.Row="3" Name="SearchItemsControl" Style="{DynamicResource ResultsItemsList}" ItemsSource="{Binding}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <VirtualizingStackPanel Style="{DynamicResource ResultPanel}" Orientation="Horizontal" MouseDown="VirtualizingStackPanel_MouseDown">
+                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
+                            <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=BeginText}" />
+                            <TextBlock Style="{DynamicResource ResultHighlightedText}" Text="{Binding Path=HighlightedText}"/>
+                            <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=EndText}" />
+                        </VirtualizingStackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Border Name="Overlay" Style="{DynamicResource OverlayBorder}" />
+            <TextBlock x:Name="WarningText" Style="{DynamicResource OverlayText}" Text="No solution loaded."/>
+        </Grid>
+        <Grid Grid.Row="4">
+            <StackPanel Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,5,0">
+                <TextBlock Name="InitInfo" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
+                <ProgressBar Name="InitProgress" Width="250" Margin="3,3,0,3"/>
+                <Button Name="InitButton" Style="{StaticResource SomeButtonStyle}" Content="⟲" FontSize="18" Click="InitButton_Click" ToolTip="Update cache"/>
+                <Button Name="CleanButton" Style="{StaticResource SomeButtonStyle}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
+            </StackPanel>
+            <StackPanel Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Name="ColorsButton" Style="{StaticResource SomeButtonStyle}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>
+                <Button Name="AdvancedButton" Style="{StaticResource SomeButtonStyle}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
+                <Button Name="PathsButton" Style="{StaticResource SomeButtonStyle}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Path settings"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
