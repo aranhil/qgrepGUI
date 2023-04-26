@@ -5,24 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
-             mc:Ignorable="d"
+             mc:Ignorable="d" DataContext="{Binding}"
              Width="Auto" Height="16"
              d:DesignHeight="16" d:DesignWidth="600">
     <UserControl.Resources>
-        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
-    <Grid Name="ProjectGrid" MouseEnter="ProjectGrid_MouseEnter" MouseLeave="ProjectGrid_MouseLeave" MouseDown="ProjectGrid_MouseDown" Background="{DynamicResource BackgroundColor}">
-        <Grid Width="Auto">
-            <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
-                <Label Name="ProjectName" FontSize="12" BorderBrush="{DynamicResource BorderColor}" Foreground="{DynamicResource ResultFileColor}" Background="{x:Null}" Content="Project1" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0" Padding="5, 0, 5, 0" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons">
-                <Button Name="DeleteButton" Style="{StaticResource SomeButtonStyle}" Click="DeleteButton_Click" Margin="0,0,5,0" BorderBrush="{x:Null}" Content="✕" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" ToolTip="Delete" FontSize="15" />
-            </StackPanel>
-        </Grid>
+    <Grid Name="ProjectGrid" Style="{DynamicResource SelectableRow}" MouseEnter="ProjectGrid_MouseEnter" MouseLeave="ProjectGrid_MouseLeave" MouseDown="ProjectGrid_MouseDown">
+        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
+            <Label Name="ProjectName" Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=ProjectName}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons" Margin="0,0,5,0">
+            <Button Name="DeleteButton" Style="{StaticResource SomeButtonStyle}" FontSize="14" Click="DeleteButton_Click" Content="✕" ToolTip="Delete project"/>
+        </StackPanel>
     </Grid>
 </UserControl>

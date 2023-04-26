@@ -32,8 +32,6 @@ namespace qgrepSearch.ToolWindows
     {
         private bool isSelected;
 
-        TextBox asd;
-
         public int Index { get; set; }
         public string File { get; set; }
         public string BeginText { get; set; }
@@ -159,10 +157,10 @@ namespace qgrepSearch.ToolWindows
         public void UpdateFromSettings()
         {
             Visibility visibility = Settings.Default.ShowIncludes == true ? Visibility.Visible : Visibility.Collapsed;
-            IncludeFilesContainer.Visibility = visibility;
+            IncludeFilesGrid.Visibility = visibility;
 
             visibility = Settings.Default.ShowExcludes == true ? Visibility.Visible : Visibility.Collapsed;
-            ExcludeFilesContainer.Visibility = visibility;
+            ExcludeFilesGrid.Visibility = visibility;
 
             ChangesCounter = 0;
         }
@@ -277,12 +275,12 @@ namespace qgrepSearch.ToolWindows
 
             if (SearchRegEx.IsChecked == false && SearchWholeWord.IsChecked == false) arguments.Add("l");
 
-            if (IncludeFilesContainer.Visibility == Visibility.Visible && IncludeFilesInput.Text.Length > 0)
+            if (Settings.Default.ShowIncludes && IncludeFilesInput.Text.Length > 0)
             {
                 arguments.Add("fi" + (IncludeRegEx.IsChecked == true ? IncludeFilesInput.Text : Regex.Escape(IncludeFilesInput.Text)));
             }
 
-            if (IncludeFilesContainer.Visibility == Visibility.Visible && ExcludeFilesInput.Text.Length > 0)
+            if (Settings.Default.ShowExcludes && ExcludeFilesInput.Text.Length > 0)
             {
                 arguments.Add("fe" + (ExcludeRegEx.IsChecked == true ? ExcludeFilesInput.Text : Regex.Escape(ExcludeFilesInput.Text)));
             }
@@ -797,7 +795,7 @@ namespace qgrepSearch.ToolWindows
                     items[selectedItem].IsSelected = true;
                 }
             }
-            else if (e.Key == System.Windows.Input.Key.Enter /*&& !UpdateInterval.IsFocused*/)
+            else if (e.Key == System.Windows.Input.Key.Enter)
             {
                 OpenSelectedStackPanel();
             }
@@ -858,85 +856,6 @@ namespace qgrepSearch.ToolWindows
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)
         {
-        }
-
-        Grid MouseOverGrid = null;
-        Grid FocusedGrid = null;
-
-        private void Container_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            MouseOverGrid = sender as Grid;
-
-            Panel.SetZIndex(SearchContainer, 0);
-            Panel.SetZIndex(IncludeFilesContainer, 0);
-            Panel.SetZIndex(ExcludeFilesContainer, 0);
-
-            if (FocusedGrid != null)
-            {
-                Panel.SetZIndex(FocusedGrid, 1);
-            }
-
-            if (MouseOverGrid != null)
-            {
-                Panel.SetZIndex(MouseOverGrid, 2);
-            }
-        }
-
-        private void Container_GotFocus(object sender, RoutedEventArgs e)
-        {
-            FocusedGrid = sender as Grid;
-
-            Panel.SetZIndex(SearchContainer, 0);
-            Panel.SetZIndex(IncludeFilesContainer, 0);
-            Panel.SetZIndex(ExcludeFilesContainer, 0);
-
-            if (FocusedGrid != null)
-            {
-                Panel.SetZIndex(FocusedGrid, 1);
-            }
-
-            if (MouseOverGrid != null)
-            {
-                Panel.SetZIndex(MouseOverGrid, 2);
-            }
-        }
-
-        private void Container_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            MouseOverGrid = null;
-
-            Panel.SetZIndex(SearchContainer, 1);
-            Panel.SetZIndex(IncludeFilesContainer, 1);
-            Panel.SetZIndex(ExcludeFilesContainer, 1);
-
-            if (FocusedGrid != null)
-            {
-                Panel.SetZIndex(FocusedGrid, 2);
-            }
-
-            if (MouseOverGrid != null)
-            {
-                Panel.SetZIndex(MouseOverGrid, 3);
-            }
-        }
-
-        private void Container_LostFocus(object sender, RoutedEventArgs e)
-        {
-            FocusedGrid = null;
-
-            Panel.SetZIndex(SearchContainer, 1);
-            Panel.SetZIndex(IncludeFilesContainer, 1);
-            Panel.SetZIndex(ExcludeFilesContainer, 1);
-
-            if (FocusedGrid != null)
-            {
-                Panel.SetZIndex(FocusedGrid, 2);
-            }
-
-            if (MouseOverGrid != null)
-            {
-                Panel.SetZIndex(MouseOverGrid, 3);
-            }
         }
 
         private void IncludeRegEx_Click(object sender, RoutedEventArgs e)

@@ -23,7 +23,7 @@ namespace qgrepSearch.ToolWindows
 {
     public partial class GroupRow : System.Windows.Controls.UserControl
     {
-        public class GroupRowData
+        public class GroupRowData : SelectableData
         {
             public GroupRowData(string GroupName, bool IsReadOnly, int Index)
             {
@@ -32,8 +32,7 @@ namespace qgrepSearch.ToolWindows
                 this.Index = Index;
             }
 
-            public string GroupName = "";
-            public bool IsSelected = false;
+            public string GroupName { get; set; } = "";
             public bool IsReadOnly = false;
             public int Index = 0;
         }
@@ -48,7 +47,7 @@ namespace qgrepSearch.ToolWindows
             this.Data = Data;
             this.Parent = Parent;
 
-            this.GroupName.Content = Data.GroupName;
+            this.DataContext = Data;
 
             Icons.Visibility = Visibility.Collapsed;
             LoadColorsFromResources();
@@ -70,11 +69,6 @@ namespace qgrepSearch.ToolWindows
             {
                 Icons.Visibility = Visibility.Visible;
             }
-
-            if (!Data.IsSelected)
-            {
-                GroupGrid.Background = Resources["ResultHoverColor"] as SolidColorBrush;
-            }
         }
 
         private void GroupGrid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
@@ -82,11 +76,6 @@ namespace qgrepSearch.ToolWindows
             if (!Data.IsReadOnly)
             {
                 Icons.Visibility = Visibility.Collapsed;
-            }
-
-            if (!Data.IsSelected)
-            {
-                GroupGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
             }
         }
 
@@ -106,15 +95,6 @@ namespace qgrepSearch.ToolWindows
         public void Select(bool isSelected)
         {
             Data.IsSelected = isSelected;
-
-            if (isSelected)
-            {
-                GroupGrid.Background = Resources["ResultSelectedColor"] as SolidColorBrush;
-            }
-            else
-            {
-                GroupGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
-            }
         }
     }
 }
