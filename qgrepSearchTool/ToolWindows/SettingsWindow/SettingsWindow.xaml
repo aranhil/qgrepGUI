@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Include files:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="75"/>
         <Label Grid.Row="1" Grid.Column="0" Content="Exclude files:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="77" />
-        <CheckBox x:Name="ShowIncludes" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="0"/>
-        <CheckBox x:Name="ShowExcludes" Foreground="{DynamicResource ForegroundColor}" IsChecked="False" Margin="5,4,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="1"/>
+        <CheckBox x:Name="ShowIncludes" IsChecked="False" Margin="5,6,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="0"/>
+        <CheckBox x:Name="ShowExcludes" IsChecked="False" Margin="5,6,0,4" VerticalAlignment="Center" Height="16" Click="Option_Click" VerticalContentAlignment="Center" Grid.Column="1" Content="" Grid.Row="1"/>
     </Grid>
 </UserControl>

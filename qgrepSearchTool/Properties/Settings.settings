@@ -89,5 +89,26 @@
     <Setting Name="ComboBoxTextColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">White</Value>
     </Setting>
+    <Setting Name="InputCheckboxColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">87, 93, 122</Value>
+    </Setting>
+    <Setting Name="InputCheckboxHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">171, 174, 189</Value>
+    </Setting>
+    <Setting Name="InputCheckboxCheckedColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="InputCheckboxCheckedHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">221, 223, 228</Value>
+    </Setting>
+    <Setting Name="CheckboxColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 129, 176</Value>
+    </Setting>
+    <Setting Name="CheckboxMarkColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="CheckboxTextColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -67,7 +67,8 @@ namespace qgrepSearch.ToolWindows
         static public string[] colorsAvailable = new string[]{ "BackgroundColor", "ForegroundColor", "BorderColor", "BorderSelectionColor", "BorderHoverColor", 
             "ResultFileColor", "ResultTextColor", "ResultHighlightColor", "ResultHoverColor", "ResultSelectedColor", "ButtonColor", "ButtonHoverColor", "InputHintColor", "OverlayBusyColor",
             "TextButtonDisabledBackgroundColor", "TextButtonDisabledForegroundColor", "TextButtonBackgroundColor", "TextButtonHoverColor", "TextButtonPressedColor",
-            "ComboBoxColor", "ComboBoxHoverColor", "ComboBoxTextColor"};
+            "ComboBoxColor", "ComboBoxHoverColor", "ComboBoxTextColor", "InputCheckboxColor", "InputCheckboxHoverColor", "InputCheckboxCheckedColor", "InputCheckboxCheckedHoverColor",
+            "CheckboxColor", "CheckboxMarkColor", "CheckboxTextColor"};
 
         public string Errors = "";
         private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
@@ -87,10 +88,6 @@ namespace qgrepSearch.ToolWindows
             InitProgress.Visibility = Visibility.Collapsed;
             InitInfo.Visibility = Visibility.Hidden;
             Overlay.Visibility = Visibility.Collapsed;
-
-            AdvancedSearchInnerPanel.Visibility = Visibility.Collapsed;
-            AdvancedIncludeInnerPanel.Visibility = Visibility.Collapsed;
-            AdvancedExcludeInnerPanel.Visibility = Visibility.Collapsed;
 
             SearchCaseSensitive.IsChecked = Settings.Default.CaseSensitive;
             SearchRegEx.IsChecked = Settings.Default.RegEx;
@@ -842,11 +839,6 @@ namespace qgrepSearch.ToolWindows
             SaveOptions();
         }
 
-        private void AdvancedSearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            AdvancedSearchInnerPanel.Visibility = AdvancedSearchInnerPanel.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-        }
-
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
             DialogWindow window = new DialogWindow
@@ -945,11 +937,6 @@ namespace qgrepSearch.ToolWindows
             }
         }
 
-        private void AdvancedIncludeButton_Click(object sender, RoutedEventArgs e)
-        {
-            AdvancedIncludeInnerPanel.Visibility = AdvancedIncludeInnerPanel.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-        }
-
         private void IncludeRegEx_Click(object sender, RoutedEventArgs e)
         {
             Find();
@@ -960,11 +947,6 @@ namespace qgrepSearch.ToolWindows
         {
             Find();
             SaveOptions();
-        }
-
-        private void AdvancedExcludeButton_Click(object sender, RoutedEventArgs e)
-        {
-            AdvancedExcludeInnerPanel.Visibility = AdvancedExcludeInnerPanel.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
