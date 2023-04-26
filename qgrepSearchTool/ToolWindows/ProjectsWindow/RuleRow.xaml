@@ -15,15 +15,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Name="RuleGrid" MouseEnter="RuleGrid_MouseEnter" MouseLeave="RuleGrid_MouseLeave" MouseDown="RuleGrid_MouseDown" Background="{DynamicResource BackgroundColor}">
-        <Grid Width="Auto">
-            <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
-                <Label Name="RuleInclude" FontSize="12" BorderBrush="{DynamicResource BorderColor}" Foreground="{DynamicResource ResultFileColor}" Background="{x:Null}" Content="root" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0" Padding="5, 0, 5, 0" />
-                <Label Name="RuleContent" FontSize="12" BorderBrush="{DynamicResource BorderColor}" Foreground="{DynamicResource ResultTextColor}" Background="{x:Null}" Content="root" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0" Padding="5, 0, 5, 0" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons">
-                <Button Name="DeleteButton" Style="{StaticResource SomeButtonStyle}" Click="DeleteButton_Click" Margin="0,0,5,0" BorderBrush="{x:Null}" Content="✕" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" ToolTip="Delete" FontSize="15" />
-            </StackPanel>
-        </Grid>
+    <Grid Name="RuleGrid" Style="{DynamicResource HoverableRow}" MouseEnter="RuleGrid_MouseEnter" MouseLeave="RuleGrid_MouseLeave" MouseDown="RuleGrid_MouseDown" Background="{DynamicResource BackgroundColor}">
+        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
+            <Label Name="RuleInclude" FontSize="12" BorderBrush="{DynamicResource BorderColor}" Foreground="{DynamicResource ResultFileColor}" Background="{x:Null}" Content="root" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0" Padding="5, 0, 5, 0" />
+            <Label Name="RuleContent" FontSize="12" BorderBrush="{DynamicResource BorderColor}" Foreground="{DynamicResource ResultTextColor}" Background="{x:Null}" Content="root" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0" Padding="5, 0, 5, 0" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons">
+            <Button Name="DeleteButton" Style="{StaticResource SomeButtonStyle}" Click="DeleteButton_Click" Margin="0,0,5,0" BorderBrush="{x:Null}" Content="✕" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" ToolTip="Delete" FontSize="15" />
+        </StackPanel>
     </Grid>
 </UserControl>

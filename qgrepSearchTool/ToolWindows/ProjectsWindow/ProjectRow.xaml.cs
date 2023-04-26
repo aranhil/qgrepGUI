@@ -23,16 +23,14 @@ namespace qgrepSearch.ToolWindows
 {
     public partial class ProjectRow : System.Windows.Controls.UserControl
     {
-        public class ProjectRowData
+        public class ProjectRowData: SelectableData
         {
             public ProjectRowData(string ProjectName)
             {
                 this.ProjectName = ProjectName;
-                this.IsSelected = false;
             }
 
-            public string ProjectName = "";
-            public bool IsSelected = false;
+            public string ProjectName { get; set; } = "";
         }
 
         public ProjectsWindow Parent;
@@ -45,7 +43,7 @@ namespace qgrepSearch.ToolWindows
             this.Data = Data;
             this.Parent = Parent;
 
-            this.ProjectName.Content = Data.ProjectName;
+            this.DataContext = Data;
 
             Icons.Visibility = Visibility.Collapsed;
             LoadColorsFromResources();
@@ -64,21 +62,11 @@ namespace qgrepSearch.ToolWindows
         private void ProjectGrid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Icons.Visibility = Visibility.Visible;
-
-            if (!Data.IsSelected)
-            {
-                ProjectGrid.Background = Resources["ResultHoverColor"] as SolidColorBrush;
-            }
         }
 
         private void ProjectGrid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Icons.Visibility = Visibility.Collapsed;
-
-            if (!Data.IsSelected)
-            {
-                ProjectGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
-            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -94,15 +82,6 @@ namespace qgrepSearch.ToolWindows
         public void Select(bool isSelected)
         {
             Data.IsSelected = isSelected;
-
-            if (isSelected)
-            {
-                ProjectGrid.Background = Resources["ResultSelectedColor"] as SolidColorBrush;
-            }
-            else
-            {
-                ProjectGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
-            }
         }
     }
 }

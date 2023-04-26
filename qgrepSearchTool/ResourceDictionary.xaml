@@ -74,12 +74,13 @@
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource BorderSelectionColor}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
-        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+        <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="CaretBrush" Value="{DynamicResource ForegroundColor}" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="Height" Value="24" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Padding" Value="5,0,5,0" />
+        <Setter Property="Padding" Value="3,2,3,1" />
+        <Setter Property="Panel.ZIndex" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -102,10 +103,18 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverColor}"/>
+                <Setter Property="Panel.ZIndex" Value="2" />
             </Trigger>
             <Trigger Property="IsFocused" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource BorderSelectionColor}"/>
             </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="False" />
+                    <Condition Property="IsFocused" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Panel.ZIndex" Value="1" />
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
     <Style TargetType="{x:Type Button}">
@@ -354,5 +363,38 @@
     <Style x:Key="OverlayText" TargetType="TextBlock" BasedOn="{StaticResource NormalTextBlock}">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="HoverableRow" TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ResultHoverColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="SelectableRow" TargetType="{x:Type Grid}" BasedOn="{StaticResource HoverableRow}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ResultSelectedColor}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ZIndexFocusable" TargetType="{x:Type FrameworkElement}">
+        <Setter Property="Panel.ZIndex" Value="0" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Panel.ZIndex" Value="2" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="SomeBorderStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource ZIndexFocusable}">
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverColor}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

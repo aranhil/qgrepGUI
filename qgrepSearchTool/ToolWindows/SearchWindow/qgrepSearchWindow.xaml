@@ -16,40 +16,45 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="23" x:Name="IncludeFilesRow">
+                <RowDefinition.Style>
+                    <Style TargetType="{x:Type RowDefinition}">
+                        <Setter Property="Height" Value="Auto" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding }" Value="True">
+                                <Setter Property="Height" Value="0" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RowDefinition.Style>
+            </RowDefinition>
+            <RowDefinition Height="23" />
             <RowDefinition />
             <RowDefinition Height="24" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" x:Name="SearchContainer" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
-            <TextBox x:Name="SearchInput" TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
-            <Label x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
-            <StackPanel Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel Name="AdvancedSearchInnerPanel" Margin="0,0,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="SearchCaseSensitive" Style="{DynamicResource SomeCheckbox}" Click="CaseSensitive_Click" Content="Case sensitive"/>
-                    <CheckBox Name="SearchWholeWord" Style="{DynamicResource SomeCheckbox}" IsChecked="False" Click="SearchWholeWord_Click" Content="Whole word" />
-                    <CheckBox Name="SearchRegEx" Style="{DynamicResource SomeCheckbox}" IsChecked="True" Click="SearchRegEx_Click" Content="RegEx" />
-                </StackPanel>
+        <TextBox Grid.Row="0" x:Name="SearchInput" TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+        <Label Grid.Row="0" x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
+        <StackPanel Grid.Row="0" Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+            <StackPanel Name="AdvancedSearchInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <CheckBox Name="SearchCaseSensitive" Style="{DynamicResource SomeCheckbox}" Click="CaseSensitive_Click" Content="Case sensitive"/>
+                <CheckBox Name="SearchWholeWord" Style="{DynamicResource SomeCheckbox}" IsChecked="False" Click="SearchWholeWord_Click" Content="Whole word" />
+                <CheckBox Name="SearchRegEx" Style="{DynamicResource SomeCheckbox}" IsChecked="True" Click="SearchRegEx_Click" Content="RegEx" />
             </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" x:Name="IncludeFilesContainer" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
-            <TextBox x:Name="IncludeFilesInput" TabIndex="1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
-            <Label x:Name="IncludeFilesLabel" Content="Include files..." Style="{DynamicResource SomeHintLabel}"/>
-            <StackPanel Name="AdvancedIncludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel Name="AdvancedIncludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="IncludeRegEx" Style="{DynamicResource SomeCheckbox}" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" IsChecked="True">RegEx</CheckBox>
-                </StackPanel>
+        </StackPanel>
+        <TextBox Grid.Row="1" Margin="0,-1,0,0" x:Name="IncludeFilesInput" TabIndex="1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+        <Label Grid.Row="1" x:Name="IncludeFilesLabel" Content="Include files..." Style="{DynamicResource SomeHintLabel}"/>
+        <StackPanel Grid.Row="1" Name="AdvancedIncludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+            <StackPanel Name="AdvancedIncludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <CheckBox Name="IncludeRegEx" Style="{DynamicResource SomeCheckbox}" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" IsChecked="True">RegEx</CheckBox>
             </StackPanel>
-        </Grid>
-        <Grid Grid.Row="2" x:Name="ExcludeFilesContainer" Height="24" Margin="0,-1,0,0" Panel.ZIndex="0" MouseEnter="Container_MouseEnter" MouseLeave="Container_MouseLeave" GotFocus="Container_GotFocus" LostFocus="Container_LostFocus">
-            <TextBox x:Name="ExcludeFilesInput" TabIndex="2" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
-            <Label x:Name="ExcludeFilesLabel" Content="Exclude files..." Style="{DynamicResource SomeHintLabel}" />
-            <StackPanel Name="AdvancedExcludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel Name="AdvancedExcludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="ExcludeRegEx" Style="{DynamicResource SomeCheckbox}" IsChecked="True" Click="ExcludeRegEx_Click" Content="RegEx" />
-                </StackPanel>
+        </StackPanel>
+        <TextBox Grid.Row="2" Margin="0,-1,0,0" x:Name="ExcludeFilesInput" TabIndex="2" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+        <Label Grid.Row="2" x:Name="ExcludeFilesLabel" Content="Exclude files..." Style="{DynamicResource SomeHintLabel}" />
+        <StackPanel Grid.Row="2" Name="AdvancedExcludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+            <StackPanel Name="AdvancedExcludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <CheckBox Name="ExcludeRegEx" Style="{DynamicResource SomeCheckbox}" IsChecked="True" Click="ExcludeRegEx_Click" Content="RegEx" />
             </StackPanel>
-        </Grid>
+        </StackPanel>
         <Grid Grid.Row="3">
             <ItemsControl Grid.Row="3" Name="SearchItemsControl" Style="{DynamicResource ResultsItemsList}" ItemsSource="{Binding}">
                 <ItemsControl.ItemTemplate>
