@@ -25,6 +25,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Xceed.Wpf.AvalonDock.Controls;
+using Newtonsoft.Json;
 
 namespace qgrepSearch.ToolWindows
 {
@@ -56,6 +57,24 @@ namespace qgrepSearch.ToolWindows
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    public class ColorEntry
+    {
+        public string Name { get; set; } = "";
+        public System.Drawing.Color Color = System.Drawing.Color.White;
+    }
+
+    public class ColorScheme
+    {
+        public string Name = "Dark";
+        public ColorEntry[] ColorEntries = new ColorEntry[] { new ColorEntry { Name = "BackgroundColor", Color = System.Drawing.Color.FromArgb(25, 26, 38) }, new ColorEntry { Name = "ForegroundColor", Color = System.Drawing.Color.Black } };
+
+        //public string[] colorsAvailable = new string[]{ "BackgroundColor", "ForegroundColor", "BorderColor", "BorderSelectionColor", "BorderHoverColor",
+        //    "ResultFileColor", "ResultTextColor", "ResultHighlightColor", "ResultHoverColor", "ResultSelectedColor", "ButtonColor", "ButtonHoverColor", "InputHintColor", "OverlayBusyColor",
+        //    "TextButtonDisabledBackgroundColor", "TextButtonDisabledForegroundColor", "TextButtonBackgroundColor", "TextButtonHoverColor", "TextButtonPressedColor",
+        //    "ComboBoxColor", "ComboBoxHoverColor", "ComboBoxTextColor", "InputCheckboxColor", "InputCheckboxHoverColor", "InputCheckboxCheckedColor", "InputCheckboxCheckedHoverColor",
+        //    "CheckboxColor", "CheckboxMarkColor", "CheckboxTextColor"};
     }
 
     public partial class qgrepSearchWindowControl : UserControl
@@ -151,6 +170,10 @@ namespace qgrepSearch.ToolWindows
                 WarningText.Visibility = Visibility.Hidden;
                 InitButton.Visibility = Visibility.Visible;
                 CleanButton.Visibility = Visibility.Visible;
+
+                ColorScheme[] asd = new ColorScheme[] { new ColorScheme() };
+                string json = JsonConvert.SerializeObject(asd);
+                MessageBox.Show(json);
             }
         }
 
