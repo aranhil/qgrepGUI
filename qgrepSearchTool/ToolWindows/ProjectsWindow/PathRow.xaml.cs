@@ -30,8 +30,7 @@ namespace qgrepSearch.ToolWindows
                 this.Path = Path;
             }
 
-            public string Path = "";
-            public bool IsSelected = false;
+            public string Path { get; set; } = "";
         }
 
         public ProjectsWindow Parent;
@@ -44,7 +43,7 @@ namespace qgrepSearch.ToolWindows
             this.Data = Data;
             this.Parent = Parent;
 
-            this.Path.Content = Data.Path;
+            this.DataContext = Data;
 
             Icons.Visibility = Visibility.Collapsed;
             LoadColorsFromResources();
@@ -63,40 +62,16 @@ namespace qgrepSearch.ToolWindows
         private void PathGrid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Icons.Visibility = Visibility.Visible;
-
-            if (!Data.IsSelected)
-            {
-                PathGrid.Background = Resources["ResultHoverColor"] as SolidColorBrush;
-            }
         }
 
         private void PathGrid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Icons.Visibility = Visibility.Collapsed;
-
-            if (!Data.IsSelected)
-            {
-                PathGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
-            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Parent.DeletePath(this);
-        }
-
-        public void Select(bool isSelected)
-        {
-            Data.IsSelected = isSelected;
-
-            if (isSelected)
-            {
-                PathGrid.Background = Resources["ResultSelectedColor"] as SolidColorBrush;
-            }
-            else
-            {
-                PathGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
-            }
         }
     }
 }

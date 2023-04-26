@@ -89,9 +89,6 @@ namespace qgrepSearch.ToolWindows
             InitInfo.Visibility = Visibility.Hidden;
             Overlay.Visibility = Visibility.Collapsed;
 
-            IncludeFilesRow.DataContext = new CollapsableRow();
-            ExcludefilesRow.DataContext = new CollapsableRow();
-
             SearchCaseSensitive.IsChecked = Settings.Default.CaseSensitive;
             SearchRegEx.IsChecked = Settings.Default.RegEx;
             SearchWholeWord.IsChecked = Settings.Default.WholeWord;
@@ -159,15 +156,11 @@ namespace qgrepSearch.ToolWindows
 
         public void UpdateFromSettings()
         {
-            bool visibility = Settings.Default.ShowIncludes == true;
-            IncludeFilesInput.Visibility = visibility;
-            IncludeFilesLabel.Visibility = visibility;
-            AdvancedIncludePanel.Visibility = visibility;
+            Visibility visibility = Settings.Default.ShowIncludes == true ? Visibility.Visible : Visibility.Collapsed;
+            IncludeFilesGrid.Visibility = visibility;
 
-            visibility = Settings.Default.ShowExcludes == true;
-            ExcludeFilesInput.Visibility = visibility;
-            ExcludeFilesLabel.Visibility = visibility;
-            AdvancedExcludePanel.Visibility = visibility;
+            visibility = Settings.Default.ShowExcludes == true ? Visibility.Visible : Visibility.Collapsed;
+            ExcludeFilesGrid.Visibility = visibility;
 
             ChangesCounter = 0;
         }

@@ -5,14 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
-             mc:Ignorable="d" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}"
+             mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              Width="300" Height="770">
     <UserControl.Resources>
-        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
@@ -52,35 +48,35 @@
             <RowDefinition Height="28"/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Background color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Foreground color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Border color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Border selection color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Border hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Result file color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Result text color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Result highlight color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="8" Grid.Column="0" Content="Result hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="9" Grid.Column="0" Content="Result selected color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="10" Grid.Column="0" Content="Button color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="11" Grid.Column="0" Content="Button hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="12" Grid.Column="0" Content="Input hint color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="13" Grid.Column="0" Content="Overlay busy color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="14" Grid.Column="0" Content="Button disabled color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="15" Grid.Column="0" Content="Button disabled text color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="16" Grid.Column="0" Content="Button color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="17" Grid.Column="0" Content="Button hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="18" Grid.Column="0" Content="Button pressed color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="19" Grid.Column="0" Content="ComboBox color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="20" Grid.Column="0" Content="ComboBox hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="21" Grid.Column="0" Content="ComboBox text color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="22" Grid.Column="0" Content="Input checkbox color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="23" Grid.Column="0" Content="Input checkbox hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="24" Grid.Column="0" Content="Input checkbox checked color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="25" Grid.Column="0" Content="Input checkbox checked hover color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="26" Grid.Column="0" Content="Checkbox color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="27" Grid.Column="0" Content="Checkbox mark color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label Grid.Row="28" Grid.Column="0" Content="Checkbox text color:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Background color:" />
+        <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Foreground color:" />
+        <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Border color:" />
+        <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Border selection color:" />
+        <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Border hover color:" />
+        <Label Grid.Row="5" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Result file color:" />
+        <Label Grid.Row="6" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Result text color:" />
+        <Label Grid.Row="7" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Result highlight color:" />
+        <Label Grid.Row="8" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Result hover color:" />
+        <Label Grid.Row="9" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Result selected color:" />
+        <Label Grid.Row="10" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Button color:" />
+        <Label Grid.Row="11" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Button hover color:" />
+        <Label Grid.Row="12" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Input hint color:" />
+        <Label Grid.Row="13" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Overlay busy color:" />
+        <Label Grid.Row="14" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Button disabled color:" />
+        <Label Grid.Row="15" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Button disabled text color:" />
+        <Label Grid.Row="16" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Button color:" />
+        <Label Grid.Row="17" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Button hover color:" />
+        <Label Grid.Row="18" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Button pressed color:" />
+        <Label Grid.Row="19" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="ComboBox color:" />
+        <Label Grid.Row="20" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="ComboBox hover color:" />
+        <Label Grid.Row="21" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="ComboBox text color:" />
+        <Label Grid.Row="22" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Input checkbox color:" />
+        <Label Grid.Row="23" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Input checkbox hover color:" />
+        <Label Grid.Row="24" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Input checkbox checked color:" />
+        <Label Grid.Row="25" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Input checkbox checked hover color:" />
+        <Label Grid.Row="26" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Checkbox color:" />
+        <Label Grid.Row="27" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Checkbox mark color:" />
+        <Label Grid.Row="28" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Checkbox text color:" />
         <wpfTool:ColorPicker Grid.Row="0" Grid.Column="1" x:Name="BackgroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="1" Grid.Column="1" x:Name="ForegroundColor" Width="45" HorizontalAlignment="Left" Margin="1"/>
         <wpfTool:ColorPicker Grid.Row="2" Grid.Column="1" x:Name="BorderColor" Width="45" HorizontalAlignment="Left" Margin="1"/>

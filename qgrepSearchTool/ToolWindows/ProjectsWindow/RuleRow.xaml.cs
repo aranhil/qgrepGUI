@@ -27,14 +27,13 @@ namespace qgrepSearch.ToolWindows
         {
             public RuleRowData(bool RuleExclude, string RuleContent, int Index)
             {
-                this.RuleExclude = RuleExclude;
+                this.RuleType = RuleExclude ? "Exclude" : "Include";
                 this.RuleContent = RuleContent;
                 this.Index = Index;
             }
 
-            public bool RuleExclude = false;
-            public string RuleContent = "";
-            public bool IsSelected = false;
+            public string RuleType { get; set; } = "";
+            public string RuleContent { get; set; } = "";
             public int Index = 0;
         }
 
@@ -48,8 +47,7 @@ namespace qgrepSearch.ToolWindows
             this.Data = Data;
             this.Parent = Parent;
 
-            this.RuleInclude.Content = Data.RuleExclude ? "Exclude" : "Include";
-            this.RuleContent.Content = Data.RuleContent;
+            this.DataContext = Data;
 
             Icons.Visibility = Visibility.Collapsed;
             LoadColorsFromResources();
@@ -68,21 +66,11 @@ namespace qgrepSearch.ToolWindows
         private void RuleGrid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Icons.Visibility = Visibility.Visible;
-
-            if (!Data.IsSelected)
-            {
-                RuleGrid.Background = Resources["ResultHoverColor"] as SolidColorBrush;
-            }
         }
 
         private void RuleGrid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Icons.Visibility = Visibility.Collapsed;
-
-            if (!Data.IsSelected)
-            {
-                RuleGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
-            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -92,20 +80,6 @@ namespace qgrepSearch.ToolWindows
 
         private void RuleGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-        }
-
-        public void Select(bool isSelected)
-        {
-            Data.IsSelected = isSelected;
-
-            if (isSelected)
-            {
-                RuleGrid.Background = Resources["ResultSelectedColor"] as SolidColorBrush;
-            }
-            else
-            {
-                RuleGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
-            }
         }
     }
 }

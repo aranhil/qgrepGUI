@@ -5,17 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
-             mc:Ignorable="d" Foreground="{DynamicResource ForegroundColor}" Background="{DynamicResource BackgroundColor}" PreviewKeyDown="UserControl_PreviewKeyDown"
-             Width="500" Height="90" PreviewMouseDown="UserControl_PreviewMouseDown"
-             d:DesignHeight="200" d:DesignWidth="800">
+             mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown"
+             Width="500" Height="90" PreviewMouseDown="UserControl_PreviewMouseDown">
     <UserControl.Resources>
-        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
-    <Grid Margin="0,10,0,0" Background="{DynamicResource BackgroundColor}">
+    <Grid Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition/>
@@ -25,15 +20,15 @@
             <RowDefinition Height="24"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Type:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="79"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="RegEx:" Foreground="{DynamicResource ForegroundColor}" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="5,0"/>
-        <ComboBox x:Name="GroupType" SelectedIndex="0" Grid.Row="0" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" Width="100" HorizontalAlignment="Left" Grid.Column="1" Margin="2,0,5,0">
+        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Type:" />
+        <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="RegEx:" />
+        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="GroupType" SelectedIndex="0" Height="20" Width="100" HorizontalAlignment="Left" Margin="2,0,5,0">
             <ComboBoxItem>Include</ComboBoxItem>
             <ComboBoxItem>Exclude</ComboBoxItem>
         </ComboBox>
-        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0">
-            <TextBox x:Name="GroupRegEx" Style="{StaticResource SomeTextBoxStyle}" BorderBrush="{DynamicResource BorderColor}" SelectionBrush="{DynamicResource BorderSelectionColor}" Grid.Row="1" Foreground="{DynamicResource ForegroundColor}" Background="{x:Null}" CaretBrush="{DynamicResource ForegroundColor}" Padding="2" FontFamily="Consolas" FontWeight="Bold" VerticalContentAlignment="Center" Height="20" Grid.Column="1" Margin="2,0,5,0"/>
-            <Button Name="PredefinedButton" Focusable="False" Style="{StaticResource SomeButtonStyle}" Margin="0,-1,8,0" Background="{x:Null}" BorderBrush="{x:Null}" Content="💡" Padding="0" HorizontalContentAlignment="Center" FontFamily="Consolas" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="12" ToolTip="A list of predefined regexes" Click="PredefinedButton_Click">
+        <Grid Grid.Row="1" Grid.Column="1">
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="GroupRegEx" Style="{StaticResource SomeTextBoxStyle}" Height="20" Margin="2,0,5,0"/>
+            <Button Name="PredefinedButton" Focusable="False" Style="{StaticResource SomeButtonStyle}" FontSize="12" Margin="0,-1,8,0" Content="💡" HorizontalAlignment="Right" ToolTip="A list of predefined regexes" Click="PredefinedButton_Click">
             </Button>
             <Popup x:Name="PredefinedPopup" IsOpen="False" PlacementTarget="{Binding ElementName=PredefinedButton}">
                 <StackPanel>
@@ -60,8 +55,8 @@
             </Popup>
         </Grid>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
-            <Button x:Name="OK" Content="Save" HorizontalAlignment="Center" Margin="0,0,5,0" Click="OK_Click" Padding="5,2"/>
-            <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Cancel_Click" Padding="5,2"/>
+            <Button x:Name="OK" Content="Save" Margin="0,0,5,0" Click="OK_Click" />
+            <Button x:Name="Cancel" Content="Cancel" Margin="0,0,5,0" Click="Cancel_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>
