@@ -48,18 +48,6 @@ namespace qgrepSearch.ToolWindows
             }
         }
 
-        private void AddGrid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            AddGrid.Background = Resources["ResultHoverColor"] as SolidColorBrush;
-            AddButton.Foreground = Resources["ButtonHoverColor"] as SolidColorBrush;
-        }
-
-        private void AddGrid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            AddGrid.Background = Resources["BackgroundColor"] as SolidColorBrush;
-            AddButton.Foreground = Resources["ButtonColor"] as SolidColorBrush;
-        }
-
         private void AddGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ClickCallback();

@@ -51,43 +51,51 @@
             "Color": "White"
         },
         {
-            "Name": "BorderColor",
+            "Name": "Border",
             "Color": "171, 173, 179"
         },
         {
-            "Name": "BorderHoverColor",
+            "Name": "Border.IsMouseOver",
             "Color": "0, 200, 215"
         },
         {
-            "Name": "BorderSelectionColor",
+            "Name": "Border.IsSelected",
             "Color": "0, 120, 215"
         },
         {
-            "Name": "InputHintColor",
+            "Name": "TextBox.Hint.Background",
+            "Color": "Transparent"
+        },
+        {
+            "Name": "TextBox.Hint.Foreground",
             "Color": "Gray"
         },
         {
-            "Name": "OverlayBusyColor",
+            "Name": "Overlay.Background",
             "Color": "124, 0, 0, 0"
         },
         {
-            "Name": "TextButtonDisabledBackgroundColor",
+            "Name": "Button.IsDisabled.Background",
             "Color": "56, 97, 141"
         },
         {
-            "Name": "TextButtonDisabledForegroundColor",
+            "Name": "Button.IsDisabled.Foreground",
             "Color": "180, 196, 212"
         },
         {
-            "Name": "TextButtonBackgroundColor",
+            "Name": "Button.Background",
             "Color": "30, 129, 176"
         },
         {
-            "Name": "TextButtonHoverColor",
+            "Name": "Button.Foreground",
+            "Color": "White"
+        },
+        {
+            "Name": "Button.IsMouseOver.Background",
             "Color": "6, 57, 112"
         },
         {
-            "Name": "TextButtonPressedColor",
+            "Name": "Button.IsMouseDown.Background",
             "Color": "2, 23, 45"
         },
         {
@@ -144,15 +152,15 @@
             "Color": "Black"
         },
         {
-            "Name": "BorderColor",
+            "Name": "Border",
             "Color": "Gray"
         },
         {
-            "Name": "BorderHoverColor",
+            "Name": "Border.IsMouseOver",
             "Color": "Black"
         },
         {
-            "Name": "BorderSelectionColor",
+            "Name": "Border.IsSelected",
             "Color": "Black"
         },
         {
@@ -196,31 +204,39 @@
             "Color": "Black"
         },
         {
-            "Name": "InputHintColor",
+            "Name": "TextBox.Hint.Background",
+            "Color": "Transparent"
+        },
+        {
+            "Name": "TextBox.Hint.Foreground",
             "Color": "Gray"
         },
         {
-            "Name": "OverlayBusyColor",
+            "Name": "Overlay.Background",
             "Color": "124, 0, 0, 0"
         },
         {
-            "Name": "TextButtonDisabledBackgroundColor",
+            "Name": "Button.IsDisabled.Background",
             "Color": "56, 97, 141"
         },
         {
-            "Name": "TextButtonDisabledForegroundColor",
+            "Name": "Button.IsDisabled.Foreground",
             "Color": "180, 196, 212"
         },
         {
-            "Name": "TextButtonBackgroundColor",
+            "Name": "Button.Background",
             "Color": "180, 196, 212"
         },
         {
-            "Name": "TextButtonHoverColor",
+            "Name": "Button.Foreground",
+            "Color": "Black"
+        },
+        {
+            "Name": "Button.IsMouseOver.Background",
             "Color": "190, 224, 236"
         },
         {
-            "Name": "TextButtonPressedColor",
+            "Name": "Button.IsMouseDown.Background",
             "Color": "Gray"
         },
         {

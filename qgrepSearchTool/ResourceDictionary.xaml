@@ -13,16 +13,18 @@
     <SolidColorBrush x:Key="IconButton.Foreground" Color="Gray" />
     <SolidColorBrush x:Key="IconButton.IsMouseOver.Background" Color="Transparent" />
     <SolidColorBrush x:Key="IconButton.IsMouseOver.Foreground" Color="Black" />
-    <SolidColorBrush x:Key="BorderColor" Color="Gray" />
-    <SolidColorBrush x:Key="BorderHoverColor" Color="Black" />
-    <SolidColorBrush x:Key="BorderSelectionColor" Color="Black" />
-    <SolidColorBrush x:Key="InputHintColor" Color="Gray"/>
-    <SolidColorBrush x:Key="OverlayBusyColor" Color="#7C000000" />
-    <SolidColorBrush x:Key="TextButtonDisabledBackgroundColor" Color="#38618d" />
-    <SolidColorBrush x:Key="TextButtonDisabledForegroundColor" Color="#b4c4d4" />
-    <SolidColorBrush x:Key="TextButtonBackgroundColor" Color="#b4c4d4" />
-    <SolidColorBrush x:Key="TextButtonHoverColor" Color="#bee0ec" />
-    <SolidColorBrush x:Key="TextButtonPressedColor" Color="Gray" />
+    <SolidColorBrush x:Key="Border" Color="Gray" />
+    <SolidColorBrush x:Key="Border.IsMouseOver" Color="Black" />
+    <SolidColorBrush x:Key="Border.IsSelected" Color="Black" />
+    <SolidColorBrush x:Key="TextBox.Hint.Background" Color="Transparent"/>
+    <SolidColorBrush x:Key="TextBox.Hint.Foreground" Color="Gray"/>
+    <SolidColorBrush x:Key="Overlay.Background" Color="#7C000000" />
+    <SolidColorBrush x:Key="Button.IsDisabled.Background" Color="#38618d" />
+    <SolidColorBrush x:Key="Button.IsDisabled.Foreground" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="Button.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="Button.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="Button.IsMouseOver.Background" Color="#bee0ec" />
+    <SolidColorBrush x:Key="Button.IsMouseDown.Background" Color="Gray" />
     <SolidColorBrush x:Key="ComboBoxColor" Color="#b4c4d4" />
     <SolidColorBrush x:Key="ComboBoxHoverColor" Color="#bee0ec" />
     <SolidColorBrush x:Key="ComboBoxTextColor" Color="Black" />
@@ -75,8 +77,8 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="SomeTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MonospacedText}">
-        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
-        <Setter Property="SelectionBrush" Value="{DynamicResource BorderSelectionColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource Border.IsSelected}" />
         <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="CaretBrush" Value="{DynamicResource Foreground}" />
@@ -92,10 +94,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderSelectionColor}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Border.IsSelected}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BorderHoverColor}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Border.IsMouseOver}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -103,17 +105,18 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverColor}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Border.IsMouseOver}"/>
             </Trigger>
             <Trigger Property="IsFocused" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderSelectionColor}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Border.IsSelected}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
     <Style TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="Background" Value="{DynamicResource TextButtonBackgroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource Button.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Button.Foreground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -125,14 +128,14 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource TextButtonHoverColor}"/>
+                <Setter Property="Background" Value="{DynamicResource Button.IsMouseOver.Background}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource TextButtonPressedColor}"/>
+                <Setter Property="Background" Value="{DynamicResource Button.IsMouseDown.Background}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="{DynamicResource TextButtonDisabledBackgroundColor}"/>
-                <Setter Property="Foreground" Value="{DynamicResource TextButtonDisabledForegroundColor}"/>
+                <Setter Property="Background" Value="{DynamicResource Button.IsDisabled.Background}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Button.IsDisabled.Foreground}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -287,7 +290,7 @@
         </Setter>
     </Style>
     <Style x:Key="SomeWindow" TargetType="{x:Type UserControl}">
-        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
         <Setter Property="Background" Value="{DynamicResource Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
     </Style>
@@ -298,8 +301,8 @@
         <Setter Property="IsHitTestVisible" Value="False" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Height" Value="24" />
-        <Setter Property="Background" Value="{x:Null}" />
-        <Setter Property="Foreground" Value="{DynamicResource InputHintColor}" />
+        <Setter Property="Background" Value="{DynamicResource TextBox.Hint.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBox.Hint.Foreground}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="8,0,0,0" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -323,7 +326,7 @@
         <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
     </Style>
     <Style x:Key="ResultText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
-        <Setter Property="Foreground" Value="{DynamicResource Result.Text}" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.Text.Foreground}" />
     </Style>
     <Style x:Key="ResultHighlightedText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Foreground" Value="{DynamicResource Result.Highlight.Foreground}"/>
@@ -354,7 +357,7 @@
         </Setter>
     </Style>
     <Style x:Key="OverlayBorder" TargetType="Border">
-        <Setter Property="Background" Value="{DynamicResource OverlayBusyColor}" />
+        <Setter Property="Background" Value="{DynamicResource Overlay.Background}" />
     </Style>
     <Style TargetType="TextBlock" BasedOn="{StaticResource NormalTextBlock}">
     </Style>
@@ -394,18 +397,18 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="SomeBorderStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource ZIndexFocusable}">
-        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
         <Setter Property="BorderThickness" Value="1" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverColor}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Border.IsMouseOver}"/>
                 <Setter Property="Tag" Value="True" />
             </Trigger>
         </Style.Triggers>
     </Style>
     <Style x:Key="PanelEntry" TargetType="Label" BasedOn="{StaticResource MonospacedText}">
         <Setter Property="FontSize" Value="12" />
-        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
@@ -416,7 +419,7 @@
         <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
     </Style>
     <Style x:Key="PanelEntrySecond" TargetType="Label" BasedOn="{StaticResource PanelEntry}">
-        <Setter Property="Foreground" Value="{DynamicResource Result.Text}" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.Text.Foreground}" />
     </Style>
     <Style x:Key="SettingsLabel" TargetType="Label" BasedOn="{StaticResource NormalText}">
         <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
