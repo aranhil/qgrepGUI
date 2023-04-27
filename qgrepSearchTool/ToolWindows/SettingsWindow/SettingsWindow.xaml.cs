@@ -34,6 +34,13 @@ namespace qgrepSearch.ToolWindows
             ShowIncludes.IsChecked = Settings.Default.ShowIncludes;
             ShowExcludes.IsChecked = Settings.Default.ShowExcludes;
 
+            foreach (ColorScheme colorScheme in SearchWindow.colorSchemes)
+            {
+                ColorSchemeComboBox.Items.Add(new ComboBoxItem() { Content = colorScheme.Name });
+            }
+
+            ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme;
+
             LoadColorsFromResources();
         }
 
@@ -73,6 +80,14 @@ namespace qgrepSearch.ToolWindows
         {
             SaveOptions();
             SearchWindow.UpdateFromSettings();
+        }
+
+        private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex;
+            Settings.Default.Save();
+            SearchWindow.UpdateColorsFromSettings();
+            LoadColorsFromResources();
         }
     }
 }

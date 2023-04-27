@@ -3,33 +3,33 @@
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av">
     <SolidColorBrush x:Key="BackgroundColor" Color="White" />
     <SolidColorBrush x:Key="ForegroundColor" Color="Black" />
-    <SolidColorBrush x:Key="ResultFileColor" Color="White"/>
-    <SolidColorBrush x:Key="ResultTextColor" Color="White" />
-    <SolidColorBrush x:Key="ResultHighlightColor" Color="White" />
-    <SolidColorBrush x:Key="ResultHoverColor" Color="White" />
-    <SolidColorBrush x:Key="ResultSelectedColor" Color="White" />
+    <SolidColorBrush x:Key="ResultFileColor" Color="Gray"/>
+    <SolidColorBrush x:Key="ResultTextColor" Color="Black" />
+    <SolidColorBrush x:Key="ResultHighlightColor" Color="#25a5be" />
+    <SolidColorBrush x:Key="ResultHoverColor" Color="#d3eaf2" />
+    <SolidColorBrush x:Key="ResultSelectedColor" Color="#bee0ec" />
     <SolidColorBrush x:Key="ButtonColor" Color="Gray" />
     <SolidColorBrush x:Key="ButtonHoverColor" Color="Black" />
     <SolidColorBrush x:Key="BorderColor" Color="Gray" />
-    <SolidColorBrush x:Key="BorderHoverColor" Color="White" />
-    <SolidColorBrush x:Key="BorderSelectionColor" />
+    <SolidColorBrush x:Key="BorderHoverColor" Color="Black" />
+    <SolidColorBrush x:Key="BorderSelectionColor" Color="Black" />
     <SolidColorBrush x:Key="InputHintColor" Color="Gray"/>
     <SolidColorBrush x:Key="OverlayBusyColor" Color="#7C000000" />
     <SolidColorBrush x:Key="TextButtonDisabledBackgroundColor" Color="#38618d" />
     <SolidColorBrush x:Key="TextButtonDisabledForegroundColor" Color="#b4c4d4" />
-    <SolidColorBrush x:Key="TextButtonBackgroundColor" Color="#1e81b0" />
-    <SolidColorBrush x:Key="TextButtonHoverColor" Color="#063970" />
-    <SolidColorBrush x:Key="TextButtonPressedColor" Color="#02172d" />
-    <SolidColorBrush x:Key="ComboBoxColor" Color="#1e81b0" />
-    <SolidColorBrush x:Key="ComboBoxHoverColor" Color="#063970" />
-    <SolidColorBrush x:Key="ComboBoxTextColor" Color="White" />
+    <SolidColorBrush x:Key="TextButtonBackgroundColor" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="TextButtonHoverColor" Color="#bee0ec" />
+    <SolidColorBrush x:Key="TextButtonPressedColor" Color="Gray" />
+    <SolidColorBrush x:Key="ComboBoxColor" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="ComboBoxHoverColor" Color="#bee0ec" />
+    <SolidColorBrush x:Key="ComboBoxTextColor" Color="Black" />
     <SolidColorBrush x:Key="InputCheckboxColor" Color="#575d7a" />
     <SolidColorBrush x:Key="InputCheckboxHoverColor" Color="#abaebd" />
     <SolidColorBrush x:Key="InputCheckboxCheckedColor" Color="Black" />
     <SolidColorBrush x:Key="InputCheckboxCheckedHoverColor" Color="#dddfe4" />
-    <SolidColorBrush x:Key="CheckboxColor" Color="#1e81b0" />
-    <SolidColorBrush x:Key="CheckboxMarkColor" Color="White" />
-    <SolidColorBrush x:Key="CheckboxTextColor" Color="White" />
+    <SolidColorBrush x:Key="CheckboxColor" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="CheckboxMarkColor" Color="Black" />
+    <SolidColorBrush x:Key="CheckboxTextColor" Color="Black" />
     <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

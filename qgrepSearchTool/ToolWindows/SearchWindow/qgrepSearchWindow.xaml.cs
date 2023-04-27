@@ -26,6 +26,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Xceed.Wpf.AvalonDock.Controls;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace qgrepSearch.ToolWindows
 {
@@ -61,20 +62,14 @@ namespace qgrepSearch.ToolWindows
 
     public class ColorEntry
     {
-        public string Name { get; set; } = "";
+        public string Name = "";
         public System.Drawing.Color Color = System.Drawing.Color.White;
     }
 
     public class ColorScheme
     {
-        public string Name = "Dark";
-        public ColorEntry[] ColorEntries = new ColorEntry[] { new ColorEntry { Name = "BackgroundColor", Color = System.Drawing.Color.FromArgb(25, 26, 38) }, new ColorEntry { Name = "ForegroundColor", Color = System.Drawing.Color.Black } };
-
-        //public string[] colorsAvailable = new string[]{ "BackgroundColor", "ForegroundColor", "BorderColor", "BorderSelectionColor", "BorderHoverColor",
-        //    "ResultFileColor", "ResultTextColor", "ResultHighlightColor", "ResultHoverColor", "ResultSelectedColor", "ButtonColor", "ButtonHoverColor", "InputHintColor", "OverlayBusyColor",
-        //    "TextButtonDisabledBackgroundColor", "TextButtonDisabledForegroundColor", "TextButtonBackgroundColor", "TextButtonHoverColor", "TextButtonPressedColor",
-        //    "ComboBoxColor", "ComboBoxHoverColor", "ComboBoxTextColor", "InputCheckboxColor", "InputCheckboxHoverColor", "InputCheckboxCheckedColor", "InputCheckboxCheckedHoverColor",
-        //    "CheckboxColor", "CheckboxMarkColor", "CheckboxTextColor"};
+        public string Name = "";
+        public ColorEntry[] ColorEntries = new ColorEntry[] { };
     }
 
     public partial class qgrepSearchWindowControl : UserControl
@@ -83,6 +78,7 @@ namespace qgrepSearch.ToolWindows
         private qgrepSearchPackage Package;
         public string ConfigPath = "";
         public ConfigParser ConfigParser = null;
+        public ColorScheme[] colorSchemes = new ColorScheme[0];
         static public string[] colorsAvailable = new string[]{ "BackgroundColor", "ForegroundColor", "BorderColor", "BorderSelectionColor", "BorderHoverColor", 
             "ResultFileColor", "ResultTextColor", "ResultHighlightColor", "ResultHoverColor", "ResultSelectedColor", "ButtonColor", "ButtonHoverColor", "InputHintColor", "OverlayBusyColor",
             "TextButtonDisabledBackgroundColor", "TextButtonDisabledForegroundColor", "TextButtonBackgroundColor", "TextButtonHoverColor", "TextButtonPressedColor",
@@ -119,6 +115,9 @@ namespace qgrepSearch.ToolWindows
             {
                 SolutionLoaded();
             }
+
+            string colorSchemesJson = System.Text.Encoding.Default.GetString(qgrepSearch.Properties.Resources.colors_schemes);
+            colorSchemes = JsonConvert.DeserializeObject<ColorScheme[]>(colorSchemesJson);
 
             UpdateTimer.Enabled = true;
 
@@ -170,10 +169,6 @@ namespace qgrepSearch.ToolWindows
                 WarningText.Visibility = Visibility.Hidden;
                 InitButton.Visibility = Visibility.Visible;
                 CleanButton.Visibility = Visibility.Visible;
-
-                ColorScheme[] asd = new ColorScheme[] { new ColorScheme() };
-                string json = JsonConvert.SerializeObject(asd);
-                MessageBox.Show(json);
             }
         }
 
@@ -190,10 +185,12 @@ namespace qgrepSearch.ToolWindows
 
         public void UpdateColorsFromSettings()
         {
-            foreach(var availableColor in colorsAvailable)
+            if(Settings.Default.ColorScheme < colorSchemes.Length)
             {
-                System.Drawing.Color settingsColor = (System.Drawing.Color)typeof(Settings).GetProperty(availableColor).GetValue(Settings.Default);
-                Resources[availableColor] = new SolidColorBrush(ConvertColor(settingsColor));
+                foreach(ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
+                {
+                    Resources[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
+                }
             }
         }
 

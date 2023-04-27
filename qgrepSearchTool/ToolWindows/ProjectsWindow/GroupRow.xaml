@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
-    <Grid Name="GroupGrid" Style="{DynamicResource HoverableRow}" MouseEnter="GroupGrid_MouseEnter" MouseLeave="GroupGrid_MouseLeave" MouseDown="GroupGrid_MouseDown">
+    <Grid Name="GroupGrid" Style="{DynamicResource SelectableRow}" MouseEnter="GroupGrid_MouseEnter" MouseLeave="GroupGrid_MouseLeave" MouseDown="GroupGrid_MouseDown">
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
             <Label Name="GroupName" Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=GroupName}" />
         </StackPanel>

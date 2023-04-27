@@ -1,244 +1,244 @@
 [
-    {
-        "Name": "Dark",
-        "ColorEntries": [
-            {
-                "Name": "BackgroundColor",
-                "Color": "25, 35, 44"
-            },
-            {
-                "Name": "ForegroundColor",
-                "Color": "White"
-            },
-            {
-                "Name": "BorderColor",
-                "Color": "171, 173, 179"
-            },
-            {
-                "Name": "BorderHoverColor",
-                "Color": "0, 200, 215"
-            },
-            {
-                "Name": "BorderSelectionColor",
-                "Color": "0, 120, 215"
-            },
-            {
-                "Name": "ResultFileColor",
-                "Color": "DarkGray"
-            },
-            {
-                "Name": "ResultTextColor",
-                "Color": "AliceBlue"
-            },
-            {
-                "Name": "ResultHighlightColor",
-                "Color": "DeepSkyBlue"
-            },
-            {
-                "Name": "ResultHoverColor",
-                "Color": "49, 69, 87"
-            },
-            {
-                "Name": "ResultSelectedColor",
-                "Color": "15, 92, 148"
-            },
-            {
-                "Name": "ButtonColor",
-                "Color": "Gray"
-            },
-            {
-                "Name": "ButtonHoverColor",
-                "Color": "White"
-            },
-            {
-                "Name": "InputHintColor",
-                "Color": "Gray"
-            },
-            {
-                "Name": "OverlayBusyColor",
-                "Color": "124, 0, 0, 0"
-            },
-            {
-                "Name": "TextButtonDisabledBackgroundColor",
-                "Color": "56, 97, 141"
-            },
-            {
-                "Name": "TextButtonDisabledForegroundColor",
-                "Color": "180, 196, 212"
-            },
-            {
-                "Name": "TextButtonBackgroundColor",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "TextButtonHoverColor",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "TextButtonPressedColor",
-                "Color": "2, 23, 45"
-            },
-            {
-                "Name": "ComboBoxColor",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "ComboBoxHoverColor",
-                "Color": ">6, 57, 112"
-            },
-            {
-                "Name": "ComboBoxTextColor",
-                "Color": "White"
-            },
-            {
-                "Name": "InputCheckboxColor",
-                "Color": "87, 93, 122"
-            },
-            {
-                "Name": "InputCheckboxHoverColor",
-                "Color": "171, 174, 189"
-            },
-            {
-                "Name": "InputCheckboxCheckedColor",
-                "Color": "White"
-            },
-            {
-                "Name": "InputCheckboxCheckedHoverColor",
-                "Color": "221, 223, 228"
-            },
-            {
-                "Name": "CheckboxColor",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "CheckboxMarkColor",
-                "Color": "White"
-            },
-            {
-                "Name": "CheckboxTextColor",
-                "Color": "White"
-            }
-        ]
-    },
-    {
-        "Name": "Light",
-        "ColorEntries": [
-            {
-                "Name": "BackgroundColor",
-                "Color": "25, 35, 44"
-            },
-            {
-                "Name": "ForegroundColor",
-                "Color": "White"
-            },
-            {
-                "Name": "BorderColor",
-                "Color": "171, 173, 179"
-            },
-            {
-                "Name": "BorderHoverColor",
-                "Color": "0, 200, 215"
-            },
-            {
-                "Name": "BorderSelectionColor",
-                "Color": "0, 120, 215"
-            },
-            {
-                "Name": "ResultFileColor",
-                "Color": "DarkGray"
-            },
-            {
-                "Name": "ResultTextColor",
-                "Color": "AliceBlue"
-            },
-            {
-                "Name": "ResultHighlightColor",
-                "Color": "DeepSkyBlue"
-            },
-            {
-                "Name": "ResultHoverColor",
-                "Color": "49, 69, 87"
-            },
-            {
-                "Name": "ResultSelectedColor",
-                "Color": "15, 92, 148"
-            },
-            {
-                "Name": "ButtonColor",
-                "Color": "Gray"
-            },
-            {
-                "Name": "ButtonHoverColor",
-                "Color": "White"
-            },
-            {
-                "Name": "InputHintColor",
-                "Color": "Gray"
-            },
-            {
-                "Name": "OverlayBusyColor",
-                "Color": "124, 0, 0, 0"
-            },
-            {
-                "Name": "TextButtonDisabledBackgroundColor",
-                "Color": "56, 97, 141"
-            },
-            {
-                "Name": "TextButtonDisabledForegroundColor",
-                "Color": "180, 196, 212"
-            },
-            {
-                "Name": "TextButtonBackgroundColor",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "TextButtonHoverColor",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "TextButtonPressedColor",
-                "Color": "2, 23, 45"
-            },
-            {
-                "Name": "ComboBoxColor",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "ComboBoxHoverColor",
-                "Color": ">6, 57, 112"
-            },
-            {
-                "Name": "ComboBoxTextColor",
-                "Color": "White"
-            },
-            {
-                "Name": "InputCheckboxColor",
-                "Color": "87, 93, 122"
-            },
-            {
-                "Name": "InputCheckboxHoverColor",
-                "Color": "171, 174, 189"
-            },
-            {
-                "Name": "InputCheckboxCheckedColor",
-                "Color": "White"
-            },
-            {
-                "Name": "InputCheckboxCheckedHoverColor",
-                "Color": "221, 223, 228"
-            },
-            {
-                "Name": "CheckboxColor",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "CheckboxMarkColor",
-                "Color": "White"
-            },
-            {
-                "Name": "CheckboxTextColor",
-                "Color": "White"
-            }
-        ]
-    }
+  {
+    "Name": "Dark",
+    "ColorEntries": [
+      {
+        "Name": "BackgroundColor",
+        "Color": "25, 35, 44"
+      },
+      {
+        "Name": "ForegroundColor",
+        "Color": "White"
+      },
+      {
+        "Name": "BorderColor",
+        "Color": "171, 173, 179"
+      },
+      {
+        "Name": "BorderHoverColor",
+        "Color": "0, 200, 215"
+      },
+      {
+        "Name": "BorderSelectionColor",
+        "Color": "0, 120, 215"
+      },
+      {
+        "Name": "ResultFileColor",
+        "Color": "DarkGray"
+      },
+      {
+        "Name": "ResultTextColor",
+        "Color": "AliceBlue"
+      },
+      {
+        "Name": "ResultHighlightColor",
+        "Color": "DeepSkyBlue"
+      },
+      {
+        "Name": "ResultHoverColor",
+        "Color": "49, 69, 87"
+      },
+      {
+        "Name": "ResultSelectedColor",
+        "Color": "15, 92, 148"
+      },
+      {
+        "Name": "ButtonColor",
+        "Color": "Gray"
+      },
+      {
+        "Name": "ButtonHoverColor",
+        "Color": "White"
+      },
+      {
+        "Name": "InputHintColor",
+        "Color": "Gray"
+      },
+      {
+        "Name": "OverlayBusyColor",
+        "Color": "124, 0, 0, 0"
+      },
+      {
+        "Name": "TextButtonDisabledBackgroundColor",
+        "Color": "56, 97, 141"
+      },
+      {
+        "Name": "TextButtonDisabledForegroundColor",
+        "Color": "180, 196, 212"
+      },
+      {
+        "Name": "TextButtonBackgroundColor",
+        "Color": "30, 129, 176"
+      },
+      {
+        "Name": "TextButtonHoverColor",
+        "Color": "6, 57, 112"
+      },
+      {
+        "Name": "TextButtonPressedColor",
+        "Color": "2, 23, 45"
+      },
+      {
+        "Name": "ComboBoxColor",
+        "Color": "30, 129, 176"
+      },
+      {
+        "Name": "ComboBoxHoverColor",
+        "Color": "6, 57, 112"
+      },
+      {
+        "Name": "ComboBoxTextColor",
+        "Color": "White"
+      },
+      {
+        "Name": "InputCheckboxColor",
+        "Color": "87, 93, 122"
+      },
+      {
+        "Name": "InputCheckboxHoverColor",
+        "Color": "171, 174, 189"
+      },
+      {
+        "Name": "InputCheckboxCheckedColor",
+        "Color": "White"
+      },
+      {
+        "Name": "InputCheckboxCheckedHoverColor",
+        "Color": "221, 223, 228"
+      },
+      {
+        "Name": "CheckboxColor",
+        "Color": "30, 129, 176"
+      },
+      {
+        "Name": "CheckboxMarkColor",
+        "Color": "White"
+      },
+      {
+        "Name": "CheckboxTextColor",
+        "Color": "White"
+      }
+    ]
+  },
+  {
+    "Name": "Light",
+    "ColorEntries": [
+      {
+        "Name": "BackgroundColor",
+        "Color": "White"
+      },
+      {
+        "Name": "ForegroundColor",
+        "Color": "Black"
+      },
+      {
+        "Name": "BorderColor",
+        "Color": "Gray"
+      },
+      {
+        "Name": "BorderHoverColor",
+        "Color": "Black"
+      },
+      {
+        "Name": "BorderSelectionColor",
+        "Color": "Black"
+      },
+      {
+        "Name": "ResultFileColor",
+        "Color": "Gray"
+      },
+      {
+        "Name": "ResultTextColor",
+        "Color": "Black"
+      },
+      {
+        "Name": "ResultHighlightColor",
+        "Color": "37, 165, 190"
+      },
+      {
+        "Name": "ResultHoverColor",
+        "Color": "211, 234, 242"
+      },
+      {
+        "Name": "ResultSelectedColor",
+        "Color": "190, 224, 236"
+      },
+      {
+        "Name": "ButtonColor",
+        "Color": "Gray"
+      },
+      {
+        "Name": "ButtonHoverColor",
+        "Color": "Black"
+      },
+      {
+        "Name": "InputHintColor",
+        "Color": "Gray"
+      },
+      {
+        "Name": "OverlayBusyColor",
+        "Color": "124, 0, 0, 0"
+      },
+      {
+        "Name": "TextButtonDisabledBackgroundColor",
+        "Color": "56, 97, 141"
+      },
+      {
+        "Name": "TextButtonDisabledForegroundColor",
+        "Color": "180, 196, 212"
+      },
+      {
+        "Name": "TextButtonBackgroundColor",
+        "Color": "180, 196, 212"
+      },
+      {
+        "Name": "TextButtonHoverColor",
+        "Color": "190, 224, 236"
+      },
+      {
+        "Name": "TextButtonPressedColor",
+        "Color": "Gray"
+      },
+      {
+        "Name": "ComboBoxColor",
+        "Color": "180, 196, 212"
+      },
+      {
+        "Name": "ComboBoxHoverColor",
+        "Color": "190, 224, 236"
+      },
+      {
+        "Name": "ComboBoxTextColor",
+        "Color": "Black"
+      },
+      {
+        "Name": "InputCheckboxColor",
+        "Color": "87, 93, 122"
+      },
+      {
+        "Name": "InputCheckboxHoverColor",
+        "Color": "221, 223, 228"
+      },
+      {
+        "Name": "InputCheckboxCheckedColor",
+        "Color": "Black"
+      },
+      {
+        "Name": "InputCheckboxCheckedHoverColor",
+        "Color": "171, 174, 189"
+      },
+      {
+        "Name": "CheckboxColor",
+        "Color": "180, 196, 212"
+      },
+      {
+        "Name": "CheckboxMarkColor",
+        "Color": "Black"
+      },
+      {
+        "Name": "CheckboxTextColor",
+        "Color": "Black"
+      }
+    ]
+  }
 ]
