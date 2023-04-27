@@ -25,16 +25,17 @@
     <SolidColorBrush x:Key="Button.Foreground" Color="Black" />
     <SolidColorBrush x:Key="Button.IsMouseOver.Background" Color="#bee0ec" />
     <SolidColorBrush x:Key="Button.IsMouseDown.Background" Color="Gray" />
-    <SolidColorBrush x:Key="ComboBoxColor" Color="#b4c4d4" />
-    <SolidColorBrush x:Key="ComboBoxHoverColor" Color="#bee0ec" />
-    <SolidColorBrush x:Key="ComboBoxTextColor" Color="Black" />
-    <SolidColorBrush x:Key="InputCheckboxColor" Color="#575d7a" />
-    <SolidColorBrush x:Key="InputCheckboxHoverColor" Color="#abaebd" />
-    <SolidColorBrush x:Key="InputCheckboxCheckedColor" Color="Black" />
-    <SolidColorBrush x:Key="InputCheckboxCheckedHoverColor" Color="#dddfe4" />
-    <SolidColorBrush x:Key="CheckboxColor" Color="#b4c4d4" />
-    <SolidColorBrush x:Key="CheckboxMarkColor" Color="Black" />
-    <SolidColorBrush x:Key="CheckboxTextColor" Color="Black" />
+    <SolidColorBrush x:Key="ComboBox.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="ComboBox.IsMouseOver.Background" Color="#bee0ec" />
+    <SolidColorBrush x:Key="ComboBox.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="TextBox.Toggle.Foreground" Color="#575d7a" />
+    <SolidColorBrush x:Key="TextBox.Toggle.IsMouseOver.Foreground" Color="#abaebd" />
+    <SolidColorBrush x:Key="TextBox.Toggle.IsChecked.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="TextBox.Toggle.IsChecked.IsMouseOver.Foreground" Color="#dddfe4" />
+    <SolidColorBrush x:Key="CheckBox.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="CheckBox.IsMouseOver.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="CheckBox.Mark" Color="Black" />
+    <SolidColorBrush x:Key="CheckBox.Foreground" Color="Black" />
     <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -143,8 +144,8 @@
         <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
     </ControlTemplate>
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
-        <Setter Property="Background" Value="{DynamicResource ComboBoxColor}" />
-        <Setter Property="Foreground" Value="{DynamicResource ComboBoxTextColor}" />
+        <Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource ComboBox.Foreground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -161,14 +162,14 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ComboBoxHoverColor}"/>
+                <Setter Property="Background" Value="{DynamicResource ComboBox.IsMouseOver.Background}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="Foreground" Value="{DynamicResource ComboBoxTextColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource ComboBox.Foreground}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
@@ -195,8 +196,8 @@
     <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="Foreground" Value="{DynamicResource ComboBoxTextColor}"/>
-        <Setter Property="Background" Value="{DynamicResource ComboBoxColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ComboBox.Foreground}"/>
+        <Setter Property="Background" Value="{DynamicResource ComboBox.Background}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
@@ -208,14 +209,14 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ComboBoxHoverColor}"/>
+                <Setter Property="Background" Value="{DynamicResource ComboBox.IsMouseOver.Background}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
     <Style x:Key="SomeCheckbox" TargetType="{x:Type CheckBox}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="Foreground" Value="{DynamicResource InputCheckboxColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.Foreground}" />
         <Setter Property="Margin" Value="5,0,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Height" Value="16" />
@@ -240,41 +241,44 @@
                     <Condition Property="IsMouseOver" Value="True" />
                     <Condition Property="IsChecked" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource InputCheckboxCheckedHoverColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsChecked.IsMouseOver.Foreground}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver" Value="True" />
                     <Condition Property="IsChecked" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource InputCheckboxHoverColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsMouseOver.Foreground}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver" Value="False" />
                     <Condition Property="IsChecked" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource InputCheckboxCheckedColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsChecked.Foreground}" />
             </MultiTrigger>
         </Style.Triggers>
     </Style>
     <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="Foreground" Value="{DynamicResource CheckboxTextColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource CheckBox.Foreground}" />
+        <Setter Property="Background" Value="{DynamicResource CheckBox.Background}" />
         <Setter Property="Margin" Value="5,6,0,4" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Height" Value="16" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Width" Value="Auto" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
                     <BulletDecorator Background="Transparent">
                         <BulletDecorator.Bullet>
-                            <Border x:Name="Border" Width="13" Height="13" CornerRadius="0" BorderThickness="0" Background="{DynamicResource CheckboxColor}">
+                            <Border x:Name="Border" Width="13" Height="13" CornerRadius="0" BorderThickness="0" Background="{TemplateBinding Background}">
                                 <Grid>
-                                    <Path Visibility="Collapsed" Width="7" Height="7" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckboxMarkColor}" Data="M 0 0 L 7 7 M 0 7 L 7 0" />
-                                    <Path Visibility="Collapsed" Width="7" Height="7" x:Name="InderminateMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckboxMarkColor}" Data="M 0 7 L 7 0" />
+                                    <Path Visibility="Collapsed" Width="7" Height="7" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckBox.Mark}" Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+                                    <Path Visibility="Collapsed" Width="7" Height="7" x:Name="InderminateMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckBox.Mark}" Data="M 0 7 L 7 0" />
                                 </Grid>
                             </Border>
                         </BulletDecorator.Bullet>
@@ -283,6 +287,9 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource CheckBox.IsMouseOver.Background}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

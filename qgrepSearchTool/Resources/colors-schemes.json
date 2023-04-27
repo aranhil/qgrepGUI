@@ -99,43 +99,47 @@
             "Color": "2, 23, 45"
         },
         {
-            "Name": "ComboBoxColor",
+            "Name": "ComboBox.Background",
             "Color": "30, 129, 176"
         },
         {
-            "Name": "ComboBoxHoverColor",
+            "Name": "ComboBox.IsMouseOver.Background",
             "Color": "6, 57, 112"
         },
         {
-            "Name": "ComboBoxTextColor",
+            "Name": "ComboBox.Foreground",
             "Color": "White"
         },
         {
-            "Name": "InputCheckboxColor",
+            "Name": "TextBox.Toggle.Foreground",
             "Color": "87, 93, 122"
         },
         {
-            "Name": "InputCheckboxHoverColor",
+            "Name": "TextBox.Toggle.IsMouseOver.Foreground",
             "Color": "171, 174, 189"
         },
         {
-            "Name": "InputCheckboxCheckedColor",
+            "Name": "TextBox.Toggle.IsChecked.Foreground",
             "Color": "White"
         },
         {
-            "Name": "InputCheckboxCheckedHoverColor",
+            "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
             "Color": "221, 223, 228"
         },
         {
-            "Name": "CheckboxColor",
+            "Name": "CheckBox.Background",
             "Color": "30, 129, 176"
         },
         {
-            "Name": "CheckboxMarkColor",
+            "Name": "CheckBox.IsMouseOver.Background",
+            "Color": "6, 57, 112"
+        },
+        {
+            "Name": "CheckBox.Mark",
             "Color": "White"
         },
         {
-            "Name": "CheckboxTextColor",
+            "Name": "CheckBox.Foreground",
             "Color": "White"
         }
     ]
@@ -240,43 +244,47 @@
             "Color": "Gray"
         },
         {
-            "Name": "ComboBoxColor",
+            "Name": "ComboBox.Background",
             "Color": "180, 196, 212"
         },
         {
-            "Name": "ComboBoxHoverColor",
+            "Name": "ComboBox.IsMouseOver.Background",
             "Color": "190, 224, 236"
         },
         {
-            "Name": "ComboBoxTextColor",
+            "Name": "ComboBox.Foreground",
             "Color": "Black"
         },
         {
-            "Name": "InputCheckboxColor",
+            "Name": "TextBox.Toggle.Foreground",
             "Color": "87, 93, 122"
         },
         {
-            "Name": "InputCheckboxHoverColor",
+            "Name": "TextBox.Toggle.IsMouseOver.Foreground",
             "Color": "37, 39, 51"
         },
         {
-            "Name": "InputCheckboxCheckedColor",
+            "Name": "TextBox.Toggle.IsChecked.Foreground",
             "Color": "Black"
         },
         {
-            "Name": "InputCheckboxCheckedHoverColor",
+            "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
             "Color": "24, 26, 34"
         },
         {
-            "Name": "CheckboxColor",
+            "Name": "CheckBox.Background",
             "Color": "180, 196, 212"
         },
         {
-            "Name": "CheckboxMarkColor",
+            "Name": "CheckBox.IsMouseOver.Background",
+            "Color": "190, 224, 236"
+        },
+        {
+            "Name": "CheckBox.Mark",
             "Color": "Black"
         },
         {
-            "Name": "CheckboxTextColor",
+            "Name": "CheckBox.Foreground",
             "Color": "Black"
         }
     ]
