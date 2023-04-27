@@ -70,7 +70,7 @@
                 <Button Name="CleanButton" Style="{StaticResource SomeButtonStyle}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
             </StackPanel>
             <StackPanel Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Name="ColorsButton" Style="{StaticResource SomeButtonStyle}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>
+                <!--<Button Name="ColorsButton" Style="{StaticResource SomeButtonStyle}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>-->
                 <Button Name="AdvancedButton" Style="{StaticResource SomeButtonStyle}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
                 <Button Name="PathsButton" Style="{StaticResource SomeButtonStyle}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Path settings"/>
             </StackPanel>
