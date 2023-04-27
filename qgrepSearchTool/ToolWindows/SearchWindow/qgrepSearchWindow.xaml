@@ -73,6 +73,28 @@
                 <!--<Button Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>-->
                 <Button Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
                 <Button Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Path settings"/>
+                <ComboBox IsEditable="True" IsReadOnly="False" ItemsSource="{Binding FilterItems}" Margin="5,2,5,2">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsChecked}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBoxItem>
+                        <StackPanel>
+                            <CheckBox Content="Code"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel>
+                            <CheckBox Content="Data"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel>
+                            <CheckBox Content="Engine"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+                </ComboBox>
             </StackPanel>
         </Grid>
     </Grid>

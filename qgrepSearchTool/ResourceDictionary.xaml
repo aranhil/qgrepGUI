@@ -180,7 +180,7 @@
                         <ToggleButton x:Name="ToggleButton" Style="{DynamicResource ComboBoxToggleButton}" Grid.Column="2" Focusable="false" ClickMode="Press" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                         <ContentPresenter x:Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3,3,23,3" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
                         <TextBox x:Name="PART_EditableTextBox" Style="{x:Null}" Template="{StaticResource ComboBoxTextBox}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="3,3,23,3" Focusable="True" Background="Transparent" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}" />
-                        <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                        <Popup x:Name="Popup" Placement="Top" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
                             <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder" BorderThickness="0"/>
                                 <ScrollViewer Margin="0" SnapsToDevicePixels="True">
@@ -434,4 +434,154 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
     </Style>
+
+    <ControlTemplate x:Key="ComboboxToggleButton" TargetType="{x:Type ToggleButton}">
+        <Grid Background="{Binding Background,RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="Border" Grid.ColumnSpan="2" Background="Transparent"  BorderBrush="Black" BorderThickness="{Binding BorderThickness,RelativeSource={RelativeSource TemplatedParent}}"/>
+            <Path x:Name="Arrow" Grid.Column="1" Opacity="1" Stroke="Black" StrokeThickness="1.5" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 6 6 L 12 0" />
+            <Path x:Name="Arrow_checked" Opacity="0" Grid.Column="1" Fill="Black" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 6 6 L 12 0 Z" />
+            <ContentPresenter TextElement.FontFamily="Segoe Ui Dark" TextElement.FontSize="18" TextElement.Foreground="Black" VerticalAlignment="Center"  Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="True" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="Gray" />
+                <Setter TargetName="Border" Property="BorderThickness" Value="1.2" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="False">
+                <Setter Property="Opacity" Value="1" TargetName="Arrow"/>
+                <Setter Property="Opacity" Value="0" TargetName="Arrow_checked"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                <Setter Property="Opacity" Value="0" TargetName="Arrow"/>
+                <Setter Property="Opacity" Value="1" TargetName="Arrow_checked"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="Gray" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="White" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type Expander}">
+        <Setter Property="FontFamily" Value="Segoe Ui Dark"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="MaxHeight" Value="200"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Expander}">
+                    <DockPanel>
+                        <ToggleButton x:Name="HeaderSite" Height="35" Background="{TemplateBinding Background}" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" DockPanel.Dock="Bottom" Foreground="Black"   FontStyle="{TemplateBinding FontStyle}"   FontFamily="Segoe UI Dark" 
+                     IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"   Template="{StaticResource ComboboxToggleButton}" />
+                        <Border  BorderThickness="0,4.5,0,0" BorderBrush="Transparent">
+                            <Border x:Name="bod" BorderBrush="Transparent" SnapsToDevicePixels="True" BorderThickness="1">
+                                <ContentPresenter x:Name="ExpandSite"  Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Border>
+                        </Border>
+                    </DockPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="true">
+                            <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                            <Setter Property="BorderBrush" TargetName="bod" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="Gray"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="itemstyle"   TargetType="{x:Type ListBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle"  Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid x:Name="Border"  Height="40"  SnapsToDevicePixels="true">
+                        <Grid.Background>
+                            <SolidColorBrush Color="Transparent" />
+                        </Grid.Background>
+                        <ContentPresenter Name="cmb_name" TextElement.FontFamily="Segoe Ui Dark" TextElement.FontSize="18" TextElement.Foreground="Black" Margin="10,0,0,0" VerticalAlignment="Center"></ContentPresenter>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Gray"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle">
+            <Setter.Value>
+                <Style TargetType="Control">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border BorderBrush="{DynamicResource customBlueBrush}" BorderThickness="1" Margin="1,2,2,2" >
+                                    <Rectangle Fill="{DynamicResource customBlueBrush}" Opacity="0.1"></Rectangle>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--<Style  TargetType="CheckBox" >
+        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid x:Name="ab" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Rectangle VerticalAlignment="Center" Height="20" Width="20"  Fill="White" HorizontalAlignment="Left"></Rectangle>
+                        <Grid x:Name="checkGrid" VerticalAlignment="Center" Height="20" Width="20" Background="Black" HorizontalAlignment="Left">
+                            <Viewbox Height="13" Width="13">
+                                <Path x:Name="Check" SnapsToDevicePixels="True" UseLayoutRounding="True" Width="18.7969" Height="16.3094" Canvas.Left="0" Canvas.Top="1.52588e-005" Stretch="Fill" Fill="White" Data="F1 M 0.731262,8.75935L 0.106262,8.08437C 0.0354614,7.9948 0,7.8979 0,7.79375C 0,7.66875 0.0479736,7.5573 0.143799,7.45937L 1.94067,5.77187C 2.02606,5.69893 2.12708,5.66249 2.24377,5.66249C 2.30212,5.66249 2.36096,5.67397 2.42035,5.69685C 2.47974,5.71977 2.52814,5.75417 2.56567,5.79997L 7.5188,11.1406L 16.0438,0.165604C 16.1417,0.055191 16.2584,1.52588e-005 16.3938,1.52588e-005C 16.4979,1.52588e-005 16.5896,0.0322723 16.6688,0.0968475L 18.6313,1.60939C 18.6709,1.64272 18.7084,1.69011 18.7438,1.75154C 18.7792,1.813 18.7969,1.8698 18.7969,1.92189C 18.7969,2.03435 18.7646,2.1385 18.7,2.23439L 7.74377,16.3094L 0.731262,8.75935 Z " />
+                            </Viewbox>
+                        </Grid>
+                        <Grid Background="Transparent" Grid.Column="1" IsHitTestVisible="True" HorizontalAlignment="Stretch">
+                            <TextBlock VerticalAlignment="Center"  FontSize="18" FontFamily="Segoe Ui Dark" Foreground="Black"  TextTrimming="CharacterEllipsis">
+                        <ContentPresenter></ContentPresenter>
+                            </TextBlock>
+                        </Grid>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Opacity" Value="1"  TargetName="Check"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Opacity" Value="0" TargetName="Check"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle">
+            <Setter.Value>
+                <Style TargetType="Control">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border BorderBrush="{DynamicResource customBlueBrush}" SnapsToDevicePixels="True" BorderThickness="1" Margin="-5,1,3,1" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
 </ResourceDictionary>
