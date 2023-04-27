@@ -150,6 +150,29 @@ namespace qgrepSearch.ToolWindows
             }
         }
 
+        public void UpdateFilters()
+        {
+            Visibility visibility = Visibility.Collapsed;
+            FiltersComboBox.SelectedItems.Clear();
+
+            if (ConfigParser != null)
+            {
+                FiltersComboBox.ItemsSource = ConfigParser.ConfigProjects;
+
+                if (ConfigParser.ConfigProjects.Count > 0)
+                {
+                    FiltersComboBox.SelectedItems.Add(ConfigParser.ConfigProjects[0]);
+                }
+
+                if (ConfigParser.ConfigProjects.Count > 1)
+                {
+                    visibility = Visibility.Visible;
+                }
+            }
+
+            FiltersComboBox.Visibility = visibility;
+        }
+
         public void SolutionLoaded()
         {
             if (DTE != null)
@@ -164,9 +187,8 @@ namespace qgrepSearch.ToolWindows
                 ConfigParser = new ConfigParser(solutionPath);
                 ConfigParser.LoadConfig();
 
-                _combo.ItemsSource = ConfigParser.ConfigProjects;
-
                 UpdateDatabase();
+                UpdateFilters();
 
                 WarningText.Visibility = Visibility.Hidden;
                 InitButton.Visibility = Visibility.Visible;
@@ -267,13 +289,13 @@ namespace qgrepSearch.ToolWindows
 
             string configs = "";
 
-            for (int i = 0; i < _combo.SelectedItems.Count; i++)
+            for (int i = 0; i < FiltersComboBox.SelectedItems.Count; i++)
             {
-                ConfigProject configProject = _combo.SelectedItems[i] as ConfigProject;
+                ConfigProject configProject = FiltersComboBox.SelectedItems[i] as ConfigProject;
                 if(configProject != null)
                 {
                     configs += configProject.Path;
-                    if (i < _combo.SelectedItems.Count - 1)
+                    if (i < FiltersComboBox.SelectedItems.Count - 1)
                     {
                         configs += ",";
                     }
@@ -886,7 +908,7 @@ namespace qgrepSearch.ToolWindows
             ProcessQueue();
         }
 
-        private void _combo_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        private void FiltersComboBox_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
         {
             Find();
         }

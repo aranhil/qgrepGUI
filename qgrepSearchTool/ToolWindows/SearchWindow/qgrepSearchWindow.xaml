@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
-             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit" xmlns:wpfTool1="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown" LostFocus="UserControl_LostFocus">
     <UserControl.Resources>
-        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
+        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" >
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -74,7 +75,7 @@
                 <!--<Button Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>-->
                 <Button Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
                 <Button Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Path settings"/>
-                <wpfTool:CheckComboBox x:Name="_combo" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="_combo_ItemSelectionChanged">
+                <wpfTool:CheckComboBox IsDropDownOpen="True" ItemsPanel="{DynamicResource CheckComboBoxItemsPanel1}" x:Name="FiltersComboBox" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
                 </wpfTool:CheckComboBox>
             </StackPanel>
         </Grid>

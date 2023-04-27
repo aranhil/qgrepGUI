@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -139,7 +140,7 @@ namespace qgrepSearch.Classes
         public string Path = "";
         private string PathSuffix = @"\.qgrep\";
 
-        public List<ConfigProject> ConfigProjects = new List<ConfigProject>();
+        public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
 
         public ConfigParser(string Path)
         {

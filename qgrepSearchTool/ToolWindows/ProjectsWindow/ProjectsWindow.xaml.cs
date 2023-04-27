@@ -44,6 +44,7 @@ namespace qgrepSearch.ToolWindows
             {
                 Parent.ConfigParser.SaveConfig();
                 Parent.ConfigParser.LoadConfig();
+                Parent.UpdateFilters();
                 LoadProjectsFromConfig();
                 LoadGroupsFromConfig();
             }
@@ -189,9 +190,7 @@ namespace qgrepSearch.ToolWindows
         public void AddProject()
         {
             Parent.ConfigParser.AddNewProject();
-
-            Parent.ConfigParser.SaveConfig();
-            LoadProjectsFromConfig();
+            LoadFromConfig();
         }
 
         public void SelectGroup(GroupRow group)
