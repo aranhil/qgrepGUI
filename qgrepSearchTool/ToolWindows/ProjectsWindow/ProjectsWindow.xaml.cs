@@ -51,7 +51,7 @@ namespace qgrepSearch.ToolWindows
 
         private void LoadColorsFromResources()
         {
-            Dictionary<string, System.Windows.Media.Color> colors = Parent.GetColorsFromResources();
+            Dictionary<string, System.Windows.Media.Color> colors = Parent.GetColorsFromColorScheme();
 
             foreach (var color in colors)
             {

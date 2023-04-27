@@ -37,7 +37,7 @@ namespace qgrepSearch.ToolWindows
 
         private void LoadColorsFromResources()
         {
-            Dictionary<string, System.Windows.Media.Color> colors = SearchWindow.GetColorsFromResources();
+            Dictionary<string, System.Windows.Media.Color> colors = SearchWindow.GetColorsFromColorScheme();
 
             foreach (var color in colors)
             {
@@ -45,19 +45,6 @@ namespace qgrepSearch.ToolWindows
                 Resources[color.Key] = new SolidColorBrush(color.Value);
                 colorPicker.SelectedColor = color.Value;
             }
-        }
-
-        private Dictionary<string, System.Windows.Media.Color> GetColors()
-        {
-            Dictionary<string, System.Windows.Media.Color> colors = new Dictionary<string, System.Windows.Media.Color>();
-
-            foreach (var availableColor in qgrepSearchWindowControl.colorsAvailable)
-            {
-                ColorPicker colorPicker = (ColorPicker)this.FindName(availableColor);
-                colors[availableColor] = colorPicker.SelectedColor.Value;
-            }
-
-            return colors;
         }
 
         private void Load_Click(object sender, RoutedEventArgs e)
@@ -70,21 +57,11 @@ namespace qgrepSearch.ToolWindows
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            SearchWindow.UpdateSettingsColors(GetColors());
             Feedback.Content = "Saved colors to settings!";
         }
 
         private void Apply_Click(object sender, RoutedEventArgs e)
         {
-            SearchWindow.UpdateColors(GetColors());
-
-            Dictionary<string, System.Windows.Media.Color> colors = SearchWindow.GetColorsFromResources();
-            foreach (var availableColor in qgrepSearchWindowControl.colorsAvailable)
-            {
-                ColorPicker colorPicker = (ColorPicker)this.FindName(availableColor);
-                Resources[availableColor] = new SolidColorBrush(colorPicker.SelectedColor.Value);
-            }
-
             Feedback.Content = "Applied colors. Don't forget to save them!";
         }
 

@@ -79,11 +79,6 @@ namespace qgrepSearch.ToolWindows
         public string ConfigPath = "";
         public ConfigParser ConfigParser = null;
         public ColorScheme[] colorSchemes = new ColorScheme[0];
-        static public string[] colorsAvailable = new string[]{ "BackgroundColor", "ForegroundColor", "BorderColor", "BorderSelectionColor", "BorderHoverColor", 
-            "ResultFileColor", "ResultTextColor", "ResultHighlightColor", "ResultHoverColor", "ResultSelectedColor", "ButtonColor", "ButtonHoverColor", "InputHintColor", "OverlayBusyColor",
-            "TextButtonDisabledBackgroundColor", "TextButtonDisabledForegroundColor", "TextButtonBackgroundColor", "TextButtonHoverColor", "TextButtonPressedColor",
-            "ComboBoxColor", "ComboBoxHoverColor", "ComboBoxTextColor", "InputCheckboxColor", "InputCheckboxHoverColor", "InputCheckboxCheckedColor", "InputCheckboxCheckedHoverColor",
-            "CheckboxColor", "CheckboxMarkColor", "CheckboxTextColor"};
 
         public string Errors = "";
         private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
@@ -201,34 +196,17 @@ namespace qgrepSearch.ToolWindows
                 Resources[color.Key] = new SolidColorBrush(color.Value);
             }
         }
-        public void UpdateSettingsColors(Dictionary<string, System.Windows.Media.Color> colors)
-        {
-            foreach (var color in colors)
-            {
-                typeof(Settings).GetProperty(color.Key).SetValue(Settings.Default, ConvertColor(color.Value));
-            }
 
-            Settings.Default.Save();
-        }
-
-        public Dictionary<string, System.Windows.Media.Color> GetColorsFromResources()
+        public Dictionary<string, System.Windows.Media.Color> GetColorsFromColorScheme()
         {
             Dictionary<string, System.Windows.Media.Color> results = new Dictionary<string, System.Windows.Media.Color>();
-            foreach (var availableColor in colorsAvailable)
-            {
-                SolidColorBrush brush = Resources[availableColor] as SolidColorBrush;
-                results[availableColor] = brush.Color;
-            }
 
-            return results;
-        }
-        public Dictionary<string, System.Windows.Media.Color> GetColorsFromSettings()
-        {
-            Dictionary<string, System.Windows.Media.Color> results = new Dictionary<string, System.Windows.Media.Color>();
-            foreach (var availableColor in colorsAvailable)
+            if (Settings.Default.ColorScheme < colorSchemes.Length)
             {
-                SolidColorBrush brush = Resources[availableColor] as SolidColorBrush;
-                results[availableColor] = ConvertColor((System.Drawing.Color)typeof(Settings).GetProperty(availableColor).GetValue(Settings.Default));
+                foreach (ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
+                {
+                    results[colorEntry.Name] = ConvertColor(colorEntry.Color);
+                }
             }
 
             return results;

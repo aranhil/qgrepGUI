@@ -157,7 +157,7 @@
         },
         {
             "Name": "ResultHighlightColor",
-            "Color": "Black"
+            "Color": "White"
         },
         {
             "Name": "ResultHighlightBackgroundColor",
@@ -225,7 +225,7 @@
         },
         {
             "Name": "InputCheckboxHoverColor",
-            "Color": "221, 223, 228"
+            "Color": "37, 39, 51"
         },
         {
             "Name": "InputCheckboxCheckedColor",
@@ -233,7 +233,7 @@
         },
         {
             "Name": "InputCheckboxCheckedHoverColor",
-            "Color": "171, 174, 189"
+            "Color": "24, 26, 34"
         },
         {
             "Name": "CheckboxColor",
