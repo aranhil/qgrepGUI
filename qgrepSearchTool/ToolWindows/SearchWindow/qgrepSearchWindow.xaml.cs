@@ -72,6 +72,11 @@ namespace qgrepSearch.ToolWindows
         public ColorEntry[] ColorEntries = new ColorEntry[] { };
     }
 
+    public class Customer
+    {
+        public string ContentData { get; set; }
+    }
+
     public partial class qgrepSearchWindowControl : UserControl
     {
         private EnvDTE80.DTE2 DTE;
@@ -145,6 +150,29 @@ namespace qgrepSearch.ToolWindows
             }
         }
 
+        public void UpdateFilters()
+        {
+            Visibility visibility = Visibility.Collapsed;
+            FiltersComboBox.SelectedItems.Clear();
+
+            if (ConfigParser != null)
+            {
+                FiltersComboBox.ItemsSource = ConfigParser.ConfigProjects;
+
+                if (ConfigParser.ConfigProjects.Count > 0)
+                {
+                    FiltersComboBox.SelectedItems.Add(ConfigParser.ConfigProjects[0]);
+                }
+
+                if (ConfigParser.ConfigProjects.Count > 1)
+                {
+                    visibility = Visibility.Visible;
+                }
+            }
+
+            FiltersComboBox.Visibility = visibility;
+        }
+
         public void SolutionLoaded()
         {
             if (DTE != null)
@@ -160,6 +188,7 @@ namespace qgrepSearch.ToolWindows
                 ConfigParser.LoadConfig();
 
                 UpdateDatabase();
+                UpdateFilters();
 
                 WarningText.Visibility = Visibility.Hidden;
                 InitButton.Visibility = Visibility.Visible;
@@ -259,13 +288,19 @@ namespace qgrepSearch.ToolWindows
             arguments.Add("search");
 
             string configs = "";
-            for(int i = 0; i < ConfigParser.ConfigProjects.Count; i++)
+
+            for (int i = 0; i < FiltersComboBox.SelectedItems.Count; i++)
             {
-                configs += ConfigParser.ConfigProjects[i].Path;
-                if(i < ConfigParser.ConfigProjects.Count - 1)
+                ConfigProject configProject = FiltersComboBox.SelectedItems[i] as ConfigProject;
+                if(configProject != null)
                 {
-                    configs += ",";
+                    configs += configProject.Path;
+                    if (i < FiltersComboBox.SelectedItems.Count - 1)
+                    {
+                        configs += ",";
+                    }
                 }
+
             }
             arguments.Add(configs);
 
@@ -871,6 +906,11 @@ namespace qgrepSearch.ToolWindows
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
             ProcessQueue();
+        }
+
+        private void FiltersComboBox_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        {
+            Find();
         }
     }
 }
