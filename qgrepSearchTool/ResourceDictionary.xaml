@@ -1,16 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av">
-    <SolidColorBrush x:Key="BackgroundColor" Color="White" />
-    <SolidColorBrush x:Key="ForegroundColor" Color="Black" />
-    <SolidColorBrush x:Key="ResultFileColor" Color="Gray"/>
-    <SolidColorBrush x:Key="ResultTextColor" Color="Black" />
-    <SolidColorBrush x:Key="ResultHighlightColor" Color="Black" />
-    <SolidColorBrush x:Key="ResultHighlightBackgroundColor" Color="#25a5be" />
-    <SolidColorBrush x:Key="ResultHoverColor" Color="#d3eaf2" />
-    <SolidColorBrush x:Key="ResultSelectedColor" Color="#bee0ec" />
-    <SolidColorBrush x:Key="ButtonColor" Color="Gray" />
-    <SolidColorBrush x:Key="ButtonHoverColor" Color="Black" />
+    <SolidColorBrush x:Key="Background" Color="White" />
+    <SolidColorBrush x:Key="Foreground" Color="Black" />
+    <SolidColorBrush x:Key="Result.File.Foreground" Color="Gray"/>
+    <SolidColorBrush x:Key="Result.Text.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="Result.Highlight.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="Result.Highlight.Background" Color="#25a5be" />
+    <SolidColorBrush x:Key="Result.IsMouseOver.Background" Color="#d3eaf2" />
+    <SolidColorBrush x:Key="Result.IsSelected.Background" Color="#bee0ec" />
+    <SolidColorBrush x:Key="IconButton.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="IconButton.Foreground" Color="Gray" />
+    <SolidColorBrush x:Key="IconButton.IsMouseOver.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="IconButton.IsMouseOver.Foreground" Color="Black" />
     <SolidColorBrush x:Key="BorderColor" Color="Gray" />
     <SolidColorBrush x:Key="BorderHoverColor" Color="Black" />
     <SolidColorBrush x:Key="BorderSelectionColor" Color="Black" />
@@ -45,7 +47,7 @@
     <Style x:Key="NormalTextBlock" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Segoe UI" />
     </Style>
-    <Style x:Key="SomeButtonStyle" TargetType="{x:Type Button}">
+    <Style x:Key="IconButton" TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="5,0,0,0" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
         <Setter Property="Padding" Value="0" />
@@ -54,8 +56,8 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="Consolas" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
+        <Setter Property="Background" Value="{DynamicResource IconButton.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource IconButton.Foreground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -67,16 +69,17 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource ButtonHoverColor}"/>
+                <Setter Property="Background" Value="{DynamicResource IconButton.IsMouseOver.Background}"/>
+                <Setter Property="Foreground" Value="{DynamicResource IconButton.IsMouseOver.Foreground}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
     <Style x:Key="SomeTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MonospacedText}">
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource BorderSelectionColor}" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
         <Setter Property="Background" Value="{x:Null}" />
-        <Setter Property="CaretBrush" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource Foreground}" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="Height" Value="24" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -285,11 +288,11 @@
     </Style>
     <Style x:Key="SomeWindow" TargetType="{x:Type UserControl}">
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
-        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
     </Style>
     <Style TargetType="{x:Type Grid}">
-        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource Background}" />
     </Style>
     <Style x:Key="SomeHintLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource MonospacedText}">
         <Setter Property="IsHitTestVisible" Value="False" />
@@ -305,10 +308,10 @@
         <Setter Property="Background" Value="Transparent"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ResultHoverColor}"/>
+                <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
             </Trigger>
             <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ResultSelectedColor}"/>
+                <Setter Property="Background" Value="{DynamicResource Result.IsSelected.Background}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -317,14 +320,14 @@
     </Style>
     <Style x:Key="ResultFile" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Margin" Value="5,0,0,0" />
-        <Setter Property="Foreground" Value="{DynamicResource ResultFileColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
     </Style>
     <Style x:Key="ResultText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
-        <Setter Property="Foreground" Value="{DynamicResource ResultTextColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.Text}" />
     </Style>
     <Style x:Key="ResultHighlightedText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
-        <Setter Property="Foreground" Value="{DynamicResource ResultHighlightColor}"/>
-        <Setter Property="Background" Value="{DynamicResource ResultHighlightBackgroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.Highlight.Foreground}"/>
+        <Setter Property="Background" Value="{DynamicResource Result.Highlight.Background}" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
     <Style x:Key="ResultsItemsList" TargetType="ItemsControl">
@@ -363,7 +366,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ResultHoverColor}"/>
+                <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -371,7 +374,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ResultSelectedColor}"/>
+                <Setter Property="Background" Value="{DynamicResource Result.IsSelected.Background}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -410,13 +413,13 @@
         <Setter Property="Padding" Value="5,0,5,0" />
     </Style>
     <Style x:Key="PanelEntryFirst" TargetType="Label" BasedOn="{StaticResource PanelEntry}">
-        <Setter Property="Foreground" Value="{DynamicResource ResultFileColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
     </Style>
     <Style x:Key="PanelEntrySecond" TargetType="Label" BasedOn="{StaticResource PanelEntry}">
-        <Setter Property="Foreground" Value="{DynamicResource ResultTextColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.Text}" />
     </Style>
     <Style x:Key="SettingsLabel" TargetType="Label" BasedOn="{StaticResource NormalText}">
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />

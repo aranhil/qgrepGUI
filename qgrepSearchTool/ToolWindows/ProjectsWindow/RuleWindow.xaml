@@ -28,7 +28,7 @@
         </ComboBox>
         <Grid Grid.Row="1" Grid.Column="1">
             <TextBox Grid.Row="1" Grid.Column="1" x:Name="GroupRegEx" Style="{StaticResource SomeTextBoxStyle}" Height="20" Margin="2,0,5,0"/>
-            <Button Name="PredefinedButton" Focusable="False" Style="{StaticResource SomeButtonStyle}" FontSize="12" Margin="0,-1,8,0" Content="💡" HorizontalAlignment="Right" ToolTip="A list of predefined regexes" Click="PredefinedButton_Click">
+            <Button Name="PredefinedButton" Focusable="False" Style="{StaticResource IconButton}" FontSize="12" Margin="0,-1,8,0" Content="💡" HorizontalAlignment="Right" ToolTip="A list of predefined regexes" Click="PredefinedButton_Click">
             </Button>
             <Popup x:Name="PredefinedPopup" IsOpen="False" PlacementTarget="{Binding ElementName=PredefinedButton}">
                 <StackPanel>

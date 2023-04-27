@@ -66,13 +66,13 @@
             <StackPanel Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,5,0">
                 <TextBlock Name="InitInfo" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
                 <ProgressBar Name="InitProgress" Width="250" Margin="3,3,0,3"/>
-                <Button Name="InitButton" Style="{StaticResource SomeButtonStyle}" Content="⟲" FontSize="18" Click="InitButton_Click" ToolTip="Update cache"/>
-                <Button Name="CleanButton" Style="{StaticResource SomeButtonStyle}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
+                <Button Name="InitButton" Style="{StaticResource IconButton}" Content="⟲" FontSize="18" Click="InitButton_Click" ToolTip="Update cache"/>
+                <Button Name="CleanButton" Style="{StaticResource IconButton}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
             </StackPanel>
             <StackPanel Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                <!--<Button Name="ColorsButton" Style="{StaticResource SomeButtonStyle}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>-->
-                <Button Name="AdvancedButton" Style="{StaticResource SomeButtonStyle}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
-                <Button Name="PathsButton" Style="{StaticResource SomeButtonStyle}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Path settings"/>
+                <!--<Button Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>-->
+                <Button Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
+                <Button Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Path settings"/>
             </StackPanel>
         </Grid>
     </Grid>
