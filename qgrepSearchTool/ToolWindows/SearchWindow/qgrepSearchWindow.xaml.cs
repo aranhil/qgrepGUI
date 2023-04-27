@@ -158,6 +158,11 @@ namespace qgrepSearch.ToolWindows
             {
                 FiltersComboBox.ItemsSource = ConfigParser.ConfigProjects;
 
+                if (ConfigParser.ConfigProjects.Count > 0)
+                {
+                    FiltersComboBox.SelectedItems.Add(ConfigParser.ConfigProjects[0]);
+                }
+
                 if (ConfigParser.ConfigProjects.Count > 1)
                 {
                     visibility = Visibility.Visible;
@@ -183,11 +188,6 @@ namespace qgrepSearch.ToolWindows
 
                 UpdateDatabase();
                 UpdateFilters();
-
-                if (ConfigParser.ConfigProjects.Count > 0)
-                {
-                    FiltersComboBox.SelectedItems.Add(ConfigParser.ConfigProjects[0]);
-                }
 
                 WarningText.Visibility = Visibility.Hidden;
                 InitButton.Visibility = Visibility.Visible;
