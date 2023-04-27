@@ -193,6 +193,19 @@ namespace qgrepSearch.ToolWindows
             LoadFromConfig();
         }
 
+        public void ChangeProjectName(ProjectRow project, string newName)
+        {
+            foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+            {
+                if (configProject.Name == project.Data.ProjectName)
+                {
+                    configProject.Rename(newName);
+                    LoadFromConfig();
+                    break;
+                }
+            }
+        }
+
         public void SelectGroup(GroupRow group)
         {
             foreach (UIElement child in GroupsPanel.Children)

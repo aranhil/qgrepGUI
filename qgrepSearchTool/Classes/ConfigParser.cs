@@ -42,11 +42,34 @@ namespace qgrepSearch.Classes
         }
 
         public List<ConfigGroup> Groups = new List<ConfigGroup>();
+
         public ConfigProject(string Path)
         {
             this.Path = Path;
             this.Groups.Add(new ConfigGroup());
         }
+
+        public void DeleteFiles()
+        {
+            string directory = System.IO.Path.GetDirectoryName(Path);
+            File.Delete(directory + "\\" + Name + ".cfg");
+            File.Delete(directory + "\\" + Name + ".qgd");
+            File.Delete(directory + "\\" + Name + ".qgf");
+        }
+
+        public void Rename(string newName)
+        {
+            string directory = System.IO.Path.GetDirectoryName(Path);
+            string newPath = directory + "\\" + newName + ".cfg";
+
+            if (!File.Exists(newPath))
+            {
+                DeleteFiles();
+                Path = newPath;
+                SaveConfig();
+            }
+        }
+
         public void LoadConfig()
         {
             Groups.Clear();
@@ -197,15 +220,9 @@ namespace qgrepSearch.Classes
         {
             foreach (ConfigProject configProject in ConfigProjects)
             {
-                string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                string directory = System.IO.Path.GetDirectoryName(configProject.Path);
-
-                if (projectName == name)
+                if (configProject.Name == name)
                 {
-                    File.Delete(directory + "\\" + projectName + ".cfg");
-                    File.Delete(directory + "\\" + projectName + ".qgd");
-                    File.Delete(directory + "\\" + projectName + ".qgf");
-
+                    configProject.DeleteFiles();
                     ConfigProjects.Remove(configProject);
                     break;
                 }

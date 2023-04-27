@@ -6,16 +6,18 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
              mc:Ignorable="d" DataContext="{Binding}"
-             Width="Auto" Height="16"
+             Width="Auto" Height="Auto"
              d:DesignHeight="16" d:DesignWidth="600">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Name="ProjectGrid" Style="{DynamicResource SelectableRow}" MouseEnter="ProjectGrid_MouseEnter" MouseLeave="ProjectGrid_MouseLeave" MouseDown="ProjectGrid_MouseDown">
-        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
+        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left" Height="16">
             <Label Name="ProjectName" Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=ProjectName}" />
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons" Margin="0,0,5,0">
+        <TextBox x:Name="EditBox" TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" Height="18" Visibility="Collapsed" LostKeyboardFocus="EditBox_LostKeyboardFocus" PreviewKeyDown="EditBox_PreviewKeyDown"/>
+        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Height="16" Name="Icons" Margin="0,0,5,0">
+            <Button Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Click="EditButton_Click" Content="🖉" ToolTip="Edit project name"/>
             <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="14" Click="DeleteButton_Click" Content="✕" ToolTip="Delete project"/>
         </StackPanel>
     </Grid>

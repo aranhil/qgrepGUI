@@ -75,7 +75,7 @@
                 <!--<Button Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>-->
                 <Button Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
                 <Button Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Path settings"/>
-                <wpfTool:CheckComboBox ItemsPanel="{DynamicResource CheckComboBoxItemsPanel1}" x:Name="FiltersComboBox" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
+                <wpfTool:CheckComboBox x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
                 </wpfTool:CheckComboBox>
             </StackPanel>
         </Grid>
