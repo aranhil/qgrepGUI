@@ -65,8 +65,7 @@ namespace qgrepSearch.ToolWindows
 
             foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
             {
-                string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                ProjectsPanel.Children.Add(new ProjectRow(this, new ProjectRow.ProjectRowData(projectName)));
+                ProjectsPanel.Children.Add(new ProjectRow(this, new ProjectRow.ProjectRowData(configProject.Name)));
             }
 
             ProjectsPanel.Children.Add(new RowAdd(this, "Add new project", new RowAdd.ClickCallbackFunction(AddProject)));
@@ -111,8 +110,7 @@ namespace qgrepSearch.ToolWindows
             {
                 foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                 {
-                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                    if (projectName == SelectedProject.Data.ProjectName)
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
                         for(int i = 0; i < configProject.Groups.Count; i++)
                         {
@@ -224,8 +222,7 @@ namespace qgrepSearch.ToolWindows
             {
                 foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                 {
-                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                    if (projectName == SelectedProject.Data.ProjectName)
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
                         configProject.Groups.RemoveAt(group.Data.Index);
                         break;
@@ -242,8 +239,7 @@ namespace qgrepSearch.ToolWindows
             {
                 foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                 {
-                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                    if (projectName == SelectedProject.Data.ProjectName)
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
                         configProject.Groups.Add(new ConfigGroup());
                         break;
@@ -263,8 +259,7 @@ namespace qgrepSearch.ToolWindows
             {
                 foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                 {
-                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                    if (projectName == SelectedProject.Data.ProjectName)
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
                         foreach(string Path in configProject.Groups[SelectedGroup.Data.Index].Paths)
                         {
@@ -297,8 +292,7 @@ namespace qgrepSearch.ToolWindows
                         {
                             foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                             {
-                                string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                                if (projectName == SelectedProject.Data.ProjectName)
+                                if (configProject.Name == SelectedProject.Data.ProjectName)
                                 {
                                     configProject.Groups[SelectedGroup.Data.Index].Paths.Add(fbd.SelectedPath);
                                     Parent.ConfigParser.SaveConfig();
@@ -318,8 +312,7 @@ namespace qgrepSearch.ToolWindows
             {
                 foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                 {
-                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                    if (projectName == SelectedProject.Data.ProjectName)
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
                         configProject.Groups[SelectedGroup.Data.Index].Paths.Remove(path.Data.Path);
                         LoadFromConfig();
@@ -336,8 +329,7 @@ namespace qgrepSearch.ToolWindows
             {
                 foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                 {
-                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                    if (projectName == SelectedProject.Data.ProjectName)
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
                         int index = 0;
                         foreach (ConfigRule rule in configProject.Groups[SelectedGroup.Data.Index].Rules)
@@ -358,8 +350,7 @@ namespace qgrepSearch.ToolWindows
             {
                 foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                 {
-                    string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                    if (projectName == SelectedProject.Data.ProjectName)
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
                         configProject.Groups[SelectedGroup.Data.Index].Rules.RemoveAt(rule.Data.Index);
                         LoadFromConfig();
@@ -392,8 +383,7 @@ namespace qgrepSearch.ToolWindows
                 {
                     foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                     {
-                        string projectName = System.IO.Path.GetFileNameWithoutExtension(configProject.Path);
-                        if (projectName == SelectedProject.Data.ProjectName)
+                        if (configProject.Name == SelectedProject.Data.ProjectName)
                         {
                             ConfigRule newRule = new ConfigRule();
                             newRule.Rule = ruleWindow.GroupRegEx.Text;

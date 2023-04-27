@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
+             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown" LostFocus="UserControl_LostFocus">
     <UserControl.Resources>
@@ -22,9 +23,9 @@
             <Label x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel Name="AdvancedSearchInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="SearchCaseSensitive" Style="{DynamicResource SomeCheckbox}" Click="CaseSensitive_Click" Content="Case sensitive"/>
-                    <CheckBox Name="SearchWholeWord" Style="{DynamicResource SomeCheckbox}" IsChecked="False" Click="SearchWholeWord_Click" Content="Whole word" />
-                    <CheckBox Name="SearchRegEx" Style="{DynamicResource SomeCheckbox}" IsChecked="True" Click="SearchRegEx_Click" Content="RegEx" />
+                    <CheckBox Name="SearchCaseSensitive" Style="{DynamicResource TextBoxToggle}" Click="CaseSensitive_Click" Content="Case sensitive"/>
+                    <CheckBox Name="SearchWholeWord" Style="{DynamicResource TextBoxToggle}" IsChecked="False" Click="SearchWholeWord_Click" Content="Whole word" />
+                    <CheckBox Name="SearchRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="SearchRegEx_Click" Content="RegEx" />
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -33,7 +34,7 @@
             <Label x:Name="IncludeFilesLabel" Content="Include files..." Style="{DynamicResource SomeHintLabel}"/>
             <StackPanel Name="AdvancedIncludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel Name="AdvancedIncludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="IncludeRegEx" Style="{DynamicResource SomeCheckbox}" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" IsChecked="True">RegEx</CheckBox>
+                    <CheckBox Name="IncludeRegEx" Style="{DynamicResource TextBoxToggle}" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" IsChecked="True">RegEx</CheckBox>
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -42,7 +43,7 @@
             <Label Grid.Row="2" x:Name="ExcludeFilesLabel" Content="Exclude files..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel Grid.Row="2" Name="AdvancedExcludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel Name="AdvancedExcludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox Name="ExcludeRegEx" Style="{DynamicResource SomeCheckbox}" IsChecked="True" Click="ExcludeRegEx_Click" Content="RegEx" />
+                    <CheckBox Name="ExcludeRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="ExcludeRegEx_Click" Content="RegEx" />
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -73,29 +74,11 @@
                 <!--<Button Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>-->
                 <Button Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
                 <Button Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Path settings"/>
-                <ComboBox IsEditable="True" IsReadOnly="False" ItemsSource="{Binding FilterItems}" Margin="5,2,5,2">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsChecked}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                    <ComboBoxItem>
-                        <StackPanel>
-                            <CheckBox Content="Code"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <StackPanel>
-                            <CheckBox Content="Data"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <StackPanel>
-                            <CheckBox Content="Engine"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                </ComboBox>
+                <wpfTool:CheckComboBox x:Name="_combo" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="_combo_ItemSelectionChanged">
+                </wpfTool:CheckComboBox>
             </StackPanel>
         </Grid>
     </Grid>
+
+
 </UserControl>

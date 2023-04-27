@@ -123,15 +123,6 @@ namespace qgrepSearch.ToolWindows
 
             UpdateColorsFromSettings();
             UpdateFromSettings();
-
-            ObservableCollection<Customer> custdata = new ObservableCollection<Customer>();
-            custdata.Add(new Customer() { ContentData = "content1" });
-            custdata.Add(new Customer() { ContentData = "content2" });
-            custdata.Add(new Customer() { ContentData = "content3" });
-            custdata.Add(new Customer() { ContentData = "content4" });
-            custdata.Add(new Customer() { ContentData = "content5" });
-            custdata.Add(new Customer() { ContentData = "content6" });
-            lst.ItemsSource = custdata;
         }
 
         public System.Windows.Media.Color ConvertColor(System.Drawing.Color color)
@@ -172,6 +163,8 @@ namespace qgrepSearch.ToolWindows
 
                 ConfigParser = new ConfigParser(solutionPath);
                 ConfigParser.LoadConfig();
+
+                _combo.ItemsSource = ConfigParser.ConfigProjects;
 
                 UpdateDatabase();
 
@@ -273,13 +266,19 @@ namespace qgrepSearch.ToolWindows
             arguments.Add("search");
 
             string configs = "";
-            for(int i = 0; i < ConfigParser.ConfigProjects.Count; i++)
+
+            for (int i = 0; i < _combo.SelectedItems.Count; i++)
             {
-                configs += ConfigParser.ConfigProjects[i].Path;
-                if(i < ConfigParser.ConfigProjects.Count - 1)
+                ConfigProject configProject = _combo.SelectedItems[i] as ConfigProject;
+                if(configProject != null)
                 {
-                    configs += ",";
+                    configs += configProject.Path;
+                    if (i < _combo.SelectedItems.Count - 1)
+                    {
+                        configs += ",";
+                    }
                 }
+
             }
             arguments.Add(configs);
 
@@ -885,6 +884,11 @@ namespace qgrepSearch.ToolWindows
         private void UserControl_LostFocus(object sender, RoutedEventArgs e)
         {
             ProcessQueue();
+        }
+
+        private void _combo_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        {
+            Find();
         }
     }
 }

@@ -24,8 +24,22 @@ namespace qgrepSearch.Classes
         private string ExcludePrefix = "exclude ";
         private string GroupBegin = "group";
         private string GroupEnd = "endgroup";
+        private string _Path = "";
 
-        public string Path = "";
+        public string Name { get; set; }
+        public string Path
+        {
+            get
+            {
+                return _Path;
+            }
+            set
+            {
+                _Path = value;
+                Name = System.IO.Path.GetFileNameWithoutExtension(value);
+            }
+        }
+
         public List<ConfigGroup> Groups = new List<ConfigGroup>();
         public ConfigProject(string Path)
         {

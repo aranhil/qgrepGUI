@@ -213,7 +213,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="SomeCheckbox" TargetType="{x:Type CheckBox}">
+    <Style x:Key="TextBoxToggle" TargetType="{x:Type CheckBox}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.Foreground}" />
@@ -259,7 +259,7 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+    <Style x:Key="SomeCheckBox" TargetType="{x:Type CheckBox}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Foreground" Value="{DynamicResource CheckBox.Foreground}" />
