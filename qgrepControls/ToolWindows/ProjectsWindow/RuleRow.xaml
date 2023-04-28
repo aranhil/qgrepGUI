@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="qgrepSearch.ToolWindows.RuleRow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
+             mc:Ignorable="d" DataContext="{Binding}"
+             Width="Auto" Height="16"
+             d:DesignHeight="16" d:DesignWidth="600">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
+    </UserControl.Resources>
+    <Grid Name="RuleGrid" Style="{DynamicResource HoverableRow}" MouseEnter="RuleGrid_MouseEnter" MouseLeave="RuleGrid_MouseLeave" MouseDown="RuleGrid_MouseDown" >
+        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
+            <Label Name="RuleInclude" Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=RuleType}" />
+            <Label Name="RuleContent" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=RuleContent}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons" Margin="0,0,5,0">
+            <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="15" Content="✕" Click="DeleteButton_Click" ToolTip="Delete rule" />
+        </StackPanel>
+    </Grid>
+</UserControl>

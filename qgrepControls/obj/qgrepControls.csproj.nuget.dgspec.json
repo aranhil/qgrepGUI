@@ -1,0 +1,62 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\sichivu\\source\\repos\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\sichivu\\source\\repos\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\sichivu\\source\\repos\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj",
+        "projectName": "qgrepControls",
+        "projectPath": "C:\\Users\\sichivu\\source\\repos\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj",
+        "packagesPath": "C:\\Users\\sichivu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sichivu\\source\\repos\\qgrepSearchTool\\qgrepControls\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\sichivu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://artifactory/api/nuget/nuget": {}
+        },
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "dependencies": {
+            "Extended.Wpf.Toolkit": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="qgrepSearch.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="RegEx" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CaseSensitive" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowIncludes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowExcludes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="BackgroundColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">25, 35, 44</Value>
+    </Setting>
+    <Setting Name="ForegroundColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="BorderColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">171, 173, 179</Value>
+    </Setting>
+    <Setting Name="BorderHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">0, 200, 215</Value>
+    </Setting>
+    <Setting Name="BorderSelectionColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">0, 120, 215</Value>
+    </Setting>
+    <Setting Name="ResultFileColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">DarkGray</Value>
+    </Setting>
+    <Setting Name="ResultTextColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">AliceBlue</Value>
+    </Setting>
+    <Setting Name="ResultHighlightColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">DeepSkyBlue</Value>
+    </Setting>
+    <Setting Name="ResultHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">49, 69, 87</Value>
+    </Setting>
+    <Setting Name="ResultSelectedColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">15, 92, 148</Value>
+    </Setting>
+    <Setting Name="ButtonColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Gray</Value>
+    </Setting>
+    <Setting Name="ButtonHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="InputHintColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Gray</Value>
+    </Setting>
+    <Setting Name="OverlayBusyColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">124, 0, 0, 0</Value>
+    </Setting>
+    <Setting Name="IncludesRegEx" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ExcludesRegEx" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WholeWord" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TextButtonDisabledBackgroundColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">56, 97, 141</Value>
+    </Setting>
+    <Setting Name="TextButtonDisabledForegroundColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">180, 196, 212</Value>
+    </Setting>
+    <Setting Name="TextButtonBackgroundColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 129, 176</Value>
+    </Setting>
+    <Setting Name="TextButtonHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">6, 57, 112</Value>
+    </Setting>
+    <Setting Name="TextButtonPressedColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">2, 23, 45</Value>
+    </Setting>
+    <Setting Name="ComboBoxColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 129, 176</Value>
+    </Setting>
+    <Setting Name="ComboBoxHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">6, 57, 112</Value>
+    </Setting>
+    <Setting Name="ComboBoxTextColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="InputCheckboxColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">87, 93, 122</Value>
+    </Setting>
+    <Setting Name="InputCheckboxHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">171, 174, 189</Value>
+    </Setting>
+    <Setting Name="InputCheckboxCheckedColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="InputCheckboxCheckedHoverColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">221, 223, 228</Value>
+    </Setting>
+    <Setting Name="CheckboxColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">30, 129, 176</Value>
+    </Setting>
+    <Setting Name="CheckboxMarkColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="CheckboxTextColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="ColorScheme" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

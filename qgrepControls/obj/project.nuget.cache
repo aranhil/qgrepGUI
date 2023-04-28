@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4jdC8geqmDiqVzlQTDMVS4+zsWGEZD8gRhZW/AzqnBWk3Id3Jl7vXquuOQmH7O8ZaEd5Z2lYt9VW/cGL9apfnA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sichivu\\source\\repos\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sichivu\\.nuget\\packages\\extended.wpf.toolkit\\4.5.0\\extended.wpf.toolkit.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

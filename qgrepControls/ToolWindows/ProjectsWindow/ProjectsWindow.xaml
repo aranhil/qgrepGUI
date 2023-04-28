@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="qgrepSearch.ToolWindows.ProjectsWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
+             mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
+             Width="900" Height="400">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="ProjectsPanel_MouseEnter" MouseLeave="ProjectsPanel_MouseLeave">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
+                <StackPanel x:Name="ProjectsPanel"/>
+            </ScrollViewer>
+        </Border>
+        <Border Grid.Column="1" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="GroupsPanel_MouseEnter" MouseLeave="GroupsPanel_MouseLeave">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
+                <StackPanel x:Name="GroupsPanel"/>
+            </ScrollViewer>
+        </Border>
+        <Grid Grid.Column="2" Style="{DynamicResource ZIndexFocusable}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Style="{DynamicResource ZIndexFocusable}">
+                <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,0,0,0" MouseEnter="PathsPanel_MouseEnter" MouseLeave="PathsPanel_MouseLeave">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
+                        <StackPanel x:Name="PathsPanel"/>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1" Style="{DynamicResource ZIndexFocusable}">
+                <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,-1,0,0" MouseEnter="RulesPanel_MouseEnter" MouseLeave="RulesPanel_MouseLeave">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
+                        <StackPanel x:Name="RulesPanel"/>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

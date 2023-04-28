@@ -1,0 +1,14 @@
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls.csprojAssemblyReference.cache
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\GroupRow.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\PathRow.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\ProjectRow.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\ProjectsWindow.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\RowAdd.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\RuleRow.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\RuleWindow.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\SettingsWindow\SettingsWindow.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls_MarkupCompile.cache
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls_MarkupCompile.lref
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ResourceDictionary.baml
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\SearchWindow\ColorsWindow.g.cs
+C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\SearchWindow\qgrepSearchWindow.g.cs
