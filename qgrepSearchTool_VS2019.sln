@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qgrepInterop", "qgrepInterop\qgrepInterop.vcxproj", "{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6827D800-E969-478D-BF86-2B821F084585} = {6827D800-E969-478D-BF86-2B821F084585}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qgrep", "qgrep\qgrep.vcxproj", "{6827D800-E969-478D-BF86-2B821F084585}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qgrepControls", "qgrepControls\qgrepControls.csproj", "{DCCFA321-FE02-4FD1-AA94-4F7C0AD92C2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qgrepSearchTool_VS2019", "qgrepSearchTool_VS2019\qgrepSearchTool_VS2019.csproj", "{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Debug|Any CPU.Build.0 = Debug|Win32
+		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Release|Any CPU.ActiveCfg = Release|Win32
+		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}.Release|Any CPU.Build.0 = Release|Win32
+		{6827D800-E969-478D-BF86-2B821F084585}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{6827D800-E969-478D-BF86-2B821F084585}.Debug|Any CPU.Build.0 = Debug|Win32
+		{6827D800-E969-478D-BF86-2B821F084585}.Release|Any CPU.ActiveCfg = Release|Win32
+		{6827D800-E969-478D-BF86-2B821F084585}.Release|Any CPU.Build.0 = Release|Win32
+		{DCCFA321-FE02-4FD1-AA94-4F7C0AD92C2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCCFA321-FE02-4FD1-AA94-4F7C0AD92C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCCFA321-FE02-4FD1-AA94-4F7C0AD92C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCCFA321-FE02-4FD1-AA94-4F7C0AD92C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F64B331-379E-4AD7-94AC-930833EF7C08}
+	EndGlobalSection
+EndGlobal
