@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ConfigParser.cs" />
+    <Compile Include="Classes\ExtensionInterface.cs" />
     <Compile Include="Classes\SelectableData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
