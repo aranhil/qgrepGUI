@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "4jdC8geqmDiqVzlQTDMVS4+zsWGEZD8gRhZW/AzqnBWk3Id3Jl7vXquuOQmH7O8ZaEd5Z2lYt9VW/cGL9apfnA==",
+  "dgSpecHash": "O+S6XRQF4OwaYJUgkvSM10jr2wTFNlBYNTcx6Boj+KCflmjYs00riuGN/nGjybmKGEV3FF+Q7EiLUg1nmskEJg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sichivu\\source\\repos\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj",
+  "projectFilePath": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\sichivu\\.nuget\\packages\\extended.wpf.toolkit\\4.5.0\\extended.wpf.toolkit.4.5.0.nupkg.sha512"
+    "C:\\Users\\Iulian\\.nuget\\packages\\extended.wpf.toolkit\\4.5.0\\extended.wpf.toolkit.4.5.0.nupkg.sha512",
+    "C:\\Users\\Iulian\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }

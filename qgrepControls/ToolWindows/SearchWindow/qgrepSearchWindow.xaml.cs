@@ -1,35 +1,23 @@
-﻿using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.PlatformUI;
-using qgrepInterop;
-using qgrepSearch.Classes;
-using qgrepSearch.Properties;
+﻿using qgrepInterop;
+using qgrepControls.Classes;
+using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Dynamic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using Xceed.Wpf.AvalonDock.Controls;
 using Newtonsoft.Json;
-using System.Reflection;
-using qgrepControls.Classes;
 
-namespace qgrepSearch.ToolWindows
+namespace qgrepControls.ToolWindows
 {
     partial class SearchResult: INotifyPropertyChanged
     {
@@ -80,14 +68,13 @@ namespace qgrepSearch.ToolWindows
 
     public partial class qgrepSearchWindowControl : UserControl
     {
-        private IExtensionInterface ExtensionInterface;
+        public IExtensionInterface ExtensionInterface;
         public string ConfigPath = "";
         public ConfigParser ConfigParser = null;
         public ColorScheme[] colorSchemes = new ColorScheme[0];
 
         public string Errors = "";
         private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
-        private int ChangesCounter = 0;
         private string LastResults = "";
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
@@ -110,12 +97,9 @@ namespace qgrepSearch.ToolWindows
             IncludeRegEx.IsChecked = Settings.Default.IncludesRegEx;
             ExcludeRegEx.IsChecked = Settings.Default.ExcludesRegEx;
 
-            if(ExtensionInterface.GetSolutionPath().Length > 0)
-            {
-                SolutionLoaded();
-            }
+            SolutionLoaded();
 
-            string colorSchemesJson = System.Text.Encoding.Default.GetString(qgrepSearch.Properties.Resources.colors_schemes);
+            string colorSchemesJson = System.Text.Encoding.Default.GetString(qgrepControls.Properties.Resources.colors_schemes);
             colorSchemes = JsonConvert.DeserializeObject<ColorScheme[]>(colorSchemesJson);
 
             UpdateTimer.Enabled = true;
@@ -131,22 +115,6 @@ namespace qgrepSearch.ToolWindows
         public System.Drawing.Color ConvertColor(System.Windows.Media.Color color)
         {
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B); ;
-        }
-
-        public void LoadExtensions()
-        {
-            if (File.Exists(ConfigPath))
-            {
-                string[] allConfigLines = File.ReadAllLines(ConfigPath);
-                for (int i = 0; i < allConfigLines.Length; i++)
-                {
-                    if (allConfigLines[i].StartsWith("# ") && i + 1 < allConfigLines.Length && allConfigLines[i + 1].StartsWith("include "))
-                    {
-                        string groupRegEx = allConfigLines[i + 1].Substring(8);
-                        i++;
-                    }
-                }
-            }
         }
 
         public void UpdateFilters()
@@ -173,16 +141,10 @@ namespace qgrepSearch.ToolWindows
 
         public void SolutionLoaded()
         {
-            if (DTE != null)
+            string solutionPath = ExtensionInterface.GetSolutionPath();
+            if(solutionPath.Length > 0)
             {
-                ConfigPath = "";
-                String solutionPath = DTE.Solution.FullName;
-                if (solutionPath.IndexOf('\\') >= 0)
-                {
-                    solutionPath = solutionPath.Substring(0, DTE.Solution.FullName.LastIndexOf('\\'));
-                }
-
-                ConfigParser = new ConfigParser(solutionPath);
+                ConfigParser = new ConfigParser(System.IO.Path.GetDirectoryName(solutionPath));
                 ConfigParser.LoadConfig();
 
                 UpdateDatabase();
@@ -201,8 +163,6 @@ namespace qgrepSearch.ToolWindows
 
             visibility = Settings.Default.ShowExcludes == true ? Visibility.Visible : Visibility.Collapsed;
             ExcludeFilesGrid.Visibility = visibility;
-
-            ChangesCounter = 0;
         }
 
         public void UpdateColorsFromSettings()
@@ -509,8 +469,7 @@ namespace qgrepSearch.ToolWindows
                     string file = selectedResult.File.Substring(0, lastIndex);
                     string line = selectedResult.File.Substring(lastIndex + 1, selectedResult.File.Length - lastIndex - 2);
 
-                    DTE.ItemOperations.OpenFile(file);
-                    ((EnvDTE.TextSelection)DTE.ActiveDocument.Selection).MoveToLineAndOffset(Int32.Parse(line), 1);
+                    ExtensionInterface.OpenFile(file, line);
                 }
                 catch (Exception)
                 {
@@ -697,62 +656,32 @@ namespace qgrepSearch.ToolWindows
                 return;
             }
 
-            DialogWindow window = new DialogWindow
-            {
-                Title = "Projects configuration",
-                Content = new qgrepSearch.ToolWindows.ProjectsWindow(this),
-                SizeToContent = SizeToContent.WidthAndHeight,
-                ResizeMode = ResizeMode.NoResize,
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
-            };
-
-            window.ShowModal();
+            ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.ProjectsWindow(this), "Projects configuration").ShowModal();
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogWindow window = new DialogWindow
-            {
-                Title = "Advanced settings",
-                Content = new qgrepSearch.ToolWindows.SettingsWindow(this),
-                SizeToContent = SizeToContent.WidthAndHeight,
-                ResizeMode = ResizeMode.NoResize,
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
-            };
-
-            window.ShowModal();
+            ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.SettingsWindow(this), "Advanced settings").ShowModal();
         }
 
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (Package.WindowOpened)
+            if (ExtensionInterface.WindowOpened)
             {
                 SearchInput.Focus();
 
-                try
+                string selectedText = ExtensionInterface.GetSelectedText();
+                if(selectedText.Length > 0)
                 {
-                    if (DTE.ActiveDocument != null)
-                    {
-                        var selection = (EnvDTE.TextSelection)DTE.ActiveDocument.Selection;
-                        if (selection.Text.Length > 0)
-                        {
-                            SearchInput.Text = selection.Text;
-                            SearchInput.CaretIndex = SearchInput.Text.Length;
-                        }
-                        else
-                        {
-                            SearchInput.SelectAll();
-                        }
-                    }
+                    SearchInput.Text = selectedText;
+                    SearchInput.CaretIndex = SearchInput.Text.Length;
                 }
-                catch(Exception ex)
+                else
                 {
                     SearchInput.SelectAll();
                 }
 
-                Package.WindowOpened = false;
+                ExtensionInterface.WindowOpened = false;
             }
         }
 
@@ -872,17 +801,7 @@ namespace qgrepSearch.ToolWindows
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            DialogWindow window = new DialogWindow
-            {
-                Title = "Color settings",
-                Content = new qgrepSearch.ToolWindows.ColorsWindow(this),
-                SizeToContent = SizeToContent.WidthAndHeight,
-                ResizeMode = ResizeMode.NoResize,
-                HasMinimizeButton = false,
-                HasMaximizeButton = false,
-            };
-
-            window.ShowModal();
+            ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.ColorsWindow(this), "Color settings").ShowModal();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)

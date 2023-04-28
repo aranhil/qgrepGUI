@@ -1,15 +1,15 @@
-﻿<UserControl x:Class="qgrepSearch.ToolWindows.RuleRow"
+﻿<UserControl x:Class="qgrepControls.ToolWindows.RuleRow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:local="clr-namespace:qgrepSearch.ToolWindows"
+             xmlns:local="clr-namespace:qgrepControls.ToolWindows"
              mc:Ignorable="d" DataContext="{Binding}"
              Width="Auto" Height="16"
              d:DesignHeight="16" d:DesignWidth="600">
     <UserControl.Resources>
-        <ResourceDictionary Source="/qgrepSearchTool;component/ResourceDictionary.xaml" />
+        <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Name="RuleGrid" Style="{DynamicResource HoverableRow}" MouseEnter="RuleGrid_MouseEnter" MouseLeave="RuleGrid_MouseLeave" MouseDown="RuleGrid_MouseDown" >
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">

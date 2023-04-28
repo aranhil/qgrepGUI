@@ -1,26 +1,17 @@
-﻿using System;
+﻿using qgrepControls.Classes;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit;
 
-namespace qgrepSearch.ToolWindows
+namespace qgrepControls.ToolWindows
 {
     public partial class RuleWindow : System.Windows.Controls.UserControl
     {
         public ProjectsWindow Parent;
-        public Window Dialog = null;
+        public IExtensionWindow Dialog = null;
         public delegate void Callback(bool accepted);
         private Callback ResultCallback;
         public bool IsOK = false;
@@ -93,7 +84,7 @@ namespace qgrepSearch.ToolWindows
             ComboBoxItem comboBox = sender as ComboBoxItem;
             if (comboBox != null)
             {
-                GroupRegEx.Text += comboBox.Tag as String;
+                RegExTextBox.Text += comboBox.Tag as String;
             }
         }
 

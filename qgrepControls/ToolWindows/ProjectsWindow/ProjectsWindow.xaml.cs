@@ -1,28 +1,17 @@
-﻿using qgrepSearch.Classes;
+﻿using qgrepControls.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Forms;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace qgrepSearch.ToolWindows
+namespace qgrepControls.ToolWindows
 {
-    /// <summary>
-    /// Interaction logic for ProjectsWindow.xaml
-    /// </summary>
     public partial class ProjectsWindow : System.Windows.Controls.UserControl
     {
-        public qgrepSearchWindowControl Parent;
+        public new qgrepSearchWindowControl Parent;
 
         private ProjectRow SelectedProject = null;
         private GroupRow SelectedGroup = null;
@@ -374,18 +363,8 @@ namespace qgrepSearch.ToolWindows
             if (SelectedProject != null && SelectedGroup != null)
             {
                 RuleWindow ruleWindow = new RuleWindow(this);
-                ruleWindow.GroupRegEx.Text = "";
 
-                DialogWindow ruleDialog = new DialogWindow
-                {
-                    Title = "Add rule",
-                    Content = ruleWindow,
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    HasMinimizeButton = false,
-                    HasMaximizeButton = false,
-                };
-
+                IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Add rule");
                 ruleWindow.Dialog = ruleDialog;
                 ruleDialog.ShowModal();
 
@@ -396,7 +375,7 @@ namespace qgrepSearch.ToolWindows
                         if (configProject.Name == SelectedProject.Data.ProjectName)
                         {
                             ConfigRule newRule = new ConfigRule();
-                            newRule.Rule = ruleWindow.GroupRegEx.Text;
+                            newRule.Rule = ruleWindow.RegExTextBox.Text;
                             newRule.IsExclude = ruleWindow.GroupType.SelectedIndex == 1;
 
                             configProject.Groups[SelectedGroup.Data.Index].Rules.Add(newRule);

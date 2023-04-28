@@ -2,16 +2,11 @@
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using qgrepSearch.ToolWindows;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
-using System.IO;
 using Microsoft.VisualStudio;
-using qgrepInterop;
-using System.Windows.Documents;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
+using qgrepControls.ToolWindows;
 
 namespace qgrepSearch
 {

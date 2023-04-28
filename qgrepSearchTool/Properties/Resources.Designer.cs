@@ -59,15 +59,5 @@ namespace qgrepSearch.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] colors_schemes {
-            get {
-                object obj = ResourceManager.GetObject("colors_schemes", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

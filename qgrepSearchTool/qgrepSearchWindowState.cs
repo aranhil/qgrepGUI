@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.Shell;
-
-namespace qgrepSearch.ToolWindows
+﻿namespace qgrepSearch
 {
     public class qgrepSearchWindowState
     {
