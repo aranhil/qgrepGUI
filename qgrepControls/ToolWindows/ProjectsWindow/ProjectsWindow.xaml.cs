@@ -275,6 +275,7 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void AddPath()
         {
             if (SelectedProject != null && SelectedGroup != null)
@@ -283,10 +284,10 @@ namespace qgrepControls.ToolWindows
                 using (var fbd = new FolderBrowserDialog())
                 {
                     fbd.Reset();
-                    fbd.RootFolder = Environment.SpecialFolder.MyComputer;
+                    fbd.RootFolder = Environment.SpecialFolder.Desktop;
                     fbd.SelectedPath = Parent.ConfigParser.Path;
 
-                    DialogResult result = fbd.ShowDialog();
+                    DialogResult result = FolderBrowserLauncher.ShowFolderBrowser(fbd);
 
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
@@ -308,6 +309,7 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void DeletePath(PathRow path)
         {
             if (SelectedProject != null && SelectedGroup != null)
@@ -323,6 +325,7 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void LoadRulesFromConfig()
         {
             RulesPanel.Children.Clear();
@@ -346,6 +349,7 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void DeleteRule(RuleRow rule)
         {
             if (SelectedProject != null && SelectedGroup != null)
@@ -361,6 +365,7 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void AddRule()
         {
             if (SelectedProject != null && SelectedGroup != null)
