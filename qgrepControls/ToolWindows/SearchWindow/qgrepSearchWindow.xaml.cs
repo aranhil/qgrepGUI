@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using System.Timers;
 
 namespace qgrepControls.ToolWindows
 {
@@ -76,7 +77,7 @@ namespace qgrepControls.ToolWindows
         public ColorScheme[] colorSchemes = new ColorScheme[0];
 
         public string Errors = "";
-        private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
+        private System.Timers.Timer UpdateTimer = null;
         private string LastResults = "";
 
         ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
@@ -102,15 +103,62 @@ namespace qgrepControls.ToolWindows
             IncludeRegEx.IsChecked = Settings.Default.IncludesRegEx;
             ExcludeRegEx.IsChecked = Settings.Default.ExcludesRegEx;
 
+            StartTimer();
             SolutionLoaded();
 
             string colorSchemesJson = System.Text.Encoding.Default.GetString(qgrepControls.Properties.Resources.colors_schemes);
             colorSchemes = JsonConvert.DeserializeObject<ColorScheme[]>(colorSchemesJson);
 
-            UpdateTimer.Enabled = true;
-
             UpdateColorsFromSettings();
             UpdateFromSettings();
+        }
+
+        private void ResetTimestamp()
+        {
+            Settings.Default.LastUpdated = DateTime.Now;
+            Settings.Default.Save();
+            StartTimer();
+        }
+
+        private void StartTimer()
+        {
+            UpdateTimer = new System.Timers.Timer(10000);
+            UpdateTimer.Elapsed += UpdateTimer_Elapsed;
+            UpdateTimer.Start();
+        }
+
+        public static string GetTimeAgoString(DateTime eventTime)
+        {
+            TimeSpan timeSinceEvent = DateTime.Now - eventTime;
+
+            if (timeSinceEvent.TotalSeconds < 60)
+            {
+                return "just now";
+            }
+            else if (timeSinceEvent.TotalMinutes < 60)
+            {
+                return $"{(int)timeSinceEvent.TotalMinutes}m ago";
+            }
+            else if (timeSinceEvent.TotalHours < 24)
+            {
+                return $"{(int)timeSinceEvent.TotalHours}h ago";
+            }
+            else if (timeSinceEvent.TotalDays < 7)
+            {
+                return $"{(int)timeSinceEvent.TotalDays}d ago";
+            }
+            else
+            {
+                return eventTime.ToString("d MMM yyyy");
+            }
+        }
+
+        private void UpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                InitInfo.Text = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
+            }));
         }
 
         public System.Windows.Media.Color ConvertColor(System.Drawing.Color color)
@@ -274,10 +322,11 @@ namespace qgrepControls.ToolWindows
                 return;
             }
 
-            List<string> arguments = new List<string>();
-
-            arguments.Add("qgrep");
-            arguments.Add("search");
+            List<string> arguments = new List<string>
+            {
+                "qgrep",
+                "search"
+            };
 
             string configs = "";
 
@@ -594,12 +643,11 @@ namespace qgrepControls.ToolWindows
         {
             try
             {
-                if (ConfigPath.IndexOf('\\') >= 0)
+                foreach(ConfigProject configProject in ConfigParser.ConfigProjects)
                 {
-                    String configFolder = ConfigPath.Substring(0, ConfigPath.LastIndexOf('\\'));
-
-                    File.Delete(configFolder + "\\searchdb.qgd");
-                    File.Delete(configFolder + "\\searchdb.qgf");
+                    string directory = System.IO.Path.GetDirectoryName(configProject.Path);
+                    File.Delete(directory + "\\" + Name + ".qgd");
+                    File.Delete(directory + "\\" + Name + ".qgf");
                 }
             }
             catch(Exception ex)
@@ -634,10 +682,12 @@ namespace qgrepControls.ToolWindows
                 {
                     QGrepWrapper.Callback callback = new QGrepWrapper.Callback(ProcessInitMessage);
                     QGrepWrapper.Callback errorsCallback = new QGrepWrapper.Callback(ProcessErrorMessage);
-                    List<string> parameters = new List<string>();
-                    parameters.Add("qgrep");
-                    parameters.Add("update");
-                    parameters.Add(configProject.Path);
+                    List<string> parameters = new List<string>
+                    {
+                        "qgrep",
+                        "update",
+                        configProject.Path
+                    };
                     QGrepWrapper.CallQGrepAsync(parameters, callback, errorsCallback);
                 }
 
@@ -653,6 +703,7 @@ namespace qgrepControls.ToolWindows
                     EngineBusy = false;
                     QueueFind = true;
                     ProcessQueue();
+                    ResetTimestamp();
                 }));
             });
 
@@ -805,6 +856,12 @@ namespace qgrepControls.ToolWindows
             }
             else if(e.Key == System.Windows.Input.Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
+                if (selectedSearchResult >= 0 && selectedSearchResult < searchResults.Count)
+                {
+                    SearchResult searchResult = searchResults[selectedSearchResult];
+                    string text = searchResult.BeginText + searchResult.HighlightedText + searchResult.EndText;
+                    Clipboard.SetText(text);
+                }
             }
 
             if (VisualTreeHelper.GetChildrenCount(SearchItemsControl) > 0)
