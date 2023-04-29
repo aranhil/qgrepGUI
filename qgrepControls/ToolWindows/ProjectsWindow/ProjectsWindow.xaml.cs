@@ -168,6 +168,7 @@ namespace qgrepControls.ToolWindows
                 }
 
                 LoadGroupsFromConfig();
+                UpdateHints();
             }
         }
 
@@ -216,6 +217,7 @@ namespace qgrepControls.ToolWindows
 
             LoadPathsFromConfig();
             LoadRulesFromConfig();
+            UpdateHints();
         }
 
         public void DeleteGroup(GroupRow group)
@@ -471,6 +473,27 @@ namespace qgrepControls.ToolWindows
             }
         }
 
+        private void UpdateHints()
+        {
+            int pathsCount = 0;
+            int rulesCount = 0;
+
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
+                    {
+                        pathsCount = configProject.Groups[SelectedGroup.Data.Index].Paths.Count;
+                        rulesCount = configProject.Groups[SelectedGroup.Data.Index].Rules.Count;
+                    }
+                }
+            }
+
+            PathsHint.Visibility = pathsCount > 0 ? Visibility.Collapsed : Visibility.Visible;
+            RulesHint.Visibility = rulesCount > 0 ? Visibility.Collapsed : Visibility.Visible;
+        }
+
         private void UpdateVisibility()
         {
             bool isAdvanced = Settings.Default.AdvancedProjectSettings;
@@ -478,6 +501,7 @@ namespace qgrepControls.ToolWindows
 
             int projectsCount = Parent.ConfigParser.ConfigProjects.Count;
             int groupsCount = projectsCount > 0 ? Parent.ConfigParser.ConfigProjects[0].Groups.Count : 0;
+
             bool canGoBasic = projectsCount <= 1 && groupsCount <= 1;
 
             AdvancedToggle.IsEnabled = isAdvanced && canGoBasic || !isAdvanced;
@@ -486,6 +510,8 @@ namespace qgrepControls.ToolWindows
             GridLength gridLength = isAdvanced ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Pixel);
             ProjectsColumn.Width = gridLength;
             GroupsColumn.Width = gridLength;
+
+            UpdateHints();
         }
 
         private void AdvancedToggle_Click(object sender, RoutedEventArgs e)
