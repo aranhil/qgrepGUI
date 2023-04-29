@@ -142,5 +142,16 @@ namespace qgrepControls.Properties {
                 this["SearchFilters"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastUpdated {
+            get {
+                return ((global::System.DateTime)(this["LastUpdated"]));
+            }
+            set {
+                this["LastUpdated"] = value;
+            }
+        }
     }
 }

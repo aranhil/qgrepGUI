@@ -41,6 +41,9 @@
     <SolidColorBrush x:Key="CheckBox.IsMouseOver.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="CheckBox.Mark" Color="Black" />
     <SolidColorBrush x:Key="CheckBox.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="Menu.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="Menu.Separator" Color="#bee0ec" />
+    <SolidColorBrush x:Key="Menu.IsMouseOver.Background" Color="#bee0ec" />
     <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -83,6 +86,7 @@
         </Style.Triggers>
     </Style>
     <conv:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    <conv:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter"/>
     <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -710,6 +714,120 @@
                 </Style>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style TargetType="{x:Type ContextMenu}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+        <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border x:Name="Border" Background="{DynamicResource Menu.Background}" BorderThickness="4">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="5" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Margin" Value="5,1,5,1" />
+        <Setter Property="Background" Value="{DynamicResource Menu.Separator}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Separator}">
+                    <Border BorderThickness="1">
+                        <Border.BorderBrush>
+                            <VisualBrush>
+                                <VisualBrush.Visual>
+                                    <Rectangle StrokeDashArray="1 2" Stroke="{TemplateBinding Background}" StrokeThickness="1"
+                  Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                  Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Border.BorderBrush>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}"
+                 TargetType="{x:Type MenuItem}">
+        <Border x:Name="Border" BorderThickness="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
+                    <ColumnDefinition Width="13" />
+                </Grid.ColumnDefinitions>
+                <ContentPresenter x:Name="Icon" Margin="6,0,6,0" VerticalAlignment="Center" ContentSource="Icon" />
+                <!--<Border x:Name="Check" Width="13" Height="13" Visibility="Collapsed" Margin="6,0,6,0" BorderThickness="0" Background="{DynamicResource ComboBox.Background}">
+                    <Path x:Name="CheckMark" Width="7" Height="7" Visibility="Hidden" SnapsToDevicePixels="False" StrokeThickness="2" Data="M 0 0 L 7 7 M 0 7 L 7 0">
+                        <Path.Stroke>
+                            <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                        </Path.Stroke>
+                    </Path>
+                </Border>-->
+                <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" Margin="5,3,0,3" />
+                <!--<TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" DockPanel.Dock="Right" />-->
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="ButtonBase.Command" Value="{x:Null}" />
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter TargetName="Icon" Property="Visibility"
+              Value="Hidden" />
+            </Trigger>
+            <!--<Trigger Property="IsChecked" Value="true">
+                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+            </Trigger>-->
+            <Trigger Property="IsCheckable" Value="true">
+                <!--<Setter TargetName="Check" Property="Visibility" Value="Visible" />-->
+                <Setter TargetName="Icon"
+              Property="Visibility"
+              Value="Hidden" />
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="true">
+                <Setter Property="Background" TargetName="Border" Value="{DynamicResource MenuItem.IsMouseOver.Background}">
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <!--<Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource DisabledForegroundColor}" />
+                    </Setter.Value>
+                </Setter>-->
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- MenuItem Style -->
+    <Style x:Key="{x:Type MenuItem}"
+       TargetType="{x:Type MenuItem}">
+        <Setter Property="OverridesDefaultStyle"
+          Value="True" />
+        <Style.Triggers>
+            <!--<Trigger Property="Role" Value="TopLevelHeader">
+                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelHeaderTemplateKey}}" />
+                <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+            </Trigger>
+            <Trigger Property="Role" Value="TopLevelItem">
+                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelItemTemplateKey}}" />
+            </Trigger>
+            <Trigger Property="Role" Value="SubmenuHeader">
+                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuHeaderTemplateKey}}" />
+            </Trigger>-->
+            <Trigger Property="Role" Value="SubmenuItem">
+                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!--<Style  TargetType="CheckBox" >

@@ -57,6 +57,17 @@
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=BeginText}" />
                             <TextBlock Style="{DynamicResource ResultHighlightedText}" Text="{Binding Path=HighlightedText}"/>
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=EndText}" />
+                            <VirtualizingStackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem x:Name="MenuGoTo" Header="Go to location" Click="MenuGoTo_Click"/>
+                                    <Separator/>
+                                    <MenuItem x:Name="MenuCopyText" Header="Copy text" Click="MenuCopyText_Click"/>
+                                    <MenuItem x:Name="MenuCopyFullPath" Header="Copy full path" Click="MenuCopyFullPath_Click"/>
+                                    <MenuItem x:Name="MenuCopyResult" Header="Copy entire result" Click="MenuCopyResult_Click"/>
+                                    <Separator/>
+                                    <MenuItem x:Name="MenuCopyAllResults" Header="Copy all results" Click="MenuCopyAllResults_Click"/>
+                                </ContextMenu>
+                            </VirtualizingStackPanel.ContextMenu>
                         </VirtualizingStackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
