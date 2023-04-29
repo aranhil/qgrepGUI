@@ -383,13 +383,48 @@ namespace qgrepControls.ToolWindows
                         {
                             ConfigRule newRule = new ConfigRule();
                             newRule.Rule = ruleWindow.RegExTextBox.Text;
-                            newRule.IsExclude = ruleWindow.GroupType.SelectedIndex == 1;
+                            newRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
 
                             configProject.Groups[SelectedGroup.Data.Index].Rules.Add(newRule);
                             Parent.ConfigParser.SaveConfig();
                             LoadFromConfig();
                             break;
                         }
+                    }
+                }
+            }
+        }
+
+        public void EditRule(RuleRow rule)
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
+                    {
+                        ConfigRule configRule = configProject.Groups[SelectedGroup.Data.Index].Rules[rule.Data.Index];
+
+                        RuleWindow ruleWindow = new RuleWindow(this);
+                        ruleWindow.RuleType.SelectedIndex = configRule.IsExclude ? 1 : 0;
+                        ruleWindow.RegExTextBox.Text = configRule.Rule;
+                        ruleWindow.RegExTextBox.SelectAll();
+                        ruleWindow.RegExTextBox.Focus();
+
+                        IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Edit rule");
+                        ruleWindow.Dialog = ruleDialog;
+                        ruleDialog.ShowModal();
+
+                        if (ruleWindow.IsOK)
+                        {
+                            configRule.Rule = ruleWindow.RegExTextBox.Text;
+                            configRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
+
+                            Parent.ConfigParser.SaveConfig();
+                            LoadFromConfig();
+                        }
+
+                        break;
                     }
                 }
             }
