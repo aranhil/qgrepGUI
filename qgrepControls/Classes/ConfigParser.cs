@@ -159,7 +159,7 @@ namespace qgrepControls.Classes
     public class ConfigParser
     {
         public string Path = "";
-        private string PathSuffix = @"\.qgrep\";
+        public string PathSuffix = @"\.qgrep\";
 
         public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
 

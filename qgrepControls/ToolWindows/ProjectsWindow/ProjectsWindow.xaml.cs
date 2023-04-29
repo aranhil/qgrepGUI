@@ -462,5 +462,20 @@ namespace qgrepControls.ToolWindows
                 panel.Children[panel.Children.Count - 1].Visibility = Visibility.Visible;
             }
         }
+
+        private void AdvancedToggle_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ConfigOpen_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = Parent.ConfigParser.Path + Parent.ConfigParser.PathSuffix,
+                UseShellExecute = true,
+                Verb = "open"
+            });
+        }
     }
 }

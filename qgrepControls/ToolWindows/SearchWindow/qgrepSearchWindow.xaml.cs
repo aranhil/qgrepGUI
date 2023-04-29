@@ -370,7 +370,6 @@ namespace qgrepControls.ToolWindows
                             highlightedText = currentLine.Substring(0, currentIndex);
                             ConfigParser.RemovePaths(ref file);
 
-
                             if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
                             {
                                 currentLine = currentLine.Substring(currentIndex + 1);
