@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace qgrepControls.Classes
             File.Delete(directory + "\\" + Name + ".qgf");
         }
 
-        public void Rename(string newName)
+        public bool Rename(string newName)
         {
             string directory = System.IO.Path.GetDirectoryName(Path);
             string newPath = directory + "\\" + newName + ".cfg";
@@ -64,7 +65,11 @@ namespace qgrepControls.Classes
                 DeleteFiles();
                 Path = newPath;
                 SaveConfig();
+
+                return true;
             }
+
+            return false;
         }
 
         public void LoadConfig()
@@ -158,7 +163,7 @@ namespace qgrepControls.Classes
     public class ConfigParser
     {
         public string Path = "";
-        private string PathSuffix = @"\.qgrep\";
+        public string PathSuffix = @"\.qgrep\";
 
         public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
 
@@ -222,6 +227,20 @@ namespace qgrepControls.Classes
                     configProject.DeleteFiles();
                     ConfigProjects.Remove(configProject);
                     break;
+                }
+            }
+        }
+
+        public void RemovePaths(ref string file)
+        {
+            foreach (ConfigProject configProject in ConfigProjects)
+            {
+                foreach (ConfigGroup configGroup in configProject.Groups)
+                {
+                    foreach (string path in configGroup.Paths)
+                    {
+                        file = file.Replace(path, "");
+                    }
                 }
             }
         }

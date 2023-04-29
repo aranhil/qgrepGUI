@@ -60,7 +60,11 @@ namespace qgrepControls.ToolWindows
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            Parent.DeleteProject(this);
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Parent.DeleteProject(this);
+            }
         }
 
         private void ProjectGrid_MouseDown(object sender, MouseButtonEventArgs e)

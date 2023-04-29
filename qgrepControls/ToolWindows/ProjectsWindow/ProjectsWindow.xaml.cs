@@ -1,9 +1,11 @@
 ﻿using qgrepControls.Classes;
+using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -23,6 +25,7 @@ namespace qgrepControls.ToolWindows
 
             LoadFromConfig();
             LoadColorsFromResources();
+            UpdateVisibility();
         }
 
         public void LoadFromConfig()
@@ -34,6 +37,7 @@ namespace qgrepControls.ToolWindows
                 Parent.UpdateFilters();
                 LoadProjectsFromConfig();
                 LoadGroupsFromConfig();
+                UpdateVisibility();
             }
         }
 
@@ -165,6 +169,7 @@ namespace qgrepControls.ToolWindows
                 }
 
                 LoadGroupsFromConfig();
+                UpdateHints();
             }
         }
 
@@ -186,8 +191,11 @@ namespace qgrepControls.ToolWindows
             {
                 if (configProject.Name == project.Data.ProjectName)
                 {
-                    configProject.Rename(newName);
-                    LoadFromConfig();
+                    if (configProject.Rename(newName))
+                    {
+                        Parent.RenameFilter(project.Data.ProjectName, newName);
+                        LoadFromConfig();
+                    }
                     break;
                 }
             }
@@ -213,6 +221,7 @@ namespace qgrepControls.ToolWindows
 
             LoadPathsFromConfig();
             LoadRulesFromConfig();
+            UpdateHints();
         }
 
         public void DeleteGroup(GroupRow group)
@@ -272,39 +281,37 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void AddPath()
         {
             if (SelectedProject != null && SelectedGroup != null)
             {
-
-                using (var fbd = new FolderBrowserDialog())
+                FolderSelectDialog folderSelectDialog = new FolderSelectDialog();
+                folderSelectDialog.InitialDirectory = Parent.ConfigParser.Path;
+                folderSelectDialog.Multiselect = true;
+                if (folderSelectDialog.ShowDialog())
                 {
-                    fbd.Reset();
-                    fbd.RootFolder = Environment.SpecialFolder.MyComputer;
-                    fbd.SelectedPath = Parent.ConfigParser.Path;
-
-                    DialogResult result = fbd.ShowDialog();
-
-                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                     {
-                        if (Directory.Exists(fbd.SelectedPath))
+                        if (configProject.Name == SelectedProject.Data.ProjectName)
                         {
-                            foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                            foreach (string filename in folderSelectDialog.FileNames)
                             {
-                                if (configProject.Name == SelectedProject.Data.ProjectName)
+                                if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(filename))
                                 {
-                                    configProject.Groups[SelectedGroup.Data.Index].Paths.Add(fbd.SelectedPath);
-                                    Parent.ConfigParser.SaveConfig();
-                                    LoadFromConfig();
-                                    break;
+                                    configProject.Groups[SelectedGroup.Data.Index].Paths.Add(filename);
                                 }
                             }
 
+                            Parent.ConfigParser.SaveConfig();
+                            LoadFromConfig();
+                            break;
                         }
                     }
                 }
             }
         }
+
         public void DeletePath(PathRow path)
         {
             if (SelectedProject != null && SelectedGroup != null)
@@ -320,6 +327,7 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void LoadRulesFromConfig()
         {
             RulesPanel.Children.Clear();
@@ -343,6 +351,7 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void DeleteRule(RuleRow rule)
         {
             if (SelectedProject != null && SelectedGroup != null)
@@ -358,6 +367,7 @@ namespace qgrepControls.ToolWindows
                 }
             }
         }
+
         public void AddRule()
         {
             if (SelectedProject != null && SelectedGroup != null)
@@ -376,13 +386,48 @@ namespace qgrepControls.ToolWindows
                         {
                             ConfigRule newRule = new ConfigRule();
                             newRule.Rule = ruleWindow.RegExTextBox.Text;
-                            newRule.IsExclude = ruleWindow.GroupType.SelectedIndex == 1;
+                            newRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
 
                             configProject.Groups[SelectedGroup.Data.Index].Rules.Add(newRule);
                             Parent.ConfigParser.SaveConfig();
                             LoadFromConfig();
                             break;
                         }
+                    }
+                }
+            }
+        }
+
+        public void EditRule(RuleRow rule)
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
+                    {
+                        ConfigRule configRule = configProject.Groups[SelectedGroup.Data.Index].Rules[rule.Data.Index];
+
+                        RuleWindow ruleWindow = new RuleWindow(this);
+                        ruleWindow.RuleType.SelectedIndex = configRule.IsExclude ? 1 : 0;
+                        ruleWindow.RegExTextBox.Text = configRule.Rule;
+                        ruleWindow.RegExTextBox.SelectAll();
+                        ruleWindow.RegExTextBox.Focus();
+
+                        IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Edit rule");
+                        ruleWindow.Dialog = ruleDialog;
+                        ruleDialog.ShowModal();
+
+                        if (ruleWindow.IsOK)
+                        {
+                            configRule.Rule = ruleWindow.RegExTextBox.Text;
+                            configRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
+
+                            Parent.ConfigParser.SaveConfig();
+                            LoadFromConfig();
+                        }
+
+                        break;
                     }
                 }
             }
@@ -461,6 +506,65 @@ namespace qgrepControls.ToolWindows
             {
                 panel.Children[panel.Children.Count - 1].Visibility = Visibility.Visible;
             }
+        }
+
+        private void UpdateHints()
+        {
+            int pathsCount = 0;
+            int rulesCount = 0;
+
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
+                    {
+                        pathsCount = configProject.Groups[SelectedGroup.Data.Index].Paths.Count;
+                        rulesCount = configProject.Groups[SelectedGroup.Data.Index].Rules.Count;
+                    }
+                }
+            }
+
+            PathsHint.Visibility = pathsCount > 0 ? Visibility.Collapsed : Visibility.Visible;
+            RulesHint.Visibility = rulesCount > 0 ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void UpdateVisibility()
+        {
+            bool isAdvanced = Settings.Default.AdvancedProjectSettings;
+            AdvancedToggle.Content = isAdvanced ? "›› Basic" : "‹‹ Advanced";
+
+            int projectsCount = Parent.ConfigParser.ConfigProjects.Count;
+            int groupsCount = projectsCount > 0 ? Parent.ConfigParser.ConfigProjects[0].Groups.Count : 0;
+
+            bool canGoBasic = projectsCount <= 1 && groupsCount <= 1;
+
+            AdvancedToggle.IsEnabled = isAdvanced && canGoBasic || !isAdvanced;
+            AdvancedToggle.ToolTip = !canGoBasic ? "Remove extra projects and groups to go back to basic settings" : null;
+
+            GridLength gridLength = isAdvanced ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Pixel);
+            ProjectsColumn.Width = gridLength;
+            GroupsColumn.Width = gridLength;
+
+            UpdateHints();
+        }
+
+        private void AdvancedToggle_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.AdvancedProjectSettings = !Settings.Default.AdvancedProjectSettings;
+            Settings.Default.Save();
+
+            UpdateVisibility();
+        }
+
+        private void ConfigOpen_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = Parent.ConfigParser.Path + Parent.ConfigParser.PathSuffix,
+                UseShellExecute = true,
+                Verb = "open"
+            });
         }
     }
 }

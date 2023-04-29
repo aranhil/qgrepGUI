@@ -221,7 +221,7 @@
         },
         {
             "Name": "Button.IsDisabled.Background",
-            "Color": "56, 97, 141"
+            "Color": "213, 217, 222"
         },
         {
             "Name": "Button.IsDisabled.Foreground",

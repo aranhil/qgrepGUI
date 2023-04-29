@@ -57,6 +57,11 @@ namespace qgrepControls.ToolWindows
             Icons.Visibility = Visibility.Collapsed;
         }
 
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Parent.EditRule(this);
+        }
+
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Parent.DeleteRule(this);

@@ -12,10 +12,14 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition x:Name="ProjectsColumn" Width="*" />
+            <ColumnDefinition x:Name="GroupsColumn" Width="*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="34" />
+        </Grid.RowDefinitions>
         <Border Grid.Column="0" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="ProjectsPanel_MouseEnter" MouseLeave="ProjectsPanel_MouseLeave">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
                 <StackPanel x:Name="ProjectsPanel"/>
@@ -37,6 +41,7 @@
                         <StackPanel x:Name="PathsPanel"/>
                     </ScrollViewer>
                 </Border>
+                <Label x:Name="PathsHint" Content="Paths" Style="{DynamicResource SomeHintLabel2}" />
             </Grid>
             <Grid Grid.Row="1" Style="{DynamicResource ZIndexFocusable}">
                 <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,-1,0,0" MouseEnter="RulesPanel_MouseEnter" MouseLeave="RulesPanel_MouseLeave">
@@ -44,7 +49,12 @@
                         <StackPanel x:Name="RulesPanel"/>
                     </ScrollViewer>
                 </Border>
+                <Label x:Name="RulesHint" Content="Filters" Style="{DynamicResource SomeHintLabel2}" />
             </Grid>
         </Grid>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5,5,0,5">
+            <Button x:Name="AdvancedToggle" Content="◀◀ Advanced" ToolTipService.ShowOnDisabled="True" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AdvancedToggle_Click" Padding="5,2,8,2"/>
+            <Button x:Name="ConfigOpen" Content="Open location" HorizontalAlignment="Center" Margin="0,0,5,0" Click="ConfigOpen_Click" Padding="5,2,8,2"/>
+        </StackPanel>
     </Grid>
 </UserControl>
