@@ -191,8 +191,11 @@ namespace qgrepControls.ToolWindows
             {
                 if (configProject.Name == project.Data.ProjectName)
                 {
-                    configProject.Rename(newName);
-                    LoadFromConfig();
+                    if (configProject.Rename(newName))
+                    {
+                        Parent.RenameFilter(project.Data.ProjectName, newName);
+                        LoadFromConfig();
+                    }
                     break;
                 }
             }

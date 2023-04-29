@@ -117,6 +117,18 @@ namespace qgrepControls.ToolWindows
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B); ;
         }
 
+        public void RenameFilter(string oldName, string newName)
+        {
+            List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
+            int oldFilterIndex = searchFilters.IndexOf(oldName);
+            if(oldFilterIndex >= 0)
+            {
+                searchFilters[oldFilterIndex] = newName;
+            }
+            Settings.Default.SearchFilters = string.Join(",", searchFilters);
+            Settings.Default.Save();
+        }
+
         public void UpdateFilters()
         {
             Visibility visibility = Visibility.Collapsed;
@@ -124,8 +136,28 @@ namespace qgrepControls.ToolWindows
             if (ConfigParser != null)
             {
                 FiltersComboBox.ItemsSource = ConfigParser.ConfigProjects;
+                FiltersComboBox.SelectedItems.Clear();
 
-                if (ConfigParser.ConfigProjects.Count > 0)
+                List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
+                foreach(string searchFilter in searchFilters)
+                {
+                    ConfigProject selectedProject = null;
+                    foreach(ConfigProject configProject in ConfigParser.ConfigProjects)
+                    {
+                        if(configProject.Name == searchFilter)
+                        {
+                            selectedProject = configProject;
+                            break;
+                        }
+                    }
+
+                    if(selectedProject != null)
+                    {
+                        FiltersComboBox.SelectedItems.Add(selectedProject);
+                    }
+                }
+
+                if(FiltersComboBox.SelectedItems.Count == 0 && ConfigParser.ConfigProjects.Count > 0)
                 {
                     FiltersComboBox.SelectedItems.Add(ConfigParser.ConfigProjects[0]);
                 }
@@ -827,6 +859,15 @@ namespace qgrepControls.ToolWindows
 
         private void FiltersComboBox_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
         {
+            List<string> searchFilters = new List<string>();
+            foreach(ConfigProject configProject in FiltersComboBox.SelectedItems)
+            {
+                searchFilters.Add(configProject.Name);
+            }
+
+            Settings.Default.SearchFilters = string.Join(",", searchFilters);
+            Settings.Default.Save();
+
             Find();
         }
     }

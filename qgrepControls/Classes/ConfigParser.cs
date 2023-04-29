@@ -55,7 +55,7 @@ namespace qgrepControls.Classes
             File.Delete(directory + "\\" + Name + ".qgf");
         }
 
-        public void Rename(string newName)
+        public bool Rename(string newName)
         {
             string directory = System.IO.Path.GetDirectoryName(Path);
             string newPath = directory + "\\" + newName + ".cfg";
@@ -65,7 +65,11 @@ namespace qgrepControls.Classes
                 DeleteFiles();
                 Path = newPath;
                 SaveConfig();
+
+                return true;
             }
+
+            return false;
         }
 
         public void LoadConfig()
