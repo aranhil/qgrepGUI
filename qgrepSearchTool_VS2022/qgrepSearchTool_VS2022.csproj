@@ -137,6 +137,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\Icon128x128.png">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -145,6 +149,18 @@
     <ProjectReference Include="..\qgrepControls\qgrepControls.csproj">
       <Project>{DCCFA321-FE02-4FD1-AA94-4F7C0AD92C2A}</Project>
       <Name>qgrepControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\qgrepInterop\qgrepInterop.vcxproj">
+      <Project>{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}</Project>
+      <Name>qgrepInterop</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
+    </ProjectReference>
+    <ProjectReference Include="..\qgrep\qgrep.vcxproj">
+      <Project>{6827D800-E969-478D-BF86-2B821F084585}</Project>
+      <Name>qgrep</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
