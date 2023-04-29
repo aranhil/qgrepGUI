@@ -1,4 +1,5 @@
 ﻿using qgrepControls.Classes;
+using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,6 +24,7 @@ namespace qgrepControls.ToolWindows
 
             LoadFromConfig();
             LoadColorsFromResources();
+            UpdateVisibility();
         }
 
         public void LoadFromConfig()
@@ -34,6 +36,7 @@ namespace qgrepControls.ToolWindows
                 Parent.UpdateFilters();
                 LoadProjectsFromConfig();
                 LoadGroupsFromConfig();
+                UpdateVisibility();
             }
         }
 
@@ -463,9 +466,29 @@ namespace qgrepControls.ToolWindows
             }
         }
 
+        private void UpdateVisibility()
+        {
+            bool isAdvanced = Settings.Default.AdvancedProjectSettings;
+            AdvancedToggle.Content = isAdvanced ? "›› Basic" : "‹‹ Advanced";
+
+            int projectsCount = Parent.ConfigParser.ConfigProjects.Count;
+            int groupsCount = projectsCount > 0 ? Parent.ConfigParser.ConfigProjects[0].Groups.Count : 0;
+            bool canGoBasic = projectsCount <= 1 && groupsCount <= 1;
+
+            AdvancedToggle.IsEnabled = isAdvanced && canGoBasic || !isAdvanced;
+            AdvancedToggle.ToolTip = !canGoBasic ? "Remove extra projects and groups to go back to basic settings" : null;
+
+            GridLength gridLength = isAdvanced ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Pixel);
+            ProjectsColumn.Width = gridLength;
+            GroupsColumn.Width = gridLength;
+        }
+
         private void AdvancedToggle_Click(object sender, RoutedEventArgs e)
         {
+            Settings.Default.AdvancedProjectSettings = !Settings.Default.AdvancedProjectSettings;
+            Settings.Default.Save();
 
+            UpdateVisibility();
         }
 
         private void ConfigOpen_Click(object sender, RoutedEventArgs e)

@@ -12,8 +12,8 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition x:Name="ProjectsColumn" Width="*" />
+            <ColumnDefinition x:Name="GroupsColumn" Width="*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -50,8 +50,8 @@
                 </Border>
             </Grid>
         </Grid>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5,5,0,5">
-            <Button x:Name="AdvancedToggle" Content="Advanced" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AdvancedToggle_Click" Padding="5,2,8,2"/>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5,5,0,5">
+            <Button x:Name="AdvancedToggle" Content="◀◀ Advanced" ToolTipService.ShowOnDisabled="True" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AdvancedToggle_Click" Padding="5,2,8,2"/>
             <Button x:Name="ConfigOpen" Content="Open location" HorizontalAlignment="Center" Margin="0,0,5,0" Click="ConfigOpen_Click" Padding="5,2,8,2"/>
         </StackPanel>
     </Grid>
