@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.VSSDK.BuildTools.16.10.1055\build\Microsoft.VSSDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.16.10.1055\build\Microsoft.VSSDK.BuildTools.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <OutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\obj\</IntermediateOutputPath>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <UseCodebase>true</UseCodebase>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>qgrepSearch</RootNamespace>
+    <AssemblyName>qgrepSearchTool</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Classes\ConfigParser.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="qgrepSearchPackage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Commands\ShowToolWindow.cs" />
+    <Compile Include="ResourceDictionary.xaml.cs">
+      <DependentUpon>ResourceDictionary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\ProjectsWindow\ProjectRow.xaml.cs">
+      <DependentUpon>ProjectRow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\SettingsWindow\FileExtensionRow.xaml.cs">
+      <DependentUpon>FileExtensionRow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\SearchWindow\ErrorsWindow.xaml.cs">
+      <DependentUpon>ErrorsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\SettingsWindow\FileExtensionWindow.xaml.cs">
+      <DependentUpon>FileExtensionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\ProjectsWindow\ProjectsWindow.xaml.cs">
+      <DependentUpon>ProjectsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\SettingsWindow\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\SearchWindow\ColorsWindow.xaml.cs">
+      <DependentUpon>ColorsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\qgrepSearchWindow.cs" />
+    <Compile Include="ToolWindows\SearchWindow\qgrepSearchWindow.xaml.cs">
+      <DependentUpon>qgrepSearchWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\qgrepSearchWindowState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\LICENSE">
+      <Link>Resources\LICENSE</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <VSCTCompile Include="VSCommandTable.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VSPackage.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Icon128x128.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\qgrepInterop\qgrepInterop.vcxproj">
+      <Project>{25ae182e-4ff0-40d1-9dec-9335db41fbf2}</Project>
+      <Name>qgrepInterop</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK">
+      <Version>17.0.0-previews-1-31410-273</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data">
+      <Version>17.0.255-preview-ga4c683bf62</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Threading">
+      <Version>17.0.32-alpha</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Validation">
+      <Version>17.0.21-alpha</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VSSDK.BuildTools">
+      <Version>17.0.3177-preview3</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="StreamJsonRpc">
+      <Version>2.9.12-alpha</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\envdte\17.0.0-previews-1-31410-258\lib\net472\envdte.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\envdte100\17.0.0-previews-1-31410-258\lib\net472\envdte100.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\envdte80\17.0.0-previews-1-31410-258\lib\net472\envdte80.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\envdte90\17.0.0-previews-1-31410-258\lib\net472\envdte90.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\envdte90a\17.0.0-previews-1-31410-258\lib\net472\envdte90a.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\messagepack.annotations\2.2.85\lib\netstandard2.0\MessagePack.Annotations.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\messagepack\2.2.85\lib\netstandard2.0\MessagePack.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.bcl.asyncinterfaces\5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.build.framework\16.5.0\lib\net472\Microsoft.Build.Framework.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Microsoft.CSharp.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.diagnostics.tracing.eventsource.redist\1.1.28\lib\net46\Microsoft.Diagnostics.Tracing.EventSource.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.servicehub.client\2.8.2019\lib\net472\Microsoft.ServiceHub.Client.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.servicehub.framework\2.8.2019\lib\netstandard2.0\Microsoft.ServiceHub.Framework.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.servicehub.resources\2.8.2019\lib\net472\Microsoft.ServiceHub.Resources.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Common Files\Microsoft Shared\MSEnv\PublicAssemblies\Microsoft.VisualStudio.CommandBars.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.commandbars\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.CommandBars.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.componentmodelhost\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.ComponentModelHost.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.coreutility\17.0.255-preview-ga4c683bf62\lib\net472\Microsoft.VisualStudio.CoreUtility.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.debugger.interop.10.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.Debugger.Interop.10.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.debugger.interop.11.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.Debugger.Interop.11.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.debugger.interop.12.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.Debugger.Interop.12.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.debugger.interop.14.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.Debugger.Interop.14.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.debugger.interop.15.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.Debugger.Interop.15.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.debugger.interop.16.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.Debugger.Interop.16.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.debugger.interopa\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.Debugger.InteropA.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.designer.interfaces\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Designer.Interfaces.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.editor\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.Editor.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.graphmodel\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.GraphModel.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.imagecatalog\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.ImageCatalog.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.imaging\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Imaging.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.imaging.interop.14.0.designtime\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.interop\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Interop.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.language\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.Language.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.language.intellisense\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.Language.Intellisense.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.language.navigateto.interfaces\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.Language.NavigateTo.Interfaces.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.language.standardclassification\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.Language.StandardClassification.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.languageserver.client\17.0.1041-g6038eb3844\lib\net472\Microsoft.VisualStudio.LanguageServer.Client.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.languageserver.protocol\17.0.1041-g6038eb3844\lib\netstandard2.0\Microsoft.VisualStudio.LanguageServer.Protocol.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.ole.interop\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.OLE.Interop.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.package.languageservice.15.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.Package.LanguageService.15.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.projectaggregator\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.ProjectAggregator.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.remotecontrol\16.3.32\lib\net45\Microsoft.VisualStudio.RemoteControl.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.rpccontracts\17.0.50-preview-0001-0001\lib\netstandard2.0\Microsoft.VisualStudio.RpcContracts.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.15.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Shell.15.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.design\17.0.0-previews-1-31410-273\lib\net472\Microsoft.VisualStudio.Shell.Design.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.framework\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Shell.Framework.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.interop.10.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Shell.Interop.10.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.interop.11.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Shell.Interop.11.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.interop.12.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Shell.Interop.12.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.interop.8.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Shell.Interop.8.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.interop.9.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Shell.Interop.9.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.shell.interop\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Shell.Interop.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.taskrunnerexplorer.14.0\14.0.0\lib\net40\Microsoft.VisualStudio.TaskRunnerExplorer.14.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.telemetry\16.3.176\lib\net45\Microsoft.VisualStudio.Telemetry.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.text.data\17.0.255-preview-ga4c683bf62\lib\net472\Microsoft.VisualStudio.Text.Data.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.text.logic\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.Text.Logic.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.text.ui\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.Text.UI.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.text.ui.wpf\17.0.82-g2ecf33c7f7\lib\net472\Microsoft.VisualStudio.Text.UI.Wpf.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.textmanager.interop.10.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.TextManager.Interop.10.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.textmanager.interop.11.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.TextManager.Interop.11.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.textmanager.interop.12.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.TextManager.Interop.12.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.textmanager.interop.8.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.TextManager.Interop.8.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.textmanager.interop.9.0\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.TextManager.Interop.9.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.textmanager.interop\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.TextManager.Interop.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.texttemplating.15.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.TextTemplating.15.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.texttemplating.interfaces.10.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.texttemplating.interfaces.11.0\17.0.0-previews-1-31410-258\lib\net45\Microsoft.VisualStudio.TextTemplating.Interfaces.11.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.texttemplating.interfaces.15.0\17.0.0-previews-1-31403-064\lib\net45\Microsoft.VisualStudio.TextTemplating.Interfaces.15.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.texttemplating.vshost.15.0\17.0.0-previews-1-31410-273\lib\net45\Microsoft.VisualStudio.TextTemplating.VSHost.15.0.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.threading\17.0.32-alpha\lib\net472\Microsoft.VisualStudio.Threading.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.utilities\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.Utilities.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.validation\17.0.21-alpha\lib\netstandard2.0\Microsoft.VisualStudio.Validation.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.vshelp\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.VSHelp.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.vshelp80\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.VSHelp80.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.wcfreference.interop\17.0.0-previews-1-31410-258\lib\net472\Microsoft.VisualStudio.WCFReference.Interop.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.visualstudio.web.browserlink.12.0\12.0.0\lib\net40\Microsoft.VisualStudio.Web.BrowserLink.12.0.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\Microsoft.Win32.Primitives.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\microsoft.win32.registry\5.0.0\ref\net461\Microsoft.Win32.Registry.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\mscorlib.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\nerdbank.streams\2.7.74\lib\netstandard2.0\Nerdbank.Streams.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\netstandard.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\newtonsoft.json\13.0.1\lib\net45\Newtonsoft.Json.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationFramework.dll" />
+    <ReferencePath Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepInterop\qgrepInterop.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\stdole.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\stdole\17.0.0-previews-1-31410-258\lib\net472\stdole.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\streamjsonrpc\2.9.12-alpha\lib\netstandard2.0\StreamJsonRpc.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.buffers\4.5.1\ref\net45\System.Buffers.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.collections.immutable\5.0.0\lib\net461\System.Collections.Immutable.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.ComponentModel.Composition.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Configuration.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Data.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Design.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.diagnostics.diagnosticsource\5.0.1\lib\net46\System.Diagnostics.DiagnosticSource.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Drawing.Design.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Drawing.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.io.pipelines\5.0.1\lib\net461\System.IO.Pipelines.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Management.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.memory\4.5.4\lib\net461\System.Memory.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Net.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.WebSockets.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Numerics.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.numerics.vectors\4.5.0\ref\net46\System.Numerics.Vectors.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.runtime.compilerservices.unsafe\5.0.0\ref\net461\System.Runtime.CompilerServices.Unsafe.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.security.accesscontrol\5.0.0\ref\net461\System.Security.AccessControl.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Security.Cryptography.Algorithms.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Security.Cryptography.Encoding.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Security.Cryptography.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Security.Cryptography.X509Certificates.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.security.principal.windows\5.0.0\ref\net461\System.Security.Principal.Windows.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.threading.accesscontrol\5.0.0\ref\net461\System.Threading.AccessControl.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.threading.tasks.dataflow\5.0.0\lib\net461\System.Threading.Tasks.Dataflow.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\system.threading.tasks.extensions\4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Transactions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Windows.Forms.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\UIAutomationProvider.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj\17.0.0-previews-1-31410-258\lib\net472\VSLangProj.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj100\17.0.0-previews-1-31410-258\lib\net472\VSLangProj100.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj110\17.0.0-previews-1-31410-258\lib\net472\VSLangProj110.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj140\17.0.0-previews-1-31410-258\lib\net472\VSLangProj140.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj150\17.0.0-previews-1-31410-258\lib\net472\VSLangProj150.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj157\17.0.0-previews-1-31410-258\lib\net472\VSLangProj157.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj158\17.0.0-previews-1-31410-258\lib\net472\VSLangProj158.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj165\17.0.0-previews-1-31410-258\lib\net472\VSLangProj165.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj2\17.0.0-previews-1-31410-258\lib\net472\VSLangProj2.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj80\17.0.0-previews-1-31410-258\lib\net472\VSLangProj80.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\vslangproj90\17.0.0-previews-1-31410-258\lib\net472\VSLangProj90.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\WindowsBase.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\extended.wpf.toolkit\3.8.1\lib\net40\Xceed.Wpf.AvalonDock.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\extended.wpf.toolkit\3.8.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\extended.wpf.toolkit\3.8.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\extended.wpf.toolkit\3.8.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+    <ReferencePath Include="C:\Users\Iulian\.nuget\packages\extended.wpf.toolkit\3.8.1\lib\net40\Xceed.Wpf.Toolkit.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.AppContext.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Collections.Concurrent.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Collections.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Collections.NonGeneric.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Collections.Specialized.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ComponentModel.Annotations.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ComponentModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ComponentModel.EventBasedAsync.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ComponentModel.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ComponentModel.TypeConverter.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Console.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Data.Common.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Diagnostics.Contracts.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Diagnostics.Debug.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Diagnostics.FileVersionInfo.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Diagnostics.Process.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Diagnostics.StackTrace.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Diagnostics.TextWriterTraceListener.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Diagnostics.Tools.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Diagnostics.TraceSource.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Drawing.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Dynamic.Runtime.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Globalization.Calendars.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Globalization.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Globalization.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.Compression.ZipFile.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.FileSystem.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.FileSystem.DriveInfo.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.FileSystem.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.FileSystem.Watcher.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.IsolatedStorage.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.MemoryMappedFiles.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.Pipes.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.IO.UnmanagedMemoryStream.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Linq.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Linq.Expressions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Linq.Parallel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Linq.Queryable.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.Http.Rtc.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.NameResolution.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.NetworkInformation.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.Ping.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.Requests.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.Security.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.Sockets.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.WebHeaderCollection.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Net.WebSockets.Client.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ObjectModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Reflection.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Reflection.Emit.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Reflection.Emit.ILGeneration.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Reflection.Emit.Lightweight.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Reflection.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Reflection.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Resources.Reader.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Resources.ResourceManager.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Resources.Writer.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.CompilerServices.VisualC.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.Handles.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.InteropServices.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.InteropServices.WindowsRuntime.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.Numerics.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.Serialization.Formatters.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.Serialization.Json.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.Serialization.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Runtime.Serialization.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Security.Claims.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Security.Cryptography.Csp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Security.Principal.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Security.SecureString.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ServiceModel.Duplex.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ServiceModel.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ServiceModel.NetTcp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ServiceModel.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ServiceModel.Security.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Text.Encoding.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Text.Encoding.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Text.RegularExpressions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Threading.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Threading.Overlapped.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Threading.Tasks.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Threading.Tasks.Parallel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Threading.Thread.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Threading.ThreadPool.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Threading.Timer.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.ValueTuple.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Xml.ReaderWriter.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Xml.XDocument.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Xml.XmlDocument.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Xml.XmlSerializer.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Xml.XPath.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Facades\System.Xml.XPath.XDocument.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\obj\ToolWindows\ProjectsWindow\ProjectRow.g.cs" />
+    <Compile Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\obj\ToolWindows\SettingsWindow\FileExtensionRow.g.cs" />
+    <Compile Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\obj\ToolWindows\SearchWindow\ErrorsWindow.g.cs" />
+    <Compile Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\obj\ToolWindows\SettingsWindow\FileExtensionWindow.g.cs" />
+    <Compile Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\obj\ToolWindows\ProjectsWindow\ProjectsWindow.g.cs" />
+    <Compile Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\obj\ToolWindows\SettingsWindow\SettingsWindow.g.cs" />
+    <Compile Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\obj\ToolWindows\SearchWindow\ColorsWindow.g.cs" />
+    <Compile Include="C:\Development\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\obj\ToolWindows\SearchWindow\qgrepSearchWindow.g.cs" />
+  </ItemGroup>
+</Project>
