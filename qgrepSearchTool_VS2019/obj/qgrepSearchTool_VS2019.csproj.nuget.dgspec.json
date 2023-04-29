@@ -27,7 +27,11 @@
         },
         "frameworks": {
           "net472": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+                "projectPath": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj"
+              }
+            }
           }
         }
       },
@@ -57,6 +61,25 @@
         }
       }
     },
+    "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj",
+        "projectName": "qgrepInterop",
+        "projectPath": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj",
+        "frameworks": {
+          "native": {
+            "projectReferences": {
+              "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrep\\qgrep.vcxproj": {
+                "projectPath": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrep\\qgrep.vcxproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "native": {}
+      }
+    },
     "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepSearchTool_VS2019\\qgrepSearchTool_VS2019.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -83,6 +106,9 @@
             "projectReferences": {
               "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj": {
                 "projectPath": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj"
+              },
+              "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+                "projectPath": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj"
               },
               "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrep\\qgrep.vcxproj": {
                 "projectPath": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrep\\qgrep.vcxproj"

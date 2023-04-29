@@ -20,6 +20,7 @@
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
         <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="qgrep" Path="|qgrep|" AssemblyName="|qgrep;AssemblyName|" />
         <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="Newtonsoft.Json.dll" AssemblyName="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed" />
+        <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="qgrepInterop" Path="|qgrepInterop|" AssemblyName="|qgrepInterop;AssemblyName|" />
     </Assets>
     <Installation>
         <InstallationTarget Version="[15.0,17.0)" Id="Microsoft.VisualStudio.Community">

@@ -63,14 +63,31 @@
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net45/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "qgrep/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/qgrep.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/qgrep.dll": {}
+        }
+      },
+      "qgrepInterop/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "qgrep": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/qgrepInterop.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/qgrepInterop.dll": {}
         }
       }
     },
@@ -136,14 +153,31 @@
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net45/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "qgrep/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/qgrep.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/qgrep.dll": {}
+        }
+      },
+      "qgrepInterop/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "qgrep": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/qgrepInterop.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/qgrepInterop.dll": {}
         }
       }
     },
@@ -209,14 +243,31 @@
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net45/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "qgrep/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/qgrep.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/qgrep.dll": {}
+        }
+      },
+      "qgrepInterop/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "qgrep": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/qgrepInterop.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/qgrepInterop.dll": {}
         }
       }
     },
@@ -282,14 +333,31 @@
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net45/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
+      "qgrep/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/qgrep.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/qgrep.dll": {}
+        }
+      },
+      "qgrepInterop/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "qgrep": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/qgrepInterop.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/qgrepInterop.dll": {}
         }
       }
     }
@@ -371,12 +439,23 @@
         "newtonsoft.json.nuspec",
         "packageIcon.png"
       ]
+    },
+    "qgrep/1.0.0": {
+      "type": "project",
+      "path": "../qgrep/qgrep.vcxproj",
+      "msbuildProject": "../qgrep/qgrep.vcxproj"
+    },
+    "qgrepInterop/1.0.0": {
+      "type": "project",
+      "path": "../qgrepInterop/qgrepInterop.vcxproj",
+      "msbuildProject": "../qgrepInterop/qgrepInterop.vcxproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
       "Extended.Wpf.Toolkit >= 4.5.0",
-      "Newtonsoft.Json >= 13.0.1"
+      "Newtonsoft.Json >= 13.0.1",
+      "qgrepInterop >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -405,7 +484,11 @@
       },
       "frameworks": {
         "net472": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+              "projectPath": "C:\\Users\\Iulian\\Documents\\GitHub\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj"
+            }
+          }
         }
       }
     },

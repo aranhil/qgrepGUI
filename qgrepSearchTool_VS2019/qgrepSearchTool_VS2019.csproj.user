@@ -8,6 +8,7 @@
     <StartArguments>/rootsuffix Exp</StartArguments>
     <StartAction>Program</StartAction>
     <DeployTargetInstanceId />
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</StartProgram>

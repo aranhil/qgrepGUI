@@ -1,17 +1,7 @@
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls.csprojAssemblyReference.cache
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\GroupRow.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\PathRow.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\ProjectRow.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\ProjectsWindow.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\RowAdd.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\RuleRow.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\RuleWindow.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\SettingsWindow\SettingsWindow.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls_MarkupCompile.cache
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls_MarkupCompile.lref
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ResourceDictionary.baml
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\SearchWindow\ColorsWindow.g.cs
-C:\Users\sichivu\source\repos\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\SearchWindow\qgrepSearchWindow.g.cs
+C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\build\Debug_x86\qgrepSearchTool\qgrepControls.dll.config
+C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\build\Debug_x86\qgrepSearchTool\qgrepControls.dll
+C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\build\Debug_x86\qgrepSearchTool\qgrepControls.pdb
+C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls.csprojAssemblyReference.cache
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\ResourceDictionary.baml
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\GroupRow.g.cs
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\PathRow.g.cs
@@ -25,9 +15,6 @@ C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\ToolWin
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\SettingsWindow\SettingsWindow.g.cs
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls_MarkupCompile.cache
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls_MarkupCompile.lref
-C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\qgrepControls.dll.config
-C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\qgrepControls.dll
-C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\build\Debug_x64\qgrepSearchTool\qgrepControls.pdb
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\GroupRow.baml
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\PathRow.baml
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\ToolWindows\ProjectsWindow\ProjectRow.baml
@@ -45,4 +32,3 @@ C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\qgrepCo
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls.csproj.CopyComplete
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls.dll
 C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls.pdb
-C:\Users\Iulian\Documents\GitHub\qgrepSearchTool\qgrepControls\obj\Debug\qgrepControls.csprojAssemblyReference.cache
