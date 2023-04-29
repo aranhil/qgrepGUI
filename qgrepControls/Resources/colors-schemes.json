@@ -141,6 +141,18 @@
         {
             "Name": "CheckBox.Foreground",
             "Color": "White"
+        },
+        {
+            "Name": "Menu.Separator",
+            "Color": "6, 57, 112"
+        },
+        {
+            "Name": "Menu.Background",
+            "Color": "30, 129, 176"
+        },
+        {
+            "Name": "MenuItem.IsMouseOver.Background",
+            "Color": "6, 57, 112"
         }
     ]
   },
@@ -286,6 +298,18 @@
         {
             "Name": "CheckBox.Foreground",
             "Color": "Black"
+        },
+        {
+            "Name": "Menu.Separator",
+            "Color": "190, 224, 236"
+        },
+        {
+            "Name": "Menu.Background",
+            "Color": "180, 196, 212"
+        },
+        {
+            "Name": "MenuItem.IsMouseOver.Background",
+            "Color": "190, 224, 236"
         }
     ]
   }

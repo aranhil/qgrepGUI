@@ -559,9 +559,9 @@ namespace qgrepControls.ToolWindows
         {
             try
             {
-                int lastIndex = result.File.LastIndexOf('(');
-                string file = result.File.Substring(0, lastIndex);
-                string line = result.File.Substring(lastIndex + 1, result.File.Length - lastIndex - 2);
+                int lastIndex = result.FullFile.LastIndexOf('(');
+                string file = result.FullFile.Substring(0, lastIndex);
+                string line = result.FullFile.Substring(lastIndex + 1, result.FullFile.Length - lastIndex - 2);
 
                 ExtensionInterface.OpenFile(file, line);
             }
