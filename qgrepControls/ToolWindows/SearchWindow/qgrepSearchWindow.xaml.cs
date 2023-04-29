@@ -329,7 +329,7 @@ namespace qgrepControls.ToolWindows
                         if (currentIndex >= 0)
                         {
                             file = currentLine.Substring(0, currentIndex);
-                            //file.Replace(SearchPath, "");
+                            ConfigParser.RemovePaths(ref file);
 
                             if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
                             {
@@ -368,7 +368,8 @@ namespace qgrepControls.ToolWindows
                         if (currentIndex >= 0)
                         {
                             highlightedText = currentLine.Substring(0, currentIndex);
-                            //file.Replace(SearchPath, "");
+                            ConfigParser.RemovePaths(ref file);
+
 
                             if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
                             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -222,6 +223,20 @@ namespace qgrepControls.Classes
                     configProject.DeleteFiles();
                     ConfigProjects.Remove(configProject);
                     break;
+                }
+            }
+        }
+
+        public void RemovePaths(ref string file)
+        {
+            foreach (ConfigProject configProject in ConfigProjects)
+            {
+                foreach (ConfigGroup configGroup in configProject.Groups)
+                {
+                    foreach (string path in configGroup.Paths)
+                    {
+                        file = file.Replace(path, "");
+                    }
                 }
             }
         }
