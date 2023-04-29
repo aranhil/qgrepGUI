@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -282,30 +283,26 @@ namespace qgrepControls.ToolWindows
         {
             if (SelectedProject != null && SelectedGroup != null)
             {
-
-                using (var fbd = new FolderBrowserDialog())
+                FolderSelectDialog folderSelectDialog = new FolderSelectDialog();
+                folderSelectDialog.InitialDirectory = Parent.ConfigParser.Path;
+                folderSelectDialog.Multiselect = true;
+                if (folderSelectDialog.ShowDialog())
                 {
-                    fbd.Reset();
-                    fbd.RootFolder = Environment.SpecialFolder.Desktop;
-                    fbd.SelectedPath = Parent.ConfigParser.Path;
-
-                    DialogResult result = FolderBrowserLauncher.ShowFolderBrowser(fbd);
-
-                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
                     {
-                        if (Directory.Exists(fbd.SelectedPath))
+                        if (configProject.Name == SelectedProject.Data.ProjectName)
                         {
-                            foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                            foreach (string filename in folderSelectDialog.FileNames)
                             {
-                                if (configProject.Name == SelectedProject.Data.ProjectName)
+                                if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(filename))
                                 {
-                                    configProject.Groups[SelectedGroup.Data.Index].Paths.Add(fbd.SelectedPath);
-                                    Parent.ConfigParser.SaveConfig();
-                                    LoadFromConfig();
-                                    break;
+                                    configProject.Groups[SelectedGroup.Data.Index].Paths.Add(filename);
                                 }
                             }
 
+                            Parent.ConfigParser.SaveConfig();
+                            LoadFromConfig();
+                            break;
                         }
                     }
                 }
