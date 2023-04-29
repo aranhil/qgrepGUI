@@ -25,9 +25,11 @@ namespace qgrepControls.ToolWindows
 
         public int Index { get; set; }
         public string File { get; set; }
+        public string FullFile { get; set; }
         public string BeginText { get; set; }
         public string EndText { get; set; }
         public string HighlightedText { get; set; }
+        public string FullResult { get; set; }
 
         public bool IsSelected
         {
@@ -77,12 +79,15 @@ namespace qgrepControls.ToolWindows
         private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
         private string LastResults = "";
 
+        ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
+        int selectedSearchResult = -1;
+
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
             ExtensionInterface = extensionInterface;
 
             InitializeComponent();
-            SearchItemsControl.DataContext = items;
+            SearchItemsControl.DataContext = searchResults;
 
             InitButton.Visibility = Visibility.Hidden;
             CleanButton.Visibility = Visibility.Hidden;
@@ -242,9 +247,6 @@ namespace qgrepControls.ToolWindows
             Settings.Default.Save();
         }
 
-        ObservableCollection<SearchResult> items = new ObservableCollection<SearchResult>();
-        int selectedItem = -1;
-
         private void Find()
         {
             if (EngineBusy)
@@ -268,7 +270,7 @@ namespace qgrepControls.ToolWindows
 
             if(SearchInput.Text.Length == 0)
             {
-                items.Clear();
+                searchResults.Clear();
                 return;
             }
 
@@ -355,13 +357,17 @@ namespace qgrepControls.ToolWindows
                     if (results[index] == '\n')
                     {
                         string currentLine = results.Substring(lastIndex, index - lastIndex);
-                        string file = "", beginText = "", endText = "", highlightedText = "";
+                        string file = "", beginText = "", endText = "", highlightedText = "", fullFile = "", fullResult = "";
+
+                        fullResult = currentLine.Replace("\xB0", "");
+                        fullResult = fullResult.Replace("\xB1", "");
+                        fullResult = fullResult.Replace("\xB2", "");
 
                         int currentIndex = currentLine.IndexOf('\xB0');
                         if (currentIndex >= 0)
                         {
-                            file = currentLine.Substring(0, currentIndex);
-                            ConfigParser.RemovePaths(ref file);
+                            fullFile = currentLine.Substring(0, currentIndex);
+                            file = ConfigParser.RemovePaths(fullFile);
 
                             if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
                             {
@@ -400,7 +406,6 @@ namespace qgrepControls.ToolWindows
                         if (currentIndex >= 0)
                         {
                             highlightedText = currentLine.Substring(0, currentIndex);
-                            ConfigParser.RemovePaths(ref file);
 
                             if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
                             {
@@ -423,9 +428,11 @@ namespace qgrepControls.ToolWindows
                         {
                             Index = resultIndex,
                             File = file,
+                            FullFile = fullFile,
                             BeginText = beginText,
                             EndText = endText,
                             HighlightedText = highlightedText,
+                            FullResult = fullResult,
                             IsSelected = false,
                         });
 
@@ -437,21 +444,21 @@ namespace qgrepControls.ToolWindows
                 Dispatcher.Invoke(new Action(() =>
                 {
                     Errors += errors;
-                    SearchItemsControl.DataContext = items = newItems;
+                    SearchItemsControl.DataContext = searchResults = newItems;
 
                     foreach(string error in errors.Split('\n'))
                     {
                         ProcessErrorMessage(error);
                     }
 
-                    if (items.Count > 0)
+                    if (searchResults.Count > 0)
                     {
-                        items[0].IsSelected = true;
-                        selectedItem = 0;
+                        searchResults[0].IsSelected = true;
+                        selectedSearchResult = 0;
                     }
                     else
                     {
-                        selectedItem = -1;
+                        selectedSearchResult = -1;
                     }
 
                     if (System.Diagnostics.Debugger.IsAttached)
@@ -470,16 +477,16 @@ namespace qgrepControls.ToolWindows
             VirtualizingStackPanel stackPanel = sender as VirtualizingStackPanel;
             if (stackPanel != null)
             {
-                if(selectedItem >= 0 && selectedItem < items.Count)
+                if(selectedSearchResult >= 0 && selectedSearchResult < searchResults.Count)
                 {
-                    items[selectedItem].IsSelected = false;
+                    searchResults[selectedSearchResult].IsSelected = false;
                 }
 
                 SearchResult newSelectedItem = stackPanel.DataContext as SearchResult;
                 if (newSelectedItem != null)
                 {
                     newSelectedItem.IsSelected = true;
-                    selectedItem = newSelectedItem.Index;
+                    selectedSearchResult = newSelectedItem.Index;
                 }
 
                 if (e.ClickCount == 2)
@@ -492,20 +499,25 @@ namespace qgrepControls.ToolWindows
 
         private void OpenSelectedStackPanel()
         {
-            if (selectedItem >= 0 && selectedItem < items.Count)
+            if (selectedSearchResult >= 0 && selectedSearchResult < searchResults.Count)
             {
-                SearchResult selectedResult = items[selectedItem];
-                try
-                {
-                    int lastIndex = selectedResult.File.LastIndexOf('(');
-                    string file = selectedResult.File.Substring(0, lastIndex);
-                    string line = selectedResult.File.Substring(lastIndex + 1, selectedResult.File.Length - lastIndex - 2);
+                SearchResult selectedResult = searchResults[selectedSearchResult];
+                OpenResult(selectedResult);
+            }
+        }
 
-                    ExtensionInterface.OpenFile(file, line);
-                }
-                catch (Exception)
-                {
-                }
+        private void OpenResult(SearchResult result)
+        {
+            try
+            {
+                int lastIndex = result.File.LastIndexOf('(');
+                string file = result.File.Substring(0, lastIndex);
+                string line = result.File.Substring(lastIndex + 1, result.File.Length - lastIndex - 2);
+
+                ExtensionInterface.OpenFile(file, line);
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -753,38 +765,38 @@ namespace qgrepControls.ToolWindows
         {
             if (e.Key == System.Windows.Input.Key.Up)
             {
-                if (selectedItem > 0 && selectedItem < items.Count)
+                if (selectedSearchResult > 0 && selectedSearchResult < searchResults.Count)
                 {
-                    items[selectedItem].IsSelected = false;
-                    selectedItem--;
-                    items[selectedItem].IsSelected = true;
+                    searchResults[selectedSearchResult].IsSelected = false;
+                    selectedSearchResult--;
+                    searchResults[selectedSearchResult].IsSelected = true;
                 }
             }
             else if (e.Key == System.Windows.Input.Key.Down)
             {
-                if (selectedItem < items.Count - 1 && selectedItem >= 0)
+                if (selectedSearchResult < searchResults.Count - 1 && selectedSearchResult >= 0)
                 {
-                    items[selectedItem].IsSelected = false;
-                    selectedItem++;
-                    items[selectedItem].IsSelected = true;
+                    searchResults[selectedSearchResult].IsSelected = false;
+                    selectedSearchResult++;
+                    searchResults[selectedSearchResult].IsSelected = true;
                 }
             }
             else if(e.Key == System.Windows.Input.Key.PageUp)
             {
-                if (selectedItem > 0 && selectedItem < items.Count)
+                if (selectedSearchResult > 0 && selectedSearchResult < searchResults.Count)
                 {
-                    items[selectedItem].IsSelected = false;
-                    selectedItem = Math.Max(0, selectedItem - (int)(Math.Floor(SearchItemsControl.ActualHeight / 16.0f)));
-                    items[selectedItem].IsSelected = true;
+                    searchResults[selectedSearchResult].IsSelected = false;
+                    selectedSearchResult = Math.Max(0, selectedSearchResult - (int)(Math.Floor(SearchItemsControl.ActualHeight / 16.0f)));
+                    searchResults[selectedSearchResult].IsSelected = true;
                 }
             }
             else if(e.Key == System.Windows.Input.Key.PageDown)
             {
-                if (selectedItem < items.Count - 1 && selectedItem >= 0)
+                if (selectedSearchResult < searchResults.Count - 1 && selectedSearchResult >= 0)
                 {
-                    items[selectedItem].IsSelected = false;
-                    selectedItem = Math.Min(items.Count - 1, selectedItem + (int)(Math.Floor(SearchItemsControl.ActualHeight / 16.0f)));
-                    items[selectedItem].IsSelected = true;
+                    searchResults[selectedSearchResult].IsSelected = false;
+                    selectedSearchResult = Math.Min(searchResults.Count - 1, selectedSearchResult + (int)(Math.Floor(SearchItemsControl.ActualHeight / 16.0f)));
+                    searchResults[selectedSearchResult].IsSelected = true;
                 }
             }
             else if (e.Key == System.Windows.Input.Key.Enter)
@@ -793,10 +805,6 @@ namespace qgrepControls.ToolWindows
             }
             else if(e.Key == System.Windows.Input.Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                LastResults = LastResults.Replace("\xB0", "\t");
-                LastResults = LastResults.Replace("\xB1", "");
-                LastResults = LastResults.Replace("\xB2", "");
-                Clipboard.SetText(LastResults);
             }
 
             if (VisualTreeHelper.GetChildrenCount(SearchItemsControl) > 0)
@@ -807,7 +815,7 @@ namespace qgrepControls.ToolWindows
                     ScrollViewer childScrollbar = VisualTreeHelper.GetChild(childBorder, 0) as ScrollViewer;
                     if (childScrollbar != null)
                     {
-                        double currentOffset = (double)selectedItem;
+                        double currentOffset = (double)selectedSearchResult;
                         double verticalOffset = childScrollbar.VerticalOffset;
                         double totalOffset = Math.Floor(SearchItemsControl.ActualHeight / 16.0f) - 1.0f;
                         double maxVerticalOffset = verticalOffset + totalOffset;
@@ -869,6 +877,71 @@ namespace qgrepControls.ToolWindows
             Settings.Default.Save();
 
             Find();
+        }
+
+        private SearchResult GetResultFromMenuItem(object sender)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                VirtualizingStackPanel resultPanel = (menuItem.Parent as ContextMenu)?.PlacementTarget as VirtualizingStackPanel;
+                if (resultPanel != null)
+                {
+                    return resultPanel.DataContext as SearchResult;
+                }
+            }
+
+            return null;
+        }
+
+        private void MenuGoTo_Click(object sender, RoutedEventArgs e)
+        {
+            SearchResult searchResult = GetResultFromMenuItem(sender);
+            if (searchResult != null)
+            {
+                OpenResult(searchResult);
+            }
+        }
+
+        private void MenuCopyText_Click(object sender, RoutedEventArgs e)
+        {
+            SearchResult searchResult = GetResultFromMenuItem(sender);
+            if(searchResult != null)
+            {
+                string text = searchResult.BeginText + searchResult.HighlightedText + searchResult.EndText;
+                Clipboard.SetText(text);
+            }
+        }
+
+        private void MenuCopyFullPath_Click(object sender, RoutedEventArgs e)
+        {
+            SearchResult searchResult = GetResultFromMenuItem(sender);
+            if (searchResult != null)
+            {
+                int lastIndex = searchResult.FullFile.LastIndexOf('(');
+                string text = searchResult.FullFile.Substring(0, lastIndex);
+
+                Clipboard.SetText(text);
+            }
+        }
+
+        private void MenuCopyResult_Click(object sender, RoutedEventArgs e)
+        {
+            SearchResult searchResult = GetResultFromMenuItem(sender);
+            if (searchResult != null)
+            {
+                Clipboard.SetText(searchResult.FullResult);
+            }
+        }
+
+        private void MenuCopyAllResults_Click(object sender, RoutedEventArgs e)
+        {
+            string allResults = LastResults;
+            allResults = allResults.Replace("\xB0", "");
+            allResults = allResults.Replace("\xB1", "");
+            allResults = allResults.Replace("\xB2", "");
+            allResults = ConfigParser.RemovePaths(allResults);
+            Clipboard.SetText(allResults);
         }
     }
 }

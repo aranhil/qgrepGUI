@@ -231,7 +231,7 @@ namespace qgrepControls.Classes
             }
         }
 
-        public void RemovePaths(ref string file)
+        public string RemovePaths(string file)
         {
             foreach (ConfigProject configProject in ConfigProjects)
             {
@@ -243,6 +243,8 @@ namespace qgrepControls.Classes
                     }
                 }
             }
+
+            return file;
         }
     }
 }
