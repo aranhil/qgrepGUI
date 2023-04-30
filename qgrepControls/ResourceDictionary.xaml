@@ -108,7 +108,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border Background="Transparent" Height="16" Padding="5,5,5,5" Width="16">
-                        <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}" Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}">
+                        <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{DynamicResource ComboBox.Foreground}" Stroke="{DynamicResource ComboBox.Foreground}">
                             <Path.RenderTransform>
                                 <RotateTransform Angle="135" CenterY="3" CenterX="3"/>
                             </Path.RenderTransform>
@@ -121,20 +121,20 @@
                                     <RotateTransform Angle="180" CenterY="3" CenterX="3"/>
                                 </Setter.Value>
                             </Setter>
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Fill}"/>
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Stroke}"/>
+                            <Setter Property="Fill" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Foreground}"/>
+                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Foreground}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Stroke}"/>
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Fill}"/>
+                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Background}"/>
+                            <Setter Property="Fill" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Background}"/>
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="IsChecked" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Stroke}"/>
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Fill}"/>
+                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Background}"/>
+                            <Setter Property="Fill" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Background}"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -517,6 +517,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
