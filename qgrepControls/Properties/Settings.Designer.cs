@@ -153,5 +153,17 @@ namespace qgrepControls.Properties {
                 this["LastUpdated"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int GroupingIndex {
+            get {
+                return ((int)(this["GroupingIndex"]));
+            }
+            set {
+                this["GroupingIndex"] = value;
+            }
+        }
     }
 }

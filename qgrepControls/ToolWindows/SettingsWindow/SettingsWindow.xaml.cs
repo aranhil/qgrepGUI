@@ -24,6 +24,7 @@ namespace qgrepControls.ToolWindows
             }
 
             ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme;
+            GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
 
             LoadColorsFromResources();
         }
@@ -72,6 +73,12 @@ namespace qgrepControls.ToolWindows
             Settings.Default.Save();
             SearchWindow.UpdateColorsFromSettings();
             LoadColorsFromResources();
+        }
+
+        private void GroupingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Settings.Default.GroupingIndex = GroupingComboBox.SelectedIndex;
+            Settings.Default.Save();
         }
     }
 }
