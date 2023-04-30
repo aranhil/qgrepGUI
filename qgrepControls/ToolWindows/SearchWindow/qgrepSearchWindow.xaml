@@ -50,7 +50,7 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3">
-            <ItemsControl Grid.Row="3" Name="SearchItemsControl" Style="{DynamicResource ResultsItemsList}" ItemsSource="{Binding}" Visibility="Collapsed">
+            <ItemsControl Grid.Row="3" Name="SearchItemsControl" Style="{DynamicResource ResultsItemsList}" ItemsSource="{Binding}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <VirtualizingStackPanel Style="{DynamicResource ResultPanel}" Orientation="Horizontal" MouseDown="VirtualizingStackPanel_MouseDown">
@@ -73,7 +73,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <TreeView Name="trvFamilies" Visibility="Visible" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ItemsSource="{Binding}">
+            <TreeView Name="SearchItemsTreeView" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ItemsSource="{Binding}">
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource SomeTreeViewItem}">
                         <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>

@@ -183,6 +183,7 @@
                         </Trigger>
                         <Trigger Property="HasItems" Value="false">
                             <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                            <Setter Property="Padding" Value="0,0,0,0"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
                             <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Result.IsSelected.Background}"/>
@@ -786,6 +787,7 @@
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
+        <Setter Property="Padding" Value="0" />
     </Style>
 
     <ControlTemplate x:Key="ComboboxToggleButton" TargetType="{x:Type ToggleButton}">

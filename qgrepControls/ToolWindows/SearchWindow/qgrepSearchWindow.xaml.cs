@@ -18,6 +18,7 @@ using System.Windows.Media;
 using Newtonsoft.Json;
 using System.Timers;
 using System.Windows.Documents;
+using System.Windows.Shapes;
 
 namespace qgrepControls.ToolWindows
 {
@@ -393,6 +394,9 @@ namespace qgrepControls.ToolWindows
                 }
             }
 
+            SearchItemsControl.Visibility = Settings.Default.GroupingIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+            SearchItemsTreeView.Visibility = Settings.Default.GroupingIndex != 0 ? Visibility.Visible : Visibility.Collapsed;
+
             if(SearchInput.Text.Length == 0)
             {
                 searchResults.Clear();
@@ -498,18 +502,22 @@ namespace qgrepControls.ToolWindows
                             fullFile = currentLine.Substring(0, currentIndex);
                             file = ConfigParser.RemovePaths(fullFile);
 
-                            int indexOfParanthesis = fullFile.LastIndexOf('(');
-                            string filePath = ConfigParser.RemovePaths(fullFile.Substring(0, indexOfParanthesis));
-                            lineNo = fullFile.Substring(indexOfParanthesis + 1, fullFile.Length - indexOfParanthesis - 2) + ":";
+                            if (Settings.Default.GroupingIndex == 1)
+                            {
+                                int indexOfParanthesis = fullFile.LastIndexOf('(');
+                                string filePath = ConfigParser.RemovePaths(fullFile.Substring(0, indexOfParanthesis));
+                                lineNo = fullFile.Substring(indexOfParanthesis + 1, fullFile.Length - indexOfParanthesis - 2);
 
-                            if (lastGroup.File.Length == 0)
-                            {
-                                lastGroup.File = filePath;
-                            }
-                            else if(lastGroup.File != filePath)
-                            {
-                                lastGroup = new SearchResultGroup();
-                                newGroups.Add(lastGroup);
+                                if (lastGroup.File.Length == 0)
+                                {
+                                    lastGroup.File = filePath;
+                                }
+                                else if (lastGroup.File != filePath)
+                                {
+                                    newGroups.Add(lastGroup);
+                                    lastGroup = new SearchResultGroup();
+                                    lastGroup.File = filePath;
+                                }
                             }
 
                             if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
@@ -567,7 +575,7 @@ namespace qgrepControls.ToolWindows
                         currentLine = currentLine.Replace("\xB2", "");
                         endText = currentLine;
 
-                        lastGroup.SearchResults.Add(new SearchResult()
+                        SearchResult newSearchResult = new SearchResult()
                         {
                             Index = resultIndex,
                             File = file,
@@ -578,20 +586,42 @@ namespace qgrepControls.ToolWindows
                             FullResult = fullResult,
                             IsSelected = false,
                             Line = lineNo
-                        });
+                        };
+
+
+                        if (Settings.Default.GroupingIndex == 0)
+                        {
+                            newItems.Add(newSearchResult);
+                        }
+                        else
+                        {
+                            lastGroup.SearchResults.Add(newSearchResult);
+                        }
 
                         resultIndex++;
                         lastIndex = index + 1;
                     }
                 }
 
+                if (Settings.Default.GroupingIndex == 1)
+                {
+                    newGroups.Add(lastGroup);
+                }
+
                 Dispatcher.Invoke(new Action(() =>
                 {
                     Errors += errors;
-                    SearchItemsControl.DataContext = searchResults = newItems;
-                    trvFamilies.ItemsSource = searchResultsGroups = newGroups;
 
-                    foreach(string error in errors.Split('\n'))
+                    if(Settings.Default.GroupingIndex == 0)
+                    {
+                        SearchItemsControl.DataContext = searchResults = newItems;
+                    }
+                    else
+                    {
+                        SearchItemsTreeView.ItemsSource = searchResultsGroups = newGroups;
+                    }
+
+                    foreach (string error in errors.Split('\n'))
                     {
                         ProcessErrorMessage(error);
                     }
@@ -854,6 +884,7 @@ namespace qgrepControls.ToolWindows
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
             ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.SettingsWindow(this), "Advanced settings").ShowModal();
+            Find();
         }
 
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
