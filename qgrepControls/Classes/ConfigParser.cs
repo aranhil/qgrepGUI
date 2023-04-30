@@ -246,5 +246,21 @@ namespace qgrepControls.Classes
 
             return file;
         }
+
+        public bool HasAnyPaths()
+        {
+            foreach(ConfigProject configProject in ConfigProjects)
+            {
+                foreach(ConfigGroup configGroup in configProject.Groups)
+                {
+                    if(configGroup.Paths.Count > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }

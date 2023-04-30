@@ -49,6 +49,14 @@ namespace qgrepSearchTool_Standalone
             }
         }
 
+        public bool IsStandalone
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public IExtensionWindow CreateWindow(UserControl userControl, string title)
         {
             return new qgrepExtensionWindow(
@@ -83,6 +91,11 @@ namespace qgrepSearchTool_Standalone
 
         public void OpenFile(string path, string line)
         {
+        }
+
+        public List<string> GatherAllFoldersFromSolution()
+        {
+            return new List<string>();
         }
     }
 }

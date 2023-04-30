@@ -26,6 +26,11 @@ namespace qgrepControls.ToolWindows
             LoadFromConfig();
             LoadColorsFromResources();
             UpdateVisibility();
+
+            if (Parent.ExtensionInterface.IsStandalone)
+            {
+                AutomaticPopulation.Visibility = Visibility.Collapsed;
+            }
         }
 
         public void LoadFromConfig()
@@ -558,6 +563,31 @@ namespace qgrepControls.ToolWindows
                 UseShellExecute = true,
                 Verb = "open"
             });
+        }
+
+        private void AutomaticPopulation_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
+                    {
+                        List<string> solutionFolders = Parent.ExtensionInterface.GatherAllFoldersFromSolution();
+                        foreach (string solutionFolder in solutionFolders)
+                        {
+                            if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(solutionFolder))
+                            {
+                                configProject.Groups[SelectedGroup.Data.Index].Paths.Add(solutionFolder);
+                            }
+                        }
+
+                        Parent.ConfigParser.SaveConfig();
+                        LoadFromConfig();
+                        break;
+                    }
+                }
+            }
         }
     }
 }

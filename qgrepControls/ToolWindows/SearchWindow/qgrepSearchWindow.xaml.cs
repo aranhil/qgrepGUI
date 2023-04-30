@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using System.Timers;
+using System.Windows.Documents;
 
 namespace qgrepControls.ToolWindows
 {
@@ -157,7 +158,10 @@ namespace qgrepControls.ToolWindows
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                InitInfo.Text = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
+                if (Settings.Default["LastUpdated"] != null)
+                {
+                    InitInfo.Text = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
+                }
             }));
         }
 
@@ -232,12 +236,22 @@ namespace qgrepControls.ToolWindows
                 ConfigParser = new ConfigParser(System.IO.Path.GetDirectoryName(solutionPath));
                 ConfigParser.LoadConfig();
 
+                UpdateWarning();
                 UpdateDatabase();
                 UpdateFilters();
 
-                WarningText.Visibility = Visibility.Hidden;
                 InitButton.Visibility = Visibility.Visible;
                 CleanButton.Visibility = Visibility.Visible;
+            }
+        }
+
+        public void UpdateWarning()
+        {
+            WarningText.Visibility = Visibility.Hidden;
+            if (!ConfigParser.HasAnyPaths())
+            {
+                WarningText.Text = "No search folders set.";
+                WarningText.Visibility = Visibility.Visible;
             }
         }
 
@@ -752,6 +766,7 @@ namespace qgrepControls.ToolWindows
             }
 
             ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.ProjectsWindow(this), "Search configurations").ShowModal();
+            UpdateWarning();
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
