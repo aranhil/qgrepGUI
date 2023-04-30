@@ -6,6 +6,7 @@ build
 qgrepControls/obj
 qgrepSearchTool_VS2019/obj
 qgrepSearchTool_VS2022/obj
+qgrepSearchTool_Standalone/obj
 
 # qgrep index folder
 .qgrep
