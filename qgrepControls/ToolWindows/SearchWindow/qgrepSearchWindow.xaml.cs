@@ -21,11 +21,73 @@ using System.Windows.Documents;
 
 namespace qgrepControls.ToolWindows
 {
+    public class Family
+    {
+        public Family()
+        {
+            this.Members = new ObservableCollection<FamilyMember>();
+        }
+
+        public string Name { get; set; }
+
+        public ObservableCollection<FamilyMember> Members { get; set; }
+    }
+
+    public class FamilyMember
+    {
+        public string Name { get; set; }
+
+        public int Age { get; set; }
+    }
+
+    public class Company
+    {
+        public string Task { get; set; }
+        public string durationTotal { get; set; }
+        public string HeadNote { get; set; }
+        public List<Model> Models { get; set; }
+    }
+    public class Model
+    {
+        public string SubTask { get; set; }
+        public string Duration { get; set; }
+        public string Notes { get; set; }
+    }
+
+    partial class SearchResultGroup : INotifyPropertyChanged
+    {
+        private bool isSelected = false;
+
+        public int Index { get; set; } = -1;
+        public string File { get; set; } = "";
+        public ObservableCollection<SearchResult> SearchResults { get; set; } = new ObservableCollection<SearchResult>();
+
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
     partial class SearchResult: INotifyPropertyChanged
     {
         private bool isSelected;
 
         public int Index { get; set; }
+        public string Line { get; set; }
         public string File { get; set; }
         public string FullFile { get; set; }
         public string BeginText { get; set; }
@@ -82,6 +144,7 @@ namespace qgrepControls.ToolWindows
         private string LastResults = "";
 
         ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
+        ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         int selectedSearchResult = -1;
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
@@ -333,6 +396,7 @@ namespace qgrepControls.ToolWindows
             if(SearchInput.Text.Length == 0)
             {
                 searchResults.Clear();
+                searchResultsGroups.Clear();
                 return;
             }
 
@@ -408,6 +472,8 @@ namespace qgrepControls.ToolWindows
             Task.Run(() =>
             {
                 ObservableCollection<SearchResult> newItems = new ObservableCollection<SearchResult>();
+                ObservableCollection<SearchResultGroup> newGroups = new ObservableCollection<SearchResultGroup>();
+                SearchResultGroup lastGroup = new SearchResultGroup();
                 string errors = "";
 
                 string results = QGrepWrapper.CallQGrep(arguments, ref errors);
@@ -420,7 +486,7 @@ namespace qgrepControls.ToolWindows
                     if (results[index] == '\n')
                     {
                         string currentLine = results.Substring(lastIndex, index - lastIndex);
-                        string file = "", beginText = "", endText = "", highlightedText = "", fullFile = "", fullResult = "";
+                        string file = "", beginText = "", endText = "", highlightedText = "", fullFile = "", fullResult = "", lineNo = "";
 
                         fullResult = currentLine.Replace("\xB0", "");
                         fullResult = fullResult.Replace("\xB1", "");
@@ -431,6 +497,20 @@ namespace qgrepControls.ToolWindows
                         {
                             fullFile = currentLine.Substring(0, currentIndex);
                             file = ConfigParser.RemovePaths(fullFile);
+
+                            int indexOfParanthesis = fullFile.LastIndexOf('(');
+                            string filePath = ConfigParser.RemovePaths(fullFile.Substring(0, indexOfParanthesis));
+                            lineNo = fullFile.Substring(indexOfParanthesis + 1, fullFile.Length - indexOfParanthesis - 2) + ":";
+
+                            if (lastGroup.File.Length == 0)
+                            {
+                                lastGroup.File = filePath;
+                            }
+                            else if(lastGroup.File != filePath)
+                            {
+                                lastGroup = new SearchResultGroup();
+                                newGroups.Add(lastGroup);
+                            }
 
                             if (currentIndex >= 0 && currentIndex + 1 < currentLine.Length)
                             {
@@ -487,7 +567,7 @@ namespace qgrepControls.ToolWindows
                         currentLine = currentLine.Replace("\xB2", "");
                         endText = currentLine;
 
-                        newItems.Add(new SearchResult()
+                        lastGroup.SearchResults.Add(new SearchResult()
                         {
                             Index = resultIndex,
                             File = file,
@@ -497,6 +577,7 @@ namespace qgrepControls.ToolWindows
                             HighlightedText = highlightedText,
                             FullResult = fullResult,
                             IsSelected = false,
+                            Line = lineNo
                         });
 
                         resultIndex++;
@@ -508,6 +589,7 @@ namespace qgrepControls.ToolWindows
                 {
                     Errors += errors;
                     SearchItemsControl.DataContext = searchResults = newItems;
+                    trvFamilies.ItemsSource = searchResultsGroups = newGroups;
 
                     foreach(string error in errors.Split('\n'))
                     {
@@ -1014,6 +1096,38 @@ namespace qgrepControls.ToolWindows
             allResults = allResults.Replace("\xB2", "");
             allResults = ConfigParser.RemovePaths(allResults);
             Clipboard.SetText(allResults);
+        }
+
+        private void TreeViewItem_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            // Ignore re-entrant calls
+            if (mSuppressRequestBringIntoView)
+                return;
+
+            // Cancel the current scroll attempt
+            e.Handled = true;
+
+            // Call BringIntoView using a rectangle that extends into "negative space" to the left of our
+            // actual control. This allows the vertical scrolling behaviour to operate without adversely
+            // affecting the current horizontal scroll position.
+            mSuppressRequestBringIntoView = true;
+
+            TreeViewItem tvi = sender as TreeViewItem;
+            if (tvi != null)
+            {
+                Rect newTargetRect = new Rect(-1000, 0, tvi.ActualWidth + 1000, tvi.ActualHeight);
+                tvi.BringIntoView(newTargetRect);
+            }
+
+            mSuppressRequestBringIntoView = false;
+        }
+        private bool mSuppressRequestBringIntoView;
+
+        // Correctly handle programmatically selected items
+        private void OnSelected(object sender, RoutedEventArgs e)
+        {
+            ((TreeViewItem)sender).BringIntoView();
+            e.Handled = true;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace qgrepSearchTool_Standalone
 
         public qgrepExtension(Window window)
         {
-            window = window;
+            this.window = window;
         }
 
         public bool WindowOpened 

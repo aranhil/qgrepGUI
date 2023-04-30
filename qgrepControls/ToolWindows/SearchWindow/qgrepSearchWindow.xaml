@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:qgrepControls.ToolWindows"
-             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit" xmlns:wpfTool1="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:self="clr-namespace:qgrepControls.ToolWindows"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown" LostFocus="UserControl_LostFocus">
     <UserControl.Resources>
@@ -49,7 +50,7 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3">
-            <ItemsControl Grid.Row="3" Name="SearchItemsControl" Style="{DynamicResource ResultsItemsList}" ItemsSource="{Binding}">
+            <ItemsControl Grid.Row="3" Name="SearchItemsControl" Style="{DynamicResource ResultsItemsList}" ItemsSource="{Binding}" Visibility="Collapsed">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <VirtualizingStackPanel Style="{DynamicResource ResultPanel}" Orientation="Horizontal" MouseDown="VirtualizingStackPanel_MouseDown">
@@ -72,6 +73,32 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            <TreeView Name="trvFamilies" Visibility="Visible" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ItemsSource="{Binding}">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource SomeTreeViewItem}">
+                        <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>
+                        <EventSetter Event="Selected" Handler="OnSelected"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type self:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
+                        <Grid HorizontalAlignment="Stretch" RequestBringIntoView="TreeViewItem_RequestBringIntoView">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
+                        </Grid>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type self:SearchResult}">
+                        <VirtualizingStackPanel Orientation="Horizontal" MouseDown="VirtualizingStackPanel_MouseDown" RequestBringIntoView="TreeViewItem_RequestBringIntoView">
+                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=Line}" />
+                            <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=BeginText}" />
+                            <TextBlock Style="{DynamicResource ResultHighlightedText}" Text="{Binding Path=HighlightedText}"/>
+                            <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=EndText}" />
+                        </VirtualizingStackPanel>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
             <Border Name="Overlay" Style="{DynamicResource OverlayBorder}" />
             <TextBlock x:Name="WarningText" Style="{DynamicResource OverlayText}" Text="No solution loaded."/>
         </Grid>
