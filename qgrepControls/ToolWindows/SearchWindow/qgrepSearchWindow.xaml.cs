@@ -751,7 +751,7 @@ namespace qgrepControls.ToolWindows
                 return;
             }
 
-            ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.ProjectsWindow(this), "Projects configuration").ShowModal();
+            ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.ProjectsWindow(this), "Search configurations").ShowModal();
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)

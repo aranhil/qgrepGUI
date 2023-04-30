@@ -41,7 +41,7 @@
                         <StackPanel x:Name="PathsPanel"/>
                     </ScrollViewer>
                 </Border>
-                <Label x:Name="PathsHint" Content="Paths" Style="{DynamicResource SomeHintLabel2}" />
+                <Label x:Name="PathsHint" Content="Folders" Style="{DynamicResource SomeHintLabel2}" />
             </Grid>
             <Grid Grid.Row="1" Style="{DynamicResource ZIndexFocusable}">
                 <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,-1,0,0" MouseEnter="RulesPanel_MouseEnter" MouseLeave="RulesPanel_MouseLeave">

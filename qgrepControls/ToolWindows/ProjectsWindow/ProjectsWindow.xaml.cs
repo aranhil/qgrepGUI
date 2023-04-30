@@ -36,7 +36,6 @@ namespace qgrepControls.ToolWindows
                 Parent.ConfigParser.LoadConfig();
                 Parent.UpdateFilters();
                 LoadProjectsFromConfig();
-                LoadGroupsFromConfig();
                 UpdateVisibility();
             }
         }
@@ -60,12 +59,12 @@ namespace qgrepControls.ToolWindows
                 ProjectsPanel.Children.Add(new ProjectRow(this, new ProjectRow.ProjectRowData(configProject.Name)));
             }
 
-            ProjectsPanel.Children.Add(new RowAdd(this, "Add new project", new RowAdd.ClickCallbackFunction(AddProject)));
+            ProjectsPanel.Children.Add(new RowAdd(this, "Add new search config", new RowAdd.ClickCallbackFunction(AddProject)));
             CheckAddButtonVisibility();
 
+            bool foundOldProject = false;
             if (SelectedProject != null)
             {
-                bool foundOldProject = false;
                 foreach (UIElement child in ProjectsPanel.Children)
                 {
                     ProjectRow row = child as ProjectRow;
@@ -79,15 +78,12 @@ namespace qgrepControls.ToolWindows
                         }
                     }
                 }
-
-                if(!foundOldProject)
-                {
-                    SelectedProject = null;
-                }
             }
-            else
+
+            if (!foundOldProject)
             {
-                if(ProjectsPanel.Children.Count > 1)
+                SelectedProject = null;
+                if (ProjectsPanel.Children.Count > 1)
                 {
                     SelectProject(ProjectsPanel.Children[0] as ProjectRow);
                 }
@@ -109,12 +105,12 @@ namespace qgrepControls.ToolWindows
                             GroupsPanel.Children.Add(new GroupRow(this, new GroupRow.GroupRowData(i == 0 ? "<root>" : "Group" + i, i == 0, i)));
                         }
 
-                        GroupsPanel.Children.Add(new RowAdd(this, "Add new group", new RowAdd.ClickCallbackFunction(AddGroup)));
+                        GroupsPanel.Children.Add(new RowAdd(this, "Add new search group", new RowAdd.ClickCallbackFunction(AddGroup)));
                         CheckAddButtonVisibility();
 
+                        bool foundOldGroup = false;
                         if (SelectedGroup != null)
                         {
-                            bool foundOldGroup = false;
                             foreach (UIElement child in GroupsPanel.Children)
                             {
                                 GroupRow row = child as GroupRow;
@@ -128,14 +124,11 @@ namespace qgrepControls.ToolWindows
                                     }
                                 }
                             }
-
-                            if (!foundOldGroup)
-                            {
-                                SelectedGroup = null;
-                            }
                         }
-                        else
+
+                        if (!foundOldGroup)
                         {
+                            SelectedGroup = null;
                             if (GroupsPanel.Children.Count > 1)
                             {
                                 SelectGroup(GroupsPanel.Children[0] as GroupRow);
@@ -274,7 +267,7 @@ namespace qgrepControls.ToolWindows
                             PathsPanel.Children.Add(new PathRow(this, new PathRow.PathRowData(Path)));
                         }
 
-                        PathsPanel.Children.Add(new RowAdd(this, "Add new path", new RowAdd.ClickCallbackFunction(AddPath)));
+                        PathsPanel.Children.Add(new RowAdd(this, "Add new folder", new RowAdd.ClickCallbackFunction(AddPath)));
                         CheckAddButtonVisibility();
                         break;
                     }
@@ -344,7 +337,7 @@ namespace qgrepControls.ToolWindows
                             RulesPanel.Children.Add(new RuleRow(this, new RuleRow.RuleRowData(rule.IsExclude, rule.Rule, index++)));
                         }
 
-                        RulesPanel.Children.Add(new RowAdd(this, "Add new rule", new RowAdd.ClickCallbackFunction(AddRule)));
+                        RulesPanel.Children.Add(new RowAdd(this, "Add new filter", new RowAdd.ClickCallbackFunction(AddRule)));
                         CheckAddButtonVisibility();
                         break;
                     }

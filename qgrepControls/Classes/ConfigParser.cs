@@ -211,7 +211,7 @@ namespace qgrepControls.Classes
 
             do
             {
-                newPath = Path + PathSuffix + "Project" + index + ".cfg";
+                newPath = Path + PathSuffix + "Config" + index + ".cfg";
                 index++;
             }
             while(File.Exists(newPath));
