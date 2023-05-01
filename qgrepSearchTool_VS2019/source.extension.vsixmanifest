@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="qgrepSearchTool" Version="1.24" Language="en-US" Publisher="Crema Ubisoft" />
+        <Identity Id="qgrepSearchTool" Version="1.25" Language="en-US" Publisher="Crema Ubisoft" />
         <DisplayName>qgrep Search Tool</DisplayName>
         <Description xml:space="preserve">Search tool that uses qgrep</Description>
         <License>Resources\LICENSE</License>
@@ -23,11 +23,11 @@
         <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="qgrepInterop" Path="|qgrepInterop|" AssemblyName="|qgrepInterop;AssemblyName|" />
     </Assets>
     <Installation>
-        <InstallationTarget Version="[15.0,17.0)" Id="Microsoft.VisualStudio.Community">
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Community">
         </InstallationTarget>
-        <InstallationTarget Version="[15.0,17.0)" Id="Microsoft.VisualStudio.Pro">
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Pro">
         </InstallationTarget>
-        <InstallationTarget Version="[15.0,17.0)" Id="Microsoft.VisualStudio.Enterprise">
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Enterprise">
         </InstallationTarget>
     </Installation>
 </PackageManifest>
