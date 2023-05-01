@@ -59,7 +59,6 @@ namespace qgrepControls.ToolWindows
     {
         private bool isSelected = false;
 
-        public int Index { get; set; } = -1;
         public string File { get; set; } = "";
         public ObservableCollection<SearchResult> SearchResults { get; set; } = new ObservableCollection<SearchResult>();
 
@@ -652,9 +651,10 @@ namespace qgrepControls.ToolWindows
             VirtualizingStackPanel stackPanel = sender as VirtualizingStackPanel;
             if (stackPanel != null)
             {
-                if(selectedSearchResult >= 0 && selectedSearchResult < searchResults.Count)
+                SearchResult selectedResult = GetSelectedSearchResult();
+                if(selectedResult != null)
                 {
-                    searchResults[selectedSearchResult].IsSelected = false;
+                    selectedResult.IsSelected = false;
                 }
 
                 SearchResult newSelectedItem = stackPanel.DataContext as SearchResult;
@@ -672,11 +672,37 @@ namespace qgrepControls.ToolWindows
             }
         }
 
+        private SearchResult GetSelectedSearchResult()
+        {
+            if(Settings.Default.GroupingIndex == 0)
+            {
+                if (selectedSearchResult >= 0 && selectedSearchResult < searchResults.Count)
+                {
+                    return searchResults[selectedSearchResult];
+                }
+            }
+            else
+            {
+                foreach(SearchResultGroup searchResultGroup in searchResultsGroups)
+                {
+                    foreach(SearchResult searchResult in searchResultGroup.SearchResults)
+                    {
+                        if(searchResult.Index == selectedSearchResult)
+                        {
+                            return searchResult;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
         private void OpenSelectedStackPanel()
         {
-            if (selectedSearchResult >= 0 && selectedSearchResult < searchResults.Count)
+            SearchResult selectedResult = GetSelectedSearchResult();
+            if (selectedResult != null)
             {
-                SearchResult selectedResult = searchResults[selectedSearchResult];
                 OpenResult(selectedResult);
             }
         }
