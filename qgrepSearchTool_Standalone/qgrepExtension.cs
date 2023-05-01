@@ -1,6 +1,7 @@
 ﻿using qgrepControls.Classes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -91,6 +92,7 @@ namespace qgrepSearchTool_Standalone
 
         public void OpenFile(string path, string line)
         {
+            System.Diagnostics.Process.Start(path);
         }
 
         public List<string> GatherAllFoldersFromSolution()
