@@ -165,5 +165,29 @@ namespace qgrepControls.Properties {
                 this["GroupingIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterRegEx {
+            get {
+                return ((bool)(this["FilterRegEx"]));
+            }
+            set {
+                this["FilterRegEx"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowFilter {
+            get {
+                return ((bool)(this["ShowFilter"]));
+            }
+            set {
+                this["ShowFilter"] = value;
+            }
+        }
     }
 }

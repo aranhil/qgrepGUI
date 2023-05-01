@@ -17,6 +17,7 @@ namespace qgrepControls.ToolWindows
             
             ShowIncludes.IsChecked = Settings.Default.ShowIncludes;
             ShowExcludes.IsChecked = Settings.Default.ShowExcludes;
+            ShowFilter.IsChecked = Settings.Default.ShowFilter;
 
             foreach (ColorScheme colorScheme in SearchWindow.colorSchemes)
             {
@@ -43,6 +44,7 @@ namespace qgrepControls.ToolWindows
         {
             Settings.Default.ShowIncludes = ShowIncludes.IsChecked == true;
             Settings.Default.ShowExcludes = ShowExcludes.IsChecked == true;
+            Settings.Default.ShowFilter = ShowFilter.IsChecked == true;
 
             Settings.Default.Save();
         }

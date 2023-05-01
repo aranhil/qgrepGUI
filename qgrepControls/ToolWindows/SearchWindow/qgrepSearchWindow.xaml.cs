@@ -166,6 +166,7 @@ namespace qgrepControls.ToolWindows
 
             IncludeRegEx.IsChecked = Settings.Default.IncludesRegEx;
             ExcludeRegEx.IsChecked = Settings.Default.ExcludesRegEx;
+            FilterRegEx.IsChecked = Settings.Default.FilterRegEx;
 
             StartTimer();
             SolutionLoaded();
@@ -325,6 +326,9 @@ namespace qgrepControls.ToolWindows
 
             visibility = Settings.Default.ShowExcludes == true ? Visibility.Visible : Visibility.Collapsed;
             ExcludeFilesGrid.Visibility = visibility;
+
+            visibility = Settings.Default.ShowFilter == true ? Visibility.Visible : Visibility.Collapsed;
+            FilterResultsGrid.Visibility = visibility;
         }
 
         public void UpdateColorsFromSettings()
@@ -368,6 +372,7 @@ namespace qgrepControls.ToolWindows
             Settings.Default.WholeWord = SearchWholeWord.IsChecked == true;
             Settings.Default.IncludesRegEx = IncludeRegEx.IsChecked == true;
             Settings.Default.ShowExcludes = ExcludeRegEx.IsChecked == true;
+            Settings.Default.FilterRegEx = FilterRegEx.IsChecked == true;
 
             Settings.Default.Save();
         }
@@ -472,6 +477,9 @@ namespace qgrepControls.ToolWindows
 
             EngineBusy = true;
 
+            string resultsFilterText = Settings.Default.ShowFilter ? FilterResultsInput.Text.ToLower() : "";
+            bool resultsFilterRegEx = FilterRegEx.IsChecked ?? false;
+
             Task.Run(() =>
             {
                 ObservableCollection<SearchResult> newItems = new ObservableCollection<SearchResult>();
@@ -501,12 +509,37 @@ namespace qgrepControls.ToolWindows
                             fullFile = currentLine.Substring(0, currentIndex);
                             file = ConfigParser.RemovePaths(fullFile);
 
+                            int indexOfParanthesis = fullFile.LastIndexOf('(');
+                            string filePath = ConfigParser.RemovePaths(fullFile.Substring(0, indexOfParanthesis));
+                            lineNo = fullFile.Substring(indexOfParanthesis + 1, fullFile.Length - indexOfParanthesis - 2);
+
+                            if (resultsFilterText.Length > 0)
+                            {
+                                string resultText = currentLine.Substring(currentIndex + 1).ToLower();
+                                resultText = resultText.Replace("\xB0", "");
+                                resultText = resultText.Replace("\xB1", "");
+                                resultText = resultText.Replace("\xB2", "");
+
+                                if (resultsFilterRegEx)
+                                {
+                                    if (!Regex.Match(filePath, resultsFilterText).Success && !Regex.Match(resultText, resultsFilterText).Success)
+                                    {
+                                        lastIndex = index + 1;
+                                        continue;
+                                    }
+                                }
+                                else
+                                {
+                                    if (!filePath.ToLower().Contains(resultsFilterText) && !resultText.Contains(resultsFilterText))
+                                    {
+                                        lastIndex = index + 1;
+                                        continue;
+                                    }
+                                }
+                            }
+
                             if (Settings.Default.GroupingIndex == 1)
                             {
-                                int indexOfParanthesis = fullFile.LastIndexOf('(');
-                                string filePath = ConfigParser.RemovePaths(fullFile.Substring(0, indexOfParanthesis));
-                                lineNo = fullFile.Substring(indexOfParanthesis + 1, fullFile.Length - indexOfParanthesis - 2);
-
                                 if (lastGroup.File.Length == 0)
                                 {
                                     lastGroup.File = filePath;
@@ -964,6 +997,15 @@ namespace qgrepControls.ToolWindows
             {
                 ExcludeFilesLabel.Visibility = Visibility.Visible;
             }
+
+            if (FilterResultsInput.Text.Length > 0)
+            {
+                FilterResultsLabel.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                FilterResultsLabel.Visibility = Visibility.Visible;
+            }
         }
 
         private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -1066,6 +1108,12 @@ namespace qgrepControls.ToolWindows
         }
 
         private void ExcludeRegEx_Click(object sender, RoutedEventArgs e)
+        {
+            Find();
+            SaveOptions();
+        }
+
+        private void FilterRegEx_Click(object sender, RoutedEventArgs e)
         {
             Find();
             SaveOptions();
