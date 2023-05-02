@@ -1,316 +1,330 @@
 [
-  {
-    "Name": "Dark",
-    "ColorEntries": [
-        {
-            "Name": "Background",
-            "Color": "25, 35, 44"
-        },
-        {
-            "Name": "Foreground",
-            "Color": "White"
-        },
-        {
-            "Name": "Result.File.Foreground",
-            "Color": "DarkGray"
-        },
-        {
-            "Name": "Result.Text.Foreground",
-            "Color": "AliceBlue"
-        },
-        {
-            "Name": "Result.Highlight.Foreground",
-            "Color": "DeepSkyBlue"
-        },
-        {
-            "Name": "Result.Highlight.Background",
-            "Color": "Transparent"
-        },
-        {
-            "Name": "Result.IsMouseOver.Background",
-            "Color": "49, 69, 87"
-        },
-        {
-            "Name": "Result.IsSelected.Background",
-            "Color": "15, 92, 148"
-        },
-        {
-            "Name": "IconButton.Background",
-            "Color": "Transparent"
-        },
-        {
-            "Name": "IconButton.Foreground",
-            "Color": "Gray"
-        },
-        {
-            "Name": "IconButton.IsMouseOver.Background",
-            "Color": "Transparent"
-        },
-        {
-            "Name": "IconButton.IsMouseOver.Foreground",
-            "Color": "White"
-        },
-        {
-            "Name": "Border",
-            "Color": "171, 173, 179"
-        },
-        {
-            "Name": "Border.IsMouseOver",
-            "Color": "0, 200, 215"
-        },
-        {
-            "Name": "Border.IsSelected",
-            "Color": "0, 120, 215"
-        },
-        {
-            "Name": "TextBox.Hint.Background",
-            "Color": "Transparent"
-        },
-        {
-            "Name": "TextBox.Hint.Foreground",
-            "Color": "Gray"
-        },
-        {
-            "Name": "Overlay.Background",
-            "Color": "124, 0, 0, 0"
-        },
-        {
-            "Name": "Button.IsDisabled.Background",
-            "Color": "56, 97, 141"
-        },
-        {
-            "Name": "Button.IsDisabled.Foreground",
-            "Color": "180, 196, 212"
-        },
-        {
-            "Name": "Button.Background",
-            "Color": "30, 129, 176"
-        },
-        {
-            "Name": "Button.Foreground",
-            "Color": "White"
-        },
-        {
-            "Name": "Button.IsMouseOver.Background",
-            "Color": "6, 57, 112"
-        },
-        {
-            "Name": "Button.IsMouseDown.Background",
-            "Color": "2, 23, 45"
-        },
-        {
-            "Name": "ComboBox.Background",
-            "Color": "30, 129, 176"
-        },
-        {
-            "Name": "ComboBox.IsMouseOver.Background",
-            "Color": "6, 57, 112"
-        },
-        {
-            "Name": "ComboBox.Foreground",
-            "Color": "White"
-        },
-        {
-            "Name": "TextBox.Toggle.Foreground",
-            "Color": "87, 93, 122"
-        },
-        {
-            "Name": "TextBox.Toggle.IsMouseOver.Foreground",
-            "Color": "171, 174, 189"
-        },
-        {
-            "Name": "TextBox.Toggle.IsChecked.Foreground",
-            "Color": "White"
-        },
-        {
-            "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
-            "Color": "221, 223, 228"
-        },
-        {
-            "Name": "CheckBox.Background",
-            "Color": "30, 129, 176"
-        },
-        {
-            "Name": "CheckBox.IsMouseOver.Background",
-            "Color": "6, 57, 112"
-        },
-        {
-            "Name": "CheckBox.Mark",
-            "Color": "White"
-        },
-        {
-            "Name": "CheckBox.Foreground",
-            "Color": "White"
-        },
-        {
-            "Name": "Menu.Separator",
-            "Color": "6, 57, 112"
-        },
-        {
-            "Name": "Menu.Background",
-            "Color": "30, 129, 176"
-        },
-        {
-            "Name": "MenuItem.IsMouseOver.Background",
-            "Color": "6, 57, 112"
-        }
-    ]
-  },
-  {
-    "Name": "Light",
-    "ColorEntries": [
-        {
-            "Name": "Background",
-            "Color": "White"
-        },
-        {
-            "Name": "Foreground",
-            "Color": "Black"
-        },
-        {
-            "Name": "Border",
-            "Color": "Gray"
-        },
-        {
-            "Name": "Border.IsMouseOver",
-            "Color": "Black"
-        },
-        {
-            "Name": "Border.IsSelected",
-            "Color": "Black"
-        },
-        {
-            "Name": "Result.File.Foreground",
-            "Color": "Gray"
-        },
-        {
-            "Name": "Result.Text.Foreground",
-            "Color": "Black"
-        },
-        {
-            "Name": "Result.Highlight.Foreground",
-            "Color": "White"
-        },
-        {
-            "Name": "Result.Highlight.Background",
-            "Color": "37, 165, 190"
-        },
-        {
-            "Name": "Result.IsMouseOver.Background",
-            "Color": "211, 234, 242"
-        },
-        {
-            "Name": "Result.IsSelected.Background",
-            "Color": "190, 224, 236"
-        },
-        {
-            "Name": "IconButton.Background",
-            "Color": "Transparent"
-        },
-        {
-            "Name": "IconButton.Foreground",
-            "Color": "Gray"
-        },
-        {
-            "Name": "IconButton.IsMouseOver.Background",
-            "Color": "Transparent"
-        },
-        {
-            "Name": "IconButton.IsMouseOver.Foreground",
-            "Color": "Black"
-        },
-        {
-            "Name": "TextBox.Hint.Background",
-            "Color": "Transparent"
-        },
-        {
-            "Name": "TextBox.Hint.Foreground",
-            "Color": "Gray"
-        },
-        {
-            "Name": "Overlay.Background",
-            "Color": "124, 0, 0, 0"
-        },
-        {
-            "Name": "Button.IsDisabled.Background",
-            "Color": "213, 217, 222"
-        },
-        {
-            "Name": "Button.IsDisabled.Foreground",
-            "Color": "180, 196, 212"
-        },
-        {
-            "Name": "Button.Background",
-            "Color": "180, 196, 212"
-        },
-        {
-            "Name": "Button.Foreground",
-            "Color": "Black"
-        },
-        {
-            "Name": "Button.IsMouseOver.Background",
-            "Color": "190, 224, 236"
-        },
-        {
-            "Name": "Button.IsMouseDown.Background",
-            "Color": "Gray"
-        },
-        {
-            "Name": "ComboBox.Background",
-            "Color": "180, 196, 212"
-        },
-        {
-            "Name": "ComboBox.IsMouseOver.Background",
-            "Color": "190, 224, 236"
-        },
-        {
-            "Name": "ComboBox.Foreground",
-            "Color": "Black"
-        },
-        {
-            "Name": "TextBox.Toggle.Foreground",
-            "Color": "87, 93, 122"
-        },
-        {
-            "Name": "TextBox.Toggle.IsMouseOver.Foreground",
-            "Color": "37, 39, 51"
-        },
-        {
-            "Name": "TextBox.Toggle.IsChecked.Foreground",
-            "Color": "Black"
-        },
-        {
-            "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
-            "Color": "24, 26, 34"
-        },
-        {
-            "Name": "CheckBox.Background",
-            "Color": "180, 196, 212"
-        },
-        {
-            "Name": "CheckBox.IsMouseOver.Background",
-            "Color": "190, 224, 236"
-        },
-        {
-            "Name": "CheckBox.Mark",
-            "Color": "Black"
-        },
-        {
-            "Name": "CheckBox.Foreground",
-            "Color": "Black"
-        },
-        {
-            "Name": "Menu.Separator",
-            "Color": "190, 224, 236"
-        },
-        {
-            "Name": "Menu.Background",
-            "Color": "180, 196, 212"
-        },
-        {
-            "Name": "MenuItem.IsMouseOver.Background",
-            "Color": "190, 224, 236"
-        }
-    ]
-  }
+    {
+        "Name": "Default",
+        "ColorEntries": [],
+        "VsColorEntries": [
+            {
+                "Name": "Background",
+                "ResourceKey": "VsBrush.CommandBarMenuBackgroundGradientBegin"
+            },
+            {
+                "Name": "Foreground",
+                "ResourceKey": "VsBrush.CommandBarTextActive"
+            }
+        ]
+    },
+    {
+        "Name": "Dark",
+        "ColorEntries": [
+            {
+                "Name": "Background",
+                "Color": "25, 35, 44"
+            },
+            {
+                "Name": "Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Result.File.Foreground",
+                "Color": "DarkGray"
+            },
+            {
+                "Name": "Result.Text.Foreground",
+                "Color": "AliceBlue"
+            },
+            {
+                "Name": "Result.Highlight.Foreground",
+                "Color": "DeepSkyBlue"
+            },
+            {
+                "Name": "Result.Highlight.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "Result.IsMouseOver.Background",
+                "Color": "49, 69, 87"
+            },
+            {
+                "Name": "Result.IsSelected.Background",
+                "Color": "15, 92, 148"
+            },
+            {
+                "Name": "IconButton.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.Foreground",
+                "Color": "Gray"
+            },
+            {
+                "Name": "IconButton.IsMouseOver.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.IsMouseOver.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Border",
+                "Color": "171, 173, 179"
+            },
+            {
+                "Name": "Border.IsMouseOver",
+                "Color": "0, 200, 215"
+            },
+            {
+                "Name": "Border.IsSelected",
+                "Color": "0, 120, 215"
+            },
+            {
+                "Name": "TextBox.Hint.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "TextBox.Hint.Foreground",
+                "Color": "Gray"
+            },
+            {
+                "Name": "Overlay.Background",
+                "Color": "124, 0, 0, 0"
+            },
+            {
+                "Name": "Button.IsDisabled.Background",
+                "Color": "56, 97, 141"
+            },
+            {
+                "Name": "Button.IsDisabled.Foreground",
+                "Color": "180, 196, 212"
+            },
+            {
+                "Name": "Button.Background",
+                "Color": "30, 129, 176"
+            },
+            {
+                "Name": "Button.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Button.IsMouseOver.Background",
+                "Color": "6, 57, 112"
+            },
+            {
+                "Name": "Button.IsMouseDown.Background",
+                "Color": "2, 23, 45"
+            },
+            {
+                "Name": "ComboBox.Background",
+                "Color": "30, 129, 176"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Background",
+                "Color": "6, 57, 112"
+            },
+            {
+                "Name": "ComboBox.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "TextBox.Toggle.Foreground",
+                "Color": "87, 93, 122"
+            },
+            {
+                "Name": "TextBox.Toggle.IsMouseOver.Foreground",
+                "Color": "171, 174, 189"
+            },
+            {
+                "Name": "TextBox.Toggle.IsChecked.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
+                "Color": "221, 223, 228"
+            },
+            {
+                "Name": "CheckBox.Background",
+                "Color": "30, 129, 176"
+            },
+            {
+                "Name": "CheckBox.IsMouseOver.Background",
+                "Color": "6, 57, 112"
+            },
+            {
+                "Name": "CheckBox.Mark",
+                "Color": "White"
+            },
+            {
+                "Name": "CheckBox.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Menu.Separator",
+                "Color": "6, 57, 112"
+            },
+            {
+                "Name": "Menu.Background",
+                "Color": "30, 129, 176"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Background",
+                "Color": "6, 57, 112"
+            }
+        ]
+    },
+    {
+        "Name": "Light",
+        "ColorEntries": [
+            {
+                "Name": "Background",
+                "Color": "White"
+            },
+            {
+                "Name": "Foreground",
+                "Color": "Black"
+            },
+            {
+                "Name": "Border",
+                "Color": "Gray"
+            },
+            {
+                "Name": "Border.IsMouseOver",
+                "Color": "Black"
+            },
+            {
+                "Name": "Border.IsSelected",
+                "Color": "Black"
+            },
+            {
+                "Name": "Result.File.Foreground",
+                "Color": "Gray"
+            },
+            {
+                "Name": "Result.Text.Foreground",
+                "Color": "Black"
+            },
+            {
+                "Name": "Result.Highlight.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Result.Highlight.Background",
+                "Color": "37, 165, 190"
+            },
+            {
+                "Name": "Result.IsMouseOver.Background",
+                "Color": "211, 234, 242"
+            },
+            {
+                "Name": "Result.IsSelected.Background",
+                "Color": "190, 224, 236"
+            },
+            {
+                "Name": "IconButton.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.Foreground",
+                "Color": "Gray"
+            },
+            {
+                "Name": "IconButton.IsMouseOver.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.IsMouseOver.Foreground",
+                "Color": "Black"
+            },
+            {
+                "Name": "TextBox.Hint.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "TextBox.Hint.Foreground",
+                "Color": "Gray"
+            },
+            {
+                "Name": "Overlay.Background",
+                "Color": "124, 0, 0, 0"
+            },
+            {
+                "Name": "Button.IsDisabled.Background",
+                "Color": "213, 217, 222"
+            },
+            {
+                "Name": "Button.IsDisabled.Foreground",
+                "Color": "180, 196, 212"
+            },
+            {
+                "Name": "Button.Background",
+                "Color": "180, 196, 212"
+            },
+            {
+                "Name": "Button.Foreground",
+                "Color": "Black"
+            },
+            {
+                "Name": "Button.IsMouseOver.Background",
+                "Color": "190, 224, 236"
+            },
+            {
+                "Name": "Button.IsMouseDown.Background",
+                "Color": "Gray"
+            },
+            {
+                "Name": "ComboBox.Background",
+                "Color": "180, 196, 212"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Background",
+                "Color": "190, 224, 236"
+            },
+            {
+                "Name": "ComboBox.Foreground",
+                "Color": "Black"
+            },
+            {
+                "Name": "TextBox.Toggle.Foreground",
+                "Color": "87, 93, 122"
+            },
+            {
+                "Name": "TextBox.Toggle.IsMouseOver.Foreground",
+                "Color": "37, 39, 51"
+            },
+            {
+                "Name": "TextBox.Toggle.IsChecked.Foreground",
+                "Color": "Black"
+            },
+            {
+                "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
+                "Color": "24, 26, 34"
+            },
+            {
+                "Name": "CheckBox.Background",
+                "Color": "180, 196, 212"
+            },
+            {
+                "Name": "CheckBox.IsMouseOver.Background",
+                "Color": "190, 224, 236"
+            },
+            {
+                "Name": "CheckBox.Mark",
+                "Color": "Black"
+            },
+            {
+                "Name": "CheckBox.Foreground",
+                "Color": "Black"
+            },
+            {
+                "Name": "Menu.Separator",
+                "Color": "190, 224, 236"
+            },
+            {
+                "Name": "Menu.Background",
+                "Color": "180, 196, 212"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Background",
+                "Color": "190, 224, 236"
+            }
+        ]
+    }
 ]
