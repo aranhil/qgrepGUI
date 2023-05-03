@@ -29,10 +29,15 @@
     <SolidColorBrush x:Key="Overlay.Background" Color="#7C000000" />
     <SolidColorBrush x:Key="Button.IsDisabled.Background" Color="#38618d" />
     <SolidColorBrush x:Key="Button.IsDisabled.Foreground" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="Button.IsDisabled.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="Button.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="Button.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="Button.Border" Color="Black" />
     <SolidColorBrush x:Key="Button.IsMouseOver.Background" Color="#bee0ec" />
+    <SolidColorBrush x:Key="Button.IsMouseOver.Border" Color="#bee0ec" />
     <SolidColorBrush x:Key="Button.IsMouseDown.Background" Color="Gray" />
+    <SolidColorBrush x:Key="Button.IsMouseDown.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="Button.IsMouseDown.Border" Color="Gray" />
     <SolidColorBrush x:Key="ComboBox.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="ComboBox.IsMouseOver.Background" Color="#bee0ec" />
     <SolidColorBrush x:Key="ComboBox.Foreground" Color="Black" />
@@ -480,10 +485,11 @@
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Background" Value="{DynamicResource Button.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Button.Foreground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Button.Border}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" x:Name="Border" CornerRadius="1" BorderThickness="0" Padding="5,0">
+                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" x:Name="Border" CornerRadius="0" BorderThickness="1" Padding="5,0">
                         <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
                     </Border>
                 </ControlTemplate>
@@ -492,13 +498,17 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource Button.IsMouseOver.Background}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Button.IsMouseOver.Border}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{DynamicResource Button.IsMouseDown.Background}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Button.IsMouseDown.Foreground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Button.IsMouseDown.Border}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Background" Value="{DynamicResource Button.IsDisabled.Background}"/>
                 <Setter Property="Foreground" Value="{DynamicResource Button.IsDisabled.Foreground}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Button.IsDisabled.Border}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

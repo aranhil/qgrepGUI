@@ -84,27 +84,47 @@
             },
             {
                 "Name": "Button.IsDisabled.Background",
-                "Color": "56, 97, 141"
+                "Color": "51, 51, 51"
             },
             {
                 "Name": "Button.IsDisabled.Foreground",
-                "Color": "180, 196, 212"
+                "Color": "122, 122, 122"
+            },
+            {
+                "Name": "Button.IsDisabled.Border",
+                "Color": "61, 61, 61"
             },
             {
                 "Name": "Button.Background",
-                "Color": "30, 129, 176"
+                "Color": "61, 61, 61"
             },
             {
                 "Name": "Button.Foreground",
                 "Color": "White"
             },
             {
+                "Name": "Button.Border",
+                "Color": "61, 61, 61"
+            },
+            {
                 "Name": "Button.IsMouseOver.Background",
-                "Color": "6, 57, 112"
+                "Color": "77, 77, 77"
+            },
+            {
+                "Name": "Button.IsMouseOver.Border",
+                "Color": "77, 77, 77"
             },
             {
                 "Name": "Button.IsMouseDown.Background",
-                "Color": "2, 23, 45"
+                "Color": "51, 51, 51"
+            },
+            {
+                "Name": "Button.IsMouseDown.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Button.IsMouseDown.Border",
+                "Color": "51, 51, 51"
             },
             {
                 "Name": "ComboBox.Background",
@@ -289,27 +309,47 @@
             },
             {
                 "Name": "Button.IsDisabled.Background",
-                "Color": "213, 217, 222"
+                "Color": "245, 245, 245"
             },
             {
                 "Name": "Button.IsDisabled.Foreground",
-                "Color": "180, 196, 212"
+                "Color": "162, 164, 165"
+            },
+            {
+                "Name": "Button.IsDisabled.Border",
+                "Color": "204, 206, 219"
             },
             {
                 "Name": "Button.Background",
-                "Color": "180, 196, 212"
+                "Color": "236, 236, 240"
             },
             {
                 "Name": "Button.Foreground",
                 "Color": "Black"
             },
             {
+                "Name": "Button.Border",
+                "Color": "172, 172, 172"
+            },
+            {
                 "Name": "Button.IsMouseOver.Background",
-                "Color": "190, 224, 236"
+                "Color": "201, 222, 245"
+            },
+            {
+                "Name": "Button.IsMouseOver.Border",
+                "Color": "0, 108, 190"
             },
             {
                 "Name": "Button.IsMouseDown.Background",
-                "Color": "Gray"
+                "Color": "0, 108, 190"
+            },
+            {
+                "Name": "Button.IsMouseDown.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Button.IsMouseDown.Border",
+                "Color": "0, 108, 190"
             },
             {
                 "Name": "ComboBox.Background",
@@ -501,6 +541,10 @@
                 "Color": "180, 196, 212"
             },
             {
+                "Name": "Button.IsDisabled.Border",
+                "Color": "56, 97, 141"
+            },
+            {
                 "Name": "Button.Background",
                 "Color": "30, 129, 176"
             },
@@ -509,11 +553,27 @@
                 "Color": "White"
             },
             {
+                "Name": "Button.Border",
+                "Color": "30, 129, 176"
+            },
+            {
                 "Name": "Button.IsMouseOver.Background",
                 "Color": "6, 57, 112"
             },
             {
+                "Name": "Button.IsMouseOver.Border",
+                "Color": "6, 57, 112"
+            },
+            {
                 "Name": "Button.IsMouseDown.Background",
+                "Color": "2, 23, 45"
+            },
+            {
+                "Name": "Button.IsMouseDown.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Button.IsMouseDown.Border",
                 "Color": "2, 23, 45"
             },
             {
