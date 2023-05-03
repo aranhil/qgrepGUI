@@ -245,15 +245,15 @@
             },
             {
                 "Name": "Border",
-                "Color": "Gray"
+                "Color": "204, 206, 219"
             },
             {
                 "Name": "Border.IsMouseOver",
-                "Color": "Black"
+                "Color": "0, 108, 190"
             },
             {
                 "Name": "Border.IsSelected",
-                "Color": "Black"
+                "Color": "45, 45, 45"
             },
             {
                 "Name": "Result.File.Foreground",
@@ -273,11 +273,11 @@
             },
             {
                 "Name": "Result.IsMouseOver.Background",
-                "Color": "211, 234, 242"
+                "Color": "201, 222, 245"
             },
             {
                 "Name": "Result.IsSelected.Background",
-                "Color": "190, 224, 236"
+                "Color": "147, 195, 233"
             },
             {
                 "Name": "IconButton.Background",
@@ -301,7 +301,7 @@
             },
             {
                 "Name": "TextBox.Hint.Foreground",
-                "Color": "Gray"
+                "Color": "113, 113, 113"
             },
             {
                 "Name": "Overlay.Background",

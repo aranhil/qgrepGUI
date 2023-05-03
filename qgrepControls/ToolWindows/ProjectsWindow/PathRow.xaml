@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Grid Name="PathGrid" Style="{DynamicResource HoverableRow}" MouseEnter="PathGrid_MouseEnter" MouseLeave="PathGrid_MouseLeave">
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
-            <Label Name="Path" Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=Path}" />
+            <Label Name="Path" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Path}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons" Margin="0,0,5,0">
             <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="15" Click="DeleteButton_Click" Content="✕" ToolTip="Delete folder" />

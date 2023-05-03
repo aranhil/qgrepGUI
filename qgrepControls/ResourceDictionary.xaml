@@ -445,7 +445,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="SomeTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MonospacedText}">
+    <Style x:Key="SomeTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource NormalText}">
         <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource Selection}" />
         <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
@@ -453,7 +453,6 @@
         <Setter Property="CaretBrush" Value="{DynamicResource Foreground}" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="Height" Value="24" />
-        <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Padding" Value="3,2,3,1" />
         <Setter Property="Template">
             <Setter.Value>
@@ -698,7 +697,7 @@
     <Style TargetType="{x:Type Grid}">
         <Setter Property="Background" Value="{DynamicResource Background}" />
     </Style>
-    <Style x:Key="SomeHintLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource MonospacedText}">
+    <Style x:Key="SomeHintLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource NormalText}">
         <Setter Property="IsHitTestVisible" Value="False" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Height" Value="24" />
@@ -818,7 +817,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="PanelEntry" TargetType="Label" BasedOn="{StaticResource MonospacedText}">
+    <Style x:Key="PanelEntry" TargetType="Label" BasedOn="{StaticResource NormalText}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
         <Setter Property="Background" Value="{x:Null}" />
