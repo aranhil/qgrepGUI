@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 using Microsoft.VisualStudio;
 using qgrepControls.ToolWindows;
+using Microsoft.VisualStudio.PlatformUI;
+using System.Reflection;
 
 namespace qgrepSearch
 {
@@ -30,6 +32,22 @@ namespace qgrepSearch
 
             IVsSolution solution = await GetServiceAsync(typeof(SVsSolution)) as IVsSolution;
             solution?.AdviseSolutionEvents(this, out SolutionEvents);
+
+            IVsShell shell = await GetServiceAsync(typeof(SVsShell)) as IVsShell;
+            VSColorTheme.ThemeChanged += VSColorTheme_ThemeChanged;
+        }
+
+        private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)
+        {
+            qgrepSearchWindow searchWindow = FindToolWindow(typeof(qgrepSearchWindow), toolWindowId, false) as qgrepSearchWindow;
+            if (searchWindow != null)
+            {
+                qgrepSearchWindowControl searchWindowControl = searchWindow.Content as qgrepSearchWindowControl;
+                if (searchWindowControl != null)
+                {
+                    searchWindowControl.UpdateColorsFromSettings();
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -41,6 +59,9 @@ namespace qgrepSearch
                 solution.UnadviseSolutionEvents(SolutionEvents);
             }
             SolutionEvents = uint.MaxValue;
+
+            IVsShell shell = GetServiceAsync(typeof(SVsShell)) as IVsShell;
+            VSColorTheme.ThemeChanged -= VSColorTheme_ThemeChanged;
         }
 
         public override IVsAsyncToolWindowFactory GetAsyncToolWindowFactory(Guid toolWindowType)

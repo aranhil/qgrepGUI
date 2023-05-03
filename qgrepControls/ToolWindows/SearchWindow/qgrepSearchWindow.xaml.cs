@@ -346,6 +346,10 @@ namespace qgrepControls.ToolWindows
                 {
                     Resources[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
                 }
+                foreach (VsColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].VsColorEntries)
+                {
+                    Resources[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.ResourceKey)));
+                }
             }
         }
 
@@ -366,6 +370,10 @@ namespace qgrepControls.ToolWindows
                 foreach (ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
                 {
                     results[colorEntry.Name] = ConvertColor(colorEntry.Color);
+                }
+                foreach (VsColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].VsColorEntries)
+                {
+                    results[colorEntry.Name] = ConvertColor(ExtensionInterface.GetColor(colorEntry.ResourceKey));
                 }
             }
 

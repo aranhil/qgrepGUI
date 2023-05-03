@@ -1,5 +1,43 @@
 [
     {
+        "Name": "Auto",
+        "ColorEntries": [],
+        "VsColorEntries": [
+            {
+                "Name": "Background",
+                "ResourceKey": "EnvironmentColors.ToolWindowBackgroundColorKey"
+            },
+            {
+                "Name": "Foreground",
+                "ResourceKey": "CommonControlsColors.ComboBoxTextColorKey"
+            },
+            {
+                "Name": "Selection",
+                "ResourceKey": "CommonControlsColors.ComboBoxTextInputSelectionColorKey"
+            },
+            {
+                "Name": "TextBox.Background",
+                "ResourceKey": "CommonControlsColors.ComboBoxBackgroundColorKey"
+            },
+            {
+                "Name": "Border",
+                "ResourceKey": "CommonControlsColors.ComboBoxBorderColorKey"
+            },
+            {
+                "Name": "Border.IsMouseOver",
+                "ResourceKey": "CommonControlsColors.ComboBoxBorderHoverColorKey"
+            },
+            {
+                "Name": "Border.IsSelected",
+                "ResourceKey": "CommonControlsColors.ComboBoxBorderFocusedColorKey"
+            },
+            {
+                "Name": "Result.IsSelected.Background",
+                "ResourceKey": "TreeViewColors.SelectedItemActiveColorKey"
+            }
+        ]
+    },
+    {
         "Name": "Dark",
         "ColorEntries": [
             {

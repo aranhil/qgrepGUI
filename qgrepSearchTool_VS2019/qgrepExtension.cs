@@ -1,9 +1,12 @@
 ﻿using EnvDTE;
 using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.Shell;
 using qgrepControls.Classes;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -128,6 +131,37 @@ namespace qgrepSearch
                         }
                     }
                 }
+            }
+        }
+
+        public Color GetColor(string resourceKey)
+        {
+            string className = resourceKey.Substring(0, resourceKey.IndexOf('.'));
+            string propertyName = resourceKey.Substring(resourceKey.IndexOf('.') + 1);
+
+            var type = FindType("Microsoft.VisualStudio.PlatformUI." + className);
+            var property = type.GetProperty(propertyName);
+            var themedResourceKey = property.GetValue(null);
+            return VSColorTheme.GetThemedColor(themedResourceKey as ThemeResourceKey);
+        }
+
+        private static Type FindType(string qualifiedTypeName)
+        {
+            Type t = Type.GetType(qualifiedTypeName);
+
+            if (t != null)
+            {
+                return t;
+            }
+            else
+            {
+                foreach (Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    t = asm.GetType(qualifiedTypeName);
+                    if (t != null)
+                        return t;
+                }
+                return null;
             }
         }
     }
