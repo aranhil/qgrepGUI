@@ -121,10 +121,17 @@ namespace qgrepControls.ToolWindows
         public System.Drawing.Color Color = System.Drawing.Color.White;
     }
 
+    public class VsColorEntry
+    {
+        public string Name = "";
+        public string ResourceKey = "";
+    }
+
     public class ColorScheme
     {
         public string Name = "";
         public ColorEntry[] ColorEntries = new ColorEntry[] { };
+        public VsColorEntry[] VsColorEntries = new VsColorEntry[] { };
     }
 
     public class Customer
@@ -335,7 +342,7 @@ namespace qgrepControls.ToolWindows
         {
             if(Settings.Default.ColorScheme < colorSchemes.Length)
             {
-                foreach(ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
+                foreach (ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
                 {
                     Resources[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
                 }

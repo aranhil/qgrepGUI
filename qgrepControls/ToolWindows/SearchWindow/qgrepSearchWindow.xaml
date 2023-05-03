@@ -22,9 +22,16 @@
             <RowDefinition Height="24" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" x:Name="SearchGrid" Style="{DynamicResource ZIndexFocusable}">
-            <TextBox x:Name="SearchInput" TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
-            <Label x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
-            <StackPanel x:Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                <TextBox Grid.Column="0" x:Name="SearchInput" TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" 
+TextChanged="SearchInput_TextChanged"/>
+                <Label Grid.Column="0" x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
+            </Grid>
+            <StackPanel Grid.Column="1" x:Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel x:Name="AdvancedSearchInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <CheckBox x:Name="SearchCaseSensitive" Style="{DynamicResource TextBoxToggle}" Click="CaseSensitive_Click" Content="Case sensitive"/>
                     <CheckBox x:Name="SearchWholeWord" Style="{DynamicResource TextBoxToggle}" IsChecked="False" Click="SearchWholeWord_Click" Content="Whole word" />

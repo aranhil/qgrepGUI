@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.ToolWindows"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="300" Height="150">
+             Width="300" Height="160">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
@@ -16,11 +16,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Include files:" />
         <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Exclude files:" />
@@ -30,8 +30,8 @@
         <CheckBox Grid.Row="0" Grid.Column="1" x:Name="ShowIncludes" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="1" Grid.Column="1" x:Name="ShowExcludes" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="2" Grid.Column="1" x:Name="ShowFilter" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
-        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="ColorSchemeComboBox" Height="20" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ColorSchemeComboBox_SelectionChanged" />
-        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="GroupingComboBox" Height="20" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="GroupingComboBox_SelectionChanged">
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="ColorSchemeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ColorSchemeComboBox_SelectionChanged" />
+        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="GroupingComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="GroupingComboBox_SelectionChanged">
             <ComboBoxItem>None</ComboBoxItem>
             <ComboBoxItem>File</ComboBoxItem>
         </ComboBox>
