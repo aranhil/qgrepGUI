@@ -108,15 +108,39 @@
             },
             {
                 "Name": "ComboBox.Background",
-                "Color": "30, 129, 176"
+                "Color": "61, 61, 61"
             },
             {
                 "Name": "ComboBox.IsMouseOver.Background",
-                "Color": "6, 57, 112"
+                "Color": "61, 61, 61"
+            },
+            {
+                "Name": "ComboBox.Border",
+                "Color": "61, 61, 61"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Border",
+                "Color": "158, 158, 158"
             },
             {
                 "Name": "ComboBox.Foreground",
                 "Color": "White"
+            },
+            {
+                "Name": "ComboBoxItem.Background",
+                "Color": "61, 61, 61"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Background",
+                "Color": "61, 61, 61"
+            },
+            {
+                "Name": "ComboBoxItem.Border",
+                "Color": "61, 61, 61"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Border",
+                "Color": "158, 158, 158"
             },
             {
                 "Name": "TextBox.Toggle.Foreground",
@@ -285,15 +309,39 @@
             },
             {
                 "Name": "ComboBox.Background",
-                "Color": "180, 196, 212"
+                "Color": "White"
             },
             {
                 "Name": "ComboBox.IsMouseOver.Background",
-                "Color": "190, 224, 236"
+                "Color": "White"
+            },
+            {
+                "Name": "ComboBox.Border",
+                "Color": "204, 206, 219"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Border",
+                "Color": "0, 108, 190"
             },
             {
                 "Name": "ComboBox.Foreground",
                 "Color": "Black"
+            },
+            {
+                "Name": "ComboBoxItem.Background",
+                "Color": "246, 246, 246"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Background",
+                "Color": "201, 222, 245"
+            },
+            {
+                "Name": "ComboBoxItem.Border",
+                "Color": "246, 246, 246"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Border",
+                "Color": "246, 246, 246"
             },
             {
                 "Name": "TextBox.Toggle.Foreground",
@@ -469,8 +517,32 @@
                 "Color": "6, 57, 112"
             },
             {
+                "Name": "ComboBox.Border",
+                "Color": "30, 129, 176"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Border",
+                "Color": "6, 57, 112"
+            },
+            {
                 "Name": "ComboBox.Foreground",
                 "Color": "White"
+            },
+            {
+                "Name": "ComboBoxItem.Background",
+                "Color": "30, 129, 176"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Background",
+                "Color": "6, 57, 112"
+            },
+            {
+                "Name": "ComboBoxItem.Border",
+                "Color": "30, 129, 176"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Border",
+                "Color": "6, 57, 112"
             },
             {
                 "Name": "TextBox.Toggle.Foreground",
