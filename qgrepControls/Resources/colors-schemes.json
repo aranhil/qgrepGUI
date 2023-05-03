@@ -36,7 +36,7 @@
             },
             {
                 "Name": "Result.IsMouseOver.Background",
-                "Color": "Transparent"
+                "Color": "61, 61, 61"
             },
             {
                 "Name": "Result.IsSelected.Background",
@@ -125,6 +125,10 @@
             {
                 "Name": "ComboBox.Foreground",
                 "Color": "White"
+            },
+            {
+                "Name": "ComboBox.Popup.Border",
+                "Color": "102, 102, 102"
             },
             {
                 "Name": "ComboBoxItem.Background",
@@ -328,6 +332,10 @@
                 "Color": "Black"
             },
             {
+                "Name": "ComboBox.Popup.Border",
+                "Color": "204, 206, 219"
+            },
+            {
                 "Name": "ComboBoxItem.Background",
                 "Color": "246, 246, 246"
             },
@@ -527,6 +535,10 @@
             {
                 "Name": "ComboBox.Foreground",
                 "Color": "White"
+            },
+            {
+                "Name": "ComboBox.Popup.Border",
+                "Color": "30, 129, 176"
             },
             {
                 "Name": "ComboBoxItem.Background",

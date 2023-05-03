@@ -38,6 +38,7 @@
     <SolidColorBrush x:Key="ComboBox.Foreground" Color="Black" />
     <SolidColorBrush x:Key="ComboBox.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="ComboBox.IsMouseOver.Border" Color="#bee0ec" />
+    <SolidColorBrush x:Key="ComboBox.Popup.Border" Color="Black" />
     <SolidColorBrush x:Key="ComboBoxItem.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="ComboBoxItem.IsMouseOver.Background" Color="#bee0ec" />
     <SolidColorBrush x:Key="ComboBoxItem.Border" Color="#b4c4d4" />
@@ -169,6 +170,7 @@
         <Setter Property="Padding" Value="20,0,0,0"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
@@ -230,7 +232,7 @@
     <Style TargetType="{x:Type TreeView}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
@@ -317,11 +319,12 @@
     <Style TargetType="{x:Type local:CheckComboBox}">
         <Setter Property="Foreground" Value="{DynamicResource ComboBox.Foreground}"/>
         <Setter Property="Background" Value="{DynamicResource ComboBox.Background}"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="Margin" Value="5,0,0,0" />
-        <Setter Property="Height" Value="18" />
+        <Setter Property="Height" Value="20" />
         <Setter Property="Padding" Value="2"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
         <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
@@ -333,13 +336,13 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:CheckComboBox}">
                     <Grid x:Name="MainGrid" SnapsToDevicePixels="true">
-                        <Popup x:Name="PART_Popup" AllowsTransparency="true" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" Placement="Top" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" StaysOpen="false">
+                        <Popup x:Name="PART_Popup" AllowsTransparency="true" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" Placement="Top" PopupAnimation="None" StaysOpen="false">
                             <Grid>
-                                <Border x:Name="DropDownBorder" Background="{DynamicResource ComboBox.Background}" BorderThickness="0" MaxHeight="{Binding MaxDropDownHeight, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border x:Name="DropDownBorder" Background="{DynamicResource ComboBox.Background}" BorderThickness="1" BorderBrush="{DynamicResource ComboBox.Popup.Border}" MaxHeight="{Binding MaxDropDownHeight, RelativeSource={RelativeSource TemplatedParent}}" Margin="0,0,0,1">
                                     <ScrollViewer x:Name="DropDownScrollViewer">
                                         <Grid>
                                             <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
-                                                <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=DropDownBorder}" Height="{Binding ActualHeight, ElementName=DropDownBorder}" Width="{Binding ActualWidth, ElementName=DropDownBorder}"/>
+                                                <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=DropDownBorder}" />
                                             </Canvas>
                                             <StackPanel>
                                                 <prim:SelectAllSelectorItem x:Name="PART_SelectAllSelectorItem" Content="{TemplateBinding SelectAllContent}" Visibility="{Binding IsSelectAllActive, Converter={StaticResource BoolToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -359,10 +362,11 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Background" Value="{DynamicResource ComboBox.IsMouseOver.Background}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource ComboBox.IsMouseOver.Border}"/>
             </Trigger>
-            <Trigger Property="IsKeyboardFocusWithin" Value="true">
+            <!--<Trigger Property="IsKeyboardFocusWithin" Value="true">
                 <Setter Property="BorderBrush" Value="{DynamicResource {x:Static themes:ResourceKeys.ControlSelectedBorderKey}}"/>
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="IsEditable" Value="true">
                 <Setter Property="IsTabStop" Value="false"/>
             </Trigger>
@@ -378,21 +382,21 @@
                 <ControlTemplate TargetType="{x:Type CheckBox}">
                     <BulletDecorator Background="Transparent">
                         <BulletDecorator.Bullet>
-                            <Border x:Name="Border" Margin="3,5,3,5" Width="16" Height="10" CornerRadius="0" BorderThickness="0" Background="{TemplateBinding Background}">
+                            <Border x:Name="Border" Margin="0" Width="16" Height="10" CornerRadius="0" BorderThickness="0" Background="{TemplateBinding Background}">
                                 <Grid>
-                                    <Path Visibility="Collapsed" Width="8" Height="8" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckBox.Mark}" Data="M 0 0 L 7 7 M 0 7 L 7 0"/>
+                                    <Path Visibility="Collapsed" Width="9" Height="8" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="0" Stroke="{x:Null}" Data="M6.22,11.02C6.22,11.02 2.5,7.24 2.5,7.24 2.5,7.24 4.05,5.71 4.05,5.71 4.05,5.71 5.97,7.65 5.97,7.65 5.97,7.65 10.52,1.38 10.52,1.38 10.52,1.38 13.19,1.38 13.19,1.38 13.19,1.38 6.22,11.02 6.22,11.02 6.22,11.02 6.22,11.02 6.22,11.02z" Margin="0" Fill="{DynamicResource CheckBox.IsMouseOver.Mark}" Stretch="Fill"/>
                                     <Path Visibility="Collapsed" Width="7" Height="7" x:Name="InderminateMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckBox.Mark}" Data="M 0 7 L 7 0" />
                                 </Grid>
                             </Border>
                         </BulletDecorator.Bullet>
-                        <ContentPresenter Margin="4,4,5,4" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
+                        <ContentPresenter Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource CheckBox.IsMouseOver.Background}" />
+                            <Setter Property="Background" Value="{DynamicResource ComboboxItem.IsMouseOver.Background}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -402,22 +406,28 @@
     <Style TargetType="{x:Type prim:SelectorItem}">
         <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type prim:Selector}}}" />
         <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type prim:Selector}}}" />
+        <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ComboBoxItem.Border}" />
+        <Setter Property="Background" Value="{DynamicResource ComboBoxItem.Background}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type prim:SelectorItem}">
-                    <Border x:Name="_background" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <CheckBox x:Name="_checkBox" IsChecked="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Style="{DynamicResource AnotherCheckBox}">
+                    <Border x:Name="_background" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="0" Padding="0">
+                        <CheckBox x:Name="_checkBox" IsChecked="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Style="{DynamicResource AnotherCheckBox}" Margin="0">
                             <CheckBox.Content>
-                                <ContentControl Content="{TemplateBinding Content}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" ContentTemplate="{TemplateBinding ContentTemplate}" Foreground="{TemplateBinding Foreground}" Focusable="False" />
+                                <ContentControl Margin="0" Padding="0" Content="{TemplateBinding Content}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" ContentTemplate="{TemplateBinding ContentTemplate}" Foreground="{TemplateBinding Foreground}" Focusable="False" />
                             </CheckBox.Content>
                         </CheckBox>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="_background" Property="Background" Value="{DynamicResource ComboBox.IsMouseOver.Background}" />
+                            <Setter TargetName="_background" Property="Background" Value="{DynamicResource ComboBoxItem.IsMouseOver.Background}" />
+                            <Setter TargetName="_background" Property="BorderBrush" Value="{DynamicResource ComboBoxItem.IsMouseOver.Border}" />
                         </Trigger>
                         <!--<Trigger Property="IsKeyboardFocusWithin" Value="true">
                             <Setter TargetName="_background" Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
@@ -508,7 +518,7 @@
                             <ColumnDefinition Width="13" />
                         </Grid.ColumnDefinitions>
                         <Border x:Name="Border" Grid.ColumnSpan="2" CornerRadius="0" BorderThickness="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"/>
-                        <Border x:Name="Border2" Grid.Column="0" CornerRadius="0" BorderThickness="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"/>
+                        <Border x:Name="BorderHeader" Grid.Column="0" CornerRadius="0" BorderThickness="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"/>
                         <Grid Width="6" Height="3" Grid.Column="1" Margin="-1,0,0,0">
                             <Path x:Name="Arrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Fill="{TemplateBinding Foreground}" Stretch="Fill"/>
                         </Grid>
@@ -527,6 +537,7 @@
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Foreground" Value="{DynamicResource ComboBox.Foreground}" />
+        <Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
@@ -539,10 +550,10 @@
                         <ToggleButton x:Name="ToggleButton" Style="{DynamicResource ComboBoxToggle}" Grid.Column="2" Focusable="false" ClickMode="Press" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                         <ContentPresenter x:Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3,3,23,3" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
                         <TextBox x:Name="PART_EditableTextBox" Style="{x:Null}" Template="{StaticResource ComboBoxTextBox}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="3,5,23,3" Focusable="True" Background="Transparent" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}" />
-                        <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                        <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="None">
                             <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                <Border x:Name="DropDownBorder" BorderThickness="0"/>
-                                <ScrollViewer Margin="0" SnapsToDevicePixels="True">
+                                <Border x:Name="DropDownBorder" Margin="0,1,0,0" BorderThickness="1" BorderBrush="{DynamicResource ComboBox.Popup.Border}" Background="{TemplateBinding Background}"/>
+                                <ScrollViewer Margin="1,2,1,1" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                             </Grid>
@@ -560,6 +571,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource ComboBoxItem.Border}"/>
         <Setter Property="Height" Value="22"/>
         <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
