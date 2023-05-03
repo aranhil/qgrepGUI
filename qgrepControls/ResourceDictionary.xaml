@@ -85,6 +85,7 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
         <Setter Property="Background" Value="{DynamicResource IconButton.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource IconButton.Foreground}" />
         <Setter Property="Template">

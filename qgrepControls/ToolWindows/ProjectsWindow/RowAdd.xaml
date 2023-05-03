@@ -12,6 +12,6 @@
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Name="AddGrid" Style="{DynamicResource HoverableRow}" MouseDown="AddGrid_MouseDown" >
-        <Button Name="AddButton" Style="{StaticResource IconButton}" FontSize="17" Margin="0,-3,0,0" Content="+" Click="AddButton_Click" />
+        <Button Name="AddButton" Style="{StaticResource IconButton}" FontSize="17" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,-3,0,0" Content="+" Click="AddButton_Click" />
     </Grid>
 </UserControl>
