@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -98,6 +99,12 @@ namespace qgrepSearchTool_Standalone
         public List<string> GatherAllFoldersFromSolution()
         {
             return new List<string>();
+        }
+
+        public Color GetColor(string resourceKey)
+        {
+            Random random = new Random(DateTime.Now.Millisecond);
+            return Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
         }
     }
 }

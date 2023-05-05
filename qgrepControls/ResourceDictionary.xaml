@@ -46,6 +46,7 @@
     <SolidColorBrush x:Key="ComboBox.Popup.Border" Color="Black" />
     <SolidColorBrush x:Key="ComboBoxItem.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="ComboBoxItem.IsMouseOver.Background" Color="#bee0ec" />
+    <SolidColorBrush x:Key="ComboBoxItem.IsMouseOver.Foreground" Color="Black" />
     <SolidColorBrush x:Key="ComboBoxItem.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="ComboBoxItem.IsMouseOver.Border" Color="#bee0ec" />
     <SolidColorBrush x:Key="TextBox.Toggle.Foreground" Color="#575d7a" />
@@ -54,14 +55,21 @@
     <SolidColorBrush x:Key="TextBox.Toggle.IsChecked.IsMouseOver.Foreground" Color="#dddfe4" />
     <SolidColorBrush x:Key="CheckBox.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="CheckBox.IsMouseOver.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="CheckBox.IsMouseDown.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="CheckBox.Mark" Color="Black" />
     <SolidColorBrush x:Key="CheckBox.Foreground" Color="Black" />
     <SolidColorBrush x:Key="CheckBox.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="CheckBox.IsMouseOver.Border" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="CheckBox.IsMouseDown.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="CheckBox.IsMouseOver.Mark" Color="Black" />
+    <SolidColorBrush x:Key="CheckBox.IsMouseDown.Mark" Color="Black" />
     <SolidColorBrush x:Key="Menu.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="Menu.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="Menu.Separator" Color="#bee0ec" />
-    <SolidColorBrush x:Key="Menu.IsMouseOver.Background" Color="#bee0ec" />
+    <SolidColorBrush x:Key="MenuItem.IsMouseOver.Background" Color="#bee0ec" />
+    <SolidColorBrush x:Key="MenuItem.IsMouseOver.Border" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="PanelRow.IsMouseOver.Background" Color="#d3eaf2" />
+    <SolidColorBrush x:Key="PanelRow.IsSelected.Background" Color="#bee0ec" />
     <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -594,6 +602,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource ComboBoxItem.IsMouseOver.Background}"/>
+                <Setter Property="Foreground" Value="{DynamicResource ComboBoxItem.IsMouseOver.Foreground}"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource ComboBoxItem.IsMouseOver.Border}"/>
             </Trigger>
         </Style.Triggers>
@@ -604,46 +613,48 @@
         <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.Foreground}" />
         <Setter Property="Margin" Value="5,0,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Height" Value="16" />
+        <Setter Property="Height" Value="20" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
                     <BulletDecorator Background="Transparent">
-                        <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
+                        <Border x:Name="_background" BorderThickness="0,0,0,1" BorderBrush="{x:Null}" Margin="4,2,0,1">
+                            <ContentPresenter Margin="0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
+                        </Border>
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsChecked" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush" Value="{DynamicResource TextBox.Toggle.IsChecked.IsMouseOver.Foreground}" TargetName="_background" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsChecked.IsMouseOver.Foreground}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsChecked" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsMouseOver.Foreground}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="False" />
+                                <Condition Property="IsChecked" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush" Value="{DynamicResource TextBox.Toggle.IsChecked.Foreground}" TargetName="_background" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsChecked.Foreground}" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsChecked" Value="True">
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property="BorderThickness" Value="2" />
-                <Setter Property="BorderBrush" Value="Black" />
-            </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True" />
-                    <Condition Property="IsChecked" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsChecked.IsMouseOver.Foreground}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True" />
-                    <Condition Property="IsChecked" Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsMouseOver.Foreground}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="False" />
-                    <Condition Property="IsChecked" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsChecked.Foreground}" />
-            </MultiTrigger>
         </Style.Triggers>
     </Style>
     <Style x:Key="SomeCheckBox" TargetType="{x:Type CheckBox}">
@@ -668,7 +679,7 @@
                                 <Border x:Name="Border" Width="14" Height="14" CornerRadius="0" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
                             </Border>
                             <Grid>
-                                    <Path Visibility="Collapsed" Width="9" Height="8" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="0" Stroke="{x:Null}" Data="M6.22,11.02C6.22,11.02 2.5,7.24 2.5,7.24 2.5,7.24 4.05,5.71 4.05,5.71 4.05,5.71 5.97,7.65 5.97,7.65 5.97,7.65 10.52,1.38 10.52,1.38 10.52,1.38 13.19,1.38 13.19,1.38 13.19,1.38 6.22,11.02 6.22,11.02 6.22,11.02 6.22,11.02 6.22,11.02z" Margin="0" Fill="{DynamicResource CheckBox.Mark}" Stretch="Fill"/>
+                                    <Path Visibility="Collapsed" Width="8" Height="8" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="0" Stroke="{x:Null}" Data="M6.22,11.02C6.22,11.02 2.5,7.24 2.5,7.24 2.5,7.24 4.05,5.71 4.05,5.71 4.05,5.71 5.97,7.65 5.97,7.65 5.97,7.65 10.52,1.38 10.52,1.38 10.52,1.38 13.19,1.38 13.19,1.38 13.19,1.38 6.22,11.02 6.22,11.02 6.22,11.02 6.22,11.02 6.22,11.02z" Margin="0" Fill="{DynamicResource CheckBox.Mark}" Stretch="Fill"/>
                                     <Path Visibility="Collapsed" Width="7" Height="7" x:Name="InderminateMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckBox.Mark}" Data="M 0 7 L 7 0" />
                                 </Grid>
                             </Grid>
@@ -683,6 +694,11 @@
                             <Setter Property="Background" Value="{DynamicResource CheckBox.IsMouseOver.Background}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource CheckBox.IsMouseOver.Border}" />
                             <Setter Property="Fill" TargetName="CheckMark" Value="{DynamicResource CheckBox.IsMouseOver.Mark}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource CheckBox.IsMouseDown.Background}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource CheckBox.IsMouseDown.Border}" />
+                            <Setter Property="Fill" TargetName="CheckMark" Value="{DynamicResource CheckBox.IsMouseDown.Mark}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -780,7 +796,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
+                <Setter Property="Background" Value="{DynamicResource PanelRow.IsMouseOver.Background}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -788,7 +804,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Result.IsSelected.Background}"/>
+                <Setter Property="Background" Value="{DynamicResource PanelRow.IsSelected.Background}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -943,14 +959,18 @@
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Grid.IsSharedSizeScope" Value="true" />
         <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContextMenu}">
-                    <Border x:Name="Border" Background="{DynamicResource Menu.Background}" BorderThickness="4">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="4">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="5" ShadowDepth="1"/>
                         </Border.Effect>
-                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="1" Padding="2" BorderBrush="{TemplateBinding BorderBrush}">
+                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Border>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -959,7 +979,7 @@
 
     <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
         <Setter Property="Height" Value="1" />
-        <Setter Property="Margin" Value="5,1,5,1" />
+        <Setter Property="Margin" Value="0,2,0,2" />
         <Setter Property="Background" Value="{DynamicResource Menu.Separator}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -968,7 +988,7 @@
                         <Border.BorderBrush>
                             <VisualBrush>
                                 <VisualBrush.Visual>
-                                    <Rectangle StrokeDashArray="1 2" Stroke="{TemplateBinding Background}" StrokeThickness="1"
+                                    <Rectangle Stroke="{TemplateBinding Background}" StrokeThickness="1"
                   Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
                   Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
                                 </VisualBrush.Visual>
@@ -982,7 +1002,7 @@
 
     <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}"
                  TargetType="{x:Type MenuItem}">
-        <Border x:Name="Border" BorderThickness="0">
+        <Border x:Name="Border" BorderThickness="1" Height="22">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
@@ -998,7 +1018,7 @@
                         </Path.Stroke>
                     </Path>
                 </Border>-->
-                <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" Margin="5,3,0,3" />
+                <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" Margin="5,0,0,0" />
                 <!--<TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" DockPanel.Dock="Right" />-->
             </Grid>
         </Border>
@@ -1018,8 +1038,8 @@
               Value="Hidden" />
             </Trigger>
             <Trigger Property="IsHighlighted" Value="true">
-                <Setter Property="Background" TargetName="Border" Value="{DynamicResource MenuItem.IsMouseOver.Background}">
-                </Setter>
+                <Setter Property="Background" TargetName="Border" Value="{DynamicResource MenuItem.IsMouseOver.Background}"/>
+                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource MenuItem.IsMouseOver.Border}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
                 <!--<Setter Property="Foreground">

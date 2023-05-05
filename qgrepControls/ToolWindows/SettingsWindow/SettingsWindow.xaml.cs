@@ -21,10 +21,13 @@ namespace qgrepControls.ToolWindows
 
             foreach (ColorScheme colorScheme in SearchWindow.colorSchemes)
             {
-                ColorSchemeComboBox.Items.Add(new ComboBoxItem() { Content = colorScheme.Name });
+                if (SearchWindow.ExtensionInterface.IsStandalone && colorScheme.Name == "Auto")
+                    continue;
+
+                ColorSchemeComboBox.Items.Add(new ComboBoxItem() { Content = colorScheme.Name, });
             }
 
-            ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme;
+            ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (SearchWindow.ExtensionInterface.IsStandalone ? 1 : 0);
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
 
             LoadColorsFromResources();
@@ -32,11 +35,11 @@ namespace qgrepControls.ToolWindows
 
         private void LoadColorsFromResources()
         {
-            Dictionary<string, System.Windows.Media.Color> colors = SearchWindow.GetColorsFromColorScheme();
+            Dictionary<string, SolidColorBrush> colors = SearchWindow.GetBrushesFromColorScheme();
 
             foreach (var color in colors)
             {
-                Resources[color.Key] = new SolidColorBrush(color.Value);
+                Resources[color.Key] = color.Value;
             }
         }
 
@@ -71,7 +74,7 @@ namespace qgrepControls.ToolWindows
 
         private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex;
+            Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (SearchWindow.ExtensionInterface.IsStandalone ? 1 : 0);
             Settings.Default.Save();
             SearchWindow.UpdateColorsFromSettings();
             LoadColorsFromResources();
