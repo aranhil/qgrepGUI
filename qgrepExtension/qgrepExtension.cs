@@ -72,8 +72,16 @@ namespace qgrepSearch
 
         public void OpenFile(string path, string line)
         {
-            State.DTE?.ItemOperations?.OpenFile(path);
-            (State.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.MoveToLineAndOffset(Int32.Parse(line), 1);
+            try
+            {
+                State.DTE?.ItemOperations?.OpenFile(path);
+
+                if (line != "0")
+                {
+                    (State.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.MoveToLineAndOffset(Int32.Parse(line), 1);
+                }
+            }
+            catch { }
         }
 
         public IExtensionWindow CreateWindow(UserControl userControl, string title)

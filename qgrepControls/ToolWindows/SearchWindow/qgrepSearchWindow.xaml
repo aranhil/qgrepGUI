@@ -70,12 +70,12 @@ TextChanged="SearchInput_TextChanged"/>
             <ItemsControl x:Name="SearchItemsControl" Style="{DynamicResource ResultsItemsList}" ItemsSource="{Binding}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <VirtualizingStackPanel Style="{DynamicResource ResultPanel}" Orientation="Horizontal" MouseDown="VirtualizingStackPanel_MouseDown">
+                        <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
                             <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=BeginText}" />
                             <TextBlock Style="{DynamicResource ResultHighlightedText}" Text="{Binding Path=HighlightedText}"/>
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=EndText}" />
-                            <VirtualizingStackPanel.ContextMenu>
+                            <DockPanel.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="MenuGoTo" Header="Go to location" Click="MenuGoTo_Click"/>
                                     <Separator/>
@@ -85,8 +85,8 @@ TextChanged="SearchInput_TextChanged"/>
                                     <Separator/>
                                     <MenuItem x:Name="MenuCopyAllResults" Header="Copy all results" Click="MenuCopyAllResults_Click"/>
                                 </ContextMenu>
-                            </VirtualizingStackPanel.ContextMenu>
-                        </VirtualizingStackPanel>
+                            </DockPanel.ContextMenu>
+                        </DockPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -99,20 +99,35 @@ TextChanged="SearchInput_TextChanged"/>
                 </TreeView.ItemContainerStyle>
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type self:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
-                        <Grid HorizontalAlignment="Stretch" RequestBringIntoView="TreeViewItem_RequestBringIntoView">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
+                        <DockPanel RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchGroup_MouseDown">
                             <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
-                        </Grid>
+                            <DockPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem x:Name="MenuGoTo" Header="Open file" Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuCopyFullPath" Header="Copy full path" Click="MenuCopyFullPath_Click"/>
+                                </ContextMenu>
+                            </DockPanel.ContextMenu>
+                        </DockPanel> 
                     </HierarchicalDataTemplate>
                     <DataTemplate DataType="{x:Type self:SearchResult}">
-                        <VirtualizingStackPanel Orientation="Horizontal" MouseDown="VirtualizingStackPanel_MouseDown" RequestBringIntoView="TreeViewItem_RequestBringIntoView">
-                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=Line}" />
+                        <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
+                            <TextBlock Style="{DynamicResource ResultLine}" Text="{Binding Path=Line}" />
+                            <Border Style="{DynamicResource ResultSeparator}"/>
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=BeginText}" />
                             <TextBlock Style="{DynamicResource ResultHighlightedText}" Text="{Binding Path=HighlightedText}"/>
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=EndText}" />
-                        </VirtualizingStackPanel>
+                            <DockPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem x:Name="MenuGoTo" Header="Go to location" Click="MenuGoTo_Click"/>
+                                    <Separator/>
+                                    <MenuItem x:Name="MenuCopyText" Header="Copy text" Click="MenuCopyText_Click"/>
+                                    <MenuItem x:Name="MenuCopyFullPath" Header="Copy full path" Click="MenuCopyFullPath_Click"/>
+                                    <MenuItem x:Name="MenuCopyResult" Header="Copy entire result" Click="MenuCopyResult_Click"/>
+                                    <Separator/>
+                                    <MenuItem x:Name="MenuCopyAllResults" Header="Copy all results" Click="MenuCopyAllResults_Click"/>
+                                </ContextMenu>
+                            </DockPanel.ContextMenu>
+                        </DockPanel>
                     </DataTemplate>
                 </TreeView.Resources>
             </TreeView>

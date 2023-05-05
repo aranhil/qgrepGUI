@@ -93,7 +93,11 @@ namespace qgrepSearchTool_Standalone
 
         public void OpenFile(string path, string line)
         {
-            System.Diagnostics.Process.Start(path);
+            try
+            {
+                System.Diagnostics.Process.Start(path);
+            }
+            catch { }
         }
 
         public List<string> GatherAllFoldersFromSolution()

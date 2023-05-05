@@ -59,7 +59,9 @@ namespace qgrepControls.ToolWindows
     {
         private bool isSelected = false;
 
+        public int Index { get; set; }
         public string File { get; set; } = "";
+        public string FullFile { get; set; } = "";
         public ObservableCollection<SearchResult> SearchResults { get; set; } = new ObservableCollection<SearchResult>();
 
         public bool IsSelected
@@ -135,11 +137,6 @@ namespace qgrepControls.ToolWindows
         public VsColorEntry[] VsColorEntries = new VsColorEntry[] { };
     }
 
-    public class Customer
-    {
-        public string ContentData { get; set; }
-    }
-
     public partial class qgrepSearchWindowControl : UserControl
     {
         public IExtensionInterface ExtensionInterface;
@@ -152,8 +149,10 @@ namespace qgrepControls.ToolWindows
         private string LastResults = "";
 
         ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
-        ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         int selectedSearchResult = -1;
+
+        ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
+        int selectedSearchResultGroup = -1;
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
@@ -244,6 +243,20 @@ namespace qgrepControls.ToolWindows
         public System.Drawing.Color ConvertColor(System.Windows.Media.Color color)
         {
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B); ;
+        }
+        public static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        {
+            while (current != null)
+            {
+                if (current is T ancestor)
+                {
+                    return ancestor;
+                }
+
+                current = VisualTreeHelper.GetParent(current);
+            }
+
+            return null;
         }
 
         public void RenameFilter(string oldName, string newName)
@@ -498,9 +511,11 @@ namespace qgrepControls.ToolWindows
 
             Task.Run(() =>
             {
+                int groupIndex = 0;
+
                 ObservableCollection<SearchResult> newItems = new ObservableCollection<SearchResult>();
                 ObservableCollection<SearchResultGroup> newGroups = new ObservableCollection<SearchResultGroup>();
-                SearchResultGroup lastGroup = new SearchResultGroup();
+                SearchResultGroup lastGroup = new SearchResultGroup() { Index = groupIndex++ };
                 string errors = "";
 
                 string results = QGrepWrapper.CallQGrep(arguments, ref errors);
@@ -559,12 +574,14 @@ namespace qgrepControls.ToolWindows
                                 if (lastGroup.File.Length == 0)
                                 {
                                     lastGroup.File = filePath;
+                                    lastGroup.FullFile = fullFile.Substring(0, indexOfParanthesis);
                                 }
                                 else if (lastGroup.File != filePath)
                                 {
                                     newGroups.Add(lastGroup);
-                                    lastGroup = new SearchResultGroup();
+                                    lastGroup = new SearchResultGroup() { Index = groupIndex++ };
                                     lastGroup.File = filePath;
+                                    lastGroup.FullFile = fullFile.Substring(0, indexOfParanthesis);
                                 }
                             }
 
@@ -684,6 +701,16 @@ namespace qgrepControls.ToolWindows
                         selectedSearchResult = -1;
                     }
 
+                    if(searchResultsGroups.Count > 0)
+                    {
+                        searchResultsGroups[0].IsSelected = true;
+                        selectedSearchResultGroup = 0;
+                    }
+                    else
+                    {
+                        selectedSearchResultGroup = 0;
+                    }
+
                     if (System.Diagnostics.Debugger.IsAttached)
                     {
                         System.Threading.Thread.Sleep(1);
@@ -695,10 +722,10 @@ namespace qgrepControls.ToolWindows
             });
         }
 
-        private void VirtualizingStackPanel_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void SearchResult_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            VirtualizingStackPanel stackPanel = sender as VirtualizingStackPanel;
-            if (stackPanel != null)
+            DockPanel dockPanel = sender as DockPanel;
+            if (dockPanel != null)
             {
                 SearchResult selectedResult = GetSelectedSearchResult();
                 if(selectedResult != null)
@@ -706,7 +733,13 @@ namespace qgrepControls.ToolWindows
                     selectedResult.IsSelected = false;
                 }
 
-                SearchResult newSelectedItem = stackPanel.DataContext as SearchResult;
+                SearchResultGroup selectedGroup = GetSelectedSearchGroup();
+                if (selectedGroup != null)
+                {
+                    selectedGroup.IsSelected = false;
+                }
+
+                SearchResult newSelectedItem = dockPanel.DataContext as SearchResult;
                 if (newSelectedItem != null)
                 {
                     newSelectedItem.IsSelected = true;
@@ -719,6 +752,45 @@ namespace qgrepControls.ToolWindows
                 }
 
             }
+
+            e.Handled = true;
+        }
+
+        private void SearchGroup_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DockPanel dockPanel = sender as DockPanel;
+            if (dockPanel != null)
+            {
+                SearchResult selectedResult = GetSelectedSearchResult();
+                if (selectedResult != null)
+                {
+                    selectedResult.IsSelected = false;
+                }
+
+                SearchResultGroup selectedGroup = GetSelectedSearchGroup();
+                if (selectedGroup != null)
+                {
+                    selectedGroup.IsSelected = false;
+                }
+
+                SearchResultGroup newSelectedItem = dockPanel.DataContext as SearchResultGroup;
+                if (newSelectedItem != null)
+                {
+                    newSelectedItem.IsSelected = true;
+                    selectedSearchResultGroup = newSelectedItem.Index;
+                }
+
+                if (e.ClickCount == 2)
+                {
+                    TreeViewItem treeViewItem = FindAncestor<TreeViewItem>(dockPanel);
+                    if(treeViewItem != null)
+                    {
+                        treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+                    }
+                }
+            }
+
+            e.Handled = true;
         }
 
         private SearchResult GetSelectedSearchResult()
@@ -746,17 +818,29 @@ namespace qgrepControls.ToolWindows
 
             return null;
         }
+        private SearchResultGroup GetSelectedSearchGroup()
+        {
+            foreach (SearchResultGroup searchResultGroup in searchResultsGroups)
+            {
+                if (searchResultGroup.Index == selectedSearchResultGroup)
+                {
+                    return searchResultGroup;
+                }
+            }
+
+            return null;
+        }
 
         private void OpenSelectedStackPanel()
         {
             SearchResult selectedResult = GetSelectedSearchResult();
             if (selectedResult != null)
             {
-                OpenResult(selectedResult);
+                OpenSearchResult(selectedResult);
             }
         }
 
-        private void OpenResult(SearchResult result)
+        private void OpenSearchResult(SearchResult result)
         {
             try
             {
@@ -769,6 +853,10 @@ namespace qgrepControls.ToolWindows
             catch (Exception)
             {
             }
+        }
+        private void OpenSearchGroup(SearchResultGroup result)
+        {
+            ExtensionInterface.OpenFile(result.FullFile, "0");
         }
 
         private Stopwatch sw = new Stopwatch();
@@ -1154,12 +1242,12 @@ namespace qgrepControls.ToolWindows
             Find();
         }
 
-        private SearchResult GetResultFromMenuItem(object sender)
+        private SearchResult GetSearchResultFromMenuItem(object sender)
         {
             MenuItem menuItem = sender as MenuItem;
             if (menuItem != null)
             {
-                VirtualizingStackPanel resultPanel = (menuItem.Parent as ContextMenu)?.PlacementTarget as VirtualizingStackPanel;
+                DockPanel resultPanel = (menuItem.Parent as ContextMenu)?.PlacementTarget as DockPanel;
                 if (resultPanel != null)
                 {
                     return resultPanel.DataContext as SearchResult;
@@ -1169,18 +1257,39 @@ namespace qgrepControls.ToolWindows
             return null;
         }
 
+        private SearchResultGroup GetSearchGroupFromMenuItem(object sender)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                DockPanel resultPanel = (menuItem.Parent as ContextMenu)?.PlacementTarget as DockPanel;
+                if (resultPanel != null)
+                {
+                    return resultPanel.DataContext as SearchResultGroup;
+                }
+            }
+
+            return null;
+        }
+
         private void MenuGoTo_Click(object sender, RoutedEventArgs e)
         {
-            SearchResult searchResult = GetResultFromMenuItem(sender);
+            SearchResult searchResult = GetSearchResultFromMenuItem(sender);
             if (searchResult != null)
             {
-                OpenResult(searchResult);
+                OpenSearchResult(searchResult);
+            }
+
+            SearchResultGroup searchGroup = GetSearchGroupFromMenuItem(sender);
+            if (searchGroup != null)
+            {
+                OpenSearchGroup(searchGroup);
             }
         }
 
         private void MenuCopyText_Click(object sender, RoutedEventArgs e)
         {
-            SearchResult searchResult = GetResultFromMenuItem(sender);
+            SearchResult searchResult = GetSearchResultFromMenuItem(sender);
             if(searchResult != null)
             {
                 string text = searchResult.BeginText + searchResult.HighlightedText + searchResult.EndText;
@@ -1190,7 +1299,7 @@ namespace qgrepControls.ToolWindows
 
         private void MenuCopyFullPath_Click(object sender, RoutedEventArgs e)
         {
-            SearchResult searchResult = GetResultFromMenuItem(sender);
+            SearchResult searchResult = GetSearchResultFromMenuItem(sender);
             if (searchResult != null)
             {
                 int lastIndex = searchResult.FullFile.LastIndexOf('(');
@@ -1198,11 +1307,17 @@ namespace qgrepControls.ToolWindows
 
                 Clipboard.SetText(text);
             }
+
+            SearchResultGroup searchGroup = GetSearchGroupFromMenuItem(sender);
+            if (searchGroup != null)
+            {
+                Clipboard.SetText(searchGroup.FullFile);
+            }
         }
 
         private void MenuCopyResult_Click(object sender, RoutedEventArgs e)
         {
-            SearchResult searchResult = GetResultFromMenuItem(sender);
+            SearchResult searchResult = GetSearchResultFromMenuItem(sender);
             if (searchResult != null)
             {
                 Clipboard.SetText(searchResult.FullResult);

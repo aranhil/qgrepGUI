@@ -242,6 +242,10 @@
                 "Color": "Environment.CommandBarMenuBackgroundGradientBegin"
             },
             {
+                "Name": "Menu.Foreground",
+                "Color": "Environment.CommandBarTextActive"
+            },
+            {
                 "Name": "Menu.Border",
                 "Color": "Environment.CommandBarMenuBorder"
             },
@@ -489,6 +493,10 @@
             {
                 "Name": "Menu.Background",
                 "Color": "46, 46, 46"
+            },
+            {
+                "Name": "Menu.Foreground",
+                "Color": "White"
             },
             {
                 "Name": "Menu.Border",
@@ -748,6 +756,10 @@
                 "Color": "246, 246, 246"
             },
             {
+                "Name": "Menu.Foreground",
+                "Color": "Black"
+            },
+            {
                 "Name": "Menu.Border",
                 "Color": "204, 206, 219"
             },
@@ -770,7 +782,7 @@
         ]
     },
     {
-        "Name": "Freinacht",
+        "Name": "Legacy",
         "ColorEntries": [
             {
                 "Name": "Background",
@@ -1003,6 +1015,10 @@
             {
                 "Name": "Menu.Background",
                 "Color": "30, 129, 176"
+            },
+            {
+                "Name": "Menu.Foreground",
+                "Color": "White"
             },
             {
                 "Name": "Menu.Border",
