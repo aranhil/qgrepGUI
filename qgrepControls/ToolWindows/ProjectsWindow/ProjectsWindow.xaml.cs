@@ -47,11 +47,11 @@ namespace qgrepControls.ToolWindows
 
         private void LoadColorsFromResources()
         {
-            Dictionary<string, System.Windows.Media.Color> colors = Parent.GetColorsFromColorScheme();
+            Dictionary<string, SolidColorBrush> colors = Parent.GetBrushesFromColorScheme();
 
             foreach (var color in colors)
             {
-                Resources[color.Key] = new SolidColorBrush(color.Value);
+                Resources[color.Key] = color.Value;
             }
         }
 

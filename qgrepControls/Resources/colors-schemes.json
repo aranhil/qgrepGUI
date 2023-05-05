@@ -1,5 +1,261 @@
 [
     {
+        "Name": "Auto",
+        "ColorEntries": [
+            {
+                "Name": "Result.IsMouseOver.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.IsMouseOver.Background",
+                "Color": "Transparent"
+            }
+        ],
+        "VsColorEntries": [
+            {
+                "Name": "Background",
+                "Color": "Environment.ToolWindowBackground"
+            },
+            {
+                "Name": "Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "Selection",
+                "Color": "CommonControls.ComboBoxTextInputSelection"
+            },
+            {
+                "Name": "TextBox.Background",
+                "Color": "CommonControls.ComboBoxBackground"
+            },
+            {
+                "Name": "Border",
+                "Color": "CommonControls.ComboBoxBorder"
+            },
+            {
+                "Name": "Border.IsMouseOver",
+                "Color": "CommonControls.ComboBoxBorderHover"
+            },
+            {
+                "Name": "Border.IsSelected",
+                "Color": "CommonControls.ComboBoxBorderFocused"
+            },
+            {
+                "Name": "Result.IsSelected.Background",
+                "Color": "FontsAndColors.Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "Result.File.Foreground",
+                "Color": "CommonControls.ComboBoxText",
+                "Opacity": 0.5
+            },
+            {
+                "Name": "Result.Text.Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "Result.Highlight.Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "Result.Highlight.Background",
+                "Color": "FontsAndColors.MarkerFormatDefinition/FindHighlight.Background"
+            },
+            {
+                "Name": "TextBox.Toggle.Foreground",
+                "Color": "Environment.PanelText",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "TextBox.Toggle.IsMouseOver.Foreground",
+                "Color": "Environment.PanelText",
+                "Opacity": 0.6
+            },
+            {
+                "Name": "TextBox.Toggle.IsChecked.Foreground",
+                "Color": "Environment.PanelText",
+                "Opacity": 1.0
+            },
+            {
+                "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
+                "Color": "Environment.PanelText",
+                "Opacity": 0.8
+            },
+            {
+                "Name": "IconButton.Foreground",
+                "Color": "CommonControls.ComboBoxText",
+                "Opacity": 0.6
+            },
+            {
+                "Name": "IconButton.IsMouseOver.Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "Button.IsDisabled.Background",
+                "Color": "CommonControls.ButtonDisabled"
+            },
+            {
+                "Name": "Button.IsDisabled.Foreground",
+                "Color": "CommonControls.ButtonDisabledText"
+            },
+            {
+                "Name": "Button.IsDisabled.Border",
+                "Color": "CommonControls.ButtonBorderDisabled"
+            },
+            {
+                "Name": "Button.Background",
+                "Color": "CommonControls.Button"
+            },
+            {
+                "Name": "Button.Foreground",
+                "Color": "CommonControls.ButtonText"
+            },
+            {
+                "Name": "Button.Border",
+                "Color": "CommonControls.ButtonBorder"
+            },
+            {
+                "Name": "Button.IsMouseOver.Background",
+                "Color": "CommonControls.ButtonHover"
+            },
+            {
+                "Name": "Button.IsMouseOver.Border",
+                "Color": "CommonControls.ButtonBorderHover"
+            },
+            {
+                "Name": "Button.IsMouseDown.Background",
+                "Color": "CommonControls.ButtonPressed"
+            },
+            {
+                "Name": "Button.IsMouseDown.Foreground",
+                "Color": "CommonControls.ButtonPressedText"
+            },
+            {
+                "Name": "Button.IsMouseDown.Border",
+                "Color": "CommonControls.ButtonBorderHover"
+            },
+            {
+                "Name": "PanelRow.IsMouseOver.Background",
+                "Color": "FontsAndColors.Inactive Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "PanelRow.IsSelected.Background",
+                "Color": "FontsAndColors.Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "ComboBox.Background",
+                "Color": "CommonControls.ComboBoxBackground"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Background",
+                "Color": "CommonControls.ComboBoxBackgroundHover"
+            },
+            {
+                "Name": "ComboBox.Border",
+                "Color": "CommonControls.ComboBoxBorder"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Border",
+                "Color": "CommonControls.ComboBoxBorderHover"
+            },
+            {
+                "Name": "ComboBox.Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "ComboBox.Popup.Border",
+                "Color": "CommonControls.ComboBoxListBorder"
+            },
+            {
+                "Name": "ComboBoxItem.Background",
+                "Color": "CommonControls.ComboBoxBackground"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Background",
+                "Color": "CommonControls.ComboBoxListItemBackgroundHover"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Foreground",
+                "Color": "CommonControls.ComboBoxListItemTextHover"
+            },
+            {
+                "Name": "ComboBoxItem.Border",
+                "Color": "CommonControls.ComboBoxBackground"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Border",
+                "Color": "CommonControls.ComboBoxListItemBorderHover"
+            },
+            {
+                "Name": "CheckBox.Background",
+                "Color": "CommonControls.CheckBoxBackground"
+            },
+            {
+                "Name": "CheckBox.IsMouseOver.Background",
+                "Color": "CommonControls.CheckBoxBackgroundHover"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Background",
+                "Color": "CommonControls.CheckBoxBackgroundPressed"
+            },
+            {
+                "Name": "CheckBox.Border",
+                "Color": "CommonControls.CheckBoxBorder"
+            },
+            {
+                "Name": "CheckBox.IsMouseOver.Border",
+                "Color": "CommonControls.CheckBoxBorderHover"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Border",
+                "Color": "CommonControls.CheckBoxBorderPressed"
+            },
+            {
+                "Name": "CheckBox.Mark",
+                "Color": "CommonControls.CheckBoxGlyph"
+            },
+            {
+                "Name": "CheckBox.IsMouseOver.Mark",
+                "Color": "CommonControls.CheckBoxGlyphHover"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Mark",
+                "Color": "CommonControls.CheckBoxGlyphPressed"
+            },
+            {
+                "Name": "CheckBox.Foreground",
+                "Color": "CommonControls.CheckBoxText"
+            },
+            {
+                "Name": "Menu.Separator",
+                "Color": "Environment.CommandBarMenuSeparator"
+            },
+            {
+                "Name": "Menu.Background",
+                "Color": "Environment.CommandBarMenuBackgroundGradientBegin"
+            },
+            {
+                "Name": "Menu.Border",
+                "Color": "Environment.CommandBarMenuBorder"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Background",
+                "Color": "Environment.CommandBarMenuItemMouseOver"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Border",
+                "Color": "Environment.CommandBarMenuItemMouseOverBorder"
+            }
+        ]
+    },
+    {
         "Name": "Dark",
         "ColorEntries": [
             {
@@ -159,6 +415,10 @@
                 "Color": "61, 61, 61"
             },
             {
+                "Name": "ComboBoxItem.IsMouseOver.Foreground",
+                "Color": "White"
+            },
+            {
                 "Name": "ComboBoxItem.Border",
                 "Color": "61, 61, 61"
             },
@@ -191,11 +451,19 @@
                 "Color": "51, 51, 51"
             },
             {
+                "Name": "CheckBox.IsMouseDown.Background",
+                "Color": "51, 51, 51"
+            },
+            {
                 "Name": "CheckBox.Border",
                 "Color": "158, 158, 158"
             },
             {
                 "Name": "CheckBox.IsMouseOver.Border",
+                "Color": "White"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Border",
                 "Color": "White"
             },
             {
@@ -207,20 +475,40 @@
                 "Color": "White"
             },
             {
+                "Name": "CheckBox.IsMouseDown.Mark",
+                "Color": "White"
+            },
+            {
                 "Name": "CheckBox.Foreground",
                 "Color": "White"
             },
             {
                 "Name": "Menu.Separator",
-                "Color": "6, 57, 112"
+                "Color": "61, 61, 61"
             },
             {
                 "Name": "Menu.Background",
-                "Color": "30, 129, 176"
+                "Color": "46, 46, 46"
+            },
+            {
+                "Name": "Menu.Border",
+                "Color": "66, 66, 66"
             },
             {
                 "Name": "MenuItem.IsMouseOver.Background",
-                "Color": "6, 57, 112"
+                "Color": "61, 61, 61"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Border",
+                "Color": "112, 112, 112"
+            },
+            {
+                "Name": "PanelRow.IsMouseOver.Background",
+                "Color": "61, 61, 61"
+            },
+            {
+                "Name": "PanelRow.IsSelected.Background",
+                "Color": "39, 80, 121"
             }
         ]
     },
@@ -384,6 +672,10 @@
                 "Color": "201, 222, 245"
             },
             {
+                "Name": "ComboBoxItem.IsMouseOver.Foreground",
+                "Color": "Black"
+            },
+            {
                 "Name": "ComboBoxItem.Border",
                 "Color": "246, 246, 246"
             },
@@ -416,11 +708,19 @@
                 "Color": "243, 249, 255"
             },
             {
+                "Name": "CheckBox.IsMouseDown.Background",
+                "Color": "243, 249, 255"
+            },
+            {
                 "Name": "CheckBox.Border",
                 "Color": "113, 113, 113"
             },
             {
                 "Name": "CheckBox.IsMouseOver.Border",
+                "Color": "51, 153, 255"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Border",
                 "Color": "51, 153, 255"
             },
             {
@@ -432,20 +732,40 @@
                 "Color": "Black"
             },
             {
+                "Name": "CheckBox.IsMouseDown.Mark",
+                "Color": "Black"
+            },
+            {
                 "Name": "CheckBox.Foreground",
                 "Color": "Black"
             },
             {
                 "Name": "Menu.Separator",
-                "Color": "190, 224, 236"
+                "Color": "224, 227, 230"
             },
             {
                 "Name": "Menu.Background",
-                "Color": "180, 196, 212"
+                "Color": "246, 246, 246"
+            },
+            {
+                "Name": "Menu.Border",
+                "Color": "204, 206, 219"
             },
             {
                 "Name": "MenuItem.IsMouseOver.Background",
-                "Color": "190, 224, 236"
+                "Color": "201, 222, 245"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Border",
+                "Color": "0, 108, 190"
+            },
+            {
+                "Name": "PanelRow.IsMouseOver.Background",
+                "Color": "201, 222, 245"
+            },
+            {
+                "Name": "PanelRow.IsSelected.Background",
+                "Color": "147, 195, 233"
             }
         ]
     },
@@ -609,6 +929,10 @@
                 "Color": "6, 57, 112"
             },
             {
+                "Name": "ComboBoxItem.IsMouseOver.Foreground",
+                "Color": "White"
+            },
+            {
                 "Name": "ComboBoxItem.Border",
                 "Color": "30, 129, 176"
             },
@@ -641,11 +965,19 @@
                 "Color": "6, 57, 112"
             },
             {
+                "Name": "CheckBox.IsMouseDown.Background",
+                "Color": "6, 57, 112"
+            },
+            {
                 "Name": "CheckBox.Border",
                 "Color": "30, 129, 176"
             },
             {
                 "Name": "CheckBox.IsMouseOver.Border",
+                "Color": "6, 57, 112"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Border",
                 "Color": "6, 57, 112"
             },
             {
@@ -657,20 +989,40 @@
                 "Color": "White"
             },
             {
+                "Name": "CheckBox.IsMouseDown.Mark",
+                "Color": "White"
+            },
+            {
                 "Name": "CheckBox.Foreground",
                 "Color": "White"
             },
             {
                 "Name": "Menu.Separator",
-                "Color": "6, 57, 112"
+                "Color": "26, 111, 150"
             },
             {
                 "Name": "Menu.Background",
                 "Color": "30, 129, 176"
             },
             {
+                "Name": "Menu.Border",
+                "Color": "30, 129, 176"
+            },
+            {
                 "Name": "MenuItem.IsMouseOver.Background",
                 "Color": "6, 57, 112"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Border",
+                "Color": "6, 57, 112"
+            },
+            {
+                "Name": "PanelRow.IsMouseOver.Background",
+                "Color": "49, 69, 87"
+            },
+            {
+                "Name": "PanelRow.IsSelected.Background",
+                "Color": "15, 92, 148"
             }
         ]
     }

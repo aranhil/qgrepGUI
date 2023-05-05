@@ -18,6 +18,7 @@ namespace qgrepControls.Classes
         IExtensionWindow CreateWindow(UserControl userControl, string title);
         void OpenFile(string path, string line);
         string GetSelectedText();
+        System.Drawing.Color GetColor(string resourceKey);
         bool WindowOpened { get; set; }
         bool IsStandalone { get; }
     }

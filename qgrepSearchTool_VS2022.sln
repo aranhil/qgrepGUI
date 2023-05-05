@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qgrepControls", "qgrepContr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qgrepSearchTool_VS2022", "qgrepSearchTool_VS2022\qgrepSearchTool_VS2022.csproj", "{5CE4ED47-6A68-4F09-B0EE-501CACAA3EBD}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "qgrepExtension", "qgrepExtension\qgrepExtension.shproj", "{60634571-CDE1-4064-8190-A885FF612BDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,5 +47,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F64B331-379E-4AD7-94AC-930833EF7C08}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		qgrepExtension\qgrepExtension.projitems*{5ce4ed47-6a68-4f09-b0ee-501cacaa3ebd}*SharedItemsImports = 4
+		qgrepExtension\qgrepExtension.projitems*{60634571-cde1-4064-8190-a885ff612bde}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

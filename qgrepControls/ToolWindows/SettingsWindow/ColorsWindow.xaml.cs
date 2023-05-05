@@ -21,13 +21,13 @@ namespace qgrepControls.ToolWindows
 
         private void LoadColorsFromResources()
         {
-            Dictionary<string, System.Windows.Media.Color> colors = SearchWindow.GetColorsFromColorScheme();
+            Dictionary<string, SolidColorBrush> colors = SearchWindow.GetBrushesFromColorScheme();
 
             foreach (var color in colors)
             {
                 ColorPicker colorPicker = (ColorPicker)this.FindName(color.Key);
-                Resources[color.Key] = new SolidColorBrush(color.Value);
-                colorPicker.SelectedColor = color.Value;
+                Resources[color.Key] = color.Value;
+                colorPicker.SelectedColor = color.Value.Color;
             }
         }
 

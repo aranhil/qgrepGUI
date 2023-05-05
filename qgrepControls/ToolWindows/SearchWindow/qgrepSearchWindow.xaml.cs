@@ -124,7 +124,8 @@ namespace qgrepControls.ToolWindows
     public class VsColorEntry
     {
         public string Name = "";
-        public string ResourceKey = "";
+        public string Color = "";
+        public double Opacity = 1.0f;
     }
 
     public class ColorScheme
@@ -346,6 +347,10 @@ namespace qgrepControls.ToolWindows
                 {
                     Resources[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
                 }
+                foreach (VsColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].VsColorEntries)
+                {
+                    Resources[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
+                }
             }
         }
 
@@ -357,15 +362,19 @@ namespace qgrepControls.ToolWindows
             }
         }
 
-        public Dictionary<string, System.Windows.Media.Color> GetColorsFromColorScheme()
+        public Dictionary<string, SolidColorBrush> GetBrushesFromColorScheme()
         {
-            Dictionary<string, System.Windows.Media.Color> results = new Dictionary<string, System.Windows.Media.Color>();
+            Dictionary<string, SolidColorBrush> results = new Dictionary<string, SolidColorBrush>();
 
             if (Settings.Default.ColorScheme < colorSchemes.Length)
             {
                 foreach (ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
                 {
-                    results[colorEntry.Name] = ConvertColor(colorEntry.Color);
+                    results[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
+                }
+                foreach (VsColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].VsColorEntries)
+                {
+                    results[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
                 }
             }
 

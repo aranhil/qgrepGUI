@@ -1,9 +1,12 @@
 ﻿using EnvDTE;
 using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.Shell;
 using qgrepControls.Classes;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -49,7 +52,7 @@ namespace qgrepSearch
             }
         }
 
-        public bool IsStandalone
+        bool IExtensionInterface.IsStandalone
         {
             get
             {
@@ -90,7 +93,7 @@ namespace qgrepSearch
 
         public List<string> GatherAllFoldersFromSolution()
         {
-            DTE dte = (DTE)(State?.DTE);
+            EnvDTE80.DTE2 dte = State?.DTE;
             Solution solution = dte?.Solution;
             List<string> folderList = new List<string>();
 
@@ -128,6 +131,77 @@ namespace qgrepSearch
                         }
                     }
                 }
+            }
+        }
+        class FontsAndColorsItem
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public uint Background { get; set; }
+            public uint Foreground { get; set; }
+        }
+
+        public Color GetColor(string resourceKey)
+        {
+            try
+            {
+                string className = resourceKey.Substring(0, resourceKey.IndexOf('.'));
+                string propertyName = resourceKey.Substring(resourceKey.IndexOf('.') + 1);
+
+                if (className == "FontsAndColors")
+                {
+                    string subPropertyName = propertyName.Substring(propertyName.IndexOf('.') + 1);
+                    propertyName = propertyName.Substring(0, propertyName.IndexOf('.'));
+
+                    var properties = State.DTE.Properties["FontsAndColors", "TextEditor"];
+                    var fontsAndColorsItems = (FontsAndColorsItems)properties.Item("FontsAndColorsItems").Object;
+                    var desiredItem = fontsAndColorsItems.Item(propertyName);
+
+                    if (desiredItem != null)
+                    {
+                        if (subPropertyName == "Background")
+                        {
+                            return ColorTranslator.FromOle((int)desiredItem.Background);
+                        }
+                        else
+                        {
+                            return ColorTranslator.FromOle((int)desiredItem.Foreground);
+                        }
+                    }
+
+                    return new Color();
+                }
+                else
+                {
+                    var type = FindType("Microsoft.VisualStudio.PlatformUI." + className + "Colors");
+                    var property = type.GetProperty(propertyName + "ColorKey");
+                    var themedResourceKey = property.GetValue(null);
+                    return VSColorTheme.GetThemedColor(themedResourceKey as ThemeResourceKey);
+                }
+            }
+            catch (Exception)
+            {
+                return new Color();
+            }
+        }
+
+        private static Type FindType(string qualifiedTypeName)
+        {
+            Type t = Type.GetType(qualifiedTypeName);
+
+            if (t != null)
+            {
+                return t;
+            }
+            else
+            {
+                foreach (Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    t = asm.GetType(qualifiedTypeName);
+                    if (t != null)
+                        return t;
+                }
+                return null;
             }
         }
     }
