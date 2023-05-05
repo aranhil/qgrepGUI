@@ -133,39 +133,13 @@ namespace qgrepControls.ColorsWindow
 
             OverridesPanel.Children.Add(new RowAdd(Parent, "Add new search config", new RowAdd.ClickCallbackFunction(AddOverride)));
             CheckAddButtonVisibility();
-
-            bool foundOldProject = false;
-            //if (SelectedProject != null)
-            //{
-            //    foreach (UIElement child in OverridesPanel.Children)
-            //    {
-            //        ProjectRow row = child as ProjectRow;
-            //        if (row != null)
-            //        {
-            //            if (row.Data.ProjectName == SelectedProject.Data.ProjectName)
-            //            {
-            //                foundOldProject = true;
-            //                SelectProject(row);
-            //                break;
-            //            }
-            //        }
-            //    }
-            //}
-
-            //if (!foundOldProject)
-            //{
-            //    SelectedProject = null;
-            //    if (OverridesPanel.Children.Count > 1)
-            //    {
-            //        SelectProject(OverridesPanel.Children[0] as ProjectRow);
-            //    }
-            //}
         }
         private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (Parent.ExtensionInterface.IsStandalone ? 1 : 0);
             Settings.Default.Save();
             Parent.UpdateColorsFromSettings();
+            LoadFromSettings();
             LoadColorsFromResources();
         }
 
