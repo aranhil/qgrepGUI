@@ -19,6 +19,7 @@ namespace qgrepControls.SearchWindow
             ShowExcludes.IsChecked = Settings.Default.ShowExcludes;
             ShowFilter.IsChecked = Settings.Default.ShowFilter;
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
+            PathStyleComboBox.SelectedIndex = Settings.Default.PathStyleIndex;
 
             LoadColorsFromResources();
         }
@@ -65,6 +66,12 @@ namespace qgrepControls.SearchWindow
         private void GroupingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Settings.Default.GroupingIndex = GroupingComboBox.SelectedIndex;
+            Settings.Default.Save();
+        }
+
+        private void PathStyleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Settings.Default.PathStyleIndex = PathStyleComboBox.SelectedIndex;
             Settings.Default.Save();
         }
     }

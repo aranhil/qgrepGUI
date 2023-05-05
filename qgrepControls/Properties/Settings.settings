@@ -47,5 +47,8 @@
     <Setting Name="ColorOverrides" Type="System.String" Scope="User">
       <Value Profile="(Default)">[]</Value>
     </Setting>
+    <Setting Name="PathStyleIndex" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
