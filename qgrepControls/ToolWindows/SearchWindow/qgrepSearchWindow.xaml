@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="qgrepControls.ToolWindows.qgrepSearchWindowControl"
+﻿<UserControl x:Class="qgrepControls.SearchWindow.qgrepSearchWindowControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:qgrepControls.ToolWindows"
+             xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:self="clr-namespace:qgrepControls.ToolWindows"
+             xmlns:self="clr-namespace:qgrepControls.SearchWindow"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown" LostFocus="UserControl_LostFocus">
     <UserControl.Resources>
@@ -142,7 +142,7 @@ TextChanged="SearchInput_TextChanged"/>
                 <Button x:Name="CleanButton" Style="{StaticResource IconButton}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
             </StackPanel>
             <StackPanel x:Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                <!--<Button x:Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>-->
+                <Button x:Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>
                 <Button x:Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
                 <Button x:Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Search configurations"/>
                 <wpfTool:CheckComboBox x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">

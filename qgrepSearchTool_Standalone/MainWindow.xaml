@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:qgrepSearchTool_Standalone"
-        xmlns:toolwindows="clr-namespace:qgrepControls.ToolWindows;assembly=qgrepControls"
+        xmlns:toolwindows="clr-namespace:qgrepControls.SearchWindow;assembly=qgrepControls"
         mc:Ignorable="d"
         Title="qgrep Search" Height="800" Width="1000">
     <Grid x:Name="WindowContent">

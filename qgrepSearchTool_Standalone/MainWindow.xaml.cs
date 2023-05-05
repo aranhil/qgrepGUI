@@ -1,4 +1,4 @@
-﻿using qgrepControls.ToolWindows;
+﻿using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;

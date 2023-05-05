@@ -189,5 +189,17 @@ namespace qgrepControls.Properties {
                 this["ShowFilter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
+        public string ColorOverrides {
+            get {
+                return ((string)(this["ColorOverrides"]));
+            }
+            set {
+                this["ColorOverrides"] = value;
+            }
+        }
     }
 }

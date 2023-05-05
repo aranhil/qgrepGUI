@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using qgrepControls.Classes;
+using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,6 +29,11 @@ namespace qgrepSearch
         public void Close()
         {
             dialogWindow.Close();
+        }
+
+        public void Show()
+        {
+            dialogWindow.Show();
         }
     }
 
@@ -84,7 +90,7 @@ namespace qgrepSearch
             catch { }
         }
 
-        public IExtensionWindow CreateWindow(UserControl userControl, string title)
+        public IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner)
         {
             return new qgrepExtensionWindow(
                 new DialogWindow
@@ -95,6 +101,8 @@ namespace qgrepSearch
                     ResizeMode = ResizeMode.NoResize,
                     HasMinimizeButton = false,
                     HasMaximizeButton = false,
+                    //Owner = qgrepSearchWindowControl.FindAncestor<DialogWindow>(owner),
+                    //WindowStartupLocation = WindowStartupLocation.CenterOwner
                 }
             );
         }

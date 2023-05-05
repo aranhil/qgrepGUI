@@ -3,15 +3,15 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace qgrepControls.ToolWindows
+namespace qgrepControls.SearchWindow
 {
     public partial class RowAdd : System.Windows.Controls.UserControl
     {
-        public ProjectsWindow Parent;
+        public qgrepSearchWindowControl Parent;
         public delegate void ClickCallbackFunction();
         private ClickCallbackFunction ClickCallback;
 
-        public RowAdd(ProjectsWindow Parent, string tooltip, ClickCallbackFunction ClickCallback)
+        public RowAdd(qgrepSearchWindowControl Parent, string tooltip, ClickCallbackFunction ClickCallback)
         {
             InitializeComponent();
 
@@ -24,7 +24,7 @@ namespace qgrepControls.ToolWindows
 
         private void LoadColorsFromResources()
         {
-            Dictionary<string, SolidColorBrush> colors = Parent.Parent.GetBrushesFromColorScheme();
+            Dictionary<string, SolidColorBrush> colors = Parent.GetBrushesFromColorScheme();
 
             foreach (var color in colors)
             {

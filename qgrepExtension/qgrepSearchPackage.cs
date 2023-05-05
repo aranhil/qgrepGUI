@@ -6,8 +6,8 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 using Microsoft.VisualStudio;
-using qgrepControls.ToolWindows;
 using Microsoft.VisualStudio.PlatformUI;
+using qgrepControls.SearchWindow;
 
 namespace qgrepSearch
 {

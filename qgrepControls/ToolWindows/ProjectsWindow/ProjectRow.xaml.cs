@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace qgrepControls.ToolWindows
+namespace qgrepControls.SearchWindow
 {
     public partial class ProjectRow : System.Windows.Controls.UserControl
     {
