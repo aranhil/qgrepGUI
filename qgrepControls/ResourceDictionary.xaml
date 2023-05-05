@@ -63,7 +63,8 @@
     <SolidColorBrush x:Key="CheckBox.IsMouseDown.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="CheckBox.IsMouseOver.Mark" Color="Black" />
     <SolidColorBrush x:Key="CheckBox.IsMouseDown.Mark" Color="Black" />
-    <SolidColorBrush x:Key="Menu.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="Menu.BackgroundMenu.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="Menu.Foreground" Color="Black" />
     <SolidColorBrush x:Key="Menu.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="Menu.Separator" Color="#bee0ec" />
     <SolidColorBrush x:Key="MenuItem.IsMouseOver.Background" Color="#bee0ec" />
@@ -208,14 +209,17 @@
                         <Trigger Property="IsExpanded" Value="false">
                             <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
                         </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true" SourceName="Bd">
+                            <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
+                        </Trigger>
                         <Trigger Property="HasItems" Value="false">
                             <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
                             <Setter Property="Padding" Value="0,0,0,0"/>
                         </Trigger>
-                        <Trigger Property="IsSelected" Value="true">
+                        <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
                             <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Result.IsSelected.Background}"/>
                             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-                        </Trigger>
+                        </DataTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="true"/>
@@ -733,7 +737,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="24" />
     </Style>
-    <Style x:Key="ResultPanel" TargetType="{x:Type VirtualizingStackPanel}">
+    <Style x:Key="ResultPanel" TargetType="{x:Type DockPanel}">
         <Setter Property="Background" Value="Transparent"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -973,6 +977,7 @@
         <Setter Property="Grid.IsSharedSizeScope" Value="true" />
         <Setter Property="HasDropShadow" Value="True" />
         <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -1012,9 +1017,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}"
-                 TargetType="{x:Type MenuItem}">
+    <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
         <Border x:Name="Border" BorderThickness="1" Height="22">
             <Grid>
                 <Grid.ColumnDefinitions>
