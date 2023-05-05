@@ -108,7 +108,8 @@ TextChanged="SearchInput_TextChanged"/>
                     </HierarchicalDataTemplate>
                     <DataTemplate DataType="{x:Type self:SearchResult}">
                         <VirtualizingStackPanel Orientation="Horizontal" MouseDown="VirtualizingStackPanel_MouseDown" RequestBringIntoView="TreeViewItem_RequestBringIntoView">
-                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=Line}" />
+                            <TextBlock Style="{DynamicResource ResultLine}" Text="{Binding Path=Line}" />
+                            <Border Style="{DynamicResource ResultSeparator}"/>
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=BeginText}" />
                             <TextBlock Style="{DynamicResource ResultHighlightedText}" Text="{Binding Path=HighlightedText}"/>
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=EndText}" />
