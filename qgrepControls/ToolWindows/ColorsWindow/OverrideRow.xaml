@@ -12,12 +12,11 @@
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Name="OverrideGrid" Style="{DynamicResource HoverableRow}" MouseEnter="OverrideGrid_MouseEnter" MouseLeave="OverrideGrid_MouseLeave">
-        <DockPanel>
-            <Label Name="OverrideKey" Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=Name}" />
-            <Grid HorizontalAlignment="Right" Margin="0,2,40,2">
-                <Border Width="20">
+        <StackPanel Orientation="Horizontal">
+            <Grid HorizontalAlignment="Right" Margin="2" Width="40">
+                <Border Width="40">
                     <Border.Background>
-                        <DrawingBrush TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute" Stretch="None">
+                        <DrawingBrush TileMode="Tile" Viewport="0,0,8,8" ViewportUnits="Absolute" Stretch="None">
                             <DrawingBrush.Drawing>
                                 <DrawingGroup>
                                     <GeometryDrawing Brush="White">
@@ -38,9 +37,10 @@
                         </DrawingBrush>
                     </Border.Background>
                 </Border>
-                <Border Name="OverrideColor" Width="20" Background="{Binding Path=Brush}"/>
+                <Border Name="OverrideColor" Width="40" Background="{Binding Path=Brush}"/>
             </Grid>
-        </DockPanel>
+            <Label Name="OverrideKey" Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=Name}" HorizontalAlignment="Left" />
+        </StackPanel>
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons" Margin="0,0,5,0">
             <Button Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Click="EditButton_Click" Content="🖉" ToolTip="Edit filter"/>
             <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="15" Content="✕" Click="DeleteButton_Click" ToolTip="Delete filter" />

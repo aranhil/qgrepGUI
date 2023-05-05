@@ -122,10 +122,6 @@ namespace qgrepControls.SearchWindow
         ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         int selectedSearchResultGroup = -1;
 
-        IExtensionWindow SettingsWindow = null;
-        IExtensionWindow PathsWindow = null;
-        IExtensionWindow ColorsWindow = null;
-
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
             ExtensionInterface = extensionInterface;
@@ -1027,6 +1023,7 @@ namespace qgrepControls.SearchWindow
 
             ExtensionInterface.CreateWindow(new qgrepControls.SearchWindow.ProjectsWindow(this), "Search configurations", this).ShowModal();
             UpdateWarning();
+            UpdateDatabase();
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)

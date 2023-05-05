@@ -212,6 +212,8 @@ namespace qgrepControls.ColorsWindow
                 }
             }
 
+            uniqueColors = uniqueColors.OrderBy(x => x.Name).ToList();
+
             overrideWindow.OverrideName.ItemsSource = uniqueColors;
             overrideWindow.OverrideName.SelectedIndex = 0;
 
