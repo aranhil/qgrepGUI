@@ -103,7 +103,7 @@ TextChanged="SearchInput_TextChanged"/>
                             <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem x:Name="MenuGoTo" Header="Go to location" Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuGoTo" Header="Open file" Click="MenuGoTo_Click"/>
                                     <MenuItem x:Name="MenuCopyFullPath" Header="Copy full path" Click="MenuCopyFullPath_Click"/>
                                 </ContextMenu>
                             </DockPanel.ContextMenu>
