@@ -529,13 +529,13 @@ namespace qgrepControls.SearchWindow
 
         private void UpdateVisibility()
         {
-            bool isAdvanced = Settings.Default.AdvancedProjectSettings;
-            AdvancedToggle.Content = isAdvanced ? "›› Basic" : "‹‹ Advanced";
-
             int projectsCount = Parent.ConfigParser.ConfigProjects.Count;
             int groupsCount = projectsCount > 0 ? Parent.ConfigParser.ConfigProjects[0].Groups.Count : 0;
 
             bool canGoBasic = projectsCount <= 1 && groupsCount <= 1;
+
+            bool isAdvanced = canGoBasic ? Settings.Default.AdvancedProjectSettings : true;
+            AdvancedToggle.Content = isAdvanced ? "›› Basic" : "‹‹ Advanced";
 
             AdvancedToggle.IsEnabled = isAdvanced && canGoBasic || !isAdvanced;
             AdvancedToggle.ToolTip = !canGoBasic ? "Remove extra projects and groups to go back to basic settings" : null;
