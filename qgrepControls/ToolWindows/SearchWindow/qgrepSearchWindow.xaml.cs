@@ -19,42 +19,10 @@ using Newtonsoft.Json;
 using System.Timers;
 using System.Windows.Documents;
 using System.Windows.Shapes;
+using qgrepControls.ColorsWindow;
 
-namespace qgrepControls.ToolWindows
+namespace qgrepControls.SearchWindow
 {
-    public class Family
-    {
-        public Family()
-        {
-            this.Members = new ObservableCollection<FamilyMember>();
-        }
-
-        public string Name { get; set; }
-
-        public ObservableCollection<FamilyMember> Members { get; set; }
-    }
-
-    public class FamilyMember
-    {
-        public string Name { get; set; }
-
-        public int Age { get; set; }
-    }
-
-    public class Company
-    {
-        public string Task { get; set; }
-        public string durationTotal { get; set; }
-        public string HeadNote { get; set; }
-        public List<Model> Models { get; set; }
-    }
-    public class Model
-    {
-        public string SubTask { get; set; }
-        public string Duration { get; set; }
-        public string Notes { get; set; }
-    }
-
     partial class SearchResultGroup : INotifyPropertyChanged
     {
         private bool isSelected = false;
@@ -154,6 +122,10 @@ namespace qgrepControls.ToolWindows
         ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         int selectedSearchResultGroup = -1;
 
+        IExtensionWindow SettingsWindow = null;
+        IExtensionWindow PathsWindow = null;
+        IExtensionWindow ColorsWindow = null;
+
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
             ExtensionInterface = extensionInterface;
@@ -236,11 +208,11 @@ namespace qgrepControls.ToolWindows
             }));
         }
 
-        public System.Windows.Media.Color ConvertColor(System.Drawing.Color color)
+        public static System.Windows.Media.Color ConvertColor(System.Drawing.Color color)
         {
             return System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
         }
-        public System.Drawing.Color ConvertColor(System.Windows.Media.Color color)
+        public static System.Drawing.Color ConvertColor(System.Windows.Media.Color color)
         {
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B); ;
         }
@@ -354,16 +326,11 @@ namespace qgrepControls.ToolWindows
 
         public void UpdateColorsFromSettings()
         {
-            if(Settings.Default.ColorScheme < colorSchemes.Length)
+            Dictionary<string, SolidColorBrush> colors = GetBrushesFromColorScheme();
+
+            foreach (var color in colors)
             {
-                foreach (ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
-                {
-                    Resources[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
-                }
-                foreach (VsColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].VsColorEntries)
-                {
-                    Resources[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
-                }
+                Resources[color.Key] = color.Value;
             }
         }
 
@@ -389,6 +356,24 @@ namespace qgrepControls.ToolWindows
                 {
                     results[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
                 }
+
+                try
+                {
+                    List<ColorSchemeOverrides> colorSchemeOverrides = JsonConvert.DeserializeObject<List<ColorSchemeOverrides>>(Settings.Default.ColorOverrides);
+                    foreach(ColorSchemeOverrides schemeOverrides in  colorSchemeOverrides)
+                    {
+                        if(schemeOverrides.Name == colorSchemes[Settings.Default.ColorScheme].Name)
+                        {
+                            foreach(ColorOverride colorOverride in schemeOverrides.ColorOverrides)
+                            {
+                                results[colorOverride.Name] = new SolidColorBrush(ConvertColor(colorOverride.Color));
+                            }
+
+                            break;
+                        }
+                    }
+                }
+                catch { }
             }
 
             return results;
@@ -1040,13 +1025,13 @@ namespace qgrepControls.ToolWindows
                 return;
             }
 
-            ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.ProjectsWindow(this), "Search configurations").ShowModal();
+            ExtensionInterface.CreateWindow(new qgrepControls.SearchWindow.ProjectsWindow(this), "Search configurations", this).ShowModal();
             UpdateWarning();
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.SettingsWindow(this), "Advanced settings").ShowModal();
+            ExtensionInterface.CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowModal();
             Find();
         }
 
@@ -1198,7 +1183,7 @@ namespace qgrepControls.ToolWindows
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            ExtensionInterface.CreateWindow(new qgrepControls.ToolWindows.ColorsWindow(this), "Color settings").ShowModal();
+            ExtensionInterface.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this).ShowModal();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)

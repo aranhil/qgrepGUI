@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="qgrepControls.ColorsWindow.OverrideWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:local="clr-namespace:qgrepControls.SearchWindow"
+             mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown"
+             Width="300" Height="90">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
+    </UserControl.Resources>
+    <Grid Margin="0,10,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Name:" />
+        <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Color:" />
+        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="OverrideName" Height="20" Width="230" HorizontalAlignment="Left" Margin="2,0,5,0" SelectionChanged="OverrideName_SelectionChanged" DisplayMemberPath="Name" ItemsSource="{Binding}"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <wpfTool:ColorPicker Style="{x:Null}" x:Name="OverrideColor" Width="100" HorizontalAlignment="Left" Margin="1" ColorMode="ColorCanvas"/>
+        </Grid>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
+            <Button x:Name="OK" Content="Save" Margin="0,0,5,0" Click="OK_Click" />
+            <Button x:Name="Cancel" Content="Cancel" Margin="0,0,5,0" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -9,7 +9,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Media;
 
-namespace qgrepControls.ToolWindows
+namespace qgrepControls.SearchWindow
 {
     public partial class ProjectsWindow : System.Windows.Controls.UserControl
     {
@@ -64,7 +64,7 @@ namespace qgrepControls.ToolWindows
                 ProjectsPanel.Children.Add(new ProjectRow(this, new ProjectRow.ProjectRowData(configProject.Name)));
             }
 
-            ProjectsPanel.Children.Add(new RowAdd(this, "Add new search config", new RowAdd.ClickCallbackFunction(AddProject)));
+            ProjectsPanel.Children.Add(new RowAdd(Parent, "Add new search config", new RowAdd.ClickCallbackFunction(AddProject)));
             CheckAddButtonVisibility();
 
             bool foundOldProject = false;
@@ -110,7 +110,7 @@ namespace qgrepControls.ToolWindows
                             GroupsPanel.Children.Add(new GroupRow(this, new GroupRow.GroupRowData(i == 0 ? "<root>" : "Group" + i, i == 0, i)));
                         }
 
-                        GroupsPanel.Children.Add(new RowAdd(this, "Add new search group", new RowAdd.ClickCallbackFunction(AddGroup)));
+                        GroupsPanel.Children.Add(new RowAdd(Parent, "Add new search group", new RowAdd.ClickCallbackFunction(AddGroup)));
                         CheckAddButtonVisibility();
 
                         bool foundOldGroup = false;
@@ -272,7 +272,7 @@ namespace qgrepControls.ToolWindows
                             PathsPanel.Children.Add(new PathRow(this, new PathRow.PathRowData(Path)));
                         }
 
-                        PathsPanel.Children.Add(new RowAdd(this, "Add new folder", new RowAdd.ClickCallbackFunction(AddPath)));
+                        PathsPanel.Children.Add(new RowAdd(Parent, "Add new folder", new RowAdd.ClickCallbackFunction(AddPath)));
                         CheckAddButtonVisibility();
                         break;
                     }
@@ -342,7 +342,7 @@ namespace qgrepControls.ToolWindows
                             RulesPanel.Children.Add(new RuleRow(this, new RuleRow.RuleRowData(rule.IsExclude, rule.Rule, index++)));
                         }
 
-                        RulesPanel.Children.Add(new RowAdd(this, "Add new filter", new RowAdd.ClickCallbackFunction(AddRule)));
+                        RulesPanel.Children.Add(new RowAdd(Parent, "Add new filter", new RowAdd.ClickCallbackFunction(AddRule)));
                         CheckAddButtonVisibility();
                         break;
                     }
@@ -372,7 +372,7 @@ namespace qgrepControls.ToolWindows
             {
                 RuleWindow ruleWindow = new RuleWindow(this);
 
-                IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Add rule");
+                IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Add rule", this);
                 ruleWindow.Dialog = ruleDialog;
                 ruleDialog.ShowModal();
 
@@ -412,7 +412,7 @@ namespace qgrepControls.ToolWindows
                         ruleWindow.RegExTextBox.SelectAll();
                         ruleWindow.RegExTextBox.Focus();
 
-                        IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Edit rule");
+                        IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Edit rule", this);
                         ruleWindow.Dialog = ruleDialog;
                         ruleDialog.ShowModal();
 
@@ -433,72 +433,72 @@ namespace qgrepControls.ToolWindows
 
         private void GroupsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ShowPanel(GroupsPanel);
+            ShowAddPanel(GroupsPanel);
         }
 
         private void GroupsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            HidePanel(GroupsPanel);
+            HideAddPanel(GroupsPanel);
         }
 
         private void ProjectsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ShowPanel(ProjectsPanel);
+            ShowAddPanel(ProjectsPanel);
         }
 
         private void ProjectsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            HidePanel(ProjectsPanel);
+            HideAddPanel(ProjectsPanel);
         }
 
         private void PathsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ShowPanel(PathsPanel);
+            ShowAddPanel(PathsPanel);
         }
 
         private void PathsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            HidePanel(PathsPanel);
+            HideAddPanel(PathsPanel);
         }
 
         private void RulesPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ShowPanel(RulesPanel);
+            ShowAddPanel(RulesPanel);
         }
 
         private void RulesPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            HidePanel(RulesPanel);
+            HideAddPanel(RulesPanel);
         }
 
         private void CheckAddButtonVisibility()
         {
             if (ProjectsPanel.IsMouseOver)
             {
-                ShowPanel(ProjectsPanel);
+                ShowAddPanel(ProjectsPanel);
             }
             if (GroupsPanel.IsMouseOver)
             {
-                ShowPanel(GroupsPanel);
+                ShowAddPanel(GroupsPanel);
             }
             if (PathsPanel.IsMouseOver)
             {
-                ShowPanel(PathsPanel);
+                ShowAddPanel(PathsPanel);
             }
             if (RulesPanel.IsMouseOver)
             {
-                ShowPanel(RulesPanel);
+                ShowAddPanel(RulesPanel);
             }
         }
 
-        void HidePanel(StackPanel panel)
+        void HideAddPanel(StackPanel panel)
         {
             if (panel.Children.Count > 0)
             {
                 panel.Children[panel.Children.Count - 1].Visibility = Visibility.Hidden;
             }
         }
-        void ShowPanel(StackPanel panel)
+        void ShowAddPanel(StackPanel panel)
         {
             if (panel.Children.Count > 0)
             {

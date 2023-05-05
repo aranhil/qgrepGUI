@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="qgrepControls.ToolWindows.RuleWindow"
+﻿<UserControl x:Class="qgrepControls.SearchWindow.RuleWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:local="clr-namespace:qgrepControls.ToolWindows"
+             xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown"
              Width="500" Height="90" PreviewMouseDown="UserControl_PreviewMouseDown">
     <UserControl.Resources>

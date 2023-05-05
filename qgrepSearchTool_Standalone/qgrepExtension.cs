@@ -1,4 +1,5 @@
 ﻿using qgrepControls.Classes;
+using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +15,7 @@ namespace qgrepSearchTool_Standalone
 {
     class qgrepExtensionWindow : IExtensionWindow
     {
-        private Window window;
+        public Window window;
         public qgrepExtensionWindow(Window window)
         {
             this.window = window;
@@ -29,15 +30,17 @@ namespace qgrepSearchTool_Standalone
         {
             window.Close();
         }
+
+        public void Show()
+        {
+            window.Show();
+        }
     }
 
     class qgrepExtension : IExtensionInterface
     {
-        Window window = null;
-
         public qgrepExtension(Window window)
         {
-            this.window = window;
         }
 
         public bool WindowOpened 
@@ -59,18 +62,19 @@ namespace qgrepSearchTool_Standalone
             }
         }
 
-        public IExtensionWindow CreateWindow(UserControl userControl, string title)
+        public IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner)
         {
-            return new qgrepExtensionWindow(
-                new Window
-                {
-                    Title = title,
-                    Content = userControl,
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    Owner = window
-                }
-            );
+            Window newWindow = new Window
+            {
+                Title = title,
+                Content = userControl,
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.NoResize,
+                Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner),
+                WindowStartupLocation = WindowStartupLocation.CenterOwner, 
+            };
+
+            return new qgrepExtensionWindow(newWindow);
         }
 
         public string GetSelectedText()

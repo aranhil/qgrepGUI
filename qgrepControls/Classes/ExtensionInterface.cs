@@ -8,6 +8,7 @@ namespace qgrepControls.Classes
     public interface IExtensionWindow
     {
         void ShowModal();
+        void Show();
         void Close();
     }
 
@@ -15,7 +16,7 @@ namespace qgrepControls.Classes
     {
         string GetSolutionPath();
         List<string> GatherAllFoldersFromSolution();
-        IExtensionWindow CreateWindow(UserControl userControl, string title);
+        IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner = null);
         void OpenFile(string path, string line);
         string GetSelectedText();
         System.Drawing.Color GetColor(string resourceKey);

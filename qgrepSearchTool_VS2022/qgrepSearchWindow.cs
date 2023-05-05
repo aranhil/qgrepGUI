@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Shell;
-using qgrepControls.ToolWindows;
+using qgrepControls.SearchWindow;
 
 namespace qgrepSearch
 {

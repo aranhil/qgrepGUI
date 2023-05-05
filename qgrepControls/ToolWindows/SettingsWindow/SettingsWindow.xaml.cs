@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace qgrepControls.ToolWindows
+namespace qgrepControls.SearchWindow
 {
     public partial class SettingsWindow : System.Windows.Controls.UserControl
     {
@@ -18,16 +18,6 @@ namespace qgrepControls.ToolWindows
             ShowIncludes.IsChecked = Settings.Default.ShowIncludes;
             ShowExcludes.IsChecked = Settings.Default.ShowExcludes;
             ShowFilter.IsChecked = Settings.Default.ShowFilter;
-
-            foreach (ColorScheme colorScheme in SearchWindow.colorSchemes)
-            {
-                if (SearchWindow.ExtensionInterface.IsStandalone && colorScheme.Name == "Auto")
-                    continue;
-
-                ColorSchemeComboBox.Items.Add(new ComboBoxItem() { Content = colorScheme.Name, });
-            }
-
-            ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (SearchWindow.ExtensionInterface.IsStandalone ? 1 : 0);
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
 
             LoadColorsFromResources();
@@ -70,14 +60,6 @@ namespace qgrepControls.ToolWindows
         {
             SaveOptions();
             SearchWindow.UpdateFromSettings();
-        }
-
-        private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (SearchWindow.ExtensionInterface.IsStandalone ? 1 : 0);
-            Settings.Default.Save();
-            SearchWindow.UpdateColorsFromSettings();
-            LoadColorsFromResources();
         }
 
         private void GroupingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

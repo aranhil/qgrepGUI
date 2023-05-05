@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace qgrepControls.ToolWindows
+namespace qgrepControls.SearchWindow
 {
     public partial class PathRow : System.Windows.Controls.UserControl
     {

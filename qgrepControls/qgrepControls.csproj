@@ -89,6 +89,15 @@
     <Compile Include="ResourceDictionary.xaml.cs">
       <DependentUpon>ResourceDictionary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ToolWindows\ColorsWindow\ColorsWindow.xaml.cs">
+      <DependentUpon>ColorsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\ColorsWindow\OverrideRow.xaml.cs">
+      <DependentUpon>OverrideRow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\ColorsWindow\OverrideWindow.xaml.cs">
+      <DependentUpon>OverrideWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToolWindows\ProjectsWindow\GroupRow.xaml.cs">
       <DependentUpon>GroupRow.xaml</DependentUpon>
     </Compile>
@@ -109,9 +118,6 @@
     </Compile>
     <Compile Include="ToolWindows\ProjectsWindow\RuleWindow.xaml.cs">
       <DependentUpon>RuleWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ToolWindows\SettingsWindow\ColorsWindow.xaml.cs">
-      <DependentUpon>ColorsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\SearchWindow\qgrepSearchWindow.xaml.cs">
       <DependentUpon>qgrepSearchWindow.xaml</DependentUpon>
@@ -143,6 +149,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ToolWindows\ColorsWindow\ColorsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\ColorsWindow\OverrideRow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\ColorsWindow\OverrideWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ToolWindows\ProjectsWindow\GroupRow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -168,10 +186,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolWindows\ProjectsWindow\RuleWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ToolWindows\SettingsWindow\ColorsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
