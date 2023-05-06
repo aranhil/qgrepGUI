@@ -8,7 +8,8 @@
                     xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters;assembly=Xceed.Wpf.Toolkit"
                     xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
                     xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
-                    x:Class="qgrepControls.ResourceDictionary">
+                    xmlns:controlzEx="urn:controlzex"
+                    x:Class="qgrepControls.MyResourceDictionary">
     <SolidColorBrush x:Key="Background" Color="White" />
     <SolidColorBrush x:Key="Foreground" Color="Black" />
     <SolidColorBrush x:Key="Selection" Color="#0078D4" />
@@ -767,7 +768,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" MouseEnter="PART_ContentHost_MouseEnter" MouseLeave="PART_ContentHost_MouseLeave" LostFocus="PART_ContentHost_LostFocus" GotFocus="PART_ContentHost_GotFocus" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="true">
@@ -978,8 +979,8 @@
                         <BulletDecorator.Bullet>
                             <Grid>
                                 <Border x:Name="Border" Width="14" Height="14" CornerRadius="0" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
-                            </Border>
-                            <Grid>
+                                </Border>
+                                <Grid>
                                     <Path Visibility="Collapsed" Width="8" Height="8" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="0" Stroke="{x:Null}" Data="M6.22,11.02C6.22,11.02 2.5,7.24 2.5,7.24 2.5,7.24 4.05,5.71 4.05,5.71 4.05,5.71 5.97,7.65 5.97,7.65 5.97,7.65 10.52,1.38 10.52,1.38 10.52,1.38 13.19,1.38 13.19,1.38 13.19,1.38 6.22,11.02 6.22,11.02 6.22,11.02 6.22,11.02 6.22,11.02z" Margin="0" Fill="{DynamicResource CheckBox.Mark}" Stretch="Fill"/>
                                     <Path Visibility="Collapsed" Width="7" Height="7" x:Name="InderminateMark" SnapsToDevicePixels="False" StrokeThickness="2" Stroke="{DynamicResource CheckBox.Mark}" Data="M 0 7 L 7 0" />
                                 </Grid>
@@ -1436,75 +1437,164 @@
         </Setter>
     </Style>-->
     <!--Control colors.-->
-    <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="WindowChrome.WindowChrome">
+
+
+    <BitmapImage x:Key="AppIcon" UriSource="search_icon.ico"/>
+
+    <Style x:Key="WindowTitleBarButton" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Background" Value="{DynamicResource Window.Button.Background}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.Background}" />
+            <Setter Property="Foreground" Value="{DynamicResource Window.Button.Icon}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="Button.IsDefaulted" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>-->
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Window.Button.IsMouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Window.Button.IsMouseOver.Background}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="controlzEx:NonClientControlProperties.IsNCMouseOver" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
+            </Trigger>
+            <Trigger Property="controlzEx:NonClientControlProperties.IsNCPressed" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="CloseButton" TargetType="Button" BasedOn="{StaticResource WindowTitleBarButton}">
+        <Setter Property="Content">
             <Setter.Value>
-                <WindowChrome CaptionHeight="30"
-                     CornerRadius="4"
-                     GlassFrameThickness="0"
-                     NonClientFrameEdges="None"
-                     ResizeBorderThickness="5"
-                     UseAeroCaptionButtons="False" />
+                <Path Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderBrush" Value="#1F1F1F" />
-        <Setter Property="Background" Value="#1F1F1F" />
+    </Style>
+    <Style x:Key="MyWindowStyle" TargetType="{x:Type controlzEx:WindowChromeWindow}">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="UseRadialGradientForCorners" Value="True" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="NCActiveBrush" Value="{DynamicResource Window.Background}" />
+        <Setter Property="NCCurrentBrush" Value="{DynamicResource Window.Background}" />
+        <Setter Property="NCNonActiveBrush" Value="{DynamicResource Window.Background}" />
+        <Setter Property="GlowDepth" Value="1" />
+        <Setter Property="GlowColor" Value="{DynamicResource Window.Border.Color}" />
+        <Setter Property="NonActiveGlowColor" Value="{DynamicResource Window.Border.Color}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Window}">
-                    <Grid>
-                        <Border Background="{TemplateBinding Background}"
-                       BorderBrush="{TemplateBinding BorderBrush}"
-                       BorderThickness="1,30,1,1">
-                            <AdornerDecorator>
+                <ControlTemplate TargetType="{x:Type controlzEx:WindowChromeWindow}">
+                    <Grid Background="{TemplateBinding Background}"
+                                  Margin="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="29" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0"
+                  VerticalAlignment="Center"
+                  controlzEx:WindowChrome.IsHitTestVisibleInChrome="False"
+                  controlzEx:NonClientControlProperties.HitTestResult="CAPTION">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="10" Background="{Binding ElementName=Window, Path=NCCurrentBrush}" />
+
+                                <Image Source="{DynamicResource AppIcon}" Width="16" Height="16" Margin="8,3,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                                <TextBlock Grid.Column="0"
+                           Margin="10 7 0 0"
+                           HorizontalAlignment="Left"
+                           Text="{Binding ElementName=Window, Path=Title}"
+                           TextTrimming="CharacterEllipsis" Foreground="{DynamicResource Window.Foreground}" />
+                                <Button Grid.Column="2" Style="{DynamicResource CloseButton}"
+                            Width="45"
+                            Height="29"
+                            controlzEx:NonClientControlProperties.HitTestResult="CLOSE"
+                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent" Click="Close_Click">
+                                </Button>
+                            </Grid>
+                            <AdornerDecorator Grid.Row="1">
                                 <ContentPresenter />
                             </AdornerDecorator>
-                        </Border>
+                        </Grid>
 
+                        <Border x:Name="PART_Border"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{x:Null}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        UseLayoutRounding="True" />
 
-                        <DockPanel Height="30"
-                          VerticalAlignment="Top"
-                          LastChildFill="False">
-
-                            <TextBlock Margin="5,0,0,0"
-                              VerticalAlignment="Center"
-                              DockPanel.Dock="Left"
-                              FontSize="12"
-                              Foreground="White"
-                              Text="{TemplateBinding Title}" />
-
-                            <Button x:Name="btnClose"
-                           Width="15"
-                                    Height="30"
-                           Margin="5"
-                           Content="X"
-                           DockPanel.Dock="Right"
-                           WindowChrome.IsHitTestVisibleInChrome="True" />
-
-
-                            <Button x:Name="btnRestore"
-                           Width="15"
-                                    Height="30"
-                           Margin="5"
-                           Content="#"
-                           DockPanel.Dock="Right"
-                           WindowChrome.IsHitTestVisibleInChrome="True" />
-
-                            <Button x:Name="btnMinimize"
-                           Width="15"
-                                    Height="30"
-                           Margin="5"
-                           VerticalContentAlignment="Bottom"
-                           Content="_"
-                           DockPanel.Dock="Right"
-                           WindowChrome.IsHitTestVisibleInChrome="True" />
-                        </DockPanel>
-
+                        <ResizeGrip x:Name="WindowResizeGrip"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            IsTabStop="false"
+                                            Visibility="Collapsed"
+                                            controlzEx:WindowChrome.ResizeGripDirection="BottomRight" />
                     </Grid>
-
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Window.ResizeMode" Value="CanResizeWithGrip" />
+                                <Condition Property="Window.WindowState" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="Margin" Value="0" />
+            </Trigger>
+            <!--
+                        #1823 try to fix another nasty issue
+                        WindowState = Maximized
+                        ResizeMode = NoResize
+                    -->
+            <Trigger Property="ResizeMode" Value="NoResize">
+                <Setter Property="Margin" Value="0" />
+            </Trigger>
+            <Trigger Property="IsNCActive" Value="False">
+                <Setter Property="NCCurrentBrush" Value="{Binding NCNonActiveBrush, RelativeSource={RelativeSource Self}}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

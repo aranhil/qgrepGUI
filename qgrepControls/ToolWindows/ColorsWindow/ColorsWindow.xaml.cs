@@ -87,18 +87,9 @@ namespace qgrepControls.ColorsWindow
             ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (Parent.ExtensionInterface.IsStandalone ? 1 : 0);
 
             LoadFromSettings();
-            LoadColorsFromResources();
+            Parent.LoadColorsFromResources(this);
         }
 
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, object> resources = Parent.GetResourcesFromColorScheme();
-
-            foreach (var resource in resources)
-            {
-                Resources[resource.Key] = resource.Value;
-            }
-        }
         private void LoadFromSettings()
         {
             try
@@ -141,7 +132,7 @@ namespace qgrepControls.ColorsWindow
             Settings.Default.Save();
             Parent.UpdateColorsFromSettings();
             LoadFromSettings();
-            LoadColorsFromResources();
+            Parent.LoadColorsFromResources(this);
         }
 
         private void OverridesPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -222,9 +213,9 @@ namespace qgrepControls.ColorsWindow
             overrideWindow.OverrideName.ItemsSource = uniqueColors;
             overrideWindow.OverrideName.SelectedIndex = 0;
 
-            IExtensionWindow overrideDialog = Parent.ExtensionInterface.CreateWindow(overrideWindow, "Add color override", this);
+            MainWindow overrideDialog = Parent.CreateWindow(overrideWindow, "Add color override", this);
             overrideWindow.Dialog = overrideDialog;
-            overrideDialog.ShowModal();
+            overrideDialog.ShowDialog();
 
             if (overrideWindow.IsOK)
             {
@@ -243,7 +234,7 @@ namespace qgrepControls.ColorsWindow
                         Settings.Default.Save();
 
                         LoadFromSettings();
-                        LoadColorsFromResources();
+                        Parent.LoadColorsFromResources(this);
                         Parent.UpdateColorsFromSettings();
                         break;
                     }
@@ -265,7 +256,7 @@ namespace qgrepControls.ColorsWindow
                     Settings.Default.Save();
 
                     LoadFromSettings();
-                    LoadColorsFromResources();
+                    Parent.LoadColorsFromResources(this);
                     Parent.UpdateColorsFromSettings();
                     break;
                 }

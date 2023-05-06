@@ -32,17 +32,7 @@ namespace qgrepControls.SearchWindow
             this.DataContext = Data;
 
             Icons.Visibility = Visibility.Collapsed;
-            LoadColorsFromResources();
-        }
-
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, object> resources = Parent.Parent.GetResourcesFromColorScheme();
-
-            foreach (var resource in resources)
-            {
-                Resources[resource.Key] = resource.Value;
-            }
+            Parent.Parent.LoadColorsFromResources(this);
         }
 
         private void ProjectGrid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -60,11 +50,7 @@ namespace qgrepControls.SearchWindow
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-                Parent.DeleteProject(this);
-            }
+            Parent.DeleteProject(this);
         }
 
         private void ProjectGrid_MouseDown(object sender, MouseButtonEventArgs e)

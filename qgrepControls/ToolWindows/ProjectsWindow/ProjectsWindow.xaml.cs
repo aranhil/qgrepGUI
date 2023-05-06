@@ -24,7 +24,7 @@ namespace qgrepControls.SearchWindow
             InitializeComponent();
 
             LoadFromConfig();
-            LoadColorsFromResources();
+            Parent.LoadColorsFromResources(this);
             UpdateVisibility();
 
             if (Parent.ExtensionInterface.IsStandalone)
@@ -42,16 +42,6 @@ namespace qgrepControls.SearchWindow
                 Parent.UpdateFilters();
                 LoadProjectsFromConfig();
                 UpdateVisibility();
-            }
-        }
-
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, object> resources = Parent.GetResourcesFromColorScheme();
-
-            foreach (var resource in resources)
-            {
-                Resources[resource.Key] = resource.Value;
             }
         }
 
@@ -372,9 +362,9 @@ namespace qgrepControls.SearchWindow
             {
                 RuleWindow ruleWindow = new RuleWindow(this);
 
-                IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Add rule", this);
+                MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Add rule", this);
                 ruleWindow.Dialog = ruleDialog;
-                ruleDialog.ShowModal();
+                ruleDialog.ShowDialog();
 
                 if(ruleWindow.IsOK)
                 {
@@ -412,9 +402,9 @@ namespace qgrepControls.SearchWindow
                         ruleWindow.RegExTextBox.SelectAll();
                         ruleWindow.RegExTextBox.Focus();
 
-                        IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Edit rule", this);
+                        MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Edit rule", this);
                         ruleWindow.Dialog = ruleDialog;
-                        ruleDialog.ShowModal();
+                        ruleDialog.ShowDialog();
 
                         if (ruleWindow.IsOK)
                         {

@@ -1,4 +1,5 @@
-﻿using qgrepControls.Classes;
+﻿using ControlzEx;
+using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
@@ -66,7 +67,7 @@ namespace qgrepSearchTool_Standalone
 
         public IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner)
         {
-            Window newWindow = new Window
+            MainWindow newWindow = new MainWindow
             {
                 Title = title,
                 Content = userControl,

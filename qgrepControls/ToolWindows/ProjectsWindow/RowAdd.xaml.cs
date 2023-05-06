@@ -19,17 +19,7 @@ namespace qgrepControls.SearchWindow
             this.ClickCallback = ClickCallback;
             this.ToolTip = tooltip;
 
-            LoadColorsFromResources();
-        }
-
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, object> resources = Parent.GetResourcesFromColorScheme();
-
-            foreach (var resource in resources)
-            {
-                Resources[resource.Key] = resource.Value;
-            }
+            Parent.LoadColorsFromResources(this);
         }
 
         private void AddGrid_MouseDown(object sender, MouseButtonEventArgs e)

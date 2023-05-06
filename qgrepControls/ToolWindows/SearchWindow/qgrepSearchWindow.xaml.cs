@@ -20,6 +20,8 @@ using System.Timers;
 using System.Windows.Documents;
 using System.Windows.Shapes;
 using qgrepControls.ColorsWindow;
+using Xceed.Wpf.AvalonDock.Properties;
+using System.Resources;
 
 namespace qgrepControls.SearchWindow
 {
@@ -382,6 +384,22 @@ namespace qgrepControls.SearchWindow
             }
 
             return results;
+        }
+
+        public void LoadColorsFromResources(UserControl userControl)
+        {
+            Dictionary<string, object> resources = GetResourcesFromColorScheme();
+            MainWindow wrapperWindow = FindAncestor<MainWindow>(userControl);
+
+            foreach (var resource in resources)
+            {
+                userControl.Resources[resource.Key] = resource.Value;
+
+                if (wrapperWindow != null)
+                {
+                    wrapperWindow.Resources[resource.Key] = resource.Value;
+                }
+            }
         }
 
         private void SaveOptions()
@@ -1030,14 +1048,14 @@ namespace qgrepControls.SearchWindow
                 return;
             }
 
-            ExtensionInterface.CreateWindow(new qgrepControls.SearchWindow.ProjectsWindow(this), "Search configurations", this).ShowModal();
+            CreateWindow(new qgrepControls.SearchWindow.ProjectsWindow(this), "Search configurations", this).ShowDialog();
             UpdateWarning();
             UpdateDatabase();
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            ExtensionInterface.CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowModal();
+            CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowDialog();
             Find();
         }
 
@@ -1189,7 +1207,7 @@ namespace qgrepControls.SearchWindow
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            ExtensionInterface.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this).ShowModal();
+            CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this).ShowDialog();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)
@@ -1355,6 +1373,32 @@ namespace qgrepControls.SearchWindow
         {
             ((TreeViewItem)sender).BringIntoView();
             e.Handled = true;
+        }
+
+        public MainWindow CreateWindow(UserControl userControl, string title, UserControl owner)
+        {
+            MainWindow newWindow = new MainWindow
+            {
+                Title = title,
+                Content = userControl,
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.NoResize,
+                Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner),
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            };
+
+            Dictionary<string, object> resources = GetResourcesFromColorScheme();
+            foreach (var resource in resources)
+            {
+                userControl.Resources[resource.Key] = resource.Value;
+
+                if (newWindow != null)
+                {
+                    newWindow.Resources[resource.Key] = resource.Value;
+                }
+            }
+
+            return newWindow;
         }
     }
 }

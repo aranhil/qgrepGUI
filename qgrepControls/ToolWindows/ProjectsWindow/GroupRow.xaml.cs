@@ -35,17 +35,7 @@ namespace qgrepControls.SearchWindow
             this.DataContext = Data;
 
             Icons.Visibility = Visibility.Collapsed;
-            LoadColorsFromResources();
-        }
-
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, object> resouces = Parent.Parent.GetResourcesFromColorScheme();
-
-            foreach (var resource in resouces)
-            {
-                Resources[resource.Key] = resource.Value;
-            }
+            Parent.Parent.LoadColorsFromResources(this);
         }
 
         private void GroupGrid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)

@@ -21,17 +21,7 @@ namespace qgrepControls.SearchWindow
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
             PathStyleComboBox.SelectedIndex = Settings.Default.PathStyleIndex;
 
-            LoadColorsFromResources();
-        }
-
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, object> resources = SearchWindow.GetResourcesFromColorScheme();
-
-            foreach (var resource in resources)
-            {
-                Resources[resource.Key] = resource.Value;
-            }
+            SearchWindow.LoadColorsFromResources(this);
         }
 
         private void SaveOptions()
