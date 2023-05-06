@@ -6,7 +6,9 @@
                     xmlns:local="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
                     xmlns:prim="clr-namespace:Xceed.Wpf.Toolkit.Primitives;assembly=Xceed.Wpf.Toolkit"
                     xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters;assembly=Xceed.Wpf.Toolkit"
-                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit">
+                    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+                    xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
+                    x:Class="qgrepControls.ResourceDictionary">
     <SolidColorBrush x:Key="Background" Color="White" />
     <SolidColorBrush x:Key="Foreground" Color="Black" />
     <SolidColorBrush x:Key="Selection" Color="#0078D4" />
@@ -1138,5 +1140,76 @@
             </Setter.Value>
         </Setter>
     </Style>-->
+    <!--Control colors.-->
+    <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="30"
+                     CornerRadius="4"
+                     GlassFrameThickness="0"
+                     NonClientFrameEdges="None"
+                     ResizeBorderThickness="5"
+                     UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="#1F1F1F" />
+        <Setter Property="Background" Value="#1F1F1F" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                       BorderBrush="{TemplateBinding BorderBrush}"
+                       BorderThickness="1,30,1,1">
+                            <AdornerDecorator>
+                                <ContentPresenter />
+                            </AdornerDecorator>
+                        </Border>
+
+
+                        <DockPanel Height="30"
+                          VerticalAlignment="Top"
+                          LastChildFill="False">
+
+                            <TextBlock Margin="5,0,0,0"
+                              VerticalAlignment="Center"
+                              DockPanel.Dock="Left"
+                              FontSize="12"
+                              Foreground="White"
+                              Text="{TemplateBinding Title}" />
+
+                            <Button x:Name="btnClose"
+                           Width="15"
+                                    Height="30"
+                           Margin="5"
+                           Content="X"
+                           DockPanel.Dock="Right"
+                           WindowChrome.IsHitTestVisibleInChrome="True" />
+
+
+                            <Button x:Name="btnRestore"
+                           Width="15"
+                                    Height="30"
+                           Margin="5"
+                           Content="#"
+                           DockPanel.Dock="Right"
+                           WindowChrome.IsHitTestVisibleInChrome="True" />
+
+                            <Button x:Name="btnMinimize"
+                           Width="15"
+                                    Height="30"
+                           Margin="5"
+                           VerticalContentAlignment="Bottom"
+                           Content="_"
+                           DockPanel.Dock="Right"
+                           WindowChrome.IsHitTestVisibleInChrome="True" />
+                        </DockPanel>
+
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

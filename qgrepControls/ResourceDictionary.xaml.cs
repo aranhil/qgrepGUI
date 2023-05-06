@@ -5,9 +5,9 @@ namespace qgrepControls
     /// <summary>
     /// Interaction logic for ResourceDictionary.xaml
     /// </summary>
-    public partial class ResourceDictionary : UserControl
+    public partial class MyResourceDictionary : ResourceDictionary
     {
-        public ResourceDictionary()
+        public MyResourceDictionary()
         {
         }
     }
