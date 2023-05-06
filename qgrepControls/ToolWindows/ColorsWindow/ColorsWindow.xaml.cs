@@ -5,6 +5,7 @@ using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -209,6 +210,10 @@ namespace qgrepControls.ColorsWindow
                     }
 
                     uniqueColors.Add(new ComboBoxColorItem() { Name = colorEntry.Name, Color = extensionColor });
+
+                    Debug.Write($"Name: {colorEntry.Name}, ");
+                    Debug.WriteLine($"Color: {extensionColor}");
+
                 }
             }
 
@@ -234,7 +239,6 @@ namespace qgrepControls.ColorsWindow
                             Name = selectedColor.Name,
                             Color = qgrepSearchWindowControl.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()))
                         });
-
                         Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
                         Settings.Default.Save();
 
