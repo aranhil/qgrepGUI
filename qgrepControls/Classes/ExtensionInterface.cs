@@ -20,6 +20,7 @@ namespace qgrepControls.Classes
         void OpenFile(string path, string line);
         string GetSelectedText();
         System.Drawing.Color GetColor(string resourceKey);
+        void RefreshResources(Dictionary<string, object> newResources);
         bool WindowOpened { get; set; }
         bool IsStandalone { get; }
     }

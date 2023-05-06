@@ -83,6 +83,16 @@
     <SolidColorBrush x:Key="ScrollBar.Button.IsMouseOver.Arrow" Color="#4195E5" />
     <SolidColorBrush x:Key="ScrollBar.Button.IsMouseDown.Background" Color="#E8E8EC" />
     <SolidColorBrush x:Key="ScrollBar.Button.IsMouseDown.Arrow" Color="#2D78C7" />
+    <SolidColorBrush x:Key="Window.Background" Color="#EEEEF2" />
+    <SolidColorBrush x:Key="Window.Foreground" Color="#1E1E1E" />
+    <SolidColorBrush x:Key="Window.Border" Color="#9B9FB9" />
+    <Color x:Key="Window.Border.Color">#9B9FB9</Color>
+    <SolidColorBrush x:Key="Window.Button.Background" Color="#EEEEF2" />
+    <SolidColorBrush x:Key="Window.Button.Icon" Color="#1E1E1E" />
+    <SolidColorBrush x:Key="Window.Button.IsMouseOver.Background" Color="#FCFCFD" />
+    <SolidColorBrush x:Key="Window.Button.IsMouseOver.Icon" Color="#006CBE" />
+    <SolidColorBrush x:Key="Window.Button.IsMouseDown.Background" Color="#006CBE" />
+    <SolidColorBrush x:Key="Window.Button.IsMouseDown.Icon" Color="#FFFFFF" />
     <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

@@ -15,15 +15,15 @@ namespace qgrepSearch
 {
     public class qgrepExtensionWindow : IExtensionWindow
     {
-        private DialogWindow dialogWindow;
-        public qgrepExtensionWindow(DialogWindow dialogWindow)
+        private System.Windows.Window dialogWindow;
+        public qgrepExtensionWindow(System.Windows.Window dialogWindow)
         {
             this.dialogWindow = dialogWindow;
         }
 
         public void ShowModal()
         {
-            dialogWindow.ShowModal();
+            dialogWindow.ShowDialog();
         }
 
         public void Close()
@@ -93,14 +93,14 @@ namespace qgrepSearch
         public IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner)
         {
             return new qgrepExtensionWindow(
-                new DialogWindow
+                new System.Windows.Window
                 {
                     Title = title,
                     Content = userControl,
                     SizeToContent = SizeToContent.WidthAndHeight,
                     ResizeMode = ResizeMode.NoResize,
-                    HasMinimizeButton = false,
-                    HasMaximizeButton = false,
+                    //HasMinimizeButton = false,
+                    //HasMaximizeButton = false,
                     //Owner = qgrepSearchWindowControl.FindAncestor<DialogWindow>(owner),
                     //WindowStartupLocation = WindowStartupLocation.CenterOwner
                 }
@@ -219,6 +219,10 @@ namespace qgrepSearch
                 }
                 return null;
             }
+        }
+
+        public void RefreshResources(Dictionary<string, object> newResources)
+        {
         }
     }
 }

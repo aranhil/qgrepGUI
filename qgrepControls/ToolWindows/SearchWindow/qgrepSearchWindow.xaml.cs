@@ -322,12 +322,14 @@ namespace qgrepControls.SearchWindow
 
         public void UpdateColorsFromSettings()
         {
-            Dictionary<string, SolidColorBrush> colors = GetBrushesFromColorScheme();
+            Dictionary<string, object> resources = GetResourcesFromColorScheme();
 
-            foreach (var color in colors)
+            foreach (var resource in resources)
             {
-                Resources[color.Key] = color.Value;
+                Resources[resource.Key] = resource.Value;
             }
+
+            ExtensionInterface.RefreshResources(resources);
         }
 
         public void UpdateColors(Dictionary<string, System.Windows.Media.Color> colors)
@@ -338,19 +340,20 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        public Dictionary<string, SolidColorBrush> GetBrushesFromColorScheme()
+        public Dictionary<string, object> GetResourcesFromColorScheme()
         {
-            Dictionary<string, SolidColorBrush> results = new Dictionary<string, SolidColorBrush>();
+            Dictionary<string, object> results = new Dictionary<string, object>();
+            Dictionary<string, SolidColorBrush> brushes = new Dictionary<string, SolidColorBrush>();
 
             if (Settings.Default.ColorScheme < colorSchemes.Length)
             {
                 foreach (ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
                 {
-                    results[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
+                    brushes[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
                 }
                 foreach (VsColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].VsColorEntries)
                 {
-                    results[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
+                    brushes[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
                 }
 
                 try
@@ -362,7 +365,7 @@ namespace qgrepControls.SearchWindow
                         {
                             foreach(ColorOverride colorOverride in schemeOverrides.ColorOverrides)
                             {
-                                results[colorOverride.Name] = new SolidColorBrush(ConvertColor(colorOverride.Color));
+                                brushes[colorOverride.Name] = new SolidColorBrush(ConvertColor(colorOverride.Color));
                             }
 
                             break;
@@ -370,6 +373,12 @@ namespace qgrepControls.SearchWindow
                     }
                 }
                 catch { }
+            }
+
+            foreach(KeyValuePair<string, SolidColorBrush> brush in brushes)
+            {
+                results[brush.Key] = brush.Value;
+                results[brush.Key + ".Color"] = brush.Value.Color;
             }
 
             return results;

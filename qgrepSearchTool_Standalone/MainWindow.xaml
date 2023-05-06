@@ -12,10 +12,7 @@
         Height="600"
         MinWidth="80"
         MinHeight="60"
-        Background="#1F1F1F"
         FlowDirection="LeftToRight"
-        GlowColor="Black"
-        NonActiveGlowColor="Black"
         Style="{StaticResource {x:Type controlzEx:WindowChromeWindow}}"
         WindowStartupLocation="CenterScreen"
         WindowState="Normal"
@@ -54,67 +51,7 @@
                 <x:Type TypeName="Dock" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <!--<ResourceDictionary x:Key="SomeResources" Source="/qgrepControls;component/ResourceDictionary.xaml" />-->
     </controlzEx:WindowChromeWindow.Resources>
-    <Grid SnapsToDevicePixels="True">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="29" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0"
-                  VerticalAlignment="Center"
-                  controlzEx:WindowChrome.IsHitTestVisibleInChrome="False"
-                  controlzEx:NonClientControlProperties.HitTestResult="CAPTION"
-                  MouseLeftButtonDown="TitleBarGrid_OnMouseLeftButtonDown"
-                  MouseRightButtonUp="TitleBarGrid_OnMouseRightButtonUp">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Border Grid.ColumnSpan="10" Background="{Binding ElementName=Window, Path=NCCurrentBrush}" />
-
-                <TextBlock Grid.Column="1"
-                           Margin="10 8 0 0"
-                           HorizontalAlignment="Left"
-                           Text="qgrep Search Tool"
-                           TextTrimming="CharacterEllipsis" Foreground="White" />
-
-                <UniformGrid Grid.Column="2" Columns="3">
-                    <Button Style="{StaticResource WindowTitleBarButton}"
-                            IsEnabled="{Binding IsEnabled, ElementName=MinimizeButton}"
-                            Width="45"
-                            Height="29"
-                            Click="MinimizeButton_Click"
-                            controlzEx:NonClientControlProperties.HitTestResult="MINBUTTON"
-                            controlzEx:NonClientControlProperties.ClickStrategy="AutomationPeer">
-                        <Path Data="F1M3,8L13,8 13,7 3,7z" Fill="White" />
-                    </Button>
-                    <Button Style="{StaticResource WindowTitleBarButton}"
-                            IsEnabled="{Binding IsEnabled, ElementName=MaximizeButton}"
-                            Width="45"
-                            Height="29"
-                            Click="RestoreOrMaximizeButton_Click"
-                            controlzEx:NonClientControlProperties.HitTestResult="MAXBUTTON"
-                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent">
-                        <!--<Path Data="F1M12,12L4,12 4,4 12,4z M3,13L13,13 13,3 3,3z" Fill="White" />-->
-                        <Path Data="F1M11.999,10.002L10.998,10.002 10.998,5.002 5.998,5.002 5.998,4.001 11.999,4.001z M10.002,11.999L4.001,11.999 4.001,5.998 10.002,5.998z M5.002,3L5.002,5.002 3,5.002 3,13 10.998,13 10.998,10.998 13,10.998 13,3z" Fill="White" Visibility="Visible" />
-                    </Button>
-                    <Button Style="{StaticResource WindowTitleBarButton}"
-                            Width="45"
-                            Height="29"
-                            Click="CloseButton_Click"
-                            controlzEx:NonClientControlProperties.HitTestResult="CLOSE"
-                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent">
-                        <Path Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z" Fill="White" />
-                    </Button>
-                </UniformGrid>
-            </Grid>
-            <Grid Grid.Row="2" x:Name="WindowContent">
-            </Grid>
-        </Grid>
+    <Grid x:Name="WindowContent">
     </Grid>
 </controlzEx:WindowChromeWindow>

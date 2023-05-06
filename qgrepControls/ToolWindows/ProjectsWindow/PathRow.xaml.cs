@@ -34,11 +34,11 @@ namespace qgrepControls.SearchWindow
 
         private void LoadColorsFromResources()
         {
-            Dictionary<string, SolidColorBrush> colors = Parent.Parent.GetBrushesFromColorScheme();
+            Dictionary<string, object> resources = Parent.Parent.GetResourcesFromColorScheme();
 
-            foreach (var color in colors)
+            foreach (var resource in resources)
             {
-                Resources[color.Key] = color.Value;
+                Resources[resource.Key] = resource.Value;
             }
         }
 
