@@ -27,27 +27,6 @@ namespace qgrepSearchTool_Standalone
             InitializeComponent();
             WindowContent.Children.Add(new qgrepSearchWindowControl(new qgrepExtension(this)));
         }
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
-
-        private void RestoreOrMaximizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.WindowState == WindowState.Maximized)
-            {
-                this.WindowState = WindowState.Normal;
-            }
-            else
-            {
-                this.WindowState = WindowState.Maximized;
-            }
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
 
 #pragma warning disable 618
         private void TitleBarGrid_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

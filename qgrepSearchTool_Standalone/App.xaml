@@ -81,7 +81,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="MaxRestoreButton" TargetType="Button" BasedOn="{StaticResource WindowTitleBarButton}">
+            <!--<Style x:Key="MaxRestoreButton" TargetType="Button" BasedOn="{StaticResource WindowTitleBarButton}">
                 <Setter Property="Content">
                     <Setter.Value>
                         <Path Data="F1M12,12L4,12 4,4 12,4z M3,13L13,13 13,3 3,3z" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
@@ -91,12 +91,53 @@
                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controlzEx:WindowChromeWindow}}, Path=WindowState}" Value="Maximized">
                         <Setter Property="Content">
                             <Setter.Value>
-                                <Path Data="F1M11.999,10.002L10.998,10.002 10.998,5.002 5.998,5.002 5.998,4.001 11.999,4.001z M10.002,11.999L4.001,11.999 4.001,5.998 10.002,5.998z M5.002,3L5.002,5.002 3,5.002 3,13 10.998,13 10.998,10.998 13,10.998 13,3z" Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}, AncestorLevel=0}}" Visibility="Visible" />
+                                <Path Data="F1M11.999,10.002L10.998,10.002 10.998,5.002 5.998,5.002 5.998,4.001 11.999,4.001z M10.002,11.999L4.001,11.999 4.001,5.998 10.002,5.998z M5.002,3L5.002,5.002 3,5.002 3,13 10.998,13 10.998,10.998 13,10.998 13,3z" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Visibility="Visible" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
                 </Style.Triggers>
+            </Style>-->
+
+            <Style x:Key="MaxRestoreButton" TargetType="Button" BasedOn="{StaticResource WindowTitleBarButton}">
+                <Style.Setters>
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="Background" Value="{DynamicResource Window.Button.Background}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.Background}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Window.Button.Icon}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ButtonBase}">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                                    <Grid Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                        <Path x:Name="Icon_Maximize" Data="F1M12,12L4,12 4,4 12,4z M3,13L13,13 13,3 3,3z" Fill="{TemplateBinding Foreground}" />
+                                        <Path x:Name="Icon_Restore" Data="F1M11.999,10.002L10.998,10.002 10.998,5.002 5.998,5.002 5.998,4.001 11.999,4.001z M10.002,11.999L4.001,11.999 4.001,5.998 10.002,5.998z M5.002,3L5.002,5.002 3,5.002 3,13 10.998,13 10.998,10.998 13,10.998 13,3z" Fill="{TemplateBinding Foreground}" Visibility="Collapsed" />
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <!--<Trigger Property="Button.IsDefaulted" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>-->
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{DynamicResource Window.Button.IsMouseOver.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Window.Button.IsMouseOver.Background}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controlzEx:WindowChromeWindow}}, Path=WindowState}" Value="Maximized">
+                                        <Setter Property="Visibility" Value="Visible" TargetName="Icon_Restore" />
+                                        <Setter Property="Visibility" Value="Collapsed" TargetName="Icon_Maximize" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style.Setters>
             </Style>
+            
             <Style x:Key="{x:Type controlzEx:WindowChromeWindow}" TargetType="{x:Type controlzEx:WindowChromeWindow}">
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="UseRadialGradientForCorners" Value="True" />
@@ -142,20 +183,20 @@
                             Width="45"
                             Height="29"
                             controlzEx:NonClientControlProperties.HitTestResult="MINBUTTON"
-                            controlzEx:NonClientControlProperties.ClickStrategy="AutomationPeer">
+                            controlzEx:NonClientControlProperties.ClickStrategy="AutomationPeer" Click="Minimize_Click">
                                                 </Button>
                                                 <Button Style="{DynamicResource MaxRestoreButton}"
                             IsEnabled="{Binding IsEnabled, ElementName=MaximizeButton}"
                             Width="45"
                             Height="29"
                             controlzEx:NonClientControlProperties.HitTestResult="MAXBUTTON"
-                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent">
+                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent" Click="Maximize_Click">
                                                 </Button>
                                             <Button Style="{DynamicResource CloseButton}"
                             Width="45"
                             Height="29"
                             controlzEx:NonClientControlProperties.HitTestResult="CLOSE"
-                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent">
+                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent" Click="Close_Click">
                                                 </Button>
                                             </UniformGrid>
                                         </Grid>
