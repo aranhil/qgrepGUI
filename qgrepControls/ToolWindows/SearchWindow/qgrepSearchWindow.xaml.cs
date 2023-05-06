@@ -422,19 +422,6 @@ namespace qgrepControls.SearchWindow
                 return;
             }
 
-            if (VisualTreeHelper.GetChildrenCount(SearchItemsControl) > 0)
-            {
-                Border childBorder = VisualTreeHelper.GetChild(SearchItemsControl, 0) as Border;
-                if (childBorder != null && VisualTreeHelper.GetChildrenCount(childBorder) > 0)
-                {
-                    ScrollViewer childScrollbar = VisualTreeHelper.GetChild(childBorder, 0) as ScrollViewer;
-                    if (childScrollbar != null)
-                    {
-                        childScrollbar.ScrollToTop();
-                    }
-                }
-            }
-
             SearchItemsControl.Visibility = Settings.Default.GroupingIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
             SearchItemsTreeView.Visibility = Settings.Default.GroupingIndex != 0 ? Visibility.Visible : Visibility.Collapsed;
 
@@ -684,39 +671,66 @@ namespace qgrepControls.SearchWindow
                 Dispatcher.Invoke(new Action(() =>
                 {
                     Errors += errors;
+                    bool scrollToTop = false;
 
                     if(Settings.Default.GroupingIndex == 0)
                     {
-                        SearchItemsControl.DataContext = searchResults = newItems;
+                        if(!SearchResultsAreIdentical(searchResults, newItems))
+                        {
+                            SearchItemsControl.DataContext = searchResults = newItems;
+
+                            if (searchResults.Count > 0)
+                            {
+                                searchResults[0].IsSelected = true;
+                                selectedSearchResult = 0;
+                            }
+                            else
+                            {
+                                selectedSearchResult = -1;
+                            }
+
+                            scrollToTop = true;
+                        }
                     }
                     else
                     {
-                        SearchItemsTreeView.ItemsSource = searchResultsGroups = newGroups;
+                        if (!SearchGroupsAreIdentical(searchResultsGroups, newGroups))
+                        {
+                            SearchItemsTreeView.ItemsSource = searchResultsGroups = newGroups;
+
+                            if (searchResultsGroups.Count > 0)
+                            {
+                                searchResultsGroups[0].IsSelected = true;
+                                selectedSearchResultGroup = 0;
+                            }
+                            else
+                            {
+                                selectedSearchResultGroup = 0;
+                            }
+
+                            scrollToTop = true;
+                        }
+                    }
+
+                    if(scrollToTop)
+                    {
+                        if (VisualTreeHelper.GetChildrenCount(SearchItemsControl) > 0)
+                        {
+                            Border childBorder = VisualTreeHelper.GetChild(SearchItemsControl, 0) as Border;
+                            if (childBorder != null && VisualTreeHelper.GetChildrenCount(childBorder) > 0)
+                            {
+                                ScrollViewer childScrollbar = VisualTreeHelper.GetChild(childBorder, 0) as ScrollViewer;
+                                if (childScrollbar != null)
+                                {
+                                    childScrollbar.ScrollToTop();
+                                }
+                            }
+                        }
                     }
 
                     foreach (string error in errors.Split('\n'))
                     {
                         ProcessErrorMessage(error);
-                    }
-
-                    if (searchResults.Count > 0)
-                    {
-                        searchResults[0].IsSelected = true;
-                        selectedSearchResult = 0;
-                    }
-                    else
-                    {
-                        selectedSearchResult = -1;
-                    }
-
-                    if(searchResultsGroups.Count > 0)
-                    {
-                        searchResultsGroups[0].IsSelected = true;
-                        selectedSearchResultGroup = 0;
-                    }
-                    else
-                    {
-                        selectedSearchResultGroup = 0;
                     }
 
                     if (System.Diagnostics.Debugger.IsAttached)
@@ -728,6 +742,50 @@ namespace qgrepControls.SearchWindow
                     ProcessQueue();
                 }));
             });
+        }
+
+        private bool SearchResultsAreIdentical(ObservableCollection<SearchResult> oldResults, ObservableCollection<SearchResult> newResults)
+        {
+            if(oldResults.Count != newResults.Count) 
+            { 
+                return false;
+            }
+
+            for(int i = 0; i <  oldResults.Count; i++)
+            {
+                if (!oldResults[i].FullResult.Equals(newResults[i].FullResult))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool SearchGroupsAreIdentical(ObservableCollection<SearchResultGroup> oldResults, ObservableCollection<SearchResultGroup> newResults)
+        {
+            if (oldResults.Count != newResults.Count)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < oldResults.Count; i++)
+            {
+                if (oldResults[i].SearchResults.Count != newResults[i].SearchResults.Count)
+                {
+                    return false;
+                }
+
+                for(int j = 0; j < oldResults[i].SearchResults.Count; j++)
+                {
+                    if (!oldResults[i].SearchResults[j].FullResult.Equals(newResults[i].SearchResults[j].FullResult))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void SearchResult_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
