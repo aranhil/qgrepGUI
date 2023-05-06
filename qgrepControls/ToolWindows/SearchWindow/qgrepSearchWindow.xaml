@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="SearchInput" TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" 
+            <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="SearchInput" TabIndex="0" BorderThickness="0,1,0,1" Style="{DynamicResource SomeTextBoxStyle}" 
 TextChanged="SearchInput_TextChanged"/>
             <Label Grid.Column="0" x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel Grid.Column="1" x:Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
@@ -38,7 +38,7 @@ TextChanged="SearchInput_TextChanged"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" x:Name="IncludeFilesGrid" Margin="0,-1,0,0">
-            <TextBox x:Name="IncludeFilesInput" TabIndex="1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+            <TextBox x:Name="IncludeFilesInput" TabIndex="1" BorderThickness="0,1,0,1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
             <Label x:Name="IncludeFilesLabel" Content="Include files..." Style="{DynamicResource SomeHintLabel}"/>
             <StackPanel x:Name="AdvancedIncludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel x:Name="AdvancedIncludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -47,7 +47,7 @@ TextChanged="SearchInput_TextChanged"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2" x:Name="ExcludeFilesGrid" Margin="0,-1,0,0">
-            <TextBox x:Name="ExcludeFilesInput" TabIndex="2" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+            <TextBox x:Name="ExcludeFilesInput" TabIndex="2" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
             <Label x:Name="ExcludeFilesLabel" Content="Exclude files..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel x:Name="AdvancedExcludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel x:Name="AdvancedExcludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -56,7 +56,7 @@ TextChanged="SearchInput_TextChanged"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" x:Name="FilterResultsGrid" Margin="0,-1,0,0">
-            <TextBox x:Name="FilterResultsInput" TabIndex="2" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
+            <TextBox x:Name="FilterResultsInput" TabIndex="2" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged"/>
             <Label x:Name="FilterResultsLabel" Content="Filter results..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel x:Name="FilterResultsPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel x:Name="FilterResultsInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
