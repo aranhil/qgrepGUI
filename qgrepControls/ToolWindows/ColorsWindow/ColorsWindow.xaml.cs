@@ -131,7 +131,7 @@ namespace qgrepControls.ColorsWindow
                 Settings.Default.Save();
             }
 
-            OverridesPanel.Children.Add(new RowAdd(Parent, "Add new search config", new RowAdd.ClickCallbackFunction(AddOverride)));
+            OverridesPanel.Children.Add(new RowAdd(Parent, "Add new color override", new RowAdd.ClickCallbackFunction(AddOverride)));
             CheckAddButtonVisibility();
         }
         private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
