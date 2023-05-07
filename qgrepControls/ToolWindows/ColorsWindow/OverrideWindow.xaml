@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown"
-             Width="300" Height="90">
+             Width="300" Height="100">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
@@ -16,15 +16,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="34"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Name:" />
         <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Color:" />
-        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="OverrideName" Height="20" Width="230" HorizontalAlignment="Left" Margin="2,0,5,0" SelectionChanged="OverrideName_SelectionChanged" DisplayMemberPath="Name" ItemsSource="{Binding}"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="OverrideName" Height="22" Width="230" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="OverrideName_SelectionChanged" DisplayMemberPath="Name" ItemsSource="{Binding}"/>
         <Grid Grid.Row="1" Grid.Column="1">
-            <wpfTool:ColorPicker x:Name="OverrideColor" Width="230" HorizontalAlignment="Left" Margin="1" ColorMode="ColorCanvas"/>
+            <wpfTool:ColorPicker x:Name="OverrideColor" Width="230" HorizontalAlignment="Left" Margin="5,0,5,0" ColorMode="ColorCanvas" ShowTabHeaders="False"/>
         </Grid>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
             <Button x:Name="OK" Content="Save" Margin="0,0,5,0" Click="OK_Click" />

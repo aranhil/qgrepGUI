@@ -11,23 +11,21 @@
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Margin="0,10,0,0" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Color scheme:" />
-        <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Color overrides:" VerticalAlignment="Top" Margin="0,8,0,0" />
-        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="ColorSchemeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ColorSchemeComboBox_SelectionChanged" />
-        <Grid Grid.Row="1" Grid.Column="1" Margin="5">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Color scheme:" />
+            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="ColorSchemeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ColorSchemeComboBox_SelectionChanged" />
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
             <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,-1,0,0" MouseEnter="OverridesPanel_MouseEnter" MouseLeave="OverridesPanel_MouseLeave">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
                     <StackPanel x:Name="OverridesPanel"/>
                 </ScrollViewer>
             </Border>
+            <Label x:Name="OverridesHint" Content="Color overrides" Style="{DynamicResource SomeHintLabel2}" />
         </Grid>
     </Grid>
 </UserControl>
