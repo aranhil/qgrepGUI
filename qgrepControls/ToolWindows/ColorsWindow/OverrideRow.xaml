@@ -37,9 +37,9 @@
                         </DrawingBrush>
                     </Border.Background>
                 </Border>
-                <Border Name="OverrideColor" Width="40" Background="{Binding Path=Brush}"/>
+                <Border Name="OverrideColor" Width="40" Background="{Binding Path=Brush}" BorderThickness="1" BorderBrush="{DynamicResource Border}"/>
             </Grid>
-            <Label Name="OverrideKey" Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=Name}" HorizontalAlignment="Left" />
+            <Label Name="OverrideKey" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" HorizontalAlignment="Left" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons" Margin="0,0,5,0">
             <Button Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Click="EditButton_Click" Content="🖉" ToolTip="Edit filter"/>

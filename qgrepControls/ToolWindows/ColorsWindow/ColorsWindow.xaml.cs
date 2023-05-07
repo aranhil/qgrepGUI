@@ -125,6 +125,7 @@ namespace qgrepControls.ColorsWindow
 
             OverridesPanel.Children.Add(new RowAdd(Parent, "Add new color override", new RowAdd.ClickCallbackFunction(AddOverride)));
             CheckAddButtonVisibility();
+            UpdateHint();
         }
         private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -261,6 +262,11 @@ namespace qgrepControls.ColorsWindow
                     break;
                 }
             }
+        }
+
+        private void UpdateHint()
+        {
+            OverridesHint.Visibility = OverridesPanel.Children.Count > 1 ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

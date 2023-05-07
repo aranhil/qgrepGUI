@@ -134,7 +134,7 @@ TextChanged="SearchInput_TextChanged"/>
         </Grid>
         <Grid Grid.Row="5">
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,5,0">
-                <TextBlock x:Name="InitInfo" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
+                <Label x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
                 <ProgressBar x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
                 <Button x:Name="InitButton" Style="{StaticResource IconButton}" Content="⟲" FontSize="18" Click="InitButton_Click" ToolTip="Update cache"/>
                 <Button x:Name="CleanButton" Style="{StaticResource IconButton}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
