@@ -332,6 +332,22 @@
             {
                 "Name": "Window.Button.IsMouseDown.Icon",
                 "Color": "Environment.RaftedWindowButtonDownGlyph"
+            },
+            {
+                "Name": "TreeViewItem.Icon",
+                "Color": "TreeView.Glyph"
+            },
+            {
+                "Name": "TreeViewItem.IsMouseOver.Icon",
+                "Color": "TreeView.GlyphMouseOver"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.Icon",
+                "Color": "TreeView.SelectedItemActiveGlyph"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
+                "Color": "TreeView.SelectedItemActiveGlyphMouseOver"
             }
         ]
     },
@@ -668,6 +684,22 @@
             },
             {
                 "Name": "Window.Button.IsMouseDown.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "TreeViewItem.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "TreeViewItem.IsMouseOver.Icon",
+                "Color": "0, 122, 204"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
                 "Color": "214, 214, 214"
             }
 
@@ -1006,6 +1038,22 @@
             },
             {
                 "Name": "Window.Button.IsMouseDown.Icon",
+                "Color": "255, 255, 255"
+            },
+            {
+                "Name": "TreeViewItem.Icon",
+                "Color": "30, 30, 30"
+            },
+            {
+                "Name": "TreeViewItem.IsMouseOver.Icon",
+                "Color": "0, 108, 190"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.Icon",
+                "Color": "255, 255, 255"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
                 "Color": "255, 255, 255"
             }
         ]

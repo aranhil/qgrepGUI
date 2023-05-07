@@ -94,6 +94,10 @@
     <SolidColorBrush x:Key="Window.Button.IsMouseOver.Icon" Color="#006CBE" />
     <SolidColorBrush x:Key="Window.Button.IsMouseDown.Background" Color="#006CBE" />
     <SolidColorBrush x:Key="Window.Button.IsMouseDown.Icon" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="TreeViewItem.Icon" Color="#1E1E1E" />
+    <SolidColorBrush x:Key="TreeViewItem.IsMouseOver.Icon" Color="#2D78C7" />
+    <SolidColorBrush x:Key="TreeViewItem.IsSelected.Icon" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="TreeViewItem.IsSelected.IsMouseOver.Icon" Color="#FFFFFF" />
     <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -429,38 +433,37 @@
         <Setter Property="Width" Value="16"/>
         <Setter Property="Height" Value="16"/>
         <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Background" Value="{DynamicResource TreeViewItem.Icon}" />
+        <Setter Property="Foreground" Value="{DynamicResource TreeViewItem.Icon}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border Background="Transparent" Height="16" Padding="5,5,5,5" Width="16">
-                        <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{DynamicResource ComboBox.Foreground}" Stroke="{DynamicResource ComboBox.Foreground}">
+                        <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}">
                             <Path.RenderTransform>
                                 <RotateTransform Angle="135" CenterY="3" CenterX="3"/>
                             </Path.RenderTransform>
                         </Path>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="RenderTransform" TargetName="ExpandPath">
-                                <Setter.Value>
-                                    <RotateTransform Angle="180" CenterY="3" CenterX="3"/>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Foreground}"/>
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Foreground}"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Background}"/>
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Background}"/>
-                        </Trigger>
-                        <MultiTrigger>
+                        <!--<MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="IsChecked" Value="True"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="Stroke" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Background}"/>
                             <Setter Property="Fill" TargetName="ExpandPath" Value="{DynamicResource ComboBox.Background}"/>
-                        </MultiTrigger>
+                        </MultiTrigger>-->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="RenderTransform" TargetName="ExpandPath">
+                                <Setter.Value>
+                                    <RotateTransform Angle="180" CenterY="3" CenterX="3"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -507,16 +510,51 @@
                         <Trigger Property="IsExpanded" Value="false">
                             <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true" SourceName="Bd">
+                        <!--<Trigger Property="IsMouseOver" Value="true" SourceName="Bd">
                             <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
-                        </Trigger>
+                        </Trigger>-->
                         <Trigger Property="HasItems" Value="false">
                             <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
                             <Setter Property="Padding" Value="0,0,0,0"/>
                         </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>
+                                <Condition Binding="{Binding Path=IsSelected}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Foreground" TargetName="Expander" Value="{DynamicResource TreeViewItem.IsMouseOver.Icon}"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="True"/>
+                                <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>
+                                <Condition Binding="{Binding Path=IsSelected}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" TargetName="Expander" Value="{DynamicResource TreeViewItem.IsMouseOver.Icon}"/>
+                            <Setter Property="Foreground" TargetName="Expander" Value="{DynamicResource TreeViewItem.IsMouseOver.Icon}"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="True"/>
+                                <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>
+                                <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" TargetName="Expander" Value="Transparent"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>
+                                <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" TargetName="Expander" Value="{DynamicResource TreeViewItem.Icon}"/>
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Header}" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}" TargetName="Bd"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
                             <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Result.IsSelected.Background}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
                         </DataTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -534,6 +572,9 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
+            <!--<DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem}}" Value="True">
+                <Setter Property="Background" Value="Pink"/>
+            </DataTrigger>-->
             <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
