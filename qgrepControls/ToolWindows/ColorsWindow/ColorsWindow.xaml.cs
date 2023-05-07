@@ -344,9 +344,5 @@ namespace qgrepControls.ColorsWindow
         {
             OverridesHint.Visibility = OverridesPanel.Children.Count > 1 ? Visibility.Collapsed : Visibility.Visible;
         }
-
-        private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-        }
     }
 }

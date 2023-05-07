@@ -21,6 +21,9 @@ namespace qgrepControls
             Window window = (sender as FrameworkElement)?.TemplatedParent as Window;
             if (window != null)
                 window.Close();
+
+            if (window != null && window.Owner != null)
+                window.Owner.Focus();
         }
 
         SolidColorBrush GetBrush(TextBox textBox, bool IsMouseOver, bool IsSelected)

@@ -73,5 +73,17 @@ namespace qgrepControls
         {
             // Windows.Shell.SystemCommands.ShowSystemMenu(this, e);
         }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape)
+            {
+                Close();
+
+                Window window = sender as Window;
+                if (window != null && window.Owner != null)
+                    window.Owner.Focus();
+            }
+        }
     }
 }

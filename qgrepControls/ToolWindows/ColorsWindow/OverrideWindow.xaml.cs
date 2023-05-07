@@ -53,15 +53,6 @@ namespace qgrepControls.ColorsWindow
                 {
                     Dialog.Close();
                 }
-
-            }
-            else if(e.Key == Key.Escape)
-            {
-                IsOK= false;
-                if (Dialog != null)
-                {
-                    Dialog.Close();
-                }
             }
         }
 

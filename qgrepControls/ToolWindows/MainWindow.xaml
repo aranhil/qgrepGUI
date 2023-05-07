@@ -19,7 +19,7 @@
         ShowMaxRestoreButton="False"
         SizeToContent="Manual"
         Topmost="False"
-        mc:Ignorable="d">
+        mc:Ignorable="d" KeyDown="Window_PreviewKeyDown">
     <controlzEx:WindowChromeWindow.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </controlzEx:WindowChromeWindow.Resources>
