@@ -29,17 +29,7 @@ namespace qgrepControls.SearchWindow
             this.DataContext = Data;
 
             Icons.Visibility = Visibility.Collapsed;
-            LoadColorsFromResources();
-        }
-
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, SolidColorBrush> colors = Parent.Parent.GetBrushesFromColorScheme();
-
-            foreach (var color in colors)
-            {
-                Resources[color.Key] = color.Value;
-            }
+            Parent.Parent.LoadColorsFromResources(this);
         }
 
         private void PathGrid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)

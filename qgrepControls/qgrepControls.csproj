@@ -51,6 +51,10 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ControlzEx, Version=6.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\external\ControlzEx.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -97,6 +101,9 @@
     </Compile>
     <Compile Include="ToolWindows\ColorsWindow\OverrideWindow.xaml.cs">
       <DependentUpon>OverrideWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\ProjectsWindow\GroupRow.xaml.cs">
       <DependentUpon>GroupRow.xaml</DependentUpon>
@@ -158,6 +165,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolWindows\ColorsWindow\OverrideWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

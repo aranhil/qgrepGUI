@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace qgrepSearchTool_Standalone
+namespace qgrepControls
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -25,7 +25,6 @@ namespace qgrepSearchTool_Standalone
         public MainWindow()
         {
             InitializeComponent();
-            WindowContent.Children.Add(new qgrepSearchWindowControl(new qgrepExtension(this)));
         }
 
 #pragma warning disable 618

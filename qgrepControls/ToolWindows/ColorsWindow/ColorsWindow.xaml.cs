@@ -5,6 +5,7 @@ using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -86,18 +87,9 @@ namespace qgrepControls.ColorsWindow
             ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (Parent.ExtensionInterface.IsStandalone ? 1 : 0);
 
             LoadFromSettings();
-            LoadColorsFromResources();
+            Parent.LoadColorsFromResources(this);
         }
 
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, SolidColorBrush> colors = Parent.GetBrushesFromColorScheme();
-
-            foreach (var color in colors)
-            {
-                Resources[color.Key] = color.Value;
-            }
-        }
         private void LoadFromSettings()
         {
             try
@@ -131,42 +123,16 @@ namespace qgrepControls.ColorsWindow
                 Settings.Default.Save();
             }
 
-            OverridesPanel.Children.Add(new RowAdd(Parent, "Add new search config", new RowAdd.ClickCallbackFunction(AddOverride)));
+            OverridesPanel.Children.Add(new RowAdd(Parent, "Add new color override", new RowAdd.ClickCallbackFunction(AddOverride)));
             CheckAddButtonVisibility();
-
-            bool foundOldProject = false;
-            //if (SelectedProject != null)
-            //{
-            //    foreach (UIElement child in OverridesPanel.Children)
-            //    {
-            //        ProjectRow row = child as ProjectRow;
-            //        if (row != null)
-            //        {
-            //            if (row.Data.ProjectName == SelectedProject.Data.ProjectName)
-            //            {
-            //                foundOldProject = true;
-            //                SelectProject(row);
-            //                break;
-            //            }
-            //        }
-            //    }
-            //}
-
-            //if (!foundOldProject)
-            //{
-            //    SelectedProject = null;
-            //    if (OverridesPanel.Children.Count > 1)
-            //    {
-            //        SelectProject(OverridesPanel.Children[0] as ProjectRow);
-            //    }
-            //}
         }
         private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (Parent.ExtensionInterface.IsStandalone ? 1 : 0);
             Settings.Default.Save();
             Parent.UpdateColorsFromSettings();
-            LoadColorsFromResources();
+            LoadFromSettings();
+            Parent.LoadColorsFromResources(this);
         }
 
         private void OverridesPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -235,15 +201,21 @@ namespace qgrepControls.ColorsWindow
                     }
 
                     uniqueColors.Add(new ComboBoxColorItem() { Name = colorEntry.Name, Color = extensionColor });
+
+                    Debug.Write($"Name: {colorEntry.Name}, ");
+                    Debug.WriteLine($"Color: {extensionColor}");
+
                 }
             }
+
+            uniqueColors = uniqueColors.OrderBy(x => x.Name).ToList();
 
             overrideWindow.OverrideName.ItemsSource = uniqueColors;
             overrideWindow.OverrideName.SelectedIndex = 0;
 
-            IExtensionWindow overrideDialog = Parent.ExtensionInterface.CreateWindow(overrideWindow, "Add color override", this);
+            MainWindow overrideDialog = Parent.CreateWindow(overrideWindow, "Add color override", this);
             overrideWindow.Dialog = overrideDialog;
-            overrideDialog.ShowModal();
+            overrideDialog.ShowDialog();
 
             if (overrideWindow.IsOK)
             {
@@ -258,12 +230,11 @@ namespace qgrepControls.ColorsWindow
                             Name = selectedColor.Name,
                             Color = qgrepSearchWindowControl.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()))
                         });
-
                         Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
                         Settings.Default.Save();
 
                         LoadFromSettings();
-                        LoadColorsFromResources();
+                        Parent.LoadColorsFromResources(this);
                         Parent.UpdateColorsFromSettings();
                         break;
                     }
@@ -285,7 +256,7 @@ namespace qgrepControls.ColorsWindow
                     Settings.Default.Save();
 
                     LoadFromSettings();
-                    LoadColorsFromResources();
+                    Parent.LoadColorsFromResources(this);
                     Parent.UpdateColorsFromSettings();
                     break;
                 }

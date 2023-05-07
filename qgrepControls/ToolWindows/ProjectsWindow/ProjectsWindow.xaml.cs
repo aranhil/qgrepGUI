@@ -24,7 +24,7 @@ namespace qgrepControls.SearchWindow
             InitializeComponent();
 
             LoadFromConfig();
-            LoadColorsFromResources();
+            Parent.LoadColorsFromResources(this);
             UpdateVisibility();
 
             if (Parent.ExtensionInterface.IsStandalone)
@@ -42,16 +42,6 @@ namespace qgrepControls.SearchWindow
                 Parent.UpdateFilters();
                 LoadProjectsFromConfig();
                 UpdateVisibility();
-            }
-        }
-
-        private void LoadColorsFromResources()
-        {
-            Dictionary<string, SolidColorBrush> colors = Parent.GetBrushesFromColorScheme();
-
-            foreach (var color in colors)
-            {
-                Resources[color.Key] = color.Value;
             }
         }
 
@@ -372,9 +362,9 @@ namespace qgrepControls.SearchWindow
             {
                 RuleWindow ruleWindow = new RuleWindow(this);
 
-                IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Add rule", this);
+                MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Add rule", this);
                 ruleWindow.Dialog = ruleDialog;
-                ruleDialog.ShowModal();
+                ruleDialog.ShowDialog();
 
                 if(ruleWindow.IsOK)
                 {
@@ -412,9 +402,9 @@ namespace qgrepControls.SearchWindow
                         ruleWindow.RegExTextBox.SelectAll();
                         ruleWindow.RegExTextBox.Focus();
 
-                        IExtensionWindow ruleDialog = Parent.ExtensionInterface.CreateWindow(ruleWindow, "Edit rule", this);
+                        MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Edit rule", this);
                         ruleWindow.Dialog = ruleDialog;
-                        ruleDialog.ShowModal();
+                        ruleDialog.ShowDialog();
 
                         if (ruleWindow.IsOK)
                         {
@@ -529,13 +519,13 @@ namespace qgrepControls.SearchWindow
 
         private void UpdateVisibility()
         {
-            bool isAdvanced = Settings.Default.AdvancedProjectSettings;
-            AdvancedToggle.Content = isAdvanced ? "›› Basic" : "‹‹ Advanced";
-
             int projectsCount = Parent.ConfigParser.ConfigProjects.Count;
             int groupsCount = projectsCount > 0 ? Parent.ConfigParser.ConfigProjects[0].Groups.Count : 0;
 
             bool canGoBasic = projectsCount <= 1 && groupsCount <= 1;
+
+            bool isAdvanced = canGoBasic ? Settings.Default.AdvancedProjectSettings : true;
+            AdvancedToggle.Content = isAdvanced ? "›› Basic" : "‹‹ Advanced";
 
             AdvancedToggle.IsEnabled = isAdvanced && canGoBasic || !isAdvanced;
             AdvancedToggle.ToolTip = !canGoBasic ? "Remove extra projects and groups to go back to basic settings" : null;

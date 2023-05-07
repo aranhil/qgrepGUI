@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace qgrepSearchTool_Standalone
 {
@@ -13,5 +14,34 @@ namespace qgrepSearchTool_Standalone
     /// </summary>
     public partial class App : Application
     {
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = (sender as FrameworkElement)?.TemplatedParent as Window;
+            if (window != null)
+                window.WindowState = WindowState.Minimized;
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = (sender as FrameworkElement)?.TemplatedParent as Window;
+            if (window != null)
+                window.Close();
+        }
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = (sender as FrameworkElement)?.TemplatedParent as Window;
+            if (window != null)
+            {
+                if (window.WindowState == WindowState.Maximized)
+                {
+                    window.WindowState = WindowState.Normal;
+                }
+                else
+                {
+                    window.WindowState = WindowState.Maximized;
+                }
+            }
+        }
     }
 }

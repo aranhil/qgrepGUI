@@ -20,6 +20,8 @@ using System.Timers;
 using System.Windows.Documents;
 using System.Windows.Shapes;
 using qgrepControls.ColorsWindow;
+using Xceed.Wpf.AvalonDock.Properties;
+using System.Resources;
 
 namespace qgrepControls.SearchWindow
 {
@@ -121,10 +123,6 @@ namespace qgrepControls.SearchWindow
 
         ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         int selectedSearchResultGroup = -1;
-
-        IExtensionWindow SettingsWindow = null;
-        IExtensionWindow PathsWindow = null;
-        IExtensionWindow ColorsWindow = null;
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
@@ -326,12 +324,14 @@ namespace qgrepControls.SearchWindow
 
         public void UpdateColorsFromSettings()
         {
-            Dictionary<string, SolidColorBrush> colors = GetBrushesFromColorScheme();
+            Dictionary<string, object> resources = GetResourcesFromColorScheme();
 
-            foreach (var color in colors)
+            foreach (var resource in resources)
             {
-                Resources[color.Key] = color.Value;
+                Resources[resource.Key] = resource.Value;
             }
+
+            ExtensionInterface.RefreshResources(resources);
         }
 
         public void UpdateColors(Dictionary<string, System.Windows.Media.Color> colors)
@@ -342,19 +342,20 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        public Dictionary<string, SolidColorBrush> GetBrushesFromColorScheme()
+        public Dictionary<string, object> GetResourcesFromColorScheme()
         {
-            Dictionary<string, SolidColorBrush> results = new Dictionary<string, SolidColorBrush>();
+            Dictionary<string, object> results = new Dictionary<string, object>();
+            Dictionary<string, SolidColorBrush> brushes = new Dictionary<string, SolidColorBrush>();
 
             if (Settings.Default.ColorScheme < colorSchemes.Length)
             {
                 foreach (ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
                 {
-                    results[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
+                    brushes[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
                 }
                 foreach (VsColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].VsColorEntries)
                 {
-                    results[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
+                    brushes[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
                 }
 
                 try
@@ -366,7 +367,7 @@ namespace qgrepControls.SearchWindow
                         {
                             foreach(ColorOverride colorOverride in schemeOverrides.ColorOverrides)
                             {
-                                results[colorOverride.Name] = new SolidColorBrush(ConvertColor(colorOverride.Color));
+                                brushes[colorOverride.Name] = new SolidColorBrush(ConvertColor(colorOverride.Color));
                             }
 
                             break;
@@ -376,7 +377,29 @@ namespace qgrepControls.SearchWindow
                 catch { }
             }
 
+            foreach(KeyValuePair<string, SolidColorBrush> brush in brushes)
+            {
+                results[brush.Key] = brush.Value;
+                results[brush.Key + ".Color"] = brush.Value.Color;
+            }
+
             return results;
+        }
+
+        public void LoadColorsFromResources(UserControl userControl)
+        {
+            Dictionary<string, object> resources = GetResourcesFromColorScheme();
+            MainWindow wrapperWindow = FindAncestor<MainWindow>(userControl);
+
+            foreach (var resource in resources)
+            {
+                userControl.Resources[resource.Key] = resource.Value;
+
+                if (wrapperWindow != null)
+                {
+                    wrapperWindow.Resources[resource.Key] = resource.Value;
+                }
+            }
         }
 
         private void SaveOptions()
@@ -397,19 +420,6 @@ namespace qgrepControls.SearchWindow
             {
                 QueueFind = true;
                 return;
-            }
-
-            if (VisualTreeHelper.GetChildrenCount(SearchItemsControl) > 0)
-            {
-                Border childBorder = VisualTreeHelper.GetChild(SearchItemsControl, 0) as Border;
-                if (childBorder != null && VisualTreeHelper.GetChildrenCount(childBorder) > 0)
-                {
-                    ScrollViewer childScrollbar = VisualTreeHelper.GetChild(childBorder, 0) as ScrollViewer;
-                    if (childScrollbar != null)
-                    {
-                        childScrollbar.ScrollToTop();
-                    }
-                }
             }
 
             SearchItemsControl.Visibility = Settings.Default.GroupingIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -661,39 +671,66 @@ namespace qgrepControls.SearchWindow
                 Dispatcher.Invoke(new Action(() =>
                 {
                     Errors += errors;
+                    bool scrollToTop = false;
 
                     if(Settings.Default.GroupingIndex == 0)
                     {
-                        SearchItemsControl.DataContext = searchResults = newItems;
+                        if(!SearchResultsAreIdentical(searchResults, newItems))
+                        {
+                            SearchItemsControl.DataContext = searchResults = newItems;
+
+                            if (searchResults.Count > 0)
+                            {
+                                searchResults[0].IsSelected = true;
+                                selectedSearchResult = 0;
+                            }
+                            else
+                            {
+                                selectedSearchResult = -1;
+                            }
+
+                            scrollToTop = true;
+                        }
                     }
                     else
                     {
-                        SearchItemsTreeView.ItemsSource = searchResultsGroups = newGroups;
+                        if (!SearchGroupsAreIdentical(searchResultsGroups, newGroups))
+                        {
+                            SearchItemsTreeView.ItemsSource = searchResultsGroups = newGroups;
+
+                            if (searchResultsGroups.Count > 0)
+                            {
+                                searchResultsGroups[0].IsSelected = true;
+                                selectedSearchResultGroup = 0;
+                            }
+                            else
+                            {
+                                selectedSearchResultGroup = 0;
+                            }
+
+                            scrollToTop = true;
+                        }
+                    }
+
+                    if(scrollToTop)
+                    {
+                        if (VisualTreeHelper.GetChildrenCount(SearchItemsControl) > 0)
+                        {
+                            Border childBorder = VisualTreeHelper.GetChild(SearchItemsControl, 0) as Border;
+                            if (childBorder != null && VisualTreeHelper.GetChildrenCount(childBorder) > 0)
+                            {
+                                ScrollViewer childScrollbar = VisualTreeHelper.GetChild(childBorder, 0) as ScrollViewer;
+                                if (childScrollbar != null)
+                                {
+                                    childScrollbar.ScrollToTop();
+                                }
+                            }
+                        }
                     }
 
                     foreach (string error in errors.Split('\n'))
                     {
                         ProcessErrorMessage(error);
-                    }
-
-                    if (searchResults.Count > 0)
-                    {
-                        searchResults[0].IsSelected = true;
-                        selectedSearchResult = 0;
-                    }
-                    else
-                    {
-                        selectedSearchResult = -1;
-                    }
-
-                    if(searchResultsGroups.Count > 0)
-                    {
-                        searchResultsGroups[0].IsSelected = true;
-                        selectedSearchResultGroup = 0;
-                    }
-                    else
-                    {
-                        selectedSearchResultGroup = 0;
                     }
 
                     if (System.Diagnostics.Debugger.IsAttached)
@@ -705,6 +742,50 @@ namespace qgrepControls.SearchWindow
                     ProcessQueue();
                 }));
             });
+        }
+
+        private bool SearchResultsAreIdentical(ObservableCollection<SearchResult> oldResults, ObservableCollection<SearchResult> newResults)
+        {
+            if(oldResults.Count != newResults.Count) 
+            { 
+                return false;
+            }
+
+            for(int i = 0; i <  oldResults.Count; i++)
+            {
+                if (!oldResults[i].FullResult.Equals(newResults[i].FullResult))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool SearchGroupsAreIdentical(ObservableCollection<SearchResultGroup> oldResults, ObservableCollection<SearchResultGroup> newResults)
+        {
+            if (oldResults.Count != newResults.Count)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < oldResults.Count; i++)
+            {
+                if (oldResults[i].SearchResults.Count != newResults[i].SearchResults.Count)
+                {
+                    return false;
+                }
+
+                for(int j = 0; j < oldResults[i].SearchResults.Count; j++)
+                {
+                    if (!oldResults[i].SearchResults[j].FullResult.Equals(newResults[i].SearchResults[j].FullResult))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void SearchResult_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -1025,13 +1106,14 @@ namespace qgrepControls.SearchWindow
                 return;
             }
 
-            ExtensionInterface.CreateWindow(new qgrepControls.SearchWindow.ProjectsWindow(this), "Search configurations", this).ShowModal();
+            CreateWindow(new qgrepControls.SearchWindow.ProjectsWindow(this), "Search configurations", this).ShowDialog();
             UpdateWarning();
+            UpdateDatabase();
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            ExtensionInterface.CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowModal();
+            CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowDialog();
             Find();
         }
 
@@ -1183,7 +1265,7 @@ namespace qgrepControls.SearchWindow
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            ExtensionInterface.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this).ShowModal();
+            CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this).ShowDialog();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)
@@ -1349,6 +1431,32 @@ namespace qgrepControls.SearchWindow
         {
             ((TreeViewItem)sender).BringIntoView();
             e.Handled = true;
+        }
+
+        public MainWindow CreateWindow(UserControl userControl, string title, UserControl owner)
+        {
+            MainWindow newWindow = new MainWindow
+            {
+                Title = title,
+                Content = userControl,
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.NoResize,
+                Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner),
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            };
+
+            Dictionary<string, object> resources = GetResourcesFromColorScheme();
+            foreach (var resource in resources)
+            {
+                userControl.Resources[resource.Key] = resource.Value;
+
+                if (newWindow != null)
+                {
+                    newWindow.Resources[resource.Key] = resource.Value;
+                }
+            }
+
+            return newWindow;
         }
     }
 }

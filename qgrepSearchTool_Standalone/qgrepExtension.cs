@@ -1,4 +1,5 @@
-﻿using qgrepControls.Classes;
+﻿using ControlzEx;
+using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,10 @@ namespace qgrepSearchTool_Standalone
 
     class qgrepExtension : IExtensionInterface
     {
+        Window Window;
         public qgrepExtension(Window window)
         {
+            Window = window;
         }
 
         public bool WindowOpened 
@@ -64,7 +67,7 @@ namespace qgrepSearchTool_Standalone
 
         public IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner)
         {
-            Window newWindow = new Window
+            MainWindow newWindow = new MainWindow
             {
                 Title = title,
                 Content = userControl,
@@ -113,6 +116,15 @@ namespace qgrepSearchTool_Standalone
         {
             Random random = new Random(DateTime.Now.Millisecond);
             return Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
+        }
+
+        public void RefreshResources(Dictionary<string, object> newResources)
+        {
+            foreach(var resource in newResources)
+            {
+                Window.Resources[resource.Key] = resource.Value;
+                Application.Current.Resources[resource.Key] = resource.Value;
+            }
         }
     }
 }

@@ -201,5 +201,17 @@ namespace qgrepControls.Properties {
                 this["ColorOverrides"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int PathStyleIndex {
+            get {
+                return ((int)(this["PathStyleIndex"]));
+            }
+            set {
+                this["PathStyleIndex"] = value;
+            }
+        }
     }
 }

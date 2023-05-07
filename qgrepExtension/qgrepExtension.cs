@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
+using qgrepControls;
 using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
 using System;
@@ -13,29 +14,29 @@ using System.Windows.Controls;
 
 namespace qgrepSearch
 {
-    public class qgrepExtensionWindow : IExtensionWindow
-    {
-        private DialogWindow dialogWindow;
-        public qgrepExtensionWindow(DialogWindow dialogWindow)
-        {
-            this.dialogWindow = dialogWindow;
-        }
+    //public class qgrepExtensionWindow : IExtensionWindow
+    //{
+    //    private MainWindow dialogWindow;
+    //    public qgrepExtensionWindow(MainWindow dialogWindow)
+    //    {
+    //        this.dialogWindow = dialogWindow;
+    //    }
 
-        public void ShowModal()
-        {
-            dialogWindow.ShowModal();
-        }
+    //    public void ShowModal()
+    //    {
+    //        dialogWindow.ShowDialog();
+    //    }
 
-        public void Close()
-        {
-            dialogWindow.Close();
-        }
+    //    public void Close()
+    //    {
+    //        dialogWindow.Close();
+    //    }
 
-        public void Show()
-        {
-            dialogWindow.Show();
-        }
-    }
+    //    public void Show()
+    //    {
+    //        dialogWindow.Show();
+    //    }
+    //}
 
     public class qgrepExtension : IExtensionInterface
     {
@@ -92,19 +93,21 @@ namespace qgrepSearch
 
         public IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner)
         {
-            return new qgrepExtensionWindow(
-                new DialogWindow
-                {
-                    Title = title,
-                    Content = userControl,
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    HasMinimizeButton = false,
-                    HasMaximizeButton = false,
-                    //Owner = qgrepSearchWindowControl.FindAncestor<DialogWindow>(owner),
-                    //WindowStartupLocation = WindowStartupLocation.CenterOwner
-                }
-            );
+            return null;
+
+            //return new qgrepExtensionWindow(
+            //    new MainWindow
+            //    {
+            //        Title = title,
+            //        Content = userControl,
+            //        SizeToContent = SizeToContent.WidthAndHeight,
+            //        ResizeMode = ResizeMode.NoResize,
+            //        //HasMinimizeButton = false,
+            //        //HasMaximizeButton = false,
+            //        //Owner = qgrepSearchWindowControl.FindAncestor<DialogWindow>(owner),
+            //        //WindowStartupLocation = WindowStartupLocation.CenterOwner
+            //    }
+            //);
         }
 
         public List<string> GatherAllFoldersFromSolution()
@@ -219,6 +222,10 @@ namespace qgrepSearch
                 }
                 return null;
             }
+        }
+
+        public void RefreshResources(Dictionary<string, object> newResources)
+        {
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using qgrepControls.Properties;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -231,17 +232,62 @@ namespace qgrepControls.Classes
             }
         }
 
+        public static string GetCommonPathPrefix(string path1, string path2)
+        {
+            int minLength = Math.Min(path1.Length, path2.Length);
+            int commonLength = 0;
+
+            for (int i = 0; i < minLength; i++)
+            {
+                if (path1[i] == path2[i])
+                {
+                    commonLength++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            string commonPathPrefix = path1.Substring(0, commonLength);
+
+            return commonPathPrefix;
+        }
+
         public string RemovePaths(string file)
         {
-            foreach (ConfigProject configProject in ConfigProjects)
+            if (Settings.Default.PathStyleIndex == 1)
             {
-                foreach (ConfigGroup configGroup in configProject.Groups)
+                foreach (ConfigProject configProject in ConfigProjects)
                 {
-                    foreach (string path in configGroup.Paths)
+                    bool foundFirstPath = false;
+                    string commonPathPrefix = "";
+
+                    foreach (ConfigGroup configGroup in configProject.Groups)
                     {
-                        file = file.Replace(path, "");
+                        foreach (string path in configGroup.Paths)
+                        {
+                            if (!foundFirstPath)
+                            {
+                                foundFirstPath = true;
+                                commonPathPrefix = path;
+                            }
+                            else
+                            {
+                                commonPathPrefix = GetCommonPathPrefix(commonPathPrefix, path);
+                            }
+                        }
+                    }
+
+                    if (commonPathPrefix.Length > 0)
+                    {
+                        file = file.Replace(commonPathPrefix, "");
                     }
                 }
+            }
+            else if(Settings.Default.PathStyleIndex == 2)
+            {
+                file = System.IO.Path.GetFileName(file);
             }
 
             return file;

@@ -256,6 +256,98 @@
             {
                 "Name": "MenuItem.IsMouseOver.Border",
                 "Color": "Environment.CommandBarMenuItemMouseOverBorder"
+            },
+            {
+                "Name": "ScrollBar.Background",
+                "Color": "Environment.ScrollBarBackground"
+            },
+            {
+                "Name": "ScrollBar.Thumb",
+                "Color": "Environment.ScrollBarThumbBackground"
+            },
+            {
+                "Name": "ScrollBar.Thumb.IsMouseOver",
+                "Color": "Environment.ScrollBarThumbMouseOverBackground"
+            },
+            {
+                "Name": "ScrollBar.Thumb.IsMouseDown",
+                "Color": "Environment.ScrollBarThumbPressedBackground"
+            },
+            {
+                "Name": "ScrollBar.Button.Background",
+                "Color": "Environment.ScrollBarArrowBackground"
+            },
+            {
+                "Name": "ScrollBar.Button.Arrow",
+                "Color": "Environment.ScrollBarArrowGlyph"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseOver.Background",
+                "Color": "Environment.ScrollBarArrowMouseOverBackground"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseOver.Arrow",
+                "Color": "Environment.ScrollBarArrowGlyphMouseOver"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseDown.Background",
+                "Color": "Environment.ScrollBarArrowPressedBackground"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseDown.Arrow",
+                "Color": "Environment.ScrollBarArrowGlyphPressed"
+            },
+            {
+                "Name": "Window.Background",
+                "Color": "Environment.ToolWindowFloatingFrame"
+            },
+            {
+                "Name": "Window.Foreground",
+                "Color": "Environment.ToolWindowFloatingFrameText"
+            },
+            {
+                "Name": "Window.Border",
+                "Color": "Environment.MainWindowActiveDefaultBorder"
+            },
+            {
+                "Name": "Window.Button.Background",
+                "Color": "Environment.ToolWindowFloatingFrame"
+            },
+            {
+                "Name": "Window.Button.Icon",
+                "Color": "Environment.RaftedWindowButtonActiveGlyph"
+            },
+            {
+                "Name": "Window.Button.IsMouseOver.Background",
+                "Color": "Environment.RaftedWindowButtonHoverActive"
+            },
+            {
+                "Name": "Window.Button.IsMouseOver.Icon",
+                "Color": "Environment.RaftedWindowButtonHoverActiveGlyph"
+            },
+            {
+                "Name": "Window.Button.IsMouseDown.Background",
+                "Color": "Environment.RaftedWindowButtonDown"
+            },
+            {
+                "Name": "Window.Button.IsMouseDown.Icon",
+                "Color": "Environment.RaftedWindowButtonDownGlyph"
+            },
+            {
+                "Name": "TreeViewItem.Icon",
+                "Color": "TreeView.Glyph"
+            },
+            {
+                "Name": "TreeViewItem.IsMouseOver.Icon",
+                "Color": "TreeView.GlyphMouseOver"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.Icon",
+                "Color": "TreeView.SelectedItemActiveGlyph"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
+                "Color": "TreeView.SelectedItemActiveGlyphMouseOver"
             }
         ]
     },
@@ -517,7 +609,100 @@
             {
                 "Name": "PanelRow.IsSelected.Background",
                 "Color": "39, 80, 121"
+            },
+            {
+                "Name": "ScrollBar.Background",
+                "Color": "46, 46, 46"
+            },
+            {
+                "Name": "ScrollBar.Thumb",
+                "Color": "77, 77, 77"
+            },
+            {
+                "Name": "ScrollBar.Thumb.IsMouseOver",
+                "Color": "153, 153, 153"
+            },
+            {
+                "Name": "ScrollBar.Thumb.IsMouseDown",
+                "Color": "153, 153, 153"
+            },
+            {
+                "Name": "ScrollBar.Button.Background",
+                "Color": "46, 46, 46"
+            },
+            {
+                "Name": "ScrollBar.Button.Arrow",
+                "Color": "153, 153, 153"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseOver.Background",
+                "Color": "153, 153, 153"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseOver.Arrow",
+                "Color": "31, 31, 31"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseDown.Background",
+                "Color": "153, 153, 153"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseDown.Arrow",
+                "Color": "31, 31, 31"
+            },
+            {
+                "Name": "Window.Background",
+                "Color": "46, 46, 46"
+            },
+            {
+                "Name": "Window.Foreground",
+                "Color": "White"
+            },
+            {
+                "Name": "Window.Border",
+                "Color": "61, 61, 61"
+            },
+            {
+                "Name": "Window.Button.Background",
+                "Color": "46, 46, 46"
+            },
+            {
+                "Name": "Window.Button.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "Window.Button.IsMouseOver.Background",
+                "Color": "77, 77, 77"
+            },
+            {
+                "Name": "Window.Button.IsMouseOver.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "Window.Button.IsMouseDown.Background",
+                "Color": "102, 102, 102"
+            },
+            {
+                "Name": "Window.Button.IsMouseDown.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "TreeViewItem.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "TreeViewItem.IsMouseOver.Icon",
+                "Color": "0, 122, 204"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
+                "Color": "214, 214, 214"
             }
+
         ]
     },
     {
@@ -778,267 +963,98 @@
             {
                 "Name": "PanelRow.IsSelected.Background",
                 "Color": "147, 195, 233"
-            }
-        ]
-    },
-    {
-        "Name": "Legacy",
-        "ColorEntries": [
-            {
-                "Name": "Background",
-                "Color": "25, 35, 44"
             },
             {
-                "Name": "Foreground",
-                "Color": "White"
+                "Name": "ScrollBar.Background",
+                "Color": "245, 245, 245"
             },
             {
-                "Name": "Selection",
-                "Color": "0, 120, 215"
+                "Name": "ScrollBar.Thumb",
+                "Color": "194, 195, 201"
             },
             {
-                "Name": "TextBox.Background",
-                "Color": "35, 45, 54"
+                "Name": "ScrollBar.Thumb.IsMouseOver",
+                "Color": "104, 104, 104"
             },
             {
-                "Name": "Result.File.Foreground",
-                "Color": "DarkGray"
+                "Name": "ScrollBar.Thumb.IsMouseDown",
+                "Color": "91, 91, 91"
             },
             {
-                "Name": "Result.Text.Foreground",
-                "Color": "AliceBlue"
+                "Name": "ScrollBar.Button.Background",
+                "Color": "245, 245, 245"
             },
             {
-                "Name": "Result.Highlight.Foreground",
-                "Color": "DeepSkyBlue"
+                "Name": "ScrollBar.Button.Arrow",
+                "Color": "134, 137, 153"
             },
             {
-                "Name": "Result.Highlight.Background",
-                "Color": "Transparent"
+                "Name": "ScrollBar.Button.IsMouseOver.Background",
+                "Color": "245, 245, 245"
             },
             {
-                "Name": "Result.IsMouseOver.Background",
-                "Color": "49, 69, 87"
+                "Name": "ScrollBar.Button.IsMouseOver.Arrow",
+                "Color": "28, 151, 234"
             },
             {
-                "Name": "Result.IsSelected.Background",
-                "Color": "15, 92, 148"
+                "Name": "ScrollBar.Button.IsMouseDown.Background",
+                "Color": "245, 245, 245"
             },
             {
-                "Name": "IconButton.Background",
-                "Color": "Transparent"
+                "Name": "ScrollBar.Button.IsMouseDown.Arrow",
+                "Color": "0, 108, 190"
             },
             {
-                "Name": "IconButton.Foreground",
-                "Color": "Gray"
+                "Name": "Window.Background",
+                "Color": "238, 238, 242"
             },
             {
-                "Name": "IconButton.IsMouseOver.Background",
-                "Color": "Transparent"
+                "Name": "Window.Foreground",
+                "Color": "82, 82, 82"
             },
             {
-                "Name": "IconButton.IsMouseOver.Foreground",
-                "Color": "White"
+                "Name": "Window.Border",
+                "Color": "155, 159, 185"
             },
             {
-                "Name": "Border",
-                "Color": "171, 173, 179"
+                "Name": "Window.Button.Background",
+                "Color": "238, 238, 242"
             },
             {
-                "Name": "Border.IsMouseOver",
-                "Color": "0, 200, 215"
+                "Name": "Window.Button.Icon",
+                "Color": "30, 30, 30"
             },
             {
-                "Name": "Border.IsSelected",
-                "Color": "0, 120, 215"
+                "Name": "Window.Button.IsMouseOver.Background",
+                "Color": "255, 255, 255"
             },
             {
-                "Name": "TextBox.Hint.Background",
-                "Color": "Transparent"
+                "Name": "Window.Button.IsMouseOver.Icon",
+                "Color": "0, 108, 190"
             },
             {
-                "Name": "TextBox.Hint.Foreground",
-                "Color": "Gray"
+                "Name": "Window.Button.IsMouseDown.Background",
+                "Color": "0, 108, 190"
             },
             {
-                "Name": "Overlay.Background",
-                "Color": "124, 0, 0, 0"
+                "Name": "Window.Button.IsMouseDown.Icon",
+                "Color": "255, 255, 255"
             },
             {
-                "Name": "Button.IsDisabled.Background",
-                "Color": "56, 97, 141"
+                "Name": "TreeViewItem.Icon",
+                "Color": "30, 30, 30"
             },
             {
-                "Name": "Button.IsDisabled.Foreground",
-                "Color": "180, 196, 212"
+                "Name": "TreeViewItem.IsMouseOver.Icon",
+                "Color": "0, 108, 190"
             },
             {
-                "Name": "Button.IsDisabled.Border",
-                "Color": "56, 97, 141"
+                "Name": "TreeViewItem.IsSelected.Icon",
+                "Color": "255, 255, 255"
             },
             {
-                "Name": "Button.Background",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "Button.Foreground",
-                "Color": "White"
-            },
-            {
-                "Name": "Button.Border",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "Button.IsMouseOver.Background",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "Button.IsMouseOver.Border",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "Button.IsMouseDown.Background",
-                "Color": "2, 23, 45"
-            },
-            {
-                "Name": "Button.IsMouseDown.Foreground",
-                "Color": "White"
-            },
-            {
-                "Name": "Button.IsMouseDown.Border",
-                "Color": "2, 23, 45"
-            },
-            {
-                "Name": "ComboBox.Background",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "ComboBox.IsMouseOver.Background",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "ComboBox.Border",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "ComboBox.IsMouseOver.Border",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "ComboBox.Foreground",
-                "Color": "White"
-            },
-            {
-                "Name": "ComboBox.Popup.Border",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "ComboBoxItem.Background",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "ComboBoxItem.IsMouseOver.Background",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "ComboBoxItem.IsMouseOver.Foreground",
-                "Color": "White"
-            },
-            {
-                "Name": "ComboBoxItem.Border",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "ComboBoxItem.IsMouseOver.Border",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "TextBox.Toggle.Foreground",
-                "Color": "87, 93, 122"
-            },
-            {
-                "Name": "TextBox.Toggle.IsMouseOver.Foreground",
-                "Color": "171, 174, 189"
-            },
-            {
-                "Name": "TextBox.Toggle.IsChecked.Foreground",
-                "Color": "White"
-            },
-            {
-                "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
-                "Color": "221, 223, 228"
-            },
-            {
-                "Name": "CheckBox.Background",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "CheckBox.IsMouseOver.Background",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "CheckBox.IsMouseDown.Background",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "CheckBox.Border",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "CheckBox.IsMouseOver.Border",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "CheckBox.IsMouseDown.Border",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "CheckBox.Mark",
-                "Color": "White"
-            },
-            {
-                "Name": "CheckBox.IsMouseOver.Mark",
-                "Color": "White"
-            },
-            {
-                "Name": "CheckBox.IsMouseDown.Mark",
-                "Color": "White"
-            },
-            {
-                "Name": "CheckBox.Foreground",
-                "Color": "White"
-            },
-            {
-                "Name": "Menu.Separator",
-                "Color": "26, 111, 150"
-            },
-            {
-                "Name": "Menu.Background",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "Menu.Foreground",
-                "Color": "White"
-            },
-            {
-                "Name": "Menu.Border",
-                "Color": "30, 129, 176"
-            },
-            {
-                "Name": "MenuItem.IsMouseOver.Background",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "MenuItem.IsMouseOver.Border",
-                "Color": "6, 57, 112"
-            },
-            {
-                "Name": "PanelRow.IsMouseOver.Background",
-                "Color": "49, 69, 87"
-            },
-            {
-                "Name": "PanelRow.IsSelected.Background",
-                "Color": "15, 92, 148"
+                "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
+                "Color": "255, 255, 255"
             }
         ]
     }
