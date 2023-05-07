@@ -170,6 +170,14 @@
                 "Color": "CommonControls.ComboBoxText"
             },
             {
+                "Name": "ComboBox.Icon",
+                "Color": "CommonControls.ComboBoxGlyph"
+            },
+            {
+                "Name": "ComboBox.IsDisabled.Icon",
+                "Color": "CommonControls.ComboBoxGlyphDisabled"
+            },
+            {
                 "Name": "ComboBox.Popup.Border",
                 "Color": "CommonControls.ComboBoxListBorder"
             },
@@ -499,6 +507,14 @@
                 "Color": "White"
             },
             {
+                "Name": "ComboBox.Icon",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "ComboBox.IsDisabled.Icon",
+                "Color": "128, 128, 128"
+            },
+            {
                 "Name": "ComboBox.Popup.Border",
                 "Color": "102, 102, 102"
             },
@@ -811,6 +827,14 @@
             {
                 "Name": "Button.Border",
                 "Color": "172, 172, 172"
+            },
+            {
+                "Name": "ComboBox.Icon",
+                "Color": "113, 113, 113"
+            },
+            {
+                "Name": "ComboBox.IsDisabled.Icon",
+                "Color": "204, 206, 219"
             },
             {
                 "Name": "Button.IsMouseOver.Background",

@@ -20,14 +20,14 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="34"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Name:" />
+        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Target:" />
         <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Color:" />
         <ComboBox Grid.Row="0" Grid.Column="1" x:Name="OverrideName" Height="22" Width="230" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="OverrideName_SelectionChanged" DisplayMemberPath="Name" ItemsSource="{Binding}"/>
         <Grid Grid.Row="1" Grid.Column="1">
             <wpfTool:ColorPicker x:Name="OverrideColor" Width="230" HorizontalAlignment="Left" Margin="5,0,5,0" ColorMode="ColorCanvas" ShowTabHeaders="False"/>
         </Grid>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
-            <Button x:Name="OK" Content="Save" Margin="0,0,5,0" Click="OK_Click" />
+            <Button x:Name="OK" Content="Save" Margin="0,0,5,0" Click="OK_Click" ToolTipService.ShowOnDisabled="True"/>
             <Button x:Name="Cancel" Content="Cancel" Margin="0,0,5,0" Click="Cancel_Click"/>
         </StackPanel>
     </Grid>

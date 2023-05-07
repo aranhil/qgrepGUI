@@ -61,6 +61,7 @@ namespace qgrepControls.ColorsWindow
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
+            Parent.EditOverride(this);
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
