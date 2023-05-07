@@ -1,7 +1,9 @@
 ﻿using qgrepControls.SearchWindow;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace qgrepControls
 {

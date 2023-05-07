@@ -170,11 +170,11 @@
                 "Color": "CommonControls.ComboBoxText"
             },
             {
-                "Name": "ComboBox.Icon",
+                "Name": "ComboBox.Arrow",
                 "Color": "CommonControls.ComboBoxGlyph"
             },
             {
-                "Name": "ComboBox.IsDisabled.Icon",
+                "Name": "ComboBox.IsDisabled.Arrow",
                 "Color": "CommonControls.ComboBoxGlyphDisabled"
             },
             {
@@ -507,11 +507,11 @@
                 "Color": "White"
             },
             {
-                "Name": "ComboBox.Icon",
+                "Name": "ComboBox.Arrow",
                 "Color": "214, 214, 214"
             },
             {
-                "Name": "ComboBox.IsDisabled.Icon",
+                "Name": "ComboBox.IsDisabled.Arrow",
                 "Color": "128, 128, 128"
             },
             {
@@ -829,11 +829,11 @@
                 "Color": "172, 172, 172"
             },
             {
-                "Name": "ComboBox.Icon",
+                "Name": "ComboBox.Arrow",
                 "Color": "113, 113, 113"
             },
             {
-                "Name": "ComboBox.IsDisabled.Icon",
+                "Name": "ComboBox.IsDisabled.Arrow",
                 "Color": "204, 206, 219"
             },
             {

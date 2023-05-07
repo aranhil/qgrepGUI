@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="400" Height="400">
+             Width="400" Height="400" PreviewKeyDown="UserControl_PreviewKeyDown">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>

@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="300" Height="150">
+             Width="300" Height="175">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
@@ -22,20 +22,23 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Include files:" />
         <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Exclude files:" />
         <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Filter results:" />
-        <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Group by:" />
-        <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Path style:" />
+        <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Show history:" />
+        <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Group by:" />
+        <Label Grid.Row="5" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Path style:" />
         <CheckBox Grid.Row="0" Grid.Column="1" x:Name="ShowIncludes" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="1" Grid.Column="1" x:Name="ShowExcludes" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="2" Grid.Column="1" x:Name="ShowFilter" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
-        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="GroupingComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="GroupingComboBox_SelectionChanged">
+        <CheckBox Grid.Row="3" Grid.Column="1" x:Name="ShowHistory" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
+        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="GroupingComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="GroupingComboBox_SelectionChanged">
             <ComboBoxItem>None</ComboBoxItem>
             <ComboBoxItem>File</ComboBoxItem>
         </ComboBox>
-        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="PathStyleComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="PathStyleComboBox_SelectionChanged">
+        <ComboBox Grid.Row="5" Grid.Column="1" x:Name="PathStyleComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="PathStyleComboBox_SelectionChanged">
             <ComboBoxItem>Absolute path</ComboBoxItem>
             <ComboBoxItem>Relative path</ComboBoxItem>
             <ComboBoxItem>File only</ComboBoxItem>

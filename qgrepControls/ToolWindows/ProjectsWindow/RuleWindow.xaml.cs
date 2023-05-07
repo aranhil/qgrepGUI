@@ -77,10 +77,5 @@ namespace qgrepControls.SearchWindow
                 RegExTextBox.Text += comboBox.Tag as String;
             }
         }
-
-        private void UserControl_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            PredefinedPopup.IsOpen = false;
-        }
     }
 }

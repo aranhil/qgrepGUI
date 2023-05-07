@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown"
-             Width="500" Height="90" PreviewMouseDown="UserControl_PreviewMouseDown">
+             Width="500" Height="90">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
@@ -30,28 +30,51 @@
             <TextBox Grid.Row="1" Grid.Column="1" x:Name="RegExTextBox" Style="{StaticResource SomeTextBoxStyle}" Height="20" Margin="2,0,5,0"/>
             <Button Name="PredefinedButton" Focusable="False" Style="{StaticResource IconButton}" FontSize="12" Margin="0,-1,8,0" Content="💡" HorizontalAlignment="Right" ToolTip="A list of predefined regexes" Click="PredefinedButton_Click">
             </Button>
-            <Popup x:Name="PredefinedPopup" IsOpen="False" PlacementTarget="{Binding ElementName=PredefinedButton}">
-                <StackPanel>
-                    <ComboBoxItem Tag="\.(cs|vb)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">C#, VB.NET</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(cpp|cxx|cc|c|hpp|hxx|hh|h|inl)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">C/C++</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(d)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">D</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(dpr|pas|pp|inc|dfm|lfm|lpi|lpr|dpk|dproj|spp)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Delphi, Pascal</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(fs|fsi|fsx|ml|mli|hs)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">F#, OCaml, Haskell</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(go)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Go</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(htm|html|css|sass|scss)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">HTML, CSS</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(java|js|kt|kts|ts|tsx)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Java, JavaScript, Kotlin, TypeScript</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(jl)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Julia</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(lua|nut)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Lua, Squirrel</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(md|rst|txt)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Markdown, reStructuredText, simple text</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(nim)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Nim</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(m|mm)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Objective C/C++</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(pl|py|pm|rb)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Perl, Python, Ruby</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(php|as)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">PHP, ActionScript</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(rs)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Rust</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(hlsl|glsl|cg|fx|cgfx)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Shaders</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(xml|json|csv)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">XML, JSON, CSV</ComboBoxItem>
-                    <ComboBoxItem Tag="\.(zig)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Zig</ComboBoxItem>
-                </StackPanel>
+            <Popup x:Name="PredefinedPopup" IsOpen="False" PlacementTarget="{Binding ElementName=PredefinedButton}" StaysOpen="False">
+                <ScrollViewer>
+                    <StackPanel>
+                        <ComboBoxItem Tag="\.(sh)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Bash</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(c)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">C</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(cs)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">C#</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(cpp|cxx|cc|h)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">C++</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(css)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">CSS</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(csv)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">CSV</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(dart)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Dart</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(fs|fsx)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">F#</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(go)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Go</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(groovy)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Groovy</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(html|htm)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">HTML</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(hs)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Haskell</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(ini)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">INI</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(json)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">JSON</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(java)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Java</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(js)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">JavaScript</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(kt|kts)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Kotlin</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(log)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Log</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(lua)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Lua</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(m)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">MATLAB</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(md|markdown)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Markdown</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(pl|pm)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Perl</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(php)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">PHP</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(ps1)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">PowerShell</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(py)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Python</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(r)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">R</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(rtf)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Rich Text Format</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(rb)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Ruby</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(rs)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Rust</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(scala)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Scala</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(sh)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Shell Script (Bash)</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(swift)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Swift</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(toml)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">TOML</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(tsv)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">TSV</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(ts)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">TypeScript</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(vb)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">VB.NET</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(xml)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">XML</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(yml|yaml)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">YAML</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(env)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">.env</ComboBoxItem>
+                        <ComboBoxItem Tag="\.(txt)$" PreviewMouseDown="ComboBoxItem_PreviewMouseDown">Plain Text</ComboBoxItem>
+                    </StackPanel>
+                </ScrollViewer>
             </Popup>
         </Grid>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">

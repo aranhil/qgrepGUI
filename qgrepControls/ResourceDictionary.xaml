@@ -45,8 +45,8 @@
     <SolidColorBrush x:Key="ComboBox.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="ComboBox.IsMouseOver.Background" Color="#bee0ec" />
     <SolidColorBrush x:Key="ComboBox.Foreground" Color="Black" />
-    <SolidColorBrush x:Key="ComboBox.Icon" Color="Black" />
-    <SolidColorBrush x:Key="ComboBox.IsDisabled.Icon" Color="Gray" />
+    <SolidColorBrush x:Key="ComboBox.Arrow" Color="Black" />
+    <SolidColorBrush x:Key="ComboBox.IsDisabled.Arrow" Color="Gray" />
     <SolidColorBrush x:Key="ComboBox.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="ComboBox.IsMouseOver.Border" Color="#bee0ec" />
     <SolidColorBrush x:Key="ComboBox.Popup.Border" Color="Black" />
@@ -886,12 +886,12 @@
                         <Border x:Name="Border" Grid.ColumnSpan="2" CornerRadius="0" BorderThickness="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"/>
                         <Border x:Name="BorderHeader" Grid.Column="0" CornerRadius="0" BorderThickness="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"/>
                         <Grid Width="6" Height="3" Grid.Column="1" Margin="-1,0,0,0">
-                            <Path x:Name="Arrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Fill="{DynamicResource ComboBox.Icon}" Stretch="Fill"/>
+                            <Path x:Name="Arrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Fill="{DynamicResource ComboBox.Arrow}" Stretch="Fill"/>
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Fill" Value="{DynamicResource ComboBox.IsDisabled.Icon}" TargetName="Arrow"/>
+                            <Setter Property="Fill" Value="{DynamicResource ComboBox.IsDisabled.Arrow}" TargetName="Arrow"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -1057,11 +1057,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-    <Style x:Key="SomeWindow" TargetType="{x:Type UserControl}">
-        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
-        <Setter Property="Background" Value="{DynamicResource Background}" />
-        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
     </Style>
     <Style TargetType="{x:Type Grid}">
         <Setter Property="Background" Value="{DynamicResource Background}" />
@@ -1343,6 +1338,30 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="PopupContentStyle" TargetType="{x:Type ContentControl}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+        <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}" BorderThickness="10" Margin="-10,-10,0,0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="4" ShadowDepth="3" Opacity="0.4" />
+                            </Border.Effect>
+                            <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="1" Padding="2" BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentPresenter />
+                            </Border>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
         <Setter Property="Height" Value="1" />
@@ -1592,8 +1611,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-        <DrawingBrush  x:Key="CheckerBrush" Viewport="0,0,10,10" ViewportUnits="Absolute" TileMode="Tile">
+
+    <DrawingBrush  x:Key="CheckerBrush" Viewport="0,0,10,10" ViewportUnits="Absolute" TileMode="Tile">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <GeometryDrawing Brush="White">
@@ -1690,7 +1709,7 @@
 
     <SolidColorBrush x:Key="ThumbMouseOver"
                    Color="#FFE5F2F6" />
-    
+
     <SolidColorBrush x:Key="HorizontalSliderTrackNormalBackground"
                    Color="{DynamicResource ComboBox.Background.Color}" />
 
@@ -1770,14 +1789,14 @@
                     <Canvas SnapsToDevicePixels="true"
                   Background="Transparent">
                         <Path x:Name="LeftArrow" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource CheckBox.Border}" Fill="{DynamicResource CheckBox.Background}" Data="F1 M 276.761,316L 262.619,307.835L 262.619,324.165L 276.761,316 Z " RenderTransformOrigin="0.5,0.5" Width="6" Height="8">
-                        <Path.RenderTransform>
+                            <Path.RenderTransform>
                                 <TransformGroup>
                                     <TranslateTransform Y="6" />
                                 </TransformGroup>
                             </Path.RenderTransform>
                         </Path>
                         <Path x:Name="RightArrow" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource CheckBox.Border}" Fill="{DynamicResource CheckBox.Background}" Data="F1 M 276.761,316L 262.619,307.835L 262.619,324.165L 276.761,316 Z " RenderTransformOrigin="0.5,0.5" Width="6" Height="8">
-                        <Path.RenderTransform>
+                            <Path.RenderTransform>
                                 <TransformGroup>
                                     <RotateTransform Angle="-180" />
                                     <TranslateTransform Y="6"
@@ -2639,7 +2658,7 @@
                         </ToggleButton>
 
                         <Popup x:Name="PART_ColorPickerPalettePopup" VerticalAlignment="Bottom" IsOpen="{Binding ElementName=PART_ColorPickerToggleButton, Path=IsChecked}" StaysOpen="False" AllowsTransparency="True" Focusable="False" HorizontalOffset="0" VerticalOffset="1" PopupAnimation="None" ToolTip="{x:Static sys:String.Empty}" Width="{TemplateBinding MaxDropDownWidth}">
-                        <Popup.Resources>
+                            <Popup.Resources>
                                 <Style TargetType="ToolTip">
                                     <Style.Triggers>
                                         <Trigger Property="Content" Value="{x:Static sys:String.Empty}">

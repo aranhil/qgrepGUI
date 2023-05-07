@@ -22,6 +22,8 @@ using System.Windows.Shapes;
 using qgrepControls.ColorsWindow;
 using Xceed.Wpf.AvalonDock.Properties;
 using System.Resources;
+using System.Windows.Controls.Primitives;
+using Xceed.Wpf.AvalonDock.Controls;
 
 namespace qgrepControls.SearchWindow
 {
@@ -123,6 +125,8 @@ namespace qgrepControls.SearchWindow
 
         ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         int selectedSearchResultGroup = -1;
+
+        List<string> searchHistory = new List<string>();
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
@@ -320,6 +324,9 @@ namespace qgrepControls.SearchWindow
 
             visibility = Settings.Default.ShowFilter == true ? Visibility.Visible : Visibility.Collapsed;
             FilterResultsGrid.Visibility = visibility;
+
+            visibility = Settings.Default.ShowHistory == true ? Visibility.Visible : Visibility.Collapsed;
+            HistoryButton.Visibility = visibility;
         }
 
         public void UpdateColorsFromSettings()
@@ -1128,6 +1135,11 @@ namespace qgrepControls.SearchWindow
                 {
                     SearchInput.Text = selectedText;
                     SearchInput.CaretIndex = SearchInput.Text.Length;
+
+                    if(searchHistory.Count == 0 || searchHistory.Last() != selectedText)
+                    {
+                        searchHistory.Add(selectedText);
+                    }
                 }
                 else
                 {
@@ -1288,11 +1300,6 @@ namespace qgrepControls.SearchWindow
         {
             Find();
             SaveOptions();
-        }
-
-        private void UserControl_LostFocus(object sender, RoutedEventArgs e)
-        {
-            ProcessQueue();
         }
 
         private void FiltersComboBox_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
@@ -1457,6 +1464,56 @@ namespace qgrepControls.SearchWindow
             }
 
             return newWindow;
+        }
+
+        private void HistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(searchHistory.Count > 0)
+            {
+                HistoryPanel.Children.Clear();
+
+                foreach(string historyItem in searchHistory)
+                {
+                    MenuItem newMenuItem = new MenuItem() { Header = historyItem };
+                    newMenuItem.Click += HistoryItem_Click;
+
+                    HistoryPanel.Children.Add(newMenuItem);
+                }
+
+                HistoryPopup.IsOpen = true;
+            }
+        }
+
+        public CustomPopupPlacement[] CustomPopupPlacementCallback(Size popupSize, Size targetSize, Point offset)
+        {
+            CustomPopupPlacement placement = new CustomPopupPlacement(
+                new Point(-popupSize.Width + targetSize.Width, targetSize.Height),
+                PopupPrimaryAxis.None
+            );
+
+            return new CustomPopupPlacement[] { placement };
+        }
+
+        private void SearchInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(SearchInput.Text.Length > 0)
+            {
+                if (searchHistory.Count == 0 || searchHistory.Last() != SearchInput.Text)
+                {
+                    searchHistory.Add(SearchInput.Text);
+                }
+            }
+        }
+
+        private void HistoryItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if(menuItem != null)
+            {
+                SearchInput.Text = menuItem.Header as string;
+            }
+
+            HistoryPopup.IsOpen = false;
         }
     }
 }
