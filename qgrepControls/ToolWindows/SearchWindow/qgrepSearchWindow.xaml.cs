@@ -30,6 +30,7 @@ namespace qgrepControls.SearchWindow
     partial class SearchResultGroup : INotifyPropertyChanged
     {
         private bool isSelected = false;
+        private bool isExpanded = false;
 
         public int Index { get; set; }
         public string File { get; set; } = "";
@@ -45,6 +46,18 @@ namespace qgrepControls.SearchWindow
             set
             {
                 isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsExpanded
+        {
+            get
+            {
+                return isExpanded;
+            }
+            set
+            {
+                isExpanded = value;
                 OnPropertyChanged();
             }
         }
@@ -203,9 +216,12 @@ namespace qgrepControls.SearchWindow
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                if (Settings.Default["LastUpdated"] != null)
+                if(!EngineBusy)
                 {
-                    InitInfo.Content = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
+                    if (Settings.Default["LastUpdated"] != null)
+                    {
+                        InitInfo.Content = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
+                    }
                 }
             }));
         }
@@ -331,6 +347,12 @@ namespace qgrepControls.SearchWindow
 
         public void UpdateColorsFromSettings()
         {
+            if(ExtensionInterface.IsStandalone && Settings.Default.ColorScheme == 0)
+            {
+                Settings.Default.ColorScheme = 1;
+                Settings.Default.Save();
+            }
+
             Dictionary<string, object> resources = GetResourcesFromColorScheme();
 
             foreach (var resource in resources)
@@ -492,7 +514,7 @@ namespace qgrepControls.SearchWindow
             }
             else
             {
-                arguments.Add("L10000");
+                arguments.Add("L6000");
             }
 
             arguments.Add("V");
@@ -703,6 +725,33 @@ namespace qgrepControls.SearchWindow
                     {
                         if (!SearchGroupsAreIdentical(searchResultsGroups, newGroups))
                         {
+                            if(Settings.Default.ExpandModeIndex == 1 || Settings.Default.ExpandModeIndex == 2)
+                            {
+                                bool expandAll = true;
+
+                                if(Settings.Default.ExpandModeIndex == 1)
+                                {
+                                    int count = 0;
+                                    foreach (var group in newGroups)
+                                    {
+                                        count += group.SearchResults.Count;
+                                    }
+
+                                    if(count > 500)
+                                    {
+                                        expandAll = false;
+                                    }
+                                }
+
+                                if (expandAll)
+                                {
+                                    foreach (var group in newGroups)
+                                    {
+                                        group.IsExpanded = true;
+                                    }
+                                }
+                            }
+
                             SearchItemsTreeView.ItemsSource = searchResultsGroups = newGroups;
 
                             if (searchResultsGroups.Count > 0)
@@ -751,6 +800,28 @@ namespace qgrepControls.SearchWindow
             });
         }
 
+        private bool ResultsAreIdentical(SearchResult oldResult, SearchResult newResult)
+        {
+            if (!oldResult.FullFile.Equals(newResult.FullFile))
+            {
+                return false;
+            }
+            if (!oldResult.BeginText.Equals(newResult.BeginText))
+            {
+                return false;
+            }
+            if (!oldResult.HighlightedText.Equals(newResult.HighlightedText))
+            {
+                return false;
+            }
+            if (!oldResult.EndText.Equals(newResult.EndText))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private bool SearchResultsAreIdentical(ObservableCollection<SearchResult> oldResults, ObservableCollection<SearchResult> newResults)
         {
             if(oldResults.Count != newResults.Count) 
@@ -760,7 +831,7 @@ namespace qgrepControls.SearchWindow
 
             for(int i = 0; i <  oldResults.Count; i++)
             {
-                if (!oldResults[i].FullResult.Equals(newResults[i].FullResult))
+                if (!ResultsAreIdentical(oldResults[i], newResults[i]))
                 {
                     return false;
                 }
@@ -785,7 +856,7 @@ namespace qgrepControls.SearchWindow
 
                 for(int j = 0; j < oldResults[i].SearchResults.Count; j++)
                 {
-                    if (!oldResults[i].SearchResults[j].FullResult.Equals(newResults[i].SearchResults[j].FullResult))
+                    if (!ResultsAreIdentical(oldResults[i].SearchResults[j], newResults[i].SearchResults[j]))
                     {
                         return false;
                     }

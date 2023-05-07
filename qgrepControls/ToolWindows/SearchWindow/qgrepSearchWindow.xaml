@@ -102,6 +102,8 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus"/>
                     <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource SomeTreeViewItem}">
                         <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>
                         <EventSetter Event="Selected" Handler="OnSelected"/>
+                        <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                     </Style>
                 </TreeView.ItemContainerStyle>
                 <TreeView.Resources>

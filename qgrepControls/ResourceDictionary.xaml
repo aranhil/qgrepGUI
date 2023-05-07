@@ -1108,7 +1108,7 @@
     </Style>
     <Style x:Key="ResultLine" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Margin" Value="5,0,5,0" />
-        <Setter Property="Width" Value="30" />
+        <Setter Property="Width" Value="40" />
         <Setter Property="TextAlignment" Value="Right" />
         <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
         <Setter Property="FontWeight" Value="Bold" />

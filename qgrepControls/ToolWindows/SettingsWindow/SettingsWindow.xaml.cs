@@ -21,6 +21,7 @@ namespace qgrepControls.SearchWindow
             ShowHistory.IsChecked = Settings.Default.ShowHistory;
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
             PathStyleComboBox.SelectedIndex = Settings.Default.PathStyleIndex;
+            ExpandModeComboBox.SelectedIndex = Settings.Default.ExpandModeIndex;
 
             SearchWindow.LoadColorsFromResources(this);
         }
@@ -64,6 +65,12 @@ namespace qgrepControls.SearchWindow
         private void PathStyleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Settings.Default.PathStyleIndex = PathStyleComboBox.SelectedIndex;
+            Settings.Default.Save();
+        }
+
+        private void ExpandModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Settings.Default.ExpandModeIndex = ExpandModeComboBox.SelectedIndex;
             Settings.Default.Save();
         }
     }

@@ -225,5 +225,17 @@ namespace qgrepControls.Properties {
                 this["ShowHistory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ExpandModeIndex {
+            get {
+                return ((int)(this["ExpandModeIndex"]));
+            }
+            set {
+                this["ExpandModeIndex"] = value;
+            }
+        }
     }
 }

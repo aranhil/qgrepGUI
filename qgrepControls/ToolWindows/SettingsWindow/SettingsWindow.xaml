@@ -6,7 +6,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="300" Height="175">
+             Width="300" Height="200">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
@@ -23,6 +23,7 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Include files:" />
         <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Exclude files:" />
@@ -30,6 +31,7 @@
         <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Show history:" />
         <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Group by:" />
         <Label Grid.Row="5" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Path style:" />
+        <Label Grid.Row="6" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Group expand:" />
         <CheckBox Grid.Row="0" Grid.Column="1" x:Name="ShowIncludes" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="1" Grid.Column="1" x:Name="ShowExcludes" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="2" Grid.Column="1" x:Name="ShowFilter" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
@@ -42,6 +44,11 @@
             <ComboBoxItem>Absolute path</ComboBoxItem>
             <ComboBoxItem>Relative path</ComboBoxItem>
             <ComboBoxItem>File only</ComboBoxItem>
+        </ComboBox>
+        <ComboBox Grid.Row="6" Grid.Column="1" x:Name="ExpandModeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ExpandModeComboBox_SelectionChanged">
+            <ComboBoxItem>Never</ComboBoxItem>
+            <ComboBoxItem>Automatic</ComboBoxItem>
+            <ComboBoxItem>Always</ComboBoxItem>
         </ComboBox>
     </Grid>
 </UserControl>
