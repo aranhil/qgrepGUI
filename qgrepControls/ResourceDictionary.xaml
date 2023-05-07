@@ -1429,58 +1429,162 @@
         </Style.Triggers>
     </Style>
 
-    <!--<Style  TargetType="CheckBox" >
-        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
-        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+    <Style x:Key="WindowTitleBarButton" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Background" Value="{DynamicResource Window.Button.Background}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.Background}" />
+            <Setter Property="Foreground" Value="{DynamicResource Window.Button.Icon}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="Button.IsDefaulted" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>-->
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Window.Button.IsMouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Window.Button.IsMouseOver.Background}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="controlzEx:NonClientControlProperties.IsNCMouseOver" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
+            </Trigger>
+            <Trigger Property="controlzEx:NonClientControlProperties.IsNCPressed" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="CloseButton" TargetType="Button" BasedOn="{StaticResource WindowTitleBarButton}">
+        <Setter Property="Content">
+            <Setter.Value>
+                <Path Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="MyWindowStyle" TargetType="{x:Type controlzEx:WindowChromeWindow}">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="UseRadialGradientForCorners" Value="True" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="NCActiveBrush" Value="{DynamicResource Window.Background}" />
+        <Setter Property="NCCurrentBrush" Value="{DynamicResource Window.Background}" />
+        <Setter Property="NCNonActiveBrush" Value="{DynamicResource Window.Background}" />
+        <Setter Property="GlowDepth" Value="1" />
+        <Setter Property="GlowColor" Value="{DynamicResource Window.Border.Color}" />
+        <Setter Property="NonActiveGlowColor" Value="{DynamicResource Window.Border.Color}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="CheckBox">
-                    <Grid x:Name="ab" Background="Transparent">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Rectangle VerticalAlignment="Center" Height="20" Width="20"  Fill="White" HorizontalAlignment="Left"></Rectangle>
-                        <Grid x:Name="checkGrid" VerticalAlignment="Center" Height="20" Width="20" Background="Black" HorizontalAlignment="Left">
-                            <Viewbox Height="13" Width="13">
-                                <Path x:Name="Check" SnapsToDevicePixels="True" UseLayoutRounding="True" Width="18.7969" Height="16.3094" Canvas.Left="0" Canvas.Top="1.52588e-005" Stretch="Fill" Fill="White" Data="F1 M 0.731262,8.75935L 0.106262,8.08437C 0.0354614,7.9948 0,7.8979 0,7.79375C 0,7.66875 0.0479736,7.5573 0.143799,7.45937L 1.94067,5.77187C 2.02606,5.69893 2.12708,5.66249 2.24377,5.66249C 2.30212,5.66249 2.36096,5.67397 2.42035,5.69685C 2.47974,5.71977 2.52814,5.75417 2.56567,5.79997L 7.5188,11.1406L 16.0438,0.165604C 16.1417,0.055191 16.2584,1.52588e-005 16.3938,1.52588e-005C 16.4979,1.52588e-005 16.5896,0.0322723 16.6688,0.0968475L 18.6313,1.60939C 18.6709,1.64272 18.7084,1.69011 18.7438,1.75154C 18.7792,1.813 18.7969,1.8698 18.7969,1.92189C 18.7969,2.03435 18.7646,2.1385 18.7,2.23439L 7.74377,16.3094L 0.731262,8.75935 Z " />
-                            </Viewbox>
-                        </Grid>
-                        <Grid Background="Transparent" Grid.Column="1" IsHitTestVisible="True" HorizontalAlignment="Stretch">
-                            <TextBlock VerticalAlignment="Center"  FontSize="18" FontFamily="Segoe Ui Dark" Foreground="Black"  TextTrimming="CharacterEllipsis">
-                        <ContentPresenter></ContentPresenter>
-                            </TextBlock>
+                <ControlTemplate TargetType="{x:Type controlzEx:WindowChromeWindow}">
+                    <Grid Background="{TemplateBinding Background}"
+                                  Margin="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="29" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0"
+                  VerticalAlignment="Center"
+                  controlzEx:WindowChrome.IsHitTestVisibleInChrome="False"
+                  controlzEx:NonClientControlProperties.HitTestResult="CAPTION">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.ColumnSpan="10" Background="{Binding ElementName=Window, Path=NCCurrentBrush}" />
+
+                                <TextBlock Grid.Column="0"
+                           Margin="10 7 0 0"
+                           HorizontalAlignment="Left"
+                           Text="{Binding ElementName=Window, Path=Title}"
+                           TextTrimming="CharacterEllipsis" Foreground="{DynamicResource Window.Foreground}" />
+                                <Button Grid.Column="2" Style="{DynamicResource CloseButton}"
+                            Width="45"
+                            Height="29"
+                            controlzEx:NonClientControlProperties.HitTestResult="CLOSE"
+                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent" Click="Close_Click">
+                                </Button>
+                            </Grid>
+                            <AdornerDecorator Grid.Row="1">
+                                <ContentPresenter />
+                            </AdornerDecorator>
                         </Grid>
 
+                        <Border x:Name="PART_Border"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{x:Null}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        UseLayoutRounding="True" />
+
+                        <ResizeGrip x:Name="WindowResizeGrip"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            IsTabStop="false"
+                                            Visibility="Collapsed"
+                                            controlzEx:WindowChrome.ResizeGripDirection="BottomRight" />
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Opacity" Value="1"  TargetName="Check"></Setter>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="False">
-                            <Setter Property="Opacity" Value="0" TargetName="Check"></Setter>
-                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Window.ResizeMode" Value="CanResizeWithGrip" />
+                                <Condition Property="Window.WindowState" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="FocusVisualStyle">
-            <Setter.Value>
-                <Style TargetType="Control">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Border BorderBrush="{DynamicResource customBlueBrush}" SnapsToDevicePixels="True" BorderThickness="1" Margin="-5,1,3,1" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-    <!--Control colors.-->
-
-    <DrawingBrush  x:Key="CheckerBrush" Viewport="0,0,10,10" ViewportUnits="Absolute" TileMode="Tile">
+        <Style.Triggers>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="Margin" Value="0" />
+            </Trigger>
+            <!--
+                        #1823 try to fix another nasty issue
+                        WindowState = Maximized
+                        ResizeMode = NoResize
+                    -->
+            <Trigger Property="ResizeMode" Value="NoResize">
+                <Setter Property="Margin" Value="0" />
+            </Trigger>
+            <Trigger Property="IsNCActive" Value="False">
+                <Setter Property="NCCurrentBrush" Value="{Binding NCNonActiveBrush, RelativeSource={RelativeSource Self}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+        <DrawingBrush  x:Key="CheckerBrush" Viewport="0,0,10,10" ViewportUnits="Absolute" TileMode="Tile">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <GeometryDrawing Brush="White">
@@ -1632,8 +1736,210 @@
         </Grid>
     </DataTemplate>
 
-    <Style x:Key="ColorPickerToggleButtonStyle"
-         TargetType="ToggleButton">
+    <Style TargetType="{x:Type chrome:ButtonChrome}">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type chrome:ButtonChrome}">
+                    <Grid>
+
+                        <Border x:Name="OuterBorder" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                            <Border x:Name="InnerBorder" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding InnerCornerRadius}" BorderBrush="{DynamicResource {x:Static themes:ResourceKeys.ButtonNormalInnerBorderKey}}" />
+                        </Border>
+
+                        <Border x:Name="MouseOverVisual" Opacity="0" Visibility="Collapsed" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{DynamicResource {x:Static themes:ResourceKeys.ButtonMouseOverOuterBorderKey}}" Background="{DynamicResource {x:Static themes:ResourceKeys.ButtonMouseOverBackgroundKey}}">
+                            <Border x:Name="MouseOverInnerVisual" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding InnerCornerRadius}" BorderBrush="{DynamicResource {x:Static themes:ResourceKeys.ButtonMouseOverInnerBorderKey}}" />
+                        </Border>
+                        <Border x:Name="PressedVisual" Opacity="0" Visibility="Collapsed" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{DynamicResource {x:Static themes:ResourceKeys.ButtonPressedOuterBorderKey}}" Background="{DynamicResource {x:Static themes:ResourceKeys.ButtonPressedBackgroundKey}}">
+                            <Border x:Name="PressedInnerVisual" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding InnerCornerRadius}" BorderBrush="{DynamicResource {x:Static themes:ResourceKeys.ButtonPressedInnerBorderKey}}" />
+                        </Border>
+
+                        <Border x:Name="FocusVisual" Opacity="0" Visibility="Collapsed" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{DynamicResource {x:Static themes:ResourceKeys.ButtonFocusedOuterBorderKey}}" Background="{DynamicResource {x:Static themes:ResourceKeys.ButtonFocusedBackgroundKey}}">
+                            <Border x:Name="FocusInnerVisual" BorderThickness="1" CornerRadius="{TemplateBinding InnerCornerRadius}" BorderBrush="{DynamicResource {x:Static themes:ResourceKeys.ButtonFocusedInnerBorderKey}}" />
+                        </Border>
+
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+										      IsEnabled="{TemplateBinding IsEnabled}"
+										      Content="{TemplateBinding Content}"
+										      ContentStringFormat="{TemplateBinding ContentStringFormat}"
+										      ContentTemplate="{TemplateBinding ContentTemplate}"
+										      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+
+                        <!-- If button is disabled, not checked, and is rendered normal -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="RenderEnabled" Value="False" />
+                                <Condition Property="RenderChecked" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static themes:ResourceKeys.ButtonDisabledOuterBorderKey}}" />
+                            <Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static themes:ResourceKeys.ButtonInnerBorderDisabledKey}}" />
+                            <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static themes:ResourceKeys.ControlDisabledBackgroundKey}}" />
+                        </MultiTrigger>
+
+                        <!-- if button is enabled and pressed -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="RenderEnabled" Value="True" />
+                                <Condition Property="RenderPressed" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedVisual" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PressedVisual" Storyboard.TargetProperty="Opacity">
+                                            <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedVisual" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00.0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PressedVisual" Storyboard.TargetProperty="Opacity">
+                                            <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+
+                        <!-- if button is enabled, is not checked, the mouse is over, and not pressed -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="RenderEnabled" Value="True" />
+                                <Condition Property="RenderChecked" Value="False" />
+                                <Condition Property="RenderMouseOver" Value="True" />
+                                <Condition Property="RenderPressed" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverVisual" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MouseOverVisual" Storyboard.TargetProperty="Opacity">
+                                            <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverVisual" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00.0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MouseOverVisual" Storyboard.TargetProperty="Opacity">
+                                            <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+
+                        <!-- if button is enabled, checked, he mouse is not over, and it is not pressed -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="RenderEnabled" Value="True" />
+                                <Condition Property="RenderChecked" Value="True" />
+                                <Condition Property="RenderMouseOver" Value="False" />
+                                <Condition Property="RenderPressed" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static themes:ResourceKeys.ButtonPressedOuterBorderKey}}" />
+                            <Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static themes:ResourceKeys.ButtonPressedInnerBorderKey}}" />
+                            <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static themes:ResourceKeys.ButtonPressedBackgroundKey}}" />
+                        </MultiTrigger>
+
+                        <!-- if button is focused, is enabled, not pressed, and the mouse is not over -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="RenderFocused" Value="True" />
+                                <Condition Property="RenderEnabled" Value="True" />
+                                <Condition Property="RenderPressed" Value="False" />
+                                <Condition Property="RenderMouseOver" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FocusVisual" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FocusVisual" Storyboard.TargetProperty="Opacity">
+                                            <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FocusVisual" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00.0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FocusVisual" Storyboard.TargetProperty="Opacity">
+                                            <LinearDoubleKeyFrame KeyTime="00:00:00.0" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+
+                        <!-- if not rendered normally -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="RenderNormal" Value="False" />
+                                <Condition Property="RenderChecked" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="OuterBorder" Property="BorderBrush" Value="Transparent" />
+                            <Setter TargetName="InnerBorder" Property="BorderBrush" Value="{x:Null}" />
+                            <Setter TargetName="OuterBorder" Property="Background" Value="Transparent" />
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ColorPickerToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
@@ -1659,7 +1965,7 @@
 
                             <chrome:ButtonChrome x:Name="ToggleButtonChrome"
                                    Grid.Column="1"
-                                   CornerRadius="0,2.75,2.75,0"
+                                   CornerRadius="0"
                                    Visibility="{Binding ShowDropDownButton, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ColorPicker}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    RenderChecked="{Binding IsOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ColorPicker}}"
                                    RenderEnabled="{Binding IsEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ColorPicker}}"
@@ -1786,11 +2092,11 @@
 
     <Style TargetType="{x:Type local:ColorPicker}">
         <Setter Property="Background"
-            Value="White" />
+            Value="{DynamicResource Background}" />
         <Setter Property="BorderBrush"
-            Value="{StaticResource ColorPickerDarkBorderBrush}" />
+            Value="{DynamicResource Border}" />
         <Setter Property="BorderThickness"
-            Value="1,1,0,1" />
+            Value="0" />
         <Setter Property="ButtonStyle"
             Value="{StaticResource ColorPickerToggleButtonStyle}" />
         <Setter Property="IsTabStop"
@@ -1836,7 +2142,7 @@
                           IsChecked="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                           IsHitTestVisible="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource InverseBoolConverter}}"
                           Style="{TemplateBinding ButtonStyle}">
-                            <Grid Margin="2">
+                            <Grid Margin="0">
                                 <ContentControl x:Name="ColorOnly"
                                 Style="{StaticResource ColorDisplayStyle}" />
 
@@ -1866,7 +2172,7 @@
                    Focusable="False"
                    HorizontalOffset="1"
                    VerticalOffset="1"
-                   PopupAnimation="Slide"
+                   PopupAnimation="None"
                    ToolTip="{x:Static sys:String.Empty}"
                    Width="{TemplateBinding MaxDropDownWidth}">
                             <Popup.Resources>
@@ -2023,163 +2329,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-
-
-    <Style x:Key="WindowTitleBarButton" TargetType="Button">
-        <Style.Setters>
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-            <Setter Property="Background" Value="{DynamicResource Window.Button.Background}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.Background}" />
-            <Setter Property="Foreground" Value="{DynamicResource Window.Button.Icon}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ButtonBase}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <!--<Trigger Property="Button.IsDefaulted" Value="true">
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                    </Trigger>-->
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Window.Button.IsMouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Window.Button.IsMouseOver.Background}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style.Setters>
-        <Style.Triggers>
-            <Trigger Property="controlzEx:NonClientControlProperties.IsNCMouseOver" Value="true">
-                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
-                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseOver.Background}" />
-                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseOver.Icon}"/>
-            </Trigger>
-            <Trigger Property="IsPressed" Value="true">
-                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
-                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
-            </Trigger>
-            <Trigger Property="controlzEx:NonClientControlProperties.IsNCPressed" Value="true">
-                <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseDown.Background}" />
-                <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-    <Style x:Key="CloseButton" TargetType="Button" BasedOn="{StaticResource WindowTitleBarButton}">
-        <Setter Property="Content">
-            <Setter.Value>
-                <Path Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="MyWindowStyle" TargetType="{x:Type controlzEx:WindowChromeWindow}">
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="UseRadialGradientForCorners" Value="True" />
-        <Setter Property="BorderBrush" Value="{x:Null}" />
-        <Setter Property="NCActiveBrush" Value="{DynamicResource Window.Background}" />
-        <Setter Property="NCCurrentBrush" Value="{DynamicResource Window.Background}" />
-        <Setter Property="NCNonActiveBrush" Value="{DynamicResource Window.Background}" />
-        <Setter Property="GlowDepth" Value="1" />
-        <Setter Property="GlowColor" Value="{DynamicResource Window.Border.Color}" />
-        <Setter Property="NonActiveGlowColor" Value="{DynamicResource Window.Border.Color}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controlzEx:WindowChromeWindow}">
-                    <Grid Background="{TemplateBinding Background}"
-                                  Margin="{TemplateBinding Padding}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="29" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Row="0"
-                  VerticalAlignment="Center"
-                  controlzEx:WindowChrome.IsHitTestVisibleInChrome="False"
-                  controlzEx:NonClientControlProperties.HitTestResult="CAPTION">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Border Grid.ColumnSpan="10" Background="{Binding ElementName=Window, Path=NCCurrentBrush}" />
-
-                                <Image Source="{DynamicResource AppIcon}" Width="16" Height="16" Margin="8,3,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
-                                <TextBlock Grid.Column="0"
-                           Margin="10 7 0 0"
-                           HorizontalAlignment="Left"
-                           Text="{Binding ElementName=Window, Path=Title}"
-                           TextTrimming="CharacterEllipsis" Foreground="{DynamicResource Window.Foreground}" />
-                                <Button Grid.Column="2" Style="{DynamicResource CloseButton}"
-                            Width="45"
-                            Height="29"
-                            controlzEx:NonClientControlProperties.HitTestResult="CLOSE"
-                            controlzEx:NonClientControlProperties.ClickStrategy="MouseEvent" Click="Close_Click">
-                                </Button>
-                            </Grid>
-                            <AdornerDecorator Grid.Row="1">
-                                <ContentPresenter />
-                            </AdornerDecorator>
-                        </Grid>
-
-                        <Border x:Name="PART_Border"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{x:Null}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        UseLayoutRounding="True" />
-
-                        <ResizeGrip x:Name="WindowResizeGrip"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            IsTabStop="false"
-                                            Visibility="Collapsed"
-                                            controlzEx:WindowChrome.ResizeGripDirection="BottomRight" />
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Window.ResizeMode" Value="CanResizeWithGrip" />
-                                <Condition Property="Window.WindowState" Value="Normal" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="WindowState" Value="Maximized">
-                <Setter Property="Margin" Value="0" />
-            </Trigger>
-            <!--
-                        #1823 try to fix another nasty issue
-                        WindowState = Maximized
-                        ResizeMode = NoResize
-                    -->
-            <Trigger Property="ResizeMode" Value="NoResize">
-                <Setter Property="Margin" Value="0" />
-            </Trigger>
-            <Trigger Property="IsNCActive" Value="False">
-                <Setter Property="NCCurrentBrush" Value="{Binding NCNonActiveBrush, RelativeSource={RelativeSource Self}}" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

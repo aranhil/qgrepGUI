@@ -201,7 +201,7 @@ namespace qgrepControls.SearchWindow
             {
                 if (Settings.Default["LastUpdated"] != null)
                 {
-                    InitInfo.Text = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
+                    InitInfo.Content = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
                 }
             }));
         }
@@ -940,7 +940,7 @@ namespace qgrepControls.SearchWindow
             Dispatcher.Invoke(new Action(() =>
             {
                 Errors += "[" + DateTime.Now.ToString() + "] " + message;
-                InitInfo.Text = message;
+                InitInfo.Content = message;
             }));
         }
 
@@ -975,7 +975,7 @@ namespace qgrepControls.SearchWindow
             {
                 Dispatcher.Invoke(new Action(() =>
                 {
-                    InitInfo.Text = message;
+                    InitInfo.Content = message;
                 }));
             }
         }
