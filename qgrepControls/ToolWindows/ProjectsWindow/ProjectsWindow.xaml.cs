@@ -18,6 +18,8 @@ namespace qgrepControls.SearchWindow
         private ProjectRow SelectedProject = null;
         private GroupRow SelectedGroup = null;
 
+        public bool NothingChanged = true;
+
         public ProjectsWindow(qgrepSearchWindowControl Parent)
         {
             this.Parent = Parent;
@@ -163,12 +165,14 @@ namespace qgrepControls.SearchWindow
 
         public void DeleteProject(ProjectRow project)
         {
+            NothingChanged = false;
             Parent.ConfigParser.RemoveProject(project.Data.ProjectName);
             LoadFromConfig();
         }
 
         public void AddProject()
         {
+            NothingChanged = false;
             Parent.ConfigParser.AddNewProject();
             LoadFromConfig();
         }
@@ -181,6 +185,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Rename(newName))
                     {
+                        NothingChanged = false;
                         Parent.RenameFilter(project.Data.ProjectName, newName);
                         LoadFromConfig();
                     }
@@ -220,6 +225,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
+                        NothingChanged = false;
                         configProject.Groups.RemoveAt(group.Data.Index);
                         break;
                     }
@@ -237,6 +243,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
+                        NothingChanged = false;
                         configProject.Groups.Add(new ConfigGroup());
                         break;
                     }
@@ -287,6 +294,7 @@ namespace qgrepControls.SearchWindow
                             {
                                 if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(filename))
                                 {
+                                    NothingChanged = false;
                                     configProject.Groups[SelectedGroup.Data.Index].Paths.Add(filename);
                                 }
                             }
@@ -308,6 +316,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
+                        NothingChanged = false;
                         configProject.Groups[SelectedGroup.Data.Index].Paths.Remove(path.Data.Path);
                         LoadFromConfig();
                         break;
@@ -348,6 +357,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
+                        NothingChanged = false;
                         configProject.Groups[SelectedGroup.Data.Index].Rules.RemoveAt(rule.Data.Index);
                         LoadFromConfig();
                         break;
@@ -372,6 +382,7 @@ namespace qgrepControls.SearchWindow
                     {
                         if (configProject.Name == SelectedProject.Data.ProjectName)
                         {
+                            NothingChanged = false;
                             ConfigRule newRule = new ConfigRule();
                             newRule.Rule = ruleWindow.RegExTextBox.Text;
                             newRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
@@ -408,6 +419,7 @@ namespace qgrepControls.SearchWindow
 
                         if (ruleWindow.IsOK)
                         {
+                            NothingChanged = false;
                             configRule.Rule = ruleWindow.RegExTextBox.Text;
                             configRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
 
@@ -568,6 +580,7 @@ namespace qgrepControls.SearchWindow
                         {
                             if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(solutionFolder))
                             {
+                                NothingChanged = false;
                                 configProject.Groups[SelectedGroup.Data.Index].Paths.Add(solutionFolder);
                             }
                         }

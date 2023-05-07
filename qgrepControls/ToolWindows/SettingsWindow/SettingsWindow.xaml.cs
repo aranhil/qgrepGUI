@@ -19,6 +19,7 @@ namespace qgrepControls.SearchWindow
             ShowExcludes.IsChecked = Settings.Default.ShowExcludes;
             ShowFilter.IsChecked = Settings.Default.ShowFilter;
             ShowHistory.IsChecked = Settings.Default.ShowHistory;
+            SearchInstantly.IsChecked = Settings.Default.SearchInstantly;
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
             PathStyleComboBox.SelectedIndex = Settings.Default.PathStyleIndex;
             ExpandModeComboBox.SelectedIndex = Settings.Default.ExpandModeIndex;
@@ -32,6 +33,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.ShowExcludes = ShowExcludes.IsChecked == true;
             Settings.Default.ShowFilter = ShowFilter.IsChecked == true;
             Settings.Default.ShowHistory = ShowHistory.IsChecked == true;
+            Settings.Default.SearchInstantly = SearchInstantly.IsChecked == true;
 
             Settings.Default.Save();
         }

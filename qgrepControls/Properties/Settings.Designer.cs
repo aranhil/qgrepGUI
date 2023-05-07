@@ -237,5 +237,17 @@ namespace qgrepControls.Properties {
                 this["ExpandModeIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SearchInstantly {
+            get {
+                return ((bool)(this["SearchInstantly"]));
+            }
+            set {
+                this["SearchInstantly"] = value;
+            }
+        }
     }
 }

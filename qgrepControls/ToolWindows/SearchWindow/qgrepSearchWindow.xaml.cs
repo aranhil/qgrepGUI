@@ -94,6 +94,16 @@ namespace qgrepControls.SearchWindow
                 OnPropertyChanged();
             }
         }
+        public bool IsExpanded
+        {
+            get
+            {
+                return false;
+            }
+            set
+            {
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -140,6 +150,8 @@ namespace qgrepControls.SearchWindow
         int selectedSearchResultGroup = -1;
 
         List<string> searchHistory = new List<string>();
+        bool searchInputChanged = true;
+        string lastSearchedString = "";
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
@@ -151,7 +163,6 @@ namespace qgrepControls.SearchWindow
             InitButton.Visibility = Visibility.Hidden;
             CleanButton.Visibility = Visibility.Hidden;
             InitProgress.Visibility = Visibility.Collapsed;
-            InitInfo.Visibility = Visibility.Hidden;
             Overlay.Visibility = Visibility.Collapsed;
 
             SearchCaseSensitive.IsChecked = Settings.Default.CaseSensitive;
@@ -163,6 +174,7 @@ namespace qgrepControls.SearchWindow
             FilterRegEx.IsChecked = Settings.Default.FilterRegEx;
 
             StartTimer();
+            UpdateLastUpdated();
             SolutionLoaded();
 
             string colorSchemesJson = System.Text.Encoding.Default.GetString(qgrepControls.Properties.Resources.colors_schemes);
@@ -212,17 +224,22 @@ namespace qgrepControls.SearchWindow
             }
         }
 
+        void UpdateLastUpdated()
+        {
+            if (!EngineBusy)
+            {
+                if (Settings.Default["LastUpdated"] != null)
+                {
+                    InitInfo.Content = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
+                }
+            }
+        }
+
         private void UpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                if(!EngineBusy)
-                {
-                    if (Settings.Default["LastUpdated"] != null)
-                    {
-                        InitInfo.Content = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
-                    }
-                }
+                UpdateLastUpdated();
             }));
         }
 
@@ -312,7 +329,6 @@ namespace qgrepControls.SearchWindow
                 ConfigParser.LoadConfig();
 
                 UpdateWarning();
-                UpdateDatabase();
                 UpdateFilters();
 
                 InitButton.Visibility = Visibility.Visible;
@@ -343,6 +359,10 @@ namespace qgrepControls.SearchWindow
 
             visibility = Settings.Default.ShowHistory == true ? Visibility.Visible : Visibility.Collapsed;
             HistoryButton.Visibility = visibility;
+
+            visibility = Settings.Default.SearchInstantly == false ? Visibility.Visible : Visibility.Collapsed;
+            InfoLabel.Visibility = visibility;
+            SearchButton.Visibility = visibility;
         }
 
         public void UpdateColorsFromSettings()
@@ -450,6 +470,9 @@ namespace qgrepControls.SearchWindow
                 QueueFind = true;
                 return;
             }
+
+            searchInputChanged = false;
+            lastSearchedString = SearchInput.Text;
 
             SearchItemsControl.Visibility = Settings.Default.GroupingIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
             SearchItemsTreeView.Visibility = Settings.Default.GroupingIndex != 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -718,6 +741,8 @@ namespace qgrepControls.SearchWindow
                                 selectedSearchResult = -1;
                             }
 
+                            InfoLabel.Content = string.Format("Found {0} result(s) for \"{1}\"", newItems.Count, lastSearchedString);
+
                             scrollToTop = true;
                         }
                     }
@@ -725,30 +750,27 @@ namespace qgrepControls.SearchWindow
                     {
                         if (!SearchGroupsAreIdentical(searchResultsGroups, newGroups))
                         {
-                            if(Settings.Default.ExpandModeIndex == 1 || Settings.Default.ExpandModeIndex == 2)
+                            int resultsCount = 0;
+                            foreach (var group in newGroups)
                             {
-                                bool expandAll = true;
+                                resultsCount += group.SearchResults.Count;
+                            }
 
-                                if(Settings.Default.ExpandModeIndex == 1)
+                            bool expandAll = true;
+
+                            if(Settings.Default.ExpandModeIndex == 1)
+                            {
+                                if(resultsCount > 500)
                                 {
-                                    int count = 0;
-                                    foreach (var group in newGroups)
-                                    {
-                                        count += group.SearchResults.Count;
-                                    }
-
-                                    if(count > 500)
-                                    {
-                                        expandAll = false;
-                                    }
+                                    expandAll = false;
                                 }
+                            }
 
-                                if (expandAll)
+                            if (expandAll)
+                            {
+                                foreach (var group in newGroups)
                                 {
-                                    foreach (var group in newGroups)
-                                    {
-                                        group.IsExpanded = true;
-                                    }
+                                    group.IsExpanded = true;
                                 }
                             }
 
@@ -763,6 +785,8 @@ namespace qgrepControls.SearchWindow
                             {
                                 selectedSearchResultGroup = 0;
                             }
+
+                            InfoLabel.Content = string.Format("Found {0} result(s) for \"{1}\"", resultsCount, lastSearchedString);
 
                             scrollToTop = true;
                         }
@@ -1141,7 +1165,6 @@ namespace qgrepControls.SearchWindow
             });
 
             Overlay.Visibility = Visibility.Visible;
-            InitInfo.Visibility = Visibility.Visible;
             InitProgress.Visibility = Visibility.Visible;
             InitProgress.Value = 0;
             InitButton.IsEnabled = false;
@@ -1161,19 +1184,31 @@ namespace qgrepControls.SearchWindow
 
         private void CaseSensitive_Click(object sender, RoutedEventArgs e)
         {
-            Find();
+            if(Settings.Default.SearchInstantly || !searchInputChanged)
+            {
+                Find();
+            }
+
             SaveOptions();
         }
 
         private void SearchRegEx_Click(object sender, RoutedEventArgs e)
         {
-            Find();
+            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            {
+                Find();
+            }
+
             SaveOptions();
         }
 
         private void SearchWholeWord_Click(object sender, RoutedEventArgs e)
         {
-            Find();
+            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            {
+                Find();
+            }
+
             SaveOptions();
         }
 
@@ -1184,15 +1219,24 @@ namespace qgrepControls.SearchWindow
                 return;
             }
 
-            CreateWindow(new qgrepControls.SearchWindow.ProjectsWindow(this), "Search configurations", this).ShowDialog();
-            UpdateWarning();
-            UpdateDatabase();
+            ProjectsWindow newProjectsWindow = new ProjectsWindow(this);
+            CreateWindow(newProjectsWindow, "Search configurations", this).ShowDialog();
+
+            if(!newProjectsWindow.NothingChanged)
+            {
+                UpdateWarning();
+                UpdateDatabase();
+            }
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
             CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowDialog();
-            Find();
+
+            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            {
+                Find();
+            }
         }
 
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
@@ -1202,12 +1246,12 @@ namespace qgrepControls.SearchWindow
                 SearchInput.Focus();
 
                 string selectedText = ExtensionInterface.GetSelectedText();
-                if(selectedText.Length > 0)
+                if (selectedText.Length > 0)
                 {
                     SearchInput.Text = selectedText;
                     SearchInput.CaretIndex = SearchInput.Text.Length;
 
-                    if(searchHistory.Count == 0 || searchHistory.Last() != selectedText)
+                    if ((searchHistory.Count == 0 || !searchHistory.Contains(SearchInput.Text)) && SearchInput.Text.Length > 0)
                     {
                         searchHistory.Add(selectedText);
                     }
@@ -1219,13 +1263,36 @@ namespace qgrepControls.SearchWindow
 
                 ExtensionInterface.WindowOpened = false;
             }
+
+            if (!Settings.Default.SearchInstantly)
+            {
+                if (!SearchInput.IsFocused)
+                {
+                    if (Settings.Default.GroupingIndex == 0)
+                    {
+                        if(!IgnoreFocusEvents)
+                        {
+                            IgnoreFocusEvents = true;
+                            SearchItemsControl.Focus();
+                            IgnoreFocusEvents = false;
+                        }
+                    }
+                    else
+                    {
+                        if(!IgnoreFocusEvents)
+                        {
+                            IgnoreFocusEvents = true;
+                            SearchItemsTreeView.Focus();
+                            IgnoreFocusEvents = false;
+                        }
+                    }
+                }
+            }
         }
 
         private void SearchInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Find();
-
-            if(SearchInput.Text.Length > 0)
+            if (SearchInput.Text.Length > 0)
             {
                 SearchLabel.Visibility = Visibility.Hidden;
             }
@@ -1259,6 +1326,13 @@ namespace qgrepControls.SearchWindow
             else
             {
                 FilterResultsLabel.Visibility = Visibility.Visible;
+            }
+
+            searchInputChanged = true;
+
+            if (Settings.Default.SearchInstantly)
+            {
+                Find();
             }
         }
 
@@ -1302,7 +1376,10 @@ namespace qgrepControls.SearchWindow
             }
             else if (e.Key == System.Windows.Input.Key.Enter)
             {
-                OpenSelectedStackPanel();
+                if(Settings.Default.SearchInstantly || !SearchInput.IsFocused)
+                {
+                    OpenSelectedStackPanel();
+                }
             }
             else if(e.Key == System.Windows.Input.Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
@@ -1340,12 +1417,6 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private void Option_Click(object sender, RoutedEventArgs e)
-        {
-            Find();
-            SaveOptions();
-        }
-
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
             CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this).ShowDialog();
@@ -1357,19 +1428,31 @@ namespace qgrepControls.SearchWindow
 
         private void IncludeRegEx_Click(object sender, RoutedEventArgs e)
         {
-            Find();
+            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            {
+                Find();
+            }
+
             SaveOptions();
         }
 
         private void ExcludeRegEx_Click(object sender, RoutedEventArgs e)
         {
-            Find();
+            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            {
+                Find();
+            }
+
             SaveOptions();
         }
 
         private void FilterRegEx_Click(object sender, RoutedEventArgs e)
         {
-            Find();
+            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            {
+                Find();
+            }
+
             SaveOptions();
         }
 
@@ -1384,7 +1467,10 @@ namespace qgrepControls.SearchWindow
             Settings.Default.SearchFilters = string.Join(",", searchFilters);
             Settings.Default.Save();
 
-            Find();
+            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            {
+                Find();
+            }
         }
 
         private SearchResult GetSearchResultFromMenuItem(object sender)
@@ -1569,7 +1655,7 @@ namespace qgrepControls.SearchWindow
         {
             if(SearchInput.Text.Length > 0)
             {
-                if (searchHistory.Count == 0 || searchHistory.Last() != SearchInput.Text)
+                if ((searchHistory.Count == 0 || !searchHistory.Contains(SearchInput.Text)) && SearchInput.Text.Length > 0)
                 {
                     searchHistory.Add(SearchInput.Text);
                 }
@@ -1582,9 +1668,52 @@ namespace qgrepControls.SearchWindow
             if(menuItem != null)
             {
                 SearchInput.Text = menuItem.Header as string;
+
+                if(!Settings.Default.SearchInstantly)
+                {
+                    Find();
+                }
             }
 
             HistoryPopup.IsOpen = false;
+        }
+
+        bool IgnoreFocusEvents = false;
+
+        private void SearchInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                if ((searchHistory.Count == 0 || !searchHistory.Contains(SearchInput.Text)) && SearchInput.Text.Length > 0)
+                {
+                    searchHistory.Add(SearchInput.Text);
+                }
+
+                IgnoreFocusEvents = true;
+
+                if (Settings.Default.GroupingIndex == 0)
+                {
+                    SearchItemsControl.Focus();
+                }
+                else
+                {
+                    SearchItemsTreeView.Focus();
+                }
+
+                IgnoreFocusEvents = false;
+
+                Find();
+            }
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((searchHistory.Count == 0 || !searchHistory.Contains(SearchInput.Text)) && SearchInput.Text.Length > 0)
+            {
+                searchHistory.Add(SearchInput.Text);
+            }
+
+            Find();
         }
     }
 }
