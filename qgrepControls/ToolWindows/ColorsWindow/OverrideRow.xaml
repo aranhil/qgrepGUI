@@ -42,8 +42,8 @@
             <Label Name="OverrideKey" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" HorizontalAlignment="Left" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons" Margin="0,0,5,0">
-            <Button Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Click="EditButton_Click" Content="🖉" ToolTip="Edit filter"/>
-            <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="15" Content="✕" Click="DeleteButton_Click" ToolTip="Delete filter" />
+            <Button Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Click="EditButton_Click" Content="🖉" ToolTip="Edit override"/>
+            <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="15" Content="✕" Click="DeleteButton_Click" ToolTip="Delete override" />
         </StackPanel>
     </Grid>
 </UserControl>
