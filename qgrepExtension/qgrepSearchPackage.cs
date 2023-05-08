@@ -8,6 +8,9 @@ using Task = System.Threading.Tasks.Task;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.PlatformUI;
 using qgrepControls.SearchWindow;
+using Microsoft.VisualStudio.TextManager.Interop;
+using Microsoft.VisualStudio.OLE.Interop;
+using System.Net;
 
 namespace qgrepSearch
 {
@@ -17,11 +20,12 @@ namespace qgrepSearch
     [Guid("6e3b2e95-902b-4385-a966-30c06ab3c7a6")]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideBindingPath]
-    public sealed class qgrepSearchPackage : AsyncPackage, IVsSolutionEvents
+    public sealed class qgrepSearchPackage : AsyncPackage, IVsSolutionEvents, IVsTextManagerEvents
     {
         private EnvDTE80.DTE2 DTE;
         private uint SolutionEvents = uint.MaxValue;
         private int toolWindowId = -1;
+        private uint _cookie;
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -34,6 +38,10 @@ namespace qgrepSearch
 
             IVsShell shell = await GetServiceAsync(typeof(SVsShell)) as IVsShell;
             VSColorTheme.ThemeChanged += VSColorTheme_ThemeChanged;
+
+            IVsTextManager textManager = await GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager;
+            ((IConnectionPointContainer)textManager).FindConnectionPoint(typeof(IVsTextManagerEvents).GUID, out IConnectionPoint connectionPoint);
+            connectionPoint.Advise(this, out _cookie);
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)
@@ -61,6 +69,16 @@ namespace qgrepSearch
 
             IVsShell shell = GetServiceAsync(typeof(SVsShell)) as IVsShell;
             VSColorTheme.ThemeChanged -= VSColorTheme_ThemeChanged;
+
+            if (_cookie != 0)
+            {
+                IVsTextManager textManager = GetService(typeof(SVsTextManager)) as IVsTextManager;
+                if (textManager != null)
+                {
+                    ((IConnectionPointContainer)textManager).FindConnectionPoint(typeof(IVsTextManagerEvents).GUID, out IConnectionPoint connectionPoint);
+                    connectionPoint.Unadvise(_cookie);
+                }
+            }
         }
 
         public override IVsAsyncToolWindowFactory GetAsyncToolWindowFactory(Guid toolWindowType)
@@ -144,6 +162,31 @@ namespace qgrepSearch
         int IVsSolutionEvents.OnAfterCloseSolution(object pUnkReserved)
         {
             return VSConstants.S_OK;
+        }
+
+        public void OnRegisterMarkerType(int iMarkerType)
+        {
+        }
+
+        public void OnRegisterView(IVsTextView pView)
+        {
+        }
+
+        public void OnUnregisterView(IVsTextView pView)
+        {
+        }
+
+        public void OnUserPreferencesChanged(VIEWPREFERENCES[] pViewPrefs, FRAMEPREFERENCES[] pFramePrefs, LANGPREFERENCES[] pLangPrefs, FONTCOLORPREFERENCES[] pColorPrefs)
+        {
+            qgrepSearchWindow searchWindow = FindToolWindow(typeof(qgrepSearchWindow), toolWindowId, false) as qgrepSearchWindow;
+            if (searchWindow != null)
+            {
+                qgrepSearchWindowControl searchWindowControl = searchWindow.Content as qgrepSearchWindowControl;
+                if (searchWindowControl != null)
+                {
+                    searchWindowControl.UpdateColorsFromSettings();
+                }
+            }
         }
     }
 }

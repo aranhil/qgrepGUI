@@ -620,6 +620,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
+        <Setter Property="VirtualizingStackPanel.ScrollUnit" Value="Item" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeView}">
@@ -1198,6 +1199,7 @@
     <Style x:Key="OverlayText" TargetType="TextBlock" BasedOn="{StaticResource NormalTextBlock}">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
     </Style>
     <Style x:Key="HoverableRow" TargetType="{x:Type Grid}">
         <Setter Property="Background" Value="Transparent"/>
