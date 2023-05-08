@@ -28,7 +28,7 @@ Install the Visual Studio extension and follow the setup instructions below.
 
    ![image](https://user-images.githubusercontent.com/755601/236954367-7722217e-73b9-40c6-8002-28f8a6eba032.png)
 
-4. From here, you can add the folders and file filters. You can also use the "Gather from solution" button to automatically grab all the folders inside your solution.
+4. From here, you can add the folders and file filters. The "Gather from solution" button will automatically grab all the folders inside your solution. You can also select multiple folders at once.
 
    ![image](https://user-images.githubusercontent.com/755601/236954626-9786eb9a-189f-4e0d-99be-f42ebe1f29b8.png)
 
