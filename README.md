@@ -21,6 +21,7 @@ Install the Visual Studio extension and follow the setup instructions below.
 2. You can also set up a shortcut for this from here:
 
    ![image](https://user-images.githubusercontent.com/755601/236953452-f5cb9be3-ffca-4431-befb-aba9d22c65f4.png)
+   
    This will also grab the selected text in your current document before opening.
 
 3. After this, you have to set up the folders that will be indexed. The window to set can be opened up from the lower left corner of the toolbar:
@@ -43,13 +44,17 @@ The search input has three toggles that can also be found in Visual Studio: Case
 
 ### Search results
 
-The search results list can be interacted with using the keyboard/mouse without the search input losing the focus. There is also a contextual menu with more options.
+The search results list can be interacted with the keyboard/mouse without the search input losing the focus. There is also a contextual menu with more options:
 
    ![image](https://user-images.githubusercontent.com/755601/236957474-e479308b-ddc6-4829-adb3-80ea27ba28e4.png)
 
 ### Customize colors
 
-Here you can switch between the Auto, Dark, and Light color schemes. If you're in Visual Studio, the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want. You also have the option to override any color used in the currently selected color scheme.
+Here you can switch between the Auto, Dark, and Light color schemes. If you're in Visual Studio, the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
+
+   ![ezgif com-optimize](https://user-images.githubusercontent.com/755601/236553098-99c9d092-fa59-4d53-8365-fa01469f605b.gif)
+
+You also have the option to override any color used in the currently selected color scheme.
 
 ### Advanced options
 
