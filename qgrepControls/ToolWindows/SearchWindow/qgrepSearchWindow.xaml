@@ -75,8 +75,8 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
-            <ItemsControl x:Name="SearchItemsControl" Style="{DynamicResource ResultsItemsList}" TabIndex="3" ItemsSource="{Binding}" Focusable="True">
-                <ItemsControl.ItemTemplate>
+            <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="3" ItemsSource="{Binding}">
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
                             <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
@@ -96,8 +96,8 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             </DockPanel.ContextMenu>
                         </DockPanel>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <TreeView x:Name="SearchItemsTreeView" TabIndex="3" ItemsSource="{Binding}">
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource SomeTreeViewItem}">
@@ -109,7 +109,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                 </TreeView.ItemContainerStyle>
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type self:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
-                        <DockPanel RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchGroup_MouseDown">
+                        <DockPanel Style="{DynamicResource ResultPanel}" RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchGroup_MouseDown">
                             <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>

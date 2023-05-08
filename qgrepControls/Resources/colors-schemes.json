@@ -50,6 +50,11 @@
                 "Opacity": 0.4
             },
             {
+                "Name": "Result.IsSelected.IsInactive.Background",
+                "Color": "FontsAndColors.Inactive Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
                 "Name": "Result.File.Foreground",
                 "Color": "CommonControls.ComboBoxText",
                 "Opacity": 0.5
@@ -401,6 +406,10 @@
             {
                 "Name": "Result.IsSelected.Background",
                 "Color": "39, 80, 121"
+            },
+            {
+                "Name": "Result.IsSelected.IsInactive.Background",
+                "Color": "86, 86, 86"
             },
             {
                 "Name": "IconButton.Background",
@@ -775,6 +784,10 @@
             {
                 "Name": "Result.IsSelected.Background",
                 "Color": "147, 195, 233"
+            },
+            {
+                "Name": "Result.IsSelected.IsInactive.Background",
+                "Color": "191, 205, 219"
             },
             {
                 "Name": "IconButton.Background",

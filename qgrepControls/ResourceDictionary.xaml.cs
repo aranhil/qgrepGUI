@@ -101,5 +101,10 @@ namespace qgrepControls
                 }
             }
         }
+
+        private void ListBoxItem_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }
