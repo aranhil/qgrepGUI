@@ -249,5 +249,17 @@ namespace qgrepControls.Properties {
                 this["SearchInstantly"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TrimSpacesOnCopy {
+            get {
+                return ((bool)(this["TrimSpacesOnCopy"]));
+            }
+            set {
+                this["TrimSpacesOnCopy"] = value;
+            }
+        }
     }
 }

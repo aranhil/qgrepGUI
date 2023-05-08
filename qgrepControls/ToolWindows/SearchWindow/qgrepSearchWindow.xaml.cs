@@ -1088,10 +1088,16 @@ namespace qgrepControls.SearchWindow
 
         private void OpenSelectedStackPanel()
         {
-            SearchResult selectedResult = GetSelectedSearchResult();
-            if (selectedResult != null)
+            SearchResult searchResult = GetSelectedSearchResult();
+            if (searchResult != null)
             {
-                OpenSearchResult(selectedResult);
+                OpenSearchResult(searchResult);
+            }
+
+            SearchResultGroup searchGroup = GetSelectedSearchGroup();
+            if (searchGroup != null)
+            {
+                OpenSearchGroup(searchGroup);
             }
         }
 
@@ -1582,33 +1588,6 @@ namespace qgrepControls.SearchWindow
 
                         e.Handled = true;
                     }
-                    else if (e.Key == System.Windows.Input.Key.Enter)
-                    {
-                        bool openResult = false;
-
-                        if (Settings.Default.SearchInstantly)
-                        {
-                            openResult = true;
-                        }
-                        else if (!SearchInput.IsFocused && !IncludeFilesInput.IsFocused && !ExcludeFilesInput.IsFocused && !FilterResultsInput.IsFocused)
-                        {
-                            openResult = true;
-                        }
-
-                        if (openResult)
-                        {
-                            OpenSelectedStackPanel();
-                        }
-                    }
-                    else if (e.Key == System.Windows.Input.Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-                    {
-                        if (selectedSearchResult >= 0 && selectedSearchResult < searchResults.Count)
-                        {
-                            SearchResult searchResult = searchResults[selectedSearchResult];
-                            string text = searchResult.BeginText + searchResult.HighlightedText + searchResult.EndText;
-                            Clipboard.SetText(text);
-                        }
-                    }
                 }
             }
             else if (GetGroupingMode() == 1)
@@ -1871,6 +1850,40 @@ namespace qgrepControls.SearchWindow
                     mSuppressRequestBringIntoView = false;
                 }
             }
+
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                bool openResult = false;
+
+                if (Settings.Default.SearchInstantly)
+                {
+                    openResult = true;
+                }
+                else if (!SearchInput.IsFocused && !IncludeFilesInput.IsFocused && !ExcludeFilesInput.IsFocused && !FilterResultsInput.IsFocused)
+                {
+                    openResult = true;
+                }
+
+                if (openResult)
+                {
+                    OpenSelectedStackPanel();
+                }
+            }
+            else if (e.Key == System.Windows.Input.Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                SearchResult searchResult = GetSelectedSearchResult();
+                if (searchResult != null)
+                {
+                    string text = searchResult.BeginText + searchResult.HighlightedText + searchResult.EndText;
+                    CopyText(text);
+                }
+
+                SearchResultGroup searchGroup = GetSelectedSearchGroup();
+                if (searchGroup != null)
+                {
+                    Clipboard.SetText(searchGroup.FullFile);
+                }
+            }
         }
 
         private void Colors_Click(object sender, RoutedEventArgs e)
@@ -1974,13 +1987,35 @@ namespace qgrepControls.SearchWindow
             }
         }
 
+        private void CopyText(SearchResult searchResult)
+        {
+            string text = searchResult.BeginText + searchResult.HighlightedText + searchResult.EndText;
+
+            if (Settings.Default.TrimSpacesOnCopy)
+            {
+                text = text.Trim(new char[] { ' ', '\t' });
+            }
+
+            Clipboard.SetText(text);
+        }
+
+        private void CopyText(string text)
+        {
+            if (Settings.Default.TrimSpacesOnCopy)
+            {
+                text = text.Trim(new char[] { ' ', '\t' });
+            }
+
+            Clipboard.SetText(text);
+        }
+
         private void MenuCopyText_Click(object sender, RoutedEventArgs e)
         {
             SearchResult searchResult = GetSearchResultFromMenuItem(sender);
             if(searchResult != null)
             {
                 string text = searchResult.BeginText + searchResult.HighlightedText + searchResult.EndText;
-                Clipboard.SetText(text);
+                CopyText(text);
             }
         }
 
