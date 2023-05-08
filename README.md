@@ -8,6 +8,8 @@
 - :gear: Easy customization and configuration
 - :bookmark_tabs: Colorful and easy-to-read output
 - :zap: Fast indexing and searching
+- 🚀 Fast responsive UI
+- 🎨 Fully customizable color schemes
 
 ## Installation
 
