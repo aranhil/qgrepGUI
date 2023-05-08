@@ -344,5 +344,31 @@ namespace qgrepControls.ColorsWindow
         {
             OverridesHint.Visibility = OverridesPanel.Children.Count > 1 ? Visibility.Collapsed : Visibility.Visible;
         }
+
+        private void AddNewOverride_Click(object sender, RoutedEventArgs e)
+        {
+            AddOverride();
+        }
+
+        private void DeleteAllOverride_Click(object sender, RoutedEventArgs e)
+        {
+            ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
+
+            foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
+            {
+                if (schemeOverrides.Name == currentScheme.Name)
+                {
+                    schemeOverrides.ColorOverrides.Clear();
+
+                    Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
+                    Settings.Default.Save();
+
+                    LoadFromSettings();
+                    Parent.LoadColorsFromResources(this);
+                    Parent.UpdateColorsFromSettings();
+                    break;
+                }
+            }
+        }
     }
 }
