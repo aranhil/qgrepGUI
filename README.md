@@ -92,4 +92,9 @@ If you have any questions or need help, please open an issue in the [GitHub repo
 
 ## Acknowledgements
 
-I would like to thank Arseny Kapoulkine for creating qgrep and all the contributors who have helped make *qgrep Search Tool* an excellent search tool for Visual Studio.
+This project has benefited from the use of the following open-source projects:
+
+- [qgrep](https://github.com/zeux/qgrep): This project is licensed under the [MIT License](./LICENSE-qgrep.md).
+- [Extended WPF Toolkit™](https://github.com/xceedsoftware/wpftoolkit): This project has been used for the color picker and the CheckComboBox. The version used (3.8.2) is licensed under the [MS-PL license](./LICENSE-Extended-WPF-Toolkit.md).
+- [ControlzEx](https://github.com/ControlzEx/ControlzEx): This project has been used to replace the standard Windows title bar. It is licensed under the [MIT License](./LICENSE-ControlzEx.md).
+
