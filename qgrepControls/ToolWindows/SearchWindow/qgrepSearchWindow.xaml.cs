@@ -150,13 +150,11 @@ namespace qgrepControls.SearchWindow
         ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         int selectedSearchResultGroup = -1;
 
-<<<<<<< Updated upstream
         List<string> searchHistory = new List<string>();
         bool searchInputChanged = true;
         string lastSearchedString = "";
-=======
+
         static SearchEngine SearchEngine = new SearchEngine();
->>>>>>> Stashed changes
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
@@ -187,6 +185,8 @@ namespace qgrepControls.SearchWindow
 
             UpdateColorsFromSettings();
             UpdateFromSettings();
+
+            SearchItemsListBox.ItemsSource = searchResults;
         }
 
         private void ResetTimestamp()
@@ -379,7 +379,6 @@ namespace qgrepControls.SearchWindow
             HistoryButton.Visibility = visibility;
 
             visibility = Settings.Default.SearchInstantly == false ? Visibility.Visible : Visibility.Collapsed;
-            InfoLabel.Visibility = visibility;
             SearchButton.Visibility = visibility;
 
             SearchItemsListBox.Focusable = !Settings.Default.SearchInstantly;
@@ -484,7 +483,6 @@ namespace qgrepControls.SearchWindow
             Settings.Default.Save();
         }
 
-<<<<<<< Updated upstream
         private int GetGroupingMode()
         {
             if(SearchInput.Text.Length == 0 && IncludeFilesInput.Text.Length != 0)
@@ -495,35 +493,16 @@ namespace qgrepControls.SearchWindow
             return Settings.Default.GroupingIndex;
         }
 
-        private void Highlight(string result, string search, ref int begingHighlight, ref int endHighlight, bool caseSensitive, bool wholeWord, bool regEx)
-        {
-            if(!regEx)
-            {
-                search = Regex.Escape(search);
-            }
-            if(wholeWord)
-            {
-                search = "\\b" + search + "\\b";
-            }
-            if(!caseSensitive)
-            {
-                search = search.ToLower();
-                result = result.ToLower();
-            }
-
-            Match match = Regex.Match(result, search);
-            begingHighlight = match.Index;
-            endHighlight = match.Length;
-=======
-        List<SearchResult> newSearchResults = new List<SearchResult>();
+        ObservableCollection<SearchResult> newSearchResults = new ObservableCollection<SearchResult>();
+        bool newSearch = false;
 
         private void HandleResult(string file, string lineNumber, string beginText, string highlight, string endText)
         {
-            string formatedFile = file + "(" + lineNumber + ")";
-            string trimmedFormatedFile = ConfigParser.RemovePaths(formatedFile);
-
             Dispatcher.Invoke(() =>
             {
+                string formatedFile = file + "(" + lineNumber + ")";
+                string trimmedFormatedFile = ConfigParser.RemovePaths(formatedFile);
+
                 newSearchResults.Add(new SearchResult()
                 {
                     Index = 0,
@@ -535,6 +514,25 @@ namespace qgrepControls.SearchWindow
                     FullFile = formatedFile,
                     FullResult = formatedFile + beginText + highlight + endText
                 });
+
+                if(newSearchResults.Count > 100 )
+                {
+                    if(newSearch)
+                    {
+                        SearchItemsListBox.ItemsSource = searchResults = newSearchResults;
+                        newSearchResults = new ObservableCollection<SearchResult>();
+                        newSearch = false;
+                    }
+                    else
+                    {
+                        foreach (SearchResult result in newSearchResults)
+                        {
+                            searchResults.Add(result);
+                        }
+
+                        newSearchResults.Clear();
+                    }
+                }
             });
         }
 
@@ -542,9 +540,21 @@ namespace qgrepControls.SearchWindow
         {
             Dispatcher.Invoke(() =>
             {
-                
+                foreach (SearchResult result in newSearchResults)
+                {
+                    searchResults.Add(result);
+                }
+
+                //if (newSearch)
+                //{
+                //    searchResults.Clear();
+                //    newSearch = false;
+                //}
+
+                newSearchResults.Clear();
+
+                InfoLabel.Content = string.Format("Showing {0} result(s) for \"{1}\"", searchResults.Count, lastSearchedString);
             });
->>>>>>> Stashed changes
         }
 
         private void Find()
@@ -563,12 +573,10 @@ namespace qgrepControls.SearchWindow
                 }
             }
 
-<<<<<<< Updated upstream
-            searchInputChanged = false;
-            lastSearchedString = SearchInput.Text;
-=======
             if (SearchInput.Text.Length != 0)
             {
+                lastSearchedString = SearchInput.Text;
+
                 SearchOptions searchOptions = new SearchOptions()
                 {
                     Query = SearchInput.Text,
@@ -587,13 +595,16 @@ namespace qgrepControls.SearchWindow
                 };
 
                 SearchEngine.SearchAsync(searchOptions);
+                newSearch = true;
             }
 
             return;
 
-            SearchItemsControl.Visibility = Settings.Default.GroupingIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+            searchInputChanged = false;
+            lastSearchedString = SearchInput.Text;
+
+            SearchItemsListBox.Visibility = Settings.Default.GroupingIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
             SearchItemsTreeView.Visibility = Settings.Default.GroupingIndex != 0 ? Visibility.Visible : Visibility.Collapsed;
->>>>>>> Stashed changes
 
             SearchItemsListBox.Visibility = GetGroupingMode() == 0 ? Visibility.Visible : Visibility.Collapsed;
             SearchItemsTreeView.Visibility = GetGroupingMode() != 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -788,14 +799,14 @@ namespace qgrepControls.SearchWindow
 
                         int highlightBegin = 0, highlightEnd = 0;
 
-                        if(searchFiles)
-                        {
-                            Highlight(currentLine, searchedFile, ref highlightBegin, ref highlightEnd, false, false, filesRegEx);
-                        }
-                        else
-                        {
-                            Highlight(currentLine, lastSearchedString, ref highlightBegin, ref highlightEnd, caseSensitive, wholeWord, regEx);
-                        }
+                        //if(searchFiles)
+                        //{
+                        //    Highlight(currentLine, searchedFile, ref highlightBegin, ref highlightEnd, false, false, filesRegEx);
+                        //}
+                        //else
+                        //{
+                        //    Highlight(currentLine, lastSearchedString, ref highlightBegin, ref highlightEnd, caseSensitive, wholeWord, regEx);
+                        //}
 
                         currentIndex = highlightBegin;
                         if (currentIndex >= 0)

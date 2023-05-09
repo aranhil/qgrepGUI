@@ -81,7 +81,26 @@ namespace qgrepControls.Classes
                 }
 
                 arguments.Add("HM");
-                arguments.Add("L10000");
+
+                switch(SearchOptions.Query.Length)
+                {
+                    case 1:
+                        arguments.Add("L1000");
+                    break;
+                    case 2:
+                        arguments.Add("L2000");
+                    break;
+                    case 3:
+                        arguments.Add("L4000");
+                    break;
+                    case 4:
+                        arguments.Add("L6000");
+                    break;
+                    default:
+                        arguments.Add("L10000");
+                    break;
+                }
+
                 arguments.Add("V");
 
                 if (SearchOptions.WholeWord)
@@ -159,22 +178,25 @@ namespace qgrepControls.Classes
                     return false;
                 }
 
-                currentIndex = result.IndexOf('\xB1');
+                int highlightBegin = 0, highlightEnd = 0;
+                Highlight(result, ref highlightBegin, ref highlightEnd);
+
+                currentIndex = highlightBegin;
                 if (currentIndex >= 0)
                 {
                     beginText = result.Substring(0, currentIndex);
-                    result = currentIndex + 1 < result.Length ? result.Substring(currentIndex + 1) : "";
+                    result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
                 }
                 else
                 {
                     return false;
                 }
 
-                currentIndex = result.IndexOf('\xB2');
+                currentIndex = highlightEnd;
                 if (currentIndex >= 0)
                 {
                     highlightedText = result.Substring(0, currentIndex);
-                    result = currentIndex + 1 < result.Length ? result.Substring(currentIndex + 1) : "";
+                    result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
                 }
                 else
                 {
@@ -187,6 +209,29 @@ namespace qgrepControls.Classes
             }
 
             return false;
+        }
+
+        private void Highlight(string result, ref int begingHighlight, ref int endHighlight)
+        {
+            string query = SearchOptions.Query;
+
+            if (!SearchOptions.RegEx)
+            {
+                query = Regex.Escape(query);
+            }
+            if (SearchOptions.WholeWord)
+            {
+                query = "\\b" + query + "\\b";
+            }
+            if (!SearchOptions.CaseSensitive)
+            {
+                query = query.ToLower();
+                result = result.ToLower();
+            }
+
+            Match match = Regex.Match(result, query);
+            begingHighlight = match.Index;
+            endHighlight = match.Length;
         }
 
         private void ErrorHandler(string result)

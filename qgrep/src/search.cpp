@@ -28,7 +28,7 @@ struct SearchOutput
 
 	bool isLimitReached(OrderedOutput::Chunk* outputChunk = nullptr) const
 	{
-		return (outputChunk && outputChunk->lines >= limit) || output.getLineCount() >= limit;
+		return (outputChunk && outputChunk->lines >= limit) || output.getLineCount() >= limit || output.forceStop();
 	}
 
 	unsigned int options;
