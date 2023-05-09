@@ -1997,14 +1997,8 @@
                                HorizontalContentAlignment="Stretch"
                                VerticalContentAlignment="Stretch"
                                AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
-                               ShowSpinner="False"
-                               SpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}"
-                               SpinnerWidth="{Binding ButtonSpinnerWidth, RelativeSource={RelativeSource TemplatedParent}}"
-                               SpinnerHeight="{Binding ButtonSpinnerHeight, RelativeSource={RelativeSource TemplatedParent}}"
-                               SpinnerUpContentTemplate="{Binding ButtonSpinnerUpContentTemplate, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={StaticResource IncreaseGlyphNormalKey}}"
-                               SpinnerDownContentTemplate="{Binding ButtonSpinnerDownContentTemplate, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={StaticResource DecreaseGlyphNormalKey}}"
-                               SpinnerUpDisabledContentTemplate="{Binding ButtonSpinnerUpDisabledContentTemplate, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={StaticResource IncreaseGlyphDisabledKey}}"
-                               SpinnerDownDisabledContentTemplate="{Binding ButtonSpinnerDownDisabledContentTemplate, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={StaticResource DecreaseGlyphDisabledKey}}">
+                               ShowButtonSpinner="False"
+                               ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
                         <local:WatermarkTextBox x:Name="PART_TextBox"
                                     BorderThickness="0"
                                     Background="Transparent"
@@ -2033,30 +2027,10 @@
                         </local:WatermarkTextBox>
                     </local:ButtonSpinner>
                     <ControlTemplate.Triggers>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
-                           Value="False" />
-                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}"
-                           Value="False" />
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="IsReadOnly"
-                      Value="True"
-                      TargetName="PART_TextBox" />
-                        </MultiDataTrigger>
-                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
-                         Value="True">
-                            <Setter Property="IsReadOnly"
-                      Value="True"
-                      TargetName="PART_TextBox" />
-                        </DataTrigger>
                         <Trigger Property="IsEnabled"
                      Value="False">
                             <Setter Property="Foreground"
                       Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                        </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="PART_TextBox" Property="FocusManager.FocusedElement" Value="{Binding ElementName=PART_TextBox}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource Border.IsMouseOver}" />
@@ -2682,8 +2656,8 @@
         <Setter Property="HeaderBackground" Value="{DynamicResource Background}" />
         <Setter Property="HeaderForeground" Value="{DynamicResource Foreground}" />
         <Setter Property="DropDownBackground" Value="{DynamicResource Background}" />
-        <Setter Property="DropDownBorderBrush" Value="{DynamicResource ComboBox.Popup.Border}" />
-        <Setter Property="DropDownBorderThickness" Value="1" />
+        <!--<Setter Property="DropDownBorderBrush" Value="{DynamicResource ComboBox.Popup.Border}" />
+        <Setter Property="DropDownBorderThickness" Value="1" />-->
         <Setter Property="TabBackground" Value="{DynamicResource Background}" />
         <Setter Property="TabForeground" Value="{DynamicResource Foreground}" />
         <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
@@ -2715,7 +2689,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Popup.Resources>
-                            <Border BorderThickness="{TemplateBinding DropDownBorderThickness}" Background="{TemplateBinding DropDownBackground}" BorderBrush="{TemplateBinding DropDownBorderBrush}" Padding="0">
+                            <Border BorderThickness="1" Background="{TemplateBinding DropDownBackground}" BorderBrush="{DynamicResource ComboBox.Popup.Border}" Padding="0">
                                 <TabControl x:Name="ColorPickerTabControl" Background="Transparent" SelectedIndex="{Binding ColorMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource  ColorModeToTabItemSelectedConverter}}" BorderThickness="0">
                                     <local:ColorPickerTabItem x:Name="StandardTabItem"
                                             Header="{Binding StandardTabHeader, RelativeSource={RelativeSource TemplatedParent}}"
