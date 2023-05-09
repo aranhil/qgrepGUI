@@ -26,17 +26,17 @@ Install the Visual Studio extension and follow the setup instructions below.
 
 3. After this, you have to set up the folders that will be indexed. The window to set can be opened up from the lower left corner of the toolbar:
 
-   ![image](https://user-images.githubusercontent.com/755601/236954367-7722217e-73b9-40c6-8002-28f8a6eba032.png)
+   ![image](https://user-images.githubusercontent.com/755601/236962201-40373b1a-f74c-4fe9-8cd2-4fbb70417c8d.png)
 
 4. From here, you can add the folders and file filters. The "Gather from solution" button will automatically grab all the folders inside your solution. You can also select multiple folders at once.
 
-   ![image](https://user-images.githubusercontent.com/755601/236954626-9786eb9a-189f-4e0d-99be-f42ebe1f29b8.png)
+   ![image](https://user-images.githubusercontent.com/755601/236962315-6a4029f9-7cb7-429c-9237-b546d9a97ba3.png)
 
 5. After closing this window, indexing will begin automatically, and you can start searching.
 
 ## Interface overview
 
-![image](https://user-images.githubusercontent.com/755601/236955206-2bd9c6ae-639a-43a0-9063-1402d3d6794a.png)
+![image](https://user-images.githubusercontent.com/755601/236962874-6614cf8c-dcf8-4029-8dce-fc8f323409f3.png)
 
 ### Search input
 
@@ -46,7 +46,7 @@ The search input has three toggles that can also be found in Visual Studio: Case
 
 The search results list can be interacted with the keyboard/mouse without the search input losing the focus. There is also a contextual menu with more options:
 
-   ![image](https://user-images.githubusercontent.com/755601/236957474-e479308b-ddc6-4829-adb3-80ea27ba28e4.png)
+   ![image](https://user-images.githubusercontent.com/755601/236962612-82f1e2a6-2001-4016-8c22-f6532a562113.png)
 
 ### Customize colors
 
@@ -72,7 +72,7 @@ You also have the option to override any color used in the currently selected co
 
 Advanced mode opens up the possibility to toggle between multiple search configs. After setting them up, they can then be switched on or off from the lower left corner of the toolbar.
 
-   ![image](https://user-images.githubusercontent.com/755601/236958126-d6fbd8c7-e20c-4ff5-a46a-4733f9d5481a.png)
+   ![image](https://user-images.githubusercontent.com/755601/236962730-bd60a100-1697-4438-ad31-4590848d21bf.png)
 
 ### Update cache
 
