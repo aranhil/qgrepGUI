@@ -24,7 +24,10 @@ namespace qgrepControls.SearchWindow
 
         private void AddGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ClickCallback();
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                ClickCallback();
+            }
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

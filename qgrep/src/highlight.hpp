@@ -5,11 +5,11 @@
 #include <vector>
 
 // Use the default colors of the original grep
-const char* const kHighlightMatch = "\xB1"; // bright red
-const char* const kHighlightPath = "\033[;0;35m"; // magenta
-const char* const kHighlightNumber = "\033[;0;32m"; // green
-const char* const kHighlightSeparator = "\033[;0;36m"; // cyan
-const char* const kHighlightEnd = "\xB2";
+const char* const kHighlightMatch = ""; // bright red
+const char* const kHighlightPath = ""; // magenta
+const char* const kHighlightNumber = ""; // green
+const char* const kHighlightSeparator = ""; // cyan
+const char* const kHighlightEnd = "";
 
 // Compute highlighting for a string, given a set of ranges
 typedef std::pair<size_t, size_t> HighlightRange;

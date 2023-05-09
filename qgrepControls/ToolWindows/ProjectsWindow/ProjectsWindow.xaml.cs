@@ -2,12 +2,14 @@
 using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace qgrepControls.SearchWindow
 {
@@ -17,6 +19,8 @@ namespace qgrepControls.SearchWindow
 
         private ProjectRow SelectedProject = null;
         private GroupRow SelectedGroup = null;
+
+        public bool NothingChanged = true;
 
         public ProjectsWindow(qgrepSearchWindowControl Parent)
         {
@@ -163,12 +167,14 @@ namespace qgrepControls.SearchWindow
 
         public void DeleteProject(ProjectRow project)
         {
+            NothingChanged = false;
             Parent.ConfigParser.RemoveProject(project.Data.ProjectName);
             LoadFromConfig();
         }
 
         public void AddProject()
         {
+            NothingChanged = false;
             Parent.ConfigParser.AddNewProject();
             LoadFromConfig();
         }
@@ -181,6 +187,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Rename(newName))
                     {
+                        NothingChanged = false;
                         Parent.RenameFilter(project.Data.ProjectName, newName);
                         LoadFromConfig();
                     }
@@ -220,12 +227,12 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
+                        NothingChanged = false;
                         configProject.Groups.RemoveAt(group.Data.Index);
+                        LoadFromConfig();
                         break;
                     }
                 }
-
-                LoadFromConfig();
             }
         }
 
@@ -237,6 +244,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
+                        NothingChanged = false;
                         configProject.Groups.Add(new ConfigGroup());
                         break;
                     }
@@ -287,6 +295,7 @@ namespace qgrepControls.SearchWindow
                             {
                                 if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(filename))
                                 {
+                                    NothingChanged = false;
                                     configProject.Groups[SelectedGroup.Data.Index].Paths.Add(filename);
                                 }
                             }
@@ -308,6 +317,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
+                        NothingChanged = false;
                         configProject.Groups[SelectedGroup.Data.Index].Paths.Remove(path.Data.Path);
                         LoadFromConfig();
                         break;
@@ -348,6 +358,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
+                        NothingChanged = false;
                         configProject.Groups[SelectedGroup.Data.Index].Rules.RemoveAt(rule.Data.Index);
                         LoadFromConfig();
                         break;
@@ -372,6 +383,7 @@ namespace qgrepControls.SearchWindow
                     {
                         if (configProject.Name == SelectedProject.Data.ProjectName)
                         {
+                            NothingChanged = false;
                             ConfigRule newRule = new ConfigRule();
                             newRule.Rule = ruleWindow.RegExTextBox.Text;
                             newRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
@@ -408,6 +420,7 @@ namespace qgrepControls.SearchWindow
 
                         if (ruleWindow.IsOK)
                         {
+                            NothingChanged = false;
                             configRule.Rule = ruleWindow.RegExTextBox.Text;
                             configRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
 
@@ -568,11 +581,101 @@ namespace qgrepControls.SearchWindow
                         {
                             if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(solutionFolder))
                             {
+                                NothingChanged = false;
                                 configProject.Groups[SelectedGroup.Data.Index].Paths.Add(solutionFolder);
                             }
                         }
 
                         Parent.ConfigParser.SaveConfig();
+                        LoadFromConfig();
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void DeleteAllProjects_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> projectsToRemove = new List<string>();
+            foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+            {
+                projectsToRemove.Add(configProject.Name);
+            }
+
+            foreach(string projectName in projectsToRemove)
+            {
+                Parent.ConfigParser.RemoveProject(projectName);
+            }
+
+            NothingChanged = false;
+            Parent.ConfigParser.SaveConfig();
+            LoadFromConfig();
+        }
+
+        private void DeleteAllPaths_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
+                    {
+                        NothingChanged = false;
+                        configProject.Groups[SelectedGroup.Data.Index].Paths.Clear();
+                        LoadFromConfig();
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void AddNewProject_Click(object sender, RoutedEventArgs e)
+        {
+            AddProject();
+        }
+
+        private void AddNewPath_Click(object sender, RoutedEventArgs e)
+        {
+            AddPath();
+        }
+
+        private void AddNewRule_Click(object sender, RoutedEventArgs e)
+        {
+            AddRule();
+        }
+
+        private void DeleteAllRules_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProject != null && SelectedGroup != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
+                    {
+                        NothingChanged = false;
+                        configProject.Groups[SelectedGroup.Data.Index].Rules.Clear();
+                        LoadFromConfig();
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void AddNewGroup_Click(object sender, RoutedEventArgs e)
+        {
+            AddGroup();
+        }
+
+        private void DeleteAllGroups_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProject != null)
+            {
+                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                {
+                    if (configProject.Name == SelectedProject.Data.ProjectName)
+                    {
+                        NothingChanged = false;
+                        configProject.Groups.RemoveRange(1, configProject.Groups.Count - 1);
                         LoadFromConfig();
                         break;
                     }

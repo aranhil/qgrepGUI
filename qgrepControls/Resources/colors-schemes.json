@@ -50,6 +50,11 @@
                 "Opacity": 0.4
             },
             {
+                "Name": "Result.IsSelected.IsInactive.Background",
+                "Color": "FontsAndColors.Inactive Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
                 "Name": "Result.File.Foreground",
                 "Color": "CommonControls.ComboBoxText",
                 "Opacity": 0.5
@@ -168,6 +173,14 @@
             {
                 "Name": "ComboBox.Foreground",
                 "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "ComboBox.Arrow",
+                "Color": "CommonControls.ComboBoxGlyph"
+            },
+            {
+                "Name": "ComboBox.IsDisabled.Arrow",
+                "Color": "CommonControls.ComboBoxGlyphDisabled"
             },
             {
                 "Name": "ComboBox.Popup.Border",
@@ -395,6 +408,10 @@
                 "Color": "39, 80, 121"
             },
             {
+                "Name": "Result.IsSelected.IsInactive.Background",
+                "Color": "86, 86, 86"
+            },
+            {
                 "Name": "IconButton.Background",
                 "Color": "Transparent"
             },
@@ -497,6 +514,14 @@
             {
                 "Name": "ComboBox.Foreground",
                 "Color": "White"
+            },
+            {
+                "Name": "ComboBox.Arrow",
+                "Color": "214, 214, 214"
+            },
+            {
+                "Name": "ComboBox.IsDisabled.Arrow",
+                "Color": "128, 128, 128"
             },
             {
                 "Name": "ComboBox.Popup.Border",
@@ -761,6 +786,10 @@
                 "Color": "147, 195, 233"
             },
             {
+                "Name": "Result.IsSelected.IsInactive.Background",
+                "Color": "191, 205, 219"
+            },
+            {
                 "Name": "IconButton.Background",
                 "Color": "Transparent"
             },
@@ -811,6 +840,14 @@
             {
                 "Name": "Button.Border",
                 "Color": "172, 172, 172"
+            },
+            {
+                "Name": "ComboBox.Arrow",
+                "Color": "113, 113, 113"
+            },
+            {
+                "Name": "ComboBox.IsDisabled.Arrow",
+                "Color": "204, 206, 219"
             },
             {
                 "Name": "Button.IsMouseOver.Background",

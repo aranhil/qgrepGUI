@@ -24,6 +24,12 @@
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
                     <StackPanel x:Name="OverridesPanel"/>
                 </ScrollViewer>
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="AddNewOverride" Header="Add new override" Click="AddNewOverride_Click"/>
+                        <MenuItem x:Name="DeleteAllOverride" Header="Delete all override" Click="DeleteAllOverride_Click"/>
+                    </ContextMenu>
+                </Border.ContextMenu>
             </Border>
             <Label x:Name="OverridesHint" Content="Color overrides" Style="{DynamicResource SomeHintLabel2}" />
         </Grid>

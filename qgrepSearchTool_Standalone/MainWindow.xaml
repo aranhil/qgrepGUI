@@ -7,7 +7,7 @@
         xmlns:toolwindows="clr-namespace:qgrepControls.SearchWindow;assembly=qgrepControls"
         xmlns:controlzEx="urn:controlzex"
         x:Name="Window"
-        Title="ControlzEx.Showcase"
+        Title="qgrep Search Tool"
         Width="1366"
         Height="768"
         MinWidth="80"

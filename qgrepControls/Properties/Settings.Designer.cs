@@ -213,5 +213,53 @@ namespace qgrepControls.Properties {
                 this["PathStyleIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowHistory {
+            get {
+                return ((bool)(this["ShowHistory"]));
+            }
+            set {
+                this["ShowHistory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ExpandModeIndex {
+            get {
+                return ((int)(this["ExpandModeIndex"]));
+            }
+            set {
+                this["ExpandModeIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SearchInstantly {
+            get {
+                return ((bool)(this["SearchInstantly"]));
+            }
+            set {
+                this["SearchInstantly"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TrimSpacesOnCopy {
+            get {
+                return ((bool)(this["TrimSpacesOnCopy"]));
+            }
+            set {
+                this["TrimSpacesOnCopy"] = value;
+            }
+        }
     }
 }

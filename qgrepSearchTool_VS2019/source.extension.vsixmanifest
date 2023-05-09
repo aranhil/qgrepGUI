@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="qgrepSearchTool" Version="1.26" Language="en-US" Publisher="Iulian Chivu" />
-        <DisplayName>qgrep Search Tool</DisplayName>
-        <Description xml:space="preserve">Search tool that uses qgrep</Description>
+        <Identity Id="qgrepSearchTool-x86" Version="1.31" Language="en-US" Publisher="Stefan-Iulian Chivu" />
+        <DisplayName>qgrep Search Tool for Visual Studio 2019</DisplayName>
+        <Description xml:space="preserve">Search tool based on qgrep</Description>
         <License>Resources\LICENSE</License>
         <Icon>Resources\Icon128x128.png</Icon>
         <PreviewImage>Resources\Icon128x128.png</PreviewImage>

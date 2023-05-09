@@ -22,13 +22,26 @@
         </Grid.RowDefinitions>
         <Border Grid.Column="0" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="ProjectsPanel_MouseEnter" MouseLeave="ProjectsPanel_MouseLeave">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
-                <StackPanel x:Name="ProjectsPanel"/>
+                <StackPanel x:Name="ProjectsPanel">
+                </StackPanel>
             </ScrollViewer>
+            <Border.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="AddNewProject" Header="Add new config" Click="AddNewProject_Click"/>
+                    <MenuItem x:Name="DeleteAllProjects" Header="Delete all configs" Click="DeleteAllProjects_Click"/>
+                </ContextMenu>
+            </Border.ContextMenu>
         </Border>
         <Border Grid.Column="1" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="GroupsPanel_MouseEnter" MouseLeave="GroupsPanel_MouseLeave">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
                 <StackPanel x:Name="GroupsPanel"/>
             </ScrollViewer>
+            <Border.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="AddNewGroup" Header="Add new group" Click="AddNewGroup_Click"/>
+                    <MenuItem x:Name="DeleteAllGroups" Header="Delete all groups" Click="DeleteAllGroups_Click"/>
+                </ContextMenu>
+            </Border.ContextMenu>
         </Border>
         <Grid Grid.Column="2" Style="{DynamicResource ZIndexFocusable}">
             <Grid.RowDefinitions>
@@ -40,6 +53,12 @@
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
                         <StackPanel x:Name="PathsPanel"/>
                     </ScrollViewer>
+                    <Border.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="AddNewPath" Header="Add new folder" Click="AddNewPath_Click"/>
+                            <MenuItem x:Name="DeleteAllPaths" Header="Delete all folders" Click="DeleteAllPaths_Click"/>
+                        </ContextMenu>
+                    </Border.ContextMenu>
                 </Border>
                 <Label x:Name="PathsHint" Content="Folders" Style="{DynamicResource SomeHintLabel2}" />
             </Grid>
@@ -48,6 +67,12 @@
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
                         <StackPanel x:Name="RulesPanel"/>
                     </ScrollViewer>
+                    <Border.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="AddNewRule" Header="Add new filter" Click="AddNewRule_Click"/>
+                            <MenuItem x:Name="DeleteAllRules" Header="Delete all filters" Click="DeleteAllRules_Click"/>
+                        </ContextMenu>
+                    </Border.ContextMenu>
                 </Border>
                 <Label x:Name="RulesHint" Content="Filters" Style="{DynamicResource SomeHintLabel2}" />
             </Grid>

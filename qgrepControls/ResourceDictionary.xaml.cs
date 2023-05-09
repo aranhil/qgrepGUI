@@ -1,7 +1,9 @@
 ﻿using qgrepControls.SearchWindow;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace qgrepControls
 {
@@ -19,6 +21,9 @@ namespace qgrepControls
             Window window = (sender as FrameworkElement)?.TemplatedParent as Window;
             if (window != null)
                 window.Close();
+
+            if (window != null && window.Owner != null)
+                window.Owner.Focus();
         }
 
         SolidColorBrush GetBrush(TextBox textBox, bool IsMouseOver, bool IsSelected)
@@ -95,6 +100,11 @@ namespace qgrepControls
                         Panel.SetZIndex(parentGrid, textBox.IsMouseOver ? 2 : 1);
                 }
             }
+        }
+
+        private void ListBoxItem_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }
