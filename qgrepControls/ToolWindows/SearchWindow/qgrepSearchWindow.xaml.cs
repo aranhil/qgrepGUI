@@ -515,7 +515,7 @@ namespace qgrepControls.SearchWindow
                     FullResult = formatedFile + beginText + highlight + endText
                 });
 
-                if(newSearchResults.Count > 100 )
+                if (newSearchResults.Count >= 100)
                 {
                     if(newSearch)
                     {
@@ -540,18 +540,20 @@ namespace qgrepControls.SearchWindow
         {
             Dispatcher.Invoke(() =>
             {
-                foreach (SearchResult result in newSearchResults)
+                if (newSearch)
                 {
-                    searchResults.Add(result);
+                    SearchItemsListBox.ItemsSource = searchResults = newSearchResults;
+                    newSearchResults = new ObservableCollection<SearchResult>();
+                    newSearch = false;
                 }
-
-                //if (newSearch)
-                //{
-                //    searchResults.Clear();
-                //    newSearch = false;
-                //}
-
-                newSearchResults.Clear();
+                else
+                {
+                    foreach (SearchResult result in newSearchResults)
+                    {
+                        searchResults.Add(result);
+                    }
+                    newSearchResults.Clear();
+                }
 
                 InfoLabel.Content = string.Format("Showing {0} result(s) for \"{1}\"", searchResults.Count, lastSearchedString);
             });
@@ -577,6 +579,13 @@ namespace qgrepControls.SearchWindow
             {
                 lastSearchedString = SearchInput.Text;
 
+                if (newSearch)
+                {
+                    newSearchResults = new ObservableCollection<SearchResult>();
+                }
+
+                newSearch = true;
+
                 SearchOptions searchOptions = new SearchOptions()
                 {
                     Query = SearchInput.Text,
@@ -595,7 +604,10 @@ namespace qgrepControls.SearchWindow
                 };
 
                 SearchEngine.SearchAsync(searchOptions);
-                newSearch = true;
+            }
+            else
+            {
+                searchResults.Clear();
             }
 
             return;
