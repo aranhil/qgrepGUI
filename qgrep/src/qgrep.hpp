@@ -6,5 +6,4 @@
 #define QGREP_DLL __declspec(dllimport)
 #endif
 
-QGREP_DLL const char* qgrepWrapper(char* arguments, int size, const char* errors);
-QGREP_DLL void qgrepWrapperAsync(char* arguments, int size, void (*cb)(const char*, int), void (*errorsCb)(const char*, int));
+QGREP_DLL void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const char*, int), void (*errorsCallback)(const char*, int), void (*progressCallback)(int));

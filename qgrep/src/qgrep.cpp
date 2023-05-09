@@ -143,16 +143,17 @@ private:
 class AsyncStringOutput: public Output
 {
 public:
-	AsyncStringOutput(void (*cb)(const char*, int), void (*errorsCb)(const char*, int))
-		: callback(cb)
+	AsyncStringOutput(bool (*stringCb)(const char*, int), void (*errorsCb)(const char*, int), void (*progressCb)(int))
+		: stringCallback(stringCb)
 		, errorsCallback(errorsCb)
+		, progressCallback(progressCb)
 	{
 	}
 
 	virtual void rawprint(const char* data, size_t size)
 	{
 		std::unique_lock<std::mutex> lock(mutex);
-		callback(data, (int)size);
+		isStopped |= stringCallback(data, (int)size);
 	}
 
 	virtual void print(const char* message, ...)
@@ -165,7 +166,7 @@ public:
 		strprintf(result, message, l);
 		va_end(l);
 
-		callback(result.c_str(), (int)result.size());
+		isStopped |= stringCallback(result.c_str(), (int)result.size());
 	}
 
 	virtual void error(const char* message, ...)
@@ -182,9 +183,11 @@ public:
 	}
 
 private:
-	void (*callback)(const char*, int);
+	bool (*stringCallback)(const char*, int);
 	void (*errorsCallback)(const char*, int);
+	void (*progressCallback)(int);
 	std::mutex mutex;
+	bool isStopped;
 };
 
 
@@ -546,34 +549,7 @@ int main(int argc, const char** argv)
 	mainImpl(&output, argc, argv, 0, 0);
 }
 
-QGREP_DLL const char* qgrepWrapper(char* arguments, int size, const char* errors)
-{
-	std::vector<const char*> argv;
-
-	size_t last = 0;
-	for (size_t i = 0; i < (size_t)size; ++i)
-	{
-		if (arguments[i] == '\n')
-		{
-			arguments[i] = 0;
-			argv.push_back(arguments + last);
-			last = i + 1;
-		}
-	}
-
-	static std::string result;
-	static std::string errorsString;
-	result.clear();
-	errorsString.clear();
-
-	StringOutput output(result, errorsString);
-	mainImpl(&output, argv.size(), &argv[0], 0, 0);
-
-	errors = errorsString.c_str();
-	return result.c_str();
-}
-
-void qgrepWrapperAsync(char* arguments, int size, void (*callback)(const char*, int), void (*errorsCallback)(const char*, int))
+void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const char*, int), void (*errorsCallback)(const char*, int), void (*progressCallback)(int))
 {
 	std::vector<const char*> argv;
 
@@ -591,6 +567,6 @@ void qgrepWrapperAsync(char* arguments, int size, void (*callback)(const char*, 
 	static std::string result;
 	result.clear();
 
-	AsyncStringOutput output(callback, errorsCallback);
+	AsyncStringOutput output(stringCallback, errorsCallback, progressCallback);
 	mainImpl(&output, argv.size(), &argv[0], 0, 0);
 }

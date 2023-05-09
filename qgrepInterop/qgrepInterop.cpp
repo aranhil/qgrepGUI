@@ -8,23 +8,7 @@
 
 #include "qgrepInterop.h"
 
-System::String^ qgrepInterop::QGrepWrapper::CallQGrep(System::Collections::Generic::List<System::String^>^ arguments, System::String^% errors)
-{
-    std::string unmanagedArguments;
-    const char* unmanagedErrors = nullptr;
-
-    for each (System::String^ argument in arguments)
-    {
-        unmanagedArguments += msclr::interop::marshal_as<std::string>(argument) + "\n";
-    }
-
-    const char* unmanagedResults = qgrepWrapper(const_cast<char*>(unmanagedArguments.c_str()), unmanagedArguments.size(), unmanagedErrors);
-
-    errors = gcnew System::String(unmanagedErrors);
-    return gcnew System::String(unmanagedResults);
-}
-
-void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, Callback^ cb, Callback^ errorsCb)
+void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, StringCallback^ stringCb, ErrorCallback^ errorsCb, ProgressCalback^ progressCb)
 {
     std::string unmanagedArguments;
 
@@ -33,24 +17,35 @@ void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::Li
         unmanagedArguments += msclr::interop::marshal_as<std::string>(argument) + "\n";
     }
 
-    callback = cb;
-    errorsCallback = errorsCb;
+    stringCallback = stringCb;
+    errorCallback = errorsCb;
+    progressCalback = progressCb;
 
-    qgrepWrapperAsync(const_cast<char*>(unmanagedArguments.c_str()), unmanagedArguments.size(), &NativeQGrepWrapper::nativeCallback, &NativeQGrepWrapper::nativeErrorsCallback);
+    qgrepWrapperAsync(const_cast<char*>(unmanagedArguments.c_str()), unmanagedArguments.size(), &NativeQGrepWrapper::nativeStringCallback, &NativeQGrepWrapper::nativeErrorsCallback, &NativeQGrepWrapper::nativeProgressCallback);
 }
 
-void qgrepInterop::NativeQGrepWrapper::nativeCallback(const char* result, int size)
+bool qgrepInterop::NativeQGrepWrapper::nativeStringCallback(const char* result, int size)
 {
-    if (QGrepWrapper::callback != nullptr)
+    if (QGrepWrapper::stringCallback != nullptr)
     {
-        QGrepWrapper::callback(gcnew System::String(result, 0, size));
+        return QGrepWrapper::stringCallback(gcnew System::String(result, 0, size));
+    }
+
+    return false;
+}
+
+void qgrepInterop::NativeQGrepWrapper::nativeProgressCallback(int percentage)
+{
+    if (QGrepWrapper::progressCalback != nullptr)
+    {
+        return QGrepWrapper::progressCalback(percentage);
     }
 }
 
 void qgrepInterop::NativeQGrepWrapper::nativeErrorsCallback(const char* error, int size)
 {
-    if (QGrepWrapper::errorsCallback != nullptr)
+    if (QGrepWrapper::errorCallback != nullptr)
     {
-        QGrepWrapper::errorsCallback(gcnew System::String(error, 0, size));
+        QGrepWrapper::errorCallback(gcnew System::String(error, 0, size));
     }
 }

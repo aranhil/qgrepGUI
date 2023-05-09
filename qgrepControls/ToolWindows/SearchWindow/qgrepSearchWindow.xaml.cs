@@ -150,9 +150,13 @@ namespace qgrepControls.SearchWindow
         ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         int selectedSearchResultGroup = -1;
 
+<<<<<<< Updated upstream
         List<string> searchHistory = new List<string>();
         bool searchInputChanged = true;
         string lastSearchedString = "";
+=======
+        static SearchEngine SearchEngine = new SearchEngine();
+>>>>>>> Stashed changes
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
@@ -480,6 +484,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.Save();
         }
 
+<<<<<<< Updated upstream
         private int GetGroupingMode()
         {
             if(SearchInput.Text.Length == 0 && IncludeFilesInput.Text.Length != 0)
@@ -509,18 +514,86 @@ namespace qgrepControls.SearchWindow
             Match match = Regex.Match(result, search);
             begingHighlight = match.Index;
             endHighlight = match.Length;
+=======
+        List<SearchResult> newSearchResults = new List<SearchResult>();
+
+        private void HandleResult(string file, string lineNumber, string beginText, string highlight, string endText)
+        {
+            string formatedFile = file + "(" + lineNumber + ")";
+            string trimmedFormatedFile = ConfigParser.RemovePaths(formatedFile);
+
+            Dispatcher.Invoke(() =>
+            {
+                newSearchResults.Add(new SearchResult()
+                {
+                    Index = 0,
+                    Line = lineNumber,
+                    File = trimmedFormatedFile,
+                    BeginText = beginText,
+                    HighlightedText = highlight,
+                    EndText = endText,
+                    FullFile = formatedFile,
+                    FullResult = formatedFile + beginText + highlight + endText
+                });
+            });
+        }
+
+        private void HandleFinish()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                
+            });
+>>>>>>> Stashed changes
         }
 
         private void Find()
         {
-            if (EngineBusy)
+            string configs = "";
+            for (int i = 0; i < FiltersComboBox.SelectedItems.Count; i++)
             {
-                QueueFind = true;
-                return;
+                ConfigProject configProject = FiltersComboBox.SelectedItems[i] as ConfigProject;
+                if (configProject != null)
+                {
+                    configs += configProject.Path;
+                    if (i < FiltersComboBox.SelectedItems.Count - 1)
+                    {
+                        configs += ",";
+                    }
+                }
             }
 
+<<<<<<< Updated upstream
             searchInputChanged = false;
             lastSearchedString = SearchInput.Text;
+=======
+            if (SearchInput.Text.Length != 0)
+            {
+                SearchOptions searchOptions = new SearchOptions()
+                {
+                    Query = SearchInput.Text,
+                    IncludeFiles = Settings.Default.ShowIncludes && IncludeFilesInput.Text.Length > 0 ? IncludeFilesInput.Text : "",
+                    ExcludeFiles = Settings.Default.ShowExcludes && ExcludeFilesInput.Text.Length > 0 ? ExcludeFilesInput.Text : "",
+                    FilterResults = Settings.Default.ShowFilter && FilterResultsInput.Text.Length > 0 ? FilterResultsInput.Text : "",
+                    CaseSensitive = SearchCaseSensitive.IsChecked == true,
+                    WholeWord = SearchWholeWord.IsChecked == true,
+                    RegEx = SearchRegEx.IsChecked == true,
+                    IncludeFilesRegEx = IncludeRegEx.IsChecked == true,
+                    ExcludeFilesRegEx = ExcludeRegEx.IsChecked == true,
+                    FilterResultsRegEx = FilterRegEx.IsChecked == true,
+                    Configs = configs,
+                    ResultCallback = HandleResult,
+                    FinishCallback = HandleFinish
+                };
+
+                SearchEngine.SearchAsync(searchOptions);
+            }
+
+            return;
+
+            SearchItemsControl.Visibility = Settings.Default.GroupingIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+            SearchItemsTreeView.Visibility = Settings.Default.GroupingIndex != 0 ? Visibility.Visible : Visibility.Collapsed;
+>>>>>>> Stashed changes
 
             SearchItemsListBox.Visibility = GetGroupingMode() == 0 ? Visibility.Visible : Visibility.Collapsed;
             SearchItemsTreeView.Visibility = GetGroupingMode() != 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -552,7 +625,7 @@ namespace qgrepControls.SearchWindow
                 searchedFile = IncludeFilesInput.Text;
             }
 
-            string configs = "";
+            //string configs = "";
 
             for (int i = 0; i < FiltersComboBox.SelectedItems.Count; i++)
             {
@@ -637,7 +710,7 @@ namespace qgrepControls.SearchWindow
                 SearchResultGroup lastGroup = new SearchResultGroup() { Index = groupIndex++ };
                 string errors = "";
 
-                string results = QGrepWrapper.CallQGrep(arguments, ref errors);
+                string results = ""; // QGrepWrapper.CallQGrep(arguments, ref errors);
                 LastResults = results;
 
                 int resultIndex = 0;
@@ -1146,7 +1219,7 @@ namespace qgrepControls.SearchWindow
             }));
         }
 
-        private void ProcessInitMessage(string message)
+        private bool ProcessInitMessage(string message)
         {
             if (message.Contains("%"))
             {
@@ -1180,6 +1253,8 @@ namespace qgrepControls.SearchWindow
                     InitInfo.Content = message;
                 }));
             }
+
+            return false;
         }
 
         private void ProcessQueue()
@@ -1237,15 +1312,15 @@ namespace qgrepControls.SearchWindow
             {
                 foreach(ConfigProject configProject in ConfigParser.ConfigProjects)
                 {
-                    QGrepWrapper.Callback callback = new QGrepWrapper.Callback(ProcessInitMessage);
-                    QGrepWrapper.Callback errorsCallback = new QGrepWrapper.Callback(ProcessErrorMessage);
+                    QGrepWrapper.StringCallback stringCallback = new QGrepWrapper.StringCallback(ProcessInitMessage);
+                    QGrepWrapper.ErrorCallback errorsCallback = new QGrepWrapper.ErrorCallback(ProcessErrorMessage);
                     List<string> parameters = new List<string>
                     {
                         "qgrep",
                         "update",
                         configProject.Path
                     };
-                    QGrepWrapper.CallQGrepAsync(parameters, callback, errorsCallback);
+                    QGrepWrapper.CallQGrepAsync(parameters, stringCallback, errorsCallback, null);
                 }
 
                 Dispatcher.Invoke(new Action(() =>
