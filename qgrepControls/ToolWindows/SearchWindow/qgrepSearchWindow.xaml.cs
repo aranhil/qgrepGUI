@@ -1479,33 +1479,6 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private int GetVisibleIndex(SearchResultGroup searchResultGroup, SearchResult searchResult)
-        {
-            if(searchResultGroup == null)
-            {
-                searchResultGroup = searchResult.Parent;
-            }
-
-            int totalCount = 1;
-            for(int i = 0; i < searchResultGroup.Index; i++)
-            {
-                var asd = SearchItemsTreeView.ItemContainerGenerator.Items;
-
-                totalCount++;
-                if (searchResultsGroups[i].IsExpanded)
-                {
-                    totalCount += searchResultsGroups[i].SearchResults.Count;
-                }
-            }
-
-            if(searchResult != null)
-            {
-                totalCount += searchResult.Index - searchResultGroup.SearchResults[0].Index + 1;
-            }
-
-            return totalCount;
-        }
-
         private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             SearchResult oldSelectedSearchResult = GetSelectedSearchResult();
