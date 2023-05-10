@@ -479,6 +479,8 @@ namespace qgrepControls.SearchWindow
             Dispatcher.Invoke(() =>
             {
                 newSearch = true;
+                selectedSearchResultGroup = null;
+                selectedSearchResult = null;
 
                 SearchItemsListBox.Visibility = searchOptions.GroupingMode == 0 ? Visibility.Visible : Visibility.Collapsed;
                 SearchItemsTreeView.Visibility = searchOptions.GroupingMode != 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -607,11 +609,12 @@ namespace qgrepControls.SearchWindow
                     else
                     {
                         AddResultsBatch(searchOptions);
-                    }
 
-                    if (searchOptions.GroupingMode == 1)
-                    {
-                        ProcessTreeCollapsingAfterPopulation();
+
+                        if (searchOptions.GroupingMode == 1)
+                        {
+                            ProcessTreeCollapsingAfterPopulation();
+                        }
                     }
                 }
                 else

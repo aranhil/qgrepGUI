@@ -1,6 +1,5 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #pragma once
-
-#define PRINT_ERROR(output, message, ...) output->error("%s:%d: " message, __FILE__, __LINE__, __VA_ARGS__);
 
 class Output
 {

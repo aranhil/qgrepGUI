@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "build.hpp"
 
@@ -15,6 +16,7 @@
 #include "workqueue.hpp"
 #include "blockingqueue.hpp"
 
+#include <algorithm>
 #include <vector>
 #include <list>
 #include <numeric>
@@ -141,6 +143,10 @@ static void printStatistics(Output* output, const BuildStatistics& stats, unsign
 
 static size_t normalizeEOL(char* data, size_t size)
 {
+	// fast path: no \r in the file
+	if (memchr(data, '\r', size) == nullptr)
+		return size;
+
 	// replace \r\n with \n, replace stray \r with \n
 	size_t result = 0;
 
@@ -340,23 +346,37 @@ static unsigned int getIndexHashIterations(unsigned int indexSize, unsigned int 
 
 struct IntSet
 {
-	std::vector<unsigned int> data;
-	unsigned int size;
+	unsigned int* data;
+	size_t capacity;
+	size_t size;
 
-	IntSet(size_t capacity = 0): data(capacity), size(0)
+	IntSet(size_t capacity = 0): data(new unsigned int[capacity]), capacity(capacity), size(0)
 	{
 		assert((capacity & (capacity - 1)) == 0);
+
+		memset(data, 0, capacity * sizeof(unsigned int));
 	}
+
+	~IntSet()
+	{
+		delete[] data;
+	}
+
+	IntSet(const IntSet&) = delete;
+	IntSet(IntSet&&) = delete;
+	IntSet& operator=(const IntSet&) = delete;
+	IntSet& operator=(IntSet&&) = delete;
 
 	void grow()
 	{
-		IntSet res(std::max(data.size() * 2, size_t(16)));
+		IntSet res(std::max(capacity * 2, size_t(16)));
 
-		for (size_t i = 0; i < data.size(); ++i)
+		for (size_t i = 0; i < capacity; ++i)
 			if (data[i])
 				res.insert(data[i]);
 
-		data.swap(res.data);
+		std::swap(data, res.data);
+		std::swap(capacity, res.capacity);
 		assert(size == res.size);
 	}
 
@@ -364,10 +384,10 @@ struct IntSet
 	{
 		assert(key != 0);
 
-		if (size >= data.size() / 2)
+		if (size >= capacity / 2)
 			grow();
 
-		unsigned int m = data.size() - 1;
+		unsigned int m = capacity - 1;
 		unsigned int h = bloomHash2(key) & m;
 		unsigned int i = 0;
 
@@ -430,8 +450,8 @@ static ChunkIndex prepareChunkIndex(const char* data, size_t size)
 
 	memset(index, 0, indexSize);
 
-	for (auto n: ngrams.data)
-		if (n != 0)
+	for (size_t i = 0; i < ngrams.capacity; ++i)
+		if (unsigned int n = ngrams.data[i])
 			bloomFilterUpdate(index, indexSize, n, iterations);
 
 	return result;
@@ -491,9 +511,12 @@ static void flushChunk(BuildContext* context, size_t size)
 		}
 		else
 		{
-			// last file does not fit completely, store some part of it and put the remaining lines back into pending list
+			// last file may not fit completely, store some part of it and put the remaining lines back into pending list
 			appendChunkFilePrefix(chunk, file, remainingSize);
-			context->pendingFiles.emplace_front(file);
+
+			// we might have fully appended the file if it was one huge line, but usually there's a remainder to be processed later
+			if (file.contents.size())
+				context->pendingFiles.emplace_front(file);
 
 			// it's impossible to add any more files to this chunk without making it larger than requested
 			break;
@@ -531,9 +554,7 @@ static void writeChunkThreadFun(BuildContext* context)
 
 			// empty compressed data acts as a terminator flag
 			if (!chunk.compressedData)
-			{
 				return;
-			}
 
 			context->outData.write(&header, sizeof(header));
 			context->outData.write(chunk.extra.get(), header.extraSize);
@@ -562,7 +583,7 @@ BuildContext* buildStart(Output* output, const char* path, unsigned int fileCoun
 	context->outData.open(path, "wb");
 	if (!context->outData)
 	{
-		PRINT_ERROR(output, "Error opening data file %s for writing\n", path);
+		output->error("Error opening data file %s for writing\n", path);
 		return 0;
 	}
 
@@ -620,7 +641,7 @@ bool buildAppendFile(BuildContext* context, const char* path, uint64_t timeStamp
 	FileStream in(path, "rb");
 	if (!in)
 	{
-		PRINT_ERROR(context->output, "Error reading file %s\n", path);
+		context->output->error("Error reading file %s\n", path);
 		return false;
 	}
 
@@ -634,7 +655,7 @@ bool buildAppendFile(BuildContext* context, const char* path, uint64_t timeStamp
 	}
 	catch (const std::bad_alloc&)
 	{
-		PRINT_ERROR(context->output, "Error reading file %s: out of memory\n", path);
+		context->output->error("Error reading file %s: out of memory\n", path);
 		return false;
 	}
 }
@@ -724,7 +745,7 @@ void buildProject(Output* output, const char* path)
 
 	std::vector<FileInfo> files = getProjectGroupFiles(output, group.get());
 
-	output->print("Building file table...\n");
+	output->print("Building file table...\r");
 
 	if (!buildFiles(output, path, files))
 		return;
@@ -748,7 +769,7 @@ void buildProject(Output* output, const char* path)
 	
 	if (!renameFile(tempPath.c_str(), targetPath.c_str()))
 	{
-		PRINT_ERROR(output, "Error saving data file %s, code %d\n", targetPath.c_str(), getLastError());
+		output->error("Error saving data file %s\n", targetPath.c_str());
 		return;
 	}
 }

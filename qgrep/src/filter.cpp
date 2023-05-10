@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "filter.hpp"
 
@@ -365,7 +366,7 @@ unsigned int filter(Output* output_, const char* string, unsigned int options, u
 		return filterFuzzy(entries, string, &output);
 	else
 	{
-		PRINT_ERROR(output_, "Unknown file search type\n");
+		output_->error("Unknown file search type\n");
 		return 0;
 	}
 }

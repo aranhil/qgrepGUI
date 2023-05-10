@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "qgrep.hpp"
 
@@ -36,7 +37,7 @@
 #include <mutex>
 #include <chrono>
 
-const char* kVersion = "1.1";
+const char* kVersion = "1.3";
 
 namespace re2 { bool RunningOnValgrind() { return false; } }
 
@@ -45,7 +46,7 @@ class StandardOutput: public Output
 public:
 	StandardOutput()
 	{
-		istty = false;// = isatty(fileno(stdout)) != 0;
+		istty = isatty(fileno(stdout)) != 0;
 
 	#ifndef _WIN32
 		const char* term = getenv("TERM");
@@ -98,12 +99,10 @@ private:
 	bool istty;
 };
 
-class StringOutput : public Output
+class StringOutput: public Output
 {
 public:
-	StringOutput(std::string& buf, std::string& errorsBuf)
-		: result(buf)
-		, errors(errorsBuf)
+	StringOutput(std::string& buf): result(buf)
 	{
 	}
 
@@ -130,13 +129,12 @@ public:
 
 		va_list l;
 		va_start(l, message);
-		strprintf(errors, message, l);
+		strprintf(result, message, l);
 		va_end(l);
 	}
 
 private:
 	std::string& result;
-	std::string& errors;
 	std::mutex mutex;
 };
 
@@ -271,6 +269,11 @@ void parseSearchOptions(const char* opts, unsigned int& options, unsigned int& l
 
 		case 'C':
 			options |= SO_COLUMNNUMBER;
+			if (s[1] == 'E')
+			{
+				options |= SO_COLUMNNUMBEREND;
+				s++;
+			}
 			break;
 
 		case 'H':
@@ -402,10 +405,11 @@ void printHelp(Output* output, bool extended)
 "  qgrep update <project-list>\n"
 "  qgrep search <project-list> <search-options> <query>\n"
 "  qgrep watch <project-list>\n"
+"  qgrep interactive <project-list>\n"
 "  qgrep help\n", kVersion);
 
-	if (extended)
-		output->print(
+    if (extended)
+        output->print(
 "\n"
 "Advanced commands:\n"
 "  qgrep build <project-list>\n"
@@ -416,7 +420,7 @@ void printHelp(Output* output, bool extended)
 "  qgrep info <project-list>\n"
 "  qgrep projects\n");
 
-	output->print(
+    output->print(
 "\n"
 "<project> is a project name (stored in ~/.qgrep) or a path to .cfg file\n"
 "<project-list> is * or % (all projects) or a comma-separated list of names\n"
@@ -426,9 +430,10 @@ void printHelp(Output* output, bool extended)
 "  i - case-insensitive search          l - literal (substring) search\n"
 "  V - Visual Studio formatting         S - print search summary\n");
 
-	if (extended)
-		output->print(
-"  C - output match column number       L<num> - limit output to <num> lines\n"
+    if (extended)
+        output->print(
+"  C - output match column number       CE - output match starting and ending column numbers\n"
+"  L<num> - limit output to <num> lines\n"
 "\n"
 "<search-options> can include flags for restricting searches to certain files:\n"
 "  fi<re> - only search in files with paths matching regex <re>\n"
@@ -440,7 +445,9 @@ void printHelp(Output* output, bool extended)
 "\n"
 "<search-options> can include additional options for files/filter commands:\n"
 "  fp - search in file paths (default)  fn - search in file names\n"
-"  ff - fuzzy search with ranking       fs - search for space-delimited words\n");
+"  ff - fuzzy search with ranking       fs - search for space-delimited words\n"
+"\n"
+"in interactive mode, you can input 'search' and 'files' commands without a project list.\n");
 }
 
 void mainImpl(Output* output, int argc, const char** argv, const char* input, size_t inputSize)
@@ -449,7 +456,7 @@ void mainImpl(Output* output, int argc, const char** argv, const char* input, si
 	{
 		if (argc > 3 && strcmp(argv[1], "init") == 0)
 		{
-			initProject(output, "dummy-name", argv[2], argv[3]);
+			initProject(output, argv[2], getProjectPath(argv[2]).c_str(), argv[3]);
 		}
 		else if (argc > 2 && strcmp(argv[1], "build") == 0)
 		{
@@ -501,7 +508,7 @@ void mainImpl(Output* output, int argc, const char** argv, const char* input, si
 			std::vector<std::thread> threads;
 
 			for (size_t i = 0; i < paths.size(); ++i)
-				threads.emplace_back([=] { watchProject(output, paths[i].c_str()); });
+				threads.emplace_back([=] { watchProject(output, paths[i].c_str(), /* interactive= */ false); });
 
 			for (auto& t: threads)
 				t.join();
@@ -514,6 +521,40 @@ void mainImpl(Output* output, int argc, const char** argv, const char* input, si
 
 			for (size_t i = 0; i < paths.size(); ++i)
 				appendChanges(output, paths[i].c_str(), changes);
+		}
+		else if (argc > 2 && strcmp(argv[1], "interactive") == 0)
+		{
+			std::vector<std::string> paths = getProjectPaths(argv[2]);
+			std::vector<std::thread> threads;
+
+			for (size_t i = 0; i < paths.size(); ++i)
+				threads.emplace_back([=] { watchProject(output, paths[i].c_str(), /* interactive= */ true); });
+
+			std::vector<const char*> intArgv(argv, argv + argc);
+			std::string intInput;
+			intArgv.push_back(""); // Used later to place the input
+
+			char buf[1024];
+			while (fgets(buf, sizeof(buf), stdin))
+			{
+				if (strncmp(buf, "search ", 7) == 0)
+				{
+					intArgv[1] = "search";
+					intInput = std::string(buf + 7, buf + strlen(buf) - 1);
+					intArgv.back() = intInput.c_str();
+					processSearchCommand(output, intArgv.size(), &intArgv[0], searchProject);
+				}
+				else if (strncmp(buf, "files ", 6) == 0)
+				{
+					intArgv[1] = "files";
+					intInput = std::string(buf + 6, buf + strlen(buf) - 1);
+					intArgv.back() = intInput.c_str();
+					processSearchCommand(output, intArgv.size(), &intArgv[0], searchFiles);
+				}
+			}
+
+			for (auto& t : threads)
+				t.join();
 		}
 		else if (argc > 1 && strcmp(argv[1], "version") == 0)
 		{
@@ -528,7 +569,7 @@ void mainImpl(Output* output, int argc, const char** argv, const char* input, si
 	}
 	catch (const std::exception& e)
 	{
-		PRINT_ERROR(output, "Uncaught exception: %s\n", e.what());
+		output->error("Uncaught exception: %s\n", e.what());
 	}
 }
 

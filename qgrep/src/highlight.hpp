@@ -1,15 +1,16 @@
-﻿#pragma once
+﻿// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
+#pragma once
 
 #include <utility>
 #include <string>
 #include <vector>
 
 // Use the default colors of the original grep
-const char* const kHighlightMatch = ""; // bright red
-const char* const kHighlightPath = ""; // magenta
-const char* const kHighlightNumber = ""; // green
-const char* const kHighlightSeparator = ""; // cyan
-const char* const kHighlightEnd = "";
+const char* const kHighlightMatch = "\033[;01;31m"; // bright red
+const char* const kHighlightPath = "\033[;0;35m"; // magenta
+const char* const kHighlightNumber = "\033[;0;32m"; // green
+const char* const kHighlightSeparator = "\033[;0;36m"; // cyan
+const char* const kHighlightEnd = "\033[0m";
 
 // Compute highlighting for a string, given a set of ranges
 typedef std::pair<size_t, size_t> HighlightRange;

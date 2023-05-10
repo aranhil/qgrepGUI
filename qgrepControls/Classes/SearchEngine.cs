@@ -333,9 +333,9 @@ namespace qgrepControls.Classes
 
         private bool DatabaseMessageHandler(string result)
         {
-            if(result.EndsWith("\n"))
+            if (result.EndsWith("\n"))
             {
-                System.Diagnostics.Debugger.Break();
+                result = result.Substring(0, result.Length - 1);
             }
 
             UpdateInfoCallback(result);

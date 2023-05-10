@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "changes.hpp"
 
@@ -84,6 +85,6 @@ void appendChanges(Output* output, const char* path, const std::vector<std::stri
 		changes.erase(std::unique(changes.begin(), changes.end()), changes.end());
 
 		if (!writeChanges(path, changes))
-			PRINT_ERROR(output, "Error writing changes for project %s\n", path);
+			output->error("Error writing changes for project %s\n", path);
 	}
 }

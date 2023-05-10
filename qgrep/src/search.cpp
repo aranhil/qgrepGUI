@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "search.hpp"
 
@@ -64,9 +65,12 @@ static char* printNumber(char* dest, unsigned int value)
 	return printString(dest, end);
 }
 
-static size_t printMatchLineColumn(unsigned int line, unsigned int column, unsigned int options, char (&buf)[256])
+static size_t printMatchLineColumn(unsigned int line, size_t matchOffset, size_t matchLength, unsigned int options, char (&buf)[256])
 {
 	char* pos = buf;
+
+	size_t matchStartColumn = matchOffset + 1;
+	size_t matchEndColumn = matchStartColumn + matchLength;
 
 	const char* sepbeg = (options & SO_VISUALSTUDIO) ? "(" : ":";
 	const char* sepmid = (options & SO_VISUALSTUDIO) ? "" : ":";
@@ -84,7 +88,16 @@ static size_t printMatchLineColumn(unsigned int line, unsigned int column, unsig
 		pos = printString(pos, sepmid);
 
 		if (options & SO_HIGHLIGHT) pos = printString(pos, kHighlightNumber);
-		pos = printNumber(pos, column);
+		pos = printNumber(pos, matchStartColumn);
+
+		if (options & SO_COLUMNNUMBEREND)
+		{
+			if (options & SO_HIGHLIGHT) pos = printString(pos, kHighlightSeparator);
+			pos = printString(pos, sepmid);
+
+			if (options & SO_HIGHLIGHT) pos = printString(pos, kHighlightNumber);
+			pos = printNumber(pos, matchEndColumn);
+		}
 	}
 
 	if (options & SO_HIGHLIGHT) pos = printString(pos, kHighlightSeparator);
@@ -116,7 +129,7 @@ static void processMatch(Regex* re, SearchOutput* output, OrderedOutput::Chunk* 
 	}
 
 	char linecolumn[256];
-	size_t linecolumnsize = printMatchLineColumn(lineNumber, matchOffset + 1, output->options, linecolumn);
+	size_t linecolumnsize = printMatchLineColumn(lineNumber, matchOffset, matchLength, output->options, linecolumn);
 
 	if (output->options & SO_HIGHLIGHT) outputChunk->result += kHighlightPath;
 	outputChunk->result.append(path, pathLength);
@@ -401,14 +414,14 @@ unsigned int searchProject(Output* output_, const char* file, const char* string
 	FileStream in(dataPath.c_str(), "rb");
 	if (!in)
 	{
-		PRINT_ERROR(output_, "Error reading data file %s\n", dataPath.c_str());
+		output_->error("Error reading data file %s\n", dataPath.c_str());
 		return 0;
 	}
 	
 	DataFileHeader header;
 	if (!read(in, header) || memcmp(header.magic, kDataFileHeaderMagic, strlen(kDataFileHeaderMagic)) != 0)
 	{
-		PRINT_ERROR(output_, "Error reading data file %s: file format is out of date, update the project to fix\n", dataPath.c_str());
+		output_->error("Error reading data file %s: file format is out of date, update the project to fix\n", dataPath.c_str());
 		return 0;
 	}
 
@@ -428,7 +441,7 @@ unsigned int searchProject(Output* output_, const char* file, const char* string
 		{
 			if (!readVector(in, extra, chunk.extraSize))
 			{
-				PRINT_ERROR(output_, "Error reading data file %s: malformed chunk\n", dataPath.c_str());
+				output_->error("Error reading data file %s: malformed chunk\n", dataPath.c_str());
 				return 0;
 			}
 
@@ -442,7 +455,7 @@ unsigned int searchProject(Output* output_, const char* file, const char* string
 			{
 				if (!readVector(in, index, chunk.indexSize))
 				{
-					PRINT_ERROR(output_, "Error reading data file %s: malformed chunk\n", dataPath.c_str());
+					output_->error("Error reading data file %s: malformed chunk\n", dataPath.c_str());
 					return 0;
 				}
 
@@ -457,7 +470,7 @@ unsigned int searchProject(Output* output_, const char* file, const char* string
 
 			if (!data || !read(in, data.get(), chunk.compressedSize))
 			{
-				PRINT_ERROR(output_, "Error reading data file %s: malformed chunk\n", dataPath.c_str());
+				output_->error("Error reading data file %s: malformed chunk\n", dataPath.c_str());
 				return 0;
 			}
 

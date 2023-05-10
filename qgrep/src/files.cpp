@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "files.hpp"
 
@@ -98,7 +99,7 @@ bool buildFiles(Output* output, const char* path, const std::vector<FileInfo>& f
 		FileStream out(tempPath.c_str(), "wb");
 		if (!out)
 		{
-			PRINT_ERROR(output, "Error saving data file %s, code %d\n", tempPath.c_str(), getLastError());
+			output->error("Error saving data file %s\n", tempPath.c_str());
 			return false;
 		}
 
@@ -123,7 +124,7 @@ bool buildFiles(Output* output, const char* path, const std::vector<FileInfo>& f
 
 	if (!renameFile(tempPath.c_str(), targetPath.c_str()))
 	{
-		PRINT_ERROR(output, "Error saving data file %s, code %d\n", targetPath.c_str(), getLastError());
+		output->error("Error saving data file %s\n", targetPath.c_str());
 		return false;
 	}
 
@@ -161,14 +162,14 @@ unsigned int searchFiles(Output* output, const char* file, const char* string, u
 	FileStream in(dataPath.c_str(), "rb");
 	if (!in)
 	{
-		PRINT_ERROR(output, "Error reading data file %s\n", dataPath.c_str());
+		output->error("Error reading data file %s\n", dataPath.c_str());
 		return 0;
 	}
 	
 	FileFileHeader header;
 	if (!read(in, header) || memcmp(header.magic, kFileFileHeaderMagic, strlen(kFileFileHeaderMagic)) != 0)
 	{
-		PRINT_ERROR(output, "Error reading data file %s: malformed header\n", dataPath.c_str());
+		output->error("Error reading data file %s: malformed header\n", dataPath.c_str());
 		return 0;
 	}
 
@@ -176,7 +177,7 @@ unsigned int searchFiles(Output* output, const char* file, const char* string, u
 
 	if (!buffer || !read(in, buffer.get(), header.compressedSize))
 	{
-		PRINT_ERROR(output, "Error reading data file %s: malformed header\n", dataPath.c_str());
+		output->error("Error reading data file %s: malformed header\n", dataPath.c_str());
 		return 0;
 	}
 
