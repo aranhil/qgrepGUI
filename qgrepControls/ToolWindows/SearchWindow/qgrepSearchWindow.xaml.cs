@@ -160,7 +160,7 @@ namespace qgrepControls.SearchWindow
             {
                 if (Settings.Default["LastUpdated"] != null)
                 {
-                    InitInfo.Content = "Last updated: " + GetTimeAgoString(Settings.Default.LastUpdated);
+                    InitInfo.Content = "Last index update: " + GetTimeAgoString(Settings.Default.LastUpdated);
                 }
             }
         }

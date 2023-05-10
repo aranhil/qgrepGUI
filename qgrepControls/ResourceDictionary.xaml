@@ -1241,6 +1241,7 @@
     </Style>
     <Style x:Key="ResultSeparator" TargetType="{x:Type Border}">
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Margin" Value="0,0,5,0" />
         <Setter Property="Width" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource Result.File.Foreground}" />
         <Setter Property="Opacity" Value="0.3" />
@@ -1267,6 +1268,7 @@
     <Style x:Key="ResultHighlightedText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Foreground" Value="{DynamicResource Result.Highlight.Foreground}"/>
         <Setter Property="Background" Value="{DynamicResource Result.Highlight.Background}" />
+        <Setter Property="Height" Value="14" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
     <Style x:Key="ResultsListBox" TargetType="{x:Type ListBox}">
