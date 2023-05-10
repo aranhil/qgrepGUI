@@ -131,6 +131,7 @@
         <Setter Property="Background" Value="{DynamicResource IconButton.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource IconButton.Foreground}" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -1136,7 +1137,6 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -1157,7 +1157,6 @@
                     <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                     <Setter Property="Focusable" Value="{Binding Focusable, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
-                    <Setter Property="IsTabStop" Value="False" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -1181,8 +1180,8 @@
                                 <!--<Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>-->
                                 <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
-                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Value="False"/>
-                                <Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                <!--<Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>-->
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Background" Value="{DynamicResource Result.IsSelected.IsInactive.Background}" />
                         </MultiDataTrigger>

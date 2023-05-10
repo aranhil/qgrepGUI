@@ -18,7 +18,7 @@ using System.IO;
 namespace qgrepControls.Classes
 {
     public delegate void ResultCallback(string file, string lineNumber, string beginText, string highlight, string endText);
-    public delegate void FinishCallback();
+    public delegate void SimpleCallback();
 
     public class SearchOptions
     {
@@ -33,17 +33,18 @@ namespace qgrepControls.Classes
         public bool ExcludeFilesRegEx { get; set;} = false;
         public bool FilterResultsRegEx { get; set;} = false;
         public string Configs { get; set; } = "";
-        public ResultCallback ResultCallback { get; set; } = null;
-        public FinishCallback FinishCallback { get; set; } = null;
     }
 
     public class SearchEngine
     {
         public bool IsBusy { get; private set; } = false;
         private bool ForceStop { get; set; } = false;
+        public bool IsSearchQueued { get { return QueuedSearchOptions != null; } }
 
-        private SearchOptions SearchOptions = null;
         private SearchOptions QueuedSearchOptions = null;
+        public ResultCallback ResultCallback { get; set; } = null;
+        public SimpleCallback StartCallback { get; set; } = null;
+        public SimpleCallback FinishCallback { get; set; } = null;
 
         public void SearchAsync(SearchOptions searchOptions)
         {
@@ -56,33 +57,34 @@ namespace qgrepControls.Classes
 
             IsBusy = true;
             ForceStop = false;
-            SearchOptions = searchOptions;
 
             Task.Run(() =>
             {
+                StartCallback();
+
                 List<string> arguments = new List<string>
                 {
                     "qgrep",
                     "search",
-                    SearchOptions.Configs
+                    searchOptions.Configs
                 };
 
-                if (!SearchOptions.CaseSensitive) arguments.Add("i");
-                if (!SearchOptions.RegEx && !SearchOptions.WholeWord) arguments.Add("l");
+                if (!searchOptions.CaseSensitive) arguments.Add("i");
+                if (!searchOptions.RegEx && !searchOptions.WholeWord) arguments.Add("l");
 
-                if (SearchOptions.IncludeFiles.Length > 0)
+                if (searchOptions.IncludeFiles.Length > 0)
                 {
-                    arguments.Add("fi" + (SearchOptions.IncludeFilesRegEx ? SearchOptions.IncludeFiles : Regex.Escape(SearchOptions.IncludeFiles)));
+                    arguments.Add("fi" + (searchOptions.IncludeFilesRegEx ? searchOptions.IncludeFiles : Regex.Escape(searchOptions.IncludeFiles)));
                 }
 
-                if (SearchOptions.ExcludeFiles.Length > 0)
+                if (searchOptions.ExcludeFiles.Length > 0)
                 {
-                    arguments.Add("fe" + (SearchOptions.ExcludeFilesRegEx ? SearchOptions.ExcludeFiles : Regex.Escape(SearchOptions.ExcludeFiles)));
+                    arguments.Add("fe" + (searchOptions.ExcludeFilesRegEx ? searchOptions.ExcludeFiles : Regex.Escape(searchOptions.ExcludeFiles)));
                 }
 
                 arguments.Add("HM");
 
-                switch(SearchOptions.Query.Length)
+                switch(searchOptions.Query.Length)
                 {
                     case 1:
                         arguments.Add("L1000");
@@ -103,20 +105,21 @@ namespace qgrepControls.Classes
 
                 arguments.Add("V");
 
-                if (SearchOptions.WholeWord)
+                if (searchOptions.WholeWord)
                 {
-                    arguments.Add("\\b" + (SearchOptions.RegEx ? SearchOptions.Query : Regex.Escape(SearchOptions.Query)) + "\\b");
+                    arguments.Add("\\b" + (searchOptions.RegEx ? searchOptions.Query : Regex.Escape(searchOptions.Query)) + "\\b");
                 }
                 else
                 {
-                    arguments.Add(SearchOptions.Query);
+                    arguments.Add(searchOptions.Query);
                 }
 
-                QGrepWrapper.CallQGrepAsync(arguments, StringHandler, ErrorHandler, ProgressHandler);
+                QGrepWrapper.CallQGrepAsync(arguments, 
+                    (string result) => { return StringHandler(result, searchOptions); }, ErrorHandler, ProgressHandler);
+
                 IsBusy = false;
 
-                SearchOptions.FinishCallback();
-                SearchOptions = null;
+                FinishCallback();
 
                 ProcessQueue();
             });
@@ -131,14 +134,14 @@ namespace qgrepControls.Classes
             }
         }
 
-        private bool StringHandler(string result)
+        private bool StringHandler(string result, SearchOptions searchOptions)
         {
             if(ForceStop)
             {
                 return true;
             }
 
-            if(SearchOptions.ResultCallback != null)
+            if(ResultCallback != null)
             {
                 result = result.Substring(0, result.Length - 1);
                 string file, beginText, endText, highlightedText, lineNo;
@@ -153,20 +156,20 @@ namespace qgrepControls.Classes
                     lineNo = fileAndLineNo.Substring(indexOfParanthesis + 1, fileAndLineNo.Length - indexOfParanthesis - 2);
                     file = fileAndLineNo.Substring(0, indexOfParanthesis);
 
-                    if (SearchOptions.FilterResults.Length > 0)
+                    if (searchOptions.FilterResults.Length > 0)
                     {
                         string rawText = result.Replace("\xB1", "").Replace("\xB2", "");
 
-                        if (SearchOptions.FilterResultsRegEx)
+                        if (searchOptions.FilterResultsRegEx)
                         {
-                            if (!Regex.Match(file, SearchOptions.FilterResults).Success && !Regex.Match(rawText, SearchOptions.FilterResults).Success)
+                            if (!Regex.Match(file, searchOptions.FilterResults).Success && !Regex.Match(rawText, searchOptions.FilterResults).Success)
                             {
                                 return false;
                             }
                         }
                         else
                         {
-                            if (!file.ToLower().Contains(SearchOptions.FilterResults) && !rawText.Contains(SearchOptions.FilterResults))
+                            if (!file.ToLower().Contains(searchOptions.FilterResults) && !rawText.Contains(searchOptions.FilterResults))
                             {
                                 return false;
                             }
@@ -179,7 +182,7 @@ namespace qgrepControls.Classes
                 }
 
                 int highlightBegin = 0, highlightEnd = 0;
-                Highlight(result, ref highlightBegin, ref highlightEnd);
+                Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);
 
                 currentIndex = highlightBegin;
                 if (currentIndex >= 0)
@@ -205,25 +208,25 @@ namespace qgrepControls.Classes
 
                 endText = result;
 
-                SearchOptions.ResultCallback(file, lineNo, beginText, highlightedText, endText);
+                ResultCallback(file, lineNo, beginText, highlightedText, endText);
             }
 
             return false;
         }
 
-        private void Highlight(string result, ref int begingHighlight, ref int endHighlight)
+        private void Highlight(string result, ref int begingHighlight, ref int endHighlight, SearchOptions searchOptions)
         {
-            string query = SearchOptions.Query;
+            string query = searchOptions.Query;
 
-            if (!SearchOptions.RegEx)
+            if (!searchOptions.RegEx)
             {
                 query = Regex.Escape(query);
             }
-            if (SearchOptions.WholeWord)
+            if (searchOptions.WholeWord)
             {
                 query = "\\b" + query + "\\b";
             }
-            if (!SearchOptions.CaseSensitive)
+            if (!searchOptions.CaseSensitive)
             {
                 query = query.ToLower();
                 result = result.ToLower();
