@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "info.hpp"
 
@@ -96,13 +97,13 @@ static std::pair<size_t, size_t> getLineStatistics(const char* data, size_t size
 static void processFilePart(Output* output, ProjectInfo& info, const char* path, uint64_t fileSize, uint64_t timeStamp, const char* data, size_t size, uint32_t startLine)
 {
 	if (info.lastFile > path)
-		PRINT_ERROR(output, "Error: file ordering mismatch (%s is before %s)\n", info.lastFile.c_str(), path);
+		output->error("Error: file ordering mismatch (%s is before %s)\n", info.lastFile.c_str(), path);
 
 	if (info.lastFile == path && (info.lastFileSize != fileSize || info.lastFileTimeStamp != timeStamp))
-		PRINT_ERROR(output, "Error: file metadata mismatch between chunks (%s: %llx %llx != %llx %llx)\n", path, info.lastFileSize, info.lastFileTimeStamp, fileSize, timeStamp);
+		output->error("Error: file metadata mismatch between chunks (%s: %llx %llx != %llx %llx)\n", path, info.lastFileSize, info.lastFileTimeStamp, fileSize, timeStamp);
 
 	if (info.lastFile == path && info.lastFileLine != startLine)
-		PRINT_ERROR(output, "Error: file line data mismatch between chunks (%s: %d != %d)\n", path, info.lastFileLine, startLine);
+		output->error("Error: file line data mismatch between chunks (%s: %d != %d)\n", path, info.lastFileLine, startLine);
 
 	// update line info
 	std::pair<size_t, size_t> ls = getLineStatistics(data, size);
@@ -184,14 +185,14 @@ static bool processFile(Output* output, ProjectInfo& info, const char* path)
 	FileStream in(path, "rb");
 	if (!in)
 	{
-		PRINT_ERROR(output, "Error reading data file %s\n", path);
+		output->error("Error reading data file %s\n", path);
 		return false;
 	}
 
 	DataFileHeader header;
 	if (!read(in, header) || memcmp(header.magic, kDataFileHeaderMagic, strlen(kDataFileHeaderMagic)) != 0)
 	{
-		PRINT_ERROR(output, "Error reading data file %s: malformed header\n", path);
+		output->error("Error reading data file %s: malformed header\n", path);
 		return false;
 	}
 
@@ -207,7 +208,7 @@ static bool processFile(Output* output, ProjectInfo& info, const char* path)
 
 			if (!index || !read(in, index.get(), chunk.indexSize))
 			{
-				PRINT_ERROR(output, "Error reading data file %s: malformed chunk\n", path);
+				output->error("Error reading data file %s: malformed chunk\n", path);
 				return false;
 			}
 
@@ -218,7 +219,7 @@ static bool processFile(Output* output, ProjectInfo& info, const char* path)
 
 		if (!data || !read(in, data.get(), chunk.compressedSize))
 		{
-			PRINT_ERROR(output, "Error reading data file %s: malformed chunk\n", path);
+			output->error("Error reading data file %s: malformed chunk\n", path);
 			return false;
 		}
 
@@ -236,7 +237,7 @@ static std::string formatInteger(unsigned long long value, bool pad0 = false)
 	if (value < 1000)
 	{
 		char buf[32];
-		sprintf(buf, pad0 ? "%03lld" : "%lld", value);
+		snprintf(buf, sizeof(buf), pad0 ? "%03lld" : "%lld", value);
 		return buf;
 	}
 	else
@@ -252,7 +253,7 @@ static std::string lastChunkSize(unsigned long long sizeExceptLast, unsigned lon
 	else
 	{
 		char buf[256];
-		sprintf(buf, "; last chunk %s bytes", formatInteger(size).c_str());
+		snprintf(buf, sizeof(buf), "; last chunk %s bytes", formatInteger(size).c_str());
 		return buf;
 	}
 }

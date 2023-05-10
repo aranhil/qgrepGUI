@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "update.hpp"
 
@@ -9,7 +10,6 @@
 #include "project.hpp"
 #include "files.hpp"
 #include "compression.hpp"
-#include "stringutil.hpp"
 
 #include <memory>
 #include <vector>
@@ -118,6 +118,8 @@ static void processChunkData(Output* output, BuildContext* builder, UpdateFileIt
 	decompress(buffer, chunk.uncompressedSize, compressed.get(), chunk.compressedSize);
 
 	// as a special case, first file in the chunk can be a part of an existing file
+	bool skipFirstFile = false;
+
 	if (files[0].startLine > 0 && fileit.index > 0)
 	{
 		// in this case, if the file is current then we only added the part before this in the previous chunk processing, so just add the next part
@@ -127,10 +129,11 @@ static void processChunkData(Output* output, BuildContext* builder, UpdateFileIt
 		if (comparePath(*prev, f, data) == 0 && isFileCurrent(*prev, f, data))
 		{
 			buildAppendFilePart(builder, prev->path.c_str(), f.startLine, data + f.dataOffset, f.dataSize, prev->timeStamp, prev->fileSize);
+			skipFirstFile = true;
 		}
 	}
 
-	for (size_t i = 0; i < chunk.fileCount; ++i)
+	for (size_t i = skipFirstFile; i < chunk.fileCount; ++i)
 	{
 		const DataChunkFileHeader& f = files[i];
 
@@ -147,7 +150,9 @@ static void processChunkData(Output* output, BuildContext* builder, UpdateFileIt
 		{
 			// check if we can reuse the data from qgrep db
 			if (isFileCurrent(*fileit, f, data))
+			{
 				buildAppendFilePart(builder, fileit->path.c_str(), f.startLine, data + f.dataOffset, f.dataSize, fileit->timeStamp, fileit->fileSize);
+			}
 			else
 			{
 				buildAppendFile(builder, fileit->path.c_str(), fileit->timeStamp, fileit->fileSize);
@@ -171,7 +176,7 @@ static bool processFile(Output* output, BuildContext* builder, UpdateFileIterato
 	DataFileHeader header;
 	if (!read(in, header) || memcmp(header.magic, kDataFileHeaderMagic, strlen(kDataFileHeaderMagic)) != 0)
 	{
-		PRINT_ERROR(output, "Warning: data file %s has an out of date format, rebuilding\n", path);
+		output->error("Warning: data file %s has an out of date format, rebuilding\n", path);
 		return true;
 	}
 
@@ -185,7 +190,7 @@ static bool processFile(Output* output, BuildContext* builder, UpdateFileIterato
 
 		if (!extra || !index || !data || !read(in, extra.get(), chunk.extraSize) || !read(in, index.get(), chunk.indexSize) || !read(in, data.get(), chunk.compressedSize))
 		{
-			PRINT_ERROR(output, "Error reading data file %s: malformed chunk, code %d\n", path, getLastError());
+			output->error("Error reading data file %s: malformed chunk\n", path);
 			return false;
 		}
 
@@ -269,7 +274,7 @@ bool updateProject(Output* output, const char* path)
 	
 	if (!renameFile(tempPath.c_str(), targetPath.c_str()))
 	{
-		PRINT_ERROR(output, "Error saving data file %s, code %d\n", targetPath.c_str(), getLastError());
+		output->error("Error saving data file %s\n", targetPath.c_str());
 		return false;
 	}
 

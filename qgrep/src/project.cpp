@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "project.hpp"
 
@@ -32,7 +33,7 @@ static bool isSlash(char ch)
 
 static bool isFilePath(const char* name)
 {
-	return isSlash(name[0]) || (name[0] == '.' && isSlash(name[1])) || (isalpha(name[0]) && name[1] == ':' && isSlash(name[3]));
+	return isSlash(name[0]) || (name[0] == '.' && isSlash(name[1])) || (isalpha(name[0]) && name[1] == ':' && isSlash(name[2]));
 }
 
 std::string getProjectPath(const char* name)
@@ -242,7 +243,7 @@ std::unique_ptr<ProjectGroup> parseProject(Output* output, const char* file)
 	std::ifstream in(file);
 	if (!in)
 	{
-		PRINT_ERROR(output, "Error reading file %s", file);
+		output->error("Error reading file %s\n", file);
 		return std::unique_ptr<ProjectGroup>();
 	}
 
@@ -258,7 +259,7 @@ std::unique_ptr<ProjectGroup> parseProject(Output* output, const char* file)
 	}
 	catch (const std::exception& e)
 	{
-		PRINT_ERROR(output, "%s(%d): %s\n", file, line, e.what());
+		output->error("%s(%d): %s\n", file, line, e.what());
 		return std::unique_ptr<ProjectGroup>();
 	}
 }
@@ -288,7 +289,7 @@ static void getProjectGroupFilesRec(Output* output, ProjectGroup* group, std::ve
 		if (getFileAttributes(path.c_str(), &mtime, &size))
 			files.push_back({ path, mtime, size });
 		else
-			PRINT_ERROR(output, "Error reading metadata for file %s\n", path.c_str());
+			output->error("Error reading metadata for file %s\n", path.c_str());
 	}
 
 	for (auto& folder: group->paths)
@@ -303,7 +304,7 @@ static void getProjectGroupFilesRec(Output* output, ProjectGroup* group, std::ve
 			}
 		});
 
-		if (!result) PRINT_ERROR(output, "Error reading folder %s\n", folder.c_str());
+		if (!result) output->error("Error reading folder %s\n", folder.c_str());
 	}
 
 	for (auto& child: group->groups)

@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "init.hpp"
 
@@ -40,7 +41,7 @@ void initProject(Output* output, const char* name, const char* file, const char*
 {
 	if (fileExists(file))
 	{
-		PRINT_ERROR(output, "Error: project %s already exists\n", file);
+		output->error("Error: project %s already exists\n", file);
 		return;
 	}
 
@@ -49,7 +50,7 @@ void initProject(Output* output, const char* name, const char* file, const char*
 	std::ofstream out(file);
 	if (!out)
 	{
-		PRINT_ERROR(output, "Error opening project file %s for writing\n", file);
+		output->error("Error opening project file %s for writing\n", file);
 		return;
 	}
 

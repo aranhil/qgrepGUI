@@ -1,3 +1,4 @@
+// This file is part of qgrep and is distributed under the MIT license, see LICENSE.md
 #include "common.hpp"
 #include "watch.hpp"
 
@@ -62,7 +63,7 @@ static void startWatchingRec(WatchContext* context, ProjectGroup* group)
 		context->watchingThreads.emplace_back([=]
 		{
 			if (!watchDirectory(path.c_str(), [=](const char* file) { fileChanged(context, group, path.c_str(), file); }))
-				PRINT_ERROR(context->output, "Error watching folder %s\n", path.c_str());
+				context->output->error("Error watching folder %s\n", path.c_str());
 
 			context->output->print("No longer watching folder %s\n", path.c_str());
 		});
@@ -90,14 +91,14 @@ static bool getDataFileList(Output* output, const char* path, std::vector<FileIn
 	FileStream in(path, "rb");
 	if (!in)
 	{
-		PRINT_ERROR(output, "Error reading data file %s\n", path);
+		output->error("Error reading data file %s\n", path);
 		return false;
 	}
 
 	DataFileHeader header;
 	if (!read(in, header) || memcmp(header.magic, kDataFileHeaderMagic, strlen(kDataFileHeaderMagic)) != 0)
 	{
-		PRINT_ERROR(output, "Error reading data file %s: file format is out of date, update the project to fix\n", path);
+		output->error("Error reading data file %s: file format is out of date, update the project to fix\n", path);
 		return false;
 	}
 
@@ -112,7 +113,7 @@ static bool getDataFileList(Output* output, const char* path, std::vector<FileIn
 
 		if (!data || !read(in, data.get(), chunk.compressedSize))
 		{
-			PRINT_ERROR(output, "Error reading data file %s: malformed chunk\n", path);
+			output->error("Error reading data file %s: malformed chunk\n", path);
 			return false;
 		}
 
@@ -169,11 +170,12 @@ static void printStatistics(Output* output, const char* path, size_t fileCount)
 	output->print("%s: %d files changed\r", getProjectName(path).c_str(), int(fileCount));
 }
 
-void watchProject(Output* output, const char* path)
+void watchProject(Output* output, const char* path, bool interactive)
 {
 	WatchContext context = { output };
+	const char* lineEnd = interactive ? "\n" : "\r";
 
-    output->print("Watching %s:\n", path);
+	output->print("Watching %s:\n", path);
 
 	std::unique_ptr<ProjectGroup> group = parseProject(output, path);
 	if (!group)
@@ -181,11 +183,11 @@ void watchProject(Output* output, const char* path)
 
 	startWatchingRec(&context, group.get());
 
-	output->print("Scanning project...\r");
+	output->print("Scanning project...%s", lineEnd);
 
 	std::vector<FileInfo> files = getProjectGroupFiles(output, group.get());
 
-	output->print("Reading data pack...\r");
+	output->print("Reading data pack...%s", lineEnd);
 
 	std::vector<FileInfo> packFiles;
 	if (!getDataFileList(output, replaceExtension(path, ".qgd").c_str(), packFiles))
@@ -285,7 +287,8 @@ void watchProject(Output* output, const char* path)
 		{
 			assert(writeNeeded);
 
-			printStatistics(output, path, changedFiles.size());
+			if (!interactive)
+				printStatistics(output, path, changedFiles.size());
 
 			if (writeChanges(path, changedFiles))
 			{
@@ -293,7 +296,7 @@ void watchProject(Output* output, const char* path)
 			}
 			else
 			{
-				PRINT_ERROR(output, "Error saving changes to %s\n", replaceExtension(path, ".qgc").c_str());
+				output->error("Error saving changes to %s\n", replaceExtension(path, ".qgc").c_str());
 
 				// reset write deadline to try again a bit later
 				writeDeadline = std::chrono::steady_clock::now() + std::chrono::seconds(kWatchWriteDeadline);
