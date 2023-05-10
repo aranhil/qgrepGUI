@@ -96,6 +96,7 @@
     <Compile Include="ResourceDictionary.xaml.cs">
       <DependentUpon>ResourceDictionary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ToolWindows\ClippingBorder.cs" />
     <Compile Include="ToolWindows\ColorsWindow\ColorsWindow.xaml.cs">
       <DependentUpon>ColorsWindow.xaml</DependentUpon>
     </Compile>

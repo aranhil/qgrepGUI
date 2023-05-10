@@ -30,9 +30,10 @@
 TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown="SearchInput_KeyDown"/>
             <Label Grid.Column="0" x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel Grid.Column="1" x:Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel x:Name="AdvancedSearchInnerPanel" Margin="0,-2,2,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Button x:Name="SearchButton" Style="{StaticResource IconButton}" Content="🔍" FontSize="14" Click="SearchButton_Click" Margin="5,3,-3,0"/>
-                    <Button x:Name="HistoryButton" Style="{StaticResource IconButton}" Content="📜" FontSize="14" Click="HistoryButton_Click" ToolTip="Show recent searches" Margin="5,3,-3,0"/>
+                <StackPanel x:Name="AdvancedSearchInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Button x:Name="HistoryButton" Style="{StaticResource IconButton}" FontSize="14" Click="HistoryButton_Click" ToolTip="Show recent searches" Margin="5,3,1,0">
+                        <Path Style="{DynamicResource HistoryIcon}" />
+                    </Button>
                     <Popup x:Name="HistoryPopup" Placement="Custom" VerticalOffset="2" HorizontalOffset="-2" PlacementTarget="{Binding ElementName=HistoryButton}" CustomPopupPlacementCallback="CustomPopupPlacementCallback" AllowsTransparency="True" StaysOpen="False">
                         <ContentControl Style="{DynamicResource PopupContentStyle}">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="250" MaxWidth="500">
@@ -41,14 +42,20 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             </ScrollViewer>
                         </ContentControl>
                     </Popup>
+                    <Button x:Name="SearchButton" Style="{StaticResource IconButton}" FontSize="14" Click="SearchButton_Click" Margin="5,3,1,0">
+                        <Path Style="{DynamicResource SearchIcon}" />
+                    </Button>
                     <CheckBox x:Name="SearchCaseSensitive" Style="{DynamicResource TextBoxToggle}" Click="CaseSensitive_Click" Margin="5,0,0,0" IsChecked="True" ToolTip="Case sensitive">
-                        <Image Style="{DynamicResource CaseSensitiveIcon}" />
+                        <Path Style="{DynamicResource CaseSensitiveIcon}" />
                     </CheckBox>
                     <CheckBox x:Name="SearchWholeWord" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="SearchWholeWord_Click" ToolTip="Whole word">
-                        <Image Style="{DynamicResource WholeWordIcon}" />
+                        <Grid Background="Transparent">
+                            <Path Style="{DynamicResource WholeWordIcon}" />
+                            <Path Style="{DynamicResource WholeWordIcon2}" />
+                        </Grid>
                     </CheckBox>
                     <CheckBox x:Name="SearchRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="SearchRegEx_Click" ToolTip="Regular expressions">
-                        <Image Style="{DynamicResource RegExIcon}" />
+                        <Path Style="{DynamicResource RegExIcon}" />
                     </CheckBox>
                 </StackPanel>
             </StackPanel>
@@ -57,9 +64,9 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             <TextBox x:Name="IncludeFilesInput" TabIndex="1" BorderThickness="0,1,0,1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
             <Label x:Name="IncludeFilesLabel" Content="Include files..." Style="{DynamicResource SomeHintLabel}"/>
             <StackPanel x:Name="AdvancedIncludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel x:Name="AdvancedIncludeInnerPanel" Margin="0,-2,2,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <StackPanel x:Name="AdvancedIncludeInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <CheckBox x:Name="IncludeRegEx" Style="{DynamicResource TextBoxToggle}" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" IsChecked="True">
-                        <Image Style="{DynamicResource RegExIcon}" />
+                        <Path Style="{DynamicResource RegExIcon}" />
                     </CheckBox>
                 </StackPanel>
             </StackPanel>
@@ -68,9 +75,9 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             <TextBox x:Name="ExcludeFilesInput" TabIndex="2" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
             <Label x:Name="ExcludeFilesLabel" Content="Exclude files..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel x:Name="AdvancedExcludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel x:Name="AdvancedExcludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <StackPanel x:Name="AdvancedExcludeInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <CheckBox x:Name="ExcludeRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="ExcludeRegEx_Click" >
-                        <Image Style="{DynamicResource RegExIcon}" />
+                        <Path Style="{DynamicResource RegExIcon}" />
                     </CheckBox>
                 </StackPanel>
             </StackPanel>
@@ -79,9 +86,9 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             <TextBox x:Name="FilterResultsInput" TabIndex="3" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
             <Label x:Name="FilterResultsLabel" Content="Filter results..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel x:Name="FilterResultsPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel x:Name="FilterResultsInnerPanel" Margin="0,-2,2,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <StackPanel x:Name="FilterResultsInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <CheckBox x:Name="FilterRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="FilterRegEx_Click">
-                        <Image Style="{DynamicResource RegExIcon}" />
+                        <Path Style="{DynamicResource RegExIcon}" />
                     </CheckBox>
                 </StackPanel>
             </StackPanel>
@@ -160,13 +167,25 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,5,0">
                 <Label IsTabStop="False" x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
                 <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
-                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" Content="⟲" FontSize="18" Click="InitButton_Click" ToolTip="Update cache"/>
-                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
+                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="Update cache">
+                    <Path Style="{DynamicResource SyncIcon}" />
+                </Button>
+                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache">
+                    <Grid Background="Transparent">
+                        <Path Style="{DynamicResource SyncForcedIcon}" />
+                    </Grid>
+                </Button>
             </StackPanel>
             <StackPanel x:Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button x:Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>
-                <Button x:Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
-                <Button x:Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Search configurations"/>
+                <Button x:Name="ColorsButton" Style="{StaticResource IconButton}" FontSize="14" Click="Colors_Click" ToolTip="Customize colors">
+                    <Path Style="{DynamicResource ColorsIcon}" />
+                </Button>
+                <Button x:Name="AdvancedButton" Style="{StaticResource IconButton}" Click="AdvancedButton_Click" ToolTip="Advanced Settings">
+                    <Path Style="{DynamicResource SettingsIcon}" />
+                </Button>
+                <Button x:Name="PathsButton" Style="{StaticResource IconButton}" FontSize="14" Click="PathsButton_Click" ToolTip="Search configurations">
+                    <Path Style="{DynamicResource PathIcon}" />
+                </Button>
                 <wpfTool:CheckComboBox IsTabStop="False" x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
                 </wpfTool:CheckComboBox>
                 <Label IsTabStop="False" x:Name="InfoLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
