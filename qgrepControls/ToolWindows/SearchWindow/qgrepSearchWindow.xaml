@@ -41,7 +41,9 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             </ScrollViewer>
                         </ContentControl>
                     </Popup>
-                    <CheckBox x:Name="SearchCaseSensitive" Style="{DynamicResource TextBoxToggle}" Click="CaseSensitive_Click" Content="Case sensitive"/>
+                    <CheckBox x:Name="SearchCaseSensitive" Style="{DynamicResource TextBoxToggle}" Click="CaseSensitive_Click">
+                        <Image Style="{DynamicResource CaseSensitiveIcon}" />
+                    </CheckBox>
                     <CheckBox x:Name="SearchWholeWord" Style="{DynamicResource TextBoxToggle}" IsChecked="False" Click="SearchWholeWord_Click" Content="Whole word" />
                     <CheckBox x:Name="SearchRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="SearchRegEx_Click" Content="RegEx" />
                 </StackPanel>
