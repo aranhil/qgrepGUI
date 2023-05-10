@@ -1,6 +1,8 @@
 # qgrep Search Tool
 
-*qgrep Search Tool* is a GUI wrapper and Visual Studio extension based on qgrep made by Arseny Kapoulkine. It provides a powerful and user-friendly interface for searching through files and directories within your projects, improving your development experience and productivity.
+*qgrep Search Tool* is a GUI wrapper and Visual Studio extension based on [qgrep](https://github.com/zeux/qgrep) made by Arseny Kapoulkine. It provides a powerful and user-friendly interface for searching through files and directories within your projects, improving your development experience and productivity.
+
+![qgrep search tool](https://github.com/aranhil/qgrepSearchTool/assets/755601/5d3a7b4e-6d9e-4457-98e2-e49c058741e9)
 
 ## Features
 
@@ -24,7 +26,7 @@ Install the Visual Studio extension and follow the setup instructions below.
    
    This will also grab the selected text in your current document before opening.
 
-3. After this, you have to set up the folders that will be indexed. The window to set can be opened up from the lower left corner of the toolbar:
+3. After this, you have to set up the folders that will be indexed. The window for this can be opened up from the lower left corner of the toolbar:
 
    ![image](https://user-images.githubusercontent.com/755601/236962201-40373b1a-f74c-4fe9-8cd2-4fbb70417c8d.png)
 
@@ -98,3 +100,4 @@ This project has benefited from the use of the following open-source projects:
 - [Extended WPF Toolkit™](https://github.com/xceedsoftware/wpftoolkit): This project has been used for the color picker and the CheckComboBox. The version used (3.8.2) is licensed under the [MS-PL license](./LICENSE-Extended-WPF-Toolkit.md).
 - [ControlzEx](https://github.com/ControlzEx/ControlzEx): This project has been used to replace the standard Windows title bar. It is licensed under the [MIT License](./LICENSE-ControlzEx.md).
 
+This project also makes use of icons from [Visual Studio Code - Icons](https://github.com/microsoft/vscode-icons), which are used under the terms of the [Creative Commons Attribution 4.0 International License](./LICENSE-vscode-icons.md).
