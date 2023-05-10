@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:self="clr-namespace:qgrepControls.SearchWindow"
+             xmlns:modelViews="clr-namespace:qgrepControls.ModelViews"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown">
+             d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown" GotKeyboardFocus="UserControl_GotKeyboardFocus">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" >
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid KeyboardNavigation.TabNavigation="Cycle">
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
             <RowDefinition Height="Auto"/>
@@ -30,9 +30,10 @@
 TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown="SearchInput_KeyDown"/>
             <Label Grid.Column="0" x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel Grid.Column="1" x:Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel x:Name="AdvancedSearchInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Button x:Name="SearchButton" Style="{StaticResource IconButton}" Content="🔍" FontSize="14" Click="SearchButton_Click" Margin="5,3,-3,0"/>
-                    <Button x:Name="HistoryButton" Style="{StaticResource IconButton}" Content="📜" FontSize="14" Click="HistoryButton_Click" ToolTip="Show recent searches" Margin="5,3,-3,0"/>
+                <StackPanel x:Name="AdvancedSearchInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Button x:Name="HistoryButton" Style="{StaticResource IconButton}" FontSize="14" Click="HistoryButton_Click" ToolTip="Show recent searches" Margin="5,3,1,0">
+                        <Path Style="{DynamicResource HistoryIcon}" />
+                    </Button>
                     <Popup x:Name="HistoryPopup" Placement="Custom" VerticalOffset="2" HorizontalOffset="-2" PlacementTarget="{Binding ElementName=HistoryButton}" CustomPopupPlacementCallback="CustomPopupPlacementCallback" AllowsTransparency="True" StaysOpen="False">
                         <ContentControl Style="{DynamicResource PopupContentStyle}">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="250" MaxWidth="500">
@@ -41,9 +42,21 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             </ScrollViewer>
                         </ContentControl>
                     </Popup>
-                    <CheckBox x:Name="SearchCaseSensitive" Style="{DynamicResource TextBoxToggle}" Click="CaseSensitive_Click" Content="Case sensitive"/>
-                    <CheckBox x:Name="SearchWholeWord" Style="{DynamicResource TextBoxToggle}" IsChecked="False" Click="SearchWholeWord_Click" Content="Whole word" />
-                    <CheckBox x:Name="SearchRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="SearchRegEx_Click" Content="RegEx" />
+                    <Button x:Name="SearchButton" Style="{StaticResource IconButton}" FontSize="14" Click="SearchButton_Click" Margin="5,3,1,0">
+                        <Path Style="{DynamicResource SearchIcon}" />
+                    </Button>
+                    <CheckBox x:Name="SearchCaseSensitive" Style="{DynamicResource TextBoxToggle}" Click="CaseSensitive_Click" Margin="5,0,0,0" IsChecked="True" ToolTip="Case sensitive">
+                        <Path Style="{DynamicResource CaseSensitiveIcon}" />
+                    </CheckBox>
+                    <CheckBox x:Name="SearchWholeWord" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="SearchWholeWord_Click" ToolTip="Whole word">
+                        <Grid Background="Transparent">
+                            <Path Style="{DynamicResource WholeWordIcon}" />
+                            <Path Style="{DynamicResource WholeWordIcon2}" />
+                        </Grid>
+                    </CheckBox>
+                    <CheckBox x:Name="SearchRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="SearchRegEx_Click" ToolTip="Regular expressions">
+                        <Path Style="{DynamicResource RegExIcon}" />
+                    </CheckBox>
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -51,8 +64,10 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             <TextBox x:Name="IncludeFilesInput" TabIndex="1" BorderThickness="0,1,0,1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
             <Label x:Name="IncludeFilesLabel" Content="Include files..." Style="{DynamicResource SomeHintLabel}"/>
             <StackPanel x:Name="AdvancedIncludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel x:Name="AdvancedIncludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox x:Name="IncludeRegEx" Style="{DynamicResource TextBoxToggle}" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" IsChecked="True">RegEx</CheckBox>
+                <StackPanel x:Name="AdvancedIncludeInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox x:Name="IncludeRegEx" Style="{DynamicResource TextBoxToggle}" Click="IncludeRegEx_Click" VerticalContentAlignment="Center" IsChecked="True">
+                        <Path Style="{DynamicResource RegExIcon}" />
+                    </CheckBox>
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -60,26 +75,30 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             <TextBox x:Name="ExcludeFilesInput" TabIndex="2" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
             <Label x:Name="ExcludeFilesLabel" Content="Exclude files..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel x:Name="AdvancedExcludePanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel x:Name="AdvancedExcludeInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox x:Name="ExcludeRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="ExcludeRegEx_Click" Content="RegEx" />
+                <StackPanel x:Name="AdvancedExcludeInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox x:Name="ExcludeRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="ExcludeRegEx_Click" >
+                        <Path Style="{DynamicResource RegExIcon}" />
+                    </CheckBox>
                 </StackPanel>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" x:Name="FilterResultsGrid" Margin="0,-1,0,0">
-            <TextBox x:Name="FilterResultsInput" TabIndex="2" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
+            <TextBox x:Name="FilterResultsInput" TabIndex="3" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
             <Label x:Name="FilterResultsLabel" Content="Filter results..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel x:Name="FilterResultsPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-                <StackPanel x:Name="FilterResultsInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <CheckBox x:Name="FilterRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="FilterRegEx_Click" Content="RegEx" />
+                <StackPanel x:Name="FilterResultsInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <CheckBox x:Name="FilterRegEx" Style="{DynamicResource TextBoxToggle}" IsChecked="True" Click="FilterRegEx_Click">
+                        <Path Style="{DynamicResource RegExIcon}" />
+                    </CheckBox>
                 </StackPanel>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
-            <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="3" ItemsSource="{Binding}">
+            <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="4" ItemsSource="{Binding}" KeyboardNavigation.TabNavigation="Once" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
-                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
+                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=TrimmedFileAndLine}" />
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=BeginText}" />
                             <TextBlock Style="{DynamicResource ResultHighlightedText}" Text="{Binding Path=HighlightedText}"/>
                             <TextBlock Style="{DynamicResource ResultText}" Text="{Binding Path=EndText}" />
@@ -98,7 +117,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <TreeView x:Name="SearchItemsTreeView" TabIndex="3" ItemsSource="{Binding}">
+            <TreeView x:Name="SearchItemsTreeView" TabIndex="4" ItemsSource="{Binding}" KeyboardNavigation.TabNavigation="Once" >
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource SomeTreeViewItem}">
                         <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>
@@ -108,9 +127,9 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                     </Style>
                 </TreeView.ItemContainerStyle>
                 <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type self:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
-                        <DockPanel Style="{DynamicResource ResultPanel}" RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchGroup_MouseDown">
-                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=File}" />
+                    <HierarchicalDataTemplate DataType="{x:Type modelViews:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
+                        <DockPanel Style="{DynamicResource ResultPanel}" Height="18" RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchResult_MouseDown">
+                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=TrimmedFile}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="MenuGoTo" Header="Open file" Click="MenuGoTo_Click"/>
@@ -119,7 +138,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             </DockPanel.ContextMenu>
                         </DockPanel>
                     </HierarchicalDataTemplate>
-                    <DataTemplate DataType="{x:Type self:SearchResult}">
+                    <DataTemplate DataType="{x:Type modelViews:SearchResult}">
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
                             <TextBlock Style="{DynamicResource ResultLine}" Text="{Binding Path=Line}" />
                             <Border Style="{DynamicResource ResultSeparator}"/>
@@ -146,18 +165,30 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
         </Grid>
         <Grid Grid.Row="6">
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,5,0">
-                <Label x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
-                <ProgressBar x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
-                <Button x:Name="InitButton" Style="{StaticResource IconButton}" Content="⟲" FontSize="18" Click="InitButton_Click" ToolTip="Update cache"/>
-                <Button x:Name="CleanButton" Style="{StaticResource IconButton}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
+                <Label IsTabStop="False" x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
+                <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
+                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="Update index">
+                    <Path Style="{DynamicResource SyncIcon}" />
+                </Button>
+                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update index">
+                    <Grid Background="Transparent">
+                        <Path Style="{DynamicResource TrashIcon}" />
+                    </Grid>
+                </Button>
             </StackPanel>
             <StackPanel x:Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button x:Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>
-                <Button x:Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
-                <Button x:Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Search configurations"/>
-                <wpfTool:CheckComboBox x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
+                <Button x:Name="ColorsButton" Style="{StaticResource IconButton}" FontSize="14" Click="Colors_Click" ToolTip="Customize colors">
+                    <Path Style="{DynamicResource ColorsIcon}" />
+                </Button>
+                <Button x:Name="AdvancedButton" Style="{StaticResource IconButton}" Click="AdvancedButton_Click" ToolTip="Advanced Settings">
+                    <Path Style="{DynamicResource SettingsIcon}" />
+                </Button>
+                <Button x:Name="PathsButton" Style="{StaticResource IconButton}" FontSize="14" Click="PathsButton_Click" ToolTip="Search configurations">
+                    <Path Style="{DynamicResource PathIcon}" />
+                </Button>
+                <wpfTool:CheckComboBox IsTabStop="False" x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
                 </wpfTool:CheckComboBox>
-                <Label x:Name="InfoLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
+                <Label IsTabStop="False" x:Name="InfoLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
             </StackPanel>
         </Grid>
     </Grid>

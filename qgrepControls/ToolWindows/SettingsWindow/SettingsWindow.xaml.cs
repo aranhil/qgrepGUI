@@ -62,20 +62,41 @@ namespace qgrepControls.SearchWindow
 
         private void GroupingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            bool changed = Settings.Default.GroupingIndex != GroupingComboBox.SelectedIndex;
+
             Settings.Default.GroupingIndex = GroupingComboBox.SelectedIndex;
             Settings.Default.Save();
+
+            if(changed)
+            {
+                SearchWindow.UpdateFromSettings();
+            }
         }
 
         private void PathStyleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            bool changed = Settings.Default.PathStyleIndex != PathStyleComboBox.SelectedIndex;
+
             Settings.Default.PathStyleIndex = PathStyleComboBox.SelectedIndex;
             Settings.Default.Save();
+
+            if (changed)
+            {
+                SearchWindow.UpdateFromSettings();
+            }
         }
 
         private void ExpandModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            bool changed = Settings.Default.ExpandModeIndex != ExpandModeComboBox.SelectedIndex;
+
             Settings.Default.ExpandModeIndex = ExpandModeComboBox.SelectedIndex;
             Settings.Default.Save();
+
+            if (changed)
+            {
+                SearchWindow.UpdateFromSettings();
+            }
         }
     }
 }

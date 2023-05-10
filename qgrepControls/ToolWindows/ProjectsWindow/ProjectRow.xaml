@@ -17,8 +17,12 @@
         </StackPanel>
         <TextBox x:Name="EditBox" TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" Height="20" Visibility="Collapsed" LostKeyboardFocus="EditBox_LostKeyboardFocus" PreviewKeyDown="EditBox_PreviewKeyDown"/>
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Height="16" Name="Icons" Margin="0,0,5,0">
-            <Button Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Click="EditButton_Click" Content="🖉" ToolTip="Edit config name"/>
-            <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="14" Click="DeleteButton_Click" Content="✕" ToolTip="Delete config"/>
+            <Button Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Click="EditButton_Click" ToolTip="Edit config name">
+                <Path Style="{DynamicResource EditIcon}" Height="12" Stretch="Uniform" Margin="0,1,-4,1"/>
+            </Button>
+            <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="14" Click="DeleteButton_Click" ToolTip="Delete config">
+                <Path Style="{DynamicResource TrashIcon}" Height="12" Stretch="Uniform" Margin="-2,1,-4,1"/>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace qgrepControls.Classes
 {
@@ -229,6 +230,16 @@ namespace qgrepControls.Classes
                     ConfigProjects.Remove(configProject);
                     break;
                 }
+            }
+        }
+
+        public void CleanProjects()
+        {
+            foreach (ConfigProject configProject in ConfigProjects)
+            {
+                string directory = System.IO.Path.GetDirectoryName(configProject.Path);
+                File.Delete(directory + "\\" + configProject.Name + ".qgd");
+                File.Delete(directory + "\\" + configProject.Name + ".qgf");
             }
         }
 

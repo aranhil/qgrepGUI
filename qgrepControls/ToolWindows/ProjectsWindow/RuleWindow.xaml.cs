@@ -57,6 +57,7 @@ namespace qgrepControls.SearchWindow
         private void PredefinedButton_Click(object sender, RoutedEventArgs e)
         {
             PredefinedPopup.IsOpen = !PredefinedPopup.IsOpen;
+            RegExTextBox.SelectAll();
         }
 
         private void ComboBoxItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -65,7 +66,7 @@ namespace qgrepControls.SearchWindow
             ComboBoxItem comboBox = sender as ComboBoxItem;
             if (comboBox != null)
             {
-                RegExTextBox.Text += comboBox.Tag as String;
+                RegExTextBox.Text = comboBox.Tag as String;
             }
         }
     }

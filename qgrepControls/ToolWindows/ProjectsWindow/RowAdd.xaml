@@ -6,12 +6,14 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              mc:Ignorable="d"
-             Width="Auto" Height="16" Visibility="Hidden"
+             Width="Auto" Height="18" Visibility="Hidden"
              d:DesignHeight="16" d:DesignWidth="600">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Name="AddGrid" Style="{DynamicResource HoverableRow}" MouseDown="AddGrid_MouseDown" >
-        <Button Name="AddButton" Style="{StaticResource IconButton}" FontSize="17" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,-3,0,0" Content="+" Click="AddButton_Click" />
+        <Button Name="AddButton" Style="{StaticResource IconButton}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,-3,0,0" Click="AddButton_Click" Height="22">
+            <Path Style="{DynamicResource AddIcon}"/>
+        </Button>
     </Grid>
 </UserControl>

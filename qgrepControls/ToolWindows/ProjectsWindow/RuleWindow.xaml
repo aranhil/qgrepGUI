@@ -28,7 +28,8 @@
         </ComboBox>
         <Grid Grid.Row="1" Grid.Column="1">
             <TextBox Grid.Row="1" Grid.Column="1" x:Name="RegExTextBox" Style="{StaticResource SomeTextBoxStyle}" Height="22" Margin="5,0,5,0"/>
-            <Button Name="PredefinedButton" Focusable="False" Style="{StaticResource IconButton}" FontSize="12" Margin="0,1,8,0" Content="💡" HorizontalAlignment="Right" ToolTip="A list of predefined regexes" Click="PredefinedButton_Click">
+            <Button Name="PredefinedButton" Focusable="False" Style="{StaticResource IconButton}" FontSize="12" Margin="0,1,8,0" HorizontalAlignment="Right" ToolTip="A list of predefined regexes" Click="PredefinedButton_Click">
+                <Path Style="{DynamicResource LightbulbIcon}" Height="16" Stretch="Uniform" Margin="0,-1,0,0"/>
             </Button>
             <Popup x:Name="PredefinedPopup" IsOpen="False" PlacementTarget="{Binding ElementName=PredefinedButton}" StaysOpen="False">
                 <ScrollViewer MaxHeight="500">

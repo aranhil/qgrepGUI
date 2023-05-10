@@ -67,3 +67,4 @@ template <typename Pred> inline std::vector<std::string> split(const char* str, 
 }
 
 void strprintf(std::string& result, const char* format, va_list args);
+void strprintf(std::string& result, const char* format, ...);

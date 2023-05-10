@@ -7,19 +7,22 @@ namespace qgrepInterop {
     class NativeQGrepWrapper
     {
     public:
-        static void nativeCallback(const char* result, int size);
+        static bool nativeStringCallback(const char* result, int size);
+        static void nativeProgressCallback(int percentage);
         static void nativeErrorsCallback(const char* result, int size);
     };
 
 	public ref class QGrepWrapper
 	{
 	public:
-		static System::String^ CallQGrep(System::Collections::Generic::List<System::String^>^ arguments, System::String^% errors);
+        delegate bool StringCallback(String^ result);
+        delegate void ErrorCallback(String^ result);
+        delegate void ProgressCalback(int percentage);
 
-        delegate void Callback(String^ result);
-        static void CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, Callback^ cb, Callback^ errorsCb);
+        static void CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, StringCallback^ stringCb, ErrorCallback^ errorsCb, ProgressCalback^ progressCb);
 
-		static Callback^ callback = nullptr;
-		static Callback^ errorsCallback = nullptr;
+		static StringCallback^ stringCallback = nullptr;
+		static ErrorCallback^ errorCallback = nullptr;
+		static ProgressCalback^ progressCalback = nullptr;
 	};
 }

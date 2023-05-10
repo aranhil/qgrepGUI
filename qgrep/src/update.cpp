@@ -9,6 +9,7 @@
 #include "project.hpp"
 #include "files.hpp"
 #include "compression.hpp"
+#include "stringutil.hpp"
 
 #include <memory>
 #include <vector>
@@ -198,11 +199,14 @@ static bool processFile(Output* output, BuildContext* builder, UpdateFileIterato
 
 static void printStatistics(Output* output, const UpdateStatistics& stats, unsigned int totalChunks, double time)
 {
-	if (stats.filesAdded) output->print("+%d ", stats.filesAdded);
-	if (stats.filesRemoved) output->print("-%d ", stats.filesRemoved);
-	if (stats.filesChanged) output->print("*%d ", stats.filesChanged);
+	std::string result;
 
-	output->print("%s; %d/%d chunks updated in %.2f sec\n",
+	if (stats.filesAdded) result += "+" + std::to_string(stats.filesAdded) + " ";
+	if (stats.filesRemoved) result += "-" + std::to_string(stats.filesRemoved) + " ";
+	if (stats.filesChanged) result += "*" + std::to_string(stats.filesChanged) + " ";
+
+	output->print("%s%s; %d/%d chunks updated in %.2f sec",
+		result.c_str(),
 		(stats.filesAdded || stats.filesRemoved || stats.filesChanged) ? "files" : "No changes",
 		totalChunks - stats.chunksPreserved, totalChunks, time);
 }
@@ -211,7 +215,7 @@ bool updateProject(Output* output, const char* path)
 {
 	auto start = std::chrono::high_resolution_clock::now();
 
-    output->print("Updating %s:\n", path);
+    output->print("Updating %s:", path);
 
 	std::unique_ptr<ProjectGroup> group = parseProject(output, path);
 	if (!group)
@@ -258,8 +262,6 @@ bool updateProject(Output* output, const char* path)
 
 		totalChunks = buildFinish(builder);
 	}
-
-	output->print("\n");
 
 	auto time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start);
 

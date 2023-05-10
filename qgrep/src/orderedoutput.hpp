@@ -31,6 +31,7 @@ public:
     void end(Chunk* chunk);
 
 	unsigned int getLineCount() const;
+	bool forceStop() const;
 
 private:
 	Output* output;

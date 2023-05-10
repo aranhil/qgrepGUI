@@ -112,3 +112,8 @@ unsigned int OrderedOutput::getLineCount() const
 {
 	return std::min(currentLine.load(), lineLimit);
 }
+
+bool OrderedOutput::forceStop() const
+{
+	return output ? output->isStopped() : false;
+}

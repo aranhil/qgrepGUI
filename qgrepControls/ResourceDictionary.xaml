@@ -6,10 +6,10 @@
                     xmlns:local="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
                     xmlns:prim="clr-namespace:Xceed.Wpf.Toolkit.Primitives;assembly=Xceed.Wpf.Toolkit"
                     xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters;assembly=Xceed.Wpf.Toolkit"
-                    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
                     xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:controlzEx="urn:controlzex"
+                    xmlns:tools="clr-namespace:qgrepControls.ToolWindows"
                     x:Class="qgrepControls.MyResourceDictionary">
     <SolidColorBrush x:Key="Background" Color="White" />
     <SolidColorBrush x:Key="Foreground" Color="Black" />
@@ -104,6 +104,143 @@
     <SolidColorBrush x:Key="TreeViewItem.IsMouseOver.Icon" Color="#2D78C7" />
     <SolidColorBrush x:Key="TreeViewItem.IsSelected.Icon" Color="#FFFFFF" />
     <SolidColorBrush x:Key="TreeViewItem.IsSelected.IsMouseOver.Icon" Color="#FFFFFF" />
+
+    <Style x:Key="IconPath" TargetType="{x:Type Path}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Control, AncestorLevel=1}}" />
+        <Setter Property="Height" Value="18" />
+        <Setter Property="Width" Value="16" />
+    </Style>
+
+    <Style x:Key="SettingsIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M3.5 2h-1v5h1V2zm6.1 5H6.4L6 6.45v-1L6.4 5h3.2l.4.5v1l-.4.5zm-5 3H1.4L1 9.5v-1l.4-.5h3.2l.4.5v1l-.4.5zm3.9-8h-1v2h1V2zm-1 6h1v6h-1V8zm-4 3h-1v3h1v-3zm7.9 0h3.19l.4-.5v-.95l-.4-.5H11.4l-.4.5v.95l.4.5zm2.1-9h-1v6h1V2zm-1 10h1v2h-1v-2z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PathIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M14.5 3H7.71l-.85-.85L6.51 2h-5l-.5.5v11l.5.5h13l.5-.5v-10L14.5 3zm-.51 8.49V13h-12V7h4.49l.35-.15l.86-.86H14v1.5l-.01 4zm0-6.49h-6.5l-.35.15l-.86.86H2v-3h4.29l.85.85l.36.15H14l-.01.99z" FillRule="NonZero"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ColorsIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M8 1.003a7 7 0 0 0-7 7v.43c.09 1.51 1.91 1.79 3 .7a1.87 1.87 0 0 1 2.64 2.64c-1.1 1.16-.79 3.07.8 3.2h.6a7 7 0 1 0 0-14l-.04.03zm0 13h-.52a.58.58 0 0 1-.36-.14a.56.56 0 0 1-.15-.3a1.24 1.24 0 0 1 .35-1.08a2.87 2.87 0 0 0 0-4a2.87 2.87 0 0 0-4.06 0a1 1 0 0 1-.9.34a.41.41 0 0 1-.22-.12a.42.42 0 0 1-.1-.29v-.37a6 6 0 1 1 6 6l-.04-.04zM9 3.997a1 1 0 1 1-2 0a1 1 0 0 1 2 0zm3 7.007a1 1 0 1 1-2 0a1 1 0 0 1 2 0zm-7-5a1 1 0 1 0 0-2a1 1 0 0 0 0 2zm7-1a1 1 0 1 1-2 0a1 1 0 0 1 2 0zM13 8a1 1 0 1 1-2 0a1 1 0 0 1 2 0z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CaseSensitiveIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M8.854 11.702h-1l-.816-2.159H3.772l-.768 2.16H2L4.954 4h.935l2.965 7.702Zm-2.111-2.97L5.534 5.45a3.142 3.142 0 0 1-.118-.515h-.021c-.036.218-.077.39-.124.515L4.073 8.732h2.67Zm7.013 2.97h-.88v-.86h-.022c-.383.66-.947.99-1.692.99c-.548 0-.978-.146-1.29-.436c-.307-.29-.461-.675-.461-1.155c0-1.027.605-1.625 1.815-1.794l1.65-.23c0-.935-.379-1.403-1.134-1.403c-.663 0-1.26.226-1.794.677V6.59c.54-.344 1.164-.516 1.87-.516c1.292 0 1.938.684 1.938 2.052v3.577Zm-.88-2.782l-1.327.183c-.409.057-.717.159-.924.306c-.208.143-.312.399-.312.768c0 .268.095.489.285.66c.193.169.45.253.768.253a1.41 1.41 0 0 0 1.08-.457c.286-.308.43-.696.43-1.165V8.92Z" FillRule="NonZero"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WholeWordIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M6.84 11h-.88v-.86h-.022c-.383.66-.947.989-1.692.989c-.548 0-.977-.145-1.289-.435c-.308-.29-.462-.675-.462-1.155c0-1.028.605-1.626 1.816-1.794l1.649-.23c0-.935-.378-1.403-1.134-1.403c-.662 0-1.26.226-1.794.677v-.902c.541-.344 1.164-.516 1.87-.516c1.292 0 1.938.684 1.938 2.052V11Zm-.88-2.782L4.633 8.4c-.408.058-.716.16-.924.307c-.208.143-.311.399-.311.768c0 .268.095.488.284.66c.194.168.45.253.768.253a1.41 1.41 0 0 0 1.08-.457c.286-.308.43-.696.43-1.165v-.548Zm3.388 1.987h-.022V11h-.88V2.857h.88v3.61h.021c.434-.73 1.068-1.096 1.902-1.096c.705 0 1.257.247 1.654.741c.401.49.602 1.15.602 1.977c0 .92-.224 1.658-.672 2.213c-.447.551-1.06.827-1.837.827c-.726 0-1.276-.308-1.649-.924Zm-.022-2.218v.768c0 .455.147.841.44 1.16c.298.315.674.473 1.128.473c.534 0 .951-.204 1.252-.613c.304-.408.456-.975.456-1.702c0-.613-.141-1.092-.424-1.44c-.283-.347-.666-.52-1.15-.52c-.511 0-.923.178-1.235.536c-.311.355-.467.8-.467 1.338Z" FillRule="NonZero"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WholeWordIcon2" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M0 11h1v2h14v-2h1v3H0v-3Z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RegExIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M10.012 2h.976v3.113l2.56-1.557l.486.885L11.47 6l2.564 1.559l-.485.885l-2.561-1.557V10h-.976V6.887l-2.56 1.557l-.486-.885L9.53 6L6.966 4.441l.485-.885l2.561 1.557V2zM2 10h4v4H2v-4z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SearchIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M15.25 0a8.25 8.25 0 0 0-6.18 13.72L1 22.88l1.12 1l8.05-9.12A8.251 8.251 0 1 0 15.25.01V0zm0 15a6.75 6.75 0 1 1 0-13.5a6.75 6.75 0 0 1 0 13.5z" FillRule="NonZero"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HistoryIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,1,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M13.507 12.324a7 7 0 0 0 .065-8.56A7 7 0 0 0 2 4.393V2H1v3.5l.5.5H5V5H2.811a6.008 6.008 0 1 1-.135 5.77l-.887.462a7 7 0 0 0 11.718 1.092zm-3.361-.97l.708-.707L8 7.792V4H7v4l.146.354l3 3z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SyncIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M2.006 8.267L.78 9.5L0 8.73l2.09-2.07l.76.01l2.09 2.12l-.76.76l-1.167-1.18a5 5 0 0 0 9.4 1.983l.813.597a6 6 0 0 1-11.22-2.683zm10.99-.466L11.76 6.55l-.76.76l2.09 2.11l.76.01l2.09-2.07l-.75-.76l-1.194 1.18a6 6 0 0 0-11.11-2.92l.81.594a5 5 0 0 1 9.3 2.346z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TrashIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M10 3h3v1h-1v9l-1 1H4l-1-1V4H2V3h3V2a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1zM9 2H6v1h3V2zM4 13h7V4H4v9zm2-8H5v7h1V5zm1 0h1v7H7V5zm2 0h1v7H9V5z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EditIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M13.23 1h-1.46L3.52 9.25l-.16.22L1 13.59L2.41 15l4.12-2.36l.22-.16L15 4.23V2.77L13.23 1zM2.41 13.59l1.51-3l1.45 1.45l-2.96 1.55zm3.83-2.06L4.47 9.76l8-8l1.77 1.77l-8 8z" FillRule="NonZero"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LightbulbIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M11.67 8.658a3.661 3.661 0 0 0-.781 1.114a3.28 3.28 0 0 0-.268 1.329v1.6a1.304 1.304 0 0 1-.794 1.197a1.282 1.282 0 0 1-.509.102H7.712a1.285 1.285 0 0 1-.922-.379a1.303 1.303 0 0 1-.38-.92v-1.6c0-.479-.092-.921-.274-1.329a3.556 3.556 0 0 0-.776-1.114a4.689 4.689 0 0 1-1.006-1.437A4.187 4.187 0 0 1 4 5.5a4.432 4.432 0 0 1 .616-2.27c.197-.336.432-.64.705-.914a4.6 4.6 0 0 1 .911-.702c.338-.196.7-.348 1.084-.454a4.45 4.45 0 0 1 1.2-.16a4.476 4.476 0 0 1 2.276.614a4.475 4.475 0 0 1 1.622 1.616a4.438 4.438 0 0 1 .616 2.27c0 .617-.117 1.191-.353 1.721a4.69 4.69 0 0 1-1.006 1.437zM9.623 10.5H7.409v2.201c0 .081.028.15.09.212a.29.29 0 0 0 .213.09h1.606a.289.289 0 0 0 .213-.09a.286.286 0 0 0 .09-.212V10.5z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AddIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,3,0,0" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M 11.85902 7.1646907 V 7.8353093 H 7.8353093 V 11.85902 H 7.1646907 V 7.8353093 H 3.1409797 V 7.1646907 h 4.023711 v -4.023711 h 0.6706186 v 4.023711 z" FillRule="NonZero"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="Consolas" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -131,6 +268,7 @@
         <Setter Property="Background" Value="{DynamicResource IconButton.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource IconButton.Foreground}" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -494,7 +632,7 @@
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Focusable" Value="{Binding Focusable, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" />
-        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="IsTabStop" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
@@ -977,16 +1115,18 @@
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.Foreground}" />
-        <Setter Property="Margin" Value="5,0,0,0" />
+        <Setter Property="Margin" Value="2,0,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Height" Value="20" />
+        <Setter Property="Height" Value="26" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
                     <BulletDecorator Background="Transparent">
-                        <Border x:Name="_background" BorderThickness="0,0,0,1" BorderBrush="{x:Null}" Margin="4,2,0,1">
+                        <Border x:Name="_background" BorderThickness="1,1,1,1" BorderBrush="{x:Null}" Margin="0,4,0,2" Padding="1">
                             <ContentPresenter Margin="0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
                         </Border>
                     </BulletDecorator>
@@ -998,8 +1138,8 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsChecked" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="BorderBrush" Value="{DynamicResource TextBox.Toggle.IsChecked.IsMouseOver.Foreground}" TargetName="_background" />
-                            <Setter Property="Foreground" Value="{DynamicResource TextBox.Toggle.IsChecked.IsMouseOver.Foreground}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource IconButton.Foreground}" TargetName="_background" />
+                            <Setter Property="Foreground" Value="{DynamicResource IconButton.Foreground}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -1136,7 +1276,6 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -1157,7 +1296,6 @@
                     <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                     <Setter Property="Focusable" Value="{Binding Focusable, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
-                    <Setter Property="IsTabStop" Value="False" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -1181,8 +1319,8 @@
                                 <!--<Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>-->
                                 <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
-                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Value="False"/>
-                                <Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                <!--<Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>-->
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Background" Value="{DynamicResource Result.IsSelected.IsInactive.Background}" />
                         </MultiDataTrigger>
@@ -2775,6 +2913,58 @@
                         </Trigger>
 
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <SolidColorBrush x:Key="ProgressBarBorderBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="ProgressBarBackgroundBrush" Color="White" />
+    <SolidColorBrush x:Key="ProgressBarTrackBackgroundBrush" Color="#63D055" />
+
+    <Style x:Key="{x:Type ProgressBar}" TargetType="{x:Type ProgressBar}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                    <tools:ClippingBorder x:Name="BorderBackground" CornerRadius="3" BorderThickness="0"
+                            BorderBrush="{StaticResource ProgressBarBorderBrush}"
+                            Background="{StaticResource ProgressBarBackgroundBrush}">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate" />
+                                    <VisualState x:Name="Indeterminate" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="PART_Track" Margin="0" BorderThickness="0" CornerRadius="3" />
+                            <Border x:Name="PART_Indicator" Margin="0" BorderThickness="0" CornerRadius="3" HorizontalAlignment="Left"
+                                    Background="{StaticResource ProgressBarTrackBackgroundBrush}" ClipToBounds="True">
+                                <Border x:Name="DiagonalDecorator" Width="5000">
+                                    <Border.Background>
+                                        <DrawingBrush TileMode="Tile" Stretch="None" Viewbox="0,0,1,1" Viewport="0,0,36,34" ViewportUnits="Absolute">
+                                            <DrawingBrush.RelativeTransform>
+                                                <TranslateTransform X="0" Y="0" />
+                                            </DrawingBrush.RelativeTransform>
+                                            <DrawingBrush.Drawing>
+                                                <GeometryDrawing Brush="#48C739" Geometry="M0,0 18,0 36,34 18,34 Z" />
+                                            </DrawingBrush.Drawing>
+                                        </DrawingBrush>
+                                    </Border.Background>
+                                    <Border.Triggers>
+                                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="(Border.Background).(DrawingBrush.RelativeTransform).(TranslateTransform.X)"
+                                                        From="0" To=".36" RepeatBehavior="Forever" Duration="0:0:18" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Border.Triggers>
+                                </Border>
+                            </Border>
+                        </Grid>
+                    </tools:ClippingBorder>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

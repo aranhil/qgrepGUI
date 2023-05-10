@@ -12,5 +12,8 @@ public:
 	virtual void print(const char* message, ...) = 0;
 	virtual void error(const char* message, ...) = 0;
 
+	virtual void progress(int percentage) {}
+	virtual bool isStopped() { return false; }
+
 	virtual bool isTTY() { return false; }
 };

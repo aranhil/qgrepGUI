@@ -28,7 +28,7 @@ struct SearchOutput
 
 	bool isLimitReached(OrderedOutput::Chunk* outputChunk = nullptr) const
 	{
-		return (outputChunk && outputChunk->lines >= limit) || output.getLineCount() >= limit;
+		return (outputChunk && outputChunk->lines >= limit) || output.getLineCount() >= limit || output.forceStop();
 	}
 
 	unsigned int options;
@@ -127,8 +127,6 @@ static void processMatch(Regex* re, SearchOutput* output, OrderedOutput::Chunk* 
 		printHighlightMatch(outputChunk->result, re, hlbuf, line, lineLength, preparedRange, matchOffset, matchLength);
 	else
 		outputChunk->result.append(line, lineLength);
-
-	outputChunk->result += '\n';
 
 	output->output.write(outputChunk);
 }
