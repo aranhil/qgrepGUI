@@ -17,7 +17,6 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Normal"
         SizeToContent="Manual"
-                               WindowStyle="ToolWindow"
         Topmost="False"
         mc:Ignorable="d">
     <controlzEx:WindowChromeWindow.Resources>
