@@ -609,17 +609,17 @@ namespace qgrepControls.SearchWindow
                     {
                         AddResultsBatch(searchOptions);
                     }
+
+                    if (searchOptions.GroupingMode == 1)
+                    {
+                        ProcessTreeCollapsingAfterPopulation();
+                    }
                 }
                 else
                 {
                     newSearch = false;
                     newSearchResultGroups.Clear();
                     newSearchResults.Clear();
-                }
-
-                if(searchOptions.GroupingMode == 1)
-                {
-                    ProcessTreeCollapsingAfterPopulation();
                 }
             });
         }
