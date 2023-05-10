@@ -167,12 +167,12 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,5,0">
                 <Label IsTabStop="False" x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
                 <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
-                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="Update cache">
+                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="Update index">
                     <Path Style="{DynamicResource SyncIcon}" />
                 </Button>
-                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache">
+                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update index">
                     <Grid Background="Transparent">
-                        <Path Style="{DynamicResource SyncForcedIcon}" />
+                        <Path Style="{DynamicResource TrashIcon}" />
                     </Grid>
                 </Button>
             </StackPanel>

@@ -106,6 +106,7 @@
     <SolidColorBrush x:Key="TreeViewItem.IsSelected.IsMouseOver.Icon" Color="#FFFFFF" />
 
     <Style x:Key="IconPath" TargetType="{x:Type Path}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Control, AncestorLevel=1}}" />
         <Setter Property="Height" Value="18" />
         <Setter Property="Width" Value="16" />
@@ -202,11 +203,40 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SyncForcedIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+    <Style x:Key="TrashIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
         <Setter Property="Margin" Value="0,2,0,0" />
         <Setter Property="Data">
             <Setter.Value>
                 <PathGeometry Figures="M10 3h3v1h-1v9l-1 1H4l-1-1V4H2V3h3V2a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1zM9 2H6v1h3V2zM4 13h7V4H4v9zm2-8H5v7h1V5zm1 0h1v7H7V5zm2 0h1v7H9V5z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EditIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M13.23 1h-1.46L3.52 9.25l-.16.22L1 13.59L2.41 15l4.12-2.36l.22-.16L15 4.23V2.77L13.23 1zM2.41 13.59l1.51-3l1.45 1.45l-2.96 1.55zm3.83-2.06L4.47 9.76l8-8l1.77 1.77l-8 8z" FillRule="NonZero"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LightbulbIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M11.67 8.658a3.661 3.661 0 0 0-.781 1.114a3.28 3.28 0 0 0-.268 1.329v1.6a1.304 1.304 0 0 1-.794 1.197a1.282 1.282 0 0 1-.509.102H7.712a1.285 1.285 0 0 1-.922-.379a1.303 1.303 0 0 1-.38-.92v-1.6c0-.479-.092-.921-.274-1.329a3.556 3.556 0 0 0-.776-1.114a4.689 4.689 0 0 1-1.006-1.437A4.187 4.187 0 0 1 4 5.5a4.432 4.432 0 0 1 .616-2.27c.197-.336.432-.64.705-.914a4.6 4.6 0 0 1 .911-.702c.338-.196.7-.348 1.084-.454a4.45 4.45 0 0 1 1.2-.16a4.476 4.476 0 0 1 2.276.614a4.475 4.475 0 0 1 1.622 1.616a4.438 4.438 0 0 1 .616 2.27c0 .617-.117 1.191-.353 1.721a4.69 4.69 0 0 1-1.006 1.437zM9.623 10.5H7.409v2.201c0 .081.028.15.09.212a.29.29 0 0 0 .213.09h1.606a.289.289 0 0 0 .213-.09a.286.286 0 0 0 .09-.212V10.5z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AddIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,3,0,0" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M 11.85902 7.1646907 V 7.8353093 H 7.8353093 V 11.85902 H 7.1646907 V 7.8353093 H 3.1409797 V 7.1646907 h 4.023711 v -4.023711 h 0.6706186 v 4.023711 z" FillRule="NonZero"/>
             </Setter.Value>
         </Setter>
     </Style>

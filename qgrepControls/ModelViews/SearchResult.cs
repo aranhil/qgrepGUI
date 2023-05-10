@@ -13,7 +13,6 @@ namespace qgrepControls.ModelViews
     {
         private bool isSelected;
 
-        public int Index { get; set; }
         public string File { get; set; }
         public string Line { get; set; }
         public string TrimmedFileAndLine { get; set; }

@@ -16,7 +16,9 @@
             <Label Name="Path" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Path}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Right" Name="Icons" Margin="0,0,5,0">
-            <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="15" Click="DeleteButton_Click" Content="✕" ToolTip="Delete folder" />
+            <Button Name="DeleteButton" Style="{StaticResource IconButton}" FontSize="15" Click="DeleteButton_Click" ToolTip="Delete folder">
+                <Path Style="{DynamicResource TrashIcon}" Height="12" Stretch="Uniform" Margin="-2,1,-4,1"/>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

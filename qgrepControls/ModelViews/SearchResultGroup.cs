@@ -14,7 +14,6 @@ namespace qgrepControls.ModelViews
         private bool isSelected = false;
         private bool isExpanded = false;
 
-        public int Index { get; set; }
         public string File { get; set; } = "";
         public string TrimmedFile { get; set; } = "";
         public ObservableCollection<SearchResult> SearchResults { get; set; } = new ObservableCollection<SearchResult>();
