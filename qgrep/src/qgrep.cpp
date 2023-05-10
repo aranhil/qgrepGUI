@@ -182,6 +182,11 @@ public:
 		errorsCallback(error.c_str(), (int)error.size());
 	}
 
+	virtual void progress(int percentage)
+	{
+		progressCallback(percentage);
+	}
+
 private:
 	bool (*stringCallback)(const char*, int);
 	void (*errorsCallback)(const char*, int);

@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:self="clr-namespace:qgrepControls.SearchWindow"
+             xmlns:modelViews="clr-namespace:qgrepControls.ModelViews"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown">
+             d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown" GotKeyboardFocus="UserControl_GotKeyboardFocus">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" >
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid KeyboardNavigation.TabNavigation="Cycle">
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
             <RowDefinition Height="Auto"/>
@@ -66,7 +66,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" x:Name="FilterResultsGrid" Margin="0,-1,0,0">
-            <TextBox x:Name="FilterResultsInput" TabIndex="2" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
+            <TextBox x:Name="FilterResultsInput" TabIndex="3" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
             <Label x:Name="FilterResultsLabel" Content="Filter results..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel x:Name="FilterResultsPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel x:Name="FilterResultsInnerPanel" Margin="0,-2,10,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -75,7 +75,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4">
-            <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="3" ItemsSource="{Binding}">
+            <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="4" ItemsSource="{Binding}" KeyboardNavigation.TabNavigation="Once" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
@@ -98,7 +98,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <TreeView x:Name="SearchItemsTreeView" TabIndex="3" ItemsSource="{Binding}">
+            <TreeView x:Name="SearchItemsTreeView" TabIndex="4" ItemsSource="{Binding}" KeyboardNavigation.TabNavigation="Once" >
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource SomeTreeViewItem}">
                         <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>
@@ -108,8 +108,8 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                     </Style>
                 </TreeView.ItemContainerStyle>
                 <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type self:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
-                        <DockPanel Style="{DynamicResource ResultPanel}" RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchGroup_MouseDown">
+                    <HierarchicalDataTemplate DataType="{x:Type modelViews:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
+                        <DockPanel Style="{DynamicResource ResultPanel}" RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchResult_MouseDown">
                             <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=TrimmedFile}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
@@ -119,7 +119,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             </DockPanel.ContextMenu>
                         </DockPanel>
                     </HierarchicalDataTemplate>
-                    <DataTemplate DataType="{x:Type self:SearchResult}">
+                    <DataTemplate DataType="{x:Type modelViews:SearchResult}">
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
                             <TextBlock Style="{DynamicResource ResultLine}" Text="{Binding Path=Line}" />
                             <Border Style="{DynamicResource ResultSeparator}"/>
@@ -146,18 +146,18 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
         </Grid>
         <Grid Grid.Row="6">
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,5,0">
-                <Label x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
-                <ProgressBar x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
-                <Button x:Name="InitButton" Style="{StaticResource IconButton}" Content="⟲" FontSize="18" Click="InitButton_Click" ToolTip="Update cache"/>
-                <Button x:Name="CleanButton" Style="{StaticResource IconButton}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
+                <Label IsTabStop="False" x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
+                <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
+                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" Content="⟲" FontSize="18" Click="InitButton_Click" ToolTip="Update cache"/>
+                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" Content="⊗" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update cache"/>
             </StackPanel>
             <StackPanel x:Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button x:Name="ColorsButton" Style="{StaticResource IconButton}" Content="🎨" FontSize="14" Click="Colors_Click" ToolTip="Customize colors"/>
                 <Button x:Name="AdvancedButton" Style="{StaticResource IconButton}" Content="⚙" FontSize="14" Click="AdvancedButton_Click" ToolTip="Advanced Settings"/>
                 <Button x:Name="PathsButton" Style="{StaticResource IconButton}" Content="📁" FontSize="14" Click="PathsButton_Click" ToolTip="Search configurations"/>
-                <wpfTool:CheckComboBox x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
+                <wpfTool:CheckComboBox IsTabStop="False" x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
                 </wpfTool:CheckComboBox>
-                <Label x:Name="InfoLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
+                <Label IsTabStop="False" x:Name="InfoLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
             </StackPanel>
         </Grid>
     </Grid>

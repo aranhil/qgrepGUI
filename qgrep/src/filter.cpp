@@ -41,7 +41,6 @@ static void processMatch(const char* path, size_t pathLength, FilterOutput* outp
 	}
 
 	output->output->rawprint(path, pathLength);
-	output->output->rawprint("\n", 1);
 }
 
 static void processMatch(const FilterEntry& entry, const char* buffer, FilterOutput* output)

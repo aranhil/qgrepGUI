@@ -242,7 +242,7 @@ std::unique_ptr<ProjectGroup> parseProject(Output* output, const char* file)
 	std::ifstream in(file);
 	if (!in)
 	{
-		PRINT_ERROR(output, "Error reading file %s\n", file);
+		PRINT_ERROR(output, "Error reading file %s", file);
 		return std::unique_ptr<ProjectGroup>();
 	}
 

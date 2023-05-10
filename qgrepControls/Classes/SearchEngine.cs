@@ -14,11 +14,15 @@ using System.Windows.Threading;
 using System.Windows;
 using System.Reflection;
 using System.IO;
+using System.Xml.Linq;
 
 namespace qgrepControls.Classes
 {
-    public delegate void ResultCallback(string file, string lineNumber, string beginText, string highlight, string endText);
-    public delegate void SimpleCallback();
+    public delegate void ResultCallback(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions);
+    public delegate void SearchStepCallback(SearchOptions searchOptions);
+    public delegate void StringCallback(string message);
+    public delegate void UpdateStepCallback();
+    public delegate void UpdateProgressCallback(int percentage);
 
     public class SearchOptions
     {
@@ -32,7 +36,8 @@ namespace qgrepControls.Classes
         public bool IncludeFilesRegEx { get; set; } = false;
         public bool ExcludeFilesRegEx { get; set;} = false;
         public bool FilterResultsRegEx { get; set;} = false;
-        public string Configs { get; set; } = "";
+        public int GroupingMode { get; set; } = 0;
+        public List<string> Configs { get; set; } = new List<string>();
     }
 
     public class SearchEngine
@@ -42,9 +47,17 @@ namespace qgrepControls.Classes
         public bool IsSearchQueued { get { return QueuedSearchOptions != null; } }
 
         private SearchOptions QueuedSearchOptions = null;
+        private SearchOptions QueuedSearchFilesOptions = null;
+        private List<string> QueuedDatabaseUpdate = null;
+
         public ResultCallback ResultCallback { get; set; } = null;
-        public SimpleCallback StartCallback { get; set; } = null;
-        public SimpleCallback FinishCallback { get; set; } = null;
+        public StringCallback ErrorCallback { get; set; } = null;
+        public SearchStepCallback StartSearchCallback { get; set; } = null;
+        public SearchStepCallback FinishSearchCallback { get; set; } = null;
+        public UpdateStepCallback StartUpdateCallback { get; set; } = null;
+        public UpdateStepCallback FinishUpdateCallback { get; set; } = null;
+        public StringCallback UpdateInfoCallback { get; set; } = null;
+        public UpdateProgressCallback UpdateProgressCallback { get; set; } = null;
 
         public void SearchAsync(SearchOptions searchOptions)
         {
@@ -60,13 +73,13 @@ namespace qgrepControls.Classes
 
             Task.Run(() =>
             {
-                StartCallback();
+                StartSearchCallback(searchOptions);
 
                 List<string> arguments = new List<string>
                 {
                     "qgrep",
                     "search",
-                    searchOptions.Configs
+                    string.Join(",", searchOptions.Configs)
                 };
 
                 if (!searchOptions.CaseSensitive) arguments.Add("i");
@@ -119,7 +132,49 @@ namespace qgrepControls.Classes
 
                 IsBusy = false;
 
-                FinishCallback();
+                FinishSearchCallback(searchOptions);
+
+                ProcessQueue();
+            });
+        }
+        public void SearchFilesAsync(SearchOptions searchOptions)
+        {
+            if (IsBusy)
+            {
+                QueuedSearchFilesOptions = searchOptions;
+                ForceStop = true;
+                return;
+            }
+
+            IsBusy = true;
+            ForceStop = false;
+
+            Task.Run(() =>
+            {
+                StartSearchCallback(searchOptions);
+
+                List<string> arguments = new List<string>
+                {
+                    "qgrep",
+                    "files",
+                    string.Join(",", searchOptions.Configs)
+                };
+
+                if (searchOptions.WholeWord)
+                {
+                    arguments.Add("\\b" + (searchOptions.RegEx ? searchOptions.Query : Regex.Escape(searchOptions.Query)) + "\\b");
+                }
+                else
+                {
+                    arguments.Add(searchOptions.Query);
+                }
+
+                QGrepWrapper.CallQGrepAsync(arguments,
+                    (string result) => { return StringHandler(result, searchOptions); }, ErrorHandler, ProgressHandler);
+
+                IsBusy = false;
+
+                FinishSearchCallback(searchOptions);
 
                 ProcessQueue();
             });
@@ -127,10 +182,20 @@ namespace qgrepControls.Classes
 
         private void ProcessQueue()
         {
-            if(QueuedSearchOptions != null)
+            if (QueuedSearchOptions != null)
             {
                 SearchAsync(QueuedSearchOptions);
                 QueuedSearchOptions = null;
+            }
+            else if (QueuedSearchFilesOptions != null)
+            {
+                SearchFilesAsync(QueuedSearchFilesOptions);
+                QueuedSearchFilesOptions = null;
+            }
+            else if(QueuedDatabaseUpdate != null)
+            {
+                UpdateDatabaseAsync(QueuedDatabaseUpdate);
+                QueuedDatabaseUpdate = null;
             }
         }
 
@@ -143,8 +208,7 @@ namespace qgrepControls.Classes
 
             if(ResultCallback != null)
             {
-                result = result.Substring(0, result.Length - 1);
-                string file, beginText, endText, highlightedText, lineNo;
+                string file = "", beginText, endText, highlightedText, lineNo = "";
 
                 int currentIndex = result.IndexOf('\xB0');
                 if (currentIndex >= 0)
@@ -176,10 +240,6 @@ namespace qgrepControls.Classes
                         }
                     }
                 }
-                else
-                {
-                    return false;
-                }
 
                 int highlightBegin = 0, highlightEnd = 0;
                 Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);
@@ -208,7 +268,7 @@ namespace qgrepControls.Classes
 
                 endText = result;
 
-                ResultCallback(file, lineNo, beginText, highlightedText, endText);
+                ResultCallback(file, lineNo, beginText, highlightedText, endText, searchOptions);
             }
 
             return false;
@@ -237,14 +297,61 @@ namespace qgrepControls.Classes
             endHighlight = match.Length;
         }
 
+        public void UpdateDatabaseAsync(List<string> configsPaths)
+        {
+            if (IsBusy)
+            {
+                QueuedDatabaseUpdate = configsPaths;
+                return;
+            }
+
+            IsBusy = true;
+
+            Task.Run(() =>
+            {
+                StartUpdateCallback();
+
+                foreach (String configPath in configsPaths)
+                {
+                    QGrepWrapper.StringCallback stringCallback = new QGrepWrapper.StringCallback(DatabaseMessageHandler);
+                    QGrepWrapper.ErrorCallback errorsCallback = new QGrepWrapper.ErrorCallback(ErrorHandler);
+                    QGrepWrapper.ProgressCalback progressCalback = new QGrepWrapper.ProgressCalback(ProgressHandler);
+                    List<string> parameters = new List<string>
+                    {
+                        "qgrep",
+                        "update",
+                        configPath
+                    };
+                    QGrepWrapper.CallQGrepAsync(parameters, stringCallback, errorsCallback, progressCalback);
+                }
+
+                IsBusy = false;
+
+                FinishUpdateCallback();
+
+                ProcessQueue();
+            });
+        }
+
         private void ErrorHandler(string result)
         {
+            ErrorCallback(result);
+        }
 
+        private bool DatabaseMessageHandler(string result)
+        {
+            if(result.EndsWith("\n"))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            UpdateInfoCallback(result);
+            return false;
         }
 
         public void ProgressHandler(int percentage)
         {
-
+            UpdateProgressCallback(percentage);
         }
     }
 }

@@ -128,8 +128,6 @@ static void processMatch(Regex* re, SearchOutput* output, OrderedOutput::Chunk* 
 	else
 		outputChunk->result.append(line, lineLength);
 
-	outputChunk->result += '\n';
-
 	output->output.write(outputChunk);
 }
 
