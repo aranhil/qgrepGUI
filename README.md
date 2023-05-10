@@ -24,7 +24,7 @@ Install the Visual Studio extension and follow the setup instructions below.
    
    This will also grab the selected text in your current document before opening.
 
-3. After this, you have to set up the folders that will be indexed. The window to set can be opened up from the lower left corner of the toolbar:
+3. After this, you have to set up the folders that will be indexed. The window for this can be opened up from the lower left corner of the toolbar:
 
    ![image](https://user-images.githubusercontent.com/755601/236962201-40373b1a-f74c-4fe9-8cd2-4fbb70417c8d.png)
 
