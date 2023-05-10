@@ -95,7 +95,7 @@ namespace qgrepControls.Classes
                     arguments.Add("fe" + (searchOptions.ExcludeFilesRegEx ? searchOptions.ExcludeFiles : Regex.Escape(searchOptions.ExcludeFiles)));
                 }
 
-                arguments.Add("HM");
+                arguments.Add("HD");
 
                 switch(searchOptions.Query.Length)
                 {
@@ -157,17 +157,10 @@ namespace qgrepControls.Classes
                 {
                     "qgrep",
                     "files",
-                    string.Join(",", searchOptions.Configs)
+                    string.Join(",", searchOptions.Configs),
+                    "i",
+                    searchOptions.Query
                 };
-
-                if (searchOptions.WholeWord)
-                {
-                    arguments.Add("\\b" + (searchOptions.RegEx ? searchOptions.Query : Regex.Escape(searchOptions.Query)) + "\\b");
-                }
-                else
-                {
-                    arguments.Add(searchOptions.Query);
-                }
 
                 QGrepWrapper.CallQGrepAsync(arguments,
                     (string result) => { return StringHandler(result, searchOptions); }, ErrorHandler, ProgressHandler);
