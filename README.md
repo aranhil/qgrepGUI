@@ -2,8 +2,7 @@
 
 *qgrep Search Tool* is a GUI wrapper and Visual Studio extension based on [qgrep](https://github.com/zeux/qgrep) made by Arseny Kapoulkine. It provides a powerful and user-friendly interface for searching through files and directories within your projects, improving your development experience and productivity.
 
-![qgrep search tool](https://github.com/aranhil/qgrepSearchTool/assets/755601/b6787158-0878-4b97-942a-b46fc842a14d)
-
+![qgrep search tool](https://github.com/aranhil/qgrepSearchTool/assets/755601/5d3a7b4e-6d9e-4457-98e2-e49c058741e9)
 
 ## Features
 
