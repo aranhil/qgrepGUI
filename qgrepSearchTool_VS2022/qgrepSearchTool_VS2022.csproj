@@ -70,7 +70,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\ShowToolWindow.cs" />
+    <Compile Include="qgrepSearchPackage.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="qgrepSearchWindow.cs" />
     <Compile Include="qgrepSearchWindowState.cs" />
@@ -80,8 +80,9 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Resource Include="Resources\icons8-settings-48.png" />
-    <Resource Include="Resources\iconfinder_refresh_1608809.png" />
+    <Content Include="Resources\ExcludeFilesCommand.png" />
+    <Content Include="Resources\FilterResultsCommand.png" />
+    <Content Include="Resources\IncludeFilesCommand.png" />
     <VSCTCompile Include="VSCommandTable.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>

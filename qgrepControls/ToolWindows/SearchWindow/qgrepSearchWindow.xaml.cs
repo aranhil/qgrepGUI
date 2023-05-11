@@ -1388,5 +1388,96 @@ namespace qgrepControls.SearchWindow
                 System.Diagnostics.Debug.WriteLine(frameworkElement.DataContext);
             }
         }
+
+        public void ToggleCaseSensitive()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                SearchCaseSensitive.IsChecked = !SearchCaseSensitive.IsChecked;
+                SaveOptions();
+                UpdateFromSettings();
+            });
+        }
+
+        public void ToggleWholeWord()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                SearchWholeWord.IsChecked = !SearchWholeWord.IsChecked;
+                SaveOptions();
+                UpdateFromSettings();
+            });
+        }
+
+        public void ToggleRegEx()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if(IncludeFilesInput.IsFocused)
+                {
+                    IncludeRegEx.IsChecked = !IncludeRegEx.IsChecked;
+                }
+                else if(ExcludeFilesInput.IsFocused)
+                {
+                    ExcludeRegEx.IsChecked = !ExcludeRegEx.IsChecked;
+                }
+                else if(FilterResultsInput.IsFocused)
+                {
+                    FilterRegEx.IsChecked = !FilterRegEx.IsChecked;
+                }
+                else
+                {
+                    SearchRegEx.IsChecked = !SearchRegEx.IsChecked;
+                }
+
+                SaveOptions();
+                UpdateFromSettings();
+            });
+        }
+
+        public void ToggleIncludeFiles()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Settings.Default.ShowIncludes = !Settings.Default.ShowIncludes;
+                Settings.Default.Save();
+                UpdateFromSettings();
+
+                if(IncludeFilesInput.IsVisible)
+                {
+                    IncludeFilesInput.Focus();
+                }
+            });
+        }
+
+        public void ToggleExcludeFiles()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Settings.Default.ShowExcludes = !Settings.Default.ShowExcludes;
+                Settings.Default.Save();
+                UpdateFromSettings();
+
+                if (ExcludeFilesInput.IsVisible)
+                {
+                    ExcludeFilesInput.Focus();
+                }
+            });
+        }
+
+        public void ToggleFilterResults()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Settings.Default.ShowFilter = !Settings.Default.ShowFilter;
+                Settings.Default.Save();
+                UpdateFromSettings();
+
+                if (FilterResultsInput.IsVisible)
+                {
+                    FilterResultsInput.Focus();
+                }
+            });
+        }
     }
 }

@@ -9,7 +9,13 @@
     <Import_RootNamespace>qgrepExtension</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CaseSensitiveCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ExcludeFilesCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\FilterResultsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\IncludeFilesCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\RegExCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\WholeWordCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)qgrepExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)qgrepSearchPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShowToolWindow.cs" />
   </ItemGroup>
 </Project>

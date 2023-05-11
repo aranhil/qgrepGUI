@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
 namespace qgrepSearch
@@ -31,6 +32,9 @@ namespace qgrepSearch
                     0,
                     create: true,
                     cancellationToken: package.DisposalToken);
+
+                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_CmdUIGuid, "6e3b2e95-902b-4385-a966-30c06ab3c7a6");
             });
         }
     }
