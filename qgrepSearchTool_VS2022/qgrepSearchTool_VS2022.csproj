@@ -80,9 +80,6 @@
       <Link>Resources\LICENSE</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\ExcludeFilesCommand.png" />
-    <Content Include="Resources\FilterResultsCommand.png" />
-    <Content Include="Resources\IncludeFilesCommand.png" />
     <VSCTCompile Include="VSCommandTable.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>

@@ -404,7 +404,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.RegEx = SearchRegEx.IsChecked == true;
             Settings.Default.WholeWord = SearchWholeWord.IsChecked == true;
             Settings.Default.IncludesRegEx = IncludeRegEx.IsChecked == true;
-            Settings.Default.ShowExcludes = ExcludeRegEx.IsChecked == true;
+            Settings.Default.ExcludesRegEx = ExcludeRegEx.IsChecked == true;
             Settings.Default.FilterRegEx = FilterRegEx.IsChecked == true;
 
             Settings.Default.Save();

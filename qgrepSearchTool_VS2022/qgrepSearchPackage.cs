@@ -50,10 +50,6 @@ namespace qgrepSearch
             await IncludeFilesCommand.InitializeAsync(this);
             await ExcludeFilesCommand.InitializeAsync(this);
             await FilterResultsCommand.InitializeAsync(this);
-            //await ExcludeFilesCommand.InitializeAsync(this);
-            //await RegExCommand.InitializeAsync(this);
-            //await IncludeFilesCommand.InitializeAsync(this);
-            //await FilterResultsCommand.InitializeAsync(this);
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)

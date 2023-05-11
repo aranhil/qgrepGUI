@@ -60,12 +60,13 @@
   </Commands>
 
 	<KeyBindings>
+		<KeyBinding guid="guidMyPackageCmdSet" id="ShowToolWindowId" editor="guidVSStd97" key1="F" mod1="Alt Shift" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidCaseSensitiveCommand" editor="guidMyToolWindow" key1="C" mod1="Alt" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidWholeWordCommand" editor="guidMyToolWindow" key1="W" mod1="Alt" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidRegExCommand" editor="guidMyToolWindow" key1="R" mod1="Alt" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidIncludeFilesCommand" editor="guidMyToolWindow" key1="I" mod1="Alt" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidExcludeFilesCommand" editor="guidMyToolWindow" key1="E" mod1="Alt" />
-		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidFilterResultsCommand" editor="guidMyToolWindow" key1="F" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidFilterResultsCommand" editor="guidMyToolWindow" key1="F" mod1="Alt" />
 	</KeyBindings>
 
 	<Symbols>
