@@ -81,6 +81,7 @@ namespace qgrepControls.SearchWindow
             CleanButton.Visibility = Visibility.Collapsed;
             InitProgress.Visibility = Visibility.Collapsed;
             Overlay.Visibility = Visibility.Collapsed;
+            PathsButton.IsEnabled = false;
 
             SearchCaseSensitive.IsChecked = Settings.Default.CaseSensitive;
             SearchRegEx.IsChecked = Settings.Default.RegEx;
@@ -293,6 +294,7 @@ namespace qgrepControls.SearchWindow
 
                 InitButton.Visibility = Visibility.Visible;
                 CleanButton.Visibility = Visibility.Visible;
+                PathsButton.IsEnabled = true;
             }
         }
 
@@ -890,6 +892,15 @@ namespace qgrepControls.SearchWindow
             CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowDialog();
         }
 
+        private void AddToSearchHistory(string searchedString)
+        {
+            if(searchedString.Length > 0)
+            {
+                searchHistory.Remove(searchedString);
+                searchHistory.Add(searchedString);
+            }
+        }
+
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
         {
             if (ExtensionInterface.WindowOpened)
@@ -902,10 +913,7 @@ namespace qgrepControls.SearchWindow
                     SearchInput.Text = selectedText;
                     SearchInput.CaretIndex = SearchInput.Text.Length;
 
-                    if ((searchHistory.Count == 0 || !searchHistory.Contains(SearchInput.Text)) && SearchInput.Text.Length > 0)
-                    {
-                        searchHistory.Add(selectedText);
-                    }
+                    AddToSearchHistory(SearchInput.Text);
                 }
                 else
                 {
@@ -1333,23 +1341,20 @@ namespace qgrepControls.SearchWindow
         {
             if (searchHistory.Count > 0)
             {
-                HistoryButton.ContextMenu.Items.Clear();
+                HistoryPanel.Items.Clear();
 
-                foreach (string historyItem in searchHistory)
+                for(int i = searchHistory.Count - 1; i >= 0; i--)
                 {
-                    MenuItem newMenuItem = new MenuItem() { Header = historyItem };
-                    newMenuItem.Click += HistoryItem_Click;
+                    ListBoxItem listBoxItem = new ListBoxItem() { Content = searchHistory[i] };
+                    listBoxItem.PreviewMouseDown += HistoryItem_MouseDown;
+                    listBoxItem.PreviewKeyDown += HistoryItem_KeyDown;
 
-                    HistoryButton.ContextMenu.Items.Add(newMenuItem);
+                    HistoryPanel.Items.Add(listBoxItem);
                 }
 
                 Point relativePosition = HistoryButton.PointToScreen(new Point(0, 0));
 
-                HistoryButton.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
-                HistoryButton.ContextMenu.HorizontalOffset = relativePosition.X;
-                HistoryButton.ContextMenu.VerticalOffset = relativePosition.Y + HistoryButton.ActualHeight;
-
-                HistoryButton.ContextMenu.IsOpen = true;
+                HistoryPopup.IsOpen = true;
             }
         }
 
@@ -1372,27 +1377,41 @@ namespace qgrepControls.SearchWindow
         {
             if(SearchInput.Text.Length > 0)
             {
-                if ((searchHistory.Count == 0 || !searchHistory.Contains(SearchInput.Text)) && SearchInput.Text.Length > 0)
-                {
-                    searchHistory.Add(SearchInput.Text);
-                }
+                AddToSearchHistory(SearchInput.Text);
             }
         }
 
-        private void HistoryItem_Click(object sender, RoutedEventArgs e)
+        void OpenHistoryItem(ListBoxItem listBoxItem)
         {
-            MenuItem menuItem = sender as MenuItem;
-            if(menuItem != null)
+            if (listBoxItem != null)
             {
-                SearchInput.Text = menuItem.Header as string;
-
-                if(!Settings.Default.SearchInstantly)
-                {
-                    Find();
-                }
+                SearchInput.Text = listBoxItem.Content as string;
+                SearchInput.CaretIndex = SearchInput.Text.Length;
+                AddToSearchHistory(SearchInput.Text);
             }
 
-            //HistoryPopup.IsOpen = false;
+            SearchInput.Focus();
+            HistoryPopup.IsOpen = false;
+        }
+
+        private void HistoryItem_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenHistoryItem(sender as ListBoxItem);
+            e.Handled = true;
+        }
+
+        private void HistoryItem_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                OpenHistoryItem(sender as ListBoxItem);
+                e.Handled = true;
+            }
+            else if(e.Key == Key.Escape)
+            {
+                SearchInput.Focus();
+                HistoryPopup.IsOpen = false;
+            }
         }
 
         private bool IgnoreFocusEvents = false;
@@ -1400,22 +1419,14 @@ namespace qgrepControls.SearchWindow
         {
             if(e.Key == Key.Enter)
             {
-                if ((searchHistory.Count == 0 || !searchHistory.Contains(SearchInput.Text)) && SearchInput.Text.Length > 0)
-                {
-                    searchHistory.Add(SearchInput.Text);
-                }
-
+                AddToSearchHistory(SearchInput.Text);
                 Find();
             }
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((searchHistory.Count == 0 || !searchHistory.Contains(SearchInput.Text)) && SearchInput.Text.Length > 0)
-            {
-                searchHistory.Add(SearchInput.Text);
-            }
-
+            AddToSearchHistory(SearchInput.Text);
             Find();
         }
 
@@ -1537,9 +1548,10 @@ namespace qgrepControls.SearchWindow
             Dispatcher.Invoke(() =>
             {
                 OpenHistoryPopup();
-                if(HistoryButton.ContextMenu.Items.Count > 0)
+                if(HistoryPanel.Items.Count > 0)
                 {
-                    (HistoryButton.ContextMenu.Items[0] as MenuItem).Focus();
+                    (HistoryPanel.Items[0] as ListBoxItem).IsSelected = true;
+                    (HistoryPanel.Items[0] as ListBoxItem).Focus();
                 }
             });
         }

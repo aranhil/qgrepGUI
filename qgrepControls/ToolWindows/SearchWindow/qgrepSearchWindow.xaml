@@ -34,6 +34,14 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                     <Button x:Name="HistoryButton" Style="{StaticResource IconButton}" FontSize="14" Click="HistoryButton_Click" ToolTip="Show recent searches (Alt+H)" Margin="5,3,1,0">
                         <Path Style="{DynamicResource HistoryIcon}" />
                     </Button>
+                    <Popup x:Name="HistoryPopup" Placement="Custom" VerticalOffset="2" HorizontalOffset="-2" PlacementTarget="{Binding ElementName=HistoryButton}" CustomPopupPlacementCallback="CustomPopupPlacementCallback" AllowsTransparency="True" StaysOpen="False" Focusable="False">
+                        <ContentControl Style="{DynamicResource PopupContentStyle}">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="250" MaxWidth="500">
+                                <ListBox Style="{DynamicResource EmptyListBox}" HorizontalAlignment="Left" MinWidth="200" x:Name="HistoryPanel">
+                                </ListBox>
+                            </ScrollViewer>
+                        </ContentControl>
+                    </Popup>
                     <Button x:Name="SearchButton" Style="{StaticResource IconButton}" FontSize="14" Click="SearchButton_Click" Margin="5,3,1,0">
                         <Path Style="{DynamicResource SearchIcon}" />
                     </Button>
