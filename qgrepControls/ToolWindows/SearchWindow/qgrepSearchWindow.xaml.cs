@@ -55,6 +55,7 @@ namespace qgrepControls.SearchWindow
         public string ConfigPath = "";
         public ConfigParser ConfigParser = null;
         public ColorScheme[] colorSchemes = new ColorScheme[0];
+        public Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
 
         private System.Timers.Timer UpdateTimer = null;
         private string LastResults = "";
@@ -112,6 +113,22 @@ namespace qgrepControls.SearchWindow
             SearchEngine.UpdateInfoCallback = HandleUpdateMessage;
             SearchEngine.UpdateProgressCallback = HandleProgress;
             SearchEngine.ErrorCallback = HandleErrorMessage;
+
+            bindings = ExtensionInterface.ReadKeyBindings();
+            extensionInterface.ApplyKeyBindings(bindings);
+
+            KeyboardButton.Visibility = ExtensionInterface.IsStandalone ? Visibility.Visible : Visibility.Collapsed;
+            UpdateShortcutHints();
+        }
+
+        private void UpdateShortcutHints()
+        {
+            SearchCaseSensitive.ToolTip = "Case sensitive (" + bindings["ToggleCaseSensitive"].ToString() + ")";
+            SearchWholeWord.ToolTip = "Whole word (" + bindings["ToggleWholeWord"].ToString() + ")";
+            SearchRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
+            IncludeRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
+            ExcludeRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
+            FilterRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
         }
 
         private void ResetTimestamp()
@@ -898,7 +915,7 @@ namespace qgrepControls.SearchWindow
                 ExtensionInterface.WindowOpened = false;
             }
 
-            //System.Diagnostics.Debug.WriteLine(e.OriginalSource);
+            System.Diagnostics.Debug.WriteLine(e.OriginalSource);
         }
 
         private void SearchInput_TextChanged(object sender, TextChangedEventArgs e)
@@ -1049,9 +1066,33 @@ namespace qgrepControls.SearchWindow
             {
                 bool openResult = false;
 
-                if (!SearchInput.IsFocused && !IncludeFilesInput.IsFocused && !ExcludeFilesInput.IsFocused && !FilterResultsInput.IsFocused)
+                if(selectedSearchResult != null)
                 {
-                    openResult = true;
+                    if(selectedSearchResult.Parent != null)
+                    {
+                        TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(selectedSearchResult.Parent) as TreeViewItem;
+                        treeViewItem = treeViewItem.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as TreeViewItem;
+                        if(treeViewItem?.IsFocused ?? false)
+                        {
+                            openResult = true;
+                        }
+                    }
+                    else
+                    {
+                        ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as ListBoxItem;
+                        if (listBoxItem?.IsFocused ?? false)
+                        {
+                            openResult = true;
+                        }
+                    }
+                }
+                else if(selectedSearchResultGroup != null)
+                {
+                    TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(selectedSearchResultGroup) as TreeViewItem;
+                    if (treeViewItem?.IsFocused ?? false)
+                    {
+                        openResult = true;
+                    }
                 }
 
                 if (openResult)
@@ -1288,22 +1329,33 @@ namespace qgrepControls.SearchWindow
             return newWindow;
         }
 
-        private void HistoryButton_Click(object sender, RoutedEventArgs e)
+        private void OpenHistoryPopup()
         {
-            if(searchHistory.Count > 0)
+            if (searchHistory.Count > 0)
             {
-                HistoryPanel.Children.Clear();
+                HistoryButton.ContextMenu.Items.Clear();
 
-                foreach(string historyItem in searchHistory)
+                foreach (string historyItem in searchHistory)
                 {
                     MenuItem newMenuItem = new MenuItem() { Header = historyItem };
                     newMenuItem.Click += HistoryItem_Click;
 
-                    HistoryPanel.Children.Add(newMenuItem);
+                    HistoryButton.ContextMenu.Items.Add(newMenuItem);
                 }
 
-                HistoryPopup.IsOpen = true;
+                Point relativePosition = HistoryButton.PointToScreen(new Point(0, 0));
+
+                HistoryButton.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
+                HistoryButton.ContextMenu.HorizontalOffset = relativePosition.X;
+                HistoryButton.ContextMenu.VerticalOffset = relativePosition.Y + HistoryButton.ActualHeight;
+
+                HistoryButton.ContextMenu.IsOpen = true;
             }
+        }
+
+        private void HistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenHistoryPopup();
         }
 
         public CustomPopupPlacement[] CustomPopupPlacementCallback(Size popupSize, Size targetSize, Point offset)
@@ -1340,7 +1392,7 @@ namespace qgrepControls.SearchWindow
                 }
             }
 
-            HistoryPopup.IsOpen = false;
+            //HistoryPopup.IsOpen = false;
         }
 
         private bool IgnoreFocusEvents = false;
@@ -1478,6 +1530,34 @@ namespace qgrepControls.SearchWindow
                     FilterResultsInput.Focus();
                 }
             });
+        }
+
+        public void ShowHistory()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                OpenHistoryPopup();
+                if(HistoryButton.ContextMenu.Items.Count > 0)
+                {
+                    (HistoryButton.ContextMenu.Items[0] as MenuItem).Focus();
+                }
+            });
+        }
+
+        private void KeyboardButton_Click(object sender, RoutedEventArgs e)
+        {
+            HotkeysWindow hotkeysWindow = new HotkeysWindow(this);
+            MainWindow hotkeysDialog = CreateWindow(hotkeysWindow, "Edit hotkeys", this);
+            hotkeysWindow.Dialog = hotkeysDialog;
+            hotkeysDialog.ShowDialog();
+
+            if (hotkeysWindow.IsOk)
+            {
+                bindings = hotkeysWindow.GetBindings();
+                ExtensionInterface.SaveKeyBindings(bindings);
+                ExtensionInterface.ApplyKeyBindings(bindings);
+                UpdateShortcutHints();
+            }
         }
     }
 }

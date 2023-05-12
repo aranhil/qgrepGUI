@@ -76,6 +76,7 @@
     <Compile Include="Classes\ConfigParser.cs" />
     <Compile Include="Classes\ExtensionInterface.cs" />
     <Compile Include="Classes\FolderSelectDialog.cs" />
+    <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="Classes\SearchEngine.cs" />
     <Compile Include="Classes\SelectableData.cs" />
     <Compile Include="ModelViews\SearchResult.cs" />
@@ -96,7 +97,10 @@
     <Compile Include="ResourceDictionary.xaml.cs">
       <DependentUpon>ResourceDictionary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\ClippingBorder.cs" />
+    <Compile Include="ToolWindows\SettingsWindow\HotkeysWindow.xaml.cs">
+      <DependentUpon>HotkeysWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ClippingBorder.cs" />
     <Compile Include="ToolWindows\ColorsWindow\ColorsWindow.xaml.cs">
       <DependentUpon>ColorsWindow.xaml</DependentUpon>
     </Compile>
@@ -136,8 +140,11 @@
     <Compile Include="ToolWindows\SettingsWindow\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\HotkeyEditorControl.xaml.cs">
+      <DependentUpon>HotkeyEditorControl.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Content Include="..\LICENSE">
@@ -208,9 +215,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ToolWindows\SettingsWindow\HotkeysWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ToolWindows\SettingsWindow\SettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\HotkeyEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

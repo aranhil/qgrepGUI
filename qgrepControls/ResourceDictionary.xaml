@@ -8,6 +8,7 @@
                     xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters;assembly=Xceed.Wpf.Toolkit"
                     xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
                     xmlns:controlzEx="urn:controlzex"
                     xmlns:tools="clr-namespace:qgrepControls.ToolWindows"
                     x:Class="qgrepControls.MyResourceDictionary">
@@ -139,6 +140,18 @@
         </Setter>
     </Style>
 
+    <Style x:Key="KeyboardIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M14 3H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm0 8H3V4h11v7zm-3-6h-1v1h1V5zm-1 2H9v1h1V7zm2-2h1v1h-1V5zm1 4h-1v1h1V9zM6 9h5v1H6V9zm7-2h-2v1h2V7zM8 5h1v1H8V5zm0 2H7v1h1V7zM4 9h1v1H4V9zm0-4h1v1H4V5zm3 0H6v1h1V5zM4 7h2v1H4V7z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="CaseSensitiveIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
         <Setter Property="Margin" Value="0" />
         <Setter Property="Data">
@@ -255,6 +268,29 @@
     <Style x:Key="NormalTextBlock" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Segoe UI" />
     </Style>
+    <Style TargetType="{x:Type ContextMenu}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+        <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="10" Margin="-10,-10,0,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="4" ShadowDepth="2" Opacity="0.2" />
+                        </Border.Effect>
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="1" Padding="2" BorderBrush="{TemplateBinding BorderBrush}">
+                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style x:Key="IconButton" TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="5,0,0,0" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
@@ -269,6 +305,12 @@
         <Setter Property="Foreground" Value="{DynamicResource IconButton.Foreground}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="IsTabStop" Value="True" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu VerticalOffset="2" HorizontalOffset="-2" StaysOpen="False" Placement="Left" MinWidth="250" MaxHeight="500" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -1241,7 +1283,6 @@
     </Style>
     <Style x:Key="ResultSeparator" TargetType="{x:Type Border}">
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Margin" Value="0,0,5,0" />
         <Setter Property="Width" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource Result.File.Foreground}" />
         <Setter Property="Opacity" Value="0.3" />
@@ -1262,7 +1303,11 @@
         <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
-    <Style x:Key="ResultText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
+    <Style x:Key="ResultTextStart" TargetType="TextBlock" BasedOn="{StaticResource Result}">
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.Text.Foreground}" />
+    </Style>
+    <Style x:Key="ResultTextEnd" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Foreground" Value="{DynamicResource Result.Text.Foreground}" />
     </Style>
     <Style x:Key="ResultHighlightedText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
@@ -1270,6 +1315,70 @@
         <Setter Property="Background" Value="{DynamicResource Result.Highlight.Background}" />
         <Setter Property="Height" Value="14" />
         <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style x:Key="EmptyListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="ScrollViewer.MaxHeight" Value="250" />
+        <Setter Property="ScrollViewer.MaxWidth" Value="500" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+                        <ScrollViewer Name="SearchScrollbar" Padding="{TemplateBinding Control.Padding}" Focusable="{TemplateBinding Focusable}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                    <Setter Property="Focusable" Value="{Binding Focusable, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Grid>
+                                    <Border Background="{TemplateBinding Background}" PreviewKeyDown="ListBoxItem_PreviewKeyDown">
+                                        <ContentPresenter Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Result.IsSelected.Background}"/>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <!--<Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>-->
+                                <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
+                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                <!--<Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>-->
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource Result.IsSelected.IsInactive.Background}" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
     </Style>
     <Style x:Key="ResultsListBox" TargetType="{x:Type ListBox}">
         <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
@@ -1500,29 +1609,6 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style TargetType="{x:Type ContextMenu}">
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
-        <Setter Property="HasDropShadow" Value="True" />
-        <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
-        <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ContextMenu}">
-                    <Border Background="{TemplateBinding Background}" BorderThickness="10" Margin="-10,-10,0,0">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="4" ShadowDepth="2" Opacity="0.2" />
-                        </Border.Effect>
-                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="1" Padding="2" BorderBrush="{TemplateBinding BorderBrush}">
-                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
-                        </Border>
-                    </Border>
-                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>

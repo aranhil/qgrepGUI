@@ -20,7 +20,32 @@
         Topmost="False"
         mc:Ignorable="d">
     <controlzEx:WindowChromeWindow.Resources>
+        <RoutedCommand x:Key="qgrep.ToggleCaseSensitive"/>
+        <RoutedCommand x:Key="qgrep.ToggleWholeWord" />
+        <RoutedCommand x:Key="qgrep.ToggleRegEx" />
+        <RoutedCommand x:Key="qgrep.ToggleIncludeFiles" />
+        <RoutedCommand x:Key="qgrep.ToggleExcludeFiles" />
+        <RoutedCommand x:Key="qgrep.ToggleFilterResults" />
+        <RoutedCommand x:Key="qgrep.ShowHistory" />
     </controlzEx:WindowChromeWindow.Resources>
+    <controlzEx:WindowChromeWindow.InputBindings>
+        <KeyBinding x:Name="ToggleCaseSensitive" Key="C" Modifiers="Alt" Command="{StaticResource qgrep.ToggleCaseSensitive}" />
+        <KeyBinding x:Name="ToggleWholeWord" Key="W" Modifiers="Alt" Command="{StaticResource qgrep.ToggleWholeWord}" />
+        <KeyBinding x:Name="ToggleRegEx" Key="R" Modifiers="Alt" Command="{StaticResource qgrep.ToggleRegEx}" />
+        <KeyBinding x:Name="ToggleIncludeFiles" Key="I" Modifiers="Alt" Command="{StaticResource qgrep.ToggleIncludeFiles}" />
+        <KeyBinding x:Name="ToggleExcludeFiles" Key="E" Modifiers="Alt" Command="{StaticResource qgrep.ToggleExcludeFiles}" />
+        <KeyBinding x:Name="ToggleFilterResults" Key="F" Modifiers="Alt" Command="{StaticResource qgrep.ToggleFilterResults}" />
+        <KeyBinding x:Name="ShowHistory" Key="H" Modifiers="Alt" Command="{StaticResource qgrep.ShowHistory}" />
+    </controlzEx:WindowChromeWindow.InputBindings>
+    <controlzEx:WindowChromeWindow.CommandBindings>
+        <CommandBinding Command="{StaticResource qgrep.ToggleCaseSensitive}" Executed="ToggleCaseSensitive_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.ToggleWholeWord}" Executed="ToggleWholeWord_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.ToggleRegEx}" Executed="ToggleRegEx_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.ToggleIncludeFiles}" Executed="ToggleIncludeFiles_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.ToggleExcludeFiles}" Executed="ToggleExcludeFiles_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.ToggleFilterResults}" Executed="ToggleFilterResults_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.ShowHistory}" Executed="ShowHistory_Executed" CanExecute="CommandBinding_CanExecute" />
+    </controlzEx:WindowChromeWindow.CommandBindings>
     <Grid x:Name="WindowContent">
     </Grid>
 </controlzEx:WindowChromeWindow>

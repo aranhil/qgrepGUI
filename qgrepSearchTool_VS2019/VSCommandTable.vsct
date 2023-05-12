@@ -51,6 +51,12 @@
 					<ButtonText>Toggle Filter Results</ButtonText>
 				</Strings>
 			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidShowHistoryCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ShowHistory</LocCanonicalName>
+					<ButtonText>Show Recent History</ButtonText>
+				</Strings>
+			</Button>
 		</Buttons>
 		<Groups>
 			<Group guid="guidqgrepSearchPackageCmdSet" id="MyMenuGroup" priority="0x0600">
@@ -67,6 +73,7 @@
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidIncludeFilesCommand" editor="guidMyToolWindow" key1="I" mod1="Alt" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidExcludeFilesCommand" editor="guidMyToolWindow" key1="E" mod1="Alt" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidFilterResultsCommand" editor="guidMyToolWindow" key1="F" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidShowHistoryCommand" editor="guidMyToolWindow" key1="H" mod1="Alt" />
 	</KeyBindings>
 
 	<Symbols>
@@ -96,6 +103,7 @@
 			<IDSymbol value="4136" name="cmdidIncludeFilesCommand" />
 			<IDSymbol value="4137" name="cmdidExcludeFilesCommand" />
 			<IDSymbol value="4138" name="cmdidFilterResultsCommand" />
+			<IDSymbol value="4139" name="cmdidShowHistoryCommand" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>

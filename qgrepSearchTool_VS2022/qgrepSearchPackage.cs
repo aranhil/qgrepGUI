@@ -12,6 +12,8 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using System.Net;
 using Microsoft.Internal.VisualStudio.Shell;
+using static System.Windows.Forms.AxHost;
+using System.Windows.Input;
 
 namespace qgrepSearch
 {
@@ -20,7 +22,7 @@ namespace qgrepSearch
     [ProvideToolWindow(typeof(qgrepSearchWindow), Style = VsDockStyle.Tabbed, DockedWidth = 300, Window = "DocumentWell", Orientation = ToolWindowOrientation.Left)]
     [Guid("6e3b2e95-902b-4385-a966-30c06ab3c7a6")]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideKeyBindingTable(qgrepSearchWindow.SearchWindowGuid, 200)]
+    [ProvideKeyBindingTable(qgrepSearchWindow.SearchWindowGuid, 300)]
     [ProvideBindingPath]
     public sealed class qgrepSearchPackage : AsyncPackage, IVsSolutionEvents, IVsTextManagerEvents
     {
@@ -50,6 +52,7 @@ namespace qgrepSearch
             await IncludeFilesCommand.InitializeAsync(this);
             await ExcludeFilesCommand.InitializeAsync(this);
             await FilterResultsCommand.InitializeAsync(this);
+            await ShowHistoryCommand.InitializeAsync(this);
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)
@@ -242,6 +245,11 @@ namespace qgrepSearch
         {
             qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
             searchWindowControl.ToggleFilterResults();
+        }
+        public void ShowHistory()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ShowHistory();
         }
     }
 }
