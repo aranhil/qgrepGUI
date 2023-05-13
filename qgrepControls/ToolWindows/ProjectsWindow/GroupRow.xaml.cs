@@ -1,4 +1,4 @@
-﻿using qgrepControls.Classes;
+﻿using qgrepControls.ModelViews;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;

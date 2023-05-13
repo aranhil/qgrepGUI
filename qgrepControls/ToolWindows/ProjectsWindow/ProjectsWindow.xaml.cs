@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -568,6 +570,9 @@ namespace qgrepControls.SearchWindow
             });
         }
 
+        bool IsAutomaticPopulationBusy = false;
+        ConfigGroup CurrentlyPopulatingGroup = null;
+
         private void AutomaticPopulation_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedProject != null && SelectedGroup != null)
@@ -576,22 +581,56 @@ namespace qgrepControls.SearchWindow
                 {
                     if (configProject.Name == SelectedProject.Data.ProjectName)
                     {
-                        List<string> solutionFolders = Parent.ExtensionInterface.GatherAllFoldersFromSolution();
-                        foreach (string solutionFolder in solutionFolders)
-                        {
-                            if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(solutionFolder))
-                            {
-                                NothingChanged = false;
-                                configProject.Groups[SelectedGroup.Data.Index].Paths.Add(solutionFolder);
-                            }
-                        }
+                        CurrentlyPopulatingGroup = configProject.Groups[SelectedGroup.Data.Index];
+                        AutomaticPopulation.IsEnabled = false;
+                        AutomaticProgress.Visibility = Visibility.Visible;
 
-                        Parent.ConfigParser.SaveConfig();
-                        LoadFromConfig();
+                        Task.Run(() =>
+                        {
+                            List<string> solutionFolders = new List<string>();
+                            HashSet<string> extensionsList = new HashSet<string>();
+                            Parent.ExtensionInterface.GatherAllFoldersAndExtensionsFromSolution(extensionsList, HandleAutomaticNewFolder);
+
+                            Dispatcher.Invoke(() =>
+                            {
+                                var extensions = extensionsList.Select(ext => ext.TrimStart('.')).ToList();
+                                string extensionsPattern = @"\." + $"({string.Join("|", extensions)})" + @"$";
+
+                                if (!CurrentlyPopulatingGroup.Rules.Any(x => x.Rule == extensionsPattern && x.IsExclude == false))
+                                {
+                                    CurrentlyPopulatingGroup.Rules.Add(new ConfigRule()
+                                    {
+                                        IsExclude = false,
+                                        Rule = extensionsPattern
+                                    });
+                                }
+
+                                AutomaticPopulation.IsEnabled = true;
+                                AutomaticProgress.Visibility = Visibility.Collapsed;
+
+                                Parent.ConfigParser.SaveConfig();
+                                LoadFromConfig();
+                            });
+                        });
+
                         break;
                     }
                 }
             }
+        }
+
+        private void HandleAutomaticNewFolder(string newFolder)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (!CurrentlyPopulatingGroup.Paths.Contains(newFolder))
+                {
+                    NothingChanged = false;
+                    CurrentlyPopulatingGroup.Paths.Add(newFolder);
+
+                    PathsPanel.Children.Add(new PathRow(this, new PathRow.PathRowData(newFolder)));
+                }
+            });
         }
 
         private void DeleteAllProjects_Click(object sender, RoutedEventArgs e)

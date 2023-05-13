@@ -77,7 +77,8 @@
     <Compile Include="Classes\ExtensionInterface.cs" />
     <Compile Include="Classes\FolderSelectDialog.cs" />
     <Compile Include="Classes\SearchEngine.cs" />
-    <Compile Include="Classes\SelectableData.cs" />
+    <Compile Include="ModelViews\SelectableData.cs" />
+    <Compile Include="ModelViews\SearchConfig.cs" />
     <Compile Include="ModelViews\SearchResult.cs" />
     <Compile Include="ModelViews\SearchResultGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -136,6 +137,15 @@
     <Compile Include="ToolWindows\SettingsWindow\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+<<<<<<< Updated upstream
+=======
+    <Compile Include="UserControls\ConfigListBox.xaml.cs">
+      <DependentUpon>ConfigListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HotkeyEditorControl.xaml.cs">
+      <DependentUpon>HotkeyEditorControl.xaml</DependentUpon>
+    </Compile>
+>>>>>>> Stashed changes
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -212,6 +222,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+<<<<<<< Updated upstream
+=======
+    <Page Include="UserControls\ConfigListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\HotkeyEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit">

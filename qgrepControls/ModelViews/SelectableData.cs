@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace qgrepControls.Classes
+namespace qgrepControls.ModelViews
 {
-    public class SelectableData: INotifyPropertyChanged
+    public class SelectableData : INotifyPropertyChanged
     {
         public bool IsSelected
         {

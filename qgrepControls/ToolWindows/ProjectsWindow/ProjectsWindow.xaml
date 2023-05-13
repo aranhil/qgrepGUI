@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:local="clr-namespace:qgrepControls.SearchWindow"
+             xmlns:local="clr-namespace:qgrepControls.SearchWindow" xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              Width="900" Height="400">
     <UserControl.Resources>
@@ -15,6 +15,7 @@
             <ColumnDefinition x:Name="ProjectsColumn" Width="*" />
             <ColumnDefinition x:Name="GroupsColumn" Width="*" />
             <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -77,10 +78,12 @@
                 <Label x:Name="RulesHint" Content="Filters" Style="{DynamicResource SomeHintLabel2}" />
             </Grid>
         </Grid>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5,5,0,5">
+        <DockPanel Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="5,5,0,5">
             <Button x:Name="AdvancedToggle" Content="◀◀ Advanced" ToolTipService.ShowOnDisabled="True" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AdvancedToggle_Click" Padding="5,2,8,2"/>
             <Button x:Name="ConfigOpen" Content="Open location" HorizontalAlignment="Center" Margin="0,0,5,0" Click="ConfigOpen_Click" Padding="5,2,8,2"/>
             <Button x:Name="AutomaticPopulation" Content="Gather from solution" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AutomaticPopulation_Click" Padding="5,2,8,2" ToolTip="Gather folders automatically from solution"/>
-        </StackPanel>
+            <ProgressBar Value="100" IsTabStop="False" x:Name="AutomaticProgress" Width="250" Margin="3,3,0,3" Visibility="Collapsed"/>
+        </DockPanel>
+        <usercontrols:ConfigListBox Grid.Column="3" />
     </Grid>
 </UserControl>

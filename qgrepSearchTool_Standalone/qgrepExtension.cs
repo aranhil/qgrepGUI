@@ -107,9 +107,8 @@ namespace qgrepSearchTool_Standalone
             catch { }
         }
 
-        public List<string> GatherAllFoldersFromSolution()
+        public void GatherAllFoldersAndExtensionsFromSolution(HashSet<string> extensionsList, FolderCallback folderCallback)
         {
-            return new List<string>();
         }
 
         public Color GetColor(string resourceKey)
