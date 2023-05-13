@@ -11,6 +11,9 @@ using qgrepControls.SearchWindow;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using System.Net;
+using Microsoft.Internal.VisualStudio.Shell;
+using static System.Windows.Forms.AxHost;
+using System.Windows.Input;
 
 namespace qgrepSearch
 {
@@ -19,6 +22,7 @@ namespace qgrepSearch
     [ProvideToolWindow(typeof(qgrepSearchWindow), Style = VsDockStyle.Tabbed, DockedWidth = 300, Window = "DocumentWell", Orientation = ToolWindowOrientation.Left)]
     [Guid("6e3b2e95-902b-4385-a966-30c06ab3c7a6")]
     [ProvideMenuResource("Menus.ctmenu", 1)]
+    [ProvideKeyBindingTable(qgrepSearchWindow.SearchWindowGuid, 300)]
     [ProvideBindingPath]
     public sealed class qgrepSearchPackage : AsyncPackage, IVsSolutionEvents, IVsTextManagerEvents
     {
@@ -42,6 +46,13 @@ namespace qgrepSearch
             IVsTextManager textManager = await GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager;
             ((IConnectionPointContainer)textManager).FindConnectionPoint(typeof(IVsTextManagerEvents).GUID, out IConnectionPoint connectionPoint);
             connectionPoint.Advise(this, out _cookie);
+            await CaseSensitiveCommand.InitializeAsync(this);
+            await WholeWordCommand.InitializeAsync(this);
+            await RegExCommand.InitializeAsync(this);
+            await IncludeFilesCommand.InitializeAsync(this);
+            await ExcludeFilesCommand.InitializeAsync(this);
+            await FilterResultsCommand.InitializeAsync(this);
+            await ShowHistoryCommand.InitializeAsync(this);
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)
@@ -187,6 +198,58 @@ namespace qgrepSearch
                     searchWindowControl.UpdateColorsFromSettings();
                 }
             }
+        }
+
+        public qgrepSearchWindowControl GetSearchWindowControl()
+        {
+            qgrepSearchWindow searchWindow = FindToolWindow(typeof(qgrepSearchWindow), toolWindowId, false) as qgrepSearchWindow;
+            if (searchWindow != null)
+            {
+                return searchWindow.Content as qgrepSearchWindowControl;
+            }
+
+            return null;
+        }
+
+        public void ToggleCaseSensitive()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ToggleCaseSensitive();
+        }
+
+        public void ToggleWholeWord()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ToggleWholeWord();
+        }
+
+        public void ToggleRegEx()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ToggleRegEx();
+        }
+
+        public void ToggleIncludeFiles()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ToggleIncludeFiles();
+        }
+
+        public void ToggleExcludeFiles()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ToggleExcludeFiles();
+        }
+
+        public void ToggleFilterResults()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ToggleFilterResults();
+        }
+        public void ShowHistory()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ShowHistory();
         }
     }
 }

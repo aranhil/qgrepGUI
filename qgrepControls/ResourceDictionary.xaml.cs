@@ -106,5 +106,18 @@ namespace qgrepControls
         {
             e.Handled = true;
         }
+
+        private void ListBoxItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ListBoxItem listBoxItem = (sender as FrameworkElement)?.TemplatedParent as ListBoxItem;
+            listBoxItem.IsSelected = true;
+            listBoxItem.Focus();
+        }
+
+        private void ListBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ListBox listBox = (sender as FrameworkElement)?.TemplatedParent as ListBox;
+            listBox.SelectedIndex = -1;
+        }
     }
 }
