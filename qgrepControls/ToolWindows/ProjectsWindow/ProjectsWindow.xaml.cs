@@ -669,10 +669,10 @@ namespace qgrepControls.SearchWindow
                 }
             }
 
-            PathsHint.Visibility = PathsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
-            RulesHint.Visibility = rulesCount > 0 ? Visibility.Collapsed : Visibility.Visible;
-            ProjectsHint.Visibility = ProjectsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
-            GroupsHint.Visibility = GroupsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
+            //PathsHint.Visibility = PathsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
+            //RulesHint.Visibility = rulesCount > 0 ? Visibility.Collapsed : Visibility.Visible;
+            //ProjectsHint.Visibility = ProjectsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
+            //GroupsHint.Visibility = GroupsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void UpdateVisibility()

@@ -29,7 +29,7 @@
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border Style="{DynamicResource SomeBorderStyle}">
+    <Border Style="{DynamicResource SomeBorderStyle}" SnapsToDevicePixels="True">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="DownPanelColumnDefinition" Height="24" />
@@ -39,23 +39,25 @@
                 <ColumnDefinition x:Name="LeftPanelColumnDefinition" Width="0" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <DockPanel Grid.Row="0" Grid.ColumnSpan="2" x:Name="ButtonsPanel" Background="{DynamicResource Window.Background}">
-                <TextBlock x:Name="Title" Text="Folder" Foreground="White" VerticalAlignment="Center" Margin="7,0,0,0" FontSize="14" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">
-                    <Button x:Name="AddButton" Style="{StaticResource IconButton}" FontSize="14">
-                        <Path Style="{DynamicResource AddIcon}" />
-                    </Button>
-                    <Button x:Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Visibility="Collapsed">
-                        <Path Style="{DynamicResource EditIcon}" />
-                    </Button>
-                    <Button x:Name="RemoveButton" Style="{StaticResource IconButton}" FontSize="14" Click="RemoveButton_Click" Visibility="Collapsed">
-                        <Path Style="{DynamicResource RemoveIcon}" />
-                    </Button>
-                    <Button x:Name="RemoveAllButton" Style="{StaticResource IconButton}" FontSize="14" Click="RemoveAllButton_Click" Visibility="Collapsed">
-                        <Path Style="{DynamicResource RemoveAllIcon}" />
-                    </Button>
-                </StackPanel>
-            </DockPanel>
+            <Border Grid.Row="0" Grid.ColumnSpan="2" x:Name="ButtonsPanel" Background="{DynamicResource Window.Background}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1">
+                <DockPanel >
+                    <TextBlock x:Name="Title" Text="Folder" Foreground="{DynamicResource Foreground}" FontWeight="Normal" VerticalAlignment="Center" Margin="7,0,0,0" FontSize="12" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">
+                        <Button x:Name="AddButton" Style="{StaticResource IconButton}" FontSize="14">
+                            <Path Style="{DynamicResource AddIcon}" />
+                        </Button>
+                        <Button x:Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Visibility="Collapsed">
+                            <Path Style="{DynamicResource EditIcon}" />
+                        </Button>
+                        <Button x:Name="RemoveButton" Style="{StaticResource IconButton}" FontSize="14" Click="RemoveButton_Click" Visibility="Collapsed">
+                            <Path Style="{DynamicResource RemoveIcon}" />
+                        </Button>
+                        <Button x:Name="RemoveAllButton" Style="{StaticResource IconButton}" FontSize="14" Click="RemoveAllButton_Click" Visibility="Collapsed">
+                            <Path Style="{DynamicResource RemoveAllIcon}" />
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
             <ListBox x:Name="InnerListBox" Grid.Row="1" Grid.Column="1" Style="{DynamicResource SomeListBox}" PreviewMouseDown="InnerListBox_PreviewMouseDown" SelectionChanged="InnerListBox_SelectionChanged">
             </ListBox>
         </Grid>

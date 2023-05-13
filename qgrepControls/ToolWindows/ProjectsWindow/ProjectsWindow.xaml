@@ -20,13 +20,13 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="34" />
         </Grid.RowDefinitions>
-        <Grid Grid.Column="0">
+        <Grid Grid.Column="0"  Style="{DynamicResource ZIndexFocusable}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Border Grid.Column="0" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="ProjectsPanel_MouseEnter" MouseLeave="ProjectsPanel_MouseLeave">
+            <Grid Grid.Row="0"  Style="{DynamicResource ZIndexFocusable}">
+                <Border Grid.Column="0" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,0,0" MouseEnter="ProjectsPanel_MouseEnter" MouseLeave="ProjectsPanel_MouseLeave">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2" Visibility="Collapsed">
                         <StackPanel x:Name="ProjectsPanel">
                         </StackPanel>
@@ -41,8 +41,8 @@
                 <usercontrols:ConfigListBox Grid.Column="0" x:Name="ProjectsListBox" />
                 <!--<Label Grid.Column="0" x:Name="ProjectsHint" Content="Configs" Style="{DynamicResource SomeHintLabel2}" />-->
             </Grid>
-            <Grid Grid.Row="1">
-                <Border Grid.Column="1" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="GroupsPanel_MouseEnter" MouseLeave="GroupsPanel_MouseLeave">
+            <Grid Grid.Row="1" Margin="0,-1,0,0"  Style="{DynamicResource ZIndexFocusable}">
+                <Border Grid.Column="1" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,0,0" MouseEnter="GroupsPanel_MouseEnter" MouseLeave="GroupsPanel_MouseLeave">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
                         <StackPanel x:Name="GroupsPanel"/>
                     </ScrollViewer>
@@ -57,7 +57,7 @@
                 <!--<Label Grid.Column="1" x:Name="GroupsHint" Content="Groups" Style="{DynamicResource SomeHintLabel2}" />-->
             </Grid>
         </Grid>
-        <Grid Grid.Column="1" Style="{DynamicResource ZIndexFocusable}">
+        <Grid Grid.Column="1" Style="{DynamicResource ZIndexFocusable}" Margin="-1,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
@@ -77,8 +77,8 @@
                 <usercontrols:ConfigListBox Grid.Column="1" x:Name="PathsListBox" />
                 <!--<Label x:Name="PathsHint" Content="Folders" Style="{DynamicResource SomeHintLabel2}" />-->
             </Grid>
-            <Grid Grid.Row="1" Style="{DynamicResource ZIndexFocusable}">
-                <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,-1,0,0" MouseEnter="RulesPanel_MouseEnter" MouseLeave="RulesPanel_MouseLeave">
+            <Grid Grid.Row="1" Style="{DynamicResource ZIndexFocusable}" Margin="0,-1,0,0">
+                <Border Style="{DynamicResource SomeBorderStyle}" MouseEnter="RulesPanel_MouseEnter" MouseLeave="RulesPanel_MouseLeave">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
                         <StackPanel x:Name="RulesPanel"/>
                     </ScrollViewer>
