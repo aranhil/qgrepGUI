@@ -1,7 +1,6 @@
 ﻿using ControlzEx;
 using Newtonsoft.Json;
 using qgrepControls.Classes;
-using qgrepControls.SearchWindow;
 using qgrepSearchTool_Standalone.Properties;
 using System;
 using System.Collections.Generic;

@@ -48,11 +48,6 @@ namespace qgrepControls.SearchWindow
             Icons.Visibility = Visibility.Collapsed;
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            Parent.DeleteProject(this);
-        }
-
         private void ProjectGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Parent.SelectProject(this);

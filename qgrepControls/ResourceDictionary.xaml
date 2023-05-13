@@ -217,7 +217,7 @@
     </Style>
 
     <Style x:Key="TrashIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Margin" Value="0,0,0,0" />
         <Setter Property="Data">
             <Setter.Value>
                 <PathGeometry Figures="M10 3h3v1h-1v9l-1 1H4l-1-1V4H2V3h3V2a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1zM9 2H6v1h3V2zM4 13h7V4H4v9zm2-8H5v7h1V5zm1 0h1v7H7V5zm2 0h1v7H9V5z" FillRule="EvenOdd"/>
@@ -226,7 +226,7 @@
     </Style>
 
     <Style x:Key="EditIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Margin" Value="0,1,0,0" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Stretch" Value="None" />
         <Setter Property="Data">
@@ -246,7 +246,7 @@
     </Style>
 
     <Style x:Key="AddIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,3,0,0" />
+        <Setter Property="Margin" Value="0,1,0,0" />
         <Setter Property="Height" Value="16" />
         <Setter Property="Width" Value="16" />
         <Setter Property="Data">
@@ -257,7 +257,7 @@
     </Style>
 
     <Style x:Key="RemoveIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,3,0,0" />
+        <Setter Property="Margin" Value="0,2,0,0" />
         <Setter Property="Height" Value="16" />
         <Setter Property="Width" Value="16" />
         <Setter Property="Data">
@@ -268,7 +268,7 @@
     </Style>
 
     <Style x:Key="RemoveAllIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,3,0,0" />
+        <Setter Property="Margin" Value="0,0,0,0" />
         <Setter Property="Height" Value="16" />
         <Setter Property="Width" Value="16" />
         <Setter Property="Data">
@@ -1337,6 +1337,78 @@
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
+    <Style x:Name="SomeListBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource NormalText}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,0,0,-1" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
+        <Setter Property="Focusable" Value="{Binding Focusable, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
+        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid>
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Height="{TemplateBinding Height}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter Margin="5,0,0,0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource Result.IsMouseOver.Background}"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource Result.IsSelected.Background}"/>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <!--<Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>-->
+                                <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
+                                <Condition Binding="{Binding IsKeyboardFocusWithin, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Value="False"/>
+                                <!--<Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>-->
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource Result.IsSelected.IsInactive.Background}" />
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SomeListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource SomeListBoxItem}" />
+        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="SelectionMode" Value="Extended" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+                        <ScrollViewer Name="SearchScrollbar" Padding="{TemplateBinding Control.Padding}" Focusable="{TemplateBinding Focusable}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="EmptyListBox" TargetType="{x:Type ListBox}">
         <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
@@ -1347,6 +1419,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource EmptyListBoxItem}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -1358,63 +1431,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource NormalText}">
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Height" Value="22" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Grid>
-                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Height="{TemplateBinding Height}" BorderThickness="{TemplateBinding BorderThickness}" MouseEnter="ListBoxItem_MouseEnter">
-                            <ContentPresenter Margin="5,0,0,0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <!--<Trigger Property="Button.IsDefaulted" Value="true">
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                    </Trigger>-->
-                        <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource MenuItem.IsMouseOver.Background}"/>
-                            <Setter Property="BorderBrush" Value="{DynamicResource MenuItem.IsMouseOver.Border}"/>
-                        </Trigger>
-                        <!--<Trigger Property="IsPressed" Value="true">
-                                        <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
-                                        <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
-                                        <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
-                                    </Trigger>-->
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
-            </Trigger>
-            <!--<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource Result.IsSelected.Background}"/>
-                        </DataTrigger>-->
-            <!--<MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                -->
-            <!--<Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>
-                                <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>-->
-            <!--
-                                <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
-                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="False"/>
-                                -->
-            <!--<Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>-->
-            <!--
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Background" Value="{DynamicResource Result.IsSelected.IsInactive.Background}" />
-                        </MultiDataTrigger>-->
-        </Style.Triggers>
     </Style>
     <Style x:Key="ResultsListBox" TargetType="{x:Type ListBox}">
         <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />

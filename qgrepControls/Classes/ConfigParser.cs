@@ -8,15 +8,35 @@ using System.Xml.Linq;
 
 namespace qgrepControls.Classes
 {
+    public class ConfigPath
+    {
+        public ConfigGroup Parent;
+        public string Path = "";
+    }
     public class ConfigRule
     {
+        public ConfigGroup Parent;
         public bool IsExclude = false;
         public string Rule = "";
     }
     public class ConfigGroup
     {
-        public List<string> Paths = new List<string>();
+        public ConfigProject Parent;
+        public int Index = 0;
+        public List<ConfigPath> Paths = new List<ConfigPath>();
         public List<ConfigRule> Rules = new List<ConfigRule>();
+
+        public ConfigPath AddNewPath(string path)
+        {
+            if(Paths.Any(x => x.Path == path))
+            {
+                return null;
+            }
+
+            ConfigPath configPath = new ConfigPath() { Path = path, Parent = this };
+            Paths.Add(configPath);
+            return configPath;
+        }
     }
     public class ConfigProject
     {
@@ -46,7 +66,7 @@ namespace qgrepControls.Classes
         public ConfigProject(string Path)
         {
             this.Path = Path;
-            this.Groups.Add(new ConfigGroup());
+            this.Groups.Add(new ConfigGroup() { Parent = this });
         }
 
         public void DeleteFiles()
@@ -74,10 +94,23 @@ namespace qgrepControls.Classes
             return false;
         }
 
+        public ConfigGroup AddNewGroup()
+        {
+            int index = 0;
+            while(Groups.Any(x => x.Index == index))
+            {
+                index++;
+            }
+
+            ConfigGroup configGroup = new ConfigGroup() { Index = index, Parent = this };
+            Groups.Add(configGroup);
+            return configGroup;
+        }
+
         public void LoadConfig()
         {
             Groups.Clear();
-            Groups.Add(new ConfigGroup());
+            Groups.Add(new ConfigGroup() { Parent = this });
 
             bool insideGroup = false;
 
@@ -88,17 +121,19 @@ namespace qgrepControls.Classes
                 {
                     if (line.StartsWith(PathPrefix))
                     {
-                        GetGroup(insideGroup).Paths.Add(line.Substring(PathPrefix.Length));
+                        ConfigPath path = new ConfigPath() { Parent = GetGroup(insideGroup) };
+                        path.Path = line.Substring(PathPrefix.Length);
+                        GetGroup(insideGroup).Paths.Add(path);
                     }
                     else if(line.StartsWith(IncludePrefix))
                     {
-                        ConfigRule rule = new ConfigRule();
+                        ConfigRule rule = new ConfigRule() { Parent = GetGroup(insideGroup) };
                         rule.Rule = line.Substring(IncludePrefix.Length);
                         GetGroup(insideGroup).Rules.Add(rule);
                     }
                     else if(line.StartsWith(ExcludePrefix))
                     {
-                        ConfigRule rule = new ConfigRule();
+                        ConfigRule rule = new ConfigRule() { Parent = GetGroup(insideGroup) };
                         rule.IsExclude = true;
                         rule.Rule = line.Substring(IncludePrefix.Length);
                         GetGroup(insideGroup).Rules.Add(rule);
@@ -106,7 +141,7 @@ namespace qgrepControls.Classes
                     else if(line.StartsWith(GroupBegin))
                     {
                         insideGroup = true;
-                        Groups.Add(new ConfigGroup());
+                        Groups.Add(new ConfigGroup() { Parent = this, Index = Groups.Count });
                     }
                     else if(line.StartsWith(GroupEnd))
                     {
@@ -133,9 +168,9 @@ namespace qgrepControls.Classes
 
         public void SaveGroup(StreamWriter streamWriter, ConfigGroup configGroup)
         {
-            foreach(string path in configGroup.Paths)
+            foreach(ConfigPath path in configGroup.Paths)
             {
-                streamWriter.WriteLine(PathPrefix + path);
+                streamWriter.WriteLine(PathPrefix + path.Path);
             }
             foreach (ConfigRule rule in configGroup.Rules)
             {
@@ -187,7 +222,6 @@ namespace qgrepControls.Classes
             if(configs.Length == 0)
             {
                 AddNewProject();
-                SaveConfig();
             }
             else
             {
@@ -206,7 +240,7 @@ namespace qgrepControls.Classes
                 configProject.SaveConfig();
             }
         }
-        public void AddNewProject()
+        public ConfigProject AddNewProject()
         {
             int index = 1;
             string newPath = "";
@@ -218,19 +252,16 @@ namespace qgrepControls.Classes
             }
             while(File.Exists(newPath));
 
-            ConfigProjects.Add(new ConfigProject(newPath));
+            ConfigProject newConfigProject = new ConfigProject(newPath);
+            ConfigProjects.Add(newConfigProject);
+            newConfigProject.SaveConfig();
+            return newConfigProject;
         }
-        public void RemoveProject(string name)
+
+        public void RemoveProject(ConfigProject configProject)
         {
-            foreach (ConfigProject configProject in ConfigProjects)
-            {
-                if (configProject.Name == name)
-                {
-                    configProject.DeleteFiles();
-                    ConfigProjects.Remove(configProject);
-                    break;
-                }
-            }
+            configProject.DeleteFiles();
+            ConfigProjects.Remove(configProject);
         }
 
         public void CleanProjects()
@@ -276,16 +307,16 @@ namespace qgrepControls.Classes
 
                     foreach (ConfigGroup configGroup in configProject.Groups)
                     {
-                        foreach (string path in configGroup.Paths)
+                        foreach (ConfigPath path in configGroup.Paths)
                         {
                             if (!foundFirstPath)
                             {
                                 foundFirstPath = true;
-                                commonPathPrefix = path;
+                                commonPathPrefix = path.Path;
                             }
                             else
                             {
-                                commonPathPrefix = GetCommonPathPrefix(commonPathPrefix, path);
+                                commonPathPrefix = GetCommonPathPrefix(commonPathPrefix, path.Path);
                             }
                         }
                     }

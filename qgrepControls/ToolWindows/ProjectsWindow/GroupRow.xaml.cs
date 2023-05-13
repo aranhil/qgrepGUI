@@ -56,10 +56,10 @@ namespace qgrepControls.SearchWindow
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!Data.IsReadOnly)
-            {
-                Parent.DeleteGroup(this);
-            }
+            //if (!Data.IsReadOnly)
+            //{
+            //    Parent.DeleteGroup(this);
+            //}
         }
 
         private void GroupGrid_MouseDown(object sender, MouseButtonEventArgs e)

@@ -882,6 +882,7 @@ namespace qgrepControls.SearchWindow
 
             if(!newProjectsWindow.NothingChanged)
             {
+                ConfigParser.SaveConfig();
                 UpdateWarning();
                 SearchEngine.UpdateDatabaseAsync(FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList());
             }
