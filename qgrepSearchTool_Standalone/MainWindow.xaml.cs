@@ -22,10 +22,13 @@ namespace qgrepSearchTool_Standalone
     /// </summary>
     public partial class MainWindow : WindowChromeWindow
     {
+        qgrepSearchWindowControl SearchWindow;
+
         public MainWindow()
         {
             InitializeComponent();
-            WindowContent.Children.Add(new qgrepSearchWindowControl(new qgrepExtension(this)));
+            SearchWindow = new qgrepSearchWindowControl(new qgrepExtension(this));
+            WindowContent.Children.Add(SearchWindow);
         }
 
 #pragma warning disable 618
@@ -73,6 +76,46 @@ namespace qgrepSearchTool_Standalone
         private void TitleBarGrid_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             // Windows.Shell.SystemCommands.ShowSystemMenu(this, e);
+        }
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ToggleCaseSensitive_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleCaseSensitive();
+        }
+
+        private void ToggleWholeWord_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleWholeWord();
+        }
+
+        private void ToggleRegEx_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleRegEx();
+        }
+
+        private void ToggleIncludeFiles_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleIncludeFiles();
+        }
+
+        private void ToggleExcludeFiles_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleExcludeFiles();
+        }
+
+        private void ToggleFilterResults_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleFilterResults();
+        }
+
+        private void ShowHistory_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ShowHistory();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using ControlzEx;
+using Newtonsoft.Json;
 using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
+using qgrepSearchTool_Standalone.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,33 +13,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace qgrepSearchTool_Standalone
 {
-    class qgrepExtensionWindow : IExtensionWindow
-    {
-        public Window window;
-        public qgrepExtensionWindow(Window window)
-        {
-            this.window = window;
-        }
-
-        public void ShowModal()
-        {
-            window.ShowDialog();
-        }
-
-        public void Close()
-        {
-            window.Close();
-        }
-
-        public void Show()
-        {
-            window.Show();
-        }
-    }
-
     class qgrepExtension : IExtensionInterface
     {
         Window Window;
@@ -63,21 +43,6 @@ namespace qgrepSearchTool_Standalone
             {
                 return true;
             }
-        }
-
-        public IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner)
-        {
-            MainWindow newWindow = new MainWindow
-            {
-                Title = title,
-                Content = userControl,
-                SizeToContent = SizeToContent.WidthAndHeight,
-                ResizeMode = ResizeMode.NoResize,
-                Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner),
-                WindowStartupLocation = WindowStartupLocation.CenterOwner, 
-            };
-
-            return new qgrepExtensionWindow(newWindow);
         }
 
         public string GetSelectedText()
@@ -125,6 +90,78 @@ namespace qgrepSearchTool_Standalone
                 Window.Resources[resource.Key] = resource.Value;
                 Application.Current.Resources[resource.Key] = resource.Value;
             }
+        }
+
+        private Dictionary<string, Hotkey> LoadDefaultKeyBindings()
+        {
+            Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
+            MainWindow mainWindow = (Application.Current.MainWindow as MainWindow);
+            bindings["ToggleCaseSensitive"] = new Hotkey(mainWindow.ToggleCaseSensitive.Key, mainWindow.ToggleCaseSensitive.Modifiers);
+            bindings["ToggleWholeWord"] = new Hotkey(mainWindow.ToggleWholeWord.Key, mainWindow.ToggleWholeWord.Modifiers);
+            bindings["ToggleRegEx"] = new Hotkey(mainWindow.ToggleRegEx.Key, mainWindow.ToggleRegEx.Modifiers);
+            bindings["ToggleIncludeFiles"] = new Hotkey(mainWindow.ToggleIncludeFiles.Key, mainWindow.ToggleIncludeFiles.Modifiers);
+            bindings["ToggleExcludeFiles"] = new Hotkey(mainWindow.ToggleExcludeFiles.Key, mainWindow.ToggleExcludeFiles.Modifiers);
+            bindings["ToggleFilterResults"] = new Hotkey(mainWindow.ToggleFilterResults.Key, mainWindow.ToggleFilterResults.Modifiers);
+            bindings["ShowHistory"] = new Hotkey(mainWindow.ShowHistory.Key, mainWindow.ShowHistory.Modifiers);
+            SaveKeyBindings(bindings);
+            return bindings;
+        }
+
+        public Dictionary<string, Hotkey> ReadKeyBindings()
+        {
+            Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
+
+            if (Settings.Default.KeyBindings.Length == 0)
+            {
+                bindings = LoadDefaultKeyBindings();
+            }
+            else
+            {
+                try
+                {
+                    bindings = JsonConvert.DeserializeObject<Dictionary<string, Hotkey>>(Settings.Default.KeyBindings);
+                }
+                catch { }
+
+                if (bindings.Count != 7)
+                {
+                    LoadDefaultKeyBindings();
+                }
+            }
+
+            return bindings;
+        }
+
+        public void ApplyKeyBindings(Dictionary<string, Hotkey> bindings)
+        {
+            MainWindow mainWindow = (Application.Current.MainWindow as MainWindow);
+
+            mainWindow.ToggleCaseSensitive.Key = bindings["ToggleCaseSensitive"].Key;
+            mainWindow.ToggleCaseSensitive.Modifiers = bindings["ToggleCaseSensitive"].Modifiers;
+
+            mainWindow.ToggleWholeWord.Key = bindings["ToggleWholeWord"].Key;
+            mainWindow.ToggleWholeWord.Modifiers = bindings["ToggleWholeWord"].Modifiers;
+
+            mainWindow.ToggleRegEx.Key = bindings["ToggleRegEx"].Key;
+            mainWindow.ToggleRegEx.Modifiers = bindings["ToggleRegEx"].Modifiers;
+
+            mainWindow.ToggleIncludeFiles.Key = bindings["ToggleIncludeFiles"].Key;
+            mainWindow.ToggleIncludeFiles.Modifiers = bindings["ToggleIncludeFiles"].Modifiers;
+
+            mainWindow.ToggleExcludeFiles.Key = bindings["ToggleExcludeFiles"].Key;
+            mainWindow.ToggleExcludeFiles.Modifiers = bindings["ToggleExcludeFiles"].Modifiers;
+
+            mainWindow.ToggleFilterResults.Key = bindings["ToggleFilterResults"].Key;
+            mainWindow.ToggleFilterResults.Modifiers = bindings["ToggleFilterResults"].Modifiers;
+
+            mainWindow.ShowHistory.Key = bindings["ShowHistory"].Key;
+            mainWindow.ShowHistory.Modifiers = bindings["ShowHistory"].Modifiers;
+        }
+
+        public void SaveKeyBindings(Dictionary<string, Hotkey> bindings)
+        {
+            Settings.Default.KeyBindings = JsonConvert.SerializeObject(bindings);
+            Settings.Default.Save();
         }
     }
 }

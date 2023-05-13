@@ -8,6 +8,7 @@
                     xmlns:conv="clr-namespace:Xceed.Wpf.Toolkit.Core.Converters;assembly=Xceed.Wpf.Toolkit"
                     xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
                     xmlns:controlzEx="urn:controlzex"
                     xmlns:tools="clr-namespace:qgrepControls.ToolWindows"
                     x:Class="qgrepControls.MyResourceDictionary">
@@ -72,7 +73,7 @@
     <SolidColorBrush x:Key="CheckBox.IsMouseDown.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="CheckBox.IsMouseOver.Mark" Color="Black" />
     <SolidColorBrush x:Key="CheckBox.IsMouseDown.Mark" Color="Black" />
-    <SolidColorBrush x:Key="Menu.BackgroundMenu.Background" Color="#b4c4d4" />
+    <SolidColorBrush x:Key="Menu.Background" Color="#b4c4d4" />
     <SolidColorBrush x:Key="Menu.Foreground" Color="Black" />
     <SolidColorBrush x:Key="Menu.Border" Color="#b4c4d4" />
     <SolidColorBrush x:Key="Menu.Separator" Color="#bee0ec" />
@@ -135,6 +136,18 @@
         <Setter Property="Data">
             <Setter.Value>
                 <PathGeometry Figures="M8 1.003a7 7 0 0 0-7 7v.43c.09 1.51 1.91 1.79 3 .7a1.87 1.87 0 0 1 2.64 2.64c-1.1 1.16-.79 3.07.8 3.2h.6a7 7 0 1 0 0-14l-.04.03zm0 13h-.52a.58.58 0 0 1-.36-.14a.56.56 0 0 1-.15-.3a1.24 1.24 0 0 1 .35-1.08a2.87 2.87 0 0 0 0-4a2.87 2.87 0 0 0-4.06 0a1 1 0 0 1-.9.34a.41.41 0 0 1-.22-.12a.42.42 0 0 1-.1-.29v-.37a6 6 0 1 1 6 6l-.04-.04zM9 3.997a1 1 0 1 1-2 0a1 1 0 0 1 2 0zm3 7.007a1 1 0 1 1-2 0a1 1 0 0 1 2 0zm-7-5a1 1 0 1 0 0-2a1 1 0 0 0 0 2zm7-1a1 1 0 1 1-2 0a1 1 0 0 1 2 0zM13 8a1 1 0 1 1-2 0a1 1 0 0 1 2 0z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="KeyboardIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="M14 3H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm0 8H3V4h11v7zm-3-6h-1v1h1V5zm-1 2H9v1h1V7zm2-2h1v1h-1V5zm1 4h-1v1h1V9zM6 9h5v1H6V9zm7-2h-2v1h2V7zM8 5h1v1H8V5zm0 2H7v1h1V7zM4 9h1v1H4V9zm0-4h1v1H4V5zm3 0H6v1h1V5zM4 7h2v1H4V7z" FillRule="EvenOdd"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -254,6 +267,31 @@
     </Style>
     <Style x:Key="NormalTextBlock" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Segoe UI" />
+    </Style>
+    <Style x:Key="SomeContextMenu" TargetType="{x:Type ContextMenu}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+        <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="10" Margin="-10,-10,0,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="4" ShadowDepth="2" Opacity="0.2" />
+                        </Border.Effect>
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="1" Padding="2" BorderBrush="{TemplateBinding BorderBrush}">
+                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource SomeContextMenu}">
     </Style>
     <Style x:Key="IconButton" TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="5,0,0,0" />
@@ -1241,7 +1279,6 @@
     </Style>
     <Style x:Key="ResultSeparator" TargetType="{x:Type Border}">
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Margin" Value="0,0,5,0" />
         <Setter Property="Width" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource Result.File.Foreground}" />
         <Setter Property="Opacity" Value="0.3" />
@@ -1262,7 +1299,11 @@
         <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
-    <Style x:Key="ResultText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
+    <Style x:Key="ResultTextStart" TargetType="TextBlock" BasedOn="{StaticResource Result}">
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.Text.Foreground}" />
+    </Style>
+    <Style x:Key="ResultTextEnd" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Foreground" Value="{DynamicResource Result.Text.Foreground}" />
     </Style>
     <Style x:Key="ResultHighlightedText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
@@ -1270,6 +1311,86 @@
         <Setter Property="Background" Value="{DynamicResource Result.Highlight.Background}" />
         <Setter Property="Height" Value="14" />
         <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style x:Key="EmptyListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="ScrollViewer.MaxHeight" Value="250" />
+        <Setter Property="ScrollViewer.MaxWidth" Value="500" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True" MouseLeave="ListBox_MouseLeave">
+                        <ScrollViewer Name="SearchScrollbar" Padding="{TemplateBinding Control.Padding}" Focusable="{TemplateBinding Focusable}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource NormalText}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid>
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Height="{TemplateBinding Height}" BorderThickness="{TemplateBinding BorderThickness}" MouseEnter="ListBoxItem_MouseEnter">
+                            <ContentPresenter Margin="5,0,0,0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="Button.IsDefaulted" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>-->
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" TargetName="Border" Value="{DynamicResource MenuItem.IsMouseOver.Background}"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource MenuItem.IsMouseOver.Border}"/>
+                        </Trigger>
+                        <!--<Trigger Property="IsPressed" Value="true">
+                                        <Setter Property="Background" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource Window.Button.IsMouseDown.Background}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Window.Button.IsMouseDown.Icon}"/>
+                                    </Trigger>-->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Result.IsMouseOver.Background}"/>
+            </Trigger>
+            <!--<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Result.IsSelected.Background}"/>
+                        </DataTrigger>-->
+            <!--<MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                -->
+            <!--<Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>-->
+            <!--
+                                <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
+                                <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                -->
+            <!--<Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>-->
+            <!--
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource Result.IsSelected.IsInactive.Background}" />
+                        </MultiDataTrigger>-->
+        </Style.Triggers>
     </Style>
     <Style x:Key="ResultsListBox" TargetType="{x:Type ListBox}">
         <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
@@ -1503,29 +1624,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="{x:Type ContextMenu}">
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
-        <Setter Property="HasDropShadow" Value="True" />
-        <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
-        <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ContextMenu}">
-                    <Border Background="{TemplateBinding Background}" BorderThickness="10" Margin="-10,-10,0,0">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="4" ShadowDepth="2" Opacity="0.2" />
-                        </Border.Effect>
-                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="1" Padding="2" BorderBrush="{TemplateBinding BorderBrush}">
-                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
-                        </Border>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
     <Style x:Key="PopupContentStyle" TargetType="{x:Type ContentControl}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -1533,6 +1631,7 @@
         <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
@@ -1624,8 +1723,7 @@
     </ControlTemplate>
 
     <!-- MenuItem Style -->
-    <Style x:Key="{x:Type MenuItem}"
-       TargetType="{x:Type MenuItem}">
+    <Style x:Key="SomeMenuItem" TargetType="{x:Type MenuItem}">
         <Setter Property="OverridesDefaultStyle"
           Value="True" />
         <Style.Triggers>
@@ -1644,6 +1742,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource SomeMenuItem}" />
 
     <Style x:Key="WindowTitleBarButton" TargetType="Button">
         <Style.Setters>

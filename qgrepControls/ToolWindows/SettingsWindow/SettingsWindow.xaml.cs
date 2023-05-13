@@ -1,4 +1,5 @@
 ﻿using qgrepControls.Properties;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +27,14 @@ namespace qgrepControls.SearchWindow
             ExpandModeComboBox.SelectedIndex = Settings.Default.ExpandModeIndex;
 
             SearchWindow.LoadColorsFromResources(this);
+            UpdateShortcutHints();
+        }
+
+        private void UpdateShortcutHints()
+        {
+            ShowIncludes.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleIncludeFiles"].ToString();
+            ShowExcludes.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleExcludeFiles"].ToString();
+            ShowFilter.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleFilterResults"].ToString();
         }
 
         private void SaveOptions()
