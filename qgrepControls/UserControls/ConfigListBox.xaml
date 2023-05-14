@@ -41,7 +41,7 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Grid.ColumnSpan="2" x:Name="ButtonsPanel" Background="{DynamicResource Window.Background}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1">
                 <DockPanel >
-                    <TextBlock x:Name="Title" Text="Folder" Foreground="{DynamicResource Foreground}" FontWeight="Normal" VerticalAlignment="Center" Margin="7,0,0,0" FontSize="12" />
+                    <TextBlock x:Name="Title" Text="Folder" Foreground="{DynamicResource Foreground}" FontWeight="Normal" VerticalAlignment="Center" Margin="7,1,0,0" FontSize="12" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">
                         <Button x:Name="AddButton" Style="{StaticResource IconButton}" FontSize="14">
                             <Path Style="{DynamicResource AddIcon}" />

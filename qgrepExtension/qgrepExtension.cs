@@ -1,9 +1,6 @@
 ﻿using EnvDTE;
-<<<<<<< Updated upstream
-=======
 using EnvDTE80;
 using Microsoft.Build.Evaluation;
->>>>>>> Stashed changes
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using qgrepControls;
@@ -17,6 +14,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace qgrepSearch
 {
@@ -96,31 +94,7 @@ namespace qgrepSearch
             }
             catch { }
         }
-<<<<<<< Updated upstream
-
-        public IExtensionWindow CreateWindow(UserControl userControl, string title, UserControl owner)
-        {
-            return null;
-
-            //return new qgrepExtensionWindow(
-            //    new MainWindow
-            //    {
-            //        Title = title,
-            //        Content = userControl,
-            //        SizeToContent = SizeToContent.WidthAndHeight,
-            //        ResizeMode = ResizeMode.NoResize,
-            //        //HasMinimizeButton = false,
-            //        //HasMaximizeButton = false,
-            //        //Owner = qgrepSearchWindowControl.FindAncestor<DialogWindow>(owner),
-            //        //WindowStartupLocation = WindowStartupLocation.CenterOwner
-            //    }
-            //);
-        }
-
-        public List<string> GatherAllFoldersFromSolution()
-=======
         public void GatherAllFoldersAndExtensionsFromSolution(HashSet<string> extensionsList, FolderCallback folderCallback)
->>>>>>> Stashed changes
         {
             try
             {
@@ -271,6 +245,64 @@ namespace qgrepSearch
         }
 
         public void RefreshResources(Dictionary<string, object> newResources)
+        {
+        }
+
+        private Hotkey GetBindingForCommand(string commandString)
+        {
+            EnvDTE.Command command = State.DTE.Commands.Item("qgrep." + commandString);
+
+            if (command.Bindings is object[] bindings && bindings.Length > 0 && bindings[0] is string binding)
+            {
+                ModifierKeys modifiers = ModifierKeys.None;
+                Key key = Key.None;
+
+                int position = binding.IndexOf("::");
+
+                if (position >= 0)
+                {
+                    string result = binding.Substring(position + 2);
+
+                    string[] parts = result.Split('+');
+
+                    foreach (string part in parts)
+                    {
+                        if (Enum.TryParse(part, true, out Key tempKey))
+                        {
+                            key = tempKey;
+                        }
+                        else if (Enum.TryParse(part, true, out ModifierKeys tempModifier))
+                        {
+                            modifiers |= tempModifier;
+                        }
+                    }
+
+                    return new Hotkey(key, modifiers);
+                }
+            }
+
+            return new Hotkey(Key.None, ModifierKeys.None);
+        }
+
+
+        public Dictionary<string, Hotkey> ReadKeyBindings()
+        {
+            Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
+            bindings["ToggleCaseSensitive"] = GetBindingForCommand("ToggleCaseSensitive");
+            bindings["ToggleWholeWord"] = GetBindingForCommand("ToggleWholeWord");
+            bindings["ToggleRegEx"] = GetBindingForCommand("ToggleRegEx");
+            bindings["ToggleIncludeFiles"] = GetBindingForCommand("ToggleIncludeFiles");
+            bindings["ToggleExcludeFiles"] = GetBindingForCommand("ToggleExcludeFiles");
+            bindings["ToggleFilterResults"] = GetBindingForCommand("ToggleFilterResults");
+            bindings["ShowHistory"] = GetBindingForCommand("ShowHistory");
+            return bindings;
+        }
+
+        public void SaveKeyBindings(Dictionary<string, Hotkey> bindings)
+        {
+        }
+
+        public void ApplyKeyBindings(Dictionary<string, Hotkey> bindings)
         {
         }
     }

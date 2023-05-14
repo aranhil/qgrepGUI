@@ -25,6 +25,13 @@ namespace qgrepControls.UserControls
     /// </summary>
     public partial class ConfigListBox : UserControl
     {
+        public enum EditType
+        {
+            None,
+            Text,
+            Custom
+        }
+
         public ConfigListBox()
         {
             InitializeComponent();

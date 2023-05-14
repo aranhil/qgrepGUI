@@ -78,26 +78,18 @@ namespace qgrepControls.ModelViews
     }
     public class SearchGroup : SelectableData
     {
-        private int index;
-
-        public int Index
-        {
-            get
-            {
-                return index;
-            }
-            set
-            {
-                index = value;
-                OnPropertyChanged();
-            }
-        }
+        private string name;
 
         public string Name
         {
             get
             {
-                return index == 0 ? "<root>" : "Group " + index;
+                return name;
+            }
+            set
+            {
+                name = value;
+                OnPropertyChanged();
             }
         }
 
@@ -109,7 +101,7 @@ namespace qgrepControls.ModelViews
         public SearchGroup(ConfigGroup configGroup)
         {
             ConfigGroup = configGroup;
-            Index = configGroup.Index;
+            Name = configGroup.Name;
             Paths = new ObservableCollection<SearchPath>();
             Rules = new ObservableCollection<SearchRule>();
 

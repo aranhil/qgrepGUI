@@ -22,7 +22,7 @@ namespace qgrepControls.Classes
     public class ConfigGroup
     {
         public ConfigProject Parent;
-        public int Index = 0;
+        public string Name;
         public List<ConfigPath> Paths = new List<ConfigPath>();
         public List<ConfigRule> Rules = new List<ConfigRule>();
 
@@ -45,6 +45,7 @@ namespace qgrepControls.Classes
         private string ExcludePrefix = "exclude ";
         private string GroupBegin = "group";
         private string GroupEnd = "endgroup";
+        private string GroupName = "# group name:";
         private string _Path = "";
 
         public string Name { get; set; }
@@ -66,7 +67,7 @@ namespace qgrepControls.Classes
         public ConfigProject(string Path)
         {
             this.Path = Path;
-            this.Groups.Add(new ConfigGroup() { Parent = this });
+            this.Groups.Add(new ConfigGroup() { Name = GetNewGroupName(), Parent = this });
         }
 
         public void DeleteFiles()
@@ -96,15 +97,20 @@ namespace qgrepControls.Classes
 
         public ConfigGroup AddNewGroup()
         {
-            int index = 0;
-            while(Groups.Any(x => x.Index == index))
-            {
-                index++;
-            }
-
-            ConfigGroup configGroup = new ConfigGroup() { Index = index, Parent = this };
+            ConfigGroup configGroup = new ConfigGroup() { Name = GetNewGroupName(), Parent = this };
             Groups.Add(configGroup);
             return configGroup;
+        }
+
+        private string GetNewGroupName()
+        {
+            int index = 1;
+            string newName = "<root>";
+            while(Groups.Any(x => x.Name == newName))
+            {
+                newName = "Group " + index++;
+            }
+            return newName;
         }
 
         public void LoadConfig()
@@ -141,11 +147,16 @@ namespace qgrepControls.Classes
                     else if(line.StartsWith(GroupBegin))
                     {
                         insideGroup = true;
-                        Groups.Add(new ConfigGroup() { Parent = this, Index = Groups.Count });
+                        Groups.Add(new ConfigGroup() { Parent = this });
                     }
                     else if(line.StartsWith(GroupEnd))
                     {
                         insideGroup = false;
+                    }
+                    else if(line.StartsWith(GroupName))
+                    {
+                        string groupName = line.Substring(GroupName.Length);
+                        GetGroup(insideGroup).Name = groupName;
                     }
                 }
             }
@@ -168,6 +179,7 @@ namespace qgrepControls.Classes
 
         public void SaveGroup(StreamWriter streamWriter, ConfigGroup configGroup)
         {
+            streamWriter.WriteLine(GroupName + configGroup.Name);
             foreach(ConfigPath path in configGroup.Paths)
             {
                 streamWriter.WriteLine(PathPrefix + path.Path);
