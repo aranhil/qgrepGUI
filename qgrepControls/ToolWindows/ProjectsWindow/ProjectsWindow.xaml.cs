@@ -239,6 +239,12 @@ namespace qgrepControls.SearchWindow
                 foreach (SearchGroup oldItem in e.OldItems)
                 {
                     oldItem.ConfigGroup.Parent.Groups.Remove(oldItem.ConfigGroup);
+
+                    if(IsAutomaticPopulationBusy && oldItem == CurrentlyPopulatingGroup)
+                    {
+                        IsAutomaticPopulationBusy = false;
+                        AddAutomaticRules();
+                    }
                 }
             }
 
@@ -273,6 +279,18 @@ namespace qgrepControls.SearchWindow
                 foreach (SearchConfig oldItem in e.OldItems)
                 {
                     Parent.ConfigParser.RemoveProject(oldItem.ConfigProject);
+
+                    if (IsAutomaticPopulationBusy)
+                    {
+                        foreach(SearchGroup searchGroup in oldItem.SearchGroups)
+                        {
+                            if(searchGroup == CurrentlyPopulatingGroup)
+                            {
+                                IsAutomaticPopulationBusy = false;
+                                AddAutomaticRules();
+                            }
+                        }
+                    }
                 }
             }
 
