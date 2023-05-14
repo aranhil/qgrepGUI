@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Shapes;
 using System.Xml.Linq;
 
 namespace qgrepControls.Classes
@@ -50,6 +51,11 @@ namespace qgrepControls.Classes
 
         public ConfigRule AddNewRule(string regex, bool isExclude)
         {
+            if (Rules.Any(x => x.Rule == regex && x.IsExclude == isExclude))
+            {
+                return null;
+            }
+
             ConfigRule configRule = new ConfigRule() { Rule = regex, IsExclude = isExclude, Parent = this };
             Rules.Add(configRule);
             return configRule;
@@ -141,7 +147,7 @@ namespace qgrepControls.Classes
         public void LoadConfig()
         {
             Groups.Clear();
-            Groups.Add(new ConfigGroup() { Parent = this });
+            Groups.Add(new ConfigGroup() { Parent = this, Name = GetNewGroupName() });
 
             bool insideGroup = false;
 
@@ -172,7 +178,7 @@ namespace qgrepControls.Classes
                     else if (line.StartsWith(GroupBegin))
                     {
                         insideGroup = true;
-                        Groups.Add(new ConfigGroup() { Parent = this });
+                        Groups.Add(new ConfigGroup() { Parent = this, Name = GetNewGroupName() });
                     }
                     else if (line.StartsWith(GroupEnd))
                     {

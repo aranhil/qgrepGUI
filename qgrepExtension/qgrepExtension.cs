@@ -94,7 +94,7 @@ namespace qgrepSearch
             }
             catch { }
         }
-        public void GatherAllFoldersAndExtensionsFromSolution(HashSet<string> extensionsList, FolderCallback folderCallback)
+        public void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback)
         {
             try
             {
@@ -103,15 +103,15 @@ namespace qgrepSearch
 
                 foreach (EnvDTE.Project project in solution?.Projects)
                 {
-                    ProcessProject(project, extensionsList, folderCallback);
+                    ProcessProject(project, extensionCallback, folderCallback);
 
-                    GetAllFoldersFromProject(project?.ProjectItems, extensionsList, folderCallback);
+                    GetAllFoldersFromProject(project?.ProjectItems, extensionCallback, folderCallback);
                 }
             }
             catch { }
         }
 
-        private static void ProcessProject(EnvDTE.Project project, HashSet<string> extensionsList, FolderCallback folderCallback)
+        private static void ProcessProject(EnvDTE.Project project, StringCallback extensionCallback, StringCallback folderCallback)
         {
             if (project == null || project.FullName.Length == 0) return;
 
@@ -147,9 +147,9 @@ namespace qgrepSearch
                     string directoryPath = Path.GetDirectoryName(fullPath);
                     folderCallback(directoryPath);
 
-                    if (!string.IsNullOrEmpty(extension) && !extensionsList.Contains(extension))
+                    if (!string.IsNullOrEmpty(extension))
                     {
-                        extensionsList.Add(extension);
+                        extensionCallback(extension);
                     }
                 }
             }
@@ -157,7 +157,7 @@ namespace qgrepSearch
             msbuildProject.ProjectCollection.UnloadAllProjects();
         }
 
-        private static void GetAllFoldersFromProject(ProjectItems projectItems, HashSet<string> extensionsList, FolderCallback folderCallback)
+        private static void GetAllFoldersFromProject(ProjectItems projectItems, StringCallback extensionCallback, StringCallback folderCallback)
         {
             if (projectItems != null)
             {
@@ -165,9 +165,8 @@ namespace qgrepSearch
                 {
                     if (item?.SubProject != null)
                     {
-                        ProcessProject(item.SubProject, extensionsList, folderCallback);
-
-                        GetAllFoldersFromProject(item.SubProject.ProjectItems, extensionsList, folderCallback);
+                        ProcessProject(item.SubProject, extensionCallback, folderCallback);
+                        GetAllFoldersFromProject(item.SubProject.ProjectItems, extensionCallback, folderCallback);
                     }
                 }
             }

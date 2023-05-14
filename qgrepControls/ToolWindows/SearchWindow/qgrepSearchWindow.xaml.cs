@@ -888,7 +888,7 @@ namespace qgrepControls.SearchWindow
             if (ConfigParser.IsConfigChanged())
             {
                 UpdateWarning();
-                SearchEngine.UpdateDatabaseAsync(FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList());
+                SearchEngine.UpdateDatabaseAsync(ConfigParser.ConfigProjects.Select(x => x.Path).ToList());
             }
         }
 

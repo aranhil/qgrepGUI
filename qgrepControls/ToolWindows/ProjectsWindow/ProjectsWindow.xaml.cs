@@ -24,9 +24,6 @@ namespace qgrepControls.SearchWindow
         public new qgrepSearchWindowControl Parent;
         private ObservableCollection<SearchConfig> SearchConfigs = new ObservableCollection<SearchConfig>();
 
-        private ProjectRow SelectedProject = null;
-        private GroupRow SelectedGroup = null;
-
         public ProjectsWindow(qgrepSearchWindowControl Parent)
         {
             this.Parent = Parent;
@@ -58,7 +55,7 @@ namespace qgrepControls.SearchWindow
             PathsListBox.EditButton.ToolTip = "Edit folder name";
             PathsListBox.RemoveButton.ToolTip = "Remove selected folder(s)";
             PathsListBox.RemoveAllButton.ToolTip = "Remove all folders";
-            PathsListBox.AddButton.Click += AddNewFolder_Click;
+            PathsListBox.AddButton.Click += AddNewPath_Click;
 
             RulesListBox.Title.Text = "Filters";
             RulesListBox.ItemEditType = ConfigListBox.EditType.Custom;
@@ -66,7 +63,7 @@ namespace qgrepControls.SearchWindow
             RulesListBox.EditButton.ToolTip = "Edit filter";
             RulesListBox.RemoveButton.ToolTip = "Remove selected filter(s)";
             RulesListBox.RemoveAllButton.ToolTip = "Remove all filters";
-            RulesListBox.AddButton.Click += AddNewRule_Click;
+            RulesListBox.AddButton.Click += AddNewRule_Click; ;
             RulesListBox.OnEditClicked += EditRule_Click;
 
             LoadFromConfig();
@@ -80,6 +77,30 @@ namespace qgrepControls.SearchWindow
             if (Parent.ExtensionInterface.IsStandalone)
             {
                 AutomaticPopulation.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void AddNewRule_Click(object sender, RoutedEventArgs e)
+        {
+            RuleWindow ruleWindow = new RuleWindow(this);
+
+            MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Add rule", this);
+            ruleWindow.Dialog = ruleDialog;
+            ruleDialog.ShowDialog();
+
+            if (ruleWindow.IsOK)
+            {
+                SearchGroup selectedGroup = GroupsListBox.InnerListBox.SelectedItem as SearchGroup;
+                if (selectedGroup != null)
+                {
+                    ConfigRule configRule = selectedGroup.ConfigGroup.AddNewRule(ruleWindow.RegExTextBox.Text, ruleWindow.RuleType.SelectedIndex == 1);
+                    if (configRule != null)
+                    {
+                        selectedGroup.Rules.Add(new SearchRule(configRule));
+                    }
+
+                    UpdateVisibility();
+                }
             }
         }
 
@@ -107,7 +128,7 @@ namespace qgrepControls.SearchWindow
             UpdateVisibility();
         }
 
-        private void AddNewFolder_Click(object sender, RoutedEventArgs e)
+        private void AddNewPath_Click(object sender, RoutedEventArgs e)
         {
             FolderSelectDialog folderSelectDialog = new FolderSelectDialog();
             folderSelectDialog.InitialDirectory = Parent.ConfigParser.Path;
@@ -245,46 +266,6 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        public void LoadProjectsFromConfig()
-        {
-            ProjectsPanel.Children.Clear();
-
-            foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-            {
-                ProjectsPanel.Children.Add(new ProjectRow(this, new ProjectRow.ProjectRowData(configProject.Name)));
-            }
-
-            ProjectsPanel.Children.Add(new RowAdd(Parent, "Add new search config", new RowAdd.ClickCallbackFunction(AddProject)));
-            CheckAddButtonVisibility();
-
-            bool foundOldProject = false;
-            if (SelectedProject != null)
-            {
-                foreach (UIElement child in ProjectsPanel.Children)
-                {
-                    ProjectRow row = child as ProjectRow;
-                    if (row != null)
-                    {
-                        if (row.Data.ProjectName == SelectedProject.Data.ProjectName)
-                        {
-                            foundOldProject = true;
-                            SelectProject(row);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (!foundOldProject)
-            {
-                SelectedProject = null;
-                if (ProjectsPanel.Children.Count > 1)
-                {
-                    SelectProject(ProjectsPanel.Children[0] as ProjectRow);
-                }
-            }
-        }
-
         private void ConfigProjects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if(e.OldItems != null)
@@ -303,405 +284,6 @@ namespace qgrepControls.SearchWindow
             UpdateVisibility();
         }
 
-        public void LoadGroupsFromConfig()
-        {
-            GroupsPanel.Children.Clear();
-
-            if (SelectedProject != null)
-            {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        for(int i = 0; i < configProject.Groups.Count; i++)
-                        {
-                            GroupsPanel.Children.Add(new GroupRow(this, new GroupRow.GroupRowData(i == 0 ? "<root>" : "Group" + i, i == 0, i)));
-                        }
-
-                        GroupsPanel.Children.Add(new RowAdd(Parent, "Add new search group", new RowAdd.ClickCallbackFunction(AddGroup)));
-                        CheckAddButtonVisibility();
-
-                        bool foundOldGroup = false;
-                        if (SelectedGroup != null)
-                        {
-                            foreach (UIElement child in GroupsPanel.Children)
-                            {
-                                GroupRow row = child as GroupRow;
-                                if (row != null)
-                                {
-                                    if (row.Data.Index == SelectedGroup.Data.Index)
-                                    {
-                                        foundOldGroup = true;
-                                        SelectGroup(row);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (!foundOldGroup)
-                        {
-                            SelectedGroup = null;
-                            if (GroupsPanel.Children.Count > 1)
-                            {
-                                SelectGroup(GroupsPanel.Children[0] as GroupRow);
-                            }
-                        }
-
-                        break;
-                    }
-                }
-            }
-        }
-
-        public void SelectProject(ProjectRow project)
-        {
-            if (project != SelectedProject)
-            {
-                foreach (UIElement child in ProjectsPanel.Children)
-                {
-                    ProjectRow row = child as ProjectRow;
-                    if (row != null)
-                    {
-                        bool isSelected = (row == project);
-
-                        if (isSelected)
-                        {
-                            SelectedProject = row;
-                        }
-
-                        row.Select(isSelected);
-                    }
-                }
-
-                LoadGroupsFromConfig();
-                UpdateHints();
-            }
-        }
-
-        public void AddProject()
-        {
-            SearchConfigs.Add(new SearchConfig(Parent.ConfigParser.AddNewProject()));
-            ProjectsListBox.InnerListBox.SelectedItem = SearchConfigs.Last();
-        }
-
-        public void ChangeProjectName(ProjectRow project, string newName)
-        {
-            foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-            {
-                if (configProject.Name == project.Data.ProjectName)
-                {
-                    if (configProject.Rename(newName))
-                    {
-                        Parent.RenameFilter(project.Data.ProjectName, newName);
-                        LoadFromConfig();
-                    }
-                    break;
-                }
-            }
-        }
-
-        public void SelectGroup(GroupRow group)
-        {
-            foreach (UIElement child in GroupsPanel.Children)
-            {
-                GroupRow row = child as GroupRow;
-                if (row != null)
-                {
-                    bool isSelected = (row == group);
-
-                    if (isSelected)
-                    {
-                        SelectedGroup = group;
-                    }
-
-                    row.Select(isSelected);
-                }
-            }
-
-            LoadPathsFromConfig();
-            LoadRulesFromConfig();
-            UpdateHints();
-        }
-
-        public void AddGroup()
-        {
-            SearchConfig selectedConfig = ProjectsListBox.InnerListBox.SelectedItem as SearchConfig;
-            if(selectedConfig != null)
-            {
-                selectedConfig.SearchGroups.Add(new SearchGroup(selectedConfig.ConfigProject.AddNewGroup()));
-
-                UpdateVisibility();
-            }
-        }
-
-        public void LoadPathsFromConfig()
-        {
-            PathsPanel.Children.Clear();
-
-            if (SelectedProject != null && SelectedGroup != null)
-            {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        //foreach(string Path in configProject.Groups[SelectedGroup.Data.Index].Paths)
-                        //{
-                        //    PathsPanel.Children.Add(new PathRow(this, new PathRow.PathRowData(Path)));
-                        //}
-
-                        PathsPanel.Children.Add(new RowAdd(Parent, "Add new folder", new RowAdd.ClickCallbackFunction(AddPath)));
-                        CheckAddButtonVisibility();
-                        break;
-                    }
-                }
-            }
-        }
-
-        public void AddPath()
-        {
-            if (SelectedProject != null && SelectedGroup != null)
-            {
-                FolderSelectDialog folderSelectDialog = new FolderSelectDialog();
-                folderSelectDialog.InitialDirectory = Parent.ConfigParser.Path;
-                folderSelectDialog.Multiselect = true;
-                if (folderSelectDialog.ShowDialog())
-                {
-                    foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                    {
-                        if (configProject.Name == SelectedProject.Data.ProjectName)
-                        {
-                            foreach (string filename in folderSelectDialog.FileNames)
-                            {
-                                //if (!configProject.Groups[SelectedGroup.Data.Index].Paths.Contains(filename))
-                                //{
-                                //    NothingChanged = false;
-                                //    configProject.Groups[SelectedGroup.Data.Index].Paths.Add(filename);
-                                //}
-                            }
-
-                            Parent.ConfigParser.SaveConfig();
-                            LoadFromConfig();
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        public void DeletePath(PathRow path)
-        {
-            if (SelectedProject != null && SelectedGroup != null)
-            {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        //configProject.Groups[SelectedGroup.Data.Index].Paths.Remove(path.Data.Path);
-                        LoadFromConfig();
-                        break;
-                    }
-                }
-            }
-        }
-
-        public void LoadRulesFromConfig()
-        {
-            RulesPanel.Children.Clear();
-
-            if (SelectedProject != null && SelectedGroup != null)
-            {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        int index = 0;
-                        foreach (ConfigRule rule in configProject.Groups[SelectedGroup.Data.Index].Rules)
-                        {
-                            RulesPanel.Children.Add(new RuleRow(this, new RuleRow.RuleRowData(rule.IsExclude, rule.Rule, index++)));
-                        }
-
-                        RulesPanel.Children.Add(new RowAdd(Parent, "Add new filter", new RowAdd.ClickCallbackFunction(AddRule)));
-                        CheckAddButtonVisibility();
-                        break;
-                    }
-                }
-            }
-        }
-
-        public void DeleteRule(RuleRow rule)
-        {
-            if (SelectedProject != null && SelectedGroup != null)
-            {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        configProject.Groups[SelectedGroup.Data.Index].Rules.RemoveAt(rule.Data.Index);
-                        LoadFromConfig();
-                        break;
-                    }
-                }
-            }
-        }
-
-        public void AddRule()
-        {
-            RuleWindow ruleWindow = new RuleWindow(this);
-
-            MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Add rule", this);
-            ruleWindow.Dialog = ruleDialog;
-            ruleDialog.ShowDialog();
-
-            if(ruleWindow.IsOK)
-            {
-                SearchGroup selectedGroup = GroupsListBox.InnerListBox.SelectedItem as SearchGroup;
-                if (selectedGroup != null)
-                {
-                    ConfigRule configRule = selectedGroup.ConfigGroup.AddNewRule(ruleWindow.RegExTextBox.Text, ruleWindow.RuleType.SelectedIndex == 1);
-                    if (configRule != null)
-                    {
-                        selectedGroup.Rules.Add(new SearchRule(configRule));
-                    }
-
-                    UpdateVisibility();
-                }
-            }
-        }
-
-        public void EditRule(RuleRow rule)
-        {
-            if (SelectedProject != null && SelectedGroup != null)
-            {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        ConfigRule configRule = configProject.Groups[SelectedGroup.Data.Index].Rules[rule.Data.Index];
-
-                        RuleWindow ruleWindow = new RuleWindow(this);
-                        ruleWindow.RuleType.SelectedIndex = configRule.IsExclude ? 1 : 0;
-                        ruleWindow.RegExTextBox.Text = configRule.Rule;
-                        ruleWindow.RegExTextBox.SelectAll();
-                        ruleWindow.RegExTextBox.Focus();
-
-                        MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Edit rule", this);
-                        ruleWindow.Dialog = ruleDialog;
-                        ruleDialog.ShowDialog();
-
-                        if (ruleWindow.IsOK)
-                        {
-                            configRule.Rule = ruleWindow.RegExTextBox.Text;
-                            configRule.IsExclude = ruleWindow.RuleType.SelectedIndex == 1;
-
-                            Parent.ConfigParser.SaveConfig();
-                            LoadFromConfig();
-                        }
-
-                        break;
-                    }
-                }
-            }
-        }
-
-        private void GroupsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            ShowAddPanel(GroupsPanel);
-        }
-
-        private void GroupsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            HideAddPanel(GroupsPanel);
-        }
-
-        private void ProjectsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            ShowAddPanel(ProjectsPanel);
-        }
-
-        private void ProjectsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            HideAddPanel(ProjectsPanel);
-        }
-
-        private void PathsPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            ShowAddPanel(PathsPanel);
-        }
-
-        private void PathsPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            HideAddPanel(PathsPanel);
-        }
-
-        private void RulesPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            ShowAddPanel(RulesPanel);
-        }
-
-        private void RulesPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            HideAddPanel(RulesPanel);
-        }
-
-        private void CheckAddButtonVisibility()
-        {
-            if (ProjectsPanel.IsMouseOver)
-            {
-                ShowAddPanel(ProjectsPanel);
-            }
-            if (GroupsPanel.IsMouseOver)
-            {
-                ShowAddPanel(GroupsPanel);
-            }
-            if (PathsPanel.IsMouseOver)
-            {
-                ShowAddPanel(PathsPanel);
-            }
-            if (RulesPanel.IsMouseOver)
-            {
-                ShowAddPanel(RulesPanel);
-            }
-        }
-
-        void HideAddPanel(StackPanel panel)
-        {
-            if (panel.Children.Count > 0)
-            {
-                panel.Children[panel.Children.Count - 1].Visibility = Visibility.Hidden;
-            }
-        }
-        void ShowAddPanel(StackPanel panel)
-        {
-            if (panel.Children.Count > 0)
-            {
-                panel.Children[panel.Children.Count - 1].Visibility = Visibility.Visible;
-            }
-        }
-
-        private void UpdateHints()
-        {
-            int pathsCount = 0;
-            int rulesCount = 0;
-
-            if (SelectedProject != null && SelectedGroup != null)
-            {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        pathsCount = configProject.Groups[SelectedGroup.Data.Index].Paths.Count;
-                        rulesCount = configProject.Groups[SelectedGroup.Data.Index].Rules.Count;
-                    }
-                }
-            }
-
-            //PathsHint.Visibility = PathsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
-            //RulesHint.Visibility = rulesCount > 0 ? Visibility.Collapsed : Visibility.Visible;
-            //ProjectsHint.Visibility = ProjectsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
-            //GroupsHint.Visibility = GroupsListBox.InnerListBox.Items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
-        }
-
         private void UpdateVisibility()
         {
             int projectsCount = Parent.ConfigParser.ConfigProjects.Count;
@@ -715,10 +297,14 @@ namespace qgrepControls.SearchWindow
             AdvancedToggle.IsEnabled = isAdvanced && canGoBasic || !isAdvanced;
             AdvancedToggle.ToolTip = !canGoBasic ? "Remove extra projects and groups to go back to basic settings" : null;
 
-            GridLength gridLength = isAdvanced ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Pixel);
-            AdvancedColumn.Width = gridLength;
+            GridLength advancedGridLength = isAdvanced ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Pixel);
+            GridLength basicGridLength = new GridLength(3, GridUnitType.Star);
+            AdvancedColumn.Width = advancedGridLength;
+            BasicColumn.Width = basicGridLength;
 
-            UpdateHints();
+            AutomaticPopulation.IsEnabled = !IsAutomaticPopulationBusy && GroupsListBox.InnerListBox.SelectedItems.Count == 1;
+            AutomaticProgress.Visibility = IsAutomaticPopulationBusy ? Visibility.Visible : Visibility.Collapsed;
+            StopButton.Visibility = IsAutomaticPopulationBusy ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void AdvancedToggle_Click(object sender, RoutedEventArgs e)
@@ -740,134 +326,113 @@ namespace qgrepControls.SearchWindow
         }
 
         bool IsAutomaticPopulationBusy = false;
-        ConfigGroup CurrentlyPopulatingGroup = null;
+        SearchGroup CurrentlyPopulatingGroup = null;
+        HashSet<string> CurrentlyPopulatingExtensions = null;
 
         private void AutomaticPopulation_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedProject != null && SelectedGroup != null)
+            CurrentlyPopulatingGroup = GroupsListBox.InnerListBox.SelectedItem as SearchGroup;
+            CurrentlyPopulatingExtensions = new HashSet<string>();
+            IsAutomaticPopulationBusy = true;
+            UpdateVisibility();
+
+            Task.Run(() =>
             {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                Parent.ExtensionInterface.GatherAllFoldersAndExtensionsFromSolution(HandleAutomaticNewExtension, HandleAutomaticNewFolder);
+
+                Dispatcher.Invoke(() =>
                 {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        CurrentlyPopulatingGroup = configProject.Groups[SelectedGroup.Data.Index];
-                        AutomaticPopulation.IsEnabled = false;
-                        AutomaticProgress.Visibility = Visibility.Visible;
+                    AddAutomaticRules();
 
-                        Task.Run(() =>
-                        {
-                            List<string> solutionFolders = new List<string>();
-                            HashSet<string> extensionsList = new HashSet<string>();
-                            Parent.ExtensionInterface.GatherAllFoldersAndExtensionsFromSolution(extensionsList, HandleAutomaticNewFolder);
+                    IsAutomaticPopulationBusy = false;
+                    UpdateVisibility();
+                });
+            });
+        }
 
-                            Dispatcher.Invoke(() =>
-                            {
-                                var extensions = extensionsList.Select(ext => ext.TrimStart('.')).ToList();
-                                string extensionsPattern = @"\." + $"({string.Join("|", extensions)})" + @"$";
+        private void AddAutomaticRules()
+        {
+            var extensions = CurrentlyPopulatingExtensions.Select(ext => ext.TrimStart('.')).ToList();
+            string extensionsPattern = @"\." + $"({string.Join("|", extensions)})" + @"$";
 
-                                if (!CurrentlyPopulatingGroup.Rules.Any(x => x.Rule == extensionsPattern && x.IsExclude == false))
-                                {
-                                    CurrentlyPopulatingGroup.Rules.Add(new ConfigRule()
-                                    {
-                                        IsExclude = false,
-                                        Rule = extensionsPattern
-                                    });
-                                }
-
-                                AutomaticPopulation.IsEnabled = true;
-                                AutomaticProgress.Visibility = Visibility.Collapsed;
-
-                                Parent.ConfigParser.SaveConfig();
-                                LoadFromConfig();
-                            });
-                        });
-
-                        break;
-                    }
-                }
+            ConfigRule configRule = CurrentlyPopulatingGroup.ConfigGroup.AddNewRule(extensionsPattern, false);
+            if (configRule != null)
+            {
+                CurrentlyPopulatingGroup.Rules.Add(new SearchRule(configRule));
             }
         }
 
         private void HandleAutomaticNewFolder(string newFolder)
         {
+            if (!IsAutomaticPopulationBusy)
+            {
+                throw new Exception("Window closed.");
+            }
+
             Dispatcher.Invoke(() =>
             {
-                //if (!CurrentlyPopulatingGroup.Paths.Contains(newFolder))
-                //{
-                //    NothingChanged = false;
-                //    CurrentlyPopulatingGroup.Paths.Add(newFolder);
-
-                //    PathsPanel.Children.Add(new PathRow(this, new PathRow.PathRowData(newFolder)));
-                //}
+                SearchGroup selectedGroup = GroupsListBox.InnerListBox.SelectedItem as SearchGroup;
+                if (selectedGroup != null)
+                {
+                    ConfigPath configPath = CurrentlyPopulatingGroup.ConfigGroup.AddNewPath(newFolder);
+                    if (configPath != null)
+                    {
+                        SearchPath newSearchPath = new SearchPath(configPath);
+                        CurrentlyPopulatingGroup.Paths.Add(newSearchPath);
+                        PathsListBox.InnerListBox.ScrollIntoView(newSearchPath);
+                    }
+                }
             });
         }
 
-        private void DeleteAllPaths_Click(object sender, RoutedEventArgs e)
+        private void HandleAutomaticNewExtension(string newExtension)
         {
-            if (SelectedProject != null && SelectedGroup != null)
+            if(!IsAutomaticPopulationBusy)
             {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        configProject.Groups[SelectedGroup.Data.Index].Paths.Clear();
-                        LoadFromConfig();
-                        break;
-                    }
-                }
+                throw new Exception("Window closed.");
             }
+
+            Dispatcher.Invoke(() =>
+            {
+                if(!CurrentlyPopulatingExtensions.Contains(newExtension))
+                {
+                    CurrentlyPopulatingExtensions.Add(newExtension);
+                }
+            });
         }
 
         private void AddNewProject_Click(object sender, RoutedEventArgs e)
         {
-            AddProject();
-        }
-
-        private void AddNewPath_Click(object sender, RoutedEventArgs e)
-        {
-            AddPath();
-        }
-
-        private void AddNewRule_Click(object sender, RoutedEventArgs e)
-        {
-            AddRule();
-        }
-
-        private void DeleteAllRules_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedProject != null && SelectedGroup != null)
-            {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
-                {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        configProject.Groups[SelectedGroup.Data.Index].Rules.Clear();
-                        LoadFromConfig();
-                        break;
-                    }
-                }
-            }
+            SearchConfigs.Add(new SearchConfig(Parent.ConfigParser.AddNewProject()));
+            ProjectsListBox.InnerListBox.SelectedItem = SearchConfigs.Last();
         }
 
         private void AddNewGroup_Click(object sender, RoutedEventArgs e)
         {
-            AddGroup();
+            SearchConfig selectedConfig = ProjectsListBox.InnerListBox.SelectedItem as SearchConfig;
+            if (selectedConfig != null)
+            {
+                selectedConfig.SearchGroups.Add(new SearchGroup(selectedConfig.ConfigProject.AddNewGroup()));
+                UpdateVisibility();
+            }
         }
 
-        private void DeleteAllGroups_Click(object sender, RoutedEventArgs e)
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (SelectedProject != null)
+            if(!(bool)e.NewValue)
             {
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                if(IsAutomaticPopulationBusy)
                 {
-                    if (configProject.Name == SelectedProject.Data.ProjectName)
-                    {
-                        configProject.Groups.RemoveRange(1, configProject.Groups.Count - 1);
-                        LoadFromConfig();
-                        break;
-                    }
+                    IsAutomaticPopulationBusy = false;
+                    AddAutomaticRules();
                 }
             }
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsAutomaticPopulationBusy = false;
+            AddAutomaticRules();
         }
     }
 }
