@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using Xceed.Wpf.Toolkit.Core.Input;
 
 namespace qgrepControls.Classes
 {
     public interface IExtensionInterface
     {
         string GetSolutionPath();
-        List<string> GatherAllFoldersFromSolution();
+        void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback);
         void OpenFile(string path, string line);
         string GetSelectedText();
         System.Drawing.Color GetColor(string resourceKey);

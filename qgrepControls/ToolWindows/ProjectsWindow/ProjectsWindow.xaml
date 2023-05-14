@@ -4,83 +4,59 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:local="clr-namespace:qgrepControls.SearchWindow"
+             xmlns:local="clr-namespace:qgrepControls.SearchWindow" xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="900" Height="400">
+             Width="900" Height="500" IsVisibleChanged="UserControl_IsVisibleChanged">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="ProjectsColumn" Width="*" />
-            <ColumnDefinition x:Name="GroupsColumn" Width="*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition x:Name="AdvancedColumn" Width="*" />
+            <ColumnDefinition Width="0" />
+            <ColumnDefinition x:Name="BasicColumn" Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="34" />
         </Grid.RowDefinitions>
-        <Border Grid.Column="0" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="ProjectsPanel_MouseEnter" MouseLeave="ProjectsPanel_MouseLeave">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
-                <StackPanel x:Name="ProjectsPanel">
-                </StackPanel>
-            </ScrollViewer>
-            <Border.ContextMenu>
-                <ContextMenu>
-                    <MenuItem x:Name="AddNewProject" Header="Add new config" Click="AddNewProject_Click"/>
-                    <MenuItem x:Name="DeleteAllProjects" Header="Delete all configs" Click="DeleteAllProjects_Click"/>
-                </ContextMenu>
-            </Border.ContextMenu>
-        </Border>
-        <Border Grid.Column="1" Style="{DynamicResource SomeBorderStyle}" Margin="0,0,-1,0" MouseEnter="GroupsPanel_MouseEnter" MouseLeave="GroupsPanel_MouseLeave">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
-                <StackPanel x:Name="GroupsPanel"/>
-            </ScrollViewer>
-            <Border.ContextMenu>
-                <ContextMenu>
-                    <MenuItem x:Name="AddNewGroup" Header="Add new group" Click="AddNewGroup_Click"/>
-                    <MenuItem x:Name="DeleteAllGroups" Header="Delete all groups" Click="DeleteAllGroups_Click"/>
-                </ContextMenu>
-            </Border.ContextMenu>
-        </Border>
-        <Grid Grid.Column="2" Style="{DynamicResource ZIndexFocusable}">
+        <Grid Grid.Column="0" Margin="-1,0,0,0" Style="{DynamicResource ZIndexFocusable}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="0" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Style="{DynamicResource ZIndexFocusable}">
-                <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,0,0,0" MouseEnter="PathsPanel_MouseEnter" MouseLeave="PathsPanel_MouseLeave">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
-                        <StackPanel x:Name="PathsPanel"/>
-                    </ScrollViewer>
-                    <Border.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem x:Name="AddNewPath" Header="Add new folder" Click="AddNewPath_Click"/>
-                            <MenuItem x:Name="DeleteAllPaths" Header="Delete all folders" Click="DeleteAllPaths_Click"/>
-                        </ContextMenu>
-                    </Border.ContextMenu>
-                </Border>
-                <Label x:Name="PathsHint" Content="Folders" Style="{DynamicResource SomeHintLabel2}" />
+                <usercontrols:ConfigListBox Grid.Column="0" x:Name="ProjectsListBox" />
             </Grid>
-            <Grid Grid.Row="1" Style="{DynamicResource ZIndexFocusable}">
-                <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,-1,0,0" MouseEnter="RulesPanel_MouseEnter" MouseLeave="RulesPanel_MouseLeave">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
-                        <StackPanel x:Name="RulesPanel"/>
-                    </ScrollViewer>
-                    <Border.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem x:Name="AddNewRule" Header="Add new filter" Click="AddNewRule_Click"/>
-                            <MenuItem x:Name="DeleteAllRules" Header="Delete all filters" Click="DeleteAllRules_Click"/>
-                        </ContextMenu>
-                    </Border.ContextMenu>
-                </Border>
-                <Label x:Name="RulesHint" Content="Filters" Style="{DynamicResource SomeHintLabel2}" />
+            <GridSplitter Grid.Row="1" VerticalAlignment="Stretch" BorderThickness="0,3" Margin="0,-6" Panel.ZIndex="10" ResizeDirection="Rows" Background="Transparent" ResizeBehavior="PreviousAndNext" HorizontalAlignment="Stretch"/>
+            <Grid Grid.Row="2" Margin="0,-1,0,0"  Style="{DynamicResource ZIndexFocusable}">
+                <usercontrols:ConfigListBox Grid.Column="1" x:Name="GroupsListBox" />
             </Grid>
         </Grid>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5,5,0,5">
+        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" BorderThickness="3,0" Margin="-6,0" Panel.ZIndex="10" ResizeDirection="Columns" Background="Transparent" ResizeBehavior="PreviousAndNext" HorizontalAlignment="Stretch"/>
+        <Grid Grid.Column="2" Margin="-1,0,-1,0" Style="{DynamicResource ZIndexFocusable}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="0" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Style="{DynamicResource ZIndexFocusable}">
+                <usercontrols:ConfigListBox Grid.Column="1" x:Name="PathsListBox" />
+            </Grid>
+            <GridSplitter Grid.Row="1" VerticalAlignment="Stretch" BorderThickness="0,3" Margin="0,-6" Panel.ZIndex="10" ResizeDirection="Rows" Background="Transparent" ResizeBehavior="PreviousAndNext" HorizontalAlignment="Stretch"/>
+            <Grid Grid.Row="2" Style="{DynamicResource ZIndexFocusable}" Margin="0,-1,0,0">
+                <usercontrols:ConfigListBox Grid.Column="1" x:Name="RulesListBox" />
+            </Grid>
+        </Grid>
+        <DockPanel Grid.Row="3" Grid.ColumnSpan="5" Margin="5,5,0,5">
             <Button x:Name="AdvancedToggle" Content="◀◀ Advanced" ToolTipService.ShowOnDisabled="True" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AdvancedToggle_Click" Padding="5,2,8,2"/>
             <Button x:Name="ConfigOpen" Content="Open location" HorizontalAlignment="Center" Margin="0,0,5,0" Click="ConfigOpen_Click" Padding="5,2,8,2"/>
             <Button x:Name="AutomaticPopulation" Content="Gather from solution" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AutomaticPopulation_Click" Padding="5,2,8,2" ToolTip="Gather folders automatically from solution"/>
-        </StackPanel>
+            <DockPanel HorizontalAlignment="Left" Margin="0,0,12,0">
+                <ProgressBar Value="100" IsTabStop="False" x:Name="AutomaticProgress" Width="250" Margin="1,3,1,3" Visibility="Visible" HorizontalAlignment="Right"/>
+                <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Center" Margin="6,0,5,0" Click="StopButton_Click" Padding="5,2,8,2" ToolTip="Stop automatic gathering"/>
+            </DockPanel>
+        </DockPanel>
     </Grid>
 </UserControl>

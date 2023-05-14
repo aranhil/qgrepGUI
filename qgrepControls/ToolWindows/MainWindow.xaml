@@ -17,6 +17,7 @@
         WindowState="Normal"
         ShowMinButton="False"
         ShowMaxRestoreButton="False"
+        ResizeMode="CanResizeWithGrip"
         SizeToContent="Manual"
         Topmost="False"
         mc:Ignorable="d" KeyDown="Window_PreviewKeyDown">

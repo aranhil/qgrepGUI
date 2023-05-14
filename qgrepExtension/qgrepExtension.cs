@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using EnvDTE80;
+using Microsoft.Build.Evaluation;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using qgrepControls;
@@ -7,8 +8,8 @@ using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -17,6 +18,30 @@ using System.Windows.Input;
 
 namespace qgrepSearch
 {
+    //public class qgrepExtensionWindow : IExtensionWindow
+    //{
+    //    private MainWindow dialogWindow;
+    //    public qgrepExtensionWindow(MainWindow dialogWindow)
+    //    {
+    //        this.dialogWindow = dialogWindow;
+    //    }
+
+    //    public void ShowModal()
+    //    {
+    //        dialogWindow.ShowDialog();
+    //    }
+
+    //    public void Close()
+    //    {
+    //        dialogWindow.Close();
+    //    }
+
+    //    public void Show()
+    //    {
+    //        dialogWindow.Show();
+    //    }
+    //}
+
     public class qgrepExtension : IExtensionInterface
     {
         private qgrepSearchWindowState State;
@@ -69,45 +94,79 @@ namespace qgrepSearch
             }
             catch { }
         }
-
-        public List<string> GatherAllFoldersFromSolution()
+        public void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback)
         {
-            EnvDTE80.DTE2 dte = State?.DTE;
-            Solution solution = dte?.Solution;
-            List<string> folderList = new List<string>();
-
-            foreach (Project project in solution?.Projects)
+            try
             {
-                GetAllFoldersFromProject(project?.ProjectItems, folderList);
-            }
+                EnvDTE80.DTE2 dte = State?.DTE;
+                Solution solution = dte?.Solution;
 
-            return folderList;
+                foreach (EnvDTE.Project project in solution?.Projects)
+                {
+                    ProcessProject(project, extensionCallback, folderCallback);
+
+                    GetAllFoldersFromProject(project?.ProjectItems, extensionCallback, folderCallback);
+                }
+            }
+            catch { }
         }
 
-        private static void GetAllFoldersFromProject(ProjectItems projectItems, List<string> folderList)
+        private static void ProcessProject(EnvDTE.Project project, StringCallback extensionCallback, StringCallback folderCallback)
+        {
+            if (project == null || project.FullName.Length == 0) return;
+
+            var msbuildProject = new Microsoft.Build.Evaluation.Project(project.FullName);
+            string projectDirectory = Path.GetDirectoryName(project.FullName);
+
+            foreach (var projectItem in msbuildProject.Items)
+            {
+                if (projectItem.IsImported)
+                {
+                    continue;
+                }
+
+                string relativePath = projectItem.EvaluatedInclude;
+                string fullPath = "";
+                
+                try
+                {
+                    fullPath = Path.Combine(projectDirectory, relativePath);
+                }
+                catch { }
+
+                string extension = Path.GetExtension(fullPath);
+
+                if (extension.Equals(".vcproj", StringComparison.OrdinalIgnoreCase) ||
+                    extension.Equals(".csproj", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                if (File.Exists(fullPath))
+                {
+                    string directoryPath = Path.GetDirectoryName(fullPath);
+                    folderCallback(directoryPath);
+
+                    if (!string.IsNullOrEmpty(extension))
+                    {
+                        extensionCallback(extension);
+                    }
+                }
+            }
+
+            msbuildProject.ProjectCollection.UnloadAllProjects();
+        }
+
+        private static void GetAllFoldersFromProject(ProjectItems projectItems, StringCallback extensionCallback, StringCallback folderCallback)
         {
             if (projectItems != null)
             {
-                foreach (ProjectItem item in projectItems)
+                foreach (EnvDTE.ProjectItem item in projectItems)
                 {
                     if (item?.SubProject != null)
                     {
-                        GetAllFoldersFromProject(item.SubProject.ProjectItems, folderList);
-                    }
-                    else if (item.FileCount > 0)
-                    {
-                        for (short i = 1; i <= item.FileCount; i++)
-                        {
-                            string filePath = item.FileNames[i];
-                            if (File.Exists(filePath))
-                            {
-                                string directoryPath = System.IO.Path.GetDirectoryName(filePath);
-                                if (!folderList.Contains(directoryPath))
-                                {
-                                    folderList.Add(directoryPath);
-                                }
-                            }
-                        }
+                        ProcessProject(item.SubProject, extensionCallback, folderCallback);
+                        GetAllFoldersFromProject(item.SubProject.ProjectItems, extensionCallback, folderCallback);
                     }
                 }
             }

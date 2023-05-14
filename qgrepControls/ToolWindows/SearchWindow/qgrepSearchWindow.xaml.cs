@@ -877,13 +877,18 @@ namespace qgrepControls.SearchWindow
                 return;
             }
 
-            ProjectsWindow newProjectsWindow = new ProjectsWindow(this);
-            CreateWindow(newProjectsWindow, "Search configurations", this).ShowDialog();
+            ConfigParser.SaveOldCopy();
 
-            if(!newProjectsWindow.NothingChanged)
+            ProjectsWindow newProjectsWindow = new ProjectsWindow(this);
+            CreateWindow(newProjectsWindow, "Search configurations", this, true).ShowDialog();
+
+            ConfigParser.SaveConfig();
+            UpdateFilters();
+
+            if (ConfigParser.IsConfigChanged())
             {
                 UpdateWarning();
-                SearchEngine.UpdateDatabaseAsync(FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList());
+                SearchEngine.UpdateDatabaseAsync(ConfigParser.ConfigProjects.Select(x => x.Path).ToList());
             }
         }
 
@@ -1124,7 +1129,7 @@ namespace qgrepControls.SearchWindow
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this).ShowDialog();
+            CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this, true).ShowDialog();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)
@@ -1311,17 +1316,25 @@ namespace qgrepControls.SearchWindow
             e.Handled = true;
         }
 
-        public MainWindow CreateWindow(UserControl userControl, string title, UserControl owner)
+        public MainWindow CreateWindow(UserControl userControl, string title, UserControl owner, bool resizeable = false)
         {
             MainWindow newWindow = new MainWindow
             {
                 Title = title,
                 Content = userControl,
-                SizeToContent = SizeToContent.WidthAndHeight,
-                ResizeMode = ResizeMode.NoResize,
+                SizeToContent = SizeToContent.Manual,
+                ResizeMode = resizeable ? ResizeMode.CanResizeWithGrip : ResizeMode.NoResize,
+                Width = userControl.Width + 37,
+                Height = userControl.Height + 37,
                 Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner),
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
             };
+
+            if(resizeable)
+            {
+                userControl.Width = double.NaN;
+                userControl.Height = double.NaN;
+            }
 
             Dictionary<string, object> resources = GetResourcesFromColorScheme();
             foreach (var resource in resources)

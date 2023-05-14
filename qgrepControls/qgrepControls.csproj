@@ -78,7 +78,8 @@
     <Compile Include="Classes\FolderSelectDialog.cs" />
     <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="Classes\SearchEngine.cs" />
-    <Compile Include="Classes\SelectableData.cs" />
+    <Compile Include="ModelViews\SelectableData.cs" />
+    <Compile Include="ModelViews\SearchConfig.cs" />
     <Compile Include="ModelViews\SearchResult.cs" />
     <Compile Include="ModelViews\SearchResultGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -113,23 +114,11 @@
     <Compile Include="ToolWindows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\ProjectsWindow\GroupRow.xaml.cs">
-      <DependentUpon>GroupRow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ToolWindows\ProjectsWindow\PathRow.xaml.cs">
-      <DependentUpon>PathRow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ToolWindows\ProjectsWindow\ProjectRow.xaml.cs">
-      <DependentUpon>ProjectRow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ToolWindows\ProjectsWindow\ProjectsWindow.xaml.cs">
       <DependentUpon>ProjectsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\ProjectsWindow\RowAdd.xaml.cs">
       <DependentUpon>RowAdd.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ToolWindows\ProjectsWindow\RuleRow.xaml.cs">
-      <DependentUpon>RuleRow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\ProjectsWindow\RuleWindow.xaml.cs">
       <DependentUpon>RuleWindow.xaml</DependentUpon>
@@ -140,11 +129,15 @@
     <Compile Include="ToolWindows\SettingsWindow\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ConfigListBox.xaml.cs">
+      <DependentUpon>ConfigListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\HotkeyEditorControl.xaml.cs">
       <DependentUpon>HotkeyEditorControl.xaml</DependentUpon>
     </Compile>
+    <Resource Include="Resources\magnifying-glass-128px.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Content Include="..\LICENSE">
@@ -156,11 +149,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\colors-schemes.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icon128x128.png" />
-    <Resource Include="Resources\icons8-settings-48.png" />
-    <Resource Include="Resources\iconfinder_refresh_1608809.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="ResourceDictionary.xaml">
@@ -183,27 +171,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ToolWindows\ProjectsWindow\GroupRow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ToolWindows\ProjectsWindow\PathRow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ToolWindows\ProjectsWindow\ProjectRow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ToolWindows\ProjectsWindow\ProjectsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolWindows\ProjectsWindow\RowAdd.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ToolWindows\ProjectsWindow\RuleRow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -222,6 +194,10 @@
     <Page Include="ToolWindows\SettingsWindow\SettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ConfigListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\HotkeyEditorControl.xaml">
       <SubType>Designer</SubType>

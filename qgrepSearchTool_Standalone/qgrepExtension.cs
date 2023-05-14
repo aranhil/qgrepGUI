@@ -1,7 +1,6 @@
 ﻿using ControlzEx;
 using Newtonsoft.Json;
 using qgrepControls.Classes;
-using qgrepControls.SearchWindow;
 using qgrepSearchTool_Standalone.Properties;
 using System;
 using System.Collections.Generic;
@@ -72,9 +71,8 @@ namespace qgrepSearchTool_Standalone
             catch { }
         }
 
-        public List<string> GatherAllFoldersFromSolution()
+        public void GatherAllFoldersAndExtensionsFromSolution(HashSet<string> extensionsList, FolderCallback folderCallback)
         {
-            return new List<string>();
         }
 
         public Color GetColor(string resourceKey)
