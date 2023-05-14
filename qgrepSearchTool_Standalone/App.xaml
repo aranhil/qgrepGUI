@@ -11,7 +11,7 @@
                 <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>-->
 
-            <BitmapImage x:Key="AppIcon" UriSource="search_icon.ico"/>
+            <BitmapImage x:Key="AppIcon" UriSource="Resources/magnifying-glass-128px.png"/>
 
             <Style x:Key="WindowTitleBarButton" TargetType="Button">
                 <Style.Setters>
@@ -170,7 +170,7 @@
                                             </Grid.ColumnDefinitions>
                                             <Border Grid.ColumnSpan="10" Background="{Binding ElementName=Window, Path=NCCurrentBrush}" />
 
-                                        <Image Source="{DynamicResource AppIcon}" Width="16" Height="16" Margin="8,3,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                                        <Image Source="{DynamicResource AppIcon}" Width="16" Height="16" Margin="7,1,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
                                         <TextBlock Grid.Column="1"
                            Margin="5 7 0 0"
                            HorizontalAlignment="Left"

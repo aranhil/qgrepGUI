@@ -1789,6 +1789,9 @@
 
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource SomeMenuItem}" />
 
+
+    <BitmapImage x:Key="AppIcon" UriSource="Resources/magnifying-glass-128px.png"/>
+    
     <Style x:Key="WindowTitleBarButton" TargetType="Button">
         <Style.Setters>
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -1882,8 +1885,10 @@
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.ColumnSpan="10" Background="{Binding ElementName=Window, Path=NCCurrentBrush}" />
 
-                                <TextBlock Grid.Column="0"
-                           Margin="10 7 0 0"
+                                <Image Source="{DynamicResource AppIcon}" Width="16" Height="16" Margin="7,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" />
+                                
+                                <TextBlock Grid.Column="1"
+                           Margin="7 7 0 0"
                            HorizontalAlignment="Left"
                            Text="{Binding ElementName=Window, Path=Title}"
                            TextTrimming="CharacterEllipsis" Foreground="{DynamicResource Window.Foreground}" />

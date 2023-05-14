@@ -147,6 +147,7 @@
     <Compile Include="UserControls\HotkeyEditorControl.xaml.cs">
       <DependentUpon>HotkeyEditorControl.xaml</DependentUpon>
     </Compile>
+    <Resource Include="Resources\magnifying-glass-128px.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -160,11 +161,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\colors-schemes.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icon128x128.png" />
-    <Resource Include="Resources\icons8-settings-48.png" />
-    <Resource Include="Resources\iconfinder_refresh_1608809.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="ResourceDictionary.xaml">
