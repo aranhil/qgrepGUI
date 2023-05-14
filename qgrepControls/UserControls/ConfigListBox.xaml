@@ -13,9 +13,12 @@
                 <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type modelViews:SearchConfig}">
-                <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
-                    <Label Name="Path" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" />
-                </StackPanel>
+                <Grid>
+                    <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
+                        <Label Name="Path" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <TextBox TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" HorizontalAlignment="Stretch" Height="18" Padding="10,0,0,0" Margin="0,0,0,0" Visibility="{Binding Path=EditTextBoxVisibility}" Text="{Binding Path=Name}"  LostKeyboardFocus="EditBox_LostKeyboardFocus" PreviewKeyDown="EditBox_PreviewKeyDown" IsVisibleChanged="EditBox_IsVisibleChanged"/>
+                </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type modelViews:SearchGroup}">
                 <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
@@ -46,13 +49,13 @@
                         <Button x:Name="AddButton" Style="{StaticResource IconButton}" FontSize="14">
                             <Path Style="{DynamicResource AddIcon}" />
                         </Button>
-                        <Button x:Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Visibility="Collapsed">
+                        <Button x:Name="EditButton" Style="{StaticResource IconButton}" FontSize="14" Visibility="Visible" Click="EditButton_Click">
                             <Path Style="{DynamicResource EditIcon}" />
                         </Button>
-                        <Button x:Name="RemoveButton" Style="{StaticResource IconButton}" FontSize="14" Click="RemoveButton_Click" Visibility="Collapsed">
+                        <Button x:Name="RemoveButton" Style="{StaticResource IconButton}" FontSize="14" Click="RemoveButton_Click" Visibility="Visible">
                             <Path Style="{DynamicResource RemoveIcon}" />
                         </Button>
-                        <Button x:Name="RemoveAllButton" Style="{StaticResource IconButton}" FontSize="14" Click="RemoveAllButton_Click" Visibility="Collapsed">
+                        <Button x:Name="RemoveAllButton" Style="{StaticResource IconButton}" FontSize="14" Click="RemoveAllButton_Click" Visibility="Visible">
                             <Path Style="{DynamicResource RemoveAllIcon}" />
                         </Button>
                     </StackPanel>

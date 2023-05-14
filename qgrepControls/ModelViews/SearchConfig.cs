@@ -7,12 +7,57 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Animation;
 using System.Xml.Linq;
 
 namespace qgrepControls.ModelViews
 {
-    public class SearchRule : SelectableData
+    public class EditableData : SelectableData
+    {
+        private Visibility editTextBoxVisibility = Visibility.Collapsed;
+        public Visibility EditTextBoxVisibility
+        {
+            get
+            {
+                return editTextBoxVisibility;
+            }
+            set
+            {
+                editTextBoxVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility normalTextVisibility = Visibility.Visible;
+        public Visibility NormalTextVisibility
+        {
+            get
+            {
+                return normalTextVisibility;
+            }
+            set
+            {
+                normalTextVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool InEditMode
+        {
+            get
+            {
+                return EditTextBoxVisibility != Visibility.Collapsed;
+            }
+            set
+            {
+                EditTextBoxVisibility = value ? Visibility.Visible : Visibility.Collapsed;
+                NormalTextVisibility = value ? Visibility.Collapsed: Visibility.Visible;
+            }
+        }
+    }
+
+    public class SearchRule : EditableData
     {
         private bool isExclude;
         private string regEx;
@@ -37,7 +82,7 @@ namespace qgrepControls.ModelViews
             }
             set
             {
-                regEx = value; 
+                regEx = value;
                 OnPropertyChanged();
             }
         }
@@ -76,7 +121,7 @@ namespace qgrepControls.ModelViews
             Path = configPath.Path;
         }
     }
-    public class SearchGroup : SelectableData
+    public class SearchGroup : EditableData
     {
         private string name;
 
@@ -105,18 +150,18 @@ namespace qgrepControls.ModelViews
             Paths = new ObservableCollection<SearchPath>();
             Rules = new ObservableCollection<SearchRule>();
 
-            foreach(ConfigPath path in configGroup.Paths)
+            foreach (ConfigPath path in configGroup.Paths)
             {
                 Paths.Add(new SearchPath(path));
             }
 
-            foreach(ConfigRule rule in configGroup.Rules)
+            foreach (ConfigRule rule in configGroup.Rules)
             {
                 Rules.Add(new SearchRule(rule));
             }
         }
     }
-    public class SearchConfig: SelectableData
+    public class SearchConfig : EditableData
     {
         private string name;
 
@@ -128,8 +173,11 @@ namespace qgrepControls.ModelViews
             }
             set
             {
-                name = value;
-                OnPropertyChanged();
+                if(ConfigProject.Rename(value))
+                {
+                    name = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -139,11 +187,11 @@ namespace qgrepControls.ModelViews
 
         public SearchConfig(ConfigProject configProject)
         {
-            Name = configProject.Name;
+            name = configProject.Name;
             ConfigProject = configProject;
             SearchGroups = new ObservableCollection<SearchGroup>();
 
-            foreach(ConfigGroup configGroup in configProject.Groups)
+            foreach (ConfigGroup configGroup in configProject.Groups)
             {
                 SearchGroups.Add(new SearchGroup(configGroup));
             }

@@ -27,6 +27,8 @@
     <SolidColorBrush x:Key="IconButton.Foreground" Color="Gray" />
     <SolidColorBrush x:Key="IconButton.IsMouseOver.Background" Color="Transparent" />
     <SolidColorBrush x:Key="IconButton.IsMouseOver.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="IconButton.IsDisabled.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="IconButton.IsDisabled.Foreground" Color="Gray" />
     <SolidColorBrush x:Key="Border" Color="Gray" />
     <SolidColorBrush x:Key="Border.IsMouseOver" Color="Black" />
     <SolidColorBrush x:Key="Border.IsSelected" Color="Black" />
@@ -344,6 +346,10 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource IconButton.IsMouseOver.Background}"/>
                 <Setter Property="Foreground" Value="{DynamicResource IconButton.IsMouseOver.Foreground}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource IconButton.IsDisabled.Background}"/>
+                <Setter Property="Foreground" Value="{DynamicResource IconButton.IsDisabled.Foreground}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -1354,7 +1360,7 @@
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Grid>
                         <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Height="{TemplateBinding Height}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter Margin="5,0,0,0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentPresenter Margin="0,0,0,0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -3116,6 +3122,24 @@
                             </Border>
                         </Grid>
                     </tools:ClippingBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ResizeGrip}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Foreground" Value="{DynamicResource Border}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ResizeGrip}">
+                    <Border Background="{TemplateBinding Background}"
+                    SnapsToDevicePixels="True"
+                    Width="13"
+                    Height="13">
+                        <Path Data="M7.677,7.5300003 L9.677,7.5300003 9.677,9.5300002 7.677,9.5300002 z M3.786,7.5300003 L5.7859998,7.5300003 5.7859998,9.5300002 3.786,9.5300002 z M0,7.5300003 L2,7.5300003 2,9.5300002 0,9.5300002 z M3.786,3.8280003 L5.7859998,3.8280003 5.7859998,5.8280003 3.786,5.8280003 z M7.677,3.7660003 L9.677,3.7660003 9.677,5.7659999 7.677,5.7659999 z M7.677,0 L9.677,0 9.677,2 7.677,2 z" Fill="{TemplateBinding Foreground}" Height="9.53" Stretch="Fill" VerticalAlignment="Top" Width="9.677" Margin="0,0,2,2"/>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

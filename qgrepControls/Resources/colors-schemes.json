@@ -13,6 +13,10 @@
             {
                 "Name": "IconButton.IsMouseOver.Background",
                 "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.IsDisabled.Background",
+                "Color": "Transparent"
             }
         ],
         "VsColorEntries": [
@@ -101,8 +105,9 @@
                 "Color": "CommonControls.ComboBoxText"
             },
             {
-                "Name": "Button.IsDisabled.Background",
-                "Color": "CommonControls.ButtonDisabled"
+                "Name": "IconButton.IsDisabled.Foreground",
+                "Color": "CommonControls.ComboBoxText",
+                "Opacity": 0.3
             },
             {
                 "Name": "Button.IsDisabled.Foreground",
@@ -426,6 +431,14 @@
             {
                 "Name": "IconButton.IsMouseOver.Foreground",
                 "Color": "White"
+            },
+            {
+                "Name": "IconButton.IsDisabled.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.IsDisabled.Foreground",
+                "Color": "61, 61, 61"
             },
             {
                 "Name": "Border",
@@ -804,6 +817,14 @@
             {
                 "Name": "IconButton.IsMouseOver.Foreground",
                 "Color": "Black"
+            },
+            {
+                "Name": "IconButton.IsDisabled.Background",
+                "Color": "Transparent"
+            },
+            {
+                "Name": "IconButton.IsDisabled.Foreground",
+                "Color": "Gray"
             },
             {
                 "Name": "TextBox.Hint.Background",

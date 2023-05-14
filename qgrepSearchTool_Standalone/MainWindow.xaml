@@ -17,6 +17,7 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Normal"
         SizeToContent="Manual"
+        ResizeMode="CanResize"
         Topmost="False"
         mc:Ignorable="d">
     <controlzEx:WindowChromeWindow.Resources>

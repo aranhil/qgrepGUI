@@ -35,6 +35,7 @@ namespace qgrepControls.SearchWindow
             InitializeComponent();
 
             ProjectsListBox.SetItemsSource(SearchConfigs);
+            ProjectsListBox.ItemEditType = ConfigListBox.EditType.Text;
             ProjectsListBox.Title.Text = "Configs";
             ProjectsListBox.AddButton.ToolTip = "Add new config";
             ProjectsListBox.EditButton.ToolTip = "Edit config name";
@@ -42,9 +43,11 @@ namespace qgrepControls.SearchWindow
             ProjectsListBox.RemoveAllButton.ToolTip = "Remove all configs";
             ProjectsListBox.AddButton.Click += AddNewProject_Click;
             ProjectsListBox.InnerListBox.SelectionChanged += ConfigProjects_SelectionChanged;
+            ProjectsListBox.OnEditFinished += EditProject;
             SearchConfigs.CollectionChanged += ConfigProjects_CollectionChanged;
 
             GroupsListBox.Title.Text = "Groups";
+            GroupsListBox.ItemEditType = ConfigListBox.EditType.Text;
             GroupsListBox.AddButton.ToolTip = "Add new group";
             GroupsListBox.EditButton.ToolTip = "Edit group name";
             GroupsListBox.RemoveButton.ToolTip = "Remove selected group(s)";
@@ -53,6 +56,7 @@ namespace qgrepControls.SearchWindow
             GroupsListBox.InnerListBox.SelectionChanged += ConfigGroups_SelectionChanged;
 
             PathsListBox.Title.Text = "Folders";
+            PathsListBox.ItemEditType = ConfigListBox.EditType.None;
             PathsListBox.AddButton.ToolTip = "Add new folder";
             PathsListBox.EditButton.ToolTip = "Edit folder name";
             PathsListBox.RemoveButton.ToolTip = "Remove selected folder(s)";
@@ -60,6 +64,7 @@ namespace qgrepControls.SearchWindow
             PathsListBox.AddButton.Click += AddNewFolder_Click;
 
             RulesListBox.Title.Text = "Filters";
+            RulesListBox.ItemEditType = ConfigListBox.EditType.Custom;
             RulesListBox.AddButton.ToolTip = "Add new filter";
             RulesListBox.EditButton.ToolTip = "Edit filter";
             RulesListBox.RemoveButton.ToolTip = "Remove selected filter(s)";
@@ -77,6 +82,11 @@ namespace qgrepControls.SearchWindow
             {
                 AutomaticPopulation.Visibility = Visibility.Collapsed;
             }
+        }
+
+        void EditProject(string newName)
+        {
+
         }
 
         private void AddNewFolder_Click(object sender, RoutedEventArgs e)
