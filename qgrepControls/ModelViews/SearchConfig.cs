@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 namespace qgrepControls.ModelViews
 {
-    public class EditableData : SelectableData
+    public abstract class IEditableData : SelectableData
     {
         private Visibility editTextBoxVisibility = Visibility.Collapsed;
         public Visibility EditTextBoxVisibility
@@ -29,35 +29,10 @@ namespace qgrepControls.ModelViews
             }
         }
 
-        private Visibility normalTextVisibility = Visibility.Visible;
-        public Visibility NormalTextVisibility
-        {
-            get
-            {
-                return normalTextVisibility;
-            }
-            set
-            {
-                normalTextVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool InEditMode
-        {
-            get
-            {
-                return EditTextBoxVisibility != Visibility.Collapsed;
-            }
-            set
-            {
-                EditTextBoxVisibility = value ? Visibility.Visible : Visibility.Collapsed;
-                NormalTextVisibility = value ? Visibility.Collapsed: Visibility.Visible;
-            }
-        }
+        public abstract bool InEditMode { get; set; }
     }
 
-    public class SearchRule : EditableData
+    public class SearchRule : SelectableData
     {
         private bool isExclude;
         private string regEx;
@@ -71,9 +46,25 @@ namespace qgrepControls.ModelViews
             set
             {
                 isExclude = value;
+                IsExcludeText = isExclude ? "Exclude" : "Include";
                 OnPropertyChanged();
             }
         }
+
+        private string isExcludeText;
+        public string IsExcludeText
+        {
+            get
+            {
+                return isExcludeText;
+            }
+            set
+            {
+                isExcludeText = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string RegEx
         {
             get
@@ -94,6 +85,12 @@ namespace qgrepControls.ModelViews
             ConfigRule = configRule;
             IsExclude = configRule.IsExclude;
             RegEx = configRule.Rule;
+        }
+
+        internal void UpdateConfig()
+        {
+            ConfigRule.Rule = RegEx;
+            ConfigRule.IsExclude = IsExclude;
         }
     }
     public class SearchPath : SelectableData
@@ -121,7 +118,7 @@ namespace qgrepControls.ModelViews
             Path = configPath.Path;
         }
     }
-    public class SearchGroup : EditableData
+    public class SearchGroup : IEditableData
     {
         private string name;
 
@@ -138,6 +135,27 @@ namespace qgrepControls.ModelViews
             }
         }
 
+        private bool inEditMode = false;
+        public override bool InEditMode
+        {
+            get
+            {
+                return inEditMode;
+            }
+            set
+            {
+                inEditMode = value;
+                OnPropertyChanged();
+
+                EditTextBoxVisibility = inEditMode ? Visibility.Visible : Visibility.Collapsed;
+
+                if (!inEditMode && !name.Equals(ConfigGroup.Name))
+                {
+                    ConfigGroup.Name = name;
+                }
+            }
+        }
+
         public ObservableCollection<SearchPath> Paths { get; set; }
         public ObservableCollection<SearchRule> Rules { get; set; }
 
@@ -145,8 +163,8 @@ namespace qgrepControls.ModelViews
 
         public SearchGroup(ConfigGroup configGroup)
         {
+            name = configGroup.Name;
             ConfigGroup = configGroup;
-            Name = configGroup.Name;
             Paths = new ObservableCollection<SearchPath>();
             Rules = new ObservableCollection<SearchRule>();
 
@@ -161,7 +179,7 @@ namespace qgrepControls.ModelViews
             }
         }
     }
-    public class SearchConfig : EditableData
+    public class SearchConfig : IEditableData
     {
         private string name;
 
@@ -173,10 +191,31 @@ namespace qgrepControls.ModelViews
             }
             set
             {
-                if(ConfigProject.Rename(value))
+                name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool inEditMode = false;
+        public override bool InEditMode
+        {
+            get
+            {
+                return inEditMode;
+            }
+            set
+            {
+                inEditMode = value;
+                OnPropertyChanged();
+
+                EditTextBoxVisibility = inEditMode ? Visibility.Visible : Visibility.Collapsed;
+
+                if (!inEditMode && !name.Equals(ConfigProject.Name))
                 {
-                    name = value;
-                    OnPropertyChanged();
+                    if(!ConfigProject.Rename(name))
+                    {
+                        Name = ConfigProject.Name;
+                    }
                 }
             }
         }

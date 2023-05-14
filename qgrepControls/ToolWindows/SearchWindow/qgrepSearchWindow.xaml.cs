@@ -877,12 +877,16 @@ namespace qgrepControls.SearchWindow
                 return;
             }
 
+            ConfigParser.SaveOldCopy();
+
             ProjectsWindow newProjectsWindow = new ProjectsWindow(this);
             CreateWindow(newProjectsWindow, "Search configurations", this, true).ShowDialog();
 
-            if(!newProjectsWindow.NothingChanged)
+            ConfigParser.SaveConfig();
+            UpdateFilters();
+
+            if (ConfigParser.IsConfigChanged())
             {
-                ConfigParser.SaveConfig();
                 UpdateWarning();
                 SearchEngine.UpdateDatabaseAsync(FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList());
             }
@@ -1320,7 +1324,7 @@ namespace qgrepControls.SearchWindow
                 Content = userControl,
                 SizeToContent = SizeToContent.Manual,
                 ResizeMode = resizeable ? ResizeMode.CanResizeWithGrip : ResizeMode.NoResize,
-                Width = userControl.Width,
+                Width = userControl.Width + 37,
                 Height = userControl.Height + 37,
                 Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner),
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,

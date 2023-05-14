@@ -39,8 +39,21 @@ namespace qgrepControls.UserControls
         public EditFinished OnEditFinished;
         public EditClicked OnEditClicked;
 
-        public EditType ItemEditType { get; set; }
-
+        private EditType itemEditType = EditType.None;
+        public EditType ItemEditType
+        {
+            get
+            {
+                return itemEditType;
+            }
+            set
+            {
+                itemEditType = value;
+                EditButton.IsEnabled = itemEditType != EditType.None && InnerListBox.SelectedItems.Count == 1 ? true : false;
+                EditButton.Visibility = itemEditType == EditType.None ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+        
         public ConfigListBox()
         {
             InitializeComponent();
@@ -55,6 +68,7 @@ namespace qgrepControls.UserControls
                 (ItemsSource as INotifyCollectionChanged).CollectionChanged += ConfigListBox_CollectionChanged;
             }
 
+            RemoveButton.IsEnabled = InnerListBox.SelectedItems.Count > 0 ? true : false;
             RemoveAllButton.IsEnabled = InnerListBox.Items.Count > 0 ? true : false;
             AddButton.IsEnabled = ItemsSource != null ? true : false;
         }
@@ -77,6 +91,7 @@ namespace qgrepControls.UserControls
         private void ConfigListBox_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             RemoveAllButton.IsEnabled = InnerListBox.Items.Count > 0 ? true : false;
+            RemoveButton.IsEnabled = InnerListBox.SelectedItems.Count > 0 ? true : false;
         }
 
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)
@@ -95,17 +110,22 @@ namespace qgrepControls.UserControls
             RemoveButton.IsEnabled = InnerListBox.SelectedItems.Count > 0 ? true : false;
         }
 
-        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        private void OnRemove()
         {
             List<Object> selectedItems = new List<object>();
             foreach (object item in InnerListBox.SelectedItems)
             {
                 selectedItems.Add(item);
             }
-            foreach(object item in selectedItems)
+            foreach (object item in selectedItems)
             {
                 (InnerListBox.Items as IEditableCollectionView).Remove(item);
             }
+        }
+
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnRemove();
         }
 
         private void RemoveAllButton_Click(object sender, RoutedEventArgs e)
@@ -121,22 +141,22 @@ namespace qgrepControls.UserControls
             }
         }
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
+        private void OnEdit()
         {
             if (ItemEditType == EditType.Text)
             {
-                foreach (EditableData item in InnerListBox.Items)
+                foreach (IEditableData item in InnerListBox.Items)
                 {
                     item.InEditMode = false;
                 }
 
-                EditableData editableData = InnerListBox.SelectedItem as EditableData;
+                IEditableData editableData = InnerListBox.SelectedItem as IEditableData;
                 if (editableData != null)
                 {
                     editableData.InEditMode = true;
                 }
             }
-            else if(ItemEditType == EditType.Custom)
+            else if (ItemEditType == EditType.Custom)
             {
                 if (OnEditClicked != null)
                 {
@@ -144,9 +164,14 @@ namespace qgrepControls.UserControls
                 }
             }
         }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnEdit();
+        }
         private void EditBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            foreach (EditableData item in InnerListBox.Items)
+            foreach (IEditableData item in InnerListBox.Items)
             {
                 item.InEditMode = false;
             }
@@ -161,7 +186,7 @@ namespace qgrepControls.UserControls
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                foreach (EditableData item in InnerListBox.Items)
+                foreach (IEditableData item in InnerListBox.Items)
                 {
                     item.InEditMode = false;
                 }
@@ -179,6 +204,24 @@ namespace qgrepControls.UserControls
             {
                 (sender as TextBox).Focus();
                 (sender as TextBox).SelectAll();
+            }
+        }
+
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.ClickCount == 2 && InnerListBox.SelectedItems.Count == 1)
+            {
+                OnEdit();
+                e.Handled = true;
+            }
+        }
+
+        private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Delete)
+            {
+                OnRemove();
+                e.Handled = true;
             }
         }
     }

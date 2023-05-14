@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:qgrepControls.UserControls"
              xmlns:modelViews="clr-namespace:qgrepControls.ModelViews"
-             mc:Ignorable="d" Background="{DynamicResource Background}" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave"
+             mc:Ignorable="d" Background="{DynamicResource Background}" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave" PreviewKeyDown="UserControl_PreviewKeyDown"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -13,26 +13,35 @@
                 <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type modelViews:SearchConfig}">
-                <Grid>
+                <Grid Background="Transparent" MouseDown="StackPanel_MouseDown" >
                     <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
-                        <Label Name="Path" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" Margin="5,0,0,0"/>
+                        <Label Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" Margin="5,0,0,0"/>
                     </StackPanel>
-                    <TextBox TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" HorizontalAlignment="Stretch" Height="18" Padding="10,0,0,0" Margin="0,0,0,0" Visibility="{Binding Path=EditTextBoxVisibility}" Text="{Binding Path=Name}"  LostKeyboardFocus="EditBox_LostKeyboardFocus" PreviewKeyDown="EditBox_PreviewKeyDown" IsVisibleChanged="EditBox_IsVisibleChanged"/>
+                    <TextBox TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" HorizontalAlignment="Stretch" Height="18" Padding="10,0,0,0" Margin="0,0,0,0" Visibility="{Binding Path=EditTextBoxVisibility}" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"  LostKeyboardFocus="EditBox_LostKeyboardFocus" PreviewKeyDown="EditBox_PreviewKeyDown" IsVisibleChanged="EditBox_IsVisibleChanged" />
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type modelViews:SearchGroup}">
-                <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
-                    <Label Name="Path" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" />
-                </StackPanel>
+                <Grid Background="Transparent" MouseDown="StackPanel_MouseDown" >
+                    <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
+                        <Label Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <TextBox TabIndex="0" Style="{DynamicResource SomeTextBoxStyle}" HorizontalAlignment="Stretch" Height="18" Padding="10,0,0,0" Margin="0,0,0,0" Visibility="{Binding Path=EditTextBoxVisibility}" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"  LostKeyboardFocus="EditBox_LostKeyboardFocus" PreviewKeyDown="EditBox_PreviewKeyDown" IsVisibleChanged="EditBox_IsVisibleChanged" />
+                </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type modelViews:SearchPath}">
                 <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
-                    <Label Name="Path" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Path}" />
+                    <Label Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Path}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type modelViews:SearchRule}" >
+                <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Stretch" Background="Transparent" MouseDown="StackPanel_MouseDown">
+                    <Label Style="{DynamicResource PanelEntryFirst}" Content="{Binding Path=IsExcludeText}" />
+                    <Label Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=RegEx}" />
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border Style="{DynamicResource SomeBorderStyle}" SnapsToDevicePixels="True">
+    <Border Style="{DynamicResource OtherBorderStyle}" SnapsToDevicePixels="True">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="DownPanelColumnDefinition" Height="24" />
@@ -42,7 +51,7 @@
                 <ColumnDefinition x:Name="LeftPanelColumnDefinition" Width="0" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.ColumnSpan="2" x:Name="ButtonsPanel" Background="{DynamicResource Window.Background}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1">
+            <Border Grid.Row="0" Grid.ColumnSpan="2" x:Name="ButtonsPanel" Background="{DynamicResource Window.Background}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1" >
                 <DockPanel >
                     <TextBlock x:Name="Title" Text="Folder" Foreground="{DynamicResource Foreground}" FontWeight="Normal" VerticalAlignment="Center" Margin="7,1,0,0" FontSize="12" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">

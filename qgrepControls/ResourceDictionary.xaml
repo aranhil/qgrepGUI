@@ -228,7 +228,7 @@
     </Style>
 
     <Style x:Key="EditIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,1,0,0" />
+        <Setter Property="Margin" Value="-1,1,-2,0" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Stretch" Value="None" />
         <Setter Property="Data">
@@ -248,9 +248,9 @@
     </Style>
 
     <Style x:Key="AddIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,1,0,0" />
-        <Setter Property="Height" Value="16" />
-        <Setter Property="Width" Value="16" />
+        <Setter Property="Margin" Value="0,0,0,1" />
+        <Setter Property="Height" Value="14" />
+        <Setter Property="Width" Value="14" />
         <Setter Property="Data">
             <Setter.Value>
                 <PathGeometry Figures="M14 7v1H8v6H7V8H1V7h6V1h1v6h6z" FillRule="NonZero"/>
@@ -259,9 +259,9 @@
     </Style>
 
     <Style x:Key="RemoveIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,2,0,0" />
-        <Setter Property="Height" Value="16" />
-        <Setter Property="Width" Value="16" />
+        <Setter Property="Margin" Value="0,0,0,1" />
+        <Setter Property="Height" Value="14" />
+        <Setter Property="Width" Value="14" />
         <Setter Property="Data">
             <Setter.Value>
                 <PathGeometry Figures="M15 8H1V7h14v1z"  FillRule="NonZero"/>
@@ -270,9 +270,9 @@
     </Style>
 
     <Style x:Key="RemoveAllIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,0,0,0" />
-        <Setter Property="Height" Value="16" />
-        <Setter Property="Width" Value="16" />
+        <Setter Property="Margin" Value="0,0,0,1" />
+        <Setter Property="Height" Value="14" />
+        <Setter Property="Width" Value="14" />
         <Setter Property="Data">
             <Setter.Value>
                 <PathGeometry Figures="m10 12.6l.7.7l1.6-1.6l1.6 1.6l.8-.7L13 11l1.7-1.6l-.8-.8l-1.6 1.7l-1.6-1.7l-.7.8l1.6 1.6l-1.6 1.6zM1 4h14V3H1v1zm0 3h14V6H1v1zm8 2.5V9H1v1h8v-.5zM9 13v-1H1v1h8z" FillRule="NonZero"/>
@@ -1375,7 +1375,7 @@
                                 <!--<Condition Binding="{Binding IsChecked, ElementName=Expander}" Value="False"/>-->
                                 <!--<Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>-->
                                 <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
-                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Value="False"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type usercontrols:ConfigListBox}}}" Value="False"/>
                                 <!--<Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>-->
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Background" TargetName="Border" Value="{DynamicResource Result.IsSelected.IsInactive.Background}" />
@@ -1553,6 +1553,11 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style x:Key="OtherBorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+    </Style>
     <Style x:Key="PanelEntry" TargetType="Label" BasedOn="{StaticResource NormalText}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
@@ -1563,6 +1568,7 @@
         <Setter Property="Padding" Value="8,0,5,0" />
     </Style>
     <Style x:Key="PanelEntryFirst" TargetType="Label" BasedOn="{StaticResource PanelEntry}">
+        <Setter Property="Margin" Value="0,0,-5,0" />
         <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
     </Style>
     <Style x:Key="PanelEntrySecond" TargetType="Label" BasedOn="{StaticResource PanelEntry}">

@@ -12,12 +12,22 @@ namespace qgrepControls.Classes
     {
         public ConfigGroup Parent;
         public string Path = "";
+
+        public ConfigPath DeepClone()
+        {
+            return new ConfigPath() { Path = Path };
+        }
     }
     public class ConfigRule
     {
         public ConfigGroup Parent;
         public bool IsExclude = false;
         public string Rule = "";
+
+        public ConfigRule DeepClone()
+        {
+            return new ConfigRule() { Rule = Rule, IsExclude = IsExclude };
+        }
     }
     public class ConfigGroup
     {
@@ -36,6 +46,21 @@ namespace qgrepControls.Classes
             ConfigPath configPath = new ConfigPath() { Path = path, Parent = this };
             Paths.Add(configPath);
             return configPath;
+        }
+
+        public ConfigRule AddNewRule(string regex, bool isExclude)
+        {
+            ConfigRule configRule = new ConfigRule() { Rule = regex, IsExclude = isExclude, Parent = this };
+            Rules.Add(configRule);
+            return configRule;
+        }
+
+        public ConfigGroup DeepClone()
+        {
+            ConfigGroup configGroup = new ConfigGroup();
+            configGroup.Paths = Paths.Select(x => x.DeepClone()).ToList();
+            configGroup.Rules = Rules.Select(x => x.DeepClone()).ToList();
+            return configGroup;
         }
     }
     public class ConfigProject
@@ -105,8 +130,8 @@ namespace qgrepControls.Classes
         private string GetNewGroupName()
         {
             int index = 1;
-            string newName = "<root>";
-            while(Groups.Any(x => x.Name == newName))
+            string newName = Groups.Count > 0 ? "Group " + index++ : "<root>";
+            while (Groups.Any(x => x.Name == newName))
             {
                 newName = "Group " + index++;
             }
@@ -131,29 +156,29 @@ namespace qgrepControls.Classes
                         path.Path = line.Substring(PathPrefix.Length);
                         GetGroup(insideGroup).Paths.Add(path);
                     }
-                    else if(line.StartsWith(IncludePrefix))
+                    else if (line.StartsWith(IncludePrefix))
                     {
                         ConfigRule rule = new ConfigRule() { Parent = GetGroup(insideGroup) };
                         rule.Rule = line.Substring(IncludePrefix.Length);
                         GetGroup(insideGroup).Rules.Add(rule);
                     }
-                    else if(line.StartsWith(ExcludePrefix))
+                    else if (line.StartsWith(ExcludePrefix))
                     {
                         ConfigRule rule = new ConfigRule() { Parent = GetGroup(insideGroup) };
                         rule.IsExclude = true;
                         rule.Rule = line.Substring(IncludePrefix.Length);
                         GetGroup(insideGroup).Rules.Add(rule);
                     }
-                    else if(line.StartsWith(GroupBegin))
+                    else if (line.StartsWith(GroupBegin))
                     {
                         insideGroup = true;
                         Groups.Add(new ConfigGroup() { Parent = this });
                     }
-                    else if(line.StartsWith(GroupEnd))
+                    else if (line.StartsWith(GroupEnd))
                     {
                         insideGroup = false;
                     }
-                    else if(line.StartsWith(GroupName))
+                    else if (line.StartsWith(GroupName))
                     {
                         string groupName = line.Substring(GroupName.Length);
                         GetGroup(insideGroup).Name = groupName;
@@ -168,7 +193,7 @@ namespace qgrepControls.Classes
             {
                 SaveGroup(streamWriter, Groups.First());
 
-                for(int i = 1; i < Groups.Count; i++)
+                for (int i = 1; i < Groups.Count; i++)
                 {
                     streamWriter.WriteLine(GroupBegin);
                     SaveGroup(streamWriter, Groups[i]);
@@ -180,13 +205,13 @@ namespace qgrepControls.Classes
         public void SaveGroup(StreamWriter streamWriter, ConfigGroup configGroup)
         {
             streamWriter.WriteLine(GroupName + configGroup.Name);
-            foreach(ConfigPath path in configGroup.Paths)
+            foreach (ConfigPath path in configGroup.Paths)
             {
                 streamWriter.WriteLine(PathPrefix + path.Path);
             }
             foreach (ConfigRule rule in configGroup.Rules)
             {
-                if(rule.IsExclude)
+                if (rule.IsExclude)
                 {
                     streamWriter.WriteLine(ExcludePrefix + rule.Rule);
                 }
@@ -208,6 +233,13 @@ namespace qgrepControls.Classes
                 return Groups.First();
             }
         }
+
+        public ConfigProject DeepClone()
+        {
+            ConfigProject configProject = new ConfigProject(Path);
+            configProject.Groups = Groups.Select(x => x.DeepClone()).ToList();
+            return configProject;
+        }
     }
     public class ConfigParser
     {
@@ -215,6 +247,7 @@ namespace qgrepControls.Classes
         public string PathSuffix = @"\.qgrep\";
 
         public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
+        public ObservableCollection<ConfigProject> OldConfigProjects = new ObservableCollection<ConfigProject>();
 
         public ConfigParser(string Path)
         {
@@ -356,6 +389,59 @@ namespace qgrepControls.Classes
                     if(configGroup.Paths.Count > 0)
                     {
                         return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public void SaveOldCopy()
+        {
+            OldConfigProjects = new ObservableCollection<ConfigProject>(ConfigProjects.Select(x => x.DeepClone()));
+        }
+
+        public bool IsConfigChanged()
+        {
+            if(ConfigProjects.Count != OldConfigProjects.Count)
+            {
+                return true;
+            }
+
+            for(int i = 0; i < ConfigProjects.Count; i++)
+            {
+                if (ConfigProjects[i].Groups.Count != OldConfigProjects[i].Groups.Count)
+                {
+                    return true;
+                }
+
+                for(int j = 0; j < ConfigProjects[i].Groups.Count; j++)
+                {
+                    if (ConfigProjects[i].Groups[j].Paths.Count != OldConfigProjects[i].Groups[j].Paths.Count)
+                    {
+                        return true;
+                    }
+
+                    if (ConfigProjects[i].Groups[j].Rules.Count != OldConfigProjects[i].Groups[j].Rules.Count)
+                    {
+                        return true;
+                    }
+
+                    for (int k = 0; k < ConfigProjects[i].Groups[j].Paths.Count; k++)
+                    {
+                        if (!ConfigProjects[i].Groups[j].Paths[k].Path.Equals(OldConfigProjects[i].Groups[j].Paths[k].Path))
+                        {
+                            return true;
+                        }
+                    }
+
+                    for(int k = 0; k < ConfigProjects[i].Groups[j].Rules.Count; k++)
+                    {
+                        if (!ConfigProjects[i].Groups[j].Rules[k].Rule.Equals(OldConfigProjects[i].Groups[j].Rules[k].Rule) ||
+                            ConfigProjects[i].Groups[j].Rules[k].IsExclude != OldConfigProjects[i].Groups[j].Rules[k].IsExclude)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
