@@ -71,7 +71,7 @@ namespace qgrepSearchTool_Standalone
             catch { }
         }
 
-        public void GatherAllFoldersAndExtensionsFromSolution(HashSet<string> extensionsList, FolderCallback folderCallback)
+        public void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionsList, StringCallback folderCallback)
         {
         }
 
