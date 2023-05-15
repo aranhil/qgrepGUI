@@ -20,6 +20,7 @@ namespace qgrepControls.SearchWindow
             ShowExcludes.IsChecked = Settings.Default.ShowExcludes;
             ShowFilter.IsChecked = Settings.Default.ShowFilter;
             ShowHistory.IsChecked = Settings.Default.ShowHistory;
+            ShowOpenHistory.IsChecked = Settings.Default.ShowOpenHistory;
             SearchInstantly.IsChecked = Settings.Default.SearchInstantly;
             TrimSpacesOnCopy.IsChecked = Settings.Default.TrimSpacesOnCopy;
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
@@ -43,6 +44,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.ShowExcludes = ShowExcludes.IsChecked == true;
             Settings.Default.ShowFilter = ShowFilter.IsChecked == true;
             Settings.Default.ShowHistory = ShowHistory.IsChecked == true;
+            Settings.Default.ShowOpenHistory = ShowOpenHistory.IsChecked == true;
             Settings.Default.SearchInstantly = SearchInstantly.IsChecked == true;
             Settings.Default.TrimSpacesOnCopy = TrimSpacesOnCopy.IsChecked == true;
 

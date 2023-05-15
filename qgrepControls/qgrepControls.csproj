@@ -78,6 +78,7 @@
     <Compile Include="Classes\FolderSelectDialog.cs" />
     <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="Classes\SearchEngine.cs" />
+    <Compile Include="ModelViews\HistoricItem.cs" />
     <Compile Include="ModelViews\SelectableData.cs" />
     <Compile Include="ModelViews\SearchConfig.cs" />
     <Compile Include="ModelViews\SearchResult.cs" />

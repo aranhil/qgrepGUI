@@ -26,6 +26,7 @@ using System.Windows.Controls.Primitives;
 using Xceed.Wpf.AvalonDock.Controls;
 using System.Runtime.InteropServices.Expando;
 using qgrepControls.ModelViews;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace qgrepControls.SearchWindow
 {
@@ -65,7 +66,7 @@ namespace qgrepControls.SearchWindow
         SearchResult selectedSearchResult = null;
         SearchResultGroup selectedSearchResultGroup = null;
 
-        List<string> searchHistory = new List<string>();
+        List<HistoricItem> searchHistory = new List<HistoricItem>();
         bool searchInputChanged = true;
 
         static SearchEngine SearchEngine = new SearchEngine();
@@ -716,6 +717,7 @@ namespace qgrepControls.SearchWindow
                     string line = result.FileAndLine.Substring(lastIndex + 1, result.FileAndLine.Length - lastIndex - 2);
 
                     ExtensionInterface.OpenFile(file, line);
+                    AddOpenToHistory(file, line);
                 }
                 catch (Exception)
                 {
@@ -729,6 +731,7 @@ namespace qgrepControls.SearchWindow
         private void OpenSearchGroup(SearchResultGroup result)
         {
             ExtensionInterface.OpenFile(result.File, "0");
+            AddOpenToHistory(result.File, "0");
         }
 
         private void OpenSelectedSearchResult()
@@ -897,12 +900,28 @@ namespace qgrepControls.SearchWindow
             CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowDialog();
         }
 
-        private void AddToSearchHistory(string searchedString)
+        private void AddSearchToHistory(string searchedString)
         {
             if(searchedString.Length > 0)
             {
-                searchHistory.Remove(searchedString);
-                searchHistory.Add(searchedString);
+                if(searchHistory.Count > 0 && (searchHistory.Last() as HistoricSearch)?.SearchedText == searchedString)
+                {
+                    return;
+                }
+
+                searchHistory.Add(new HistoricSearch() { SearchedText = searchedString});
+            }
+        }
+        private void AddOpenToHistory(string openedPath, string openedLine)
+        {
+            if(openedPath.Length > 0)
+            {
+                if(searchHistory.Count > 0 && (searchHistory.Last() as HistoricOpen)?.OpenedPath == openedPath)
+                {
+                    return;
+                }
+
+                searchHistory.Add(new HistoricOpen() { OpenedPath = openedPath, OpenedLine = openedLine});
             }
         }
 
@@ -918,7 +937,7 @@ namespace qgrepControls.SearchWindow
                     SearchInput.Text = selectedText;
                     SearchInput.CaretIndex = SearchInput.Text.Length;
 
-                    AddToSearchHistory(SearchInput.Text);
+                    AddSearchToHistory(SearchInput.Text);
                 }
                 else
                 {
@@ -1358,6 +1377,43 @@ namespace qgrepControls.SearchWindow
 
                 for(int i = searchHistory.Count - 1; i >= 0; i--)
                 {
+                    HistoricOpen historicOpen = searchHistory[i] as HistoricOpen;
+                    if(historicOpen != null)
+                    {
+                        if(!Settings.Default.ShowOpenHistory)
+                        {
+                            continue;
+                        }
+
+                        historicOpen.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
+                        historicOpen.Operation = "Opened ";
+                        historicOpen.Text = ConfigParser.RemovePaths(historicOpen.OpenedPath);
+                        if(!historicOpen.OpenedLine.Equals("0"))
+                        {
+                            historicOpen.Text += "(" + historicOpen.OpenedLine + ")";
+                        }
+                    }
+
+                    HistoricSearch historicSearch = searchHistory[i] as HistoricSearch;
+                    if(historicSearch != null)
+                    {
+                        historicSearch.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
+                        historicSearch.Operation = "Searched ";
+                        historicSearch.Text = historicSearch.SearchedText;
+                    }
+
+                    if(HistoryPanel.Items.Count > 0)
+                    {
+                        HistoricItem historicItem = (HistoryPanel.Items[HistoryPanel.Items.Count - 1] as ListBoxItem)?.Content as HistoricItem;
+                        if(historicItem != null)
+                        {
+                            if (historicItem.Text.Equals(searchHistory[i].Text))
+                            {
+                                continue;
+                            }
+                        }
+                    }
+
                     ListBoxItem listBoxItem = new ListBoxItem() { Content = searchHistory[i] };
                     listBoxItem.PreviewMouseDown += HistoryItem_MouseDown;
                     listBoxItem.PreviewKeyDown += HistoryItem_KeyDown;
@@ -1390,7 +1446,7 @@ namespace qgrepControls.SearchWindow
         {
             if(SearchInput.Text.Length > 0)
             {
-                AddToSearchHistory(SearchInput.Text);
+                AddSearchToHistory(SearchInput.Text);
             }
         }
 
@@ -1398,12 +1454,24 @@ namespace qgrepControls.SearchWindow
         {
             if (listBoxItem != null)
             {
-                SearchInput.Text = listBoxItem.Content as string;
-                SearchInput.CaretIndex = SearchInput.Text.Length;
-                AddToSearchHistory(SearchInput.Text);
+                HistoricSearch historicSearch = listBoxItem.Content as HistoricSearch;
+                if (historicSearch != null)
+                {
+                    SearchInput.Text = historicSearch.SearchedText as string;
+                    SearchInput.CaretIndex = SearchInput.Text.Length;
+                    AddSearchToHistory(SearchInput.Text);
+
+                    SearchInput.Focus();
+                }
+
+                HistoricOpen historicOpen = listBoxItem.Content as HistoricOpen;
+                if(historicOpen != null)
+                {
+                    ExtensionInterface.OpenFile(historicOpen.OpenedPath, historicOpen.OpenedLine);
+                    AddOpenToHistory(historicOpen.OpenedPath, historicOpen.OpenedLine);
+                }
             }
 
-            SearchInput.Focus();
             HistoryPopup.IsOpen = false;
         }
 
@@ -1432,14 +1500,14 @@ namespace qgrepControls.SearchWindow
         {
             if(e.Key == Key.Enter)
             {
-                AddToSearchHistory(SearchInput.Text);
+                AddSearchToHistory(SearchInput.Text);
                 Find();
             }
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            AddToSearchHistory(SearchInput.Text);
+            AddSearchToHistory(SearchInput.Text);
             Find();
         }
 

@@ -9,7 +9,16 @@
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              d:DesignHeight="600" d:DesignWidth="1000" GotFocus="UserControl_GotFocus" PreviewKeyDown="UserControl_PreviewKeyDown" GotKeyboardFocus="UserControl_GotKeyboardFocus">
     <UserControl.Resources>
-        <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" >
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type modelViews:HistoricItem}">
+                <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
+                    <Label Style="{DynamicResource HistoricOperation}" Content="{Binding Path=Operation}" Visibility="{Binding Path=OperationVisibility}" />
+                    <Label Style="{DynamicResource HistoricEntry}" Content="{Binding Path=Text}" />
+                </StackPanel>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid KeyboardNavigation.TabNavigation="Cycle">
@@ -36,7 +45,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                     </Button>
                     <Popup x:Name="HistoryPopup" Placement="Custom" VerticalOffset="2" HorizontalOffset="-2" PlacementTarget="{Binding ElementName=HistoryButton}" CustomPopupPlacementCallback="CustomPopupPlacementCallback" AllowsTransparency="True" StaysOpen="False" Focusable="False">
                         <ContentControl Style="{DynamicResource PopupContentStyle}">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="250" MaxWidth="500">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="250" MaxWidth="800">
                                 <ListBox Style="{DynamicResource EmptyListBox}" HorizontalAlignment="Left" MinWidth="200" x:Name="HistoryPanel">
                                 </ListBox>
                             </ScrollViewer>

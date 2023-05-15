@@ -261,5 +261,17 @@ namespace qgrepControls.Properties {
                 this["TrimSpacesOnCopy"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowOpenHistory {
+            get {
+                return ((bool)(this["ShowOpenHistory"]));
+            }
+            set {
+                this["ShowOpenHistory"] = value;
+            }
+        }
     }
 }
