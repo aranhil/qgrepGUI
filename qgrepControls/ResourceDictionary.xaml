@@ -9,6 +9,7 @@
                     xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
+                    xmlns:modelViews="clr-namespace:qgrepControls.ModelViews"
                     xmlns:controlzEx="urn:controlzex"
                     xmlns:tools="clr-namespace:qgrepControls.ToolWindows"
                     x:Class="qgrepControls.MyResourceDictionary">
@@ -191,8 +192,10 @@
     </Style>
 
     <Style x:Key="SearchIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Stretch" Value="Uniform" />
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="Stretch" Value="UniformToFill" />
+        <Setter Property="Height" Value="17" />
+        <Setter Property="Width" Value="17" />
+        <Setter Property="Margin" Value="0,-1,0,0" />
         <Setter Property="Data">
             <Setter.Value>
                 <PathGeometry Figures="M15.25 0a8.25 8.25 0 0 0-6.18 13.72L1 22.88l1.12 1l8.05-9.12A8.251 8.251 0 1 0 15.25.01V0zm0 15a6.75 6.75 0 1 1 0-13.5a6.75 6.75 0 0 1 0 13.5z" FillRule="NonZero"/>
@@ -311,6 +314,34 @@
                         </Border.Effect>
                         <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="1" Padding="2" BorderBrush="{TemplateBinding BorderBrush}">
                             <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="OtherContextMenu" TargetType="{x:Type ContextMenu}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+        <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="10" Margin="-10,-10,0,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="4" ShadowDepth="2" Opacity="0.2" />
+                        </Border.Effect>
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="1" Padding="2" BorderBrush="{TemplateBinding BorderBrush}">
+                            <Grid Background="{x:Null}">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxHeight="250" MaxWidth="800">
+                                    <ListBox x:Name="PART_ListBox" Style="{DynamicResource EmptyListBox}" HorizontalAlignment="Left" MinWidth="200">
+                                    </ListBox>
+                                </ScrollViewer>
+                            </Grid>
                         </Border>
                     </Border>
                 </ControlTemplate>
@@ -1639,7 +1670,7 @@
         <Setter Property="Padding" Value="3,0,5,0" />
     </Style>
     <Style x:Key="HistoricOperation" TargetType="Label" BasedOn="{StaticResource PanelEntry}">
-        <Setter Property="Margin" Value="-5,0,-5,0" />
+        <Setter Property="Margin" Value="-8,0,-5,0" />
         <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
     </Style>
     <Style x:Key="SettingsLabel" TargetType="Label" BasedOn="{StaticResource NormalText}">
@@ -1755,7 +1786,7 @@
         <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
-        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Focusable" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">

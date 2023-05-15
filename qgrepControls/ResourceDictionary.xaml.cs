@@ -117,7 +117,10 @@ namespace qgrepControls
         private void ListBox_MouseLeave(object sender, MouseEventArgs e)
         {
             ListBox listBox = (sender as FrameworkElement)?.TemplatedParent as ListBox;
-            listBox.SelectedIndex = -1;
+            if(listBox != null)
+            {
+                listBox.SelectedIndex = -1;
+            }
         }
     }
 }

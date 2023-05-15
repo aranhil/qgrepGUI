@@ -67,6 +67,7 @@ namespace qgrepControls.SearchWindow
         SearchResultGroup selectedSearchResultGroup = null;
 
         List<HistoricItem> searchHistory = new List<HistoricItem>();
+        ObservableCollection<HistoricItem> shownSearchHistory = new ObservableCollection<HistoricItem>();
         bool searchInputChanged = true;
 
         static SearchEngine SearchEngine = new SearchEngine();
@@ -88,6 +89,14 @@ namespace qgrepControls.SearchWindow
             IncludeFilesInput.IsEnabled = false;
             ExcludeFilesInput.IsEnabled = false;
             FilterResultsInput.IsEnabled = false;
+            SearchButton.IsEnabled = false;
+            HistoryButton.IsEnabled = false;
+            SearchCaseSensitive.IsEnabled = false;
+            SearchWholeWord.IsEnabled = false;
+            SearchRegEx.IsEnabled = false;
+            IncludeRegEx.IsEnabled = false;
+            ExcludeRegEx.IsEnabled = false;
+            FilterRegEx.IsEnabled = false;
 
             SearchCaseSensitive.IsChecked = Settings.Default.CaseSensitive;
             SearchRegEx.IsChecked = Settings.Default.RegEx;
@@ -105,6 +114,9 @@ namespace qgrepControls.SearchWindow
 
             UpdateColorsFromSettings();
             UpdateFromSettings();
+
+            HistoryContextMenu.Loaded += OnContextMenuLoaded;
+            HistoryContextMenu.Resources = Resources;
 
             SearchItemsListBox.ItemsSource = searchResults;
 
@@ -125,6 +137,96 @@ namespace qgrepControls.SearchWindow
 
             KeyboardButton.Visibility = ExtensionInterface.IsStandalone ? Visibility.Visible : Visibility.Collapsed;
             UpdateShortcutHints();
+        }
+
+        private void OnContextMenuLoaded(object sender, RoutedEventArgs e)
+        {
+            var listBox = HistoryContextMenu.Template.FindName("PART_ListBox", HistoryContextMenu) as ListBox;
+            listBox.Items.Clear();
+
+            if (searchHistory.Count > 0)
+            {
+                shownSearchHistory.Clear();
+
+                for (int i = searchHistory.Count - 1; i >= 0; i--)
+                {
+                    HistoricOpen historicOpen = searchHistory[i] as HistoricOpen;
+                    if (historicOpen != null)
+                    {
+                        if (!Settings.Default.ShowOpenHistory)
+                        {
+                            continue;
+                        }
+
+                        historicOpen.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
+                        historicOpen.Operation = "Opened ";
+                        historicOpen.Text = ConfigParser.RemovePaths(historicOpen.OpenedPath);
+                        if (!historicOpen.OpenedLine.Equals("0"))
+                        {
+                            historicOpen.Text += "(" + historicOpen.OpenedLine + ")";
+                        }
+                    }
+
+                    HistoricSearch historicSearch = searchHistory[i] as HistoricSearch;
+                    if (historicSearch != null)
+                    {
+                        historicSearch.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
+                        historicSearch.Operation = "Searched ";
+                        historicSearch.Text = historicSearch.SearchedText;
+                    }
+
+                    if (listBox.Items.Count > 0 && !Settings.Default.ShowOpenHistory)
+                    {
+                        bool skipItem = false;
+
+                        foreach (ListBoxItem currListBoxItem in listBox.Items)
+                        {
+                            HistoricItem historicItem = currListBoxItem.Content as HistoricItem;
+                            if (historicItem != null)
+                            {
+                                if (historicItem.Text.Equals(searchHistory[i].Text))
+                                {
+                                    skipItem = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (skipItem)
+                        {
+                            continue;
+                        }
+                    }
+
+                    ListBoxItem listBoxItem = new ListBoxItem() { Content = searchHistory[i] };
+                    listBoxItem.PreviewMouseDown += HistoryItem_MouseDown;
+                    listBoxItem.PreviewKeyDown += HistoryItem_KeyDown;
+
+                    listBox.Items.Add(listBoxItem);
+                }
+
+                Point screenCoordinates = HistoryButton.PointToScreen(new Point(0, 0));
+
+                listBox.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                listBox.Arrange(new Rect(listBox.DesiredSize));
+
+                HistoryContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
+                HistoryContextMenu.HorizontalOffset = screenCoordinates.X - listBox.ActualWidth;
+                HistoryContextMenu.VerticalOffset = screenCoordinates.Y;
+
+                HistoryContextMenu.IsOpen = true;
+
+                HistoryContextMenu.Opened += (s, e2) =>
+                {
+                    HistoryContextMenu.HorizontalOffset = screenCoordinates.X - HistoryContextMenu.ActualWidth;
+                };
+            }
+
+            if (listBox.Items.Count > 0)
+            {
+                (listBox.Items[0] as ListBoxItem).IsSelected = true;
+                (listBox.Items[0] as ListBoxItem).Focus();
+            }
         }
 
         private void UpdateShortcutHints()
@@ -299,6 +401,14 @@ namespace qgrepControls.SearchWindow
                 IncludeFilesInput.IsEnabled = true;
                 ExcludeFilesInput.IsEnabled = true;
                 FilterResultsInput.IsEnabled = true;
+                SearchButton.IsEnabled = true;
+                HistoryButton.IsEnabled = true;
+                SearchCaseSensitive.IsEnabled = true;
+                SearchWholeWord.IsEnabled = true;
+                SearchRegEx.IsEnabled = true;
+                IncludeRegEx.IsEnabled = true;
+                ExcludeRegEx.IsEnabled = true;
+                FilterRegEx.IsEnabled = true;
             }
         }
 
@@ -328,6 +438,14 @@ namespace qgrepControls.SearchWindow
             ExcludeFilesInput.Text = "";
             FilterResultsInput.Text = "";
             InfoLabel.Content = "";
+            SearchButton.IsEnabled = false;
+            HistoryButton.IsEnabled = false;
+            SearchCaseSensitive.IsEnabled = false;
+            SearchWholeWord.IsEnabled = false;
+            SearchRegEx.IsEnabled = false;
+            IncludeRegEx.IsEnabled = false;
+            ExcludeRegEx.IsEnabled = false;
+            FilterRegEx.IsEnabled = false;
         }
 
         public void UpdateWarning()
@@ -433,7 +551,7 @@ namespace qgrepControls.SearchWindow
             return results;
         }
 
-        public void LoadColorsFromResources(UserControl userControl)
+        public void LoadColorsFromResources(FrameworkElement userControl)
         {
             Dictionary<string, object> resources = GetResourcesFromColorScheme();
             MainWindow wrapperWindow = FindAncestor<MainWindow>(userControl);
@@ -732,6 +850,7 @@ namespace qgrepControls.SearchWindow
                     if (e.ClickCount == 2)
                     {
                         OpenSearchResult(searchResult);
+                        e.Handled = true;
                     }
                 }
             }
@@ -935,9 +1054,21 @@ namespace qgrepControls.SearchWindow
         {
             if(searchedString.Length > 0)
             {
-                if(searchHistory.Count > 0 && (searchHistory.Last() as HistoricSearch)?.SearchedText == searchedString)
+                if(searchHistory.Count > 0)
                 {
-                    return;
+                    for(int i = searchHistory.Count - 1; i >= 0; i--)
+                    {
+                        HistoricSearch historicSearch = searchHistory[i] as HistoricSearch;
+                        if (historicSearch != null)
+                        {
+                            if(historicSearch.SearchedText == searchedString)
+                            {
+                                return;
+                            }
+
+                            break;
+                        }
+                    }
                 }
 
                 searchHistory.Add(new HistoricSearch() { SearchedText = searchedString});
@@ -947,9 +1078,25 @@ namespace qgrepControls.SearchWindow
         {
             if(openedPath.Length > 0)
             {
-                if(searchHistory.Count > 0 && (searchHistory.Last() as HistoricOpen)?.OpenedPath == openedPath)
+                if(searchHistory.Count > 0)
                 {
-                    return;
+                    for (int i = searchHistory.Count - 1; i >= 0; i--)
+                    {
+                        HistoricOpen historicOpen = searchHistory[i] as HistoricOpen;
+                        if (historicOpen != null)
+                        {
+                            if (historicOpen.OpenedPath == openedPath && historicOpen.OpenedLine == openedLine)
+                            {
+                                searchHistory.RemoveAt(i);
+                                break;
+                            }
+                        }
+
+                        if (searchHistory[i] is HistoricSearch)
+                        {
+                            break;
+                        }
+                    }
                 }
 
                 searchHistory.Add(new HistoricOpen() { OpenedPath = openedPath, OpenedLine = openedLine});
@@ -978,7 +1125,7 @@ namespace qgrepControls.SearchWindow
                 ExtensionInterface.WindowOpened = false;
             }
 
-            System.Diagnostics.Debug.WriteLine(e.OriginalSource);
+            //System.Diagnostics.Debug.WriteLine(e.OriginalSource);
         }
 
         private void SearchInput_TextChanged(object sender, TextChangedEventArgs e)
@@ -1400,67 +1547,9 @@ namespace qgrepControls.SearchWindow
             return newWindow;
         }
 
-        private void OpenHistoryPopup()
-        {
-            if (searchHistory.Count > 0)
-            {
-                HistoryPanel.Items.Clear();
-
-                for(int i = searchHistory.Count - 1; i >= 0; i--)
-                {
-                    HistoricOpen historicOpen = searchHistory[i] as HistoricOpen;
-                    if(historicOpen != null)
-                    {
-                        if(!Settings.Default.ShowOpenHistory)
-                        {
-                            continue;
-                        }
-
-                        historicOpen.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
-                        historicOpen.Operation = "Opened ";
-                        historicOpen.Text = ConfigParser.RemovePaths(historicOpen.OpenedPath);
-                        if(!historicOpen.OpenedLine.Equals("0"))
-                        {
-                            historicOpen.Text += "(" + historicOpen.OpenedLine + ")";
-                        }
-                    }
-
-                    HistoricSearch historicSearch = searchHistory[i] as HistoricSearch;
-                    if(historicSearch != null)
-                    {
-                        historicSearch.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
-                        historicSearch.Operation = "Searched ";
-                        historicSearch.Text = historicSearch.SearchedText;
-                    }
-
-                    if(HistoryPanel.Items.Count > 0)
-                    {
-                        HistoricItem historicItem = (HistoryPanel.Items[HistoryPanel.Items.Count - 1] as ListBoxItem)?.Content as HistoricItem;
-                        if(historicItem != null)
-                        {
-                            if (historicItem.Text.Equals(searchHistory[i].Text))
-                            {
-                                continue;
-                            }
-                        }
-                    }
-
-                    ListBoxItem listBoxItem = new ListBoxItem() { Content = searchHistory[i] };
-                    listBoxItem.PreviewMouseDown += HistoryItem_MouseDown;
-                    listBoxItem.PreviewKeyDown += HistoryItem_KeyDown;
-
-                    HistoryPanel.Items.Add(listBoxItem);
-                }
-
-                Point relativePosition = HistoryButton.PointToScreen(new Point(0, 0));
-
-                HistoryPopup.IsOpen = true;
-            }
-        }
-
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenHistoryPopup();
+            HistoryContextMenu.IsOpen = true;
         }
 
         public CustomPopupPlacement[] CustomPopupPlacementCallback(Size popupSize, Size targetSize, Point offset)
@@ -1471,14 +1560,6 @@ namespace qgrepControls.SearchWindow
             );
 
             return new CustomPopupPlacement[] { placement };
-        }
-
-        private void SearchInput_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if(SearchInput.Text.Length > 0)
-            {
-                AddSearchToHistory(SearchInput.Text);
-            }
         }
 
         void OpenHistoryItem(ListBoxItem listBoxItem)
@@ -1503,7 +1584,7 @@ namespace qgrepControls.SearchWindow
                 }
             }
 
-            HistoryPopup.IsOpen = false;
+            HistoryContextMenu.IsOpen = false;
         }
 
         private void HistoryItem_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -1522,7 +1603,7 @@ namespace qgrepControls.SearchWindow
             else if(e.Key == Key.Escape)
             {
                 SearchInput.Focus();
-                HistoryPopup.IsOpen = false;
+                HistoryContextMenu.IsOpen = false;
             }
         }
 
@@ -1560,7 +1641,8 @@ namespace qgrepControls.SearchWindow
                     selectedSearchResultGroup = searchResultGroup;
                     selectedSearchResult = null;
                 }
-                System.Diagnostics.Debug.WriteLine(frameworkElement.DataContext);
+
+                System.Diagnostics.Debug.WriteLine(e.OriginalSource);
             }
         }
 
@@ -1659,12 +1741,7 @@ namespace qgrepControls.SearchWindow
         {
             Dispatcher.Invoke(() =>
             {
-                OpenHistoryPopup();
-                if(HistoryPanel.Items.Count > 0)
-                {
-                    (HistoryPanel.Items[0] as ListBoxItem).IsSelected = true;
-                    (HistoryPanel.Items[0] as ListBoxItem).Focus();
-                }
+                HistoryContextMenu.IsOpen = true;
             });
         }
 
@@ -1681,6 +1758,18 @@ namespace qgrepControls.SearchWindow
                 ExtensionInterface.SaveKeyBindings(bindings);
                 ExtensionInterface.ApplyKeyBindings(bindings);
                 UpdateShortcutHints();
+            }
+        }
+
+        private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void SearchInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (SearchInput.Text.Length > 0 && Settings.Default.SearchInstantly)
+            {
+                AddSearchToHistory(SearchInput.Text);
             }
         }
     }
