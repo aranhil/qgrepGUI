@@ -68,7 +68,6 @@ namespace qgrepControls.SearchWindow
 
         List<HistoricItem> searchHistory = new List<HistoricItem>();
         ObservableCollection<HistoricItem> shownSearchHistory = new ObservableCollection<HistoricItem>();
-        bool searchInputChanged = true;
 
         static SearchEngine SearchEngine = new SearchEngine();
 
@@ -214,18 +213,24 @@ namespace qgrepControls.SearchWindow
                 HistoryContextMenu.HorizontalOffset = screenCoordinates.X - listBox.ActualWidth;
                 HistoryContextMenu.VerticalOffset = screenCoordinates.Y;
 
-                HistoryContextMenu.IsOpen = true;
-
-                HistoryContextMenu.Opened += (s, e2) =>
+                if(listBox.Items.Count > 0)
                 {
-                    HistoryContextMenu.HorizontalOffset = screenCoordinates.X - HistoryContextMenu.ActualWidth;
-                };
-            }
+                    HistoryContextMenu.Opened += (s, e2) =>
+                    {
+                        HistoryContextMenu.HorizontalOffset = screenCoordinates.X - HistoryContextMenu.ActualWidth;
+                    };
 
-            if (listBox.Items.Count > 0)
+                    (listBox.Items[0] as ListBoxItem).IsSelected = true;
+                    (listBox.Items[0] as ListBoxItem).Focus();
+                }
+                else
+                {
+                    HistoryContextMenu.IsOpen = false;
+                }
+            }
+            else
             {
-                (listBox.Items[0] as ListBoxItem).IsSelected = true;
-                (listBox.Items[0] as ListBoxItem).Focus();
+                HistoryContextMenu.IsOpen = false;
             }
         }
 
@@ -402,13 +407,13 @@ namespace qgrepControls.SearchWindow
                 ExcludeFilesInput.IsEnabled = true;
                 FilterResultsInput.IsEnabled = true;
                 SearchButton.IsEnabled = true;
-                HistoryButton.IsEnabled = true;
                 SearchCaseSensitive.IsEnabled = true;
                 SearchWholeWord.IsEnabled = true;
                 SearchRegEx.IsEnabled = true;
                 IncludeRegEx.IsEnabled = true;
                 ExcludeRegEx.IsEnabled = true;
                 FilterRegEx.IsEnabled = true;
+                HistoryButton.IsEnabled = searchHistory.Count > 0 ? true : false;
             }
         }
 
@@ -995,7 +1000,7 @@ namespace qgrepControls.SearchWindow
 
         private void CaseSensitive_Click(object sender, RoutedEventArgs e)
         {
-            if(Settings.Default.SearchInstantly || !searchInputChanged)
+            if(Settings.Default.SearchInstantly)
             {
                 Find();
             }
@@ -1005,7 +1010,7 @@ namespace qgrepControls.SearchWindow
 
         private void SearchRegEx_Click(object sender, RoutedEventArgs e)
         {
-            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            if (Settings.Default.SearchInstantly)
             {
                 Find();
             }
@@ -1015,7 +1020,7 @@ namespace qgrepControls.SearchWindow
 
         private void SearchWholeWord_Click(object sender, RoutedEventArgs e)
         {
-            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            if (Settings.Default.SearchInstantly)
             {
                 Find();
             }
@@ -1071,6 +1076,7 @@ namespace qgrepControls.SearchWindow
                     }
                 }
 
+                HistoryButton.IsEnabled = true;
                 searchHistory.Add(new HistoricSearch() { SearchedText = searchedString});
             }
         }
@@ -1099,6 +1105,7 @@ namespace qgrepControls.SearchWindow
                     }
                 }
 
+                HistoryButton.IsEnabled = true;
                 searchHistory.Add(new HistoricOpen() { OpenedPath = openedPath, OpenedLine = openedLine});
             }
         }
@@ -1156,17 +1163,6 @@ namespace qgrepControls.SearchWindow
             {
                 ExcludeFilesLabel.Visibility = Visibility.Visible;
             }
-
-            if (FilterResultsInput.Text.Length > 0)
-            {
-                FilterResultsLabel.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                FilterResultsLabel.Visibility = Visibility.Visible;
-            }
-
-            searchInputChanged = true;
 
             if (Settings.Default.SearchInstantly)
             {
@@ -1335,7 +1331,7 @@ namespace qgrepControls.SearchWindow
 
         private void IncludeRegEx_Click(object sender, RoutedEventArgs e)
         {
-            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            if (Settings.Default.SearchInstantly)
             {
                 Find();
             }
@@ -1345,7 +1341,7 @@ namespace qgrepControls.SearchWindow
 
         private void ExcludeRegEx_Click(object sender, RoutedEventArgs e)
         {
-            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            if (Settings.Default.SearchInstantly)
             {
                 Find();
             }
@@ -1355,7 +1351,7 @@ namespace qgrepControls.SearchWindow
 
         private void FilterRegEx_Click(object sender, RoutedEventArgs e)
         {
-            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            if (Settings.Default.SearchInstantly)
             {
                 Find();
             }
@@ -1374,7 +1370,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.SearchFilters = string.Join(",", searchFilters);
             Settings.Default.Save();
 
-            if (Settings.Default.SearchInstantly || !searchInputChanged)
+            if (Settings.Default.SearchInstantly)
             {
                 Find();
             }
@@ -1574,6 +1570,10 @@ namespace qgrepControls.SearchWindow
                     AddSearchToHistory(SearchInput.Text);
 
                     SearchInput.Focus();
+                    if(!Settings.Default.SearchInstantly)
+                    {
+                        Find();
+                    }
                 }
 
                 HistoricOpen historicOpen = listBoxItem.Content as HistoricOpen;
@@ -1771,6 +1771,20 @@ namespace qgrepControls.SearchWindow
             {
                 AddSearchToHistory(SearchInput.Text);
             }
+        }
+
+        private void FilterResultsInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (FilterResultsInput.Text.Length > 0)
+            {
+                FilterResultsLabel.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                FilterResultsLabel.Visibility = Visibility.Visible;
+            }
+
+            Find();
         }
     }
 }

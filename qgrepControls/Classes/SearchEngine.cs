@@ -15,6 +15,7 @@ using System.Windows;
 using System.Reflection;
 using System.IO;
 using System.Xml.Linq;
+using System.Windows.Shapes;
 
 namespace qgrepControls.Classes
 {
@@ -23,6 +24,13 @@ namespace qgrepControls.Classes
     public delegate void StringCallback(string message);
     public delegate void UpdateStepCallback();
     public delegate void UpdateProgressCallback(int percentage);
+
+    public class CachedSearch
+    {
+        public List<string> Results { get; set; } = new List<string>();
+
+        public SearchOptions SearchOptions { get; set; }
+    }
 
     public class SearchOptions
     {
@@ -35,9 +43,22 @@ namespace qgrepControls.Classes
         public bool RegEx { get; set; } = false;
         public bool IncludeFilesRegEx { get; set; } = false;
         public bool ExcludeFilesRegEx { get; set;} = false;
-        public bool FilterResultsRegEx { get; set;} = false;
+        public bool FilterResultsRegEx { get; set; } = false;
         public int GroupingMode { get; set; } = 0;
         public List<string> Configs { get; set; } = new List<string>();
+
+        public bool CanUseCache(SearchOptions newSearchOptions)
+        {
+            return Query.Equals(newSearchOptions.Query) &&
+                IncludeFiles.Equals(newSearchOptions.IncludeFiles) &&
+                ExcludeFiles.Equals(newSearchOptions.ExcludeFiles) &&
+                CaseSensitive == newSearchOptions.CaseSensitive &&
+                WholeWord == newSearchOptions.WholeWord &&
+                RegEx == newSearchOptions.RegEx &&
+                IncludeFilesRegEx == newSearchOptions.IncludeFilesRegEx &&
+                ExcludeFilesRegEx == newSearchOptions.ExcludeFilesRegEx &&
+                Configs.SequenceEqual(newSearchOptions.Configs);
+        }
     }
 
     public class SearchEngine
@@ -49,6 +70,7 @@ namespace qgrepControls.Classes
         private SearchOptions QueuedSearchOptions = null;
         private SearchOptions QueuedSearchFilesOptions = null;
         private List<string> QueuedDatabaseUpdate = null;
+        private CachedSearch CachedSearch = new CachedSearch();
 
         public ResultCallback ResultCallback { get; set; } = null;
         public StringCallback ErrorCallback { get; set; } = null;
@@ -75,60 +97,78 @@ namespace qgrepControls.Classes
             {
                 StartSearchCallback(searchOptions);
 
-                List<string> arguments = new List<string>
+                if(CachedSearch.SearchOptions != null && CachedSearch.SearchOptions.CanUseCache(searchOptions))
                 {
-                    "qgrep",
-                    "search",
-                    string.Join(",", searchOptions.Configs)
-                };
+                    CachedSearch.SearchOptions = searchOptions;
 
-                if (!searchOptions.CaseSensitive) arguments.Add("i");
-                if (!searchOptions.RegEx && !searchOptions.WholeWord) arguments.Add("l");
-
-                if (searchOptions.IncludeFiles.Length > 0)
-                {
-                    arguments.Add("fi" + (searchOptions.IncludeFilesRegEx ? searchOptions.IncludeFiles : Regex.Escape(searchOptions.IncludeFiles)));
-                }
-
-                if (searchOptions.ExcludeFiles.Length > 0)
-                {
-                    arguments.Add("fe" + (searchOptions.ExcludeFilesRegEx ? searchOptions.ExcludeFiles : Regex.Escape(searchOptions.ExcludeFiles)));
-                }
-
-                arguments.Add("HD");
-
-                switch(searchOptions.Query.Length)
-                {
-                    case 1:
-                        arguments.Add("L1000");
-                    break;
-                    case 2:
-                        arguments.Add("L2000");
-                    break;
-                    case 3:
-                        arguments.Add("L4000");
-                    break;
-                    case 4:
-                        arguments.Add("L6000");
-                    break;
-                    default:
-                        arguments.Add("L10000");
-                    break;
-                }
-
-                arguments.Add("V");
-
-                if (searchOptions.WholeWord)
-                {
-                    arguments.Add("\\b" + (searchOptions.RegEx ? searchOptions.Query : Regex.Escape(searchOptions.Query)) + "\\b");
+                    foreach (string cachedSearchResult in CachedSearch.Results)
+                    {
+                        if (StringHandler(cachedSearchResult, searchOptions, false))
+                        {
+                            break;
+                        }
+                    }
                 }
                 else
                 {
-                    arguments.Add(searchOptions.Query);
-                }
+                    CachedSearch.Results.Clear();
+                    CachedSearch.SearchOptions = searchOptions;
 
-                QGrepWrapper.CallQGrepAsync(arguments, 
-                    (string result) => { return StringHandler(result, searchOptions); }, ErrorHandler, ProgressHandler);
+                    List<string> arguments = new List<string>
+                    {
+                        "qgrep",
+                        "search",
+                        string.Join(",", searchOptions.Configs)
+                    };
+
+                    if (!searchOptions.CaseSensitive) arguments.Add("i");
+                    if (!searchOptions.RegEx && !searchOptions.WholeWord) arguments.Add("l");
+
+                    if (searchOptions.IncludeFiles.Length > 0)
+                    {
+                        arguments.Add("fi" + (searchOptions.IncludeFilesRegEx ? searchOptions.IncludeFiles : Regex.Escape(searchOptions.IncludeFiles)));
+                    }
+
+                    if (searchOptions.ExcludeFiles.Length > 0)
+                    {
+                        arguments.Add("fe" + (searchOptions.ExcludeFilesRegEx ? searchOptions.ExcludeFiles : Regex.Escape(searchOptions.ExcludeFiles)));
+                    }
+
+                    arguments.Add("HD");
+
+                    switch(searchOptions.Query.Length)
+                    {
+                        case 1:
+                            arguments.Add("L1000");
+                        break;
+                        case 2:
+                            arguments.Add("L2000");
+                        break;
+                        case 3:
+                            arguments.Add("L4000");
+                        break;
+                        case 4:
+                            arguments.Add("L6000");
+                        break;
+                        default:
+                            arguments.Add("L10000");
+                        break;
+                    }
+
+                    arguments.Add("V");
+
+                    if (searchOptions.WholeWord)
+                    {
+                        arguments.Add("\\b" + (searchOptions.RegEx ? searchOptions.Query : Regex.Escape(searchOptions.Query)) + "\\b");
+                    }
+                    else
+                    {
+                        arguments.Add(searchOptions.Query);
+                    }
+
+                    QGrepWrapper.CallQGrepAsync(arguments, 
+                        (string result) => { return StringHandler(result, searchOptions); }, ErrorHandler, ProgressHandler);
+                }
 
                 IsBusy = false;
 
@@ -192,14 +232,19 @@ namespace qgrepControls.Classes
             }
         }
 
-        private bool StringHandler(string result, SearchOptions searchOptions)
+        private bool StringHandler(string result, SearchOptions searchOptions, bool cacheResult = true)
         {
             if(ForceStop)
             {
                 return true;
             }
 
-            if(ResultCallback != null)
+            if(cacheResult)
+            {
+                CachedSearch.Results.Add(result);
+            }
+
+            if (ResultCallback != null)
             {
                 string file = "", beginText, endText, highlightedText, lineNo = "";
 
@@ -219,7 +264,7 @@ namespace qgrepControls.Classes
 
                         if (searchOptions.FilterResultsRegEx)
                         {
-                            if (!Regex.Match(file, searchOptions.FilterResults).Success && !Regex.Match(rawText, searchOptions.FilterResults).Success)
+                            if (!Regex.Match(file.ToLower(), searchOptions.FilterResults).Success && !Regex.Match(rawText.ToLower(), searchOptions.FilterResults).Success)
                             {
                                 return false;
                             }

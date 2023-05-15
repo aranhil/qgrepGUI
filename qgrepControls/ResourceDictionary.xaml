@@ -193,8 +193,8 @@
 
     <Style x:Key="SearchIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
         <Setter Property="Stretch" Value="UniformToFill" />
-        <Setter Property="Height" Value="17" />
-        <Setter Property="Width" Value="17" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Width" Value="16" />
         <Setter Property="Margin" Value="0,-1,0,0" />
         <Setter Property="Data">
             <Setter.Value>
@@ -204,7 +204,10 @@
     </Style>
 
     <Style x:Key="HistoryIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
-        <Setter Property="Margin" Value="0,1,0,0" />
+        <Setter Property="Margin" Value="0,-2,0,0" />
+        <Setter Property="Stretch" Value="UniformToFill" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Width" Value="15" />
         <Setter Property="Data">
             <Setter.Value>
                 <PathGeometry Figures="M13.507 12.324a7 7 0 0 0 .065-8.56A7 7 0 0 0 2 4.393V2H1v3.5l.5.5H5V5H2.811a6.008 6.008 0 1 1-.135 5.77l-.887.462a7 7 0 0 0 11.718 1.092zm-3.361-.97l.708-.707L8 7.792V4H7v4l.146.354l3 3z" FillRule="EvenOdd"/>

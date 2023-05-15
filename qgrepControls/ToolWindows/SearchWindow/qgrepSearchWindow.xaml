@@ -43,7 +43,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                     <Button x:Name="SearchButton" Style="{StaticResource IconButton}" FontSize="14" Click="SearchButton_Click" Margin="1,3,5,0">
                         <Path Style="{DynamicResource SearchIcon}" />
                     </Button>
-                    <Button x:Name="HistoryButton" Style="{StaticResource IconButton}" FontSize="14" Click="HistoryButton_Click" ToolTip="Show recent searches (Alt+H)" Margin="0,3,0,0">
+                    <Button x:Name="HistoryButton" Style="{StaticResource IconButton}" FontSize="14" Click="HistoryButton_Click" ToolTip="Show recent searches (Alt+H)" Margin="1,3,0,0">
                         <Path Style="{DynamicResource HistoryIcon}" />
                         <Button.ContextMenu>
                             <ContextMenu Name="HistoryContextMenu" Style="{StaticResource OtherContextMenu}">
@@ -88,7 +88,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3" x:Name="FilterResultsGrid" Margin="0,-1,0,0">
-            <TextBox x:Name="FilterResultsInput" TabIndex="3" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" KeyDown="SearchInput_KeyDown"/>
+            <TextBox x:Name="FilterResultsInput" TabIndex="3" BorderThickness="0,1,0,1" Style="{StaticResource SomeTextBoxStyle}" TextChanged="FilterResultsInput_TextChanged"/>
             <Label x:Name="FilterResultsLabel" Content="Filter results..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel x:Name="FilterResultsPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel x:Name="FilterResultsInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
