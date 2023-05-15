@@ -137,6 +137,7 @@ namespace qgrepSearch
                 string extension = Path.GetExtension(fullPath);
 
                 if (extension.Equals(".vcproj", StringComparison.OrdinalIgnoreCase) ||
+                    extension.Equals(".vcxproj", StringComparison.OrdinalIgnoreCase) ||
                     extension.Equals(".csproj", StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
