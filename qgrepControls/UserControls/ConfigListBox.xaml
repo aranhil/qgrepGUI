@@ -41,10 +41,10 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type modelViews:ColorOverride}">
                 <StackPanel Orientation="Horizontal" Background="Transparent" Margin="5,0,0,0" MouseDown="StackPanel_MouseDown">
-                    <Grid HorizontalAlignment="Right" Margin="2" Width="40">
-                        <Border Width="40">
+                    <Grid HorizontalAlignment="Right" Margin="1" Width="48">
+                        <Border Width="44">
                             <Border.Background>
-                                <DrawingBrush TileMode="Tile" Viewport="0,0,8,8" ViewportUnits="Absolute" Stretch="None">
+                                <DrawingBrush TileMode="Tile" Viewport="0,1,8,8" ViewportUnits="Absolute" Stretch="None">
                                     <DrawingBrush.Drawing>
                                         <DrawingGroup>
                                             <GeometryDrawing Brush="White">
@@ -65,9 +65,9 @@
                                 </DrawingBrush>
                             </Border.Background>
                         </Border>
-                        <Border Name="OverrideColor" Width="40" Background="{Binding Path=Brush}" BorderThickness="1" BorderBrush="{DynamicResource Border}"/>
+                        <Border Name="OverrideColor" Width="48" Height="14" Background="{Binding Path=Brush}" BorderThickness="1" BorderBrush="{DynamicResource Border}"/>
                     </Grid>
-                    <Label Name="OverrideKey" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" HorizontalAlignment="Left" />
+                    <Label Name="OverrideKey" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" Margin="-5,0,0,0" HorizontalAlignment="Left" />
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>

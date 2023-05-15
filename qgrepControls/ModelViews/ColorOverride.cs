@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace qgrepControls.ModelViews
 {
-    public class ColorOverride : INotifyPropertyChanged
+    public class ColorOverride : SelectableData
     {
         private System.Drawing.Color color;
         public ColorOverride(string Name, System.Drawing.Color Color)
@@ -45,12 +45,6 @@ namespace qgrepControls.ModelViews
                 Brush = new System.Windows.Media.SolidColorBrush(qgrepSearchWindowControl.ConvertColor(value));
                 color = value;
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
