@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
 using qgrepControls.Classes;
+using qgrepControls.ModelViews;
 using qgrepControls.Properties;
 using qgrepControls.SearchWindow;
+using qgrepControls.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -19,16 +22,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace qgrepControls.ColorsWindow
 {
-    public class ColorOverride
-    {
-        public string Name = "";
-        public System.Drawing.Color Color = new System.Drawing.Color();
-    }
-
     public class ColorSchemeOverrides
     {
         public string Name = "";
-        public List<ColorOverride> ColorOverrides = new List<ColorOverride>();
+        public ObservableCollection<ColorOverride> ColorOverrides = new ObservableCollection<ColorOverride>();
     }
 
     public class ComboBoxColorItem: INotifyPropertyChanged
@@ -72,11 +69,14 @@ namespace qgrepControls.ColorsWindow
     {
         public new qgrepSearchWindowControl Parent;
         private List<ColorSchemeOverrides> colorSchemeOverrides = new List<ColorSchemeOverrides>();
+        public ObservableCollection<ColorOverride> CurrentColorOverrides = new ObservableCollection<ColorOverride>();
 
         public ColorsWindow(qgrepSearchWindowControl Parent)
         {
             this.Parent = Parent;
             InitializeComponent();
+
+            LoadFromSettings();
 
             foreach (ColorScheme colorScheme in Parent.colorSchemes)
             {
@@ -88,8 +88,54 @@ namespace qgrepControls.ColorsWindow
 
             ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (Parent.ExtensionInterface.IsStandalone ? 1 : 0);
 
-            LoadFromSettings();
+            ColorsListBox.ItemEditType = ConfigListBox.EditType.Custom;
+            ColorsListBox.Title.Text = "Color overrides";
+            ColorsListBox.AddButton.ToolTip = "Add new color override";
+            ColorsListBox.EditButton.ToolTip = "Edit color override";
+            ColorsListBox.RemoveButton.ToolTip = "Remove selected color override(s)";
+            ColorsListBox.RemoveAllButton.ToolTip = "Remove all color overrides";
+            ColorsListBox.AddButton.Click += AddNewColor_Click;
+            ColorsListBox.OnEditClicked += EditColor_Click;
+
             Parent.LoadColorsFromResources(this);
+        }
+
+        private void EditColor_Click()
+        {
+            ColorOverride selectedOverride = ColorsListBox.InnerListBox.SelectedItem as ColorOverride;
+            OverrideWindow overrideWindow = ShowOverrideDialog(selectedOverride.Name);
+
+            if (overrideWindow.IsOK)
+            {
+                selectedOverride.Color = qgrepSearchWindowControl.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()));
+                Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
+                SaveToSettings();
+            }
+        }
+
+        private void SaveToSettings()
+        {
+            Settings.Default.Save();
+
+            Parent.LoadColorsFromResources(this);
+            Parent.LoadColorsFromResources(ColorsListBox);
+            Parent.UpdateColorsFromSettings();
+        }
+
+        private void AddNewColor_Click(object sender, RoutedEventArgs e)
+        {
+            OverrideWindow overrideWindow = ShowOverrideDialog();
+
+            if (overrideWindow.IsOK)
+            {
+                ComboBoxColorItem selectedColor = overrideWindow.OverrideName.SelectedItem as ComboBoxColorItem;
+
+                CurrentColorOverrides.Add(new ColorOverride(selectedColor.Name, 
+                    qgrepSearchWindowControl.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()))));
+
+                Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
+                SaveToSettings();
+            }
         }
 
         private void LoadFromSettings()
@@ -99,75 +145,25 @@ namespace qgrepControls.ColorsWindow
                 colorSchemeOverrides = JsonConvert.DeserializeObject<List<ColorSchemeOverrides>>(Settings.Default.ColorOverrides);
             }
             catch { }
-
-            ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
-
-            OverridesPanel.Children.Clear();
-
-            bool foundOverride = false;
-            foreach (ColorSchemeOverrides colorSchemeOverrides in colorSchemeOverrides)
-            {
-                if(colorSchemeOverrides.Name == currentScheme.Name)
-                {
-                    foundOverride = true;
-                    foreach (ColorOverride colorOverride in colorSchemeOverrides.ColorOverrides)
-                    {
-                        OverridesPanel.Children.Add(new OverrideRow(this, new OverrideRow.OverrideRowData(colorOverride.Name, colorOverride.Color)));
-                    }
-                }
-            }
-
-            if(!foundOverride)
-            {
-                colorSchemeOverrides.Add(new ColorSchemeOverrides() { Name = currentScheme.Name });
-
-                Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
-                Settings.Default.Save();
-            }
-
-            OverridesPanel.Children.Add(new RowAdd(Parent, "Add new color override", new RowAdd.ClickCallbackFunction(AddOverride)));
-            CheckAddButtonVisibility();
-            UpdateHint();
         }
+
         private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (Parent.ExtensionInterface.IsStandalone ? 1 : 0);
-            Settings.Default.Save();
-            Parent.UpdateColorsFromSettings();
-            LoadFromSettings();
-            Parent.LoadColorsFromResources(this);
+            SaveToSettings();
+
+            CurrentColorOverrides.CollectionChanged -= ColorOverrides_CollectionChanged;
+
+            CurrentColorOverrides = colorSchemeOverrides[ColorSchemeComboBox.SelectedIndex].ColorOverrides;
+            ColorsListBox.SetItemsSource(CurrentColorOverrides);
+
+            CurrentColorOverrides.CollectionChanged += ColorOverrides_CollectionChanged;
         }
 
-        private void OverridesPanel_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private void ColorOverrides_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            ShowAddPanel(OverridesPanel);
-        }
-
-        private void OverridesPanel_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            HideAddPanel(OverridesPanel);
-        }
-        void HideAddPanel(StackPanel panel)
-        {
-            if (panel.Children.Count > 0)
-            {
-                panel.Children[panel.Children.Count - 1].Visibility = Visibility.Hidden;
-            }
-        }
-        void ShowAddPanel(StackPanel panel)
-        {
-            if (panel.Children.Count > 0)
-            {
-                panel.Children[panel.Children.Count - 1].Visibility = Visibility.Visible;
-            }
-        }
-
-        private void CheckAddButtonVisibility()
-        {
-            if (OverridesPanel.IsMouseOver)
-            {
-                ShowAddPanel(OverridesPanel);
-            }
+            Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
+            SaveToSettings();
         }
 
         private OverrideWindow ShowOverrideDialog(string selectedName = null)
@@ -221,7 +217,7 @@ namespace qgrepControls.ColorsWindow
                 {
                     if (schemeOverrides.Name == currentScheme.Name)
                     {
-                        selectedItem = isEditing ? schemeOverrides.ColorOverrides.Find(x => x.Name == selectedName) : null;
+                        selectedItem = isEditing ? schemeOverrides.ColorOverrides.First(x => x.Name == selectedName) : null;
                         break;
                     }
                 }
@@ -232,7 +228,7 @@ namespace qgrepControls.ColorsWindow
             overrideWindow.OverrideName.IsEnabled = !isEditing;
             overrideWindow.OverrideName.SelectedIndex = selectedItem != null ? uniqueColors.FindIndex(x => x.Name == selectedItem.Name) : 0;
 
-            if(selectedItem != null)
+            if (selectedItem != null)
             {
                 overrideWindow.OverrideColor.SelectedColor = qgrepSearchWindowControl.ConvertColor(selectedItem.Color);
             }
@@ -243,132 +239,132 @@ namespace qgrepControls.ColorsWindow
             return overrideWindow;
         }
 
-        private void AddOverride()
-        {
-            ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
-            OverrideWindow overrideWindow = ShowOverrideDialog();
+        //private void AddOverride()
+        //{
+        //    ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
+        //    OverrideWindow overrideWindow = ShowOverrideDialog();
 
-            if (overrideWindow.IsOK)
-            {
-                foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
-                {
-                    if (schemeOverrides.Name == currentScheme.Name)
-                    {
-                        ComboBoxColorItem selectedColor = overrideWindow.OverrideName.SelectedItem as ComboBoxColorItem;
+        //    if (overrideWindow.IsOK)
+        //    {
+        //        foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
+        //        {
+        //            if (schemeOverrides.Name == currentScheme.Name)
+        //            {
+        //                ComboBoxColorItem selectedColor = overrideWindow.OverrideName.SelectedItem as ComboBoxColorItem;
 
-                        schemeOverrides.ColorOverrides.Add(new ColorOverride()
-                        {
-                            Name = selectedColor.Name,
-                            Color = qgrepSearchWindowControl.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()))
-                        });
-                        Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
-                        Settings.Default.Save();
+        //                schemeOverrides.ColorOverrides.Add(new ColorOverride()
+        //                {
+        //                    Name = selectedColor.Name,
+        //                    Color = qgrepSearchWindowControl.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()))
+        //                });
+        //                Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
+        //                Settings.Default.Save();
 
-                        LoadFromSettings();
-                        Parent.LoadColorsFromResources(this);
-                        Parent.UpdateColorsFromSettings();
-                        break;
-                    }
-                }
-            }
-        }
+        //                LoadFromSettings();
+        //                Parent.LoadColorsFromResources(this);
+        //                Parent.UpdateColorsFromSettings();
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
 
-        public void DeleteOverride(OverrideRow overrideRow)
-        {
-            ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
+        //public void DeleteOverride(OverrideRow overrideRow)
+        //{
+        //    ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
 
-            foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
-            {
-                if (schemeOverrides.Name == currentScheme.Name)
-                {
-                    schemeOverrides.ColorOverrides.RemoveAll(x => x.Name == overrideRow.Data.Name);
+        //    foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
+        //    {
+        //        if (schemeOverrides.Name == currentScheme.Name)
+        //        {
+        //            schemeOverrides.ColorOverrides.RemoveAll(x => x.Name == overrideRow.Data.Name);
 
-                    Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
-                    Settings.Default.Save();
+        //            Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
+        //            Settings.Default.Save();
 
-                    LoadFromSettings();
-                    Parent.LoadColorsFromResources(this);
-                    Parent.UpdateColorsFromSettings();
-                    break;
-                }
-            }
-        }
+        //            LoadFromSettings();
+        //            Parent.LoadColorsFromResources(this);
+        //            Parent.UpdateColorsFromSettings();
+        //            break;
+        //        }
+        //    }
+        //}
 
-        public void EditOverride(OverrideRow overrideRow)
-        {
-            ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
-            OverrideWindow overrideWindow = ShowOverrideDialog(overrideRow.Data.Name);
+        //public void EditOverride(OverrideRow overrideRow)
+        //{
+        //    ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
+        //    OverrideWindow overrideWindow = ShowOverrideDialog(overrideRow.Data.Name);
 
-            if (overrideWindow.IsOK)
-            {
-                foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
-                {
-                    if (schemeOverrides.Name == currentScheme.Name)
-                    {
-                        ComboBoxColorItem selectedColor = overrideWindow.OverrideName.SelectedItem as ComboBoxColorItem;
-                        ColorOverride selectedOverride = schemeOverrides.ColorOverrides.Find(x => x.Name == selectedColor.Name);
-                        if (selectedOverride != null)
-                        {
-                            selectedOverride.Color = qgrepSearchWindowControl.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()));
+        //    if (overrideWindow.IsOK)
+        //    {
+        //        foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
+        //        {
+        //            if (schemeOverrides.Name == currentScheme.Name)
+        //            {
+        //                ComboBoxColorItem selectedColor = overrideWindow.OverrideName.SelectedItem as ComboBoxColorItem;
+        //                ColorOverride selectedOverride = schemeOverrides.ColorOverrides.Find(x => x.Name == selectedColor.Name);
+        //                if (selectedOverride != null)
+        //                {
+        //                    selectedOverride.Color = qgrepSearchWindowControl.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()));
 
-                            Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
-                            Settings.Default.Save();
+        //                    Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
+        //                    Settings.Default.Save();
 
-                            LoadFromSettings();
-                            Parent.LoadColorsFromResources(this);
-                            Parent.UpdateColorsFromSettings();
-                        }
+        //                    LoadFromSettings();
+        //                    Parent.LoadColorsFromResources(this);
+        //                    Parent.UpdateColorsFromSettings();
+        //                }
 
-                        break;
-                    }
-                }
-            }
-        }
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
 
-        public List<ColorOverride> GetCurrentColorOverrides()
-        {
-            ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
+        //public List<ColorOverride> GetCurrentColorOverrides()
+        //{
+        //    ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
 
-            foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
-            {
-                if (schemeOverrides.Name == currentScheme.Name)
-                {
-                    return schemeOverrides.ColorOverrides;
-                }
-            }
+        //    foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
+        //    {
+        //        if (schemeOverrides.Name == currentScheme.Name)
+        //        {
+        //            return schemeOverrides.ColorOverrides;
+        //        }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        private void UpdateHint()
-        {
-            OverridesHint.Visibility = OverridesPanel.Children.Count > 1 ? Visibility.Collapsed : Visibility.Visible;
-        }
+        //private void UpdateHint()
+        //{
+        //    OverridesHint.Visibility = OverridesPanel.Children.Count > 1 ? Visibility.Collapsed : Visibility.Visible;
+        //}
 
-        private void AddNewOverride_Click(object sender, RoutedEventArgs e)
-        {
-            AddOverride();
-        }
+        //private void AddNewOverride_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AddOverride();
+        //}
 
-        private void DeleteAllOverride_Click(object sender, RoutedEventArgs e)
-        {
-            ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
+        //private void DeleteAllOverride_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
 
-            foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
-            {
-                if (schemeOverrides.Name == currentScheme.Name)
-                {
-                    schemeOverrides.ColorOverrides.Clear();
+        //    foreach (ColorSchemeOverrides schemeOverrides in colorSchemeOverrides)
+        //    {
+        //        if (schemeOverrides.Name == currentScheme.Name)
+        //        {
+        //            schemeOverrides.ColorOverrides.Clear();
 
-                    Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
-                    Settings.Default.Save();
+        //            Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
+        //            Settings.Default.Save();
 
-                    LoadFromSettings();
-                    Parent.LoadColorsFromResources(this);
-                    Parent.UpdateColorsFromSettings();
-                    break;
-                }
-            }
-        }
+        //            LoadFromSettings();
+        //            Parent.LoadColorsFromResources(this);
+        //            Parent.UpdateColorsFromSettings();
+        //            break;
+        //        }
+        //    }
+        //}
     }
 }

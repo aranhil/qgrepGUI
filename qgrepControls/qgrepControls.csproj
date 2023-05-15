@@ -78,6 +78,7 @@
     <Compile Include="Classes\FolderSelectDialog.cs" />
     <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="Classes\SearchEngine.cs" />
+    <Compile Include="ModelViews\ColorOverride.cs" />
     <Compile Include="ModelViews\HistoricItem.cs" />
     <Compile Include="ModelViews\SelectableData.cs" />
     <Compile Include="ModelViews\SearchConfig.cs" />
@@ -105,9 +106,6 @@
     <Compile Include="UserControls\ClippingBorder.cs" />
     <Compile Include="ToolWindows\ColorsWindow\ColorsWindow.xaml.cs">
       <DependentUpon>ColorsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ToolWindows\ColorsWindow\OverrideRow.xaml.cs">
-      <DependentUpon>OverrideRow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\ColorsWindow\OverrideWindow.xaml.cs">
       <DependentUpon>OverrideWindow.xaml</DependentUpon>
@@ -157,10 +155,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolWindows\ColorsWindow\ColorsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ToolWindows\ColorsWindow\OverrideRow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

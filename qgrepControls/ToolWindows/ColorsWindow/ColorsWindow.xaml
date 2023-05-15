@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
+             xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="400" Height="400">
+             Width="300" Height="400">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
@@ -19,19 +20,8 @@
             <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Color scheme:" />
             <ComboBox Grid.Row="0" Grid.Column="1" x:Name="ColorSchemeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ColorSchemeComboBox_SelectionChanged" />
         </StackPanel>
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
-            <Border Style="{DynamicResource SomeBorderStyle}" Margin="0,-1,0,0" MouseEnter="OverridesPanel_MouseEnter" MouseLeave="OverridesPanel_MouseLeave">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2">
-                    <StackPanel x:Name="OverridesPanel"/>
-                </ScrollViewer>
-                <Border.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem x:Name="AddNewOverride" Header="Add new override" Click="AddNewOverride_Click"/>
-                        <MenuItem x:Name="DeleteAllOverride" Header="Delete all override" Click="DeleteAllOverride_Click"/>
-                    </ContextMenu>
-                </Border.ContextMenu>
-            </Border>
-            <Label x:Name="OverridesHint" Content="Color overrides" Style="{DynamicResource SomeHintLabel2}" />
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="-1,10,-1,-1">
+            <usercontrols:ConfigListBox Grid.Column="1" x:Name="ColorsListBox" />
         </Grid>
     </Grid>
 </UserControl>

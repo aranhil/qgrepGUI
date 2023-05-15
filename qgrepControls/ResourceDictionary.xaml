@@ -2388,7 +2388,6 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="TextAlignment" Value="Right" />
         <Setter Property="Height" Value="22" />
-        <Setter Property="WatermarkTemplate" Value="{StaticResource DefaultWatermarkTemplate}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Control">
@@ -2402,7 +2401,7 @@
                                AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
                                ShowButtonSpinner="False"
                                ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
-                        <local:WatermarkTextBox x:Name="PART_TextBox"
+                        <!--<local:WatermarkTextBox x:Name="PART_TextBox"
                                     BorderThickness="0"
                                     Background="Transparent"
                                     ContextMenu="{TemplateBinding ContextMenu}"
@@ -2426,7 +2425,7 @@
                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"
                                     WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}"
-                                    MaxLength="{Binding MaxLength, RelativeSource={RelativeSource TemplatedParent}}">
+                                    MaxLength="{Binding MaxLength, RelativeSource={RelativeSource TemplatedParent}}">-->
                         </local:WatermarkTextBox>
                     </local:ButtonSpinner>
                     <ControlTemplate.Triggers>

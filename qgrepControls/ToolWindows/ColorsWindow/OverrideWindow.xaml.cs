@@ -1,7 +1,10 @@
 ﻿using qgrepControls.Classes;
+using qgrepControls.ModelViews;
 using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -63,10 +66,10 @@ namespace qgrepControls.ColorsWindow
             if (CheckDuplicates)
             {
                 ComboBoxColorItem selectedName = OverrideName.SelectedItem as ComboBoxColorItem;
-                List<ColorOverride> currentOverrides = Parent.GetCurrentColorOverrides();
+                ObservableCollection<ColorOverride> currentOverrides = Parent.CurrentColorOverrides;
                 if (currentOverrides != null && selectedName != null)
                 {
-                    bool alreadyExists = currentOverrides.Exists(x => x.Name == selectedName.Name);
+                    bool alreadyExists = currentOverrides.Any(x => x.Name == selectedName.Name);
                     OK.IsEnabled = !alreadyExists;
                     OK.ToolTip = alreadyExists ? "Override already exists!" : null;
                 }
