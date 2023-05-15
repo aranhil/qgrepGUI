@@ -284,6 +284,12 @@ namespace qgrepControls.Classes
                 }
             }
         }
+
+        public void UnloadConfig()
+        {
+            ConfigProjects.Clear();
+        }
+
         public void SaveConfig()
         {
             foreach(ConfigProject configProject in ConfigProjects)
@@ -323,6 +329,27 @@ namespace qgrepControls.Classes
                 File.Delete(directory + "\\" + configProject.Name + ".qgd");
                 File.Delete(directory + "\\" + configProject.Name + ".qgf");
             }
+        }
+
+        public DateTime GetLastUpdated()
+        {
+            DateTime lastUpdated = DateTime.MaxValue;
+            foreach (ConfigProject configProject in ConfigProjects)
+            {
+                string directory = System.IO.Path.GetDirectoryName(configProject.Path);
+                string fileToCheck = directory + "\\" + configProject.Name + ".qgd";
+
+                if(File.Exists(fileToCheck))
+                {
+                    DateTime lastModified = File.GetLastWriteTime(fileToCheck);
+                    if(lastModified < lastUpdated)
+                    {
+                        lastUpdated = lastModified;
+                    }
+                }
+            }
+
+            return lastUpdated;
         }
 
         public static string GetCommonPathPrefix(string path1, string path2)

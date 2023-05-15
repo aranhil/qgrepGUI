@@ -172,6 +172,16 @@ namespace qgrepSearch
 
         int IVsSolutionEvents.OnAfterCloseSolution(object pUnkReserved)
         {
+            qgrepSearchWindow searchWindow = FindToolWindow(typeof(qgrepSearchWindow), toolWindowId, false) as qgrepSearchWindow;
+            if (searchWindow != null)
+            {
+                qgrepSearchWindowControl searchWindowControl = searchWindow.Content as qgrepSearchWindowControl;
+                if (searchWindowControl != null)
+                {
+                    searchWindowControl.SolutionUnloaded();
+                }
+            }
+
             return VSConstants.S_OK;
         }
 

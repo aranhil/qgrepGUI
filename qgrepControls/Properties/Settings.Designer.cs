@@ -145,17 +145,6 @@ namespace qgrepControls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.DateTime LastUpdated {
-            get {
-                return ((global::System.DateTime)(this["LastUpdated"]));
-            }
-            set {
-                this["LastUpdated"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int GroupingIndex {
             get {
@@ -264,7 +253,7 @@ namespace qgrepControls.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ShowOpenHistory {
             get {
                 return ((bool)(this["ShowOpenHistory"]));

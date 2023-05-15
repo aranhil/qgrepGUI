@@ -78,11 +78,16 @@ namespace qgrepControls.SearchWindow
             InitializeComponent();
             SearchItemsListBox.DataContext = searchResults;
 
+            InitInfo.Visibility = Visibility.Collapsed;
             InitButton.Visibility = Visibility.Collapsed;
             CleanButton.Visibility = Visibility.Collapsed;
             InitProgress.Visibility = Visibility.Collapsed;
             Overlay.Visibility = Visibility.Collapsed;
             PathsButton.IsEnabled = false;
+            SearchInput.IsEnabled = false;
+            IncludeFilesInput.IsEnabled = false;
+            ExcludeFilesInput.IsEnabled = false;
+            FilterResultsInput.IsEnabled = false;
 
             SearchCaseSensitive.IsChecked = Settings.Default.CaseSensitive;
             SearchRegEx.IsChecked = Settings.Default.RegEx;
@@ -92,8 +97,7 @@ namespace qgrepControls.SearchWindow
             ExcludeRegEx.IsChecked = Settings.Default.ExcludesRegEx;
             FilterRegEx.IsChecked = Settings.Default.FilterRegEx;
 
-            StartTimer();
-            UpdateLastUpdated();
+            StartLastUpdatedTimer();
             SolutionLoaded();
 
             string colorSchemesJson = System.Text.Encoding.Default.GetString(qgrepControls.Properties.Resources.colors_schemes);
@@ -133,14 +137,7 @@ namespace qgrepControls.SearchWindow
             FilterRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
         }
 
-        private void ResetTimestamp()
-        {
-            Settings.Default.LastUpdated = DateTime.Now;
-            Settings.Default.Save();
-            StartTimer();
-        }
-
-        private void StartTimer()
+        private void StartLastUpdatedTimer()
         {
             UpdateTimer = new System.Timers.Timer(30000);
             UpdateTimer.Elapsed += UpdateTimer_Elapsed;
@@ -169,7 +166,7 @@ namespace qgrepControls.SearchWindow
             }
             else
             {
-                return eventTime.ToString("d MMM yyyy");
+                return eventTime.ToString("g");
             }
         }
 
@@ -177,10 +174,10 @@ namespace qgrepControls.SearchWindow
         {
             if (!SearchEngine.IsBusy)
             {
-                if (Settings.Default["LastUpdated"] != null)
-                {
-                    InitInfo.Content = "Last index update: " + GetTimeAgoString(Settings.Default.LastUpdated);
-                }
+                DateTime lastUpdated = ConfigParser != null ? ConfigParser.GetLastUpdated() : DateTime.MaxValue;
+                string timeAgo = lastUpdated == DateTime.MaxValue ? "never" : GetTimeAgoString(lastUpdated);
+
+                InitInfo.Content = "Last index update: " + timeAgo;
             }
         }
 
@@ -292,11 +289,45 @@ namespace qgrepControls.SearchWindow
 
                 UpdateWarning();
                 UpdateFilters();
+                UpdateLastUpdated();
 
+                InitInfo.Visibility = Visibility.Visible;
                 InitButton.Visibility = Visibility.Visible;
                 CleanButton.Visibility = Visibility.Visible;
                 PathsButton.IsEnabled = true;
+                SearchInput.IsEnabled = true;
+                IncludeFilesInput.IsEnabled = true;
+                ExcludeFilesInput.IsEnabled = true;
+                FilterResultsInput.IsEnabled = true;
             }
+        }
+
+        public void SolutionUnloaded()
+        {
+            WarningText.Text = "No solution loaded.";
+            WarningText.Visibility = Visibility.Visible;
+
+            FiltersComboBox.Visibility = Visibility.Collapsed;
+            ConfigParser.UnloadConfig();
+
+            searchResults.Clear();
+            searchResultsGroups.Clear();
+
+            InitInfo.Visibility= Visibility.Collapsed;
+            InitButton.Visibility = Visibility.Collapsed;
+            CleanButton.Visibility = Visibility.Collapsed;
+            InitProgress.Visibility = Visibility.Collapsed;
+            Overlay.Visibility = Visibility.Collapsed;
+            PathsButton.IsEnabled = false;
+            SearchInput.IsEnabled = false;
+            IncludeFilesInput.IsEnabled = false;
+            ExcludeFilesInput.IsEnabled = false;
+            FilterResultsInput.IsEnabled = false;
+            SearchInput.Text = "";
+            IncludeFilesInput.Text = "";
+            ExcludeFilesInput.Text = "";
+            FilterResultsInput.Text = "";
+            InfoLabel.Content = "";
         }
 
         public void UpdateWarning()
@@ -793,7 +824,7 @@ namespace qgrepControls.SearchWindow
                 infoUpdateStopWatch.Stop();
                 progressUpdateStopWatch.Stop();
 
-                ResetTimestamp();
+                StartLastUpdatedTimer();
             }));
         }
 
@@ -835,12 +866,12 @@ namespace qgrepControls.SearchWindow
 
         private void InitButton_Click(object sender, RoutedEventArgs e)
         {
-            SearchEngine.UpdateDatabaseAsync(FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList());
+            SearchEngine.UpdateDatabaseAsync(ConfigParser.ConfigProjects.Select(x => x.Path).ToList());
         }
         private void CleanButton_Click(object sender, RoutedEventArgs e)
         {
             CleanDatabase();
-            SearchEngine.UpdateDatabaseAsync(FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList());
+            SearchEngine.UpdateDatabaseAsync(ConfigParser.ConfigProjects.Select(x => x.Path).ToList());
         }
 
         private void CaseSensitive_Click(object sender, RoutedEventArgs e)
