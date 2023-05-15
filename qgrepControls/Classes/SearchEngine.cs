@@ -271,7 +271,7 @@ namespace qgrepControls.Classes
                         }
                         else
                         {
-                            if (!file.ToLower().Contains(searchOptions.FilterResults) && !rawText.Contains(searchOptions.FilterResults))
+                            if (!file.ToLower().Contains(searchOptions.FilterResults) && !rawText.ToLower().Contains(searchOptions.FilterResults))
                             {
                                 return false;
                             }
