@@ -161,5 +161,10 @@ namespace qgrepSearchTool_Standalone
             Settings.Default.KeyBindings = JsonConvert.SerializeObject(bindings);
             Settings.Default.Save();
         }
+
+        public Window GetMainWindow()
+        {
+            return null;
+        }
     }
 }

@@ -285,7 +285,7 @@ namespace qgrepSearch
 
         public System.Windows.Window GetMainWindow()
         {
-            var mainWinHandle = State.DTE.MainWindow.HWnd;
+            var mainWinHandle = (IntPtr)State.DTE.MainWindow.HWnd;
             var mainWinSource = HwndSource.FromHwnd(mainWinHandle);
             return (System.Windows.Window)mainWinSource.RootVisual;
         }

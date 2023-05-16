@@ -818,7 +818,7 @@ namespace qgrepControls.SearchWindow
                     ExcludeFilesRegEx = ExcludeRegEx.IsChecked == true,
                     FilterResultsRegEx = FilterRegEx.IsChecked == true,
                     GroupingMode = Settings.Default.GroupingIndex,
-                    Configs = FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList(),
+                    Configs = GetSelectedConfigProjects(),
                     BypassCache = BypassCacheNextFind
                 };
 
@@ -833,7 +833,7 @@ namespace qgrepControls.SearchWindow
                     IncludeFilesRegEx = IncludeRegEx.IsChecked == true,
                     FilterResultsRegEx = FilterRegEx.IsChecked == true,
                     GroupingMode = 0,
-                    Configs = FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList(),
+                    Configs = GetSelectedConfigProjects(),
                     BypassCache = BypassCacheNextFind
                 };
 
@@ -847,6 +847,18 @@ namespace qgrepControls.SearchWindow
             }
 
             BypassCacheNextFind = false;
+        }
+
+        private List<string> GetSelectedConfigProjects()
+        {
+            if(ConfigParser.ConfigProjects.Count == 1)
+            {
+                return new List<string>() { ConfigParser.ConfigProjects[0].Path };
+            }
+            else
+            {
+                return FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList();
+            }
         }
 
         private void SearchResult_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
