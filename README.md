@@ -10,32 +10,38 @@ Install the Visual Studio extension and follow the setup instructions below.
 
 ## Setting up in Visual Studio
 
-1. After installing the extension, the toolbar can be opened from **View >> Other Windows >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard** and the command name is "View.qgrepSearchTool".
+1. After installing the extension, the toolbar can be opened from **View >> Other Windows >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is "View.qgrepSearchTool".
 
-2. After this, you have to set up the folders that will be indexed. The window for this can be opened up from the lower left corner of the toolbar:
+2. After opening the tool window, you have to set up the folders that will be indexed:
 
-   ![image](https://user-images.githubusercontent.com/755601/236962201-40373b1a-f74c-4fe9-8cd2-4fbb70417c8d.png)
+   <gif with how to set up the indexed folders>
+   If your projects have a format that can be parsed by MSBuild, you can use the **Gather from solution** button to automatically grab all the folders and file extensions from the solution. 
 
-3. From here, you can add the folders and file filters. The "Gather from solution" button will automatically grab all the folders inside your solution. You can also select multiple folders at once.
-
-   ![image](https://user-images.githubusercontent.com/755601/236962315-6a4029f9-7cb7-429c-9237-b546d9a97ba3.png)
-
-4. After closing this window, indexing will begin automatically, and you can start searching.
-
-## Interface overview
+## Features overview
 
 ![image](https://user-images.githubusercontent.com/755601/236962874-6614cf8c-dcf8-4029-8dce-fc8f323409f3.png)
 
-### Search input
-
-The search input has three toggles that can also be found in Visual Studio: Case sensitive, Whole word, and Regular expressions.
-
-### Search results
-
-The search results list can be interacted with the keyboard/mouse without the search input losing the focus. There is also a contextual menu with more options:
-
-   ![image](https://user-images.githubusercontent.com/755601/236962612-82f1e2a6-2001-4016-8c22-f6532a562113.png)
-
+### Search Input
+   The search input has the same three toggles that can also be found in Visual Studio: Case sensitive, Whole word, and Regular expressions.
+   <gif of toggling them>
+   
+### Search Results
+   The search results can be shown as list or grouped by file, there is also a contextual menu.
+   <gif with toggle between grouping type and contextual menu>
+   
+### Keyboard navigation
+   You can cycle with the **Tab** key between the input textboxes and the search results. The **Down** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
+- Toggle case sensitive (Alt + C)
+- Toggle whole word (Alt + W)
+- Toggle regular expressions (Alt + R)
+- Toggle include files (Alt + I)
+- Toggle exclude files (Alt + E)
+- Toggle filter results (Alt + F)
+- Open history (Alt + H)
+      
+### History
+   The history keeps all of your recent searches and it can also show all of your recent openings. 
+      
 ### Customize colors
 
 Here you can switch between the Auto, Dark, and Light color schemes. If you're in Visual Studio, the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
