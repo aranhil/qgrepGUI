@@ -255,27 +255,34 @@ namespace qgrepControls.Classes
                     result = currentIndex + 1 < result.Length ? result.Substring(currentIndex + 1) : "";
 
                     int indexOfParanthesis = fileAndLineNo.LastIndexOf('(');
-                    lineNo = fileAndLineNo.Substring(indexOfParanthesis + 1, fileAndLineNo.Length - indexOfParanthesis - 2);
-                    file = fileAndLineNo.Substring(0, indexOfParanthesis);
-
-                    if (searchOptions.FilterResults.Length > 0)
+                    if (indexOfParanthesis >= 0)
                     {
-                        string rawText = result.Replace("\xB1", "").Replace("\xB2", "");
+                        lineNo = fileAndLineNo.Substring(indexOfParanthesis + 1, fileAndLineNo.Length - indexOfParanthesis - 2);
+                        file = fileAndLineNo.Substring(0, indexOfParanthesis);
 
-                        if (searchOptions.FilterResultsRegEx)
+                        if (searchOptions.FilterResults.Length > 0)
                         {
-                            if (!Regex.Match(file.ToLower(), searchOptions.FilterResults).Success && !Regex.Match(rawText.ToLower(), searchOptions.FilterResults).Success)
+                            string rawText = result.Replace("\xB1", "").Replace("\xB2", "");
+
+                            if (searchOptions.FilterResultsRegEx)
                             {
-                                return false;
+                                if (!Regex.Match(file.ToLower(), searchOptions.FilterResults).Success && !Regex.Match(rawText.ToLower(), searchOptions.FilterResults).Success)
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                if (!file.ToLower().Contains(searchOptions.FilterResults) && !rawText.ToLower().Contains(searchOptions.FilterResults))
+                                {
+                                    return false;
+                                }
                             }
                         }
-                        else
-                        {
-                            if (!file.ToLower().Contains(searchOptions.FilterResults) && !rawText.ToLower().Contains(searchOptions.FilterResults))
-                            {
-                                return false;
-                            }
-                        }
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
 

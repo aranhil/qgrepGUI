@@ -81,17 +81,29 @@ namespace qgrepControls.UserControls
         {
             if(IsDeselectable)
             {
-                DependencyObject parent = e.OriginalSource as DependencyObject;
-                while (parent != null)
+                try
                 {
-                    if (parent is ListBoxItem)
-                        return;
-                    if (parent is ListBox)
-                        break;
-                    parent = VisualTreeHelper.GetParent(parent);
-                }
+                    DependencyObject parent = e.OriginalSource as DependencyObject;
+                    while (parent != null)
+                    {
+                        if (parent is ListBoxItem)
+                            return;
+                        if (parent is ListBox)
+                            break;
 
-                InnerListBox.SelectedIndex = -1;
+                        try
+                        {
+                            parent = VisualTreeHelper.GetParent(parent) ?? LogicalTreeHelper.GetParent(parent);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            parent = LogicalTreeHelper.GetParent(parent);
+                        }
+                    }
+
+                    InnerListBox.SelectedIndex = -1;
+                }
+                catch (Exception) { }
             }
         }
 
