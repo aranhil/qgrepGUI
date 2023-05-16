@@ -59,7 +59,7 @@ Install the Visual Studio extension and follow the setup instructions below.
 
 ## Support
 
-If you have encounter a bug or want to suggest a feature, please open an issue in the [GitHub repository](https://github.com/aranhil/qgrepSearchTool/issues).
+If you encounter a bug or want to suggest a feature, please open an issue in the [GitHub repository](https://github.com/aranhil/qgrepSearchTool/issues).
 
 ## Acknowledgements
 
