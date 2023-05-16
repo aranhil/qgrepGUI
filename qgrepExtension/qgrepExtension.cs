@@ -15,33 +15,10 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 
 namespace qgrepSearch
 {
-    //public class qgrepExtensionWindow : IExtensionWindow
-    //{
-    //    private MainWindow dialogWindow;
-    //    public qgrepExtensionWindow(MainWindow dialogWindow)
-    //    {
-    //        this.dialogWindow = dialogWindow;
-    //    }
-
-    //    public void ShowModal()
-    //    {
-    //        dialogWindow.ShowDialog();
-    //    }
-
-    //    public void Close()
-    //    {
-    //        dialogWindow.Close();
-    //    }
-
-    //    public void Show()
-    //    {
-    //        dialogWindow.Show();
-    //    }
-    //}
-
     public class qgrepExtension : IExtensionInterface
     {
         private qgrepSearchWindowState State;
@@ -304,6 +281,13 @@ namespace qgrepSearch
 
         public void ApplyKeyBindings(Dictionary<string, Hotkey> bindings)
         {
+        }
+
+        public System.Windows.Window GetMainWindow()
+        {
+            var mainWinHandle = State.DTE.MainWindow.HWnd;
+            var mainWinSource = HwndSource.FromHwnd(mainWinHandle);
+            return (System.Windows.Window)mainWinSource.RootVisual;
         }
     }
 }

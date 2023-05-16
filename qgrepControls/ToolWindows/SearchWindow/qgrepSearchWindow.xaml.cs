@@ -70,6 +70,7 @@ namespace qgrepControls.SearchWindow
         ObservableCollection<HistoricItem> shownSearchHistory = new ObservableCollection<HistoricItem>();
 
         static SearchEngine SearchEngine = new SearchEngine();
+        bool BypassCacheNextFind = false;
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
@@ -818,6 +819,7 @@ namespace qgrepControls.SearchWindow
                     FilterResultsRegEx = FilterRegEx.IsChecked == true,
                     GroupingMode = Settings.Default.GroupingIndex,
                     Configs = FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList(),
+                    BypassCache = BypassCacheNextFind
                 };
 
                 SearchEngine.SearchAsync(searchOptions);
@@ -832,6 +834,7 @@ namespace qgrepControls.SearchWindow
                     FilterResultsRegEx = FilterRegEx.IsChecked == true,
                     GroupingMode = 0,
                     Configs = FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList(),
+                    BypassCache = BypassCacheNextFind
                 };
 
                 SearchEngine.SearchFilesAsync(searchOptions);
@@ -842,6 +845,8 @@ namespace qgrepControls.SearchWindow
                 searchResultsGroups.Clear();
                 InfoLabel.Content = "";
             }
+
+            BypassCacheNextFind = false;
         }
 
         private void SearchResult_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -1041,12 +1046,14 @@ namespace qgrepControls.SearchWindow
             CreateWindow(newProjectsWindow, "Search configurations", this, true).ShowDialog();
 
             ConfigParser.SaveConfig();
-            UpdateFilters();
 
             if (ConfigParser.IsConfigChanged())
             {
                 UpdateWarning();
                 SearchEngine.UpdateDatabaseAsync(ConfigParser.ConfigProjects.Select(x => x.Path).ToList());
+
+                BypassCacheNextFind = true;
+                UpdateFilters();
             }
         }
 
@@ -1519,7 +1526,7 @@ namespace qgrepControls.SearchWindow
                 ResizeMode = resizeable ? ResizeMode.CanResizeWithGrip : ResizeMode.NoResize,
                 Width = userControl.Width + 37,
                 Height = userControl.Height + 37,
-                Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner),
+                Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner) ?? ExtensionInterface.GetMainWindow(),
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
             };
 

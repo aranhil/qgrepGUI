@@ -46,6 +46,7 @@ namespace qgrepControls.Classes
         public bool FilterResultsRegEx { get; set; } = false;
         public int GroupingMode { get; set; } = 0;
         public List<string> Configs { get; set; } = new List<string>();
+        public bool BypassCache { get; set; } = false;
 
         public bool CanUseCache(SearchOptions newSearchOptions)
         {
@@ -97,7 +98,7 @@ namespace qgrepControls.Classes
             {
                 StartSearchCallback(searchOptions);
 
-                if(CachedSearch.SearchOptions != null && CachedSearch.SearchOptions.CanUseCache(searchOptions))
+                if(!searchOptions.BypassCache && CachedSearch.SearchOptions != null && CachedSearch.SearchOptions.CanUseCache(searchOptions))
                 {
                     CachedSearch.SearchOptions = searchOptions;
 

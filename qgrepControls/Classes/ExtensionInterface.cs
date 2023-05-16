@@ -18,5 +18,6 @@ namespace qgrepControls.Classes
         Dictionary<string, Hotkey> ReadKeyBindings();
         void ApplyKeyBindings(Dictionary<string, Hotkey> bindings);
         void SaveKeyBindings(Dictionary<string, Hotkey> bindings);
+        System.Windows.Window GetMainWindow();
     }
 }
