@@ -22,8 +22,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ### Search Input
    The search input has the same three options that can also be found in Visual Studio: Case sensitive, Whole word, and Regular expressions.
 
-![Search](https://github.com/aranhil/qgrepGUI/assets/755601/f59fefb0-c355-4886-8f70-23ad0caffe18)
-   
+
 ### Search Results
    The search results can be shown as list or grouped by file, there is also a contextual menu.
 
