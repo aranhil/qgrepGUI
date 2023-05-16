@@ -50,7 +50,7 @@ Install the Visual Studio extension and follow the setup instructions below.
             <gif with that>
 
 ### Advanced search configurations
-    You can set up multiple search configurations and toggle between them:
+   You can set up multiple search configurations and toggle between them:
    <gif with example>
 
 ## License
