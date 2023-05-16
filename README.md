@@ -14,7 +14,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
-![Setup](https://github.com/aranhil/qgrepGUI/assets/755601/22b08329-d99a-485c-8ef0-f3db1e5f39cf)
+![Setup](https://github.com/aranhil/qgrepGUI/assets/755601/7b3a9acc-1ec9-4617-ad16-eafe1bf971fe)
 
    If your projects have a format that can be parsed by MSBuild, you can use the ** Gather from solution ** button to automatically grab all the folders and file extensions from the solution. 
 
