@@ -6,7 +6,7 @@
 
 ## Installation
 
-Install the Visual Studio extension and follow the setup instructions below.
+Install the Visual Studio extension from [here](https://marketplace.visualstudio.com/items?itemName=Stefan-IulianChivu.qgrepSearchTool-x64) (for Visual Studio 2022) or from [here](https://marketplace.visualstudio.com/items?itemName=Stefan-IulianChivu.qgrepSearchTool-x86) (for Visual Studio 2019) and follow the setup instructions below.
 
 ## Setting up in Visual Studio
 
@@ -15,7 +15,7 @@ Install the Visual Studio extension and follow the setup instructions below.
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
    <gif with how to set up the indexed folders>
-   If your projects have a format that can be parsed by MSBuild, you can use the **Gather from solution** button to automatically grab all the folders and file extensions from the solution. 
+   If your projects have a format that can be parsed by MSBuild, you can use the ** Gather from solution ** button to automatically grab all the folders and file extensions from the solution. 
 
 ## Features overview
 
@@ -30,7 +30,7 @@ Install the Visual Studio extension and follow the setup instructions below.
    <gif with toggle between grouping type and contextual menu>
    
 ### Keyboard navigation
-   You can cycle with the **Tab** key between the input textboxes and the search results. The **Down** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
+   You can cycle with the ** Tab ** key between the input textboxes and the search results. The ** Down ** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
 - Toggle case sensitive (Alt + C)
 - Toggle whole word (Alt + W)
 - Toggle regular expressions (Alt + R)
