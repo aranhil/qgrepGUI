@@ -40,41 +40,18 @@ Install the Visual Studio extension and follow the setup instructions below.
 - Open history (Alt + H)
       
 ### History
-   The history keeps all of your recent searches and it can also show all of your recent openings. 
+   The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
+      <gif with example>
       
 ### Customize colors
+   There are three color schemes available: Auto, Dark, and Light. the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
+         <gif with theme changing>
+    You also have the option to override any color used in the currently selected color scheme.
+            <gif with that>
 
-Here you can switch between the Auto, Dark, and Light color schemes. If you're in Visual Studio, the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
-
-   ![ezgif com-optimize](https://user-images.githubusercontent.com/755601/236553098-99c9d092-fa59-4d53-8365-fa01469f605b.gif)
-
-You also have the option to override any color used in the currently selected color scheme.
-
-### Advanced options
-
-- **Include files**: Toggles the visibility of an input textbox that you can use to match the files that will be searched.
-- **Exclude files**: Like the previous one, but this one excludes the matched files from the search.
-- **Filter results**: Like the previous two, can be used to further filter the results, for both the path and the text
-- **Show history**: This toggles the visibility of an icon on the input search box that shows all your recent searches.
-- **Search while typing**: This will be on by default, but if you have performance issues, you can turn it off. Note that turning this off will no longer always keep the focus of the input textbox.
-- **Group by**: File - groups the results by file; None - shows the results on a single line
-- **Group expand**:If the previous option is set to File, this chooses how group expansion will be handled. Auto collapses all the results if there are too many.
-- **Path style**: This changes how the paths will be shown in the results, it does NOT affect searching.
-- **Trim spaces on copy**: This will trim any spaces and tabs surrounding the text when it's being copied.
-
-### Search configurations
-
-Advanced mode opens up the possibility to toggle between multiple search configs. After setting them up, they can then be switched on or off from the lower left corner of the toolbar.
-
-   ![image](https://user-images.githubusercontent.com/755601/236962730-bd60a100-1697-4438-ad31-4590848d21bf.png)
-
-### Update cache
-
-This button updates the index.
-
-### Clean and update cache
-
-If there is an error with the indexing, this button cleans everything and indexes from scratch.
+### Advanced search configurations
+    You can set up multiple search configurations and toggle between them:
+   <gif with example>
 
 ## License
 
