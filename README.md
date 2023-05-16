@@ -2,7 +2,7 @@
 
 *qgrep GUI* is a Visual Studio extension and GUI wrapper for [qgrep](https://github.com/zeux/qgrep) by Arseny Kapoulkine. As an indexing search tool, it's well-suited for large codebases, providing a user-friendly and responsive interface equipped with all standard search tool features. Additionally, it offers fully customizable color themes for a more personalized user experience.
 
-![qgrep search tool](https://github.com/aranhil/qgrepSearchTool/assets/755601/b42ba9bd-fd10-4e3b-86ad-4b5ea08bfc00)
+![Animation](https://github.com/aranhil/qgrepGUI/assets/755601/05eecff9-d7eb-4beb-95fa-1cf7a0b8c2ea)
 
 ## Installation
 
