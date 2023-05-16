@@ -22,7 +22,7 @@ Install the Visual Studio extension and follow the setup instructions below.
 ![image](https://user-images.githubusercontent.com/755601/236962874-6614cf8c-dcf8-4029-8dce-fc8f323409f3.png)
 
 ### Search Input
-   The search input has the same three toggles that can also be found in Visual Studio: Case sensitive, Whole word, and Regular expressions.
+   The search input has the same three options that can also be found in Visual Studio: Case sensitive, Whole word, and Regular expressions.
    <gif of toggling them>
    
 ### Search Results
@@ -46,7 +46,7 @@ Install the Visual Studio extension and follow the setup instructions below.
 ### Customize colors
    There are three color schemes available: Auto, Dark, and Light. the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
          <gif with theme changing>
-    You also have the option to override any color used in the currently selected color scheme.
+   You also have the option to override any color used in the currently selected color scheme.
             <gif with that>
 
 ### Advanced search configurations
@@ -59,7 +59,7 @@ Install the Visual Studio extension and follow the setup instructions below.
 
 ## Support
 
-If you have any questions or need help, please open an issue in the [GitHub repository](https://github.com/aranhil/qgrepSearchTool/issues).
+If you have encounter a bug or want to suggest a feature, please open an issue in the [GitHub repository](https://github.com/aranhil/qgrepSearchTool/issues).
 
 ## Acknowledgements
 
