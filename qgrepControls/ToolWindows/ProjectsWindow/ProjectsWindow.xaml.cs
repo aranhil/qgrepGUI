@@ -38,6 +38,7 @@ namespace qgrepControls.SearchWindow
             ProjectsListBox.RemoveAllButton.ToolTip = "Remove all configs";
             ProjectsListBox.AddButton.Click += AddNewProject_Click;
             ProjectsListBox.InnerListBox.SelectionChanged += ConfigProjects_SelectionChanged;
+            ProjectsListBox.IsPreviousSelectedOnRemove = true;
             SearchConfigs.CollectionChanged += ConfigProjects_CollectionChanged;
 
             GroupsListBox.Title.Text = "Groups";
@@ -48,6 +49,7 @@ namespace qgrepControls.SearchWindow
             GroupsListBox.RemoveAllButton.ToolTip = "Remove all groups";
             GroupsListBox.AddButton.Click += AddNewGroup_Click;
             GroupsListBox.InnerListBox.SelectionChanged += ConfigGroups_SelectionChanged;
+            GroupsListBox.IsPreviousSelectedOnRemove = true;
 
             PathsListBox.Title.Text = "Folders";
             PathsListBox.ItemEditType = ConfigListBox.EditType.None;
@@ -56,6 +58,7 @@ namespace qgrepControls.SearchWindow
             PathsListBox.RemoveButton.ToolTip = "Remove selected folder(s)";
             PathsListBox.RemoveAllButton.ToolTip = "Remove all folders";
             PathsListBox.AddButton.Click += AddNewPath_Click;
+            PathsListBox.IsDeselectable = true;
 
             RulesListBox.Title.Text = "Filters";
             RulesListBox.ItemEditType = ConfigListBox.EditType.Custom;
@@ -65,6 +68,7 @@ namespace qgrepControls.SearchWindow
             RulesListBox.RemoveAllButton.ToolTip = "Remove all filters";
             RulesListBox.AddButton.Click += AddNewRule_Click; ;
             RulesListBox.OnEditClicked += EditRule_Click;
+            RulesListBox.IsDeselectable = true;
 
             LoadFromConfig();
 
@@ -292,11 +296,6 @@ namespace qgrepControls.SearchWindow
                         }
                     }
                 }
-            }
-
-            if(ProjectsListBox.InnerListBox.SelectedItems.Count == 0 && ProjectsListBox.InnerListBox.Items.Count > 0)
-            {
-                ProjectsListBox.InnerListBox.SelectedItem = ProjectsListBox.InnerListBox.Items[0];
             }
 
             UpdateVisibility();

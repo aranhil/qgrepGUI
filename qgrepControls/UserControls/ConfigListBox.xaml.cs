@@ -33,6 +33,8 @@ namespace qgrepControls.UserControls
             Custom
         }
 
+        public bool IsDeselectable { get; set; } = false;
+
         public delegate void EditFinished(string newValue);
         public delegate void EditClicked();
 
@@ -53,7 +55,9 @@ namespace qgrepControls.UserControls
                 EditButton.Visibility = itemEditType == EditType.None ? Visibility.Collapsed : Visibility.Visible;
             }
         }
-        
+
+        public bool IsPreviousSelectedOnRemove { get; set; } = false;
+
         public ConfigListBox()
         {
             InitializeComponent();
@@ -75,33 +79,51 @@ namespace qgrepControls.UserControls
 
         private void InnerListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //DependencyObject parent = e.OriginalSource as DependencyObject;
-            //while (parent != null)
-            //{
-            //    if (parent is ListBoxItem)
-            //        return; 
-            //    if (parent is ListBox)
-            //        break;
-            //    parent = VisualTreeHelper.GetParent(parent);
-            //}
+            if(IsDeselectable)
+            {
+                DependencyObject parent = e.OriginalSource as DependencyObject;
+                while (parent != null)
+                {
+                    if (parent is ListBoxItem)
+                        return;
+                    if (parent is ListBox)
+                        break;
+                    parent = VisualTreeHelper.GetParent(parent);
+                }
 
-            //InnerListBox.SelectedIndex = -1;
+                InnerListBox.SelectedIndex = -1;
+            }
         }
 
         private void ConfigListBox_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             RemoveAllButton.IsEnabled = InnerListBox.Items.Count > 0 ? true : false;
             RemoveButton.IsEnabled = InnerListBox.SelectedItems.Count > 0 ? true : false;
+
+            if(IsPreviousSelectedOnRemove)
+            {
+                if (InnerListBox.SelectedItems.Count == 0 && InnerListBox.Items.Count > 0)
+                {
+                    int newSelectedIndex = 0;
+                    if (e.OldStartingIndex - 1 >= 0)
+                    {
+                        newSelectedIndex = e.OldStartingIndex - 1;
+                    }
+
+                    InnerListBox.SelectedItem = InnerListBox.Items[newSelectedIndex];
+                    (InnerListBox.ItemContainerGenerator.ContainerFromItem(InnerListBox.SelectedItem) as ListBoxItem)?.Focus();
+                }
+            }
         }
 
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
-            //ButtonsPanel.Visibility = true;
+            //ButtonsPanel.Visibility = Visibility.Visible;
         }
 
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
-            //ButtonsPanel.Visibility = false;
+            //ButtonsPanel.Visibility = Visibility.Collapsed;
         }
 
         private void InnerListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

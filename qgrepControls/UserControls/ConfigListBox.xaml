@@ -40,11 +40,11 @@
                 </StackPanel>
             </DataTemplate>
             <DataTemplate DataType="{x:Type modelViews:ColorOverride}">
-                <StackPanel Orientation="Horizontal" Background="Transparent" Margin="5,0,0,0" MouseDown="StackPanel_MouseDown">
-                    <Grid HorizontalAlignment="Right" Margin="1" Width="48">
-                        <Border Width="44">
+                <StackPanel Orientation="Horizontal" Background="Transparent" Margin="2,0,0,0" MouseDown="StackPanel_MouseDown">
+                    <Grid HorizontalAlignment="Right" Margin="3" Width="36">
+                        <Border Width="36">
                             <Border.Background>
-                                <DrawingBrush TileMode="Tile" Viewport="0,1,8,8" ViewportUnits="Absolute" Stretch="None">
+                                <DrawingBrush TileMode="Tile" Viewport="0,0,8,8" ViewportUnits="Absolute" Stretch="None">
                                     <DrawingBrush.Drawing>
                                         <DrawingGroup>
                                             <GeometryDrawing Brush="White">
@@ -65,7 +65,7 @@
                                 </DrawingBrush>
                             </Border.Background>
                         </Border>
-                        <Border Name="OverrideColor" Width="48" Height="14" Background="{Binding Path=Brush}" BorderThickness="1" BorderBrush="{DynamicResource Border}"/>
+                        <Border Name="OverrideColor" Width="36" Height="12" Background="{Binding Path=Brush}" BorderThickness="1" BorderBrush="{DynamicResource Border}"/>
                     </Grid>
                     <Label Name="OverrideKey" Style="{DynamicResource PanelEntrySecond}" Content="{Binding Path=Name}" Margin="-5,0,0,0" HorizontalAlignment="Left" />
                 </StackPanel>
@@ -82,10 +82,10 @@
                 <ColumnDefinition x:Name="LeftPanelColumnDefinition" Width="0" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.ColumnSpan="2" x:Name="ButtonsPanel" Background="{DynamicResource Window.Background}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1" >
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{DynamicResource Window.Background}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1" >
                 <DockPanel >
                     <TextBlock x:Name="Title" Text="Folder" Foreground="{DynamicResource Foreground}" FontWeight="Normal" VerticalAlignment="Center" Margin="7,1,0,0" FontSize="12" />
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">
+                    <StackPanel x:Name="ButtonsPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">
                         <Button x:Name="AddButton" Style="{StaticResource IconButton}" FontSize="14">
                             <Path Style="{DynamicResource AddIcon}" />
                         </Button>

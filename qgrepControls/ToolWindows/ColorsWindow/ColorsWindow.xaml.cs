@@ -96,6 +96,7 @@ namespace qgrepControls.ColorsWindow
             ColorsListBox.RemoveAllButton.ToolTip = "Remove all color overrides";
             ColorsListBox.AddButton.Click += AddNewColor_Click;
             ColorsListBox.OnEditClicked += EditColor_Click;
+            ColorsListBox.IsDeselectable = true;
 
             Parent.LoadColorsFromResources(this);
         }
