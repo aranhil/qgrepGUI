@@ -19,16 +19,15 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
    If your projects have a format that can be parsed by MSBuild, you can use the ** Gather from solution ** button to automatically grab all the folders and file extensions from the solution. 
 
 ## Features overview
-
-![image](https://user-images.githubusercontent.com/755601/236962874-6614cf8c-dcf8-4029-8dce-fc8f323409f3.png)
-
 ### Search Input
    The search input has the same three options that can also be found in Visual Studio: Case sensitive, Whole word, and Regular expressions.
-   <gif of toggling them>
+
+![Search](https://github.com/aranhil/qgrepGUI/assets/755601/f59fefb0-c355-4886-8f70-23ad0caffe18)
    
 ### Search Results
    The search results can be shown as list or grouped by file, there is also a contextual menu.
-   <gif with toggle between grouping type and contextual menu>
+
+![Results](https://github.com/aranhil/qgrepGUI/assets/755601/489b926a-e7d8-40da-85f4-8ef07b4c4886)
    
 ### Keyboard navigation
    You can cycle with the ** Tab ** key between the input textboxes and the search results. The ** Down ** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
@@ -42,17 +41,20 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
       
 ### History
    The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
-      <gif with example>
+
+![History](https://github.com/aranhil/qgrepGUI/assets/755601/9d683c0e-6389-4052-85f5-27641dc09321)
       
 ### Customize colors
    There are three color schemes available: Auto, Dark, and Light. the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
-         <gif with theme changing>
+
    You also have the option to override any color used in the currently selected color scheme.
-            <gif with that>
+
+![Colors](https://github.com/aranhil/qgrepGUI/assets/755601/92359355-4932-419c-ac32-d0fb56d93ed3)
 
 ### Advanced search configurations
    You can set up multiple search configurations and toggle between them:
-   <gif with example>
+
+![Configs](https://github.com/aranhil/qgrepGUI/assets/755601/08dce467-3ac5-4120-8703-21a157ce97ed)
 
 ## License
 
