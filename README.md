@@ -10,22 +10,17 @@ Install the Visual Studio extension and follow the setup instructions below.
 
 ## Setting up in Visual Studio
 
-1. After installing the extension, the toolbar can be opened from **View >> Other Windows >> qgrep Search Tool**.
-2. You can also set up a shortcut for this from here:
+1. After installing the extension, the toolbar can be opened from **View >> Other Windows >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard** and the command name is "View.qgrepSearchTool".
 
-   ![image](https://user-images.githubusercontent.com/755601/236953452-f5cb9be3-ffca-4431-befb-aba9d22c65f4.png)
-   
-   This will also grab the selected text in your current document before opening.
-
-3. After this, you have to set up the folders that will be indexed. The window for this can be opened up from the lower left corner of the toolbar:
+2. After this, you have to set up the folders that will be indexed. The window for this can be opened up from the lower left corner of the toolbar:
 
    ![image](https://user-images.githubusercontent.com/755601/236962201-40373b1a-f74c-4fe9-8cd2-4fbb70417c8d.png)
 
-4. From here, you can add the folders and file filters. The "Gather from solution" button will automatically grab all the folders inside your solution. You can also select multiple folders at once.
+3. From here, you can add the folders and file filters. The "Gather from solution" button will automatically grab all the folders inside your solution. You can also select multiple folders at once.
 
    ![image](https://user-images.githubusercontent.com/755601/236962315-6a4029f9-7cb7-429c-9237-b546d9a97ba3.png)
 
-5. After closing this window, indexing will begin automatically, and you can start searching.
+4. After closing this window, indexing will begin automatically, and you can start searching.
 
 ## Interface overview
 
