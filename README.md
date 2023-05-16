@@ -47,6 +47,8 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ### Customize colors
    There are three color schemes available: Auto, Dark, and Light. the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
 
+![Themes](https://github.com/aranhil/qgrepGUI/assets/755601/62685bf3-901a-4879-921e-22984cac4aed)
+
    You also have the option to override any color used in the currently selected color scheme.
 
 ![Colors](https://github.com/aranhil/qgrepGUI/assets/755601/92359355-4932-419c-ac32-d0fb56d93ed3)
