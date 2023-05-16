@@ -60,7 +60,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 ## Support
 
-If you encounter a bug or want to suggest a feature, please open an issue in the [GitHub repository](https://github.com/aranhil/qgrepSearchTool/issues).
+If you encounter a bug or want to suggest a feature, please open an issue in the [GitHub repository](https://github.com/aranhil/qgrepGUI/issues).
 
 ## Acknowledgements
 
