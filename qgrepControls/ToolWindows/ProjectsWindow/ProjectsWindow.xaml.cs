@@ -88,7 +88,7 @@ namespace qgrepControls.SearchWindow
         {
             RuleWindow ruleWindow = new RuleWindow(this);
 
-            MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Add rule", this);
+            MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Add filter", this);
             ruleWindow.Dialog = ruleDialog;
             ruleDialog.ShowDialog();
 
