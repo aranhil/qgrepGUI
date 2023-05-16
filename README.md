@@ -56,7 +56,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 ## License
 
-*qgrep Search Tool* is licensed under the [MIT License](LICENSE).
+*qgrep GUI* is licensed under the [MIT License](LICENSE).
 
 ## Support
 
