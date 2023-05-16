@@ -10,13 +10,13 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 ## Setting up in Visual Studio
 
-1. After installing the extension, the toolbar can be opened from **View >> Other Windows >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is "View.qgrepSearchTool".
+1. After installing the extension, the toolbar can be opened from **View >> Other Windows >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
 ![Setup](https://github.com/aranhil/qgrepGUI/assets/755601/7b3a9acc-1ec9-4617-ad16-eafe1bf971fe)
 
-   If your projects have a format that can be parsed by MSBuild, you can use the ** Gather from solution ** button to automatically grab all the folders and file extensions from the solution. 
+   If your projects have a format that can be parsed by MSBuild, you can use the **Gather from solution** button to automatically grab all the folders and file extensions from the solution. 
 
 ## Features overview
 ### Search Input
@@ -27,21 +27,16 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
    The search results can be shown as list or grouped by file, there is also a contextual menu.
 
 ![Results](https://github.com/aranhil/qgrepGUI/assets/755601/489b926a-e7d8-40da-85f4-8ef07b4c4886)
-   
-### Keyboard navigation
-   You can cycle with the ** Tab ** key between the input textboxes and the search results. The ** Down ** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
-- Toggle case sensitive (Alt + C)
-- Toggle whole word (Alt + W)
-- Toggle regular expressions (Alt + R)
-- Toggle include files (Alt + I)
-- Toggle exclude files (Alt + E)
-- Toggle filter results (Alt + F)
-- Open history (Alt + H)
       
 ### History
    The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
 
 ![History](https://github.com/aranhil/qgrepGUI/assets/755601/9d683c0e-6389-4052-85f5-27641dc09321)
+
+### Advanced search configurations
+   You can set up multiple search configurations and toggle between them:
+
+![Configs](https://github.com/aranhil/qgrepGUI/assets/755601/08dce467-3ac5-4120-8703-21a157ce97ed)
       
 ### Customize colors
    There are three color schemes available: Auto, Dark, and Light. the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
@@ -51,11 +46,16 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
    You also have the option to override any color used in the currently selected color scheme.
 
 ![Colors](https://github.com/aranhil/qgrepGUI/assets/755601/92359355-4932-419c-ac32-d0fb56d93ed3)
-
-### Advanced search configurations
-   You can set up multiple search configurations and toggle between them:
-
-![Configs](https://github.com/aranhil/qgrepGUI/assets/755601/08dce467-3ac5-4120-8703-21a157ce97ed)
+   
+### Keyboard navigation
+   You can cycle with the **Tab** key between the input TextBoxes and the search results. The **Down** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
+- Toggle case sensitive (Alt + C)
+- Toggle whole word (Alt + W)
+- Toggle regular expressions (Alt + R)
+- Toggle include files (Alt + I)
+- Toggle exclude files (Alt + E)
+- Toggle filter results (Alt + F)
+- Open history (Alt + H)
 
 ## License
 
