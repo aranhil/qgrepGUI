@@ -174,7 +174,7 @@
                                         <TextBlock Grid.Column="1"
                            Margin="5 7 0 0"
                            HorizontalAlignment="Left"
-                           Text="qgrep Search Tool"
+                           Text="qgrep GUI"
                            TextTrimming="CharacterEllipsis" Foreground="{DynamicResource Window.Foreground}" />
 
                                             <UniformGrid Grid.Column="2" Columns="3">

@@ -4,8 +4,8 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <OutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\obj\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepGUI\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepGUI\obj\</IntermediateOutputPath>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
@@ -25,7 +25,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
-    <OutputPath>..\build\Debug_x64\qgrepSearchTool_VS2022\</OutputPath>
+    <OutputPath>..\build\Debug_x64\qgrepGUI_VS2022\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <DefineConstants>TRACE</DefineConstants>
@@ -34,7 +34,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
-    <OutputPath>..\build\Release_x64\qgrepSearchTool_VS2022\</OutputPath>
+    <OutputPath>..\build\Release_x64\qgrepGUI_VS2022\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,7 +46,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>qgrepSearch</RootNamespace>
-    <AssemblyName>qgrepSearchTool_VS2022</AssemblyName>
+    <AssemblyName>qgrepGUI_VS2022</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>

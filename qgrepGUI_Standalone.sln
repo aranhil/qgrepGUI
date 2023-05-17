@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qgrepControls", "qgrepContr
 		{25AE182E-4FF0-40D1-9DEC-9335DB41FBF2} = {25AE182E-4FF0-40D1-9DEC-9335DB41FBF2}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qgrepSearchTool_Standalone", "qgrepSearchTool_Standalone\qgrepSearchTool_Standalone.csproj", "{BE928BD4-4744-4A92-829A-8F9B62FD2BAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qgrepGUI_Standalone", "qgrepGUI_Standalone\qgrepGUI_Standalone.csproj", "{BE928BD4-4744-4A92-829A-8F9B62FD2BAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

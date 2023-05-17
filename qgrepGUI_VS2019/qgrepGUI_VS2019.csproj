@@ -4,8 +4,8 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <OutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepSearchTool\obj\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepGUI\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\$(Configuration)_$(Platform)\qgrepGUI\obj\</IntermediateOutputPath>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
@@ -20,7 +20,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\build\Debug_x86\qgrepSearchTool_VS2019\</OutputPath>
+    <OutputPath>..\build\Debug_x86\qgrepGUI_VS2019\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -28,7 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>..\build\Release_x86\qgrepSearchTool_VS2019\</OutputPath>
+    <OutputPath>..\build\Release_x86\qgrepGUI_VS2019\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -46,7 +46,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>qgrepSearch</RootNamespace>
-    <AssemblyName>qgrepSearchTool_VS2019</AssemblyName>
+    <AssemblyName>qgrepGUI_VS2019</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
