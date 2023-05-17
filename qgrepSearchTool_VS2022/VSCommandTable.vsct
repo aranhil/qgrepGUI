@@ -6,11 +6,10 @@
   <Include href="KnownImageIds.vsct" />
   <Commands package="guidMyPackage">
     <Buttons>
-      <Button guid="guidMyPackageCmdSet" id="ShowToolWindowId" priority="0x0100" type="Button">
+      <Button guid="guidMyPackageCmdSet" id="ShowToolWindowId" priority="0x9000" type="Button">
         <!-- parent is View > Other Windows -->
-        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
-        <Icon guid="ImageCatalogGuid" id="ImageIcon" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_VIEW_DEV_WINDOWS" />
+        <Icon guid="guidImages1" id="bmpPic1" />
         <Strings>
           <ButtonText>qgrep Search Tool</ButtonText>
         </Strings>
@@ -57,12 +56,22 @@
 			  <ButtonText>Show Recent History</ButtonText>
 		  </Strings>
       </Button>
+      <Button guid="guidqgrepSearchPackageCmdSet" id="cmdidCommand1" priority="0x0100" type="Button">
+        <Parent guid="guidqgrepSearchPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages1" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Invoke Command1</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
     <Groups>
       <Group guid="guidqgrepSearchPackageCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
       </Group>
     </Groups>
+    <Bitmaps>
+      <Bitmap guid="guidImages1" href="Resources\magnifying-glass.ico" usedList="bmpPic1" />
+    </Bitmaps>
   </Commands>
 
 	<KeyBindings>
@@ -104,6 +113,11 @@
       <IDSymbol value="4137" name="cmdidExcludeFilesCommand" />
       <IDSymbol value="4138" name="cmdidFilterResultsCommand" />
 	  <IDSymbol value="4139" name="cmdidShowHistoryCommand" />
+      <IDSymbol value="4140" name="cmdidCommand1" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{6e14650b-c446-4769-8f15-897898db7422}" name="guidImages1">
+      <IDSymbol name="bmpPic1" value="1" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
