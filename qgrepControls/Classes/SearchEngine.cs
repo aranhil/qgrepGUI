@@ -267,14 +267,14 @@ namespace qgrepControls.Classes
 
                             if (searchOptions.FilterResultsRegEx)
                             {
-                                if (!Regex.Match(file.ToLower(), searchOptions.FilterResults).Success && !Regex.Match(rawText.ToLower(), searchOptions.FilterResults).Success)
+                                if (!Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success && !Regex.Match(rawText.ToLower(), searchOptions.FilterResults.ToLower()).Success)
                                 {
                                     return false;
                                 }
                             }
                             else
                             {
-                                if (!file.ToLower().Contains(searchOptions.FilterResults) && !rawText.ToLower().Contains(searchOptions.FilterResults))
+                                if (!file.ToLower().Contains(searchOptions.FilterResults.ToLower()) && !rawText.ToLower().Contains(searchOptions.FilterResults.ToLower()))
                                 {
                                     return false;
                                 }
