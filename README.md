@@ -59,7 +59,8 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 - Toggle exclude files (Alt + E)
 - Toggle filter results (Alt + F)
 - Open history (Alt + H)
-   You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.**
+
+You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
 ## License
 
