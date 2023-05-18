@@ -42,7 +42,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ![Configs](https://github.com/aranhil/qgrepGUI/assets/755601/08dce467-3ac5-4120-8703-21a157ce97ed)
       
 ### Customize colors
-   There are three color schemes available: Auto, Dark, and Light. the Auto color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
+   There are three color schemes available: **Auto**, **Dark**, and **Light**. The **Auto** color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
 
 ![Themes](https://github.com/aranhil/qgrepGUI/assets/755601/62685bf3-901a-4879-921e-22984cac4aed)
 
@@ -59,6 +59,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 - Toggle exclude files (Alt + E)
 - Toggle filter results (Alt + F)
 - Open history (Alt + H)
+   You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.**
 
 ## License
 
