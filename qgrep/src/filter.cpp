@@ -12,6 +12,7 @@
 #include <memory>
 #include <algorithm>
 #include <limits.h>
+#include <sstream>
 
 struct FilterOutput
 {
@@ -344,6 +345,61 @@ static const FilterEntries& getNameBuffer(const FilterEntries* namesOpt, FilterE
     return names;
 }
 
+static std::string toLower(const std::string& str)
+{
+	std::string result = str;
+	std::transform(result.begin(), result.end(), result.begin(),
+		[](unsigned char c) { return std::tolower(c); });
+	return result;
+}
+
+static unsigned int filterCustom(const FilterEntries& entries, const char* string, FilterOutput* output)
+{
+	std::string lowerString = toLower(string);
+	std::vector<std::string> searchWords;
+	std::stringstream ss(lowerString);
+	std::string word;
+	while (ss >> word)
+	{
+		searchWords.push_back(word);
+	}
+
+	unsigned int count = 0;
+	for (unsigned int i = 0; i < entries.entryCount; ++i)
+	{
+		const FilterEntry& entry = entries.entries[i];
+		std::string entryContent(entries.buffer + entry.offset, entry.length);
+		entryContent = toLower(entryContent);
+
+		bool allWordsMatch = true;
+		for (const auto& searchWord : searchWords)
+		{
+			size_t pos = 0;
+			bool wordFound = false;
+			while ((pos = entryContent.find(searchWord, pos)) != std::string::npos)
+			{
+				wordFound = true;
+				entryContent.erase(pos, searchWord.length());
+			}
+
+			if (!wordFound)
+			{
+				allWordsMatch = false;
+				break;
+			}
+		}
+
+		if (allWordsMatch)
+		{
+			processMatch(entry, entries.buffer, output);
+			++count;
+			if (count >= output->limit) break;
+		}
+	}
+
+	return count;
+}
+
 unsigned int filter(Output* output_, const char* string, unsigned int options, unsigned int limit, const FilterEntries& entries, const FilterEntries* namesOpt)
 {
     assert(!namesOpt || namesOpt->entryCount == entries.entryCount);
@@ -364,6 +420,8 @@ unsigned int filter(Output* output_, const char* string, unsigned int options, u
 		return filterVisualAssist(entries, getNameBuffer(namesOpt, names, entries, nameEntries, nameBuffer), string, &output);
 	else if (options & SO_FILE_FUZZY)
 		return filterFuzzy(entries, string, &output);
+	else if (options & SO_FILE_CUSTOM)
+		return filterCustom(entries, string, &output);
 	else
 	{
 		output_->error("Unknown file search type\n");

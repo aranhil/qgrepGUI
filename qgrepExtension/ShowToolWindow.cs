@@ -22,7 +22,7 @@ namespace qgrepSearch
             qgrepSearchPackage grepPackage = package as qgrepSearchPackage;
             if(grepPackage != null)
             {
-                grepPackage.WindowOpened = true;
+                //grepPackage.TextSearchOpened = true;
             }
 
             package.JoinableTaskFactory.RunAsync(async () =>

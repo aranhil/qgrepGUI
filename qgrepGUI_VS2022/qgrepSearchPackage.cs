@@ -53,6 +53,7 @@ namespace qgrepSearch
             await ExcludeFilesCommand.InitializeAsync(this);
             await FilterResultsCommand.InitializeAsync(this);
             await ShowHistoryCommand.InitializeAsync(this);
+            await OpenSearchFiles.InitializeAsync(this);
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)
@@ -113,7 +114,8 @@ namespace qgrepSearch
             };
         }
 
-        public bool WindowOpened = false;
+        public bool TextSearchOpened = false;
+        public bool FileSearchOpened = false;
 
         int IVsSolutionEvents.OnAfterOpenProject(IVsHierarchy pHierarchy, int fAdded)
         {
@@ -206,6 +208,7 @@ namespace qgrepSearch
                 if (searchWindowControl != null)
                 {
                     searchWindowControl.UpdateColorsFromSettings();
+                    searchWindowControl.UpdateFontFromSettings();
                 }
             }
         }

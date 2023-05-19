@@ -25,7 +25,18 @@ namespace qgrepSearchTool_Standalone
             Window = window;
         }
 
-        public bool WindowOpened 
+        public bool TextSearchOpened 
+        {
+            get 
+            {
+                return false;
+            }
+            set
+            {
+            }
+        }
+
+        public bool FileSearchOpened
         {
             get 
             {
@@ -165,6 +176,16 @@ namespace qgrepSearchTool_Standalone
         public Window GetMainWindow()
         {
             return null;
+        }
+
+        public string GetMonospaceFont()
+        {
+            return "";
+        }
+
+        public string GetNormalFont()
+        {
+            return "";
         }
     }
 }

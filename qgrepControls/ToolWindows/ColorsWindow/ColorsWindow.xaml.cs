@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -67,26 +68,63 @@ namespace qgrepControls.ColorsWindow
     }
     public partial class ColorsWindow : System.Windows.Controls.UserControl
     {
-        public new qgrepSearchWindowControl Parent;
+        public qgrepSearchWindowControl SearchWindow;
         private List<ColorSchemeOverrides> colorSchemeOverrides = new List<ColorSchemeOverrides>();
         public ObservableCollection<ColorOverride> CurrentColorOverrides = new ObservableCollection<ColorOverride>();
 
-        public ColorsWindow(qgrepSearchWindowControl Parent)
+        public ColorsWindow(qgrepSearchWindowControl SearchWindow)
         {
-            this.Parent = Parent;
+            this.SearchWindow = SearchWindow;
             InitializeComponent();
 
             LoadFromSettings();
 
-            foreach (ColorScheme colorScheme in Parent.colorSchemes)
+            foreach (ColorScheme colorScheme in SearchWindow.colorSchemes)
             {
-                if (Parent.ExtensionInterface.IsStandalone && colorScheme.Name == "Auto")
+                if (SearchWindow.ExtensionInterface.IsStandalone && colorScheme.Name == "Auto")
                     continue;
 
                 ColorSchemeComboBox.Items.Add(new ComboBoxItem() { Content = colorScheme.Name, });
             }
 
-            ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (Parent.ExtensionInterface.IsStandalone ? 1 : 0);
+            if(!SearchWindow.ExtensionInterface.IsStandalone)
+            {
+                NormalFontComboBox.Items.Add(new ComboBoxItem() { Content = "Auto" });
+                MonospaceFontComboBox.Items.Add(new ComboBoxItem() { Content = "Auto" });
+            }
+
+            List<FontFamily> fontFamilies = new List<FontFamily>(Fonts.SystemFontFamilies);
+            fontFamilies = fontFamilies.OrderBy(family => family.Source).ToList();
+            foreach (FontFamily family in fontFamilies)
+            {
+                NormalFontComboBox.Items.Add(new ComboBoxItem() { Content = family.Source });
+                MonospaceFontComboBox.Items.Add(new ComboBoxItem() { Content = family.Source });
+            }
+
+            for(int i = 0; i < MonospaceFontComboBox.Items.Count; i++)
+            {
+                if ((MonospaceFontComboBox.Items[i] as ComboBoxItem).Content.Equals(Settings.Default.MonospaceFontFamily))
+                {
+                    MonospaceFontComboBox.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            for(int i = 0; i < NormalFontComboBox.Items.Count; i++)
+            {
+                if ((NormalFontComboBox.Items[i] as ComboBoxItem).Content.Equals(Settings.Default.NormalFontFamily))
+                {
+                    NormalFontComboBox.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            NormalFontTextBox.Text = Settings.Default.NormalFontSize.ToString();
+            MonospaceFontTextBox.Text = Settings.Default.MonospaceFontSize.ToString();
+            GroupHeightTextBox.Text = Settings.Default.GroupHeight.ToString();
+            LineHeightTextBox.Text = Settings.Default.LineHeight.ToString();
+
+            ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (SearchWindow.ExtensionInterface.IsStandalone ? 1 : 0);
 
             ColorsListBox.ItemEditType = ConfigListBox.EditType.Custom;
             ColorsListBox.Title.Text = "Color overrides";
@@ -98,7 +136,7 @@ namespace qgrepControls.ColorsWindow
             ColorsListBox.OnEditClicked += EditColor_Click;
             ColorsListBox.IsDeselectable = true;
 
-            Parent.LoadColorsFromResources(this);
+            SearchWindow.LoadColorsFromResources(this);
         }
 
         private void EditColor_Click()
@@ -118,9 +156,9 @@ namespace qgrepControls.ColorsWindow
         {
             Settings.Default.Save();
 
-            Parent.LoadColorsFromResources(this);
-            Parent.LoadColorsFromResources(ColorsListBox);
-            Parent.UpdateColorsFromSettings();
+            SearchWindow.LoadColorsFromResources(this);
+            SearchWindow.LoadColorsFromResources(ColorsListBox);
+            SearchWindow.UpdateColorsFromSettings();
         }
 
         private void AddNewColor_Click(object sender, RoutedEventArgs e)
@@ -147,10 +185,10 @@ namespace qgrepControls.ColorsWindow
             }
             catch { }
 
-            if (colorSchemeOverrides.Count != Parent.colorSchemes.Length)
+            if (colorSchemeOverrides.Count != SearchWindow.colorSchemes.Length)
             {
                 colorSchemeOverrides.Clear();
-                foreach (ColorScheme colorScheme in Parent.colorSchemes)
+                foreach (ColorScheme colorScheme in SearchWindow.colorSchemes)
                 {
                     colorSchemeOverrides.Add(new ColorSchemeOverrides() { Name = colorScheme.Name });
                 }
@@ -162,7 +200,7 @@ namespace qgrepControls.ColorsWindow
 
         private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (Parent.ExtensionInterface.IsStandalone ? 1 : 0);
+            Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (SearchWindow.ExtensionInterface.IsStandalone ? 1 : 0);
             SaveToSettings();
 
             CurrentColorOverrides.CollectionChanged -= ColorOverrides_CollectionChanged;
@@ -182,7 +220,7 @@ namespace qgrepControls.ColorsWindow
         private OverrideWindow ShowOverrideDialog(string selectedName = null)
         {
             bool isEditing = selectedName != null;
-            ColorScheme currentScheme = Parent.colorSchemes[Settings.Default.ColorScheme];
+            ColorScheme currentScheme = SearchWindow.colorSchemes[Settings.Default.ColorScheme];
 
             OverrideWindow overrideWindow = new OverrideWindow(this);
 
@@ -206,7 +244,7 @@ namespace qgrepControls.ColorsWindow
             {
                 if (!uniqueColors.Exists(x => x.Name == colorEntry.Name))
                 {
-                    System.Drawing.Color extensionColor = Parent.ExtensionInterface.GetColor(colorEntry.Color);
+                    System.Drawing.Color extensionColor = SearchWindow.ExtensionInterface.GetColor(colorEntry.Color);
 
                     if (uniqueColors.Count == 0)
                     {
@@ -246,10 +284,74 @@ namespace qgrepControls.ColorsWindow
                 overrideWindow.OverrideColor.SelectedColor = qgrepSearchWindowControl.ConvertColor(selectedItem.Color);
             }
 
-            MainWindow overrideDialog = Parent.CreateWindow(overrideWindow, isEditing ? "Edit color override" : "Add color override", this);
+            MainWindow overrideDialog = SearchWindow.CreateWindow(overrideWindow, isEditing ? "Edit color override" : "Add color override", this);
             overrideWindow.Dialog = overrideDialog;
             overrideDialog.ShowDialog();
             return overrideWindow;
+        }
+
+        private void MonospaceFontComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Settings.Default.MonospaceFontFamily = (MonospaceFontComboBox.SelectedItem as ComboBoxItem).Content as string;
+            Settings.Default.Save();
+
+            SearchWindow.UpdateFontFromSettings();
+        }
+
+        private void NormalFontComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Settings.Default.NormalFontFamily = (NormalFontComboBox.SelectedItem as ComboBoxItem).Content as string;
+            Settings.Default.Save();
+
+            SearchWindow.UpdateFontFromSettings();
+        }
+
+        private void NormalFontTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            int value;
+            if(Int32.TryParse(NormalFontTextBox.Text, out value) && value > 0 && value < 50)
+            {
+                Settings.Default.NormalFontSize = value;
+                Settings.Default.Save();
+
+                SearchWindow.UpdateFontFromSettings();
+            }
+        }
+
+        private void MonospaceFontTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            int value;
+            if (Int32.TryParse(MonospaceFontTextBox.Text, out value) && value > 0 && value < 50)
+            {
+                Settings.Default.MonospaceFontSize = value;
+                Settings.Default.Save();
+
+                SearchWindow.UpdateFontFromSettings();
+            }
+        }
+
+        private void GroupHeightTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            int value;
+            if (Int32.TryParse(GroupHeightTextBox.Text, out value) && value > 0 && value < 50)
+            {
+                Settings.Default.GroupHeight = value;
+                Settings.Default.Save();
+
+                SearchWindow.UpdateFontFromSettings();
+            }
+        }
+
+        private void LineHeightTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            int value;
+            if (Int32.TryParse(LineHeightTextBox.Text, out value) && value > 0 && value < 50)
+            {
+                Settings.Default.LineHeight = value;
+                Settings.Default.Save();
+
+                SearchWindow.UpdateFontFromSettings();
+            }
         }
     }
 }

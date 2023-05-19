@@ -113,6 +113,7 @@ namespace qgrepControls.SearchWindow
             colorSchemes = JsonConvert.DeserializeObject<ColorScheme[]>(colorSchemesJson);
 
             UpdateColorsFromSettings();
+            UpdateFontFromSettings();
             UpdateFromSettings();
 
             HistoryContextMenu.Loaded += OnContextMenuLoaded;
@@ -505,6 +506,57 @@ namespace qgrepControls.SearchWindow
             ExtensionInterface.RefreshResources(resources);
         }
 
+        public void UpdateFontFromSettings()
+        {
+            if(ExtensionInterface.IsStandalone && Settings.Default.MonospaceFontFamily.Equals("Auto"))
+            {
+                string defaultFont = "Consolas";
+                if(Fonts.SystemFontFamilies.Any(fontFamily => fontFamily.Source.Equals("Cascadia Mono", StringComparison.OrdinalIgnoreCase)))
+                {
+                    defaultFont = "Cascadia Mono";
+                }
+
+                Settings.Default.MonospaceFontFamily = defaultFont;
+                Settings.Default.Save();
+            }
+
+            if (ExtensionInterface.IsStandalone && Settings.Default.NormalFontFamily.Equals("Auto"))
+            {
+                string defaultFont = "Arial";
+                if (Fonts.SystemFontFamilies.Any(fontFamily => fontFamily.Source.Equals("Segoe UI", StringComparison.OrdinalIgnoreCase)))
+                {
+                    defaultFont = "Segoe UI";
+                }
+
+                Settings.Default.NormalFontFamily = defaultFont;
+                Settings.Default.Save();
+            }
+
+            if (Settings.Default.MonospaceFontFamily.Equals("Auto"))
+            {
+                Resources["MonospacedFontFamily"] = new FontFamily(ExtensionInterface.GetMonospaceFont());
+            }
+            else
+            {
+                Resources["MonospacedFontFamily"] = new FontFamily(Settings.Default.MonospaceFontFamily);
+            }
+
+            Resources["MonospacedFontSize"] = (double)Settings.Default.MonospaceFontSize;
+
+            if (Settings.Default.NormalFontFamily.Equals("Auto"))
+            {
+                Resources["NormalFontFamily"] = new FontFamily(ExtensionInterface.GetNormalFont());
+            }
+            else
+            {
+                Resources["NormalFontFamily"] = new FontFamily(Settings.Default.NormalFontFamily);
+            }
+
+            Resources["NormalFontSize"] = (double)Settings.Default.NormalFontSize;
+            Resources["GroupSize"] = (double)Settings.Default.GroupHeight;
+            Resources["LineSize"] = (double)Settings.Default.LineHeight;
+        }
+
         public void UpdateColors(Dictionary<string, System.Windows.Media.Color> colors)
         {
             foreach (var color in colors)
@@ -834,7 +886,8 @@ namespace qgrepControls.SearchWindow
                     FilterResultsRegEx = FilterRegEx.IsChecked == true,
                     GroupingMode = 0,
                     Configs = GetSelectedConfigProjects(),
-                    BypassCache = BypassCacheNextFind
+                    BypassCache = BypassCacheNextFind,
+                    BypassHighlight = true
                 };
 
                 SearchEngine.SearchFilesAsync(searchOptions);
@@ -1131,7 +1184,7 @@ namespace qgrepControls.SearchWindow
 
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (ExtensionInterface.WindowOpened)
+            if (ExtensionInterface.TextSearchOpened)
             {
                 SearchInput.Focus();
 
@@ -1148,7 +1201,22 @@ namespace qgrepControls.SearchWindow
                     SearchInput.SelectAll();
                 }
 
-                ExtensionInterface.WindowOpened = false;
+                ExtensionInterface.TextSearchOpened = false;
+            }
+            else if(ExtensionInterface.FileSearchOpened)
+            {
+                SearchInput.Text = "";
+                IncludeFilesInput.Text = "";
+                ExcludeFilesInput.Text = "";
+                FilterResultsInput.Text = "";
+
+                Settings.Default.ShowIncludes = true;
+                Settings.Default.Save();
+
+                IncludeFilesGrid.Visibility = Visibility.Visible;
+                IncludeFilesInput.Focus();
+
+                ExtensionInterface.FileSearchOpened = false;
             }
 
             //System.Diagnostics.Debug.WriteLine(e.OriginalSource);
@@ -1341,7 +1409,7 @@ namespace qgrepControls.SearchWindow
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Color settings", this, true).ShowDialog();
+            CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Theme settings", this, true).ShowDialog();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)
@@ -1626,7 +1694,6 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private bool IgnoreFocusEvents = false;
         private void SearchInput_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)

@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="qgrepSearchTool-x64" Version="2.5" Language="en-US" Publisher="Stefan-Iulian Chivu" />
         <DisplayName>qgrep Search Tool for Visual Studio 2022</DisplayName>
-        <Description xml:space="preserve">Search tool based on qgrep</Description>
+        <Description xml:space="preserve">Instant search in files for large codebases</Description>
         <License>Resources\LICENSE</License>
         <Icon>Resources\magnifying-glass-128px.png</Icon>
         <PreviewImage>Resources\magnifying-glass-128px.png</PreviewImage>

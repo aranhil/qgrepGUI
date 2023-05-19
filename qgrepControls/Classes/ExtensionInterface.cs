@@ -12,8 +12,11 @@ namespace qgrepControls.Classes
         void OpenFile(string path, string line);
         string GetSelectedText();
         System.Drawing.Color GetColor(string resourceKey);
+        string GetMonospaceFont();
+        string GetNormalFont();
         void RefreshResources(Dictionary<string, object> newResources);
-        bool WindowOpened { get; set; }
+        bool TextSearchOpened { get; set; }
+        bool FileSearchOpened { get; set; }
         bool IsStandalone { get; }
         Dictionary<string, Hotkey> ReadKeyBindings();
         void ApplyKeyBindings(Dictionary<string, Hotkey> bindings);

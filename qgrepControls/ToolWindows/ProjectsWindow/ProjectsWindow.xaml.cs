@@ -21,12 +21,12 @@ namespace qgrepControls.SearchWindow
 {
     public partial class ProjectsWindow : System.Windows.Controls.UserControl
     {
-        public new qgrepSearchWindowControl Parent;
+        public qgrepSearchWindowControl SearchWindow;
         private ObservableCollection<SearchConfig> SearchConfigs = new ObservableCollection<SearchConfig>();
 
-        public ProjectsWindow(qgrepSearchWindowControl Parent)
+        public ProjectsWindow(qgrepSearchWindowControl SearchWindow)
         {
-            this.Parent = Parent;
+            this.SearchWindow = SearchWindow;
             InitializeComponent();
 
             ProjectsListBox.SetItemsSource(SearchConfigs);
@@ -72,13 +72,13 @@ namespace qgrepControls.SearchWindow
 
             LoadFromConfig();
 
-            Parent.LoadColorsFromResources(this);
-            Parent.LoadColorsFromResources(ProjectsListBox);
-            Parent.LoadColorsFromResources(GroupsListBox);
-            Parent.LoadColorsFromResources(PathsListBox);
-            Parent.LoadColorsFromResources(RulesListBox);
+            SearchWindow.LoadColorsFromResources(this);
+            SearchWindow.LoadColorsFromResources(ProjectsListBox);
+            SearchWindow.LoadColorsFromResources(GroupsListBox);
+            SearchWindow.LoadColorsFromResources(PathsListBox);
+            SearchWindow.LoadColorsFromResources(RulesListBox);
 
-            if (Parent.ExtensionInterface.IsStandalone)
+            if (SearchWindow.ExtensionInterface.IsStandalone)
             {
                 AutomaticPopulation.Visibility = Visibility.Collapsed;
             }
@@ -88,7 +88,7 @@ namespace qgrepControls.SearchWindow
         {
             RuleWindow ruleWindow = new RuleWindow(this);
 
-            MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Add filter", this);
+            MainWindow ruleDialog = SearchWindow.CreateWindow(ruleWindow, "Add filter", this);
             ruleWindow.Dialog = ruleDialog;
             ruleDialog.ShowDialog();
 
@@ -118,7 +118,7 @@ namespace qgrepControls.SearchWindow
             ruleWindow.RegExTextBox.SelectAll();
             ruleWindow.RegExTextBox.Focus();
 
-            MainWindow ruleDialog = Parent.CreateWindow(ruleWindow, "Edit rule", this);
+            MainWindow ruleDialog = SearchWindow.CreateWindow(ruleWindow, "Edit rule", this);
             ruleWindow.Dialog = ruleDialog;
             ruleDialog.ShowDialog();
 
@@ -135,7 +135,7 @@ namespace qgrepControls.SearchWindow
         private void AddNewPath_Click(object sender, RoutedEventArgs e)
         {
             FolderSelectDialog folderSelectDialog = new FolderSelectDialog();
-            folderSelectDialog.InitialDirectory = Parent.ConfigParser.Path;
+            folderSelectDialog.InitialDirectory = SearchWindow.ConfigParser.Path;
             folderSelectDialog.Multiselect = true;
             if (folderSelectDialog.ShowDialog())
             {
@@ -262,12 +262,12 @@ namespace qgrepControls.SearchWindow
 
         public void LoadFromConfig()
         {
-            if (Parent.ConfigParser != null)
+            if (SearchWindow.ConfigParser != null)
             {
-                Parent.ConfigParser.LoadConfig();
+                SearchWindow.ConfigParser.LoadConfig();
 
                 SearchConfigs.Clear();
-                foreach (ConfigProject configProject in Parent.ConfigParser.ConfigProjects)
+                foreach (ConfigProject configProject in SearchWindow.ConfigParser.ConfigProjects)
                 {
                     SearchConfigs.Add(new SearchConfig(configProject));
                 }
@@ -282,7 +282,7 @@ namespace qgrepControls.SearchWindow
             {
                 foreach (SearchConfig oldItem in e.OldItems)
                 {
-                    Parent.ConfigParser.RemoveProject(oldItem.ConfigProject);
+                    SearchWindow.ConfigParser.RemoveProject(oldItem.ConfigProject);
 
                     if (IsAutomaticPopulationBusy)
                     {
@@ -303,8 +303,8 @@ namespace qgrepControls.SearchWindow
 
         private void UpdateVisibility()
         {
-            int projectsCount = Parent.ConfigParser.ConfigProjects.Count;
-            int groupsCount = projectsCount > 0 ? Parent.ConfigParser.ConfigProjects[0].Groups.Count : 0;
+            int projectsCount = SearchWindow.ConfigParser.ConfigProjects.Count;
+            int groupsCount = projectsCount > 0 ? SearchWindow.ConfigParser.ConfigProjects[0].Groups.Count : 0;
 
             bool canGoBasic = projectsCount <= 1 && groupsCount <= 1;
 
@@ -336,7 +336,7 @@ namespace qgrepControls.SearchWindow
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
             {
-                FileName = Parent.ConfigParser.Path + Parent.ConfigParser.PathSuffix,
+                FileName = SearchWindow.ConfigParser.Path + SearchWindow.ConfigParser.PathSuffix,
                 UseShellExecute = true,
                 Verb = "open"
             });
@@ -355,7 +355,7 @@ namespace qgrepControls.SearchWindow
 
             Task.Run(() =>
             {
-                Parent.ExtensionInterface.GatherAllFoldersAndExtensionsFromSolution(HandleAutomaticNewExtension, HandleAutomaticNewFolder);
+                SearchWindow.ExtensionInterface.GatherAllFoldersAndExtensionsFromSolution(HandleAutomaticNewExtension, HandleAutomaticNewFolder);
 
                 Dispatcher.Invoke(() =>
                 {
@@ -420,7 +420,7 @@ namespace qgrepControls.SearchWindow
 
         private void AddNewProject_Click(object sender, RoutedEventArgs e)
         {
-            SearchConfigs.Add(new SearchConfig(Parent.ConfigParser.AddNewProject()));
+            SearchConfigs.Add(new SearchConfig(SearchWindow.ConfigParser.AddNewProject()));
             ProjectsListBox.InnerListBox.SelectedItem = SearchConfigs.Last();
         }
 

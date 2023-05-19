@@ -116,9 +116,6 @@
     <Compile Include="ToolWindows\ProjectsWindow\ProjectsWindow.xaml.cs">
       <DependentUpon>ProjectsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\ProjectsWindow\RowAdd.xaml.cs">
-      <DependentUpon>RowAdd.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ToolWindows\ProjectsWindow\RuleWindow.xaml.cs">
       <DependentUpon>RuleWindow.xaml</DependentUpon>
     </Compile>
@@ -167,10 +164,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolWindows\ProjectsWindow\ProjectsWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ToolWindows\ProjectsWindow\RowAdd.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

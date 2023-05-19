@@ -21,7 +21,7 @@ void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::Li
     errorCallback = errorsCb;
     progressCalback = progressCb;
 
-    qgrepWrapperAsync(const_cast<char*>(unmanagedArguments.c_str()), unmanagedArguments.size(), &NativeQGrepWrapper::nativeStringCallback, &NativeQGrepWrapper::nativeErrorsCallback, &NativeQGrepWrapper::nativeProgressCallback);
+    qgrepWrapperAsync(const_cast<char*>(unmanagedArguments.c_str()), (int)unmanagedArguments.size(), &NativeQGrepWrapper::nativeStringCallback, &NativeQGrepWrapper::nativeErrorsCallback, &NativeQGrepWrapper::nativeProgressCallback);
 }
 
 bool qgrepInterop::NativeQGrepWrapper::nativeStringCallback(const char* result, int size)

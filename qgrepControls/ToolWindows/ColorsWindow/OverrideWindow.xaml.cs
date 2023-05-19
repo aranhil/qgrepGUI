@@ -14,19 +14,18 @@ namespace qgrepControls.ColorsWindow
 {
     public partial class OverrideWindow : System.Windows.Controls.UserControl
     {
-        public ColorsWindow Parent;
+        public ColorsWindow ColorsWindow;
         public MainWindow Dialog = null;
         public delegate void Callback(bool accepted);
-        private Callback ResultCallback;
         public bool IsOK = false;
         public bool CheckDuplicates = false;
 
-        public OverrideWindow(ColorsWindow Parent)
+        public OverrideWindow(ColorsWindow ColorsWindow)
         {
-            this.Parent = Parent;
+            this.ColorsWindow = ColorsWindow;
 
             InitializeComponent();
-            Parent.Parent.LoadColorsFromResources(this);
+            ColorsWindow.SearchWindow.LoadColorsFromResources(this);
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
@@ -66,7 +65,7 @@ namespace qgrepControls.ColorsWindow
             if (CheckDuplicates)
             {
                 ComboBoxColorItem selectedName = OverrideName.SelectedItem as ComboBoxColorItem;
-                ObservableCollection<ColorOverride> currentOverrides = Parent.CurrentColorOverrides;
+                ObservableCollection<ColorOverride> currentOverrides = ColorsWindow.CurrentColorOverrides;
                 if (currentOverrides != null && selectedName != null)
                 {
                     bool alreadyExists = currentOverrides.Any(x => x.Name == selectedName.Name);

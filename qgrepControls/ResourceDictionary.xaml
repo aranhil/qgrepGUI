@@ -18,6 +18,7 @@
     <SolidColorBrush x:Key="Selection" Color="#0078D4" />
     <SolidColorBrush x:Key="TextBox.Background" Color="White" />
     <SolidColorBrush x:Key="Result.File.Foreground" Color="Gray"/>
+    <SolidColorBrush x:Key="Result.LineNo.Foreground" Color="Gray"/>
     <SolidColorBrush x:Key="Result.Text.Foreground" Color="Black" />
     <SolidColorBrush x:Key="Result.Highlight.Foreground" Color="Black" />
     <SolidColorBrush x:Key="Result.Highlight.Background" Color="#25a5be" />
@@ -108,6 +109,15 @@
     <SolidColorBrush x:Key="TreeViewItem.IsMouseOver.Icon" Color="#2D78C7" />
     <SolidColorBrush x:Key="TreeViewItem.IsSelected.Icon" Color="#FFFFFF" />
     <SolidColorBrush x:Key="TreeViewItem.IsSelected.IsMouseOver.Icon" Color="#FFFFFF" />
+
+    <FontFamily x:Key="MonospacedFontFamily">Consolas</FontFamily>
+    <FontFamily x:Key="NormalFontFamily">Segoe UI</FontFamily>
+
+    <sys:Double x:Key="MonospacedFontSize">12</sys:Double>
+    <sys:Double x:Key="NormalFontSize">12</sys:Double>
+
+    <sys:Double x:Key="GroupSize">18</sys:Double>
+    <sys:Double x:Key="LineSize">14</sys:Double>
 
     <Style x:Key="IconPath" TargetType="{x:Type Path}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -287,18 +297,22 @@
     </Style>
 
     <Style x:Key="MonospacedText" TargetType="{x:Type Control}">
-        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="FontFamily" Value="{DynamicResource MonospacedFontFamily}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{DynamicResource MonospacedFontSize}" />
     </Style>
     <Style x:Key="NormalText" TargetType="{x:Type Control}">
-        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontFamily" Value="{DynamicResource NormalFontFamily}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{DynamicResource NormalFontSize}" />
     </Style>
     <Style x:Key="MonospacedTextBlock" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="FontFamily" Value="{DynamicResource MonospacedFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource MonospacedFontSize}" />
     </Style>
     <Style x:Key="NormalTextBlock" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontFamily" Value="{DynamicResource NormalFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource NormalFontSize}" />
     </Style>
     <Style x:Key="SomeContextMenu" TargetType="{x:Type ContextMenu}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -399,12 +413,12 @@
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959"/>
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>
-    <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
+    <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,5 L5,0 z"/>
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    <Rectangle Margin="0" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -677,18 +691,16 @@
     </Style>
     <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="Width" Value="16"/>
-        <Setter Property="Height" Value="16"/>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Background" Value="{DynamicResource TreeViewItem.Icon}" />
         <Setter Property="Foreground" Value="{DynamicResource TreeViewItem.Icon}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border Background="Transparent" Height="16" Padding="5,5,5,5" Width="16">
-                        <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}">
+                    <Border Background="Transparent" Width="20" Padding="8,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                        <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}" VerticalAlignment="Center">
                             <Path.RenderTransform>
-                                <RotateTransform Angle="135" CenterY="3" CenterX="3"/>
+                                <RotateTransform Angle="135" CenterY="2.5" CenterX="2.5"/>
                             </Path.RenderTransform>
                         </Path>
                     </Border>
@@ -704,7 +716,7 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="RenderTransform" TargetName="ExpandPath">
                                 <Setter.Value>
-                                    <RotateTransform Angle="180" CenterY="3" CenterX="3"/>
+                                    <RotateTransform Angle="180" CenterY="2.5" CenterX="3.5"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
@@ -751,7 +763,7 @@
                         <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="0" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" >
                             <ContentPresenter x:Name="PART_Header" ContentSource="Header" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Grid.ColumnSpan="2" />
                         </Border>
-                        <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
+                        <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource ExpandCollapseToggleStyle}" Margin="0"/>
                         <Border BorderThickness="0" Focusable="False" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
                             <ItemsPresenter x:Name="ItemsHost"/>
                         </Border>
@@ -1339,12 +1351,16 @@
     </Style>
     <Style x:Key="ResultPanel" TargetType="{x:Type DockPanel}">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Height" Value="16" />
+        <Setter Property="Height" Value="{DynamicResource LineSize}" />
         <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="ResultGroupPanel" TargetType="{x:Type DockPanel}" BasedOn="{StaticResource ResultPanel}">
+        <Setter Property="Height" Value="{DynamicResource GroupSize}" />
     </Style>
     <Style x:Key="ResultSeparator" TargetType="{x:Type Border}">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Width" Value="1" />
+        <Setter Property="Height" Value="{DynamicResource LineSize}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Result.File.Foreground}" />
         <Setter Property="Opacity" Value="0.3" />
     </Style>
@@ -1355,14 +1371,13 @@
     <Style x:Key="ResultFile" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Margin" Value="5,0,0,0" />
         <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontWeight" Value="Light" />
     </Style>
     <Style x:Key="ResultLine" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Margin" Value="5,0,5,0" />
         <Setter Property="Width" Value="40" />
         <Setter Property="TextAlignment" Value="Right" />
-        <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.LineNo.Foreground}" />
     </Style>
     <Style x:Key="ResultTextStart" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Margin" Value="10,0,0,0" />
@@ -1374,8 +1389,7 @@
     <Style x:Key="ResultHighlightedText" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Foreground" Value="{DynamicResource Result.Highlight.Foreground}"/>
         <Setter Property="Background" Value="{DynamicResource Result.Highlight.Background}" />
-        <Setter Property="Height" Value="14" />
-        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
     </Style>
 
     <Style x:Key="SomeListBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource NormalText}">
@@ -1556,7 +1570,7 @@
             <Setter.Value>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="Height" Value="16" />
+                    <Setter Property="Height" Value="{DynamicResource LineSize}" />
                     <Setter Property="VerticalAlignment" Value="Center" />
                     <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -2331,14 +2345,14 @@
         </Setter>
     </Style>
 
-    <Geometry x:Key="UpArrowGeometry">M0,5 L4.5,.5 9,5 6,5 4.5,3.5 3,5 z</Geometry>
-    <Geometry x:Key="DownArrowGeometry">M0,0 L3,0 4.5,1.5 6,0 9,0 4.5,4.5 z</Geometry>
+    <Geometry x:Key="UpArrowGeometry">M1,5 L4.5,1 L8,5 Z</Geometry>
+    <Geometry x:Key="DownArrowGeometry">M1,0 L4.5,4 L8,0 Z</Geometry>
 
     <DataTemplate x:Key="IncreaseGlyphNormalKey">
         <Path Width="9"
             Height="5"
             Data="{StaticResource UpArrowGeometry}"
-            Fill="{DynamicResource {x:Static themes:ResourceKeys.GlyphNormalForegroundKey}}"
+            Fill="{DynamicResource Button.Foreground}"
             SnapsToDevicePixels="True"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -2348,7 +2362,7 @@
         <Path	Width="9"
             Height="5"
             Data="{StaticResource UpArrowGeometry}"
-            Fill="{DynamicResource {x:Static themes:ResourceKeys.GlyphDisabledForegroundKey}}"
+            Fill="{DynamicResource Button.IsDisabled.Foreground}"
             SnapsToDevicePixels="True"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -2359,7 +2373,7 @@
         <Path Width="9"
             Height="5"
             Data="{StaticResource DownArrowGeometry}"
-            Fill="{DynamicResource {x:Static themes:ResourceKeys.GlyphNormalForegroundKey}}"
+            Fill="{DynamicResource Button.Foreground}"
             SnapsToDevicePixels="True"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -2370,7 +2384,7 @@
         <Path	Width="9"
             Height="5"
             Data="{StaticResource DownArrowGeometry}"
-            Fill="{DynamicResource {x:Static themes:ResourceKeys.GlyphDisabledForegroundKey}}"
+            Fill="{DynamicResource Button.IsDisabled.Foreground}"
             SnapsToDevicePixels="True"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -2401,6 +2415,192 @@
                                AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
                                ShowButtonSpinner="False"
                                ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
+                        <local:WatermarkTextBox x:Name="PART_TextBox"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    ContextMenu="{TemplateBinding ContextMenu}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontStretch="{TemplateBinding FontStretch}"
+                                    FontStyle="{TemplateBinding FontStyle}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    IsUndoEnabled="{Binding IsUndoEnabled, RelativeSource={RelativeSource TemplatedParent}}"
+                                    IsTabStop="True"
+                                    MinWidth="20"
+                                    AcceptsReturn="False"
+                                    Padding="{TemplateBinding Padding}"
+                                    AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}"
+                                    AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}"
+                                    TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                    TextWrapping="NoWrap"
+                                    TabIndex="{TemplateBinding TabIndex}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"
+                                    WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                    MaxLength="{Binding MaxLength, RelativeSource={RelativeSource TemplatedParent}}">
+                        </local:WatermarkTextBox>
+                    </local:ButtonSpinner>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled"
+                     Value="False">
+                            <Setter Property="Foreground"
+                      Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource Border.IsMouseOver}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SomeRepeatButton" TargetType="RepeatButton">
+        <Setter Property="Background" Value="{DynamicResource Button.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Button.Foreground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Button.Background}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Grid>
+                        <Button x:Name="Chrome"
+                                       BorderBrush="{TemplateBinding BorderBrush}" 
+                                       Background="{TemplateBinding Background}"                                                                  
+                                       SnapsToDevicePixels="true" />
+
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Margin="{TemplateBinding Padding}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="Chrome" Value="{DynamicResource Border.IsMouseOver}" />
+                        </Trigger>-->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonSpinner" TargetType="{x:Type local:ButtonSpinner}">
+        <Setter Property="Background"
+            Value="{DynamicResource Button.Background}" />
+        <Setter Property="BorderBrush"
+            Value="{DynamicResource Button.Border}" />
+        <Setter Property="BorderThickness"
+            Value="1" />
+        <Setter Property="Focusable"
+            Value="False" />
+        <Setter Property="HorizontalContentAlignment"
+            Value="Stretch" />
+        <Setter Property="IsTabStop"
+            Value="True" />
+        <Setter Property="Padding"
+            Value="1" />
+        <Setter Property="VerticalContentAlignment"
+            Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ButtonSpinner}">
+                    <Border x:Name="Border"
+                  SnapsToDevicePixels="True"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="firstContentColumn"
+                                  Width="*" />
+                                <ColumnDefinition x:Name="secondContentColumn"
+                                  Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter x:Name="contentPresenter"
+                                Focusable="False"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                            <Grid x:Name="gridContent"
+                    Grid.Column="1"
+                    Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <RepeatButton x:Name="PART_IncreaseButton"
+                              Style="{DynamicResource SomeRepeatButton}"
+                              IsTabStop="{TemplateBinding IsTabStop}"
+                              ContentTemplate="{StaticResource IncreaseGlyphNormalKey}">
+                                </RepeatButton>
+
+                                <RepeatButton x:Name="PART_DecreaseButton"
+                              Grid.Row="1"
+                              Style="{DynamicResource SomeRepeatButton}"
+                              IsTabStop="{TemplateBinding IsTabStop}"
+                              ContentTemplate="{StaticResource DecreaseGlyphNormalKey}" >
+                                </RepeatButton>
+
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ShowButtonSpinner" Value="False">
+                            <Setter Property="Visibility" Value="Hidden" TargetName="gridContent" />
+                            <Setter Property="Width" Value="0" TargetName="gridContent" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="{DynamicResource {x:Static themes:ResourceKeys.ControlDisabledBackgroundKey}}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_IncreaseButton" Property="IsMouseOver" Value="False">
+                            <Setter TargetName="PART_IncreaseButton" Property="ContentTemplate" Value="{StaticResource IncreaseGlyphDisabledKey}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_DecreaseButton" Property="IsMouseOver" Value="False">
+                            <Setter TargetName="PART_DecreaseButton" Property="ContentTemplate" Value="{StaticResource DecreaseGlyphDisabledKey}" />
+                        </Trigger>
+                        <Trigger Property="ButtonSpinnerLocation" Value="Left">
+                            <Setter TargetName="firstContentColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="secondContentColumn" Property="Width" Value="*" />
+                            <Setter TargetName="contentPresenter" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="gridContent" Property="Grid.Column" Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SomeButtonSpinner"
+         TargetType="{x:Type prim:InputBase}">
+        <Setter Property="Background" Value="{DynamicResource TextBox.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
+        <Setter Property="HorizontalContentAlignment" Value="Right" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <local:ButtonSpinner x:Name="PART_Spinner"
+                               IsTabStop="False"
+                               Background="{TemplateBinding Background}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               HorizontalContentAlignment="Stretch"
+                               VerticalContentAlignment="Stretch"
+                               AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
+                               ShowButtonSpinner="True"
+                               ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}"
+                               Style="{DynamicResource ButtonSpinner}">
                         <local:WatermarkTextBox x:Name="PART_TextBox"
                                     BorderThickness="0"
                                     Background="Transparent"

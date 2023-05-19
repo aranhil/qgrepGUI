@@ -3,14 +3,17 @@ using EnvDTE80;
 using Microsoft.Build.Evaluation;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using qgrepControls;
 using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Packaging;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,15 +31,25 @@ namespace qgrepSearch
             State = windowState;
         }
 
-        public bool WindowOpened
+        public bool TextSearchOpened
         {
             get
             {
-                return State.Package.WindowOpened;
+                return false;
             }
             set
             {
-                State.Package.WindowOpened = value;
+            }
+        }
+
+        public bool FileSearchOpened
+        {
+            get
+            {
+                return false;
+            }
+            set
+            {
             }
         }
 
@@ -288,6 +301,51 @@ namespace qgrepSearch
             var mainWinHandle = (IntPtr)State.DTE.MainWindow.HWnd;
             var mainWinSource = HwndSource.FromHwnd(mainWinHandle);
             return (System.Windows.Window)mainWinSource.RootVisual;
+        }
+
+        public string GetMonospaceFont()
+        {
+            try
+            {
+                var properties = State.DTE.Properties["FontsAndColors", "TextEditor"];
+                var fontFamily = (string)properties.Item("FontFamily").Value;
+
+                if (fontFamily != null)
+                {
+                    return fontFamily;
+                }
+            }
+            catch { }
+
+            return "Consolas";
+        }
+
+        public string GetNormalFont()
+        {
+            IVsFontAndColorStorage Storage = State.Package.GetService<IVsFontAndColorStorage, IVsFontAndColorStorage>();
+            if (Storage != null)
+            {
+                var Guid = new Guid("1F987C00-E7C4-4869-8A17-23FD602268B0"); // GUID for Environment Font  
+                if (Storage.OpenCategory(ref Guid, (uint)(__FCSTORAGEFLAGS.FCSF_READONLY | __FCSTORAGEFLAGS.FCSF_LOADDEFAULTS)) == 0)
+                {
+                    LOGFONTW[] Fnt = new LOGFONTW[] { new LOGFONTW() };
+                    FontInfo[] Info = new FontInfo[] { new FontInfo() };
+
+                    try
+                    {
+                        Storage.GetFont(Fnt, Info);
+                        byte[] byteArray = new byte[Fnt[0].lfFaceName.Length * 2];
+                        Buffer.BlockCopy(Fnt[0].lfFaceName, 0, byteArray, 0, byteArray.Length);
+                        return System.Text.Encoding.Unicode.GetString(byteArray);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.ToString());
+                    }
+                }
+            }
+
+            return "Arial";
         }
     }
 }

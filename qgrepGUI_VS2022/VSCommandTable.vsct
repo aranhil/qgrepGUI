@@ -56,11 +56,11 @@
 			  <ButtonText>Show Recent History</ButtonText>
 		  </Strings>
       </Button>
-      <Button guid="guidqgrepSearchPackageCmdSet" id="cmdidCommand1" priority="0x0100" type="Button">
+      <Button guid="guidqgrepSearchPackageCmdSet" id="cmdidOpenSearchFiles" priority="0x0100" type="Button">
         <Parent guid="guidqgrepSearchPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages1" id="bmpPic1" />
         <Strings>
-          <ButtonText>Invoke Command1</ButtonText>
+          <ButtonText>Invoke OpenSearchFiles</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -113,11 +113,20 @@
       <IDSymbol value="4137" name="cmdidExcludeFilesCommand" />
       <IDSymbol value="4138" name="cmdidFilterResultsCommand" />
 	  <IDSymbol value="4139" name="cmdidShowHistoryCommand" />
-      <IDSymbol value="4140" name="cmdidCommand1" />
+      <IDSymbol value="4141" name="cmdidOpenSearchFiles" />
     </GuidSymbol>
   
     <GuidSymbol value="{6e14650b-c446-4769-8f15-897898db7422}" name="guidImages1">
       <IDSymbol name="bmpPic1" value="1" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{79401754-2682-4219-95ba-f6e0a64df413}" name="guidImages2">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

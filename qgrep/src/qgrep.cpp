@@ -210,6 +210,9 @@ unsigned int parseSearchFileOption(char opt)
 	case 'f':
 		return SO_FILE_FUZZY;
 
+	case 'c':
+		return SO_FILE_CUSTOM;
+
 	default:
 		throw std::runtime_error("Unknown search option 'f" + std::string(opt != 0, opt) + "'");
 	}
@@ -330,7 +333,7 @@ std::tuple<unsigned int, unsigned int, std::string, std::string> getSearchOption
 		parseSearchOptions(argv[i], options, limit, include, exclude);
 
 	// choose default file search type
-	if ((options & (SO_FILE_NAMEREGEX | SO_FILE_PATHREGEX | SO_FILE_VISUALASSIST | SO_FILE_FUZZY)) == 0)
+	if ((options & (SO_FILE_NAMEREGEX | SO_FILE_PATHREGEX | SO_FILE_VISUALASSIST | SO_FILE_FUZZY | SO_FILE_CUSTOM)) == 0)
 		options |= SO_FILE_PATHREGEX;
 
 	// highlighting includes match highlighting

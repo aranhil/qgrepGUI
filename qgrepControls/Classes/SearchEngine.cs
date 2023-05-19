@@ -47,6 +47,7 @@ namespace qgrepControls.Classes
         public int GroupingMode { get; set; } = 0;
         public List<string> Configs { get; set; } = new List<string>();
         public bool BypassCache { get; set; } = false;
+        public bool BypassHighlight { get; set; } = false;
 
         public bool CanUseCache(SearchOptions newSearchOptions)
         {
@@ -200,11 +201,12 @@ namespace qgrepControls.Classes
                     "files",
                     string.Join(",", searchOptions.Configs),
                     "i",
+                    "fc",
                     searchOptions.Query
                 };
 
                 QGrepWrapper.CallQGrepAsync(arguments,
-                    (string result) => { return StringHandler(result, searchOptions); }, ErrorHandler, ProgressHandler);
+                    (string result) => { return StringHandler(result, searchOptions, true); }, ErrorHandler, ProgressHandler);
 
                 IsBusy = false;
 
@@ -263,18 +265,16 @@ namespace qgrepControls.Classes
 
                         if (searchOptions.FilterResults.Length > 0)
                         {
-                            string rawText = result.Replace("\xB1", "").Replace("\xB2", "");
-
                             if (searchOptions.FilterResultsRegEx)
                             {
-                                if (!Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success && !Regex.Match(rawText.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                                if (!Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success && !Regex.Match(result.ToLower(), searchOptions.FilterResults.ToLower()).Success)
                                 {
                                     return false;
                                 }
                             }
                             else
                             {
-                                if (!file.ToLower().Contains(searchOptions.FilterResults.ToLower()) && !rawText.ToLower().Contains(searchOptions.FilterResults.ToLower()))
+                                if (!file.ToLower().Contains(searchOptions.FilterResults.ToLower()) && !result.ToLower().Contains(searchOptions.FilterResults.ToLower()))
                                 {
                                     return false;
                                 }
@@ -287,32 +287,41 @@ namespace qgrepControls.Classes
                     }
                 }
 
-                int highlightBegin = 0, highlightEnd = 0;
-                Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);
-
-                currentIndex = highlightBegin;
-                if (currentIndex >= 0)
+                if(!searchOptions.BypassHighlight)
                 {
-                    beginText = result.Substring(0, currentIndex);
-                    result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
+                    int highlightBegin = 0, highlightEnd = 0;
+                    Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);
+
+                    currentIndex = highlightBegin;
+                    if (currentIndex >= 0)
+                    {
+                        beginText = result.Substring(0, currentIndex);
+                        result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                    currentIndex = highlightEnd;
+                    if (currentIndex >= 0)
+                    {
+                        highlightedText = result.Substring(0, currentIndex);
+                        result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                    endText = result;
                 }
                 else
                 {
-                    return false;
+                    beginText = result;
+                    highlightedText = "";
+                    endText = "";
                 }
-
-                currentIndex = highlightEnd;
-                if (currentIndex >= 0)
-                {
-                    highlightedText = result.Substring(0, currentIndex);
-                    result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
-                }
-                else
-                {
-                    return false;
-                }
-
-                endText = result;
 
                 ResultCallback(file, lineNo, beginText, highlightedText, endText, searchOptions);
             }

@@ -133,8 +133,8 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                 </TreeView.ItemContainerStyle>
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type modelViews:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
-                        <DockPanel Style="{DynamicResource ResultPanel}" Height="18" RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchResult_MouseDown">
-                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=TrimmedFile}" />
+                        <DockPanel Style="{DynamicResource ResultGroupPanel}" RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchResult_MouseDown">
+                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=TrimmedFile}"/>
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="MenuGoTo" Header="Open file" Click="MenuGoTo_Click"/>
@@ -185,7 +185,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                 <Button x:Name="KeyboardButton" Style="{StaticResource IconButton}" FontSize="14" Click="KeyboardButton_Click" ToolTip="Customize shortcuts">
                     <Path Style="{DynamicResource KeyboardIcon}" />
                 </Button>
-                <Button x:Name="ColorsButton" Style="{StaticResource IconButton}" FontSize="14" Click="Colors_Click" ToolTip="Customize colors">
+                <Button x:Name="ColorsButton" Style="{StaticResource IconButton}" FontSize="14" Click="Colors_Click" ToolTip="Customize theme">
                     <Path Style="{DynamicResource ColorsIcon}" />
                 </Button>
                 <Button x:Name="AdvancedButton" Style="{StaticResource IconButton}" Click="AdvancedButton_Click" ToolTip="Advanced Settings">

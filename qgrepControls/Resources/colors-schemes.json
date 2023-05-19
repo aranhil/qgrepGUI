@@ -64,6 +64,10 @@
           "Opacity": 0.5
         },
         {
+          "Name": "Result.LineNo.Foreground",
+          "Color": "FontsAndColors.Line Number.Foreground",
+        },
+        {
           "Name": "Result.Text.Foreground",
           "Color": "CommonControls.ComboBoxText"
         },
@@ -395,6 +399,10 @@
             {
                 "Name": "Result.File.Foreground",
                 "Color": "DarkGray"
+            },
+            {
+                "Name": "Result.LineNo.Foreground",
+                "Color": "43, 145, 175"
             },
             {
                 "Name": "Result.Text.Foreground",
@@ -781,6 +789,10 @@
             {
                 "Name": "Result.File.Foreground",
                 "Color": "Gray"
+            },
+            {
+                "Name": "Result.LineNo.Foreground",
+                "Color": "43, 145, 175"
             },
             {
                 "Name": "Result.Text.Foreground",

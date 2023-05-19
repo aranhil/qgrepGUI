@@ -262,5 +262,77 @@ namespace qgrepControls.Properties {
                 this["ShowOpenHistory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Auto")]
+        public string MonospaceFontFamily {
+            get {
+                return ((string)(this["MonospaceFontFamily"]));
+            }
+            set {
+                this["MonospaceFontFamily"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Auto")]
+        public string NormalFontFamily {
+            get {
+                return ((string)(this["NormalFontFamily"]));
+            }
+            set {
+                this["NormalFontFamily"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public int MonospaceFontSize {
+            get {
+                return ((int)(this["MonospaceFontSize"]));
+            }
+            set {
+                this["MonospaceFontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public int NormalFontSize {
+            get {
+                return ((int)(this["NormalFontSize"]));
+            }
+            set {
+                this["NormalFontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18")]
+        public int GroupHeight {
+            get {
+                return ((int)(this["GroupHeight"]));
+            }
+            set {
+                this["GroupHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("16")]
+        public int LineHeight {
+            get {
+                return ((int)(this["LineHeight"]));
+            }
+            set {
+                this["LineHeight"] = value;
+            }
+        }
     }
 }
