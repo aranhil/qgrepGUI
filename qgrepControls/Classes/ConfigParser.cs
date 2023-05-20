@@ -109,18 +109,51 @@ namespace qgrepControls.Classes
             File.Delete(directory + "\\" + Name + ".qgf");
         }
 
+        public bool HasGeneratedFiles()
+        {
+            string directory = System.IO.Path.GetDirectoryName(Path);
+            return File.Exists(directory + "\\" + Name + ".qgd") && File.Exists(directory + "\\" + Name + ".qgf");
+        }
+
         public bool Rename(string newName)
         {
+            if (newName.Length == 0)
+            {
+                return false;
+            }
+
             string directory = System.IO.Path.GetDirectoryName(Path);
             string newPath = directory + "\\" + newName + ".cfg";
 
             if (!File.Exists(newPath))
             {
-                DeleteFiles();
-                Path = newPath;
-                SaveConfig();
+                try
+                {
+                    System.IO.File.Move(directory + "\\" + Name + ".cfg", directory + "\\" + newName + ".cfg");
 
-                return true;
+                    if(File.Exists(directory + "\\" + Name + ".qgd"))
+                    {
+                        System.IO.File.Move(directory + "\\" + Name + ".qgd", directory + "\\" + newName + ".qgd");
+                    }
+
+                    if(File.Exists(directory + "\\" + Name + ".qgf"))
+                    {
+                        System.IO.File.Move(directory + "\\" + Name + ".qgf", directory + "\\" + newName + ".qgf");
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+
+                try
+                {
+                    Settings.Default.SearchFilters = Settings.Default.SearchFilters.Replace(Name, newName);
+                    Settings.Default.Save();
+                }
+                catch { }
+
+                Path = newPath;
             }
 
             return false;
@@ -504,6 +537,11 @@ namespace qgrepControls.Classes
 
             for(int i = 0; i < Instance.ConfigProjects.Count; i++)
             {
+                if (!instance.ConfigProjects[i].HasGeneratedFiles())
+                {
+                    return true;
+                }
+
                 if (Instance.ConfigProjects[i].Groups.Count != Instance.OldConfigProjects[i].Groups.Count)
                 {
                     return true;

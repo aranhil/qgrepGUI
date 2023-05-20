@@ -955,6 +955,7 @@ namespace qgrepControls.SearchWindow
             UIHelper.CreateWindow(newProjectsWindow, "Search configurations", ExtensionInterface, this, true).ShowDialog();
 
             ConfigParser.SaveConfig();
+            UpdateFilters();
 
             if (ConfigParser.IsConfigChanged())
             {
@@ -962,7 +963,6 @@ namespace qgrepControls.SearchWindow
                 SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
                 BypassCacheNextFind = true;
-                UpdateFilters();
             }
         }
 
