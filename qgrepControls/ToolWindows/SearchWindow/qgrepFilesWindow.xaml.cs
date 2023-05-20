@@ -42,7 +42,7 @@ namespace qgrepControls.SearchWindow
             IncludeFilesInput.Focus();
 
             ExtensionInterface = extensionInterface;
-            ConfigParser.Init(extensionInterface.GetSolutionPath());
+            ConfigParser.Init(System.IO.Path.GetDirectoryName(extensionInterface.GetSolutionPath()));
 
             SearchEngine.ResultCallback = HandleSearchResult;
             SearchEngine.StartSearchCallback = HandleSearchStart;
@@ -50,13 +50,6 @@ namespace qgrepControls.SearchWindow
 
             ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface, false);
             ThemeHelper.UpdateFontFromSettings(this, extensionInterface);
-
-            string solutionPath = ExtensionInterface.GetSolutionPath();
-            if (solutionPath.Length > 0)
-            {
-                ConfigParser.Init(System.IO.Path.GetDirectoryName(solutionPath));
-                ConfigParser.LoadConfig();
-            }
 
             PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Critical;
         }

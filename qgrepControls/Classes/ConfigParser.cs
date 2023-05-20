@@ -312,12 +312,16 @@ namespace qgrepControls.Classes
 
         public static void Init(string Path)
         {
-            Instance.Path = Path;
+            if(Instance.Path != Path)
+            {
+                Instance.Path = Path;
+                LoadConfig();
+            }
         }
 
         public static void LoadConfig()
         {
-            Instance.ConfigProjects.Clear();
+            Instance.ConfigProjects = new ObservableCollection<ConfigProject>();
 
             if (!Directory.Exists(Instance.Path + Instance.PathSuffix))
             {
@@ -342,6 +346,7 @@ namespace qgrepControls.Classes
 
         public static void UnloadConfig()
         {
+            Instance.Path = "";
             Instance.ConfigProjects.Clear();
         }
 

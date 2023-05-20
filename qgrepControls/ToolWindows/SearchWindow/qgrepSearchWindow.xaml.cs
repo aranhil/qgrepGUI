@@ -53,7 +53,6 @@ namespace qgrepControls.SearchWindow
     public partial class qgrepSearchWindowControl : UserControl
     {
         public IExtensionInterface ExtensionInterface;
-        public string ConfigPath = "";
         public Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
 
         private System.Timers.Timer UpdateTimer = null;
@@ -311,10 +310,11 @@ namespace qgrepControls.SearchWindow
         {
             Visibility visibility = Visibility.Collapsed;
 
+            List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
+
             FiltersComboBox.ItemsSource = ConfigParser.Instance.ConfigProjects;
             FiltersComboBox.SelectedItems.Clear();
 
-            List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
             foreach (string searchFilter in searchFilters)
             {
                 ConfigProject selectedProject = null;
@@ -352,7 +352,6 @@ namespace qgrepControls.SearchWindow
             if(solutionPath.Length > 0)
             {
                 ConfigParser.Init(System.IO.Path.GetDirectoryName(solutionPath));
-                ConfigParser.LoadConfig();
 
                 UpdateWarning();
                 UpdateFilters();
