@@ -25,18 +25,7 @@ namespace qgrepSearchTool_Standalone
             Window = window;
         }
 
-        public bool TextSearchOpened 
-        {
-            get 
-            {
-                return false;
-            }
-            set
-            {
-            }
-        }
-
-        public bool FileSearchOpened
+        public bool SearchWindowOpened 
         {
             get 
             {

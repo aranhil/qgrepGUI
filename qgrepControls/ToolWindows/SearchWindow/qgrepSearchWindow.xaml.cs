@@ -541,6 +541,12 @@ namespace qgrepControls.SearchWindow
             {
                 if (newSearch)
                 {
+                    ScrollViewer scrollViewer = UIHelper.GetChildOfType<ScrollViewer>(SearchItemsListBox);
+                    if(scrollViewer != null)
+                    {
+                        scrollViewer.ScrollToTop();
+                    }
+
                     SearchItemsListBox.ItemsSource = searchResults = newSearchResults;
                     newSearchResults = new ObservableCollection<SearchResult>();
                     newSearch = false;
@@ -564,6 +570,12 @@ namespace qgrepControls.SearchWindow
             {
                 if (newSearch)
                 {
+                    ScrollViewer scrollViewer = UIHelper.GetChildOfType<ScrollViewer>(SearchItemsTreeView);
+                    if (scrollViewer != null)
+                    {
+                        scrollViewer.ScrollToTop();
+                    }
+
                     SearchItemsTreeView.ItemsSource = searchResultsGroups = newSearchResultGroups;
                     searchResults = newSearchResults;
 
@@ -887,11 +899,17 @@ namespace qgrepControls.SearchWindow
         private void InitButton_Click(object sender, RoutedEventArgs e)
         {
             SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+
+            BypassCacheNextFind = true;
+            Find();
         }
         private void CleanButton_Click(object sender, RoutedEventArgs e)
         {
             CleanDatabase();
             SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+
+            BypassCacheNextFind = true;
+            Find();
         }
 
         private void CaseSensitive_Click(object sender, RoutedEventArgs e)

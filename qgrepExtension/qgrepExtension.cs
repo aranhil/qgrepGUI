@@ -84,8 +84,6 @@ namespace qgrepSearch
         }
         public void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 EnvDTE80.DTE2 dte = State?.DTE;
@@ -103,12 +101,17 @@ namespace qgrepSearch
 
         private static void ProcessProject(EnvDTE.Project project, StringCallback extensionCallback, StringCallback folderCallback)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            string projectFullName = null;
+            ThreadHelper.JoinableTaskFactory.Run(async delegate
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                projectFullName = project?.FullName;
+            });
 
-            if (project == null || project.FullName.Length == 0) return;
+            if (project == null || string.IsNullOrEmpty(projectFullName)) return;
 
-            var msbuildProject = new Microsoft.Build.Evaluation.Project(project.FullName);
-            string projectDirectory = Path.GetDirectoryName(project.FullName);
+            var msbuildProject = new Microsoft.Build.Evaluation.Project(projectFullName);
+            string projectDirectory = Path.GetDirectoryName(projectFullName);
 
             foreach (var projectItem in msbuildProject.Items)
             {
@@ -152,16 +155,28 @@ namespace qgrepSearch
 
         private static void GetAllFoldersFromProject(ProjectItems projectItems, StringCallback extensionCallback, StringCallback folderCallback)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             if (projectItems != null)
             {
                 foreach (EnvDTE.ProjectItem item in projectItems)
                 {
-                    if (item?.SubProject != null)
+                    EnvDTE.Project subProject = null;
+                    EnvDTE.ProjectItems subProjectItems = null;
+
+                    ThreadHelper.JoinableTaskFactory.Run(async delegate
                     {
-                        ProcessProject(item.SubProject, extensionCallback, folderCallback);
-                        GetAllFoldersFromProject(item.SubProject.ProjectItems, extensionCallback, folderCallback);
+                        await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                        subProject = item?.SubProject;
+                        subProjectItems = subProject?.ProjectItems;
+                    });
+
+                    if (subProject != null)
+                    {
+                        ProcessProject(subProject, extensionCallback, folderCallback);
+                    }
+
+                    if(subProjectItems != null)
+                    {
+                        GetAllFoldersFromProject(subProjectItems, extensionCallback, folderCallback);
                     }
                 }
             }
