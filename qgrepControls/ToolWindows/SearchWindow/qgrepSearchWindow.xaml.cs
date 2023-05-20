@@ -68,7 +68,7 @@ namespace qgrepControls.SearchWindow
         ObservableCollection<HistoricItem> shownSearchHistory = new ObservableCollection<HistoricItem>();
 
         static SearchEngine SearchEngine = new SearchEngine();
-        bool BypassCacheNextFind = false;
+        CacheUsageType CacheUsageType = CacheUsageType.Normal;
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
@@ -440,10 +440,12 @@ namespace qgrepControls.SearchWindow
             visibility = Settings.Default.SearchInstantly == false ? Visibility.Visible : Visibility.Collapsed;
             SearchButton.Visibility = visibility;
 
-            if (Settings.Default.SearchInstantly)
+            if(!Settings.Default.SearchInstantly)
             {
-                Find();
+                CacheUsageType = CacheUsageType.Forced;
             }
+
+            Find();
         }
 
         private void SaveOptions()
@@ -709,7 +711,7 @@ namespace qgrepControls.SearchWindow
                     FilterResultsRegEx = FilterRegEx.IsChecked == true,
                     GroupingMode = Settings.Default.GroupingIndex,
                     Configs = GetSelectedConfigProjects(),
-                    BypassCache = BypassCacheNextFind
+                    CacheUsageType = CacheUsageType,
                 };
 
                 SearchEngine.SearchAsync(searchOptions);
@@ -724,7 +726,7 @@ namespace qgrepControls.SearchWindow
                     FilterResultsRegEx = FilterRegEx.IsChecked == true,
                     GroupingMode = 0,
                     Configs = GetSelectedConfigProjects(),
-                    BypassCache = BypassCacheNextFind,
+                    CacheUsageType = CacheUsageType,
                     BypassHighlight = true
                 };
 
@@ -737,7 +739,7 @@ namespace qgrepControls.SearchWindow
                 InfoLabel.Content = "";
             }
 
-            BypassCacheNextFind = false;
+            CacheUsageType = CacheUsageType.Normal;
         }
 
         private List<string> GetSelectedConfigProjects()
@@ -900,16 +902,23 @@ namespace qgrepControls.SearchWindow
         {
             SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
-            BypassCacheNextFind = true;
-            Find();
+            if (Settings.Default.SearchInstantly)
+            {
+                CacheUsageType = CacheUsageType.Bypass;
+                Find();
+            }
         }
+
         private void CleanButton_Click(object sender, RoutedEventArgs e)
         {
             CleanDatabase();
             SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
-            BypassCacheNextFind = true;
-            Find();
+            if (Settings.Default.SearchInstantly)
+            {
+                CacheUsageType = CacheUsageType.Bypass;
+                Find();
+            }
         }
 
         private void CaseSensitive_Click(object sender, RoutedEventArgs e)
@@ -955,15 +964,16 @@ namespace qgrepControls.SearchWindow
             UIHelper.CreateWindow(newProjectsWindow, "Search configurations", ExtensionInterface, this, true).ShowDialog();
 
             ConfigParser.SaveConfig();
-            UpdateFilters();
 
             if (ConfigParser.IsConfigChanged())
             {
                 UpdateWarning();
                 SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
-                BypassCacheNextFind = true;
+                CacheUsageType = CacheUsageType.Bypass;
             }
+
+            UpdateFilters();
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
@@ -1613,6 +1623,16 @@ namespace qgrepControls.SearchWindow
                 {
                     FilterResultsInput.Focus();
                 }
+            });
+        }
+
+        public void ToggleGroupingBy()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Settings.Default.GroupingIndex = 1 - Settings.Default.GroupingIndex;
+                Settings.Default.Save();
+                UpdateFromSettings();
             });
         }
 

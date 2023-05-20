@@ -56,6 +56,12 @@
 			  <ButtonText>Show Recent History</ButtonText>
 		  </Strings>
       </Button>
+		<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidToggleGroupingBy" priority="0x0100" type="Button">
+			<Strings>
+				<LocCanonicalName>qgrep.ToggleGroupingBy</LocCanonicalName>
+				<ButtonText>Toggle Grouping By</ButtonText>
+			</Strings>
+		</Button>
       <Button guid="guidqgrepSearchPackageCmdSet" id="cmdidOpenSearchFiles" priority="0x9100" type="Button">
 		  <Parent guid="guidSHLMainMenu" id="IDG_VS_VIEW_DEV_WINDOWS" />
         <Icon guid="guidImages1" id="bmpPic1" />
@@ -112,6 +118,7 @@
       <IDSymbol value="4138" name="cmdidFilterResultsCommand" />
 	  <IDSymbol value="4139" name="cmdidShowHistoryCommand" />
       <IDSymbol value="4141" name="cmdidOpenSearchFiles" />
+      <IDSymbol value="4142" name="cmdidToggleGroupingBy" />
     </GuidSymbol>
   
     <GuidSymbol value="{6e14650b-c446-4769-8f15-897898db7422}" name="guidImages1">

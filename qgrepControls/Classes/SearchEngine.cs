@@ -16,6 +16,7 @@ using System.Reflection;
 using System.IO;
 using System.Xml.Linq;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace qgrepControls.Classes
 {
@@ -24,6 +25,12 @@ namespace qgrepControls.Classes
     public delegate void StringCallback(string message);
     public delegate void UpdateStepCallback();
     public delegate void UpdateProgressCallback(int percentage);
+    public enum CacheUsageType
+    {
+        Normal,
+        Bypass,
+        Forced,
+    };
 
     public class CachedSearch
     {
@@ -46,7 +53,7 @@ namespace qgrepControls.Classes
         public bool FilterResultsRegEx { get; set; } = false;
         public int GroupingMode { get; set; } = 0;
         public List<string> Configs { get; set; } = new List<string>();
-        public bool BypassCache { get; set; } = false;
+        public CacheUsageType CacheUsageType { get; set; } = CacheUsageType.Normal;
         public bool BypassHighlight { get; set; } = false;
 
         public bool CanUseCache(SearchOptions newSearchOptions)
@@ -85,7 +92,7 @@ namespace qgrepControls.Classes
 
         public void SearchAsync(SearchOptions searchOptions)
         {
-            if(IsBusy) 
+            if(IsBusy)
             {
                 QueuedSearchOptions = searchOptions;
                 ForceStop = true;
@@ -99,8 +106,17 @@ namespace qgrepControls.Classes
             {
                 StartSearchCallback(searchOptions);
 
-                if(!searchOptions.BypassCache && CachedSearch.SearchOptions != null && CachedSearch.SearchOptions.CanUseCache(searchOptions))
+                if(searchOptions.CacheUsageType != CacheUsageType.Bypass && CachedSearch.SearchOptions != null && 
+                    (searchOptions.CacheUsageType == CacheUsageType.Forced || CachedSearch.SearchOptions.CanUseCache(searchOptions)))
                 {
+                    if(searchOptions.CacheUsageType == CacheUsageType.Forced)
+                    {
+                        searchOptions.Query = CachedSearch.SearchOptions.Query;
+                        searchOptions.CaseSensitive = CachedSearch.SearchOptions.CaseSensitive;
+                        searchOptions.WholeWord = CachedSearch.SearchOptions.WholeWord;
+                        searchOptions.RegEx = CachedSearch.SearchOptions.RegEx;
+                    }
+
                     CachedSearch.SearchOptions = searchOptions;
 
                     foreach (string cachedSearchResult in CachedSearch.Results)

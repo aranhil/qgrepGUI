@@ -102,6 +102,7 @@ namespace qgrepSearchTool_Standalone
             bindings["ToggleFilterResults"] = new Hotkey(mainWindow.ToggleFilterResults.Key, mainWindow.ToggleFilterResults.Modifiers);
             bindings["ShowHistory"] = new Hotkey(mainWindow.ShowHistory.Key, mainWindow.ShowHistory.Modifiers);
             bindings["OpenFileSearch"] = new Hotkey(mainWindow.OpenFileSearch.Key, mainWindow.OpenFileSearch.Modifiers);
+            bindings["ToggleGroupingBy"] = new Hotkey(mainWindow.ToggleGroupingBy.Key, mainWindow.ToggleGroupingBy.Modifiers);
             SaveKeyBindings(bindings);
             return bindings;
         }
@@ -122,7 +123,7 @@ namespace qgrepSearchTool_Standalone
                 }
                 catch { }
 
-                if (bindings.Count != 8)
+                if (bindings.Count != 9)
                 {
                     LoadDefaultKeyBindings();
                 }
@@ -155,6 +156,12 @@ namespace qgrepSearchTool_Standalone
 
             mainWindow.ShowHistory.Key = bindings["ShowHistory"].Key;
             mainWindow.ShowHistory.Modifiers = bindings["ShowHistory"].Modifiers;
+
+            mainWindow.OpenFileSearch.Key = bindings["OpenFileSearch"].Key;
+            mainWindow.OpenFileSearch.Modifiers = bindings["OpenFileSearch"].Modifiers;
+
+            mainWindow.ToggleGroupingBy.Key = bindings["ToggleGroupingBy"].Key;
+            mainWindow.ToggleGroupingBy.Modifiers = bindings["ToggleGroupingBy"].Modifiers;
         }
 
         public void SaveKeyBindings(Dictionary<string, Hotkey> bindings)

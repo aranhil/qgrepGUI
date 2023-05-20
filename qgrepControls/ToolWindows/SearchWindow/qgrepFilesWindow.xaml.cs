@@ -82,7 +82,7 @@ namespace qgrepControls.SearchWindow
                     FilterResultsRegEx = false,
                     GroupingMode = 0,
                     Configs = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(),
-                    BypassCache = false,
+                    CacheUsageType = CacheUsageType.Normal,
                     BypassHighlight = true
                 };
 

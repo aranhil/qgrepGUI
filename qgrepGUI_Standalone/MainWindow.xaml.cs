@@ -124,5 +124,10 @@ namespace qgrepSearchTool_Standalone
             qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new qgrepExtension(this));
             UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.ExtensionInterface, SearchWindow, true);
         }
+
+        private void ToggleGroupingBy_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleGroupingBy();
+        }
     }
 }
