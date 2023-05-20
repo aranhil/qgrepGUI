@@ -824,7 +824,7 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private void HandleProgress(int percentage)
+        private void HandleProgress(double percentage)
         {
             if (!progressUpdateStopWatch.IsRunning || progressUpdateStopWatch.ElapsedMilliseconds > 20)
             {

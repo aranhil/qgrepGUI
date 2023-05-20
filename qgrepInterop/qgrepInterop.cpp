@@ -34,7 +34,7 @@ bool qgrepInterop::NativeQGrepWrapper::nativeStringCallback(const char* result, 
     return false;
 }
 
-void qgrepInterop::NativeQGrepWrapper::nativeProgressCallback(int percentage)
+void qgrepInterop::NativeQGrepWrapper::nativeProgressCallback(double percentage)
 {
     if (QGrepWrapper::progressCalback != nullptr)
     {

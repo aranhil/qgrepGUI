@@ -141,7 +141,7 @@ private:
 class AsyncStringOutput: public Output
 {
 public:
-	AsyncStringOutput(bool (*stringCb)(const char*, int), void (*errorsCb)(const char*, int), void (*progressCb)(int))
+	AsyncStringOutput(bool (*stringCb)(const char*, int), void (*errorsCb)(const char*, int), void (*progressCb)(double))
 		: stringCallback(stringCb)
 		, errorsCallback(errorsCb)
 		, progressCallback(progressCb)
@@ -181,7 +181,7 @@ public:
 		errorsCallback(error.c_str(), (int)error.size());
 	}
 
-	virtual void progress(int percentage)
+	virtual void progress(double percentage)
 	{
 		progressCallback(percentage);
 	}
@@ -194,7 +194,7 @@ public:
 private:
 	bool (*stringCallback)(const char*, int);
 	void (*errorsCallback)(const char*, int);
-	void (*progressCallback)(int);
+	void (*progressCallback)(double);
 	std::mutex mutex;
 	bool forceStop;
 };
@@ -604,7 +604,7 @@ int main(int argc, const char** argv)
 	mainImpl(&output, argc, argv, 0, 0);
 }
 
-void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const char*, int), void (*errorsCallback)(const char*, int), void (*progressCallback)(int))
+void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const char*, int), void (*errorsCallback)(const char*, int), void (*progressCallback)(double))
 {
 	std::vector<const char*> argv;
 

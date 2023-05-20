@@ -138,7 +138,7 @@ static void printStatistics(Output* output, const BuildStatistics& stats, unsign
 	output->print("%d files, %d Mb in, %d Mb out ",
 		stats.fileCount, (int)(stats.fileSize / 1024 / 1024), (int)(stats.resultSize / 1024 / 1024));
 
-	output->progress(totalFileCount == 0 ? 100 : stats.fileCount * 100 / totalFileCount);
+	output->progress(totalFileCount == 0 ? 100.0f : stats.fileCount * 100.0f / totalFileCount);
 }
 
 static size_t normalizeEOL(char* data, size_t size)

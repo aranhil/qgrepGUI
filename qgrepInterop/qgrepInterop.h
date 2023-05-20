@@ -8,7 +8,7 @@ namespace qgrepInterop {
     {
     public:
         static bool nativeStringCallback(const char* result, int size);
-        static void nativeProgressCallback(int percentage);
+        static void nativeProgressCallback(double percentage);
         static void nativeErrorsCallback(const char* result, int size);
     };
 
@@ -17,7 +17,7 @@ namespace qgrepInterop {
 	public:
         delegate bool StringCallback(String^ result);
         delegate void ErrorCallback(String^ result);
-        delegate void ProgressCalback(int percentage);
+        delegate void ProgressCalback(double percentage);
 
         static void CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, StringCallback^ stringCb, ErrorCallback^ errorsCb, ProgressCalback^ progressCb);
 

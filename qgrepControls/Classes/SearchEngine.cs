@@ -30,7 +30,7 @@ namespace qgrepControls.Classes
 
     public delegate void StringCallback(string message);
     public delegate void UpdateStepCallback();
-    public delegate void UpdateProgressCallback(int percentage);
+    public delegate void UpdateProgressCallback(double percentage);
     public enum CacheUsageType
     {
         Normal,
@@ -98,7 +98,7 @@ namespace qgrepControls.Classes
         }
 
         private string LastUpdateMessage = "";
-        private int LastUpdateProgress = -1;
+        private double LastUpdateProgress = -1;
         private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
 
         public bool IsBusy { get; private set; } = false;
@@ -455,7 +455,7 @@ namespace qgrepControls.Classes
             return false;
         }
 
-        public void ProgressHandler(int percentage)
+        public void ProgressHandler(double percentage)
         {
             LastUpdateProgress = percentage;
             UpdateProgressCallback(percentage);
