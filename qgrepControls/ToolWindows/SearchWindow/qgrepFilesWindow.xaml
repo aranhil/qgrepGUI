@@ -25,6 +25,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
+            <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" x:Name="IncludeFilesGrid" Margin="0,-1,0,0">
             <TextBox x:Name="IncludeFilesInput" TabIndex="1" BorderThickness="0,1,0,1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" />
@@ -46,6 +47,25 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+        </Grid>
+        <Grid Grid.Row="2">
+            <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,10,0">
+                <Label IsTabStop="False" x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
+                <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
+                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="Update index">
+                    <Path Style="{DynamicResource SyncIcon}" />
+                </Button>
+                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update index">
+                    <Grid Background="Transparent">
+                        <Path Style="{DynamicResource TrashIcon}" />
+                    </Grid>
+                </Button>
+            </StackPanel>
+            <StackPanel x:Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
+                <wpfTool:CheckComboBox IsTabStop="False" x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
+                </wpfTool:CheckComboBox>
+                <Label IsTabStop="False" x:Name="InfoLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

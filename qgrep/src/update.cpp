@@ -221,6 +221,7 @@ bool updateProject(Output* output, const char* path)
 	auto start = std::chrono::high_resolution_clock::now();
 
     output->print("Updating %s:", path);
+	output->progress(-1);
 
 	std::unique_ptr<ProjectGroup> group = parseProject(output, path);
 	if (!group)

@@ -17,11 +17,17 @@ using System.IO;
 using System.Xml.Linq;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace qgrepControls.Classes
 {
-    public delegate void ResultCallback(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions);
-    public delegate void SearchStepCallback(SearchOptions searchOptions);
+    public interface ISearchEngineEventsHandler
+    {
+        void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions);
+        void OnStartSearchEvent(SearchOptions searchOptions);
+        void OnFinishSearchEvent(SearchOptions searchOptions);
+    }
+
     public delegate void StringCallback(string message);
     public delegate void UpdateStepCallback();
     public delegate void UpdateProgressCallback(int percentage);
@@ -41,6 +47,7 @@ namespace qgrepControls.Classes
 
     public class SearchOptions
     {
+        public ISearchEngineEventsHandler EventsHandler { get; set; }
         public string Query { get; set; } = "";
         public string IncludeFiles { get; set; } = "";
         public string ExcludeFiles { get; set; } = "";
@@ -72,6 +79,28 @@ namespace qgrepControls.Classes
 
     public class SearchEngine
     {
+        private static SearchEngine instance = null;
+        private static readonly object padlock = new object();
+
+        public static SearchEngine Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new SearchEngine();
+                    }
+                    return instance;
+                }
+            }
+        }
+
+        private string LastUpdateMessage = "";
+        private int LastUpdateProgress = -1;
+        private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
+
         public bool IsBusy { get; private set; } = false;
         private bool ForceStop { get; set; } = false;
         public bool IsSearchQueued { get { return QueuedSearchOptions != null || QueuedSearchFilesOptions != null; } }
@@ -81,14 +110,11 @@ namespace qgrepControls.Classes
         private List<string> QueuedDatabaseUpdate = null;
         private CachedSearch CachedSearch = new CachedSearch();
 
-        public ResultCallback ResultCallback { get; set; } = null;
-        public StringCallback ErrorCallback { get; set; } = null;
-        public SearchStepCallback StartSearchCallback { get; set; } = null;
-        public SearchStepCallback FinishSearchCallback { get; set; } = null;
         public UpdateStepCallback StartUpdateCallback { get; set; } = null;
         public UpdateStepCallback FinishUpdateCallback { get; set; } = null;
         public StringCallback UpdateInfoCallback { get; set; } = null;
         public UpdateProgressCallback UpdateProgressCallback { get; set; } = null;
+        public StringCallback UpdateErrorCallback { get; set; } = null;
 
         public void SearchAsync(SearchOptions searchOptions)
         {
@@ -104,7 +130,7 @@ namespace qgrepControls.Classes
 
             Task.Run(() =>
             {
-                StartSearchCallback(searchOptions);
+                searchOptions.EventsHandler.OnStartSearchEvent(searchOptions);
 
                 if(searchOptions.CacheUsageType != CacheUsageType.Bypass && CachedSearch.SearchOptions != null && 
                     (searchOptions.CacheUsageType == CacheUsageType.Forced || CachedSearch.SearchOptions.CanUseCache(searchOptions)))
@@ -190,7 +216,7 @@ namespace qgrepControls.Classes
 
                 IsBusy = false;
 
-                FinishSearchCallback(searchOptions);
+                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
 
                 ProcessQueue();
             });
@@ -209,7 +235,7 @@ namespace qgrepControls.Classes
 
             Task.Run(() =>
             {
-                StartSearchCallback(searchOptions);
+                searchOptions.EventsHandler.OnStartSearchEvent(searchOptions);
 
                 List<string> arguments = new List<string>
                 {
@@ -227,7 +253,7 @@ namespace qgrepControls.Classes
 
                 IsBusy = false;
 
-                FinishSearchCallback(searchOptions);
+                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
 
                 ProcessQueue();
             });
@@ -264,89 +290,86 @@ namespace qgrepControls.Classes
                 CachedSearch.Results.Add(result);
             }
 
-            if (ResultCallback != null)
+            string file = "", beginText, endText, highlightedText, lineNo = "";
+
+            int currentIndex = result.IndexOf('\xB0');
+            if (currentIndex >= 0)
             {
-                string file = "", beginText, endText, highlightedText, lineNo = "";
+                string fileAndLineNo = result.Substring(0, currentIndex);
+                result = currentIndex + 1 < result.Length ? result.Substring(currentIndex + 1) : "";
 
-                int currentIndex = result.IndexOf('\xB0');
-                if (currentIndex >= 0)
+                int indexOfParanthesis = fileAndLineNo.LastIndexOf('(');
+                if (indexOfParanthesis >= 0)
                 {
-                    string fileAndLineNo = result.Substring(0, currentIndex);
-                    result = currentIndex + 1 < result.Length ? result.Substring(currentIndex + 1) : "";
+                    lineNo = fileAndLineNo.Substring(indexOfParanthesis + 1, fileAndLineNo.Length - indexOfParanthesis - 2);
+                    file = fileAndLineNo.Substring(0, indexOfParanthesis);
 
-                    int indexOfParanthesis = fileAndLineNo.LastIndexOf('(');
-                    if (indexOfParanthesis >= 0)
+                    if (searchOptions.FilterResults.Length > 0)
                     {
-                        lineNo = fileAndLineNo.Substring(indexOfParanthesis + 1, fileAndLineNo.Length - indexOfParanthesis - 2);
-                        file = fileAndLineNo.Substring(0, indexOfParanthesis);
-
-                        if (searchOptions.FilterResults.Length > 0)
+                        if (searchOptions.FilterResultsRegEx)
                         {
-                            if (searchOptions.FilterResultsRegEx)
+                            if (!Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success && !Regex.Match(result.ToLower(), searchOptions.FilterResults.ToLower()).Success)
                             {
-                                if (!Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success && !Regex.Match(result.ToLower(), searchOptions.FilterResults.ToLower()).Success)
-                                {
-                                    return false;
-                                }
+                                return false;
                             }
-                            else
+                        }
+                        else
+                        {
+                            if (!file.ToLower().Contains(searchOptions.FilterResults.ToLower()) && !result.ToLower().Contains(searchOptions.FilterResults.ToLower()))
                             {
-                                if (!file.ToLower().Contains(searchOptions.FilterResults.ToLower()) && !result.ToLower().Contains(searchOptions.FilterResults.ToLower()))
-                                {
-                                    return false;
-                                }
+                                return false;
                             }
                         }
                     }
-                    else
-                    {
-                        return false;
-                    }
                 }
                 else
                 {
-                    file = result;
-                    result = "";
+                    return false;
                 }
-
-                if(!searchOptions.BypassHighlight)
-                {
-                    int highlightBegin = 0, highlightEnd = 0;
-                    Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);
-
-                    currentIndex = highlightBegin;
-                    if (currentIndex >= 0)
-                    {
-                        beginText = result.Substring(0, currentIndex);
-                        result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                    currentIndex = highlightEnd;
-                    if (currentIndex >= 0)
-                    {
-                        highlightedText = result.Substring(0, currentIndex);
-                        result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                    endText = result;
-                }
-                else
-                {
-                    beginText = result;
-                    highlightedText = "";
-                    endText = "";
-                }
-
-                ResultCallback(file, lineNo, beginText, highlightedText, endText, searchOptions);
             }
+            else
+            {
+                file = result;
+                result = "";
+            }
+
+            if(!searchOptions.BypassHighlight)
+            {
+                int highlightBegin = 0, highlightEnd = 0;
+                Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);
+
+                currentIndex = highlightBegin;
+                if (currentIndex >= 0)
+                {
+                    beginText = result.Substring(0, currentIndex);
+                    result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
+                }
+                else
+                {
+                    return false;
+                }
+
+                currentIndex = highlightEnd;
+                if (currentIndex >= 0)
+                {
+                    highlightedText = result.Substring(0, currentIndex);
+                    result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
+                }
+                else
+                {
+                    return false;
+                }
+
+                endText = result;
+            }
+            else
+            {
+                beginText = result;
+                highlightedText = "";
+                endText = "";
+            }
+
+            searchOptions.EventsHandler.OnResultEvent(file, lineNo, beginText, highlightedText, endText, searchOptions);
 
             return false;
         }
@@ -387,6 +410,8 @@ namespace qgrepControls.Classes
             Task.Run(() =>
             {
                 StartUpdateCallback();
+                UpdateTimer.Stop();
+                LastUpdateProgress = -1;
 
                 foreach (String configPath in configsPaths)
                 {
@@ -405,6 +430,8 @@ namespace qgrepControls.Classes
                 IsBusy = false;
 
                 FinishUpdateCallback();
+                StartLastUpdatedTimer();
+                LastUpdateProgress = -1;
 
                 ProcessQueue();
             });
@@ -412,7 +439,7 @@ namespace qgrepControls.Classes
 
         private void ErrorHandler(string result)
         {
-            ErrorCallback(result);
+            UpdateErrorCallback(result);
         }
 
         private bool DatabaseMessageHandler(string result)
@@ -422,13 +449,71 @@ namespace qgrepControls.Classes
                 result = result.Substring(0, result.Length - 1);
             }
 
+            LastUpdateMessage = result;
             UpdateInfoCallback(result);
+
             return false;
         }
 
         public void ProgressHandler(int percentage)
         {
+            LastUpdateProgress = percentage;
             UpdateProgressCallback(percentage);
+        }
+
+        private void StartLastUpdatedTimer()
+        {
+            UpdateTimer = new System.Timers.Timer(5000);
+            UpdateTimer.Elapsed += UpdateTimer_Elapsed;
+            UpdateTimer.Start();
+        }
+
+        private void UpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            UpdateLastUpdated();
+        }
+
+        public void UpdateLastUpdated()
+        {
+            if (!Instance.IsBusy)
+            {
+                DateTime lastUpdated = ConfigParser.GetLastUpdated();
+                string timeAgo = "Last index update: " + (lastUpdated == DateTime.MaxValue ? "never" : GetTimeAgoString(lastUpdated));
+
+                DatabaseMessageHandler(timeAgo);
+            }
+        }
+
+        public void ShowLastUpdateMessage()
+        {
+            UpdateInfoCallback(LastUpdateMessage);
+            UpdateProgressCallback(LastUpdateProgress);
+        }
+
+        public static string GetTimeAgoString(DateTime eventTime)
+        {
+            TimeSpan timeSinceEvent = DateTime.Now - eventTime;
+
+            if (timeSinceEvent.TotalSeconds < 60)
+            {
+                return "just now";
+            }
+            else if (timeSinceEvent.TotalMinutes < 60)
+            {
+                return $"{(int)timeSinceEvent.TotalMinutes}m ago";
+            }
+            else if (timeSinceEvent.TotalHours < 24)
+            {
+                return $"{(int)timeSinceEvent.TotalHours}h ago";
+            }
+            else if (timeSinceEvent.TotalDays < 7)
+            {
+                return $"{(int)timeSinceEvent.TotalDays}d ago";
+            }
+            else
+            {
+                return eventTime.ToString("g");
+            }
         }
     }
 }

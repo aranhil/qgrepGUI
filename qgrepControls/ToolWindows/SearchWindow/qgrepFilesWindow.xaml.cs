@@ -30,10 +30,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace qgrepControls.SearchWindow
 {
-    public partial class qgrepFilesWindowControl : UserControl
+    public partial class qgrepFilesWindowControl : UserControl, ISearchEngineEventsHandler
     {
         public IExtensionInterface ExtensionInterface;
-        private SearchEngine SearchEngine = new SearchEngine();
 
         public qgrepFilesWindowControl(IExtensionInterface extensionInterface)
         {
@@ -44,14 +43,21 @@ namespace qgrepControls.SearchWindow
             ExtensionInterface = extensionInterface;
             ConfigParser.Init(System.IO.Path.GetDirectoryName(extensionInterface.GetSolutionPath()));
 
-            SearchEngine.ResultCallback = HandleSearchResult;
-            SearchEngine.StartSearchCallback = HandleSearchStart;
-            SearchEngine.FinishSearchCallback = HandleSearchFinish;
-
             ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface, false);
             ThemeHelper.UpdateFontFromSettings(this, extensionInterface);
 
-            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Critical;
+            SearchEngine.Instance.StartUpdateCallback += HandleUpdateStart;
+            SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
+            SearchEngine.Instance.UpdateInfoCallback += HandleUpdateMessage;
+            SearchEngine.Instance.UpdateProgressCallback += HandleProgress;
+            SearchEngine.Instance.UpdateErrorCallback += HandleErrorMessage;
+
+            InitButton.IsEnabled = SearchEngine.Instance.IsBusy ? false : true;
+            CleanButton.IsEnabled = SearchEngine.Instance.IsBusy ? false : true;
+
+            InitProgress.Visibility = Visibility.Collapsed;
+            SearchEngine.Instance.ShowLastUpdateMessage();
+            UpdateFilters();
         }
 
         private void SearchInput_TextChanged(object sender, TextChangedEventArgs e)
@@ -65,21 +71,27 @@ namespace qgrepControls.SearchWindow
                 IncludeFilesLabel.Visibility = Visibility.Visible;
             }
 
+            Find();
+        }
+
+        private void Find()
+        {
             if (IncludeFilesInput.Text.Length != 0)
             {
                 SearchOptions searchOptions = new SearchOptions()
                 {
+                    EventsHandler = this,
                     Query = IncludeFilesInput.Text,
                     FilterResults = "",
                     IncludeFilesRegEx = false,
                     FilterResultsRegEx = false,
                     GroupingMode = 0,
-                    Configs = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(),
+                    Configs = GetSelectedConfigProjects(),
                     CacheUsageType = CacheUsageType.Normal,
                     BypassHighlight = true
                 };
 
-                SearchEngine.SearchFilesAsync(searchOptions);
+                SearchEngine.Instance.SearchFilesAsync(searchOptions);
             }
             else
             {
@@ -92,7 +104,7 @@ namespace qgrepControls.SearchWindow
         SearchResult selectedSearchResult = null;
         bool newSearch = false;
 
-        private void HandleSearchStart(SearchOptions searchOptions)
+        public void OnStartSearchEvent(SearchOptions searchOptions)
         {
             Dispatcher.Invoke(() =>
             {
@@ -126,9 +138,9 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private void HandleSearchResult(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
+        public void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
         {
-            if (!SearchEngine.IsSearchQueued)
+            if (!SearchEngine.Instance.IsSearchQueued)
             {
                 Dispatcher.Invoke(() =>
                 {
@@ -171,11 +183,11 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private void HandleSearchFinish(SearchOptions searchOptions)
+        public void OnFinishSearchEvent(SearchOptions searchOptions)
         {
             Dispatcher.Invoke(() =>
             {
-                if (!SearchEngine.IsSearchQueued)
+                if (!SearchEngine.Instance.IsSearchQueued)
                 {
                     if (IncludeFilesInput.Text.Length == 0)
                     {
@@ -291,6 +303,156 @@ namespace qgrepControls.SearchWindow
                     }
                 }
             }
+        }
+
+        private Stopwatch infoUpdateStopWatch = new Stopwatch();
+        private Stopwatch progressUpdateStopWatch = new Stopwatch();
+        private string lastMessage = "";
+
+        private void HandleUpdateStart()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                InitProgress.Value = 0;
+                InitButton.IsEnabled = false;
+                CleanButton.IsEnabled = false;
+            });
+        }
+
+        private void HandleUpdateFinish()
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                InitProgress.Visibility = Visibility.Collapsed;
+                InitButton.IsEnabled = true;
+                CleanButton.IsEnabled = true;
+                InitInfo.Content = lastMessage;
+
+                infoUpdateStopWatch.Stop();
+                progressUpdateStopWatch.Stop();
+            }));
+        }
+
+        private void HandleErrorMessage(string message)
+        {
+            lastMessage = message;
+
+            Dispatcher.Invoke(new Action(() =>
+            {
+                InitInfo.Content = message;
+            }));
+        }
+
+        private void HandleUpdateMessage(string message)
+        {
+            lastMessage = message;
+
+            if (!infoUpdateStopWatch.IsRunning || infoUpdateStopWatch.ElapsedMilliseconds > 10)
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    InitInfo.Content = message;
+                    infoUpdateStopWatch.Restart();
+                }));
+            }
+        }
+
+        private void HandleProgress(int percentage)
+        {
+            if (!progressUpdateStopWatch.IsRunning || progressUpdateStopWatch.ElapsedMilliseconds > 20)
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    InitProgress.Value = percentage;
+                    InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
+                    progressUpdateStopWatch.Restart();
+                }));
+            }
+        }
+
+        private void InitButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchEngine.Instance.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+            Find();
+        }
+
+        private void CleanButton_Click(object sender, RoutedEventArgs e)
+        {
+            CleanDatabase();
+            SearchEngine.Instance.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+            Find();
+        }
+
+        public void CleanDatabase()
+        {
+            try
+            {
+                ConfigParser.CleanProjects();
+            }
+            catch (Exception ex)
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    HandleErrorMessage("Cannot clean indexes: " + ex.Message + "\n");
+                }));
+            }
+        }
+
+        private void FiltersComboBox_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        {
+            Find();
+        }
+
+        private List<string> GetSelectedConfigProjects()
+        {
+            if (ConfigParser.Instance.ConfigProjects.Count == 1)
+            {
+                return new List<string>() { ConfigParser.Instance.ConfigProjects[0].Path };
+            }
+            else
+            {
+                return FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList();
+            }
+        }
+
+        public void UpdateFilters()
+        {
+            Visibility visibility = Visibility.Collapsed;
+
+            List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
+
+            FiltersComboBox.ItemsSource = ConfigParser.Instance.ConfigProjects;
+            FiltersComboBox.SelectedItems.Clear();
+
+            foreach (string searchFilter in searchFilters)
+            {
+                ConfigProject selectedProject = null;
+                foreach (ConfigProject configProject in ConfigParser.Instance.ConfigProjects)
+                {
+                    if (configProject.Name == searchFilter)
+                    {
+                        selectedProject = configProject;
+                        break;
+                    }
+                }
+
+                if (selectedProject != null)
+                {
+                    FiltersComboBox.SelectedItems.Add(selectedProject);
+                }
+            }
+
+            if (FiltersComboBox.SelectedItems.Count == 0 && ConfigParser.Instance.ConfigProjects.Count > 0)
+            {
+                FiltersComboBox.SelectedItems.Add(ConfigParser.Instance.ConfigProjects[0]);
+            }
+
+            if (ConfigParser.Instance.ConfigProjects.Count > 1)
+            {
+                visibility = Visibility.Visible;
+            }
+
+            FiltersComboBox.Visibility = visibility;
         }
     }
 }

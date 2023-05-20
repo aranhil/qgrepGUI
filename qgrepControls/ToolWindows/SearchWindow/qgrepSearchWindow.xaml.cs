@@ -50,12 +50,11 @@ namespace qgrepControls.SearchWindow
         public VsColorEntry[] VsColorEntries = new VsColorEntry[] { };
     }
 
-    public partial class qgrepSearchWindowControl : UserControl
+    public partial class qgrepSearchWindowControl : UserControl, ISearchEngineEventsHandler
     {
         public IExtensionInterface ExtensionInterface;
         public Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
 
-        private System.Timers.Timer UpdateTimer = null;
         private string LastResults = "";
 
         ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
@@ -66,12 +65,17 @@ namespace qgrepControls.SearchWindow
         List<HistoricItem> searchHistory = new List<HistoricItem>();
         ObservableCollection<HistoricItem> shownSearchHistory = new ObservableCollection<HistoricItem>();
 
-        static SearchEngine SearchEngine = new SearchEngine();
         CacheUsageType CacheUsageType = CacheUsageType.Normal;
 
         public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
         {
             ExtensionInterface = extensionInterface;
+
+            SearchEngine.Instance.StartUpdateCallback += HandleUpdateStart;
+            SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
+            SearchEngine.Instance.UpdateInfoCallback += HandleUpdateMessage;
+            SearchEngine.Instance.UpdateProgressCallback += HandleProgress;
+            SearchEngine.Instance.UpdateErrorCallback += HandleErrorMessage;
 
             InitializeComponent();
             SearchItemsListBox.DataContext = searchResults;
@@ -103,7 +107,6 @@ namespace qgrepControls.SearchWindow
             ExcludeRegEx.IsChecked = Settings.Default.ExcludesRegEx;
             FilterRegEx.IsChecked = Settings.Default.FilterRegEx;
 
-            StartLastUpdatedTimer();
             SolutionLoaded();
 
             ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface, false);
@@ -119,15 +122,6 @@ namespace qgrepControls.SearchWindow
 
             SearchItemsListBox.Focusable = true;
             SearchItemsTreeView.Focusable = true;
-
-            SearchEngine.ResultCallback = HandleSearchResult;
-            SearchEngine.StartSearchCallback = HandleSearchStart;
-            SearchEngine.FinishSearchCallback = HandleSearchFinish;
-            SearchEngine.StartUpdateCallback = HandleUpdateStart;
-            SearchEngine.FinishUpdateCallback = HandleUpdateFinish;
-            SearchEngine.UpdateInfoCallback = HandleUpdateMessage;
-            SearchEngine.UpdateProgressCallback = HandleProgress;
-            SearchEngine.ErrorCallback = HandleErrorMessage;
 
             bindings = ExtensionInterface.ReadKeyBindings();
             extensionInterface.ApplyKeyBindings(bindings);
@@ -242,58 +236,6 @@ namespace qgrepControls.SearchWindow
             FilterRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
         }
 
-        private void StartLastUpdatedTimer()
-        {
-            UpdateTimer = new System.Timers.Timer(30000);
-            UpdateTimer.Elapsed += UpdateTimer_Elapsed;
-            UpdateTimer.Start();
-        }
-
-        public static string GetTimeAgoString(DateTime eventTime)
-        {
-            TimeSpan timeSinceEvent = DateTime.Now - eventTime;
-
-            if (timeSinceEvent.TotalSeconds < 60)
-            {
-                return "just now";
-            }
-            else if (timeSinceEvent.TotalMinutes < 60)
-            {
-                return $"{(int)timeSinceEvent.TotalMinutes}m ago";
-            }
-            else if (timeSinceEvent.TotalHours < 24)
-            {
-                return $"{(int)timeSinceEvent.TotalHours}h ago";
-            }
-            else if (timeSinceEvent.TotalDays < 7)
-            {
-                return $"{(int)timeSinceEvent.TotalDays}d ago";
-            }
-            else
-            {
-                return eventTime.ToString("g");
-            }
-        }
-
-        void UpdateLastUpdated()
-        {
-            if (!SearchEngine.IsBusy)
-            {
-                DateTime lastUpdated = ConfigParser.GetLastUpdated();
-                string timeAgo = lastUpdated == DateTime.MaxValue ? "never" : GetTimeAgoString(lastUpdated);
-
-                InitInfo.Content = "Last index update: " + timeAgo;
-            }
-        }
-
-        private void UpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            Dispatcher.Invoke(new Action(() =>
-            {
-                UpdateLastUpdated();
-            }));
-        }
-
         public void RenameFilter(string oldName, string newName)
         {
             List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
@@ -355,7 +297,7 @@ namespace qgrepControls.SearchWindow
 
                 UpdateWarning();
                 UpdateFilters();
-                UpdateLastUpdated();
+                SearchEngine.Instance.UpdateLastUpdated();
 
                 InitInfo.Visibility = Visibility.Visible;
                 InitButton.Visibility = Visibility.Visible;
@@ -523,7 +465,7 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private void HandleSearchStart(SearchOptions searchOptions)
+        public void OnStartSearchEvent(SearchOptions searchOptions)
         {
             Dispatcher.Invoke(() =>
             {
@@ -610,9 +552,9 @@ namespace qgrepControls.SearchWindow
             InfoLabel.Content = string.Format("Showing {0} result(s) for \"{1}\"", searchResults.Count, searchOptions.Query);
         }
 
-        private void HandleSearchResult(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
+        public void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
         {
-            if (!SearchEngine.IsSearchQueued)
+            if (!SearchEngine.Instance.IsSearchQueued)
             {
                 Dispatcher.Invoke(() =>
                 {
@@ -660,11 +602,11 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private void HandleSearchFinish(SearchOptions searchOptions)
+        public void OnFinishSearchEvent(SearchOptions searchOptions)
         {
             Dispatcher.Invoke(() =>
             {
-                if(!SearchEngine.IsSearchQueued)
+                if(!SearchEngine.Instance.IsSearchQueued)
                 {
                     if (SearchInput.Text.Length == 0 && IncludeFilesInput.Text.Length == 0)
                     {
@@ -698,6 +640,7 @@ namespace qgrepControls.SearchWindow
             {
                 SearchOptions searchOptions = new SearchOptions()
                 {
+                    EventsHandler = this,
                     Query = SearchInput.Text,
                     IncludeFiles = Settings.Default.ShowIncludes && IncludeFilesInput.Text.Length > 0 ? IncludeFilesInput.Text : "",
                     ExcludeFiles = Settings.Default.ShowExcludes && ExcludeFilesInput.Text.Length > 0 ? ExcludeFilesInput.Text : "",
@@ -713,12 +656,13 @@ namespace qgrepControls.SearchWindow
                     CacheUsageType = CacheUsageType,
                 };
 
-                SearchEngine.SearchAsync(searchOptions);
+                SearchEngine.Instance.SearchAsync(searchOptions);
             }
             else if(IncludeFilesInput.Text.Length != 0)
             {
                 SearchOptions searchOptions = new SearchOptions()
                 {
+                    EventsHandler = this,
                     Query = IncludeFilesInput.Text,
                     FilterResults = Settings.Default.ShowFilter && FilterResultsInput.Text.Length > 0 ? FilterResultsInput.Text : "",
                     IncludeFilesRegEx = IncludeRegEx.IsChecked == true,
@@ -729,7 +673,7 @@ namespace qgrepControls.SearchWindow
                     BypassHighlight = true
                 };
 
-                SearchEngine.SearchFilesAsync(searchOptions);
+                SearchEngine.Instance.SearchFilesAsync(searchOptions);
             }
             else
             {
@@ -833,13 +777,10 @@ namespace qgrepControls.SearchWindow
             Dispatcher.Invoke(() =>
             {
                 Overlay.Visibility = Visibility.Visible;
-                InitProgress.Visibility = Visibility.Visible;
                 InitProgress.Value = 0;
                 InitButton.IsEnabled = false;
                 CleanButton.IsEnabled = false;
                 PathsButton.IsEnabled = false;
-
-                UpdateTimer.Stop();
             });
         }
 
@@ -856,8 +797,6 @@ namespace qgrepControls.SearchWindow
 
                 infoUpdateStopWatch.Stop();
                 progressUpdateStopWatch.Stop();
-
-                StartLastUpdatedTimer();
             }));
         }
 
@@ -892,6 +831,7 @@ namespace qgrepControls.SearchWindow
                 Dispatcher.Invoke(new Action(() =>
                 {
                     InitProgress.Value = percentage;
+                    InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
                     progressUpdateStopWatch.Restart();
                 }));
             }
@@ -899,7 +839,7 @@ namespace qgrepControls.SearchWindow
 
         private void InitButton_Click(object sender, RoutedEventArgs e)
         {
-            SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+            SearchEngine.Instance.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
             if (Settings.Default.SearchInstantly)
             {
@@ -911,7 +851,7 @@ namespace qgrepControls.SearchWindow
         private void CleanButton_Click(object sender, RoutedEventArgs e)
         {
             CleanDatabase();
-            SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+            SearchEngine.Instance.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
             if (Settings.Default.SearchInstantly)
             {
@@ -952,7 +892,7 @@ namespace qgrepControls.SearchWindow
 
         private void PathsButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SearchEngine.IsBusy)
+            if(SearchEngine.Instance.IsBusy)
             {
                 return;
             }
@@ -967,7 +907,7 @@ namespace qgrepControls.SearchWindow
             if (ConfigParser.IsConfigChanged())
             {
                 UpdateWarning();
-                SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+                SearchEngine.Instance.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
                 CacheUsageType = CacheUsageType.Bypass;
             }
