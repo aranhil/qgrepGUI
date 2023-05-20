@@ -249,27 +249,49 @@ namespace qgrepControls.Classes
     }
     public class ConfigParser
     {
+        private static ConfigParser instance = null;
+        private static readonly object padlock = new object();
+
+        public static ConfigParser Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new ConfigParser();
+                    }
+                    return instance;
+                }
+            }
+        }
+
         public string Path = "";
         public string PathSuffix = @"\.qgrep\";
 
         public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
         public ObservableCollection<ConfigProject> OldConfigProjects = new ObservableCollection<ConfigProject>();
 
-        public ConfigParser(string Path)
+        public ConfigParser()
         {
-            this.Path = Path;
         }
 
-        public void LoadConfig()
+        public static void Init(string Path)
         {
-            ConfigProjects.Clear();
+            Instance.Path = Path;
+        }
 
-            if (!Directory.Exists(Path + PathSuffix))
+        public static void LoadConfig()
+        {
+            Instance.ConfigProjects.Clear();
+
+            if (!Directory.Exists(Instance.Path + Instance.PathSuffix))
             {
-                Directory.CreateDirectory(Path + PathSuffix);
+                Directory.CreateDirectory(Instance.Path + Instance.PathSuffix);
             }
 
-            string[] configs = Directory.GetFiles(Path + PathSuffix, "*.cfg");
+            string[] configs = Directory.GetFiles(Instance.Path + Instance.PathSuffix, "*.cfg");
             if(configs.Length == 0)
             {
                 AddNewProject();
@@ -280,50 +302,50 @@ namespace qgrepControls.Classes
                 {
                     ConfigProject configProject = new ConfigProject(config);
                     configProject.LoadConfig();
-                    ConfigProjects.Add(configProject);
+                    Instance.ConfigProjects.Add(configProject);
                 }
             }
         }
 
-        public void UnloadConfig()
+        public static void UnloadConfig()
         {
-            ConfigProjects.Clear();
+            Instance.ConfigProjects.Clear();
         }
 
-        public void SaveConfig()
+        public static void SaveConfig()
         {
-            foreach(ConfigProject configProject in ConfigProjects)
+            foreach(ConfigProject configProject in Instance.ConfigProjects)
             {
                 configProject.SaveConfig();
             }
         }
-        public ConfigProject AddNewProject()
+        public static ConfigProject AddNewProject()
         {
             int index = 1;
             string newPath = "";
 
             do
             {
-                newPath = Path + PathSuffix + "Config" + index + ".cfg";
+                newPath = Instance.Path + Instance.PathSuffix + "Config" + index + ".cfg";
                 index++;
             }
             while(File.Exists(newPath));
 
             ConfigProject newConfigProject = new ConfigProject(newPath);
-            ConfigProjects.Add(newConfigProject);
+            Instance.ConfigProjects.Add(newConfigProject);
             newConfigProject.SaveConfig();
             return newConfigProject;
         }
 
-        public void RemoveProject(ConfigProject configProject)
+        public static void RemoveProject(ConfigProject configProject)
         {
             configProject.DeleteFiles();
-            ConfigProjects.Remove(configProject);
+            Instance.ConfigProjects.Remove(configProject);
         }
 
-        public void CleanProjects()
+        public static void CleanProjects()
         {
-            foreach (ConfigProject configProject in ConfigProjects)
+            foreach (ConfigProject configProject in Instance.ConfigProjects)
             {
                 string directory = System.IO.Path.GetDirectoryName(configProject.Path);
                 File.Delete(directory + "\\" + configProject.Name + ".qgd");
@@ -331,10 +353,10 @@ namespace qgrepControls.Classes
             }
         }
 
-        public DateTime GetLastUpdated()
+        public static DateTime GetLastUpdated()
         {
             DateTime lastUpdated = DateTime.MaxValue;
-            foreach (ConfigProject configProject in ConfigProjects)
+            foreach (ConfigProject configProject in Instance.ConfigProjects)
             {
                 string directory = System.IO.Path.GetDirectoryName(configProject.Path);
                 string fileToCheck = directory + "\\" + configProject.Name + ".qgd";
@@ -374,11 +396,11 @@ namespace qgrepControls.Classes
             return commonPathPrefix;
         }
 
-        public string RemovePaths(string file)
+        public static string RemovePaths(string file)
         {
             if (Settings.Default.PathStyleIndex == 1)
             {
-                foreach (ConfigProject configProject in ConfigProjects)
+                foreach (ConfigProject configProject in Instance.ConfigProjects)
                 {
                     bool foundFirstPath = false;
                     string commonPathPrefix = "";
@@ -413,9 +435,48 @@ namespace qgrepControls.Classes
             return file;
         }
 
-        public bool HasAnyPaths()
+        public static string GetPathToRemove()
         {
-            foreach(ConfigProject configProject in ConfigProjects)
+            if (Settings.Default.PathStyleIndex == 1)
+            {
+                foreach (ConfigProject configProject in Instance.ConfigProjects)
+                {
+                    bool foundFirstPath = false;
+                    string commonPathPrefix = "";
+
+                    foreach (ConfigGroup configGroup in configProject.Groups)
+                    {
+                        foreach (ConfigPath path in configGroup.Paths)
+                        {
+                            if (!foundFirstPath)
+                            {
+                                foundFirstPath = true;
+                                commonPathPrefix = path.Path;
+                            }
+                            else
+                            {
+                                commonPathPrefix = GetCommonPathPrefix(commonPathPrefix, path.Path);
+                            }
+                        }
+                    }
+
+                    if (commonPathPrefix.Length > 0)
+                    {
+                        return commonPathPrefix;
+                    }
+                }
+            }
+            else if(Settings.Default.PathStyleIndex == 2)
+            {
+                return "*";
+            }
+
+            return "";
+        }
+
+        public static bool HasAnyPaths()
+        {
+            foreach(ConfigProject configProject in Instance.ConfigProjects)
             {
                 foreach(ConfigGroup configGroup in configProject.Groups)
                 {
@@ -429,49 +490,49 @@ namespace qgrepControls.Classes
             return false;
         }
 
-        public void SaveOldCopy()
+        public static void SaveOldCopy()
         {
-            OldConfigProjects = new ObservableCollection<ConfigProject>(ConfigProjects.Select(x => x.DeepClone()));
+            Instance.OldConfigProjects = new ObservableCollection<ConfigProject>(Instance.ConfigProjects.Select(x => x.DeepClone()));
         }
 
-        public bool IsConfigChanged()
+        public static bool IsConfigChanged()
         {
-            if(ConfigProjects.Count != OldConfigProjects.Count)
+            if(Instance.ConfigProjects.Count != Instance.OldConfigProjects.Count)
             {
                 return true;
             }
 
-            for(int i = 0; i < ConfigProjects.Count; i++)
+            for(int i = 0; i < Instance.ConfigProjects.Count; i++)
             {
-                if (ConfigProjects[i].Groups.Count != OldConfigProjects[i].Groups.Count)
+                if (Instance.ConfigProjects[i].Groups.Count != Instance.OldConfigProjects[i].Groups.Count)
                 {
                     return true;
                 }
 
-                for(int j = 0; j < ConfigProjects[i].Groups.Count; j++)
+                for(int j = 0; j < Instance.ConfigProjects[i].Groups.Count; j++)
                 {
-                    if (ConfigProjects[i].Groups[j].Paths.Count != OldConfigProjects[i].Groups[j].Paths.Count)
+                    if (Instance.ConfigProjects[i].Groups[j].Paths.Count != Instance.OldConfigProjects[i].Groups[j].Paths.Count)
                     {
                         return true;
                     }
 
-                    if (ConfigProjects[i].Groups[j].Rules.Count != OldConfigProjects[i].Groups[j].Rules.Count)
+                    if (Instance.ConfigProjects[i].Groups[j].Rules.Count != Instance.OldConfigProjects[i].Groups[j].Rules.Count)
                     {
                         return true;
                     }
 
-                    for (int k = 0; k < ConfigProjects[i].Groups[j].Paths.Count; k++)
+                    for (int k = 0; k < Instance.ConfigProjects[i].Groups[j].Paths.Count; k++)
                     {
-                        if (!ConfigProjects[i].Groups[j].Paths[k].Path.Equals(OldConfigProjects[i].Groups[j].Paths[k].Path))
+                        if (!Instance.ConfigProjects[i].Groups[j].Paths[k].Path.Equals(Instance.OldConfigProjects[i].Groups[j].Paths[k].Path))
                         {
                             return true;
                         }
                     }
 
-                    for(int k = 0; k < ConfigProjects[i].Groups[j].Rules.Count; k++)
+                    for(int k = 0; k < Instance.ConfigProjects[i].Groups[j].Rules.Count; k++)
                     {
-                        if (!ConfigProjects[i].Groups[j].Rules[k].Rule.Equals(OldConfigProjects[i].Groups[j].Rules[k].Rule) ||
-                            ConfigProjects[i].Groups[j].Rules[k].IsExclude != OldConfigProjects[i].Groups[j].Rules[k].IsExclude)
+                        if (!Instance.ConfigProjects[i].Groups[j].Rules[k].Rule.Equals(Instance.OldConfigProjects[i].Groups[j].Rules[k].Rule) ||
+                            Instance.ConfigProjects[i].Groups[j].Rules[k].IsExclude != Instance.OldConfigProjects[i].Groups[j].Rules[k].IsExclude)
                         {
                             return true;
                         }

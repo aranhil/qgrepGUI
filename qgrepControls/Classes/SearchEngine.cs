@@ -67,7 +67,7 @@ namespace qgrepControls.Classes
     {
         public bool IsBusy { get; private set; } = false;
         private bool ForceStop { get; set; } = false;
-        public bool IsSearchQueued { get { return QueuedSearchOptions != null; } }
+        public bool IsSearchQueued { get { return QueuedSearchOptions != null || QueuedSearchFilesOptions != null; } }
 
         private SearchOptions QueuedSearchOptions = null;
         private SearchOptions QueuedSearchFilesOptions = null;
@@ -201,8 +201,9 @@ namespace qgrepControls.Classes
                     "files",
                     string.Join(",", searchOptions.Configs),
                     "i",
+                    "V",
                     "fc",
-                    searchOptions.Query
+                    ConfigParser.GetPathToRemove() + "\xB0" + searchOptions.Query
                 };
 
                 QGrepWrapper.CallQGrepAsync(arguments,
@@ -285,6 +286,11 @@ namespace qgrepControls.Classes
                     {
                         return false;
                     }
+                }
+                else
+                {
+                    file = result;
+                    result = "";
                 }
 
                 if(!searchOptions.BypassHighlight)

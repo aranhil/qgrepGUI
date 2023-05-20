@@ -15,8 +15,7 @@ namespace qgrepControls.Classes
         string GetMonospaceFont();
         string GetNormalFont();
         void RefreshResources(Dictionary<string, object> newResources);
-        bool TextSearchOpened { get; set; }
-        bool FileSearchOpened { get; set; }
+        bool SearchWindowOpened { get; set; }
         bool IsStandalone { get; }
         Dictionary<string, Hotkey> ReadKeyBindings();
         void ApplyKeyBindings(Dictionary<string, Hotkey> bindings);

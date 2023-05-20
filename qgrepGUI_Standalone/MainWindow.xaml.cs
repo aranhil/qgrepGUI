@@ -1,4 +1,5 @@
 ﻿using ControlzEx;
+using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
@@ -116,6 +117,12 @@ namespace qgrepSearchTool_Standalone
         private void ShowHistory_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SearchWindow.ShowHistory();
+        }
+
+        private void OpenFileSearch_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new qgrepExtension(this));
+            UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.ExtensionInterface, SearchWindow, true);
         }
     }
 }

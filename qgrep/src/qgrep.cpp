@@ -145,13 +145,14 @@ public:
 		: stringCallback(stringCb)
 		, errorsCallback(errorsCb)
 		, progressCallback(progressCb)
+		, forceStop(false)
 	{
 	}
 
 	virtual void rawprint(const char* data, size_t size)
 	{
 		std::unique_lock<std::mutex> lock(mutex);
-		isStopped |= stringCallback(data, (int)size);
+		forceStop |= stringCallback(data, (int)size);
 	}
 
 	virtual void print(const char* message, ...)
@@ -164,7 +165,7 @@ public:
 		strprintf(result, message, l);
 		va_end(l);
 
-		isStopped |= stringCallback(result.c_str(), (int)result.size());
+		forceStop |= stringCallback(result.c_str(), (int)result.size());
 	}
 
 	virtual void error(const char* message, ...)
@@ -185,12 +186,17 @@ public:
 		progressCallback(percentage);
 	}
 
+	virtual bool isStopped() 
+	{ 
+		return forceStop;
+	}
+
 private:
 	bool (*stringCallback)(const char*, int);
 	void (*errorsCallback)(const char*, int);
 	void (*progressCallback)(int);
 	std::mutex mutex;
-	bool isStopped;
+	bool forceStop;
 };
 
 

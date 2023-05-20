@@ -54,8 +54,6 @@ namespace qgrepControls.SearchWindow
     {
         public IExtensionInterface ExtensionInterface;
         public string ConfigPath = "";
-        public ConfigParser ConfigParser = null;
-        public ColorScheme[] colorSchemes = new ColorScheme[0];
         public Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
 
         private System.Timers.Timer UpdateTimer = null;
@@ -109,11 +107,10 @@ namespace qgrepControls.SearchWindow
             StartLastUpdatedTimer();
             SolutionLoaded();
 
-            string colorSchemesJson = System.Text.Encoding.Default.GetString(qgrepControls.Properties.Resources.colors_schemes);
-            colorSchemes = JsonConvert.DeserializeObject<ColorScheme[]>(colorSchemesJson);
+            ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface, false);
+            ThemeHelper.UpdateFontFromSettings(this, ExtensionInterface);
+            ExtensionInterface.RefreshResources(ThemeHelper.GetResourcesFromColorScheme(ExtensionInterface));
 
-            UpdateColorsFromSettings();
-            UpdateFontFromSettings();
             UpdateFromSettings();
 
             HistoryContextMenu.Loaded += OnContextMenuLoaded;
@@ -283,7 +280,7 @@ namespace qgrepControls.SearchWindow
         {
             if (!SearchEngine.IsBusy)
             {
-                DateTime lastUpdated = ConfigParser != null ? ConfigParser.GetLastUpdated() : DateTime.MaxValue;
+                DateTime lastUpdated = ConfigParser.GetLastUpdated();
                 string timeAgo = lastUpdated == DateTime.MaxValue ? "never" : GetTimeAgoString(lastUpdated);
 
                 InitInfo.Content = "Last index update: " + timeAgo;
@@ -296,42 +293,6 @@ namespace qgrepControls.SearchWindow
             {
                 UpdateLastUpdated();
             }));
-        }
-
-        public static System.Windows.Media.Color ConvertColor(System.Drawing.Color color)
-        {
-            return System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
-        }
-        public static System.Drawing.Color ConvertColor(System.Windows.Media.Color color)
-        {
-            return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B); ;
-        }
-        public static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
-        {
-            while (current != null)
-            {
-                if (current is T ancestor)
-                {
-                    return ancestor;
-                }
-
-                current = VisualTreeHelper.GetParent(current);
-            }
-
-            return null;
-        }
-        public static T GetChildOfType<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj == null) return null;
-
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-            {
-                var child = VisualTreeHelper.GetChild(depObj, i);
-
-                var result = (child as T) ?? GetChildOfType<T>(child);
-                if (result != null) return result;
-            }
-            return null;
         }
 
         public void RenameFilter(string oldName, string newName)
@@ -350,39 +311,36 @@ namespace qgrepControls.SearchWindow
         {
             Visibility visibility = Visibility.Collapsed;
 
-            if (ConfigParser != null)
+            FiltersComboBox.ItemsSource = ConfigParser.Instance.ConfigProjects;
+            FiltersComboBox.SelectedItems.Clear();
+
+            List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
+            foreach (string searchFilter in searchFilters)
             {
-                FiltersComboBox.ItemsSource = ConfigParser.ConfigProjects;
-                FiltersComboBox.SelectedItems.Clear();
-
-                List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
-                foreach(string searchFilter in searchFilters)
+                ConfigProject selectedProject = null;
+                foreach (ConfigProject configProject in ConfigParser.Instance.ConfigProjects)
                 {
-                    ConfigProject selectedProject = null;
-                    foreach(ConfigProject configProject in ConfigParser.ConfigProjects)
+                    if (configProject.Name == searchFilter)
                     {
-                        if(configProject.Name == searchFilter)
-                        {
-                            selectedProject = configProject;
-                            break;
-                        }
-                    }
-
-                    if(selectedProject != null)
-                    {
-                        FiltersComboBox.SelectedItems.Add(selectedProject);
+                        selectedProject = configProject;
+                        break;
                     }
                 }
 
-                if(FiltersComboBox.SelectedItems.Count == 0 && ConfigParser.ConfigProjects.Count > 0)
+                if (selectedProject != null)
                 {
-                    FiltersComboBox.SelectedItems.Add(ConfigParser.ConfigProjects[0]);
+                    FiltersComboBox.SelectedItems.Add(selectedProject);
                 }
+            }
 
-                if (ConfigParser.ConfigProjects.Count > 1)
-                {
-                    visibility = Visibility.Visible;
-                }
+            if (FiltersComboBox.SelectedItems.Count == 0 && ConfigParser.Instance.ConfigProjects.Count > 0)
+            {
+                FiltersComboBox.SelectedItems.Add(ConfigParser.Instance.ConfigProjects[0]);
+            }
+
+            if (ConfigParser.Instance.ConfigProjects.Count > 1)
+            {
+                visibility = Visibility.Visible;
             }
 
             FiltersComboBox.Visibility = visibility;
@@ -393,7 +351,7 @@ namespace qgrepControls.SearchWindow
             string solutionPath = ExtensionInterface.GetSolutionPath();
             if(solutionPath.Length > 0)
             {
-                ConfigParser = new ConfigParser(System.IO.Path.GetDirectoryName(solutionPath));
+                ConfigParser.Init(System.IO.Path.GetDirectoryName(solutionPath));
                 ConfigParser.LoadConfig();
 
                 UpdateWarning();
@@ -485,143 +443,6 @@ namespace qgrepControls.SearchWindow
             if (Settings.Default.SearchInstantly)
             {
                 Find();
-            }
-        }
-
-        public void UpdateColorsFromSettings()
-        {
-            if(ExtensionInterface.IsStandalone && Settings.Default.ColorScheme == 0)
-            {
-                Settings.Default.ColorScheme = 1;
-                Settings.Default.Save();
-            }
-
-            Dictionary<string, object> resources = GetResourcesFromColorScheme();
-
-            foreach (var resource in resources)
-            {
-                Resources[resource.Key] = resource.Value;
-            }
-
-            ExtensionInterface.RefreshResources(resources);
-        }
-
-        public void UpdateFontFromSettings()
-        {
-            if(ExtensionInterface.IsStandalone && Settings.Default.MonospaceFontFamily.Equals("Auto"))
-            {
-                string defaultFont = "Consolas";
-                if(Fonts.SystemFontFamilies.Any(fontFamily => fontFamily.Source.Equals("Cascadia Mono", StringComparison.OrdinalIgnoreCase)))
-                {
-                    defaultFont = "Cascadia Mono";
-                }
-
-                Settings.Default.MonospaceFontFamily = defaultFont;
-                Settings.Default.Save();
-            }
-
-            if (ExtensionInterface.IsStandalone && Settings.Default.NormalFontFamily.Equals("Auto"))
-            {
-                string defaultFont = "Arial";
-                if (Fonts.SystemFontFamilies.Any(fontFamily => fontFamily.Source.Equals("Segoe UI", StringComparison.OrdinalIgnoreCase)))
-                {
-                    defaultFont = "Segoe UI";
-                }
-
-                Settings.Default.NormalFontFamily = defaultFont;
-                Settings.Default.Save();
-            }
-
-            if (Settings.Default.MonospaceFontFamily.Equals("Auto"))
-            {
-                Resources["MonospacedFontFamily"] = new FontFamily(ExtensionInterface.GetMonospaceFont());
-            }
-            else
-            {
-                Resources["MonospacedFontFamily"] = new FontFamily(Settings.Default.MonospaceFontFamily);
-            }
-
-            Resources["MonospacedFontSize"] = (double)Settings.Default.MonospaceFontSize;
-
-            if (Settings.Default.NormalFontFamily.Equals("Auto"))
-            {
-                Resources["NormalFontFamily"] = new FontFamily(ExtensionInterface.GetNormalFont());
-            }
-            else
-            {
-                Resources["NormalFontFamily"] = new FontFamily(Settings.Default.NormalFontFamily);
-            }
-
-            Resources["NormalFontSize"] = (double)Settings.Default.NormalFontSize;
-            Resources["GroupSize"] = (double)Settings.Default.GroupHeight;
-            Resources["LineSize"] = (double)Settings.Default.LineHeight;
-        }
-
-        public void UpdateColors(Dictionary<string, System.Windows.Media.Color> colors)
-        {
-            foreach (var color in colors)
-            {
-                Resources[color.Key] = new SolidColorBrush(color.Value);
-            }
-        }
-
-        public Dictionary<string, object> GetResourcesFromColorScheme()
-        {
-            Dictionary<string, object> results = new Dictionary<string, object>();
-            Dictionary<string, SolidColorBrush> brushes = new Dictionary<string, SolidColorBrush>();
-
-            if (Settings.Default.ColorScheme < colorSchemes.Length)
-            {
-                foreach (ColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].ColorEntries)
-                {
-                    brushes[colorEntry.Name] = new SolidColorBrush(ConvertColor(colorEntry.Color));
-                }
-                foreach (VsColorEntry colorEntry in colorSchemes[Settings.Default.ColorScheme].VsColorEntries)
-                {
-                    brushes[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
-                }
-
-                try
-                {
-                    List<ColorSchemeOverrides> colorSchemeOverrides = JsonConvert.DeserializeObject<List<ColorSchemeOverrides>>(Settings.Default.ColorOverrides);
-                    foreach(ColorSchemeOverrides schemeOverrides in  colorSchemeOverrides)
-                    {
-                        if(schemeOverrides.Name == colorSchemes[Settings.Default.ColorScheme].Name)
-                        {
-                            foreach(ColorOverride colorOverride in schemeOverrides.ColorOverrides)
-                            {
-                                brushes[colorOverride.Name] = new SolidColorBrush(ConvertColor(colorOverride.Color));
-                            }
-
-                            break;
-                        }
-                    }
-                }
-                catch { }
-            }
-
-            foreach(KeyValuePair<string, SolidColorBrush> brush in brushes)
-            {
-                results[brush.Key] = brush.Value;
-                results[brush.Key + ".Color"] = brush.Value.Color;
-            }
-
-            return results;
-        }
-
-        public void LoadColorsFromResources(FrameworkElement userControl)
-        {
-            Dictionary<string, object> resources = GetResourcesFromColorScheme();
-            MainWindow wrapperWindow = FindAncestor<MainWindow>(userControl);
-
-            foreach (var resource in resources)
-            {
-                userControl.Resources[resource.Key] = resource.Value;
-
-                if (wrapperWindow != null)
-                {
-                    wrapperWindow.Resources[resource.Key] = resource.Value;
-                }
             }
         }
 
@@ -792,6 +613,11 @@ namespace qgrepControls.SearchWindow
                             fileAndLine = file + "(" + lineNumber + ")";
                             trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine);
                         }
+                        else if (file.Length > 0)
+                        {
+                            fileAndLine = file;
+                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine);
+                        }
 
                         SearchResult newSearchResult = new SearchResult()
                         {
@@ -904,9 +730,9 @@ namespace qgrepControls.SearchWindow
 
         private List<string> GetSelectedConfigProjects()
         {
-            if(ConfigParser.ConfigProjects.Count == 1)
+            if(ConfigParser.Instance.ConfigProjects.Count == 1)
             {
-                return new List<string>() { ConfigParser.ConfigProjects[0].Path };
+                return new List<string>() { ConfigParser.Instance.ConfigProjects[0].Path };
             }
             else
             {
@@ -1060,12 +886,12 @@ namespace qgrepControls.SearchWindow
 
         private void InitButton_Click(object sender, RoutedEventArgs e)
         {
-            SearchEngine.UpdateDatabaseAsync(ConfigParser.ConfigProjects.Select(x => x.Path).ToList());
+            SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
         }
         private void CleanButton_Click(object sender, RoutedEventArgs e)
         {
             CleanDatabase();
-            SearchEngine.UpdateDatabaseAsync(ConfigParser.ConfigProjects.Select(x => x.Path).ToList());
+            SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
         }
 
         private void CaseSensitive_Click(object sender, RoutedEventArgs e)
@@ -1108,14 +934,14 @@ namespace qgrepControls.SearchWindow
             ConfigParser.SaveOldCopy();
 
             ProjectsWindow newProjectsWindow = new ProjectsWindow(this);
-            CreateWindow(newProjectsWindow, "Search configurations", this, true).ShowDialog();
+            UIHelper.CreateWindow(newProjectsWindow, "Search configurations", ExtensionInterface, this, true).ShowDialog();
 
             ConfigParser.SaveConfig();
 
             if (ConfigParser.IsConfigChanged())
             {
                 UpdateWarning();
-                SearchEngine.UpdateDatabaseAsync(ConfigParser.ConfigProjects.Select(x => x.Path).ToList());
+                SearchEngine.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
                 BypassCacheNextFind = true;
                 UpdateFilters();
@@ -1124,7 +950,7 @@ namespace qgrepControls.SearchWindow
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", this).ShowDialog();
+            UIHelper.CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", ExtensionInterface, this).ShowDialog();
         }
 
         private void AddSearchToHistory(string searchedString)
@@ -1184,7 +1010,7 @@ namespace qgrepControls.SearchWindow
 
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (ExtensionInterface.TextSearchOpened)
+            if (ExtensionInterface.SearchWindowOpened)
             {
                 SearchInput.Focus();
 
@@ -1200,23 +1026,6 @@ namespace qgrepControls.SearchWindow
                 {
                     SearchInput.SelectAll();
                 }
-
-                ExtensionInterface.TextSearchOpened = false;
-            }
-            else if(ExtensionInterface.FileSearchOpened)
-            {
-                SearchInput.Text = "";
-                IncludeFilesInput.Text = "";
-                ExcludeFilesInput.Text = "";
-                FilterResultsInput.Text = "";
-
-                Settings.Default.ShowIncludes = true;
-                Settings.Default.Save();
-
-                IncludeFilesGrid.Visibility = Visibility.Visible;
-                IncludeFilesInput.Focus();
-
-                ExtensionInterface.FileSearchOpened = false;
             }
 
             //System.Diagnostics.Debug.WriteLine(e.OriginalSource);
@@ -1278,7 +1087,7 @@ namespace qgrepControls.SearchWindow
 
                         if(selectedSearchResult != null)
                         {
-                            VirtualizingStackPanel virtualizingStackPanel = GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
+                            VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
 
                             virtualizingStackPanel.BringIndexIntoViewPublic(searchResults.IndexOf(selectedSearchResult));
                             ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as ListBoxItem;
@@ -1308,7 +1117,7 @@ namespace qgrepControls.SearchWindow
                                 parentSearchResultGroup = selectedSearchResult.Parent;
                             }
 
-                            VirtualizingStackPanel virtualizingStackPanel = GetChildOfType<VirtualizingStackPanel>(SearchItemsTreeView);
+                            VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsTreeView);
                             virtualizingStackPanel.BringIndexIntoViewPublic(searchResultsGroups.IndexOf(parentSearchResultGroup));
                             TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(parentSearchResultGroup) as TreeViewItem;
 
@@ -1323,15 +1132,15 @@ namespace qgrepControls.SearchWindow
                                     }
                                     else
                                     {
-                                        itemsPresenter = GetChildOfType<ItemsPresenter>(treeViewItem);
+                                        itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
                                         if (itemsPresenter == null)
                                         {
                                             treeViewItem.UpdateLayout();
-                                            itemsPresenter = GetChildOfType<ItemsPresenter>(treeViewItem);
+                                            itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
                                         }
                                     }
 
-                                    virtualizingStackPanel = GetChildOfType<VirtualizingStackPanel>(treeViewItem);
+                                    virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(treeViewItem);
                                     virtualizingStackPanel.BringIndexIntoViewPublic(parentSearchResultGroup.SearchResults.IndexOf(selectedSearchResult));
 
                                     treeViewItem = treeViewItem.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as TreeViewItem;
@@ -1409,7 +1218,7 @@ namespace qgrepControls.SearchWindow
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Theme settings", this, true).ShowDialog();
+            UIHelper.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Theme settings", ExtensionInterface, this, true).ShowDialog();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)
@@ -1463,7 +1272,7 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private SearchResult GetSearchResultFromMenuItem(object sender)
+        public static SearchResult GetSearchResultFromMenuItem(object sender)
         {
             MenuItem menuItem = sender as MenuItem;
             if (menuItem != null)
@@ -1594,40 +1403,6 @@ namespace qgrepControls.SearchWindow
         {
             ((TreeViewItem)sender).BringIntoView();
             e.Handled = true;
-        }
-
-        public MainWindow CreateWindow(UserControl userControl, string title, UserControl owner, bool resizeable = false)
-        {
-            MainWindow newWindow = new MainWindow
-            {
-                Title = title,
-                Content = userControl,
-                SizeToContent = SizeToContent.Manual,
-                ResizeMode = resizeable ? ResizeMode.CanResizeWithGrip : ResizeMode.NoResize,
-                Width = userControl.Width + 37,
-                Height = userControl.Height + 37,
-                Owner = qgrepSearchWindowControl.FindAncestor<Window>(owner) ?? ExtensionInterface.GetMainWindow(),
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            };
-
-            if(resizeable)
-            {
-                userControl.Width = double.NaN;
-                userControl.Height = double.NaN;
-            }
-
-            Dictionary<string, object> resources = GetResourcesFromColorScheme();
-            foreach (var resource in resources)
-            {
-                userControl.Resources[resource.Key] = resource.Value;
-
-                if (newWindow != null)
-                {
-                    newWindow.Resources[resource.Key] = resource.Value;
-                }
-            }
-
-            return newWindow;
         }
 
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
@@ -1834,7 +1609,7 @@ namespace qgrepControls.SearchWindow
         private void KeyboardButton_Click(object sender, RoutedEventArgs e)
         {
             HotkeysWindow hotkeysWindow = new HotkeysWindow(this);
-            MainWindow hotkeysDialog = CreateWindow(hotkeysWindow, "Edit hotkeys", this);
+            MainWindow hotkeysDialog = UIHelper.CreateWindow(hotkeysWindow, "Edit hotkeys", ExtensionInterface, this);
             hotkeysWindow.Dialog = hotkeysDialog;
             hotkeysDialog.ShowDialog();
 
@@ -1845,10 +1620,6 @@ namespace qgrepControls.SearchWindow
                 ExtensionInterface.ApplyKeyBindings(bindings);
                 UpdateShortcutHints();
             }
-        }
-
-        private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
-        {
         }
 
         private void SearchInput_LostFocus(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using qgrepControls.SearchWindow;
+﻿using qgrepControls.Classes;
+using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,7 +43,7 @@ namespace qgrepControls.ModelViews
             }
             set
             {
-                Brush = new System.Windows.Media.SolidColorBrush(qgrepSearchWindowControl.ConvertColor(value));
+                Brush = new System.Windows.Media.SolidColorBrush(ThemeHelper.ConvertColor(value));
                 color = value;
             }
         }

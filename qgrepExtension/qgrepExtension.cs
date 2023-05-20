@@ -31,21 +31,16 @@ namespace qgrepSearch
             State = windowState;
         }
 
-        public bool TextSearchOpened
+        public bool SearchWindowOpened
         {
             get
             {
-                return false;
-            }
-            set
-            {
-            }
-        }
+                if(State.Package.SearchWindowOpened)
+                {
+                    State.Package.SearchWindowOpened = false;
+                    return true;
+                }
 
-        public bool FileSearchOpened
-        {
-            get
-            {
                 return false;
             }
             set
@@ -63,6 +58,7 @@ namespace qgrepSearch
 
         public string GetSelectedText()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return (State.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.Text ?? "";
         }
 
@@ -73,6 +69,8 @@ namespace qgrepSearch
 
         public void OpenFile(string path, string line)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 State.DTE?.ItemOperations?.OpenFile(path);
@@ -86,6 +84,8 @@ namespace qgrepSearch
         }
         public void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 EnvDTE80.DTE2 dte = State?.DTE;
@@ -103,6 +103,8 @@ namespace qgrepSearch
 
         private static void ProcessProject(EnvDTE.Project project, StringCallback extensionCallback, StringCallback folderCallback)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (project == null || project.FullName.Length == 0) return;
 
             var msbuildProject = new Microsoft.Build.Evaluation.Project(project.FullName);
@@ -150,6 +152,8 @@ namespace qgrepSearch
 
         private static void GetAllFoldersFromProject(ProjectItems projectItems, StringCallback extensionCallback, StringCallback folderCallback)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (projectItems != null)
             {
                 foreach (EnvDTE.ProjectItem item in projectItems)
@@ -172,6 +176,8 @@ namespace qgrepSearch
 
         public Color GetColor(string resourceKey)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 string className = resourceKey.Substring(0, resourceKey.IndexOf('.'));
@@ -240,6 +246,8 @@ namespace qgrepSearch
 
         private Hotkey GetBindingForCommand(string commandString)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             EnvDTE.Command command = State.DTE.Commands.Item("qgrep." + commandString);
 
             if (command.Bindings is object[] bindings && bindings.Length > 0 && bindings[0] is string binding)
@@ -277,6 +285,8 @@ namespace qgrepSearch
 
         public Dictionary<string, Hotkey> ReadKeyBindings()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
             bindings["ToggleCaseSensitive"] = GetBindingForCommand("ToggleCaseSensitive");
             bindings["ToggleWholeWord"] = GetBindingForCommand("ToggleWholeWord");
@@ -298,6 +308,8 @@ namespace qgrepSearch
 
         public System.Windows.Window GetMainWindow()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var mainWinHandle = (IntPtr)State.DTE.MainWindow.HWnd;
             var mainWinSource = HwndSource.FromHwnd(mainWinHandle);
             return (System.Windows.Window)mainWinSource.RootVisual;
@@ -305,6 +317,8 @@ namespace qgrepSearch
 
         public string GetMonospaceFont()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 var properties = State.DTE.Properties["FontsAndColors", "TextEditor"];
@@ -322,6 +336,8 @@ namespace qgrepSearch
 
         public string GetNormalFont()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             IVsFontAndColorStorage Storage = State.Package.GetService<IVsFontAndColorStorage, IVsFontAndColorStorage>();
             if (Storage != null)
             {

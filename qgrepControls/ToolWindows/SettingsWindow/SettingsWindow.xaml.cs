@@ -1,4 +1,5 @@
-﻿using qgrepControls.Properties;
+﻿using qgrepControls.Classes;
+using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -27,7 +28,7 @@ namespace qgrepControls.SearchWindow
             PathStyleComboBox.SelectedIndex = Settings.Default.PathStyleIndex;
             ExpandModeComboBox.SelectedIndex = Settings.Default.ExpandModeIndex;
 
-            SearchWindow.LoadColorsFromResources(this);
+            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.ExtensionInterface);
             UpdateShortcutHints();
         }
 

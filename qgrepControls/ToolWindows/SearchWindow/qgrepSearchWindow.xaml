@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="SearchInput" TabIndex="0" BorderThickness="0,1,0,1" Style="{DynamicResource SomeTextBoxStyle}" 
-TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown="SearchInput_KeyDown" GotFocus="SearchInput_GotFocus"/>
+TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown="SearchInput_KeyDown"/>
             <Label Grid.Column="0" x:Name="SearchLabel" Content="Search..." Style="{DynamicResource SomeHintLabel}" />
             <StackPanel Grid.Column="1" x:Name="AdvancedSearchPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
                 <StackPanel x:Name="AdvancedSearchInnerPanel" Margin="0,-2,1,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">

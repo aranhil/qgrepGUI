@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="300" Height="225">
+             Width="300" Height="250">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
@@ -24,6 +24,7 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="34"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Toggle case sensitive:" />
@@ -33,6 +34,7 @@
         <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Toggle exclude files:" />
         <Label Grid.Row="5" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Toggle filter results:" />
         <Label Grid.Row="6" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Show history:" />
+        <Label Grid.Row="7" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Open file search:" />
         <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="0" x:Name="ToggleCaseSensitive" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left" />
         <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="1" x:Name="ToggleWholeWord" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
         <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="2" x:Name="ToggleRegEx" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
@@ -40,7 +42,8 @@
         <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="4" x:Name="ToggleExcludeFiles" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
         <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="5" x:Name="ToggleFilterResults" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
         <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="6" x:Name="ShowHistory" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,5,0,5">
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="7" x:Name="OpenFileSearch" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
+        <StackPanel Grid.Row="8" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,5,0,5">
             <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Save_Click" Padding="5,2,8,2"/>
             <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Center" Margin="0,0,5,0" Click="Cancel_Click" Padding="5,2,8,2" ToolTip="Gather folders automatically from solution"/>
         </StackPanel>

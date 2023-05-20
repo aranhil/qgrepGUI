@@ -112,6 +112,7 @@ namespace qgrepSearchTool_Standalone
             bindings["ToggleExcludeFiles"] = new Hotkey(mainWindow.ToggleExcludeFiles.Key, mainWindow.ToggleExcludeFiles.Modifiers);
             bindings["ToggleFilterResults"] = new Hotkey(mainWindow.ToggleFilterResults.Key, mainWindow.ToggleFilterResults.Modifiers);
             bindings["ShowHistory"] = new Hotkey(mainWindow.ShowHistory.Key, mainWindow.ShowHistory.Modifiers);
+            bindings["OpenFileSearch"] = new Hotkey(mainWindow.OpenFileSearch.Key, mainWindow.OpenFileSearch.Modifiers);
             SaveKeyBindings(bindings);
             return bindings;
         }
@@ -132,7 +133,7 @@ namespace qgrepSearchTool_Standalone
                 }
                 catch { }
 
-                if (bindings.Count != 7)
+                if (bindings.Count != 8)
                 {
                     LoadDefaultKeyBindings();
                 }

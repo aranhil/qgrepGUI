@@ -78,6 +78,8 @@
     <Compile Include="Classes\FolderSelectDialog.cs" />
     <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="Classes\SearchEngine.cs" />
+    <Compile Include="Classes\ThemeHelper.cs" />
+    <Compile Include="Classes\UIHelper.cs" />
     <Compile Include="ModelViews\ColorOverride.cs" />
     <Compile Include="ModelViews\HistoricItem.cs" />
     <Compile Include="ModelViews\SelectableData.cs" />
@@ -99,6 +101,9 @@
     </Compile>
     <Compile Include="ResourceDictionary.xaml.cs">
       <DependentUpon>ResourceDictionary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\SearchWindow\qgrepFilesWindow.xaml.cs">
+      <DependentUpon>qgrepFilesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\SettingsWindow\HotkeysWindow.xaml.cs">
       <DependentUpon>HotkeysWindow.xaml</DependentUpon>
@@ -168,6 +173,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolWindows\ProjectsWindow\RuleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\SearchWindow\qgrepFilesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

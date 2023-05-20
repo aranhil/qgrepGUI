@@ -353,11 +353,23 @@ static std::string toLower(const std::string& str)
 	return result;
 }
 
-static unsigned int filterCustom(const FilterEntries& entries, const char* string, FilterOutput* output)
+static unsigned int filterCustom(const FilterEntries& entries, const FilterEntries& matchEntries, const char* string, FilterOutput* output)
 {
-	std::string lowerString = toLower(string);
+	std::string pathToRemove, searchString;
+	std::string stdString(string);
+	size_t pos = stdString.find('\xB0');
+	if (pos != std::string::npos)
+	{
+		pathToRemove = stdString.substr(0, pos);
+		searchString = stdString.substr(pos + 1);
+	}
+	else
+	{
+		pathToRemove = stdString;
+	}
+
 	std::vector<std::string> searchWords;
-	std::stringstream ss(lowerString);
+	std::stringstream ss(searchString);
 	std::string word;
 	while (ss >> word)
 	{
@@ -367,8 +379,24 @@ static unsigned int filterCustom(const FilterEntries& entries, const char* strin
 	unsigned int count = 0;
 	for (unsigned int i = 0; i < entries.entryCount; ++i)
 	{
-		const FilterEntry& entry = entries.entries[i];
-		std::string entryContent(entries.buffer + entry.offset, entry.length);
+		std::string entryContent;
+		
+		if (pathToRemove == "*")
+		{
+			entryContent = std::string(matchEntries.buffer + matchEntries.entries[i].offset, matchEntries.entries[i].length);
+		}
+		else
+		{
+			entryContent = std::string(entries.buffer + entries.entries[i].offset, entries.entries[i].length);
+			std::transform(entryContent.begin(), entryContent.end(), entryContent.begin(), BackSlashTransformer());
+
+			size_t start_pos = 0;
+			if ((start_pos = entryContent.find(pathToRemove, start_pos)) != std::string::npos)
+			{
+				entryContent.erase(start_pos, pathToRemove.length());
+			}
+		}
+
 		entryContent = toLower(entryContent);
 
 		bool allWordsMatch = true;
@@ -391,9 +419,10 @@ static unsigned int filterCustom(const FilterEntries& entries, const char* strin
 
 		if (allWordsMatch)
 		{
-			processMatch(entry, entries.buffer, output);
+			processMatch(entries.entries[i], entries.buffer, output);
 			++count;
-			if (count >= output->limit) break;
+			if (count >= output->limit || output->output->isStopped())
+				break;
 		}
 	}
 
@@ -421,7 +450,7 @@ unsigned int filter(Output* output_, const char* string, unsigned int options, u
 	else if (options & SO_FILE_FUZZY)
 		return filterFuzzy(entries, string, &output);
 	else if (options & SO_FILE_CUSTOM)
-		return filterCustom(entries, string, &output);
+		return filterCustom(entries, getNameBuffer(namesOpt, names, entries, nameEntries, nameBuffer), string, &output);
 	else
 	{
 		output_->error("Unknown file search type\n");

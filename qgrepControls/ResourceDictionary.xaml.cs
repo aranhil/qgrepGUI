@@ -1,4 +1,5 @@
-﻿using qgrepControls.SearchWindow;
+﻿using qgrepControls.Classes;
+using qgrepControls.SearchWindow;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -60,7 +61,7 @@ namespace qgrepControls
 
                 if(!BrushesAreTheSame(newBrush, oldBrush))
                 {
-                    Grid parentGrid = qgrepSearchWindowControl.FindAncestor<Grid>(textBox);
+                    Grid parentGrid = UIHelper.FindAncestor<Grid>(textBox);
                     Panel.SetZIndex(parentGrid, 2);
                 }
             }
@@ -71,7 +72,7 @@ namespace qgrepControls
             TextBox textBox = (sender as FrameworkElement)?.TemplatedParent as TextBox;
             if (textBox != null)
             {
-                Grid parentGrid = qgrepSearchWindowControl.FindAncestor<Grid>(textBox);
+                Grid parentGrid = UIHelper.FindAncestor<Grid>(textBox);
                 Panel.SetZIndex(parentGrid, textBox.IsFocused ? 1 : 0);
             }
         }
@@ -81,7 +82,7 @@ namespace qgrepControls
             TextBox textBox = (sender as FrameworkElement)?.TemplatedParent as TextBox;
             if (textBox != null)
             {
-                Grid parentGrid = qgrepSearchWindowControl.FindAncestor<Grid>(textBox);
+                Grid parentGrid = UIHelper.FindAncestor<Grid>(textBox);
                 Panel.SetZIndex(parentGrid, textBox.IsMouseOver ? 2 : 0);
             }
         }
@@ -96,7 +97,7 @@ namespace qgrepControls
 
                 if (!BrushesAreTheSame(newBrush, oldBrush))
                 {
-                    Grid parentGrid = qgrepSearchWindowControl.FindAncestor<Grid>(textBox);
+                    Grid parentGrid = UIHelper.FindAncestor<Grid>(textBox);
                         Panel.SetZIndex(parentGrid, textBox.IsMouseOver ? 2 : 1);
                 }
             }

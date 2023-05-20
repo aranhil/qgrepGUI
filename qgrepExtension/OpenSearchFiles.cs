@@ -1,10 +1,15 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using qgrepControls.SearchWindow;
+using qgrepControls.Classes;
+using qgrepControls;
 using System;
 using System.ComponentModel.Design;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Task = System.Threading.Tasks.Task;
 
 namespace qgrepSearch
@@ -90,23 +95,14 @@ namespace qgrepSearch
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            qgrepSearchPackage grepPackage = package as qgrepSearchPackage;
-            if (grepPackage != null)
+            qgrepSearchPackage qgrepPackage = package as qgrepSearchPackage;
+            if (qgrepPackage != null)
             {
                 //grepPackage.FileSearchOpened = true;
             }
 
-            package.JoinableTaskFactory.RunAsync(async () =>
-            {
-                ToolWindowPane window = await package.ShowToolWindowAsync(
-                    typeof(qgrepSearchWindow),
-                    0,
-                    create: true,
-                    cancellationToken: package.DisposalToken);
-
-                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-                windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_CmdUIGuid, "6e3b2e95-902b-4385-a966-30c06ab3c7a6");
-            });
+            qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new qgrepExtension(qgrepPackage.GetWindowState()));
+            UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.ExtensionInterface, null, true);
         }
     }
 }

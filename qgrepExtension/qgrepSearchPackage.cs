@@ -14,11 +14,12 @@ using System.Net;
 using Microsoft.Internal.VisualStudio.Shell;
 using static System.Windows.Forms.AxHost;
 using System.Windows.Input;
+using qgrepControls.Classes;
 
 namespace qgrepSearch
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("qgrep Search Tool", "Tool that uses qgrep to search in project files", "1.0")]
+    [InstalledProductRegistration("qgrep Search Tool", "Instant search in files for large codebases", "1.0")]
     [ProvideToolWindow(typeof(qgrepSearchWindow), Style = VsDockStyle.Tabbed, DockedWidth = 300, Window = "DocumentWell", Orientation = ToolWindowOrientation.Left)]
     [Guid("6e3b2e95-902b-4385-a966-30c06ab3c7a6")]
     [ProvideMenuResource("Menus.ctmenu", 1)]
@@ -53,6 +54,7 @@ namespace qgrepSearch
             await ExcludeFilesCommand.InitializeAsync(this);
             await FilterResultsCommand.InitializeAsync(this);
             await ShowHistoryCommand.InitializeAsync(this);
+            await OpenSearchFiles.InitializeAsync(this);
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)
@@ -63,7 +65,8 @@ namespace qgrepSearch
                 qgrepSearchWindowControl searchWindowControl = searchWindow.Content as qgrepSearchWindowControl;
                 if (searchWindowControl != null)
                 {
-                    searchWindowControl.UpdateColorsFromSettings();
+                    ThemeHelper.UpdateColorsFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
+                    ThemeHelper.UpdateFontFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
                 }
             }
         }
@@ -104,8 +107,14 @@ namespace qgrepSearch
 
         protected override async Task<object> InitializeToolWindowAsync(Type toolWindowType, int id, CancellationToken cancellationToken)
         {
-            toolWindowId = id;
+            await Task.CompletedTask;
 
+            toolWindowId = id;
+            return GetWindowState();
+        }
+
+        public qgrepSearchWindowState GetWindowState()
+        {
             return new qgrepSearchWindowState
             {
                 DTE = DTE,
@@ -113,7 +122,7 @@ namespace qgrepSearch
             };
         }
 
-        public bool WindowOpened = false;
+        public bool SearchWindowOpened = false;
 
         int IVsSolutionEvents.OnAfterOpenProject(IVsHierarchy pHierarchy, int fAdded)
         {
@@ -205,7 +214,8 @@ namespace qgrepSearch
                 qgrepSearchWindowControl searchWindowControl = searchWindow.Content as qgrepSearchWindowControl;
                 if (searchWindowControl != null)
                 {
-                    searchWindowControl.UpdateColorsFromSettings();
+                    ThemeHelper.UpdateColorsFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
+                    ThemeHelper.UpdateFontFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
                 }
             }
         }

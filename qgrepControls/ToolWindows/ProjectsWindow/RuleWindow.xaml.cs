@@ -10,17 +10,14 @@ namespace qgrepControls.SearchWindow
 {
     public partial class RuleWindow : System.Windows.Controls.UserControl
     {
-        public ProjectsWindow ProjectsWindow;
         public MainWindow Dialog = null;
         public delegate void Callback(bool accepted);
         public bool IsOK = false;
-
-        public RuleWindow(ProjectsWindow ProjectsWindow)
+ 
+        public RuleWindow(IExtensionInterface ExtensionInterface)
         {
-            this.ProjectsWindow = ProjectsWindow;
-
             InitializeComponent();
-            ProjectsWindow.SearchWindow.LoadColorsFromResources(this);
+            ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface);
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)

@@ -25,7 +25,7 @@ namespace qgrepControls.ColorsWindow
             this.ColorsWindow = ColorsWindow;
 
             InitializeComponent();
-            ColorsWindow.SearchWindow.LoadColorsFromResources(this);
+            ThemeHelper.UpdateColorsFromSettings(this, ColorsWindow.SearchWindow.ExtensionInterface);
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
@@ -60,7 +60,7 @@ namespace qgrepControls.ColorsWindow
 
         private void OverrideName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            OverrideColor.SelectedColor = qgrepSearchWindowControl.ConvertColor((OverrideName.SelectedItem as ComboBoxColorItem).Color);
+            OverrideColor.SelectedColor = ThemeHelper.ConvertColor((OverrideName.SelectedItem as ComboBoxColorItem).Color);
 
             if (CheckDuplicates)
             {

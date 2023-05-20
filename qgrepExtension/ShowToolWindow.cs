@@ -14,18 +14,18 @@ namespace qgrepSearch
 
             var cmdId = new CommandID(Guid.Parse("9cc1062b-4c82-46d2-adcb-f5c17d55fb85"), 0x0100);
             var cmd = new MenuCommand((s, e) => Execute(package), cmdId);
-            commandService.AddCommand(cmd);
+            commandService?.AddCommand(cmd);
         }
 
         private static void Execute(AsyncPackage package)
         {
-            qgrepSearchPackage grepPackage = package as qgrepSearchPackage;
-            if(grepPackage != null)
+            qgrepSearchPackage qgrepPackage = package as qgrepSearchPackage;
+            if(qgrepPackage != null)
             {
-                //grepPackage.TextSearchOpened = true;
+                qgrepPackage.SearchWindowOpened = true;
             }
 
-            package.JoinableTaskFactory.RunAsync(async () =>
+            Microsoft.VisualStudio.Threading.JoinableTask joinableTask = package.JoinableTaskFactory.RunAsync(async () =>
             {
                 ToolWindowPane window = await package.ShowToolWindowAsync(
                     typeof(qgrepSearchWindow),
@@ -33,6 +33,7 @@ namespace qgrepSearch
                     create: true,
                     cancellationToken: package.DisposalToken);
 
+                await Microsoft.VisualStudio.Shell.ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
                 IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
                 windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_CmdUIGuid, "6e3b2e95-902b-4385-a966-30c06ab3c7a6");
             });
