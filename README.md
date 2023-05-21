@@ -45,6 +45,8 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
       
 ### Open file
    You can also search for files using unordered keywords, using a different window that can be opened from **View >> qgrep Open File** or using the shortcut (Alt+Shift+I). You can change this shortcut as well, the command name is View.qgrepSearchFile.
+   
+   ![OpenFile](https://github.com/aranhil/qgrepGUI/assets/755601/3c8974e7-e93f-4c45-9732-64626ec6e9e0)
       
 ### Customize colors
    There are three color schemes available: **Auto**, **Dark**, and **Light**. The **Auto** color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
@@ -62,7 +64,20 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 - Toggle filter results (Alt + F)
 - Open history (Alt + H)
 
-You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
+You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.## Changelog
+
+## Changelog
+### Version 2.5 (21/05/2023)
+
+- Added a new window to search for files using unordered keywords (Shortcut: Shift+Alt+I)
+- The fonts are now grabbed automatically from Visual Studio 
+- Added options to change the fonts and their size
+- Added options to change the results row heights
+- Added shortcut for "Group By" (Alt+G)
+- Added shortcut for expanding/collapsing the result groups (Alt+X)
+- The search errors thrown from qgrep are now shown
+- Fixed issues with the config selection combo box
+- Moved the windows menu items to the "View" menu
 
 ## License
 
