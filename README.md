@@ -24,7 +24,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
    If your projects have a format that can be parsed by MSBuild, you can use the **Gather from solution** button to automatically grab all the folders and file extensions from the solution.
    
-   If you make changes to your files and want the changes to be visible in the search results, you have to reindex manually from the lower right corner of the tool window.
+   If you make changes to your files and want the changes to be visible in the search results, you have to reindex manually using the buttons from the lower right corner of the tool window.
 
 ## Features overview
 
