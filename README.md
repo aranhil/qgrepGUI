@@ -16,14 +16,15 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 ## Setting up in Visual Studio
 
-1. After installing the extension, the toolbar can be opened from **View >> Other Windows >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
+1. After installing the extension, the toolwindow can be opened from **View >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
 ![Setup](https://github.com/aranhil/qgrepGUI/assets/755601/7b3a9acc-1ec9-4617-ad16-eafe1bf971fe)
 
    If your projects have a format that can be parsed by MSBuild, you can use the **Gather from solution** button to automatically grab all the folders and file extensions from the solution.
-   If you make changes to your files and want the changes to be visible in the search results, you have to reindex manually from the lower right corner of the tool window.
+   
+   If you make changes to your files and want the changes to be visible in the search results, you have to reindex manually using the buttons from the lower right corner of the tool window.
 
 ## Features overview
 
@@ -42,11 +43,11 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 ![Configs](https://github.com/aranhil/qgrepGUI/assets/755601/08dce467-3ac5-4120-8703-21a157ce97ed)
       
+### Open file
+   You can also search for files using unordered keywords, using a different window that can be opened from **View >> qgrep Open File** or using the shortcut (Alt+Shift+I). You can change this shortcut as well, the command name is View.qgrepSearchFile.
+      
 ### Customize colors
    There are three color schemes available: **Auto**, **Dark**, and **Light**. The **Auto** color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
-
-![Themes](https://github.com/aranhil/qgrepGUI/assets/755601/62685bf3-901a-4879-921e-22984cac4aed)
-
    You also have the option to override any color used in the currently selected color scheme.
 
 ![Colors](https://github.com/aranhil/qgrepGUI/assets/755601/92359355-4932-419c-ac32-d0fb56d93ed3)
