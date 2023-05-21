@@ -16,7 +16,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 ## Setting up in Visual Studio
 
-1. After installing the extension, the toolwindow can be opened from **View >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
+1. After installing the extension, the tool window can be opened from **View >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
@@ -62,9 +62,11 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 - Toggle include files (Alt + I)
 - Toggle exclude files (Alt + E)
 - Toggle filter results (Alt + F)
+- Toggle group by (Alt + G)
+- Toggle group expansion (Alt + X)
 - Open history (Alt + H)
 
-You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.## Changelog
+You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
 ## Changelog
 ### Version 2.5 (21/05/2023)
