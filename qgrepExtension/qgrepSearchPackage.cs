@@ -67,6 +67,7 @@ namespace qgrepSearch
                 qgrepSearchWindowControl searchWindowControl = searchWindow.Content as qgrepSearchWindowControl;
                 if (searchWindowControl != null)
                 {
+                    ThemeHelper.ClearCache();
                     ThemeHelper.UpdateColorsFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
                     ThemeHelper.UpdateFontFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
                 }
@@ -216,6 +217,7 @@ namespace qgrepSearch
                 qgrepSearchWindowControl searchWindowControl = searchWindow.Content as qgrepSearchWindowControl;
                 if (searchWindowControl != null)
                 {
+                    ThemeHelper.ClearCache();
                     ThemeHelper.UpdateColorsFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
                     ThemeHelper.UpdateFontFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
                 }
