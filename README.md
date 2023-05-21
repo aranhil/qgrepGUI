@@ -49,8 +49,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
    ![OpenFile](https://github.com/aranhil/qgrepGUI/assets/755601/3c8974e7-e93f-4c45-9732-64626ec6e9e0)
       
 ### Customize colors
-   There are three color schemes available: **Auto**, **Dark**, and **Light**. The **Auto** color scheme grabs the IDE's colors automatically, so you can use any custom theme you want.
-   You also have the option to override any color used in the currently selected color scheme.
+   There are three color schemes available: **Auto**, **Dark**, and **Light**. The **Auto** color scheme grabs the IDE's colors automatically, so you can use any custom theme you want. You also have the option to override any color used in the currently selected color scheme:
 
 ![Colors](https://github.com/aranhil/qgrepGUI/assets/755601/92359355-4932-419c-ac32-d0fb56d93ed3)
    
@@ -69,7 +68,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
 ## Changelog
-### Version 2.5 (21/05/2023)
+### Version 2.6 (21/05/2023)
 
 - Added a new window to search for files using unordered keywords (Shortcut: Shift+Alt+I)
 - The fonts are now grabbed automatically from Visual Studio 
