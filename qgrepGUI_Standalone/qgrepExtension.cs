@@ -15,7 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace qgrepSearchTool_Standalone
+namespace qgrepGUI
 {
     class qgrepExtension : IExtensionInterface
     {

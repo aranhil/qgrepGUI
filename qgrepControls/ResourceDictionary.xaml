@@ -1619,6 +1619,7 @@
         <Setter Property="Background" Value="{DynamicResource Overlay.Background}" />
     </Style>
     <Style TargetType="TextBlock" BasedOn="{StaticResource NormalTextBlock}">
+        <Setter Property="Foreground" Value="{DynamicResource Foreground}" />
     </Style>
     <Style x:Key="OverlayText" TargetType="TextBlock" BasedOn="{StaticResource NormalTextBlock}">
         <Setter Property="HorizontalAlignment" Value="Center" />

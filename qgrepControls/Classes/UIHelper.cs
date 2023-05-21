@@ -39,7 +39,7 @@ namespace qgrepControls.Classes
             return null;
         }
 
-        public static MainWindow CreateWindow(UserControl userControl, string title, IExtensionInterface ExtensionInterface, UserControl owner, bool resizeable = false)
+        public static MainWindow CreateWindow(UserControl userControl, string title, IExtensionInterface ExtensionInterface, Control owner, bool resizeable = false)
         {
             MainWindow newWindow = new MainWindow
             {
@@ -73,7 +73,7 @@ namespace qgrepControls.Classes
             return newWindow;
         }
 
-        public static void ShowDialog(UserControl userControl, string title, IExtensionInterface ExtensionInterface, UserControl owner, bool resizeable = false)
+        public static void ShowDialog(UserControl userControl, string title, IExtensionInterface ExtensionInterface, Control owner, bool resizeable = false)
         {
             MainWindow window = CreateWindow(userControl, title, ExtensionInterface, owner, resizeable);
             window.ShowDialog();

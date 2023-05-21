@@ -1,9 +1,13 @@
 ﻿using ControlzEx;
+using Octokit;
 using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
+using qgrepGUI.Properties;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,7 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace qgrepSearchTool_Standalone
+namespace qgrepGUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -24,12 +28,111 @@ namespace qgrepSearchTool_Standalone
     public partial class MainWindow : WindowChromeWindow
     {
         qgrepSearchWindowControl SearchWindow;
+        string UpdateFilePath = "";
+        bool UpdateQueued = false;
 
         public MainWindow()
         {
             InitializeComponent();
             SearchWindow = new qgrepSearchWindowControl(new qgrepExtension(this));
             WindowContent.Children.Add(SearchWindow);
+
+            Dispatcher.Invoke(CheckForUpdates);
+        }
+
+        public async Task<string> GetLatestRelease()
+        {
+            var github = new GitHubClient(new ProductHeaderValue("qgrepGUI"));
+            var releases = await github.Repository.Release.GetAll("aranhil", "qgrepGUI");
+            return releases[0].TagName;
+        }
+
+        private async Task DownloadLatestReleaseAsync()
+        {
+            try
+            {
+                var client = new GitHubClient(new ProductHeaderValue("qgrepGUI"));
+
+                var latestRelease = await client.Repository.Release.GetLatest("aranhil", "qgrepGUI");
+
+                ReleaseAsset asset = null;
+                foreach (var item in latestRelease.Assets)
+                {
+                    if (item.Name.EndsWith(".exe"))
+                    {
+                        asset = item;
+                        break;
+                    }
+                }
+
+                if (asset == null)
+                {
+                    throw new Exception("No executable found.");
+                }
+
+                var httpClient = new HttpClient();
+                var downloadStream = await httpClient.GetStreamAsync(asset.BrowserDownloadUrl);
+
+                UpdateFilePath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), asset.Name);
+                using (var fileStream = System.IO.File.Create(UpdateFilePath))
+                {
+                    downloadStream.CopyTo(fileStream);
+                }
+
+                Process.Start(UpdateFilePath);
+            }
+            catch { }
+
+            Dispatcher.Invoke(() =>
+            {
+                System.Windows.Application.Current.Shutdown();
+            });
+        }
+
+        public async Task CheckForUpdates()
+        {
+            try
+            {
+                //Settings.Default.SkippedVersion = "1.0";
+                //Settings.Default.Save();
+
+                var currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                var skippedVersionString = Settings.Default.SkippedVersion;
+
+                var latestReleaseTag = await GetLatestRelease();
+                if(latestReleaseTag.StartsWith("v"))
+                {
+                    latestReleaseTag = latestReleaseTag.Substring(1);
+                }
+
+                Version latestVersion = new Version(latestReleaseTag);
+                Version skippedVersion = new Version(skippedVersionString);
+
+                if (skippedVersion < latestVersion && currentVersion < latestVersion)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        InstallUpdateWindow installUpdateWindow = new InstallUpdateWindow();
+                        qgrepControls.MainWindow installUpdateDialog = UIHelper.CreateWindow(installUpdateWindow, "Update available", new qgrepExtension(this), this);
+                        installUpdateWindow.Dialog = installUpdateDialog;
+                        installUpdateDialog.ShowDialog();
+
+                        if(installUpdateWindow.IsOk)
+                        {
+                            UpdateQueued = true;
+                        }
+                        else if(installUpdateWindow.IsSkip)
+                        {
+                            Settings.Default.SkippedVersion = latestVersion.ToString();
+                            Settings.Default.Save();
+                        }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while checking for updates: " + ex.Message);
+            }
         }
 
 #pragma warning disable 618
@@ -133,6 +236,17 @@ namespace qgrepSearchTool_Standalone
         private void ToggleGroupExpand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SearchWindow.ToggleGroupExpand();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(UpdateQueued)
+            {
+                e.Cancel = true;
+                Hide();
+
+                Dispatcher.Invoke(DownloadLatestReleaseAsync);
+            }
         }
     }
 }

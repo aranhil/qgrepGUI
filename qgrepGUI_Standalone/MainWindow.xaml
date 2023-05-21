@@ -1,9 +1,9 @@
-﻿<controlzEx:WindowChromeWindow x:Class="qgrepSearchTool_Standalone.MainWindow"
+﻿<controlzEx:WindowChromeWindow x:Class="qgrepGUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:qgrepSearchTool_Standalone"
+        xmlns:local="clr-namespace:qgrepGUI"
         xmlns:toolwindows="clr-namespace:qgrepControls.SearchWindow;assembly=qgrepControls"
         xmlns:controlzEx="urn:controlzex"
         x:Name="Window"
@@ -18,7 +18,7 @@
         WindowState="Normal"
         SizeToContent="Manual"
         ResizeMode="CanResize"
-        Topmost="False"
+        Topmost="False" Closing="Window_Closing"
         mc:Ignorable="d">
     <controlzEx:WindowChromeWindow.Resources>
         <RoutedCommand x:Key="qgrep.ToggleCaseSensitive"/>

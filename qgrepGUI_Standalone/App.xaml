@@ -1,7 +1,7 @@
-﻿<Application x:Class="qgrepSearchTool_Standalone.App"
+﻿<Application x:Class="qgrepGUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:qgrepSearchTool_Standalone"
+             xmlns:local="clr-namespace:qgrepGUI"
              xmlns:controlzEx="urn:controlzex"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
