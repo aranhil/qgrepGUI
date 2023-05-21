@@ -109,6 +109,7 @@
     <SolidColorBrush x:Key="TreeViewItem.IsMouseOver.Icon" Color="#2D78C7" />
     <SolidColorBrush x:Key="TreeViewItem.IsSelected.Icon" Color="#FFFFFF" />
     <SolidColorBrush x:Key="TreeViewItem.IsSelected.IsMouseOver.Icon" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ListBoxTitleBar.Background" Color="#EEEEF2" />
 
     <FontFamily x:Key="MonospacedFontFamily">Consolas</FontFamily>
     <FontFamily x:Key="NormalFontFamily">Segoe UI</FontFamily>
@@ -1367,6 +1368,12 @@
     <Style x:Key="Result" TargetType="TextBlock" BasedOn="{StaticResource MonospacedTextBlock}">
         <Setter Property="Margin" Value="0,0,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Normal" />
+    </Style>
+    <Style x:Key="ResultGroupFile" TargetType="TextBlock" BasedOn="{StaticResource Result}">
+        <Setter Property="Margin" Value="5,0,0,0" />
+        <Setter Property="Foreground" Value="{DynamicResource Result.File.Foreground}" />
+        <Setter Property="FontWeight" Value="Light" />
     </Style>
     <Style x:Key="ResultFile" TargetType="TextBlock" BasedOn="{StaticResource Result}">
         <Setter Property="Margin" Value="5,0,0,0" />

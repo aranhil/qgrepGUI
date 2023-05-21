@@ -134,7 +134,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type modelViews:SearchResultGroup}" ItemsSource="{Binding SearchResults}">
                         <DockPanel Style="{DynamicResource ResultGroupPanel}" RequestBringIntoView="TreeViewItem_RequestBringIntoView" MouseDown="SearchResult_MouseDown">
-                            <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=TrimmedFile}"/>
+                            <TextBlock Style="{DynamicResource ResultGroupFile}" Text="{Binding Path=TrimmedFile}"/>
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="MenuGoTo" Header="Open file" Click="MenuGoTo_Click"/>

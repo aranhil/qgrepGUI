@@ -82,7 +82,7 @@
                 <ColumnDefinition x:Name="LeftPanelColumnDefinition" Width="0" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{DynamicResource Window.Background}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1" >
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{DynamicResource ListBoxTitleBar.Background}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1" >
                 <DockPanel >
                     <TextBlock x:Name="Title" Text="Folder" Foreground="{DynamicResource Window.Foreground}" FontWeight="Normal" VerticalAlignment="Center" Margin="7,1,0,0" FontSize="12" />
                     <StackPanel x:Name="ButtonsPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">

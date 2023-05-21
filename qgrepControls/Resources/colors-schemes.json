@@ -19,363 +19,368 @@
                 "Color": "Transparent"
             }
         ],
-      "VsColorEntries": [
-        {
-          "Name": "Background",
-          "Color": "Environment.ToolWindowBackground"
-        },
-        {
-          "Name": "Foreground",
-          "Color": "CommonControls.ComboBoxText"
-        },
-        {
-          "Name": "Selection",
-          "Color": "CommonControls.ComboBoxTextInputSelection"
-        },
-        {
-          "Name": "TextBox.Background",
-          "Color": "CommonControls.ComboBoxBackground"
-        },
-        {
-          "Name": "Border",
-          "Color": "CommonControls.ComboBoxBorder"
-        },
-        {
-          "Name": "Border.IsMouseOver",
-          "Color": "CommonControls.ComboBoxBorderHover"
-        },
-        {
-          "Name": "Border.IsSelected",
-          "Color": "CommonControls.ComboBoxBorderFocused"
-        },
-        {
-          "Name": "Result.IsSelected.Background",
-          "Color": "FontsAndColors.Selected Text.Background",
-          "Opacity": 0.4
-        },
-        {
-          "Name": "Result.IsSelected.IsInactive.Background",
-          "Color": "FontsAndColors.Inactive Selected Text.Background",
-          "Opacity": 0.4
-        },
-        {
-          "Name": "Result.File.Foreground",
-          "Color": "CommonControls.ComboBoxText",
-          "Opacity": 0.5
-        },
-        {
-          "Name": "Result.LineNo.Foreground",
-          "Color": "FontsAndColors.Line Number.Foreground",
-        },
-        {
-          "Name": "Result.Text.Foreground",
-          "Color": "CommonControls.ComboBoxText"
-        },
-        {
-          "Name": "Result.Highlight.Foreground",
-          "Color": "CommonControls.ComboBoxText"
-        },
-        {
-          "Name": "Result.Highlight.Background",
-          "Color": "FontsAndColors.MarkerFormatDefinition/FindHighlight.Background"
-        },
-        {
-          "Name": "TextBox.Toggle.Foreground",
-          "Color": "Environment.PanelText",
-          "Opacity": 0.4
-        },
-        {
-          "Name": "TextBox.Toggle.IsMouseOver.Foreground",
-          "Color": "Environment.PanelText",
-          "Opacity": 0.6
-        },
-        {
-          "Name": "TextBox.Toggle.IsChecked.Foreground",
-          "Color": "Environment.PanelText",
-          "Opacity": 1.0
-        },
-        {
-          "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
-          "Color": "Environment.PanelText",
-          "Opacity": 0.8
-        },
-        {
-          "Name": "IconButton.Foreground",
-          "Color": "CommonControls.ComboBoxText",
-          "Opacity": 0.6
-        },
-        {
-          "Name": "IconButton.IsMouseOver.Foreground",
-          "Color": "CommonControls.ComboBoxText"
-        },
-        {
-          "Name": "IconButton.IsDisabled.Foreground",
-          "Color": "CommonControls.ComboBoxText",
-          "Opacity": 0.3
-        },
-        {
-          "Name": "Button.IsDisabled.Background",
-          "Color": "CommonControls.ButtonDisabled"
-        },
-        {
-          "Name": "Button.IsDisabled.Foreground",
-          "Color": "CommonControls.ButtonDisabledText"
-        },
-        {
-          "Name": "Button.IsDisabled.Border",
-          "Color": "CommonControls.ButtonBorderDisabled"
-        },
-        {
-          "Name": "Button.Background",
-          "Color": "CommonControls.Button"
-        },
-        {
-          "Name": "Button.Foreground",
-          "Color": "CommonControls.ButtonText"
-        },
-        {
-          "Name": "Button.Border",
-          "Color": "CommonControls.ButtonBorder"
-        },
-        {
-          "Name": "Button.IsMouseOver.Background",
-          "Color": "CommonControls.ButtonHover"
-        },
-        {
-          "Name": "Button.IsMouseOver.Border",
-          "Color": "CommonControls.ButtonBorderHover"
-        },
-        {
-          "Name": "Button.IsMouseDown.Background",
-          "Color": "CommonControls.ButtonPressed"
-        },
-        {
-          "Name": "Button.IsMouseDown.Foreground",
-          "Color": "CommonControls.ButtonPressedText"
-        },
-        {
-          "Name": "Button.IsMouseDown.Border",
-          "Color": "CommonControls.ButtonBorderHover"
-        },
-        {
-          "Name": "PanelRow.IsMouseOver.Background",
-          "Color": "FontsAndColors.Inactive Selected Text.Background",
-          "Opacity": 0.4
-        },
-        {
-          "Name": "PanelRow.IsSelected.Background",
-          "Color": "FontsAndColors.Selected Text.Background",
-          "Opacity": 0.4
-        },
-        {
-          "Name": "ComboBox.Background",
-          "Color": "CommonControls.ComboBoxBackground"
-        },
-        {
-          "Name": "ComboBox.IsMouseOver.Background",
-          "Color": "CommonControls.ComboBoxBackgroundHover"
-        },
-        {
-          "Name": "ComboBox.Border",
-          "Color": "CommonControls.ComboBoxBorder"
-        },
-        {
-          "Name": "ComboBox.IsMouseOver.Border",
-          "Color": "CommonControls.ComboBoxBorderHover"
-        },
-        {
-          "Name": "ComboBox.Foreground",
-          "Color": "CommonControls.ComboBoxText"
-        },
-        {
-          "Name": "ComboBox.Arrow",
-          "Color": "CommonControls.ComboBoxGlyph"
-        },
-        {
-          "Name": "ComboBox.IsDisabled.Arrow",
-          "Color": "CommonControls.ComboBoxGlyphDisabled"
-        },
-        {
-          "Name": "ComboBox.Popup.Border",
-          "Color": "CommonControls.ComboBoxListBorder"
-        },
-        {
-          "Name": "ComboBoxItem.Background",
-          "Color": "CommonControls.ComboBoxBackground"
-        },
-        {
-          "Name": "ComboBoxItem.IsMouseOver.Background",
-          "Color": "CommonControls.ComboBoxListItemBackgroundHover"
-        },
-        {
-          "Name": "ComboBoxItem.IsMouseOver.Foreground",
-          "Color": "CommonControls.ComboBoxListItemTextHover"
-        },
-        {
-          "Name": "ComboBoxItem.Border",
-          "Color": "CommonControls.ComboBoxBackground"
-        },
-        {
-          "Name": "ComboBoxItem.IsMouseOver.Border",
-          "Color": "CommonControls.ComboBoxListItemBorderHover"
-        },
-        {
-          "Name": "CheckBox.Background",
-          "Color": "CommonControls.CheckBoxBackground"
-        },
-        {
-          "Name": "CheckBox.IsMouseOver.Background",
-          "Color": "CommonControls.CheckBoxBackgroundHover"
-        },
-        {
-          "Name": "CheckBox.IsMouseDown.Background",
-          "Color": "CommonControls.CheckBoxBackgroundPressed"
-        },
-        {
-          "Name": "CheckBox.Border",
-          "Color": "CommonControls.CheckBoxBorder"
-        },
-        {
-          "Name": "CheckBox.IsMouseOver.Border",
-          "Color": "CommonControls.CheckBoxBorderHover"
-        },
-        {
-          "Name": "CheckBox.IsMouseDown.Border",
-          "Color": "CommonControls.CheckBoxBorderPressed"
-        },
-        {
-          "Name": "CheckBox.Mark",
-          "Color": "CommonControls.CheckBoxGlyph"
-        },
-        {
-          "Name": "CheckBox.IsMouseOver.Mark",
-          "Color": "CommonControls.CheckBoxGlyphHover"
-        },
-        {
-          "Name": "CheckBox.IsMouseDown.Mark",
-          "Color": "CommonControls.CheckBoxGlyphPressed"
-        },
-        {
-          "Name": "CheckBox.Foreground",
-          "Color": "CommonControls.CheckBoxText"
-        },
-        {
-          "Name": "Menu.Separator",
-          "Color": "Environment.CommandBarMenuSeparator"
-        },
-        {
-          "Name": "Menu.Background",
-          "Color": "Environment.CommandBarMenuBackgroundGradientBegin"
-        },
-        {
-          "Name": "Menu.Foreground",
-          "Color": "Environment.CommandBarTextActive"
-        },
-        {
-          "Name": "Menu.Border",
-          "Color": "Environment.CommandBarMenuBorder"
-        },
-        {
-          "Name": "MenuItem.IsMouseOver.Background",
-          "Color": "Environment.CommandBarMenuItemMouseOver"
-        },
-        {
-          "Name": "MenuItem.IsMouseOver.Border",
-          "Color": "Environment.CommandBarMenuItemMouseOverBorder"
-        },
-        {
-          "Name": "ScrollBar.Background",
-          "Color": "Environment.ScrollBarBackground"
-        },
-        {
-          "Name": "ScrollBar.Thumb",
-          "Color": "Environment.ScrollBarThumbBackground"
-        },
-        {
-          "Name": "ScrollBar.Thumb.IsMouseOver",
-          "Color": "Environment.ScrollBarThumbMouseOverBackground"
-        },
-        {
-          "Name": "ScrollBar.Thumb.IsMouseDown",
-          "Color": "Environment.ScrollBarThumbPressedBackground"
-        },
-        {
-          "Name": "ScrollBar.Button.Background",
-          "Color": "Environment.ScrollBarArrowBackground"
-        },
-        {
-          "Name": "ScrollBar.Button.Arrow",
-          "Color": "Environment.ScrollBarArrowGlyph"
-        },
-        {
-          "Name": "ScrollBar.Button.IsMouseOver.Background",
-          "Color": "Environment.ScrollBarArrowMouseOverBackground"
-        },
-        {
-          "Name": "ScrollBar.Button.IsMouseOver.Arrow",
-          "Color": "Environment.ScrollBarArrowGlyphMouseOver"
-        },
-        {
-          "Name": "ScrollBar.Button.IsMouseDown.Background",
-          "Color": "Environment.ScrollBarArrowPressedBackground"
-        },
-        {
-          "Name": "ScrollBar.Button.IsMouseDown.Arrow",
-          "Color": "Environment.ScrollBarArrowGlyphPressed"
-        },
-        {
-          "Name": "Window.Background",
-          "Color": "Environment.ToolWindowFloatingFrame"
-        },
-        {
-          "Name": "Window.Foreground",
-          "Color": "Environment.ToolWindowFloatingFrameText"
-        },
-        {
-          "Name": "Window.Border",
-          "Color": "Environment.MainWindowActiveDefaultBorder"
-        },
-        {
-          "Name": "Window.Button.Background",
-          "Color": "Environment.ToolWindowFloatingFrame"
-        },
-        {
-          "Name": "Window.Button.Icon",
-          "Color": "Environment.RaftedWindowButtonActiveGlyph"
-        },
-        {
-          "Name": "Window.Button.IsMouseOver.Background",
-          "Color": "Environment.RaftedWindowButtonHoverActive"
-        },
-        {
-          "Name": "Window.Button.IsMouseOver.Icon",
-          "Color": "Environment.RaftedWindowButtonHoverActiveGlyph"
-        },
-        {
-          "Name": "Window.Button.IsMouseDown.Background",
-          "Color": "Environment.RaftedWindowButtonDown"
-        },
-        {
-          "Name": "Window.Button.IsMouseDown.Icon",
-          "Color": "Environment.RaftedWindowButtonDownGlyph"
-        },
-        {
-          "Name": "TreeViewItem.Icon",
-          "Color": "TreeView.Glyph"
-        },
-        {
-          "Name": "TreeViewItem.IsMouseOver.Icon",
-          "Color": "TreeView.GlyphMouseOver"
-        },
-        {
-          "Name": "TreeViewItem.IsSelected.Icon",
-          "Color": "TreeView.SelectedItemActiveGlyph"
-        },
-        {
-          "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
-          "Color": "TreeView.SelectedItemActiveGlyphMouseOver"
-        }
-      ]
+        "VsColorEntries": [
+            {
+                "Name": "Background",
+                "Color": "Environment.ToolWindowBackground"
+            },
+            {
+                "Name": "Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "Selection",
+                "Color": "CommonControls.ComboBoxTextInputSelection"
+            },
+            {
+                "Name": "TextBox.Background",
+                "Color": "CommonControls.ComboBoxBackground"
+            },
+            {
+                "Name": "Border",
+                "Color": "CommonControls.ComboBoxBorder"
+            },
+            {
+                "Name": "Border.IsMouseOver",
+                "Color": "CommonControls.ComboBoxBorderHover"
+            },
+            {
+                "Name": "Border.IsSelected",
+                "Color": "CommonControls.ComboBoxBorderFocused"
+            },
+            {
+                "Name": "Result.IsSelected.Background",
+                "Color": "FontsAndColors.Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "Result.IsSelected.IsInactive.Background",
+                "Color": "FontsAndColors.Inactive Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "Result.File.Foreground",
+                "Color": "CommonControls.ComboBoxText",
+                "Opacity": 0.8
+            },
+            {
+                "Name": "Result.LineNo.Foreground",
+                "Color": "FontsAndColors.Line Number.Foreground",
+            },
+            {
+                "Name": "Result.Text.Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "Result.Highlight.Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "Result.Highlight.Background",
+                "Color": "FontsAndColors.MarkerFormatDefinition/FindHighlight.Background"
+            },
+            {
+                "Name": "TextBox.Toggle.Foreground",
+                "Color": "Environment.PanelText",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "TextBox.Toggle.IsMouseOver.Foreground",
+                "Color": "Environment.PanelText",
+                "Opacity": 0.6
+            },
+            {
+                "Name": "TextBox.Toggle.IsChecked.Foreground",
+                "Color": "Environment.PanelText",
+                "Opacity": 1.0
+            },
+            {
+                "Name": "TextBox.Toggle.IsChecked.IsMouseOver.Foreground",
+                "Color": "Environment.PanelText",
+                "Opacity": 0.8
+            },
+            {
+                "Name": "IconButton.Foreground",
+                "Color": "CommonControls.ComboBoxText",
+                "Opacity": 0.6
+            },
+            {
+                "Name": "IconButton.IsMouseOver.Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "IconButton.IsDisabled.Foreground",
+                "Color": "CommonControls.ComboBoxText",
+                "Opacity": 0.3
+            },
+            {
+                "Name": "Button.IsDisabled.Background",
+                "Color": "CommonControls.ButtonDisabled"
+            },
+            {
+                "Name": "Button.IsDisabled.Foreground",
+                "Color": "CommonControls.ButtonDisabledText"
+            },
+            {
+                "Name": "Button.IsDisabled.Border",
+                "Color": "CommonControls.ButtonBorderDisabled"
+            },
+            {
+                "Name": "Button.Background",
+                "Color": "CommonControls.Button"
+            },
+            {
+                "Name": "Button.Foreground",
+                "Color": "CommonControls.ButtonText"
+            },
+            {
+                "Name": "Button.Border",
+                "Color": "CommonControls.ButtonBorder"
+            },
+            {
+                "Name": "Button.IsMouseOver.Background",
+                "Color": "CommonControls.ButtonHover"
+            },
+            {
+                "Name": "Button.IsMouseOver.Border",
+                "Color": "CommonControls.ButtonBorderHover"
+            },
+            {
+                "Name": "Button.IsMouseDown.Background",
+                "Color": "CommonControls.ButtonPressed"
+            },
+            {
+                "Name": "Button.IsMouseDown.Foreground",
+                "Color": "CommonControls.ButtonPressedText"
+            },
+            {
+                "Name": "Button.IsMouseDown.Border",
+                "Color": "CommonControls.ButtonBorderHover"
+            },
+            {
+                "Name": "PanelRow.IsMouseOver.Background",
+                "Color": "FontsAndColors.Inactive Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "PanelRow.IsSelected.Background",
+                "Color": "FontsAndColors.Selected Text.Background",
+                "Opacity": 0.4
+            },
+            {
+                "Name": "ComboBox.Background",
+                "Color": "CommonControls.ComboBoxBackground"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Background",
+                "Color": "CommonControls.ComboBoxBackgroundHover"
+            },
+            {
+                "Name": "ComboBox.Border",
+                "Color": "CommonControls.ComboBoxBorder"
+            },
+            {
+                "Name": "ComboBox.IsMouseOver.Border",
+                "Color": "CommonControls.ComboBoxBorderHover"
+            },
+            {
+                "Name": "ComboBox.Foreground",
+                "Color": "CommonControls.ComboBoxText"
+            },
+            {
+                "Name": "ComboBox.Arrow",
+                "Color": "CommonControls.ComboBoxGlyph"
+            },
+            {
+                "Name": "ComboBox.IsDisabled.Arrow",
+                "Color": "CommonControls.ComboBoxGlyphDisabled"
+            },
+            {
+                "Name": "ComboBox.Popup.Border",
+                "Color": "CommonControls.ComboBoxListBorder"
+            },
+            {
+                "Name": "ComboBoxItem.Background",
+                "Color": "CommonControls.ComboBoxBackground"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Background",
+                "Color": "CommonControls.ComboBoxListItemBackgroundHover"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Foreground",
+                "Color": "CommonControls.ComboBoxListItemTextHover"
+            },
+            {
+                "Name": "ComboBoxItem.Border",
+                "Color": "CommonControls.ComboBoxBackground"
+            },
+            {
+                "Name": "ComboBoxItem.IsMouseOver.Border",
+                "Color": "CommonControls.ComboBoxListItemBorderHover"
+            },
+            {
+                "Name": "CheckBox.Background",
+                "Color": "CommonControls.CheckBoxBackground"
+            },
+            {
+                "Name": "CheckBox.IsMouseOver.Background",
+                "Color": "CommonControls.CheckBoxBackgroundHover"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Background",
+                "Color": "CommonControls.CheckBoxBackgroundPressed"
+            },
+            {
+                "Name": "CheckBox.Border",
+                "Color": "CommonControls.CheckBoxBorder"
+            },
+            {
+                "Name": "CheckBox.IsMouseOver.Border",
+                "Color": "CommonControls.CheckBoxBorderHover"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Border",
+                "Color": "CommonControls.CheckBoxBorderPressed"
+            },
+            {
+                "Name": "CheckBox.Mark",
+                "Color": "CommonControls.CheckBoxGlyph"
+            },
+            {
+                "Name": "CheckBox.IsMouseOver.Mark",
+                "Color": "CommonControls.CheckBoxGlyphHover"
+            },
+            {
+                "Name": "CheckBox.IsMouseDown.Mark",
+                "Color": "CommonControls.CheckBoxGlyphPressed"
+            },
+            {
+                "Name": "CheckBox.Foreground",
+                "Color": "CommonControls.CheckBoxText"
+            },
+            {
+                "Name": "Menu.Separator",
+                "Color": "Environment.CommandBarMenuSeparator"
+            },
+            {
+                "Name": "Menu.Background",
+                "Color": "Environment.CommandBarMenuBackgroundGradientBegin"
+            },
+            {
+                "Name": "Menu.Foreground",
+                "Color": "Environment.CommandBarTextActive"
+            },
+            {
+                "Name": "Menu.Border",
+                "Color": "Environment.CommandBarMenuBorder"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Background",
+                "Color": "Environment.CommandBarMenuItemMouseOver"
+            },
+            {
+                "Name": "MenuItem.IsMouseOver.Border",
+                "Color": "Environment.CommandBarMenuItemMouseOverBorder"
+            },
+            {
+                "Name": "ScrollBar.Background",
+                "Color": "Environment.ScrollBarBackground"
+            },
+            {
+                "Name": "ScrollBar.Thumb",
+                "Color": "Environment.ScrollBarThumbBackground"
+            },
+            {
+                "Name": "ScrollBar.Thumb.IsMouseOver",
+                "Color": "Environment.ScrollBarThumbMouseOverBackground"
+            },
+            {
+                "Name": "ScrollBar.Thumb.IsMouseDown",
+                "Color": "Environment.ScrollBarThumbPressedBackground"
+            },
+            {
+                "Name": "ScrollBar.Button.Background",
+                "Color": "Environment.ScrollBarArrowBackground"
+            },
+            {
+                "Name": "ScrollBar.Button.Arrow",
+                "Color": "Environment.ScrollBarArrowGlyph"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseOver.Background",
+                "Color": "Environment.ScrollBarArrowMouseOverBackground"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseOver.Arrow",
+                "Color": "Environment.ScrollBarArrowGlyphMouseOver"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseDown.Background",
+                "Color": "Environment.ScrollBarArrowPressedBackground"
+            },
+            {
+                "Name": "ScrollBar.Button.IsMouseDown.Arrow",
+                "Color": "Environment.ScrollBarArrowGlyphPressed"
+            },
+            {
+                "Name": "Window.Background",
+                "Color": "Environment.ToolWindowFloatingFrame"
+            },
+            {
+                "Name": "Window.Foreground",
+                "Color": "Environment.ToolWindowFloatingFrameText"
+            },
+            {
+                "Name": "Window.Border",
+                "Color": "Environment.MainWindowActiveDefaultBorder"
+            },
+            {
+                "Name": "Window.Button.Background",
+                "Color": "Environment.ToolWindowFloatingFrame"
+            },
+            {
+                "Name": "Window.Button.Icon",
+                "Color": "Environment.RaftedWindowButtonActiveGlyph"
+            },
+            {
+                "Name": "Window.Button.IsMouseOver.Background",
+                "Color": "Environment.RaftedWindowButtonHoverActive"
+            },
+            {
+                "Name": "Window.Button.IsMouseOver.Icon",
+                "Color": "Environment.RaftedWindowButtonHoverActiveGlyph"
+            },
+            {
+                "Name": "Window.Button.IsMouseDown.Background",
+                "Color": "Environment.RaftedWindowButtonDown"
+            },
+            {
+                "Name": "Window.Button.IsMouseDown.Icon",
+                "Color": "Environment.RaftedWindowButtonDownGlyph"
+            },
+            {
+                "Name": "TreeViewItem.Icon",
+                "Color": "TreeView.Glyph"
+            },
+            {
+                "Name": "TreeViewItem.IsMouseOver.Icon",
+                "Color": "TreeView.GlyphMouseOver"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.Icon",
+                "Color": "TreeView.SelectedItemActiveGlyph"
+            },
+            {
+                "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
+                "Color": "TreeView.SelectedItemActiveGlyphMouseOver"
+            },
+            {
+                "Name": "ListBoxTitleBar.Background",
+                "Color": "Environment.ToolWindowFloatingFrame",
+                "Opacity": 0.5
+            }
+        ]
     },
     {
         "Name": "Dark",
@@ -751,8 +756,11 @@
             {
                 "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
                 "Color": "214, 214, 214"
+            },
+            {
+                "Name": "ListBoxTitleBar.Background",
+                "Color": "46, 46, 46"
             }
-
         ]
     },
     {
@@ -788,7 +796,7 @@
             },
             {
                 "Name": "Result.File.Foreground",
-                "Color": "Gray"
+                "Color": "100, 100, 100"
             },
             {
                 "Name": "Result.LineNo.Foreground",
@@ -1129,6 +1137,10 @@
             {
                 "Name": "TreeViewItem.IsSelected.IsMouseOver.Icon",
                 "Color": "255, 255, 255"
+            },
+            {
+                "Name": "ListBoxTitleBar.Background",
+                "Color": "238, 238, 242"
             }
         ]
     }
