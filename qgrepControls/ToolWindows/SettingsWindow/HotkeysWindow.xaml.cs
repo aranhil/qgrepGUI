@@ -30,6 +30,7 @@ namespace qgrepControls.SearchWindow
             ShowHistory.Hotkey = new Classes.Hotkey(bindings[ShowHistory.Name].Key, bindings[ShowHistory.Name].Modifiers);
             OpenFileSearch.Hotkey = new Classes.Hotkey(bindings[OpenFileSearch.Name].Key, bindings[OpenFileSearch.Name].Modifiers);
             ToggleGroupBy.Hotkey = new Classes.Hotkey(bindings[ToggleGroupBy.Name].Key, bindings[ToggleGroupBy.Name].Modifiers);
+            ToggleGroupExpand.Hotkey = new Classes.Hotkey(bindings[ToggleGroupExpand.Name].Key, bindings[ToggleGroupExpand.Name].Modifiers);
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -62,6 +63,7 @@ namespace qgrepControls.SearchWindow
             bindings[ShowHistory.Name] = new Hotkey(ShowHistory.Hotkey.Key, ShowHistory.Hotkey.Modifiers);
             bindings[OpenFileSearch.Name] = new Hotkey(OpenFileSearch.Hotkey.Key, OpenFileSearch.Hotkey.Modifiers);
             bindings[ToggleGroupBy.Name] = new Hotkey(ToggleGroupBy.Hotkey.Key, ToggleGroupBy.Hotkey.Modifiers);
+            bindings[ToggleGroupExpand.Name] = new Hotkey(ToggleGroupExpand.Hotkey.Key, ToggleGroupExpand.Hotkey.Modifiers);
             return bindings;
         }
     }
