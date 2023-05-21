@@ -66,7 +66,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 - Toggle group expansion (Alt + X)
 - Open history (Alt + H)
 
-You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.## Changelog
+You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
 ## Changelog
 ### Version 2.5 (21/05/2023)
