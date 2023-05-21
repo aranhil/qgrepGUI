@@ -1,6 +1,8 @@
 ﻿using EnvDTE;
 using EnvDTE80;
 using Microsoft.Build.Evaluation;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -15,10 +17,12 @@ using System.Drawing;
 using System.IO;
 using System.IO.Packaging;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace qgrepSearch
 {
@@ -379,6 +383,61 @@ namespace qgrepSearch
             }
 
             return "Arial";
+        }
+
+        public Icon ExtractIconFromUIObject(IVsUIObject uiObject)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (uiObject.get_Type(out string type) == VSConstants.S_OK && type == "VsUI.Icon")
+            {
+                if (uiObject.get_Data(out object data) == VSConstants.S_OK)
+                {
+                    if (data is Icon icon)
+                    {
+                        return icon;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        [Obsolete]
+        public BitmapSource GetIcon(string document, uint background)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            try
+            {
+                ImageMoniker imageMoniker = State.Package.ImageService.GetImageMonikerForFile(document);
+
+                var atts = new ImageAttributes
+                {
+                    StructSize = Marshal.SizeOf(typeof(ImageAttributes)),
+                    Format = (uint)_UIDataFormat.DF_WPF,
+                    LogicalHeight = 32,
+                    LogicalWidth = 32,
+                    Flags = (uint)_ImageAttributesFlags.IAF_RequiredFlags,
+                    ImageType = (uint)_UIImageType.IT_Bitmap,
+                    Background = background
+                };
+
+                unchecked
+                {
+                    atts.Flags |= (uint)-2147483648;
+                }
+
+                var obj = State.Package.ImageService.GetImage(imageMoniker, atts);
+                if (obj == null)
+                    return null;
+
+                obj.get_Data(out object data);
+
+                return (BitmapSource)data;
+            }
+            catch { }
+
+            return null;
         }
     }
 }

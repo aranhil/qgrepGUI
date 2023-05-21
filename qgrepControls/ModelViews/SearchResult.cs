@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace qgrepControls.ModelViews
 {
@@ -24,6 +25,7 @@ namespace qgrepControls.ModelViews
         public string HighlightedText { get; set; }
         public string FullResult { get; set; }
         public SearchResultGroup Parent { get; set; }
+        public BitmapSource ImageSource { get; set; }
 
         public bool IsSelected
         {

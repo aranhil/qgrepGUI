@@ -31,6 +31,7 @@ namespace qgrepSearch
         private uint SolutionEvents = uint.MaxValue;
         private int toolWindowId = -1;
         private uint _cookie;
+        private IVsImageService2 _imageService;
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -47,6 +48,9 @@ namespace qgrepSearch
             IVsTextManager textManager = await GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager;
             ((IConnectionPointContainer)textManager).FindConnectionPoint(typeof(IVsTextManagerEvents).GUID, out IConnectionPoint connectionPoint);
             connectionPoint.Advise(this, out _cookie);
+
+            _imageService = await GetServiceAsync(typeof(SVsImageService)) as IVsImageService2;
+
             await CaseSensitiveCommand.InitializeAsync(this);
             await WholeWordCommand.InitializeAsync(this);
             await RegExCommand.InitializeAsync(this);
@@ -57,6 +61,11 @@ namespace qgrepSearch
             await OpenSearchFiles.InitializeAsync(this);
             await GroupingByCommand.InitializeAsync(this);
             await GroupExpandCommand.InitializeAsync(this);
+        }
+
+        public IVsImageService2 ImageService
+        {
+            get { return _imageService; }
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)

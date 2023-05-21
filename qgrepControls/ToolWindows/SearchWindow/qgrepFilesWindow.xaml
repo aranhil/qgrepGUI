@@ -13,12 +13,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type modelViews:HistoricItem}">
-                <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left">
-                    <Label Style="{DynamicResource HistoricOperation}" Content="{Binding Path=Operation}" Visibility="{Binding Path=OperationVisibility}" />
-                    <Label Style="{DynamicResource HistoricEntry}" Content="{Binding Path=Text}" />
-                </StackPanel>
-            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid KeyboardNavigation.TabNavigation="Cycle">
@@ -36,6 +30,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
+                            <Image Margin="4,0,-8,0" Width="16" Height="16" Source="{Binding ImageSource}" Style="{x:Null}" />
                             <TextBlock Style="{DynamicResource ResultTextStart}" Text="{Binding Path=TrimmedFileAndLine}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>

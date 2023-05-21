@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace qgrepControls.Classes
 {
@@ -21,5 +23,6 @@ namespace qgrepControls.Classes
         void ApplyKeyBindings(Dictionary<string, Hotkey> bindings);
         void SaveKeyBindings(Dictionary<string, Hotkey> bindings);
         System.Windows.Window GetMainWindow();
+        BitmapSource GetIcon(string document, uint background);
     }
 }

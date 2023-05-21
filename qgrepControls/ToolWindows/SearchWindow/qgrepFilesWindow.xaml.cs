@@ -27,6 +27,7 @@ using Xceed.Wpf.AvalonDock.Controls;
 using System.Runtime.InteropServices.Expando;
 using qgrepControls.ModelViews;
 using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
 
 namespace qgrepControls.SearchWindow
 {
@@ -99,6 +100,8 @@ namespace qgrepControls.SearchWindow
             }
         }
 
+        uint BackgroundColor = 0;
+
         ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
         ObservableCollection<SearchResult> newSearchResults = new ObservableCollection<SearchResult>();
         SearchResult selectedSearchResult = null;
@@ -110,6 +113,9 @@ namespace qgrepControls.SearchWindow
             {
                 newSearch = true;
                 selectedSearchResult = null;
+
+                System.Windows.Media.Color color = (System.Windows.Media.Color)Resources["Background.Color"];
+                BackgroundColor = ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | color.B;
             });
         }
 
@@ -169,7 +175,8 @@ namespace qgrepControls.SearchWindow
                             BeginText = beginText,
                             HighlightedText = highlight,
                             EndText = endText,
-                            FullResult = fileAndLine + beginText + highlight + endText
+                            FullResult = fileAndLine + beginText + highlight + endText,
+                            ImageSource = ExtensionInterface.GetIcon(file, BackgroundColor)
                         };
 
                         newSearchResults.Add(newSearchResult);
