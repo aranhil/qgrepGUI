@@ -197,6 +197,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                 <wpfTool:CheckComboBox IsTabStop="False" x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
                 </wpfTool:CheckComboBox>
                 <Label IsTabStop="False" x:Name="InfoLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
+                <Label IsTabStop="False" x:Name="ErrorLabel" Content="" Style="{DynamicResource SomeHintLabel}" Margin="-5,0,0,0" />
             </StackPanel>
         </Grid>
     </Grid>

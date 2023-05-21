@@ -2,6 +2,7 @@
 using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -37,6 +38,8 @@ namespace qgrepControls.SearchWindow
             ShowIncludes.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleIncludeFiles"].ToString();
             ShowExcludes.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleExcludeFiles"].ToString();
             ShowFilter.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleFilterResults"].ToString();
+            GroupingComboBox.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleGroupBy"].ToString();
+            ExpandModeComboBox.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleGroupExpand"].ToString() + " (doesn't change setting)";
         }
 
         private void SaveOptions()

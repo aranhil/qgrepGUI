@@ -56,6 +56,7 @@ namespace qgrepSearch
             await ShowHistoryCommand.InitializeAsync(this);
             await OpenSearchFiles.InitializeAsync(this);
             await GroupingByCommand.InitializeAsync(this);
+            await GroupExpandCommand.InitializeAsync(this);
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)
@@ -273,10 +274,16 @@ namespace qgrepSearch
             searchWindowControl.ShowHistory();
         }
 
-        public void ToggleGroupingBy()
+        public void ToggleGroupBy()
         {
             qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
-            searchWindowControl.ToggleGroupingBy();
+            searchWindowControl.ToggleGroupBy();
+        }
+
+        public void ToggleGroupExpand()
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ToggleGroupExpand();
         }
     }
 }

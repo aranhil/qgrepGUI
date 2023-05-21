@@ -12,12 +12,12 @@ namespace qgrepSearch
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class GroupingByCommand
+    internal sealed class GroupExpandCommand
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 4142;
+        public const int CommandId = 4143;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -30,12 +30,12 @@ namespace qgrepSearch
         private readonly AsyncPackage package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GroupingByCommand"/> class.
+        /// Initializes a new instance of the <see cref="GroupExpandCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private GroupingByCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private GroupExpandCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -48,7 +48,7 @@ namespace qgrepSearch
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static GroupingByCommand Instance
+        public static GroupExpandCommand Instance
         {
             get;
             private set;
@@ -71,12 +71,12 @@ namespace qgrepSearch
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Switch to the main thread - the call to AddCommand in ToggleGroupBy's constructor requires
+            // Switch to the main thread - the call to AddCommand in ToggleGroupExpandCommand's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new GroupingByCommand(package, commandService);
+            Instance = new GroupExpandCommand(package, commandService);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace qgrepSearch
             qgrepSearchPackage searchPackage = this.package as qgrepSearchPackage;
             if (searchPackage != null)
             {
-                searchPackage.ToggleGroupBy();
+                searchPackage.ToggleGroupExpand();
             }
         }
     }

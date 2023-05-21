@@ -24,6 +24,7 @@ namespace qgrepControls.Classes
     public interface ISearchEngineEventsHandler
     {
         void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions);
+        void OnErrorEvent(string message, SearchOptions searchOptions);
         void OnStartSearchEvent(SearchOptions searchOptions);
         void OnFinishSearchEvent(SearchOptions searchOptions);
     }
@@ -121,8 +122,13 @@ namespace qgrepControls.Classes
             if(IsBusy)
             {
                 QueuedSearchOptions = searchOptions;
-                ForceStop = true;
-                return; 
+
+                if(searchOptions.CacheUsageType != CacheUsageType.Forced)
+                {
+                    ForceStop = true;
+                }
+
+                return;
             }
 
             IsBusy = true;
@@ -211,7 +217,9 @@ namespace qgrepControls.Classes
                     }
 
                     QGrepWrapper.CallQGrepAsync(arguments, 
-                        (string result) => { return StringHandler(result, searchOptions); }, ErrorHandler, ProgressHandler);
+                        (string result) => { return StringHandler(result, searchOptions); }, 
+                        (string error) => { SearchErrorHandler(error, searchOptions); }, 
+                        ProgressHandler);
                 }
 
                 IsBusy = false;
@@ -226,7 +234,12 @@ namespace qgrepControls.Classes
             if (IsBusy)
             {
                 QueuedSearchFilesOptions = searchOptions;
-                ForceStop = true;
+
+                if (searchOptions.CacheUsageType != CacheUsageType.Forced)
+                {
+                    ForceStop = true;
+                }
+
                 return;
             }
 
@@ -249,7 +262,7 @@ namespace qgrepControls.Classes
                 };
 
                 QGrepWrapper.CallQGrepAsync(arguments,
-                    (string result) => { return StringHandler(result, searchOptions, true); }, ErrorHandler, ProgressHandler);
+                    (string result) => { return StringHandler(result, searchOptions, true); }, UpdateErrorHandler, ProgressHandler);
 
                 IsBusy = false;
 
@@ -392,9 +405,23 @@ namespace qgrepControls.Classes
                 result = result.ToLower();
             }
 
-            Match match = Regex.Match(result, query);
-            begingHighlight = match.Index;
-            endHighlight = match.Length;
+            try
+            {
+                Match match = Regex.Match(result, query);
+                begingHighlight = match.Index;
+                endHighlight = match.Length;
+            }
+            catch { }
+        }
+
+        private void SearchErrorHandler(string message, SearchOptions searchOptions)
+        {
+            if (message.EndsWith("\n"))
+            {
+                message = message.Substring(0, message.Length - 1);
+            }
+
+            searchOptions.EventsHandler.OnErrorEvent(message, searchOptions);
         }
 
         public void UpdateDatabaseAsync(List<string> configsPaths)
@@ -416,7 +443,7 @@ namespace qgrepControls.Classes
                 foreach (String configPath in configsPaths)
                 {
                     QGrepWrapper.StringCallback stringCallback = new QGrepWrapper.StringCallback(DatabaseMessageHandler);
-                    QGrepWrapper.ErrorCallback errorsCallback = new QGrepWrapper.ErrorCallback(ErrorHandler);
+                    QGrepWrapper.ErrorCallback errorsCallback = new QGrepWrapper.ErrorCallback(UpdateErrorHandler);
                     QGrepWrapper.ProgressCalback progressCalback = new QGrepWrapper.ProgressCalback(ProgressHandler);
                     List<string> parameters = new List<string>
                     {
@@ -437,7 +464,7 @@ namespace qgrepControls.Classes
             });
         }
 
-        private void ErrorHandler(string result)
+        private void UpdateErrorHandler(string result)
         {
             UpdateErrorCallback(result);
         }
@@ -470,18 +497,18 @@ namespace qgrepControls.Classes
 
         private void UpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            UpdateLastUpdated();
+            if (!Instance.IsBusy)
+            {
+                UpdateLastUpdated();
+            }
         }
 
         public void UpdateLastUpdated()
         {
-            if (!Instance.IsBusy)
-            {
-                DateTime lastUpdated = ConfigParser.GetLastUpdated();
-                string timeAgo = "Last index update: " + (lastUpdated == DateTime.MaxValue ? "never" : GetTimeAgoString(lastUpdated));
+            DateTime lastUpdated = ConfigParser.GetLastUpdated();
+            string timeAgo = "Last index update: " + (lastUpdated == DateTime.MaxValue ? "never" : GetTimeAgoString(lastUpdated));
 
-                DatabaseMessageHandler(timeAgo);
-            }
+            DatabaseMessageHandler(timeAgo);
         }
 
         public void ShowLastUpdateMessage()

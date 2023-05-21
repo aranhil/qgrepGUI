@@ -156,9 +156,11 @@ namespace qgrepControls.ColorsWindow
         {
             Settings.Default.Save();
 
+            ThemeHelper.ClearCache();
             ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.ExtensionInterface);
             ThemeHelper.UpdateColorsFromSettings(ColorsListBox, SearchWindow.ExtensionInterface, false);
             ThemeHelper.UpdateColorsFromSettings(SearchWindow, SearchWindow.ExtensionInterface);
+            SearchWindow.ExtensionInterface.RefreshResources(ThemeHelper.GetResourcesFromColorScheme(SearchWindow.ExtensionInterface));
         }
 
         private void AddNewColor_Click(object sender, RoutedEventArgs e)

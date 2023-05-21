@@ -178,5 +178,10 @@ namespace qgrepControls.Classes
         {
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B); ;
         }
+
+        public static void ClearCache()
+        {
+            Instance.CachedResources = null;
+        }
     }
 }

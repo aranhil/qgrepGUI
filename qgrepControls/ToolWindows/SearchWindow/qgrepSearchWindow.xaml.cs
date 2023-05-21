@@ -401,8 +401,12 @@ namespace qgrepControls.SearchWindow
             Settings.Default.Save();
         }
 
+        private bool? OverrideExpansion = null;
+        private bool CurrentExpansion = false;
+
         private void SetTreeCollapsing(bool isExpanded)
         {
+            CurrentExpansion = isExpanded;
             foreach (SearchResultGroup searchResultGroup in searchResultsGroups)
             {
                 if (searchResultGroup.IsExpanded != isExpanded)
@@ -412,29 +416,24 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private void ProcessTreeCollapsingDuringPopulation()
+        private void ProcessTreeCollapsing()
         {
             bool expand = false;
 
-            if(Settings.Default.ExpandModeIndex == 2 || Settings.Default.ExpandModeIndex == 1)
+            if (OverrideExpansion == null)
             {
-                expand = true;
+                if (Settings.Default.ExpandModeIndex == 2)
+                {
+                    expand = true;
+                }
+                else if (Settings.Default.ExpandModeIndex == 1 && searchResultsGroups.Count + searchResults.Count < 500)
+                {
+                    expand = true;
+                }
             }
-
-            SetTreeCollapsing(expand);
-        }
-
-        private void ProcessTreeCollapsingAfterPopulation()
-        {
-            bool expand = false;
-
-            if (Settings.Default.ExpandModeIndex == 2)
+            else
             {
-                expand = true;
-            }
-            else if (Settings.Default.ExpandModeIndex == 1 && searchResultsGroups.Count + searchResults.Count <= 500)
-            {
-                expand = true;
+                expand = OverrideExpansion ?? false;
             }
 
             SetTreeCollapsing(expand);
@@ -472,9 +471,11 @@ namespace qgrepControls.SearchWindow
                 newSearch = true;
                 selectedSearchResultGroup = null;
                 selectedSearchResult = null;
+                OverrideExpansion = null;
 
                 SearchItemsListBox.Visibility = searchOptions.GroupingMode == 0 ? Visibility.Visible : Visibility.Collapsed;
                 SearchItemsTreeView.Visibility = searchOptions.GroupingMode != 0 ? Visibility.Visible : Visibility.Collapsed;
+                ErrorLabel.Content = "";
             });
         }
 
@@ -546,10 +547,10 @@ namespace qgrepControls.SearchWindow
                     newSearchResults.Clear();
                 }
 
-                ProcessTreeCollapsingDuringPopulation();
+                ProcessTreeCollapsing();
             }
 
-            InfoLabel.Content = string.Format("Showing {0} result(s) for \"{1}\"", searchResults.Count, searchOptions.Query);
+            InfoLabel.Content = string.Format("Showing {0} result(s) for \"{1}\".", searchResults.Count, searchOptions.Query);
         }
 
         public void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
@@ -602,6 +603,14 @@ namespace qgrepControls.SearchWindow
             }
         }
 
+        public void OnErrorEvent(string message, SearchOptions searchOptions)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                ErrorLabel.Content = message;
+            });
+        }
+
         public void OnFinishSearchEvent(SearchOptions searchOptions)
         {
             Dispatcher.Invoke(() =>
@@ -617,12 +626,6 @@ namespace qgrepControls.SearchWindow
                     else
                     {
                         AddResultsBatch(searchOptions);
-
-
-                        if (searchOptions.GroupingMode == 1)
-                        {
-                            ProcessTreeCollapsingAfterPopulation();
-                        }
                     }
                 }
                 else
@@ -680,6 +683,7 @@ namespace qgrepControls.SearchWindow
                 searchResults.Clear();
                 searchResultsGroups.Clear();
                 InfoLabel.Content = "";
+                ErrorLabel.Content = "";
             }
 
             CacheUsageType = CacheUsageType.Normal;
@@ -764,7 +768,7 @@ namespace qgrepControls.SearchWindow
             {
                 Dispatcher.Invoke(new Action(() =>
                 {
-                    HandleErrorMessage("Cannot clean indexes: " + ex.Message + "\n");
+                    HandleErrorMessage("Cannot clean indexes: " + ex.Message);
                 }));
             }
         }
@@ -1565,13 +1569,22 @@ namespace qgrepControls.SearchWindow
             });
         }
 
-        public void ToggleGroupingBy()
+        public void ToggleGroupBy()
         {
             Dispatcher.Invoke(() =>
             {
                 Settings.Default.GroupingIndex = 1 - Settings.Default.GroupingIndex;
                 Settings.Default.Save();
                 UpdateFromSettings();
+            });
+        }
+
+        public void ToggleGroupExpand()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                OverrideExpansion = !(OverrideExpansion ?? CurrentExpansion);
+                SetTreeCollapsing(OverrideExpansion ?? false);
             });
         }
 

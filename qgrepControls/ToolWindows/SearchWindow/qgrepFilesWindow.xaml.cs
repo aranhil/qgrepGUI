@@ -174,7 +174,7 @@ namespace qgrepControls.SearchWindow
 
                         newSearchResults.Add(newSearchResult);
 
-                        if (newSearchResults.Count >= 100)
+                        if (newSearch && newSearchResults.Count >= 500)
                         {
                             AddResultsBatch(searchOptions);
                         }
@@ -453,6 +453,14 @@ namespace qgrepControls.SearchWindow
             }
 
             FiltersComboBox.Visibility = visibility;
+        }
+
+        public void OnErrorEvent(string message, SearchOptions searchOptions)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                ErrorLabel.Content = message;
+            });
         }
     }
 }

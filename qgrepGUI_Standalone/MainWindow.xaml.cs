@@ -125,9 +125,14 @@ namespace qgrepSearchTool_Standalone
             UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.ExtensionInterface, SearchWindow, true);
         }
 
-        private void ToggleGroupingBy_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void ToggleGroupBy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            SearchWindow.ToggleGroupingBy();
+            SearchWindow.ToggleGroupBy();
+        }
+
+        private void ToggleGroupExpand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleGroupExpand();
         }
     }
 }

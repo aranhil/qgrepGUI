@@ -65,6 +65,7 @@
                 <wpfTool:CheckComboBox IsTabStop="False" x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
                 </wpfTool:CheckComboBox>
                 <Label IsTabStop="False" x:Name="InfoLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
+                <Label IsTabStop="False" x:Name="ErrorLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
             </StackPanel>
         </Grid>
     </Grid>
