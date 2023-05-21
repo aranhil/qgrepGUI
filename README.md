@@ -62,7 +62,20 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 - Toggle filter results (Alt + F)
 - Open history (Alt + H)
 
-You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
+You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.## Changelog
+
+## Changelog
+### Version 2.5 (21/05/2023)
+
+- Added a new window to search for files using unordered keywords (Shortcut: Shift+Alt+I)
+- The fonts are now grabbed automatically from Visual Studio 
+- Added options to change the fonts and their size
+- Added options to change the results row heights
+- Added shortcut for "Group By" (Alt+G)
+- Added shortcut for expanding/collapsing the result groups (Alt+X)
+- The search errors thrown from qgrep are now shown
+- Fixed issues with the config selection combo box
+- Moved the windows menu items to the "View" menu
 
 ## License
 
