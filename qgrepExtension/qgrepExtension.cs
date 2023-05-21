@@ -310,6 +310,8 @@ namespace qgrepSearch
             bindings["ToggleExcludeFiles"] = GetBindingForCommand("ToggleExcludeFiles");
             bindings["ToggleFilterResults"] = GetBindingForCommand("ToggleFilterResults");
             bindings["ShowHistory"] = GetBindingForCommand("ShowHistory");
+            bindings["ToggleGroupBy"] = GetBindingForCommand("ToggleGroupBy");
+            bindings["ToggleGroupExpand"] = GetBindingForCommand("ToggleGroupExpand");
             return bindings;
         }
 
