@@ -44,7 +44,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ![Configs](https://github.com/aranhil/qgrepGUI/assets/755601/08dce467-3ac5-4120-8703-21a157ce97ed)
       
 ### Open file
-   You can also search for files using unordered keywords, using a different window that can be opened from **View >> qgrep Open File** or using the shortcut (Alt+Shift+I). You can change this shortcut as well, the command name is View.qgrepSearchFile.
+   You can also search for files using unordered keywords, using a different window that can be opened from **View >> qgrep Open File** or using the shortcut (Alt+Shift+I). You can change this shortcut as well, the command name is **View.qgrepSearchFile**.
    
    ![OpenFile](https://github.com/aranhil/qgrepGUI/assets/755601/3c8974e7-e93f-4c45-9732-64626ec6e9e0)
       
