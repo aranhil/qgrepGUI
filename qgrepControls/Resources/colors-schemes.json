@@ -61,7 +61,7 @@
             {
                 "Name": "Result.File.Foreground",
                 "Color": "CommonControls.ComboBoxText",
-                "Opacity": 0.8
+                "Opacity": 0.6
             },
             {
                 "Name": "Result.LineNo.Foreground",
