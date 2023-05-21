@@ -1,4 +1,4 @@
-### Version 2.5 (21/05/2023)
+### Version 2.6 (21/05/2023)
 
 - Added a new window to search for files using unordered keywords (Shortcut: Shift+Alt+I)
 - The fonts are now grabbed automatically from Visual Studio 
