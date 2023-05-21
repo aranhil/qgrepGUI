@@ -45,6 +45,8 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
       
 ### Open file
    You can also search for files using unordered keywords, using a different window that can be opened from **View >> qgrep Open File** or using the shortcut (Alt+Shift+I). You can change this shortcut as well, the command name is View.qgrepSearchFile.
+   
+   ![OpenFile](https://github.com/aranhil/qgrepGUI/assets/755601/3c8974e7-e93f-4c45-9732-64626ec6e9e0)
       
 ### Customize colors
    There are three color schemes available: **Auto**, **Dark**, and **Light**. The **Auto** color scheme grabs the IDE's colors automatically, so you can use any custom theme you want:
