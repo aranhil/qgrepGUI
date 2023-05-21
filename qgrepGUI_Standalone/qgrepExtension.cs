@@ -8,12 +8,15 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace qgrepGUI
 {
@@ -187,6 +190,60 @@ namespace qgrepGUI
         public string GetNormalFont()
         {
             return "";
+        }
+
+        [DllImport("Shell32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SHGetFileInfo(
+            string pszPath,
+            uint dwFileAttributes,
+            ref SHFILEINFO psfi,
+            uint cbFileInfo,
+            uint uFlags
+        );
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct SHFILEINFO
+        {
+            public IntPtr hIcon;
+            public int iIcon;
+            public uint dwAttributes;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string szDisplayName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+            public string szTypeName;
+        };
+
+        public const uint SHGFI_ICON = 0x000000100;     // get icon
+        public const uint SHGFI_LARGEICON = 0x000000000; // get large icon
+        public const uint SHGFI_SMALLICON = 0x000000001; // get small icon
+
+        public Icon GetFileIcon(string filePath)
+        {
+            SHFILEINFO shinfo = new SHFILEINFO();
+
+            IntPtr hImgSmall = SHGetFileInfo(filePath, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_SMALLICON);
+
+            Icon icon = Icon.FromHandle(shinfo.hIcon);
+
+            return icon;
+        }
+        public BitmapSource GetBitmapSourceFromIcon(Icon icon)
+        {
+            BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                System.Windows.Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            return bitmapSource;
+        }
+
+        public BitmapSource GetIcon(string document, uint background)
+        {
+            try
+            {
+                return GetBitmapSourceFromIcon(GetFileIcon(document));
+            }
+            catch { return null; }
         }
     }
 }
