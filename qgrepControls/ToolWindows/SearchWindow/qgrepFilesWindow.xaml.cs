@@ -114,8 +114,11 @@ namespace qgrepControls.SearchWindow
                 newSearch = true;
                 selectedSearchResult = null;
 
-                System.Windows.Media.Color color = (System.Windows.Media.Color)Resources["Background.Color"];
-                BackgroundColor = ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | color.B;
+                if(!ExtensionInterface.IsStandalone)
+                {
+                    System.Windows.Media.Color color = (System.Windows.Media.Color)Resources["Background.Color"];
+                    BackgroundColor = ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | color.B;
+                }
             });
         }
 
@@ -176,8 +179,9 @@ namespace qgrepControls.SearchWindow
                             HighlightedText = highlight,
                             EndText = endText,
                             FullResult = fileAndLine + beginText + highlight + endText,
-                            ImageSource = ExtensionInterface.GetIcon(file, BackgroundColor)
                         };
+
+                        ExtensionInterface.GetIcon(file, BackgroundColor, newSearchResult);
 
                         newSearchResults.Add(newSearchResult);
 

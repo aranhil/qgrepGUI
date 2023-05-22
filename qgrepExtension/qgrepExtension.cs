@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using qgrepControls;
 using qgrepControls.Classes;
+using qgrepControls.ModelViews;
 using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
@@ -402,42 +403,49 @@ namespace qgrepSearch
             return null;
         }
 
-        [Obsolete]
-        public BitmapSource GetIcon(string document, uint background)
+        private Dictionary<string, BitmapSource> iconCache = new Dictionary<string, BitmapSource>();
+
+        public void GetIcon(string filePath, uint background, SearchResult searchResult)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             try
             {
-                ImageMoniker imageMoniker = State.Package.ImageService.GetImageMonikerForFile(document);
+                string fileExtension = Path.GetExtension(filePath);
 
-                var atts = new ImageAttributes
+                if (iconCache.ContainsKey(fileExtension))
                 {
-                    StructSize = Marshal.SizeOf(typeof(ImageAttributes)),
-                    Format = (uint)_UIDataFormat.DF_WPF,
-                    LogicalHeight = 32,
-                    LogicalWidth = 32,
-                    Flags = (uint)_ImageAttributesFlags.IAF_RequiredFlags,
-                    ImageType = (uint)_UIImageType.IT_Bitmap,
-                    Background = background
-                };
-
-                unchecked
-                {
-                    atts.Flags |= (uint)-2147483648;
+                    searchResult.ImageSource = iconCache[fileExtension];
                 }
+                else
+                {
+                    ImageMoniker imageMoniker = State.Package.ImageService.GetImageMonikerForFile(filePath);
 
-                var obj = State.Package.ImageService.GetImage(imageMoniker, atts);
-                if (obj == null)
-                    return null;
+                    var atts = new ImageAttributes
+                    {
+                        StructSize = Marshal.SizeOf(typeof(ImageAttributes)),
+                        Format = (uint)_UIDataFormat.DF_WPF,
+                        LogicalHeight = 32,
+                        LogicalWidth = 32,
+                        Flags = (uint)_ImageAttributesFlags.IAF_RequiredFlags,
+                        ImageType = (uint)_UIImageType.IT_Bitmap,
+                        Background = background
+                    };
 
-                obj.get_Data(out object data);
+                    unchecked
+                    {
+                        atts.Flags |= (uint)-2147483648;
+                    }
 
-                return (BitmapSource)data;
+                    var obj = State.Package.ImageService.GetImage(imageMoniker, atts);
+                    if (obj == null)
+                        return;
+
+                    obj.get_Data(out object data);
+                    searchResult.ImageSource = (BitmapSource)data;
+                }
             }
             catch { }
-
-            return null;
         }
     }
 }

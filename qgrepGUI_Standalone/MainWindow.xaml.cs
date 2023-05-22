@@ -37,7 +37,7 @@ namespace qgrepGUI
             SearchWindow = new qgrepSearchWindowControl(new qgrepExtension(this));
             WindowContent.Children.Add(SearchWindow);
 
-            Dispatcher.Invoke(CheckForUpdates);
+            Task.Run(CheckForUpdates);
         }
 
         public async Task<string> GetLatestRelease()
@@ -245,7 +245,7 @@ namespace qgrepGUI
                 e.Cancel = true;
                 Hide();
 
-                Dispatcher.Invoke(DownloadLatestReleaseAsync);
+                Task.Run(DownloadLatestReleaseAsync);
             }
         }
     }

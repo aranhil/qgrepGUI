@@ -25,7 +25,20 @@ namespace qgrepControls.ModelViews
         public string HighlightedText { get; set; }
         public string FullResult { get; set; }
         public SearchResultGroup Parent { get; set; }
-        public BitmapSource ImageSource { get; set; }
+
+        public BitmapSource imageSource;
+        public BitmapSource ImageSource
+        {
+            get
+            {
+                return imageSource;
+            }
+            set
+            {
+                imageSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsSelected
         {

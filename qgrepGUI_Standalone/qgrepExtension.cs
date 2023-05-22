@@ -1,6 +1,7 @@
 ﻿using ControlzEx;
 using Newtonsoft.Json;
 using qgrepControls.Classes;
+using qgrepControls.ModelViews;
 using qgrepGUI.Properties;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +19,8 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using System.Xml.Linq;
 
 namespace qgrepGUI
 {
@@ -201,6 +205,9 @@ namespace qgrepGUI
             uint uFlags
         );
 
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool DestroyIcon(IntPtr hIcon);
+
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         public struct SHFILEINFO
         {
@@ -216,17 +223,61 @@ namespace qgrepGUI
         public const uint SHGFI_ICON = 0x000000100;     // get icon
         public const uint SHGFI_LARGEICON = 0x000000000; // get large icon
         public const uint SHGFI_SMALLICON = 0x000000001; // get small icon
+        public const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;
+        public const uint FILE_ATTRIBUTE_NORMAL = 0x00000080;
 
-        public Icon GetFileIcon(string filePath)
+        private Dictionary<string, BitmapSource> iconCache = new Dictionary<string, BitmapSource>();
+        private readonly object lockObject = new object();
+
+        public void GetFileIcon(string filePath, SearchResult searchResult)
         {
-            SHFILEINFO shinfo = new SHFILEINFO();
+            string fileExtension = Path.GetExtension(filePath);
 
-            IntPtr hImgSmall = SHGetFileInfo(filePath, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), SHGFI_ICON | SHGFI_SMALLICON);
+            if (iconCache.ContainsKey(fileExtension))
+            {
+                searchResult.ImageSource = iconCache[fileExtension];
+            }
+            else
+            {
+                Task.Run(() =>
+                {
+                    lock (lockObject)
+                    {
+                        BitmapSource iconSource = null;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            iconSource = iconCache.ContainsKey(fileExtension) ? iconCache[fileExtension] : null;
+                        });
 
-            Icon icon = Icon.FromHandle(shinfo.hIcon);
+                        if (iconSource != null)
+                        {
+                            searchResult.ImageSource = iconSource;
+                        }
+                        else
+                        {
+                            SHFILEINFO shfi = new SHFILEINFO();
+                            uint flags = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES | SHGFI_SMALLICON;
 
-            return icon;
+                            SHGetFileInfo(filePath, FILE_ATTRIBUTE_NORMAL, ref shfi, (uint)System.Runtime.InteropServices.Marshal.SizeOf(shfi), flags);
+                            System.Drawing.Icon icon = (System.Drawing.Icon)System.Drawing.Icon.FromHandle(shfi.hIcon).Clone();
+
+                            DestroyIcon(shfi.hIcon);
+
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                if (icon != null)
+                                {
+                                    iconCache[fileExtension] = GetBitmapSourceFromIcon(icon);
+                                }
+
+                                searchResult.ImageSource = iconCache[fileExtension];
+                            });
+                        }
+                    }
+                });
+            }
         }
+
         public BitmapSource GetBitmapSourceFromIcon(Icon icon)
         {
             BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHIcon(
@@ -237,13 +288,13 @@ namespace qgrepGUI
             return bitmapSource;
         }
 
-        public BitmapSource GetIcon(string document, uint background)
+        public void GetIcon(string document, uint background, SearchResult searchResult)
         {
             try
             {
-                return GetBitmapSourceFromIcon(GetFileIcon(document));
+                GetFileIcon(document, searchResult);
             }
-            catch { return null; }
+            catch { }
         }
     }
 }

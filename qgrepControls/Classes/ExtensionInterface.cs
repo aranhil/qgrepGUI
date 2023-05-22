@@ -1,4 +1,5 @@
-﻿using System;
+﻿using qgrepControls.ModelViews;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
@@ -23,6 +24,6 @@ namespace qgrepControls.Classes
         void ApplyKeyBindings(Dictionary<string, Hotkey> bindings);
         void SaveKeyBindings(Dictionary<string, Hotkey> bindings);
         System.Windows.Window GetMainWindow();
-        BitmapSource GetIcon(string document, uint background);
+        void GetIcon(string filePath, uint background, SearchResult searchResult);
     }
 }
