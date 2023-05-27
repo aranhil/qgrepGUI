@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Packaging;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -64,7 +65,56 @@ namespace qgrepSearch
         public string GetSelectedText()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            return (State.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.Text ?? "";
+
+            string currentlySelectedText = (State.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.Text ?? "";
+            if(currentlySelectedText.Length == 0)
+            {
+                EnvDTE.TextDocument textDoc = (EnvDTE.TextDocument)State.DTE?.ActiveDocument?.Object("TextDocument");
+                EnvDTE.TextSelection selection = textDoc?.Selection;
+
+                if (selection != null)
+                {
+                    // Save the current position
+                    int line = selection.ActivePoint.Line;
+                    int offset = selection.ActivePoint.LineCharOffset;
+
+                    string wordLeft = "";
+
+                    selection.WordLeft();
+                    if (selection.ActivePoint.Line != line || selection.ActivePoint.LineCharOffset != offset)
+                    {
+                        selection.WordRight(true);
+                        wordLeft = selection.Text.Trim();
+
+                        selection.MoveToLineAndOffset(line, offset);
+                    }
+
+                    if(wordLeft.Any(c => Char.IsLetterOrDigit(c)))
+                    {
+                        return wordLeft;
+                    }
+
+                    string wordRight = "";
+
+                    selection.WordRight();
+                    if (selection.ActivePoint.Line != line || selection.ActivePoint.LineCharOffset != offset)
+                    {
+                        selection.WordLeft(true);
+                        wordRight = selection.Text.Trim();
+
+                        selection.MoveToLineAndOffset(line, offset);
+
+                        if(wordRight.Any(c => Char.IsLetterOrDigit(c)))
+                        {
+                            return wordRight;
+                        }
+                    }
+
+                    return "";
+                }
+            }
+
+            return currentlySelectedText;
         }
 
         public string GetSolutionPath()
