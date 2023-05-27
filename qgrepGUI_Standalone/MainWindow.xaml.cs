@@ -225,7 +225,7 @@ namespace qgrepGUI
         private void OpenFileSearch_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new StandaloneWrapper(this));
-            UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.ExtensionInterface, SearchWindow, true);
+            UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.WrapperApp, SearchWindow, true);
         }
 
         private void ToggleGroupBy_Executed(object sender, ExecutedRoutedEventArgs e)
