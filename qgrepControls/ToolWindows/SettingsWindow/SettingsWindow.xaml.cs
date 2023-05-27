@@ -29,7 +29,7 @@ namespace qgrepControls.SearchWindow
             PathStyleComboBox.SelectedIndex = Settings.Default.PathStyleIndex;
             ExpandModeComboBox.SelectedIndex = Settings.Default.ExpandModeIndex;
 
-            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.ExtensionInterface);
+            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.WrapperApp);
             UpdateShortcutHints();
         }
 

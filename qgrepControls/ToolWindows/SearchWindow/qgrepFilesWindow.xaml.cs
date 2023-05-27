@@ -33,19 +33,19 @@ namespace qgrepControls.SearchWindow
 {
     public partial class qgrepFilesWindowControl : UserControl, ISearchEngineEventsHandler
     {
-        public IExtensionInterface ExtensionInterface;
+        public IWrapperApp WrapperApp;
 
-        public qgrepFilesWindowControl(IExtensionInterface extensionInterface)
+        public qgrepFilesWindowControl(IWrapperApp WrapperApp)
         {
             InitializeComponent();
 
             IncludeFilesInput.Focus();
 
-            ExtensionInterface = extensionInterface;
-            ConfigParser.Init(extensionInterface.GetSolutionPath(Settings.Default.UseGlobalPath));
+            this.WrapperApp = WrapperApp;
+            ConfigParser.Init(WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath));
 
-            ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface, false);
-            ThemeHelper.UpdateFontFromSettings(this, extensionInterface);
+            ThemeHelper.UpdateColorsFromSettings(this, WrapperApp, false);
+            ThemeHelper.UpdateFontFromSettings(this, WrapperApp);
 
             SearchEngine.Instance.StartUpdateCallback += HandleUpdateStart;
             SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
@@ -130,7 +130,7 @@ namespace qgrepControls.SearchWindow
                 newSearch = true;
                 selectedSearchResult = null;
 
-                if(!ExtensionInterface.IsStandalone)
+                if(!WrapperApp.IsStandalone)
                 {
                     System.Windows.Media.Color color = (System.Windows.Media.Color)Resources["Background.Color"];
                     BackgroundColor = ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | color.B;
@@ -231,7 +231,7 @@ namespace qgrepControls.SearchWindow
                             FullResult = fileAndLine + beginText + highlight + endText,
                         };
 
-                        ExtensionInterface.GetIcon(file, BackgroundColor, newSearchResult);
+                        WrapperApp.GetIcon(file, BackgroundColor, newSearchResult);
 
                         newSearchResults.Add(newSearchResult);
 
@@ -328,7 +328,7 @@ namespace qgrepControls.SearchWindow
                 mainWindow.Close();
             }
 
-            ExtensionInterface.OpenFile(result.FileAndLine, "0");
+            WrapperApp.OpenFile(result.FileAndLine, "0");
         }
 
         private void MenuGoTo_Click(object sender, RoutedEventArgs e)

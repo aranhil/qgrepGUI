@@ -42,19 +42,19 @@ namespace qgrepControls.Classes
             ColorSchemes = JsonConvert.DeserializeObject<ColorScheme[]>(colorSchemesJson);
         }
 
-        public static Dictionary<string, object> GetResourcesFromColorScheme(IExtensionInterface ExtensionInterface)
+        public static Dictionary<string, object> GetResourcesFromColorScheme(IWrapperApp WrapperApp)
         {
             if(Instance.CachedResources == null)
             {
-                UpdateResourcesFromColorScheme(ExtensionInterface);
+                UpdateResourcesFromColorScheme(WrapperApp);
             }
 
             return Instance.CachedResources;
         }
 
-        public static void UpdateResourcesFromColorScheme(IExtensionInterface ExtensionInterface)
+        public static void UpdateResourcesFromColorScheme(IWrapperApp WrapperApp)
         {
-            if (ExtensionInterface.IsStandalone && Settings.Default.ColorScheme == 0)
+            if (WrapperApp.IsStandalone && Settings.Default.ColorScheme == 0)
             {
                 Settings.Default.ColorScheme = 1;
                 Settings.Default.Save();
@@ -71,7 +71,7 @@ namespace qgrepControls.Classes
                 }
                 foreach (VsColorEntry colorEntry in Instance.ColorSchemes[Settings.Default.ColorScheme].VsColorEntries)
                 {
-                    brushes[colorEntry.Name] = new SolidColorBrush(ConvertColor(ExtensionInterface.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
+                    brushes[colorEntry.Name] = new SolidColorBrush(ConvertColor(WrapperApp.GetColor(colorEntry.Color))) { Opacity = colorEntry.Opacity };
                 }
 
                 try
@@ -102,9 +102,9 @@ namespace qgrepControls.Classes
             Instance.CachedResources = resources;
         }
 
-        public static void UpdateColorsFromSettings(FrameworkElement userControl, IExtensionInterface ExtensionInterface, bool isMainWindow = true)
+        public static void UpdateColorsFromSettings(FrameworkElement userControl, IWrapperApp WrapperApp, bool isMainWindow = true)
         {
-            Dictionary<string, object> resources = GetResourcesFromColorScheme(ExtensionInterface);
+            Dictionary<string, object> resources = GetResourcesFromColorScheme(WrapperApp);
             MainWindow wrapperWindow = isMainWindow ? UIHelper.FindAncestor<MainWindow>(userControl) : null;
 
             foreach (var resource in resources)
@@ -118,9 +118,9 @@ namespace qgrepControls.Classes
             }
         }
 
-        public static void UpdateFontFromSettings(FrameworkElement userControl, IExtensionInterface ExtensionInterface)
+        public static void UpdateFontFromSettings(FrameworkElement userControl, IWrapperApp WrapperApp)
         {
-            if (ExtensionInterface.IsStandalone && Settings.Default.MonospaceFontFamily.Equals("Auto"))
+            if (WrapperApp.IsStandalone && Settings.Default.MonospaceFontFamily.Equals("Auto"))
             {
                 string defaultFont = "Consolas";
                 if (Fonts.SystemFontFamilies.Any(fontFamily => fontFamily.Source.Equals("Cascadia Mono", StringComparison.OrdinalIgnoreCase)))
@@ -132,7 +132,7 @@ namespace qgrepControls.Classes
                 Settings.Default.Save();
             }
 
-            if (ExtensionInterface.IsStandalone && Settings.Default.NormalFontFamily.Equals("Auto"))
+            if (WrapperApp.IsStandalone && Settings.Default.NormalFontFamily.Equals("Auto"))
             {
                 string defaultFont = "Arial";
                 if (Fonts.SystemFontFamilies.Any(fontFamily => fontFamily.Source.Equals("Segoe UI", StringComparison.OrdinalIgnoreCase)))
@@ -146,7 +146,7 @@ namespace qgrepControls.Classes
 
             if (Settings.Default.MonospaceFontFamily.Equals("Auto"))
             {
-                userControl.Resources["MonospacedFontFamily"] = new FontFamily(ExtensionInterface.GetMonospaceFont());
+                userControl.Resources["MonospacedFontFamily"] = new FontFamily(WrapperApp.GetMonospaceFont());
             }
             else
             {
@@ -157,7 +157,7 @@ namespace qgrepControls.Classes
 
             if (Settings.Default.NormalFontFamily.Equals("Auto"))
             {
-                userControl.Resources["NormalFontFamily"] = new FontFamily(ExtensionInterface.GetNormalFont());
+                userControl.Resources["NormalFontFamily"] = new FontFamily(WrapperApp.GetNormalFont());
             }
             else
             {

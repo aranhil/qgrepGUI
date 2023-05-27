@@ -101,8 +101,8 @@ namespace qgrepSearch
                 //grepPackage.FileSearchOpened = true;
             }
 
-            qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new qgrepExtension(qgrepPackage.GetWindowState()));
-            UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.ExtensionInterface, null, true);
+            qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new VisualStudioWrapper(qgrepPackage.GetExtensionData()));
+            UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.WrapperApp, null, true);
         }
     }
 }

@@ -81,13 +81,13 @@ namespace qgrepControls.ColorsWindow
 
             foreach (ColorScheme colorScheme in ThemeHelper.Instance.ColorSchemes)
             {
-                if (SearchWindow.ExtensionInterface.IsStandalone && colorScheme.Name == "Auto")
+                if (SearchWindow.WrapperApp.IsStandalone && colorScheme.Name == "Auto")
                     continue;
 
                 ColorSchemeComboBox.Items.Add(new ComboBoxItem() { Content = colorScheme.Name, });
             }
 
-            if(!SearchWindow.ExtensionInterface.IsStandalone)
+            if(!SearchWindow.WrapperApp.IsStandalone)
             {
                 NormalFontComboBox.Items.Add(new ComboBoxItem() { Content = "Auto" });
                 MonospaceFontComboBox.Items.Add(new ComboBoxItem() { Content = "Auto" });
@@ -124,7 +124,7 @@ namespace qgrepControls.ColorsWindow
             GroupHeightTextBox.Text = Settings.Default.GroupHeight.ToString();
             LineHeightTextBox.Text = Settings.Default.LineHeight.ToString();
 
-            ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (SearchWindow.ExtensionInterface.IsStandalone ? 1 : 0);
+            ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (SearchWindow.WrapperApp.IsStandalone ? 1 : 0);
 
             ColorsListBox.ItemEditType = ConfigListBox.EditType.Custom;
             ColorsListBox.Title.Text = "Color overrides";
@@ -136,7 +136,7 @@ namespace qgrepControls.ColorsWindow
             ColorsListBox.OnEditClicked += EditColor_Click;
             ColorsListBox.IsDeselectable = true;
 
-            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.ExtensionInterface);
+            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.WrapperApp);
         }
 
         private void EditColor_Click()
@@ -157,10 +157,10 @@ namespace qgrepControls.ColorsWindow
             Settings.Default.Save();
 
             ThemeHelper.ClearCache();
-            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.ExtensionInterface);
-            ThemeHelper.UpdateColorsFromSettings(ColorsListBox, SearchWindow.ExtensionInterface, false);
-            ThemeHelper.UpdateColorsFromSettings(SearchWindow, SearchWindow.ExtensionInterface);
-            SearchWindow.ExtensionInterface.RefreshResources(ThemeHelper.GetResourcesFromColorScheme(SearchWindow.ExtensionInterface));
+            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.WrapperApp);
+            ThemeHelper.UpdateColorsFromSettings(ColorsListBox, SearchWindow.WrapperApp, false);
+            ThemeHelper.UpdateColorsFromSettings(SearchWindow, SearchWindow.WrapperApp);
+            SearchWindow.WrapperApp.RefreshResources(ThemeHelper.GetResourcesFromColorScheme(SearchWindow.WrapperApp));
         }
 
         private void AddNewColor_Click(object sender, RoutedEventArgs e)
@@ -202,7 +202,7 @@ namespace qgrepControls.ColorsWindow
 
         private void ColorSchemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (SearchWindow.ExtensionInterface.IsStandalone ? 1 : 0);
+            Settings.Default.ColorScheme = ColorSchemeComboBox.SelectedIndex + (SearchWindow.WrapperApp.IsStandalone ? 1 : 0);
             SaveToSettings();
 
             CurrentColorOverrides.CollectionChanged -= ColorOverrides_CollectionChanged;
@@ -246,7 +246,7 @@ namespace qgrepControls.ColorsWindow
             {
                 if (!uniqueColors.Exists(x => x.Name == colorEntry.Name))
                 {
-                    System.Drawing.Color extensionColor = SearchWindow.ExtensionInterface.GetColor(colorEntry.Color);
+                    System.Drawing.Color extensionColor = SearchWindow.WrapperApp.GetColor(colorEntry.Color);
 
                     if (uniqueColors.Count == 0)
                     {
@@ -286,7 +286,7 @@ namespace qgrepControls.ColorsWindow
                 overrideWindow.OverrideColor.SelectedColor = ThemeHelper.ConvertColor(selectedItem.Color);
             }
 
-            MainWindow overrideDialog = UIHelper.CreateWindow(overrideWindow, isEditing ? "Edit color override" : "Add color override", SearchWindow.ExtensionInterface, this);
+            MainWindow overrideDialog = UIHelper.CreateWindow(overrideWindow, isEditing ? "Edit color override" : "Add color override", SearchWindow.WrapperApp, this);
             overrideWindow.Dialog = overrideDialog;
             overrideDialog.ShowDialog();
             return overrideWindow;
@@ -297,7 +297,7 @@ namespace qgrepControls.ColorsWindow
             Settings.Default.MonospaceFontFamily = (MonospaceFontComboBox.SelectedItem as ComboBoxItem).Content as string;
             Settings.Default.Save();
 
-            ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.ExtensionInterface);
+            ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.WrapperApp);
         }
 
         private void NormalFontComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -305,7 +305,7 @@ namespace qgrepControls.ColorsWindow
             Settings.Default.NormalFontFamily = (NormalFontComboBox.SelectedItem as ComboBoxItem).Content as string;
             Settings.Default.Save();
 
-            ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.ExtensionInterface);
+            ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.WrapperApp);
         }
 
         private void NormalFontTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -316,7 +316,7 @@ namespace qgrepControls.ColorsWindow
                 Settings.Default.NormalFontSize = value;
                 Settings.Default.Save();
 
-                ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.ExtensionInterface);
+                ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.WrapperApp);
             }
         }
 
@@ -328,7 +328,7 @@ namespace qgrepControls.ColorsWindow
                 Settings.Default.MonospaceFontSize = value;
                 Settings.Default.Save();
 
-                ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.ExtensionInterface);
+                ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.WrapperApp);
             }
         }
 
@@ -340,7 +340,7 @@ namespace qgrepControls.ColorsWindow
                 Settings.Default.GroupHeight = value;
                 Settings.Default.Save();
 
-                ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.ExtensionInterface);
+                ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.WrapperApp);
             }
         }
 
@@ -352,7 +352,7 @@ namespace qgrepControls.ColorsWindow
                 Settings.Default.LineHeight = value;
                 Settings.Default.Save();
 
-                ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.ExtensionInterface);
+                ThemeHelper.UpdateFontFromSettings(SearchWindow, SearchWindow.WrapperApp);
             }
         }
     }

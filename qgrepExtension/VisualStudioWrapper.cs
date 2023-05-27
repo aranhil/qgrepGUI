@@ -28,11 +28,11 @@ using System.Windows.Media.Imaging;
 
 namespace qgrepSearch
 {
-    public class qgrepExtension : IExtensionInterface
+    public class VisualStudioWrapper: IWrapperApp
     {
-        private qgrepSearchWindowState State;
+        private ExtensionData State;
 
-        public qgrepExtension(qgrepSearchWindowState windowState)
+        public VisualStudioWrapper(ExtensionData windowState)
         {
             State = windowState;
         }
@@ -54,7 +54,7 @@ namespace qgrepSearch
             }
         }
 
-        bool IExtensionInterface.IsStandalone
+        bool IWrapperApp.IsStandalone
         {
             get
             {
@@ -126,7 +126,7 @@ namespace qgrepSearch
             return currentlySelectedText;
         }
 
-        public string GetSolutionPath(bool useGlobalPath)
+        public string GetConfigPath(bool useGlobalPath)
         {
             if(useGlobalPath)
             {

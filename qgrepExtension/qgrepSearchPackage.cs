@@ -77,8 +77,8 @@ namespace qgrepSearch
                 if (searchWindowControl != null)
                 {
                     ThemeHelper.ClearCache();
-                    ThemeHelper.UpdateColorsFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
-                    ThemeHelper.UpdateFontFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
+                    ThemeHelper.UpdateColorsFromSettings(searchWindowControl, searchWindowControl.WrapperApp);
+                    ThemeHelper.UpdateFontFromSettings(searchWindowControl, searchWindowControl.WrapperApp);
                 }
             }
         }
@@ -122,12 +122,12 @@ namespace qgrepSearch
             await Task.CompletedTask;
 
             toolWindowId = id;
-            return GetWindowState();
+            return GetExtensionData();
         }
 
-        public qgrepSearchWindowState GetWindowState()
+        public ExtensionData GetExtensionData()
         {
-            return new qgrepSearchWindowState
+            return new ExtensionData
             {
                 DTE = DTE,
                 Package = this
@@ -227,8 +227,8 @@ namespace qgrepSearch
                 if (searchWindowControl != null)
                 {
                     ThemeHelper.ClearCache();
-                    ThemeHelper.UpdateColorsFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
-                    ThemeHelper.UpdateFontFromSettings(searchWindowControl, searchWindowControl.ExtensionInterface);
+                    ThemeHelper.UpdateColorsFromSettings(searchWindowControl, searchWindowControl.WrapperApp);
+                    ThemeHelper.UpdateFontFromSettings(searchWindowControl, searchWindowControl.WrapperApp);
                 }
             }
         }

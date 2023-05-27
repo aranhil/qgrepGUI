@@ -24,10 +24,10 @@ using System.Xml.Linq;
 
 namespace qgrepGUI
 {
-    class qgrepExtension : IExtensionInterface
+    class StandaloneWrapper : IWrapperApp
     {
         Window Window;
-        public qgrepExtension(Window window)
+        public StandaloneWrapper(Window window)
         {
             Window = window;
         }
@@ -56,7 +56,7 @@ namespace qgrepGUI
             return "";
         }
 
-        public string GetSolutionPath(bool useGlobalPath)
+        public string GetConfigPath(bool useGlobalPath)
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string appFolderPath = Path.Combine(appDataPath, "qgrepSearch");

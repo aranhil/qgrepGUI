@@ -20,7 +20,7 @@ namespace qgrepControls.SearchWindow
             this.SearchWindow = SearchWindow;
             InitializeComponent();
 
-            Dictionary<string, Hotkey> bindings = SearchWindow.ExtensionInterface.ReadKeyBindings();
+            Dictionary<string, Hotkey> bindings = SearchWindow.WrapperApp.ReadKeyBindings();
             ToggleCaseSensitive.Hotkey = new Classes.Hotkey(bindings[ToggleCaseSensitive.Name].Key, bindings[ToggleCaseSensitive.Name].Modifiers);
             ToggleWholeWord.Hotkey = new Classes.Hotkey(bindings[ToggleWholeWord.Name].Key, bindings[ToggleWholeWord.Name].Modifiers);
             ToggleRegEx.Hotkey = new Classes.Hotkey(bindings[ToggleRegEx.Name].Key, bindings[ToggleRegEx.Name].Modifiers);

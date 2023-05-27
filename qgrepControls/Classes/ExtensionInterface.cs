@@ -8,9 +8,9 @@ using System.Windows.Media.Imaging;
 
 namespace qgrepControls.Classes
 {
-    public interface IExtensionInterface
+    public interface IWrapperApp
     {
-        string GetSolutionPath(bool useGlobalPath);
+        string GetConfigPath(bool useGlobalPath);
         void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback);
         void OpenFile(string path, string line);
         string GetSelectedText();

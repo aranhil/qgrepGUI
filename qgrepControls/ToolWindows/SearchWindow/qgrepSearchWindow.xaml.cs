@@ -52,7 +52,7 @@ namespace qgrepControls.SearchWindow
 
     public partial class qgrepSearchWindowControl : UserControl, ISearchEngineEventsHandler
     {
-        public IExtensionInterface ExtensionInterface;
+        public IWrapperApp WrapperApp;
         public Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
 
         private string LastResults = "";
@@ -67,9 +67,9 @@ namespace qgrepControls.SearchWindow
 
         CacheUsageType CacheUsageType = CacheUsageType.Normal;
 
-        public qgrepSearchWindowControl(IExtensionInterface extensionInterface)
+        public qgrepSearchWindowControl(IWrapperApp WrapperApp)
         {
-            ExtensionInterface = extensionInterface;
+            this.WrapperApp = WrapperApp;
 
             SearchEngine.Instance.StartUpdateCallback += HandleUpdateStart;
             SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
@@ -109,9 +109,9 @@ namespace qgrepControls.SearchWindow
 
             SolutionLoaded();
 
-            ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface, false);
-            ThemeHelper.UpdateFontFromSettings(this, ExtensionInterface);
-            ExtensionInterface.RefreshResources(ThemeHelper.GetResourcesFromColorScheme(ExtensionInterface));
+            ThemeHelper.UpdateColorsFromSettings(this, WrapperApp, false);
+            ThemeHelper.UpdateFontFromSettings(this, WrapperApp);
+            WrapperApp.RefreshResources(ThemeHelper.GetResourcesFromColorScheme(WrapperApp));
 
             UpdateFromSettings();
 
@@ -123,10 +123,10 @@ namespace qgrepControls.SearchWindow
             SearchItemsListBox.Focusable = true;
             SearchItemsTreeView.Focusable = true;
 
-            bindings = ExtensionInterface.ReadKeyBindings();
-            extensionInterface.ApplyKeyBindings(bindings);
+            bindings = WrapperApp.ReadKeyBindings();
+            WrapperApp.ApplyKeyBindings(bindings);
 
-            KeyboardButton.Visibility = ExtensionInterface.IsStandalone ? Visibility.Visible : Visibility.Collapsed;
+            KeyboardButton.Visibility = WrapperApp.IsStandalone ? Visibility.Visible : Visibility.Collapsed;
             UpdateShortcutHints();
         }
 
@@ -290,7 +290,7 @@ namespace qgrepControls.SearchWindow
 
         public void SolutionLoaded()
         {
-            string solutionPath = ExtensionInterface.GetSolutionPath(Settings.Default.UseGlobalPath);
+            string solutionPath = WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath);
             if(solutionPath.Length > 0)
             {
                 ConfigParser.Init(solutionPath);
@@ -728,7 +728,7 @@ namespace qgrepControls.SearchWindow
                     string file = result.FileAndLine.Substring(0, lastIndex);
                     string line = result.FileAndLine.Substring(lastIndex + 1, result.FileAndLine.Length - lastIndex - 2);
 
-                    ExtensionInterface.OpenFile(file, line);
+                    WrapperApp.OpenFile(file, line);
                     AddOpenToHistory(file, line);
                 }
                 catch (Exception)
@@ -737,12 +737,12 @@ namespace qgrepControls.SearchWindow
             }
             else
             {
-                ExtensionInterface.OpenFile(result.FullResult, "0");
+                WrapperApp.OpenFile(result.FullResult, "0");
             }
         }
         private void OpenSearchGroup(SearchResultGroup result)
         {
-            ExtensionInterface.OpenFile(result.File, "0");
+            WrapperApp.OpenFile(result.File, "0");
             AddOpenToHistory(result.File, "0");
         }
 
@@ -904,7 +904,7 @@ namespace qgrepControls.SearchWindow
             ConfigParser.SaveOldCopy();
 
             ProjectsWindow newProjectsWindow = new ProjectsWindow(this);
-            UIHelper.CreateWindow(newProjectsWindow, "Search configurations", ExtensionInterface, this, true).ShowDialog();
+            UIHelper.CreateWindow(newProjectsWindow, "Search configurations", WrapperApp, this, true).ShowDialog();
 
             ConfigParser.SaveConfig();
 
@@ -921,7 +921,7 @@ namespace qgrepControls.SearchWindow
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            UIHelper.CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", ExtensionInterface, this).ShowDialog();
+            UIHelper.CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", WrapperApp, this).ShowDialog();
         }
 
         private void AddSearchToHistory(string searchedString)
@@ -981,11 +981,11 @@ namespace qgrepControls.SearchWindow
 
         private void UserControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (ExtensionInterface.SearchWindowOpened)
+            if (WrapperApp.SearchWindowOpened)
             {
                 SearchInput.Focus();
 
-                string selectedText = ExtensionInterface.GetSelectedText();
+                string selectedText = WrapperApp.GetSelectedText();
                 if (selectedText.Length > 0)
                 {
                     SearchInput.Text = selectedText;
@@ -1189,7 +1189,7 @@ namespace qgrepControls.SearchWindow
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            UIHelper.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Theme settings", ExtensionInterface, this, true).ShowDialog();
+            UIHelper.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Theme settings", WrapperApp, this, true).ShowDialog();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)
@@ -1412,7 +1412,7 @@ namespace qgrepControls.SearchWindow
                 HistoricOpen historicOpen = listBoxItem.Content as HistoricOpen;
                 if(historicOpen != null)
                 {
-                    ExtensionInterface.OpenFile(historicOpen.OpenedPath, historicOpen.OpenedLine);
+                    WrapperApp.OpenFile(historicOpen.OpenedPath, historicOpen.OpenedLine);
                     AddOpenToHistory(historicOpen.OpenedPath, historicOpen.OpenedLine);
                 }
             }
@@ -1599,15 +1599,15 @@ namespace qgrepControls.SearchWindow
         private void KeyboardButton_Click(object sender, RoutedEventArgs e)
         {
             HotkeysWindow hotkeysWindow = new HotkeysWindow(this);
-            MainWindow hotkeysDialog = UIHelper.CreateWindow(hotkeysWindow, "Edit hotkeys", ExtensionInterface, this);
+            MainWindow hotkeysDialog = UIHelper.CreateWindow(hotkeysWindow, "Edit hotkeys", WrapperApp, this);
             hotkeysWindow.Dialog = hotkeysDialog;
             hotkeysDialog.ShowDialog();
 
             if (hotkeysWindow.IsOk)
             {
                 bindings = hotkeysWindow.GetBindings();
-                ExtensionInterface.SaveKeyBindings(bindings);
-                ExtensionInterface.ApplyKeyBindings(bindings);
+                WrapperApp.SaveKeyBindings(bindings);
+                WrapperApp.ApplyKeyBindings(bindings);
                 UpdateShortcutHints();
             }
         }

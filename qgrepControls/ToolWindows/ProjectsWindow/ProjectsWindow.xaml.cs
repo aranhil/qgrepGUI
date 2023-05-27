@@ -72,13 +72,13 @@ namespace qgrepControls.SearchWindow
 
             LoadFromConfig();
 
-            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.ExtensionInterface);
-            ThemeHelper.UpdateColorsFromSettings(ProjectsListBox, SearchWindow.ExtensionInterface, false);
-            ThemeHelper.UpdateColorsFromSettings(GroupsListBox, SearchWindow.ExtensionInterface, false);
-            ThemeHelper.UpdateColorsFromSettings(PathsListBox, SearchWindow.ExtensionInterface, false);
-            ThemeHelper.UpdateColorsFromSettings(RulesListBox, SearchWindow.ExtensionInterface, false);
+            ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.WrapperApp);
+            ThemeHelper.UpdateColorsFromSettings(ProjectsListBox, SearchWindow.WrapperApp, false);
+            ThemeHelper.UpdateColorsFromSettings(GroupsListBox, SearchWindow.WrapperApp, false);
+            ThemeHelper.UpdateColorsFromSettings(PathsListBox, SearchWindow.WrapperApp, false);
+            ThemeHelper.UpdateColorsFromSettings(RulesListBox, SearchWindow.WrapperApp, false);
 
-            if (SearchWindow.ExtensionInterface.IsStandalone)
+            if (SearchWindow.WrapperApp.IsStandalone)
             {
                 AutomaticPopulation.Visibility = Visibility.Collapsed;
             }
@@ -88,9 +88,9 @@ namespace qgrepControls.SearchWindow
 
         private void AddNewRule_Click(object sender, RoutedEventArgs e)
         {
-            RuleWindow ruleWindow = new RuleWindow(SearchWindow.ExtensionInterface);
+            RuleWindow ruleWindow = new RuleWindow(SearchWindow.WrapperApp);
 
-            MainWindow ruleDialog = UIHelper.CreateWindow(ruleWindow, "Add filter", SearchWindow.ExtensionInterface, this);
+            MainWindow ruleDialog = UIHelper.CreateWindow(ruleWindow, "Add filter", SearchWindow.WrapperApp, this);
             ruleWindow.Dialog = ruleDialog;
             ruleDialog.ShowDialog();
 
@@ -114,13 +114,13 @@ namespace qgrepControls.SearchWindow
         {
             SearchRule searchRule = RulesListBox.InnerListBox.SelectedItem as SearchRule;
 
-            RuleWindow ruleWindow = new RuleWindow(SearchWindow.ExtensionInterface);
+            RuleWindow ruleWindow = new RuleWindow(SearchWindow.WrapperApp);
             ruleWindow.RuleType.SelectedIndex = searchRule.IsExclude ? 1 : 0;
             ruleWindow.RegExTextBox.Text = searchRule.RegEx;
             ruleWindow.RegExTextBox.SelectAll();
             ruleWindow.RegExTextBox.Focus();
 
-            MainWindow ruleDialog = UIHelper.CreateWindow(ruleWindow, "Edit rule", SearchWindow.ExtensionInterface, this);
+            MainWindow ruleDialog = UIHelper.CreateWindow(ruleWindow, "Edit rule", SearchWindow.WrapperApp, this);
             ruleWindow.Dialog = ruleDialog;
             ruleDialog.ShowDialog();
 
@@ -321,7 +321,7 @@ namespace qgrepControls.SearchWindow
             AutomaticPopulation.IsEnabled = !IsAutomaticPopulationBusy && GroupsListBox.InnerListBox.SelectedItems.Count == 1;
             AutomaticProgress.Visibility = IsAutomaticPopulationBusy ? Visibility.Visible : Visibility.Collapsed;
             StopButton.Visibility = IsAutomaticPopulationBusy ? Visibility.Visible : Visibility.Collapsed;
-            UseGlobalPath.Visibility = !SearchWindow.ExtensionInterface.IsStandalone && isAdvanced ? Visibility.Visible : Visibility.Collapsed;
+            UseGlobalPath.Visibility = !SearchWindow.WrapperApp.IsStandalone && isAdvanced ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void AdvancedToggle_Click(object sender, RoutedEventArgs e)
@@ -355,7 +355,7 @@ namespace qgrepControls.SearchWindow
 
             Task.Run(() =>
             {
-                SearchWindow.ExtensionInterface.GatherAllFoldersAndExtensionsFromSolution(HandleAutomaticNewExtension, HandleAutomaticNewFolder);
+                SearchWindow.WrapperApp.GatherAllFoldersAndExtensionsFromSolution(HandleAutomaticNewExtension, HandleAutomaticNewFolder);
 
                 Dispatcher.Invoke(() =>
                 {
@@ -457,7 +457,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.UseGlobalPath = UseGlobalPath.IsChecked ?? false;
             Settings.Default.Save();
 
-            ConfigParser.Init(SearchWindow.ExtensionInterface.GetSolutionPath(Settings.Default.UseGlobalPath));
+            ConfigParser.Init(SearchWindow.WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath));
             LoadFromConfig();
         }
     }

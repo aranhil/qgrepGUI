@@ -14,10 +14,10 @@ namespace qgrepControls.SearchWindow
         public delegate void Callback(bool accepted);
         public bool IsOK = false;
  
-        public RuleWindow(IExtensionInterface ExtensionInterface)
+        public RuleWindow(IWrapperApp WrapperApp)
         {
             InitializeComponent();
-            ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface);
+            ThemeHelper.UpdateColorsFromSettings(this, WrapperApp);
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)

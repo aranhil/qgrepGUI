@@ -39,7 +39,7 @@ namespace qgrepControls.Classes
             return null;
         }
 
-        public static MainWindow CreateWindow(UserControl userControl, string title, IExtensionInterface ExtensionInterface, Control owner, bool resizeable = false)
+        public static MainWindow CreateWindow(UserControl userControl, string title, IWrapperApp WrapperApp, Control owner, bool resizeable = false)
         {
             MainWindow newWindow = new MainWindow
             {
@@ -49,7 +49,7 @@ namespace qgrepControls.Classes
                 ResizeMode = resizeable ? ResizeMode.CanResizeWithGrip : ResizeMode.NoResize,
                 Width = userControl.Width + 37,
                 Height = userControl.Height + 37,
-                Owner = UIHelper.FindAncestor<Window>(owner) ?? ExtensionInterface.GetMainWindow(),
+                Owner = UIHelper.FindAncestor<Window>(owner) ?? WrapperApp.GetMainWindow(),
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
             };
 
@@ -59,7 +59,7 @@ namespace qgrepControls.Classes
                 userControl.Height = double.NaN;
             }
 
-            Dictionary<string, object> resources = ThemeHelper.GetResourcesFromColorScheme(ExtensionInterface);
+            Dictionary<string, object> resources = ThemeHelper.GetResourcesFromColorScheme(WrapperApp);
             foreach (var resource in resources)
             {
                 userControl.Resources[resource.Key] = resource.Value;
@@ -73,9 +73,9 @@ namespace qgrepControls.Classes
             return newWindow;
         }
 
-        public static void ShowDialog(UserControl userControl, string title, IExtensionInterface ExtensionInterface, Control owner, bool resizeable = false)
+        public static void ShowDialog(UserControl userControl, string title, IWrapperApp WrapperApp, Control owner, bool resizeable = false)
         {
-            MainWindow window = CreateWindow(userControl, title, ExtensionInterface, owner, resizeable);
+            MainWindow window = CreateWindow(userControl, title, WrapperApp, owner, resizeable);
             window.ShowDialog();
         }
     }

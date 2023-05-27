@@ -18,8 +18,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Commands\ShowHistoryCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\GroupExpandCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\WholeWordCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OpenSearchFiles.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)qgrepExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VisualStudioWrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)qgrepSearchPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShowToolWindow.cs" />
   </ItemGroup>

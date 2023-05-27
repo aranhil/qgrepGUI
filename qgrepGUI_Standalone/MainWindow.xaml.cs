@@ -34,7 +34,7 @@ namespace qgrepGUI
         public MainWindow()
         {
             InitializeComponent();
-            SearchWindow = new qgrepSearchWindowControl(new qgrepExtension(this));
+            SearchWindow = new qgrepSearchWindowControl(new StandaloneWrapper(this));
             WindowContent.Children.Add(SearchWindow);
 
             Task.Run(CheckForUpdates);
@@ -113,7 +113,7 @@ namespace qgrepGUI
                     Dispatcher.Invoke(() =>
                     {
                         InstallUpdateWindow installUpdateWindow = new InstallUpdateWindow();
-                        qgrepControls.MainWindow installUpdateDialog = UIHelper.CreateWindow(installUpdateWindow, "Update available", new qgrepExtension(this), this);
+                        qgrepControls.MainWindow installUpdateDialog = UIHelper.CreateWindow(installUpdateWindow, "Update available", new StandaloneWrapper(this), this);
                         installUpdateWindow.Dialog = installUpdateDialog;
                         installUpdateDialog.ShowDialog();
 
@@ -224,7 +224,7 @@ namespace qgrepGUI
 
         private void OpenFileSearch_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new qgrepExtension(this));
+            qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new StandaloneWrapper(this));
             UIHelper.ShowDialog(filesWindowControl, "Open file", filesWindowControl.ExtensionInterface, SearchWindow, true);
         }
 

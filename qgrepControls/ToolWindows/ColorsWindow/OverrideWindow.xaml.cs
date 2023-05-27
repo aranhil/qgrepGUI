@@ -25,7 +25,7 @@ namespace qgrepControls.ColorsWindow
             this.ColorsWindow = ColorsWindow;
 
             InitializeComponent();
-            ThemeHelper.UpdateColorsFromSettings(this, ColorsWindow.SearchWindow.ExtensionInterface);
+            ThemeHelper.UpdateColorsFromSettings(this, ColorsWindow.SearchWindow.WrapperApp);
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
