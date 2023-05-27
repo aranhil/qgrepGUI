@@ -290,10 +290,10 @@ namespace qgrepControls.SearchWindow
 
         public void SolutionLoaded()
         {
-            string solutionPath = ExtensionInterface.GetSolutionPath();
+            string solutionPath = ExtensionInterface.GetSolutionPath(Settings.Default.UseGlobalPath);
             if(solutionPath.Length > 0)
             {
-                ConfigParser.Init(System.IO.Path.GetDirectoryName(solutionPath));
+                ConfigParser.Init(solutionPath);
 
                 UpdateWarning();
                 UpdateFilters();

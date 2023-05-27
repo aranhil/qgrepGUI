@@ -10,7 +10,7 @@ namespace qgrepControls.Classes
 {
     public interface IExtensionInterface
     {
-        string GetSolutionPath();
+        string GetSolutionPath(bool useGlobalPath);
         void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback);
         void OpenFile(string path, string line);
         string GetSelectedText();

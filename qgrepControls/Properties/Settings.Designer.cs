@@ -334,5 +334,17 @@ namespace qgrepControls.Properties {
                 this["LineHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseGlobalPath {
+            get {
+                return ((bool)(this["UseGlobalPath"]));
+            }
+            set {
+                this["UseGlobalPath"] = value;
+            }
+        }
     }
 }

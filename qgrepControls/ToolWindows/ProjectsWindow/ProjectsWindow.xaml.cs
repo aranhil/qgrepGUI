@@ -82,6 +82,8 @@ namespace qgrepControls.SearchWindow
             {
                 AutomaticPopulation.Visibility = Visibility.Collapsed;
             }
+
+            UseGlobalPath.IsChecked = Settings.Default.UseGlobalPath;
         }
 
         private void AddNewRule_Click(object sender, RoutedEventArgs e)
@@ -319,6 +321,7 @@ namespace qgrepControls.SearchWindow
             AutomaticPopulation.IsEnabled = !IsAutomaticPopulationBusy && GroupsListBox.InnerListBox.SelectedItems.Count == 1;
             AutomaticProgress.Visibility = IsAutomaticPopulationBusy ? Visibility.Visible : Visibility.Collapsed;
             StopButton.Visibility = IsAutomaticPopulationBusy ? Visibility.Visible : Visibility.Collapsed;
+            UseGlobalPath.Visibility = !SearchWindow.ExtensionInterface.IsStandalone && isAdvanced ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void AdvancedToggle_Click(object sender, RoutedEventArgs e)
@@ -447,6 +450,15 @@ namespace qgrepControls.SearchWindow
         {
             IsAutomaticPopulationBusy = false;
             AddAutomaticRules();
+        }
+
+        private void UseGlobalPath_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.UseGlobalPath = UseGlobalPath.IsChecked ?? false;
+            Settings.Default.Save();
+
+            ConfigParser.Init(SearchWindow.ExtensionInterface.GetSolutionPath(Settings.Default.UseGlobalPath));
+            LoadFromConfig();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace qgrepControls.SearchWindow
             IncludeFilesInput.Focus();
 
             ExtensionInterface = extensionInterface;
-            ConfigParser.Init(System.IO.Path.GetDirectoryName(extensionInterface.GetSolutionPath()));
+            ConfigParser.Init(extensionInterface.GetSolutionPath(Settings.Default.UseGlobalPath));
 
             ThemeHelper.UpdateColorsFromSettings(this, ExtensionInterface, false);
             ThemeHelper.UpdateFontFromSettings(this, extensionInterface);

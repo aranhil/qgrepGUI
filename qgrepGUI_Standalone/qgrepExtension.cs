@@ -56,7 +56,7 @@ namespace qgrepGUI
             return "";
         }
 
-        public string GetSolutionPath()
+        public string GetSolutionPath(bool useGlobalPath)
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string appFolderPath = Path.Combine(appDataPath, "qgrepSearch");

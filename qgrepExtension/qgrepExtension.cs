@@ -126,9 +126,24 @@ namespace qgrepSearch
             return currentlySelectedText;
         }
 
-        public string GetSolutionPath()
+        public string GetSolutionPath(bool useGlobalPath)
         {
-            return State.DTE?.Solution?.FullName ?? "";
+            if(useGlobalPath)
+            {
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string appFolderPath = Path.Combine(appDataPath, "qgrepSearch");
+
+                if (!Directory.Exists(appFolderPath))
+                {
+                    Directory.CreateDirectory(appFolderPath);
+                }
+
+                return appFolderPath;
+            }
+            else
+            {
+                return System.IO.Path.GetDirectoryName(State.DTE?.Solution?.FullName ?? "");
+            }
         }
 
         public void OpenFile(string path, string line)
