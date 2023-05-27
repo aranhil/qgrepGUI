@@ -102,6 +102,22 @@ namespace qgrepControls.SearchWindow
 
         uint BackgroundColor = 0;
 
+        static int CalculateScore(string wordsString, string inputString)
+        {
+            int score = 0;
+
+            foreach (string word in wordsString.Split(' '))
+            {
+                int index = inputString.IndexOf(word);
+                if (index != -1)
+                {
+                    score += index;
+                }
+            }
+
+            return score;
+        }
+
         ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
         ObservableCollection<SearchResult> newSearchResults = new ObservableCollection<SearchResult>();
         SearchResult selectedSearchResult = null;
@@ -144,6 +160,40 @@ namespace qgrepControls.SearchWindow
                 }
 
                 newSearchResults.Clear();
+            }
+
+            SelectBestMatch(searchOptions);
+        }
+
+        private void SelectBestMatch(SearchOptions searchOptions)
+        {
+            SearchResult bestResult = null;
+            int bestScore = int.MaxValue;
+
+            foreach (SearchResult result in searchResults)
+            {
+                int score = CalculateScore(searchOptions.Query, result.TrimmedFileAndLine);
+                if(score < bestScore)
+                {
+                    bestScore = score;
+                    bestResult = result;
+                }
+            }
+
+            if (bestResult != null)
+            {
+                foreach (SearchResult result in searchResults)
+                {
+                    result.IsSelected = false;
+                }
+
+                bestResult.IsSelected = true;
+
+                VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
+
+                virtualizingStackPanel.BringIndexIntoViewPublic(searchResults.IndexOf(bestResult));
+                ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(bestResult) as ListBoxItem;
+                listBoxItem?.BringIntoView();
             }
         }
 
