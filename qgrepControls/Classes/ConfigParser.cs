@@ -257,13 +257,16 @@ namespace qgrepControls.Classes
             }
             foreach (ConfigRule rule in configGroup.Rules)
             {
+                string processedRule = rule.Rule;
+                processedRule = processedRule.Replace("\\\\", "\\/");
+
                 if (rule.IsExclude)
                 {
-                    streamWriter.WriteLine(ExcludePrefix + rule.Rule);
+                    streamWriter.WriteLine(ExcludePrefix + processedRule);
                 }
                 else
                 {
-                    streamWriter.WriteLine(IncludePrefix + rule.Rule);
+                    streamWriter.WriteLine(IncludePrefix + processedRule);
                 }
             }
         }
