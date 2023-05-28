@@ -51,6 +51,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.ShowOpenHistory = ShowOpenHistory.IsChecked == true;
             Settings.Default.SearchInstantly = SearchInstantly.IsChecked == true;
             Settings.Default.TrimSpacesOnCopy = TrimSpacesOnCopy.IsChecked == true;
+            Settings.Default.UpdateIndexAutomatically = UpdateIndexAutomatically.IsChecked == true;
 
             Settings.Default.Save();
         }
@@ -111,6 +112,16 @@ namespace qgrepControls.SearchWindow
             if (changed)
             {
                 SearchWindow.UpdateFromSettings();
+            }
+        }
+
+        private void UpdateIndexAutomatically_Click(object sender, RoutedEventArgs e)
+        {
+            SaveOptions();
+
+            if(Settings.Default.UpdateIndexAutomatically)
+            {
+                SearchWindow.UpdateDatabase(true);
             }
         }
     }

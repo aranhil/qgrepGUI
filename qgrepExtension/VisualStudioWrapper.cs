@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.TaskStatusCenter;
 using qgrepControls;
 using qgrepControls.Classes;
 using qgrepControls.ModelViews;
@@ -19,31 +20,34 @@ using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 
 namespace qgrepSearch
 {
     public class VisualStudioWrapper: IWrapperApp
     {
-        private ExtensionData State;
+        private ExtensionData Data;
 
         public VisualStudioWrapper(ExtensionData windowState)
         {
-            State = windowState;
+            Data = windowState;
         }
 
         public bool SearchWindowOpened
         {
             get
             {
-                if(State.Package.SearchWindowOpened)
+                if(Data.Package.SearchWindowOpened)
                 {
-                    State.Package.SearchWindowOpened = false;
+                    Data.Package.SearchWindowOpened = false;
                     return true;
                 }
 
@@ -66,10 +70,10 @@ namespace qgrepSearch
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            string currentlySelectedText = (State.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.Text ?? "";
+            string currentlySelectedText = (Data.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.Text ?? "";
             if(currentlySelectedText.Length == 0)
             {
-                EnvDTE.TextDocument textDoc = (EnvDTE.TextDocument)State.DTE?.ActiveDocument?.Object("TextDocument");
+                EnvDTE.TextDocument textDoc = (EnvDTE.TextDocument)Data.DTE?.ActiveDocument?.Object("TextDocument");
                 EnvDTE.TextSelection selection = textDoc?.Selection;
 
                 if (selection != null)
@@ -142,7 +146,7 @@ namespace qgrepSearch
             }
             else
             {
-                return System.IO.Path.GetDirectoryName(State.DTE?.Solution?.FullName ?? "");
+                return System.IO.Path.GetDirectoryName(Data.DTE?.Solution?.FullName ?? "");
             }
         }
 
@@ -152,11 +156,11 @@ namespace qgrepSearch
 
             try
             {
-                State.DTE?.ItemOperations?.OpenFile(path);
+                Data.DTE?.ItemOperations?.OpenFile(path);
 
                 if (line != "0")
                 {
-                    (State.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.MoveToLineAndOffset(Int32.Parse(line), 1);
+                    (Data.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.MoveToLineAndOffset(Int32.Parse(line), 1);
                 }
             }
             catch { }
@@ -165,7 +169,7 @@ namespace qgrepSearch
         {
             try
             {
-                EnvDTE80.DTE2 dte = State?.DTE;
+                EnvDTE80.DTE2 dte = Data?.DTE;
                 Solution solution = dte?.Solution;
 
                 foreach (EnvDTE.Project project in solution?.Projects)
@@ -282,7 +286,7 @@ namespace qgrepSearch
                     string subPropertyName = propertyName.Substring(propertyName.IndexOf('.') + 1);
                     propertyName = propertyName.Substring(0, propertyName.IndexOf('.'));
 
-                    var properties = State.DTE.Properties["FontsAndColors", "TextEditor"];
+                    var properties = Data.DTE.Properties["FontsAndColors", "TextEditor"];
                     var fontsAndColorsItems = (FontsAndColorsItems)properties.Item("FontsAndColorsItems").Object;
                     var desiredItem = fontsAndColorsItems.Item(propertyName);
 
@@ -342,7 +346,7 @@ namespace qgrepSearch
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            EnvDTE.Command command = State.DTE.Commands.Item("qgrep." + commandString);
+            EnvDTE.Command command = Data.DTE.Commands.Item("qgrep." + commandString);
 
             if (command.Bindings is object[] bindings && bindings.Length > 0 && bindings[0] is string binding)
             {
@@ -406,7 +410,7 @@ namespace qgrepSearch
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var mainWinHandle = (IntPtr)State.DTE.MainWindow.HWnd;
+            var mainWinHandle = (IntPtr)Data.DTE.MainWindow.HWnd;
             var mainWinSource = HwndSource.FromHwnd(mainWinHandle);
             return (System.Windows.Window)mainWinSource.RootVisual;
         }
@@ -417,7 +421,7 @@ namespace qgrepSearch
 
             try
             {
-                var properties = State.DTE.Properties["FontsAndColors", "TextEditor"];
+                var properties = Data.DTE.Properties["FontsAndColors", "TextEditor"];
                 var fontFamily = (string)properties.Item("FontFamily").Value;
 
                 if (fontFamily != null)
@@ -434,7 +438,7 @@ namespace qgrepSearch
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            IVsFontAndColorStorage Storage = State.Package.GetService<IVsFontAndColorStorage, IVsFontAndColorStorage>();
+            IVsFontAndColorStorage Storage = Data.Package.GetService<IVsFontAndColorStorage, IVsFontAndColorStorage>();
             if (Storage != null)
             {
                 var Guid = new Guid("1F987C00-E7C4-4869-8A17-23FD602268B0"); // GUID for Environment Font  
@@ -493,7 +497,7 @@ namespace qgrepSearch
                 }
                 else
                 {
-                    ImageMoniker imageMoniker = State.Package.ImageService.GetImageMonikerForFile(filePath);
+                    ImageMoniker imageMoniker = Data.Package.ImageService.GetImageMonikerForFile(filePath);
 
                     var atts = new ImageAttributes
                     {
@@ -511,7 +515,7 @@ namespace qgrepSearch
                         atts.Flags |= (uint)-2147483648;
                     }
 
-                    var obj = State.Package.ImageService.GetImage(imageMoniker, atts);
+                    var obj = Data.Package.ImageService.GetImage(imageMoniker, atts);
                     if (obj == null)
                         return;
 
@@ -520,6 +524,51 @@ namespace qgrepSearch
                 }
             }
             catch { }
+        }
+
+        TaskCompletionSource<bool> FakeTask;
+        ITaskHandler TaskHandler;
+        TaskProgressData TaskProgressData;
+
+        public void StartBackgroundTask(string title)
+        {
+            var options = default(TaskHandlerOptions);
+            options.Title = title;
+
+            options.DisplayTaskDetails = task =>
+            {
+                Data.Package.SearchWindowOpened = true;
+
+                Microsoft.VisualStudio.Threading.JoinableTask joinableTask = Data.Package.JoinableTaskFactory.RunAsync(async () =>
+                {
+                    ToolWindowPane window = await Data.Package.ShowToolWindowAsync(
+                        typeof(qgrepSearchWindow),
+                        0,
+                        create: true,
+                        cancellationToken: Data.Package.DisposalToken);
+                });
+            };
+
+            options.ActionsAfterCompletion = CompletionActions.None;
+
+            TaskProgressData = default;
+            TaskProgressData.CanBeCanceled = false;
+
+            TaskHandler = Data.Package.TaskStatusCenterService.PreRegister(options, TaskProgressData);
+            FakeTask = new TaskCompletionSource<bool>();
+            TaskHandler.RegisterTask(FakeTask.Task);
+        }
+
+        public void UpdateBackgroundTask(string message, int progress)
+        {
+            TaskProgressData.PercentComplete = progress;
+            TaskProgressData.ProgressText = message;
+            TaskHandler?.Progress.Report(TaskProgressData);
+        }
+
+        public void StopBackgroundTask()
+        {
+            FakeTask.SetResult(true);
         }
     }
 }

@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ConfigParser.cs" />
-    <Compile Include="Classes\ExtensionInterface.cs" />
+    <Compile Include="Classes\IWrapperApp.cs" />
     <Compile Include="Classes\FolderSelectDialog.cs" />
     <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="Classes\MutexUtility.cs" />

@@ -26,5 +26,8 @@ namespace qgrepControls.Classes
         void SaveKeyBindings(Dictionary<string, Hotkey> bindings);
         System.Windows.Window GetMainWindow();
         void GetIcon(string filePath, uint background, SearchResult searchResult);
+        void StartBackgroundTask(string title);
+        void UpdateBackgroundTask(string message, int progress);
+        void StopBackgroundTask();
     }
 }

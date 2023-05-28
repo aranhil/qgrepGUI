@@ -15,6 +15,7 @@ using Microsoft.Internal.VisualStudio.Shell;
 using static System.Windows.Forms.AxHost;
 using System.Windows.Input;
 using qgrepControls.Classes;
+using Microsoft.VisualStudio.TaskStatusCenter;
 
 namespace qgrepSearch
 {
@@ -32,6 +33,7 @@ namespace qgrepSearch
         private int toolWindowId = -1;
         private uint _cookie;
         private IVsImageService2 _imageService;
+        private IVsTaskStatusCenterService _taskStatusCenterService;
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -50,6 +52,7 @@ namespace qgrepSearch
             connectionPoint.Advise(this, out _cookie);
 
             _imageService = await GetServiceAsync(typeof(SVsImageService)) as IVsImageService2;
+            _taskStatusCenterService = (IVsTaskStatusCenterService)(await GetServiceAsync(typeof(SVsTaskStatusCenterService)));
 
             await CaseSensitiveCommand.InitializeAsync(this);
             await WholeWordCommand.InitializeAsync(this);
@@ -66,6 +69,11 @@ namespace qgrepSearch
         public IVsImageService2 ImageService
         {
             get { return _imageService; }
+        }
+
+        public IVsTaskStatusCenterService TaskStatusCenterService
+        {
+            get { return _taskStatusCenterService; }
         }
 
         private void VSColorTheme_ThemeChanged(ThemeChangedEventArgs e)

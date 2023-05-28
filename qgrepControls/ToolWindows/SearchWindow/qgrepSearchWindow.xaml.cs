@@ -1,32 +1,15 @@
-﻿using qgrepInterop;
-using qgrepControls.Classes;
+﻿using qgrepControls.Classes;
 using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using Newtonsoft.Json;
-using System.Timers;
-using System.Windows.Documents;
-using System.Windows.Shapes;
-using qgrepControls.ColorsWindow;
-using Xceed.Wpf.AvalonDock.Properties;
-using System.Resources;
 using System.Windows.Controls.Primitives;
-using Xceed.Wpf.AvalonDock.Controls;
-using System.Runtime.InteropServices.Expando;
 using qgrepControls.ModelViews;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace qgrepControls.SearchWindow
 {
@@ -296,6 +279,11 @@ namespace qgrepControls.SearchWindow
                 ConfigParser.Init(solutionPath);
                 ConfigParser.Instance.FilesChanged += FilesChanged;
 
+                if(Settings.Default.UpdateIndexAutomatically)
+                {
+                    UpdateDatabase(true);
+                }
+
                 UpdateWarning();
                 UpdateFilters();
                 SearchEngine.Instance.UpdateLastUpdated();
@@ -362,11 +350,7 @@ namespace qgrepControls.SearchWindow
         {
             Dispatcher.Invoke(() =>
             {
-                InitButton.IsEnabled = false;
-                CleanButton.IsEnabled = false;
-                PathsButton.IsEnabled = false;
-
-                SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate() { ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(), IsSilent = true }); ;
+                UpdateDatabase(true);
             });
         }
 
@@ -823,6 +807,8 @@ namespace qgrepControls.SearchWindow
                         QueueFindWhenVisible = true;
                     }
                 }
+
+                WrapperApp.StartBackgroundTask("qgrep index update");
             });
         }
 
@@ -850,6 +836,8 @@ namespace qgrepControls.SearchWindow
 
                     SearchEngine.Instance.UpdateLastUpdated();
                 }
+
+                WrapperApp.StopBackgroundTask();
             }));
         }
 
@@ -879,6 +867,11 @@ namespace qgrepControls.SearchWindow
                         InitInfo.Content = message;
                         infoUpdateStopWatch.Restart();
                     }
+
+                    if(databaseUpdate != null)
+                    {
+                        WrapperApp.UpdateBackgroundTask(message, (int)InitProgress.Value);
+                    }
                 }));
             }
         }
@@ -895,37 +888,42 @@ namespace qgrepControls.SearchWindow
                         InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
                         progressUpdateStopWatch.Restart();
                     }
+
+                    WrapperApp.UpdateBackgroundTask((string)InitInfo.Content, (int)percentage);
                 }));
+            }
+        }
+
+        public void UpdateDatabase(bool silently = false)
+        {
+            if(!silently)
+            {
+                Overlay.Visibility = Visibility.Visible;
+                InitProgress.Value = 0;
+            }
+
+            InitButton.IsEnabled = false;
+            CleanButton.IsEnabled = false;
+            PathsButton.IsEnabled = false;
+
+            SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate() { ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(), IsSilent = silently });
+
+            if (Settings.Default.SearchInstantly)
+            {
+                CacheUsageType = CacheUsageType.Bypass;
+                Find();
             }
         }
 
         private void InitButton_Click(object sender, RoutedEventArgs e)
         {
-            Overlay.Visibility = Visibility.Visible;
-            InitProgress.Value = 0;
-            InitButton.IsEnabled = false;
-            CleanButton.IsEnabled = false;
-            PathsButton.IsEnabled = false;
-
-            SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate() { ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList() });
-
-            if (Settings.Default.SearchInstantly)
-            {
-                CacheUsageType = CacheUsageType.Bypass;
-                Find();
-            }
+            UpdateDatabase();
         }
 
         private void CleanButton_Click(object sender, RoutedEventArgs e)
         {
             CleanDatabase();
-            SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate() { ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList() });
-
-            if (Settings.Default.SearchInstantly)
-            {
-                CacheUsageType = CacheUsageType.Bypass;
-                Find();
-            }
+            UpdateDatabase();
         }
 
         private void CaseSensitive_Click(object sender, RoutedEventArgs e)
@@ -975,7 +973,7 @@ namespace qgrepControls.SearchWindow
             if (ConfigParser.IsConfigChanged())
             {
                 UpdateWarning();
-                SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate() { ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList() });
+                UpdateDatabase();
 
                 CacheUsageType = CacheUsageType.Bypass;
             }

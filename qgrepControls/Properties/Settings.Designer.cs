@@ -346,5 +346,17 @@ namespace qgrepControls.Properties {
                 this["UseGlobalPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UpdateIndexAutomatically {
+            get {
+                return ((bool)(this["UpdateIndexAutomatically"]));
+            }
+            set {
+                this["UpdateIndexAutomatically"] = value;
+            }
+        }
     }
 }
