@@ -92,7 +92,7 @@ namespace qgrepControls.Classes
         private static readonly object padlock = new object();
 
         private ManualResetEvent queueEvent = new ManualResetEvent(false);
-        private Thread queueThread;
+        private Task queueThread;
 
         public static SearchEngine Instance
         {
@@ -111,7 +111,7 @@ namespace qgrepControls.Classes
 
         private SearchEngine()
         {
-            queueThread = new Thread(QueueUpdate);
+            queueThread = new Task(QueueUpdate);
             queueThread.Start();
         }
 
