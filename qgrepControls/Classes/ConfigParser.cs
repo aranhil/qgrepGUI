@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Timers;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 
@@ -312,7 +313,7 @@ namespace qgrepControls.Classes
         public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
         public ObservableCollection<ConfigProject> OldConfigProjects = new ObservableCollection<ConfigProject>();
 
-        public event Action FilesChanged;
+        public event Action<string> FilesChanged;
         private List<FileSystemWatcher> Watchers = new List<FileSystemWatcher>();
 
         public ConfigParser()
@@ -479,6 +480,16 @@ namespace qgrepControls.Classes
                 {
                     DateTime lastModified = File.GetLastWriteTime(fileToCheck);
                     if(lastModified < lastUpdated)
+                    {
+                        lastUpdated = lastModified;
+                    }
+                }
+
+                fileToCheck = directory + "\\" + configProject.Name + ".qgc";
+                if (File.Exists(fileToCheck))
+                {
+                    DateTime lastModified = File.GetLastWriteTime(fileToCheck);
+                    if (lastModified < lastUpdated)
                     {
                         lastUpdated = lastModified;
                     }
@@ -661,7 +672,8 @@ namespace qgrepControls.Classes
 
             return false;
         }
-        private static void OnFileChanged(string fullPath)
+
+        private static void OnFileChanged(string fullPath, bool isModified)
         {
             foreach(ConfigProject configProject in Instance.ConfigProjects)
             {
@@ -700,7 +712,7 @@ namespace qgrepControls.Classes
 
                         if(matchesIncludes && !matchesExcludes)
                         {
-                            Instance.FilesChanged?.Invoke();
+                            Instance.FilesChanged?.Invoke(isModified ? fullPath : null);
                         }
                     }
                 }
@@ -713,22 +725,75 @@ namespace qgrepControls.Classes
                 return;
             }
 
-            OnFileChanged(e.FullPath);
+            OnFileChanged(e.FullPath, true);
         }
 
         private static void OnCreated(object sender, FileSystemEventArgs e)
         {
-            OnFileChanged(e.FullPath);
+            OnFileChanged(e.FullPath, false);
         }
 
         private static void OnDeleted(object sender, FileSystemEventArgs e)
         {
-            OnFileChanged(e.FullPath);
+            OnFileChanged(e.FullPath, false);
         }
+
+        private class DelayedRenameHandler
+        {
+            private Timer timer;
+            private object lockObject = new object();
+
+            public List<RenamedEventArgs> renamedEvents = new List<RenamedEventArgs>();
+
+            public DelayedRenameHandler()
+            {
+                timer = new Timer(500);
+                timer.AutoReset = false;
+                timer.Elapsed += TimerElapsed;
+            }
+
+            public void Reset()
+            {
+                lock (lockObject)
+                {
+                    timer.Stop();
+                    timer.Start();
+                }
+            }
+
+            private void TimerElapsed(object sender, ElapsedEventArgs e)
+            {
+                timer.Stop();
+
+                HashSet<string> oldFiles = new HashSet<string>();
+                HashSet<string> newFiles = new HashSet<string>();
+
+                foreach (RenamedEventArgs renamedEventArgs in renamedEvents)
+                {
+                    oldFiles.Add(renamedEventArgs.OldFullPath);
+                    newFiles.Add(renamedEventArgs.FullPath);
+                }
+
+                foreach(string newFile in newFiles)
+                {
+                    if(oldFiles.Contains(newFile))
+                    {
+                        OnFileChanged(newFile, true);
+                    }
+                    else
+                    {
+                        OnFileChanged(newFile, false);
+                    }
+                }
+            }
+        }
+
+        DelayedRenameHandler delayedRenameHandler = new DelayedRenameHandler();
 
         private static void OnRenamed(object sender, RenamedEventArgs e)
         {
-            OnFileChanged(e.FullPath);
+            Instance.delayedRenameHandler.renamedEvents.Add(e);
+            Instance.delayedRenameHandler.Reset();
         }
     }
 }

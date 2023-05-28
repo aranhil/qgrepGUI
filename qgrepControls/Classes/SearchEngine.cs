@@ -82,6 +82,7 @@ namespace qgrepControls.Classes
     public class DatabaseUpdate
     {
         public List<string> ConfigPaths { get; set; }
+        public string File { get; set; }
         public bool IsSilent { get; set; } = false;
     }
 
@@ -119,8 +120,11 @@ namespace qgrepControls.Classes
         private System.Timers.Timer UpdateTimer = new System.Timers.Timer();
 
         public bool IsBusy { get; private set; } = false;
+        public bool IsUpdatingDatabase { get; private set; } = false;
         private bool ForceStop { get; set; } = false;
         public bool IsSearchQueued { get { return QueuedSearchOptions != null || QueuedSearchFilesOptions != null; } }
+
+        private List<string> NonIndexedFiles = new List<string>();
 
         private SearchOptions QueuedSearchOptions = null;
         private SearchOptions QueuedSearchFilesOptions = null;
@@ -476,7 +480,7 @@ namespace qgrepControls.Classes
 
         public void UpdateDatabaseAsync(DatabaseUpdate databaseUpdate)
         {
-            if(QueuedDatabaseUpdate != null)
+            if(QueuedDatabaseUpdate != null || IsUpdatingDatabase)
             {
                 return;
             }
@@ -489,6 +493,85 @@ namespace qgrepControls.Classes
             }
 
             IsBusy = true;
+            IsUpdatingDatabase = true;
+
+            Task.Run(() =>
+            {
+                StartUpdateCallback(databaseUpdate);
+                UpdateTimer.Stop();
+                LastUpdateProgress = -1;
+
+                if(databaseUpdate.File != null && NonIndexedFiles.Count < 15)
+                {
+                    if(!NonIndexedFiles.Contains(databaseUpdate.File))
+                    {
+                        NonIndexedFiles.Add(databaseUpdate.File);
+                    }
+
+                    List<string> parameters = new List<string>
+                    {
+                        "qgrep",
+                        "change",
+                        string.Join(",", databaseUpdate.ConfigPaths),
+                        databaseUpdate.File
+                    };
+
+                    QGrepWrapper.CallQGrepAsync(parameters,
+                        (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
+                        (string message) => { UpdateErrorHandler(message, databaseUpdate); },
+                        (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
+                }
+                else
+                {
+                    NonIndexedFiles.Clear();
+
+                    foreach (string configPath in databaseUpdate.ConfigPaths)
+                    {
+                        List<string> parameters = new List<string>
+                        {
+                            "qgrep",
+                            "update",
+                            configPath
+                        };
+
+                        QGrepWrapper.CallQGrepAsync(parameters,
+                            (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
+                            (string message) => { UpdateErrorHandler(message, databaseUpdate); },
+                            (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
+                    }
+                }
+
+                IsBusy = false;
+                IsUpdatingDatabase = false;
+
+                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    MutexUtility.Instance.WorkDone();
+                });
+
+                FinishUpdateCallback(databaseUpdate);
+                StartLastUpdatedTimer();
+                LastUpdateProgress = -1;
+
+                ProcessQueue();
+            });
+        }
+        public void UpdateFileAsync(DatabaseUpdate databaseUpdate)
+        {
+            if (QueuedDatabaseUpdate != null || IsUpdatingDatabase)
+            {
+                return;
+            }
+
+            if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
+            {
+                QueuedDatabaseUpdate = databaseUpdate;
+                queueEvent.Set();
+                return;
+            }
+
+            IsBusy = true;
+            IsUpdatingDatabase = true;
 
             Task.Run(() =>
             {
@@ -504,13 +587,15 @@ namespace qgrepControls.Classes
                         "update",
                         configPath
                     };
-                    QGrepWrapper.CallQGrepAsync(parameters, 
-                        (string message) => { return DatabaseMessageHandler(message, databaseUpdate); }, 
-                        (string message) => { UpdateErrorHandler(message, databaseUpdate); }, 
+                    QGrepWrapper.CallQGrepAsync(parameters,
+                        (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
+                        (string message) => { UpdateErrorHandler(message, databaseUpdate); },
                         (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
                 }
 
                 IsBusy = false;
+                IsUpdatingDatabase = false;
+
                 System.Windows.Application.Current.Dispatcher.Invoke(() =>
                 {
                     MutexUtility.Instance.WorkDone();

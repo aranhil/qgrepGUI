@@ -346,11 +346,11 @@ namespace qgrepControls.SearchWindow
 
         bool QueueFindWhenVisible = true;
 
-        private void FilesChanged()
+        private void FilesChanged(string modifiedFile)
         {
             Dispatcher.Invoke(() =>
             {
-                UpdateDatabase(true);
+                UpdateDatabase(true, modifiedFile);
             });
         }
 
@@ -894,7 +894,7 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        public void UpdateDatabase(bool silently = false)
+        public void UpdateDatabase(bool silently = false, string modifiedFile = null)
         {
             if(!ConfigParser.IsInitialized())
             {
@@ -911,7 +911,12 @@ namespace qgrepControls.SearchWindow
             CleanButton.IsEnabled = false;
             PathsButton.IsEnabled = false;
 
-            SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate() { ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(), IsSilent = silently });
+            SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate()
+            { 
+                ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(), 
+                IsSilent = silently,
+                File = modifiedFile
+            });
 
             if (Settings.Default.SearchInstantly)
             {
