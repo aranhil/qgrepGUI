@@ -161,7 +161,7 @@ namespace qgrepSearch
             }
             catch { }
         }
-        public void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback)
+        public void GatherAllFoldersAndExtensionsFromSolution(MessageCallback extensionCallback, MessageCallback folderCallback)
         {
             try
             {
@@ -178,7 +178,7 @@ namespace qgrepSearch
             catch { }
         }
 
-        private static void ProcessProject(EnvDTE.Project project, StringCallback extensionCallback, StringCallback folderCallback)
+        private static void ProcessProject(EnvDTE.Project project, MessageCallback extensionCallback, MessageCallback folderCallback)
         {
             string projectFullName = null;
             ThreadHelper.JoinableTaskFactory.Run(async delegate
@@ -232,7 +232,7 @@ namespace qgrepSearch
             msbuildProject.ProjectCollection.UnloadAllProjects();
         }
 
-        private static void GetAllFoldersFromProject(ProjectItems projectItems, StringCallback extensionCallback, StringCallback folderCallback)
+        private static void GetAllFoldersFromProject(ProjectItems projectItems, MessageCallback extensionCallback, MessageCallback folderCallback)
         {
             if (projectItems != null)
             {
