@@ -137,7 +137,7 @@ namespace qgrepControls.SearchWindow
 
                         historicOpen.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
                         historicOpen.Operation = "Opened ";
-                        historicOpen.Text = ConfigParser.RemovePaths(historicOpen.OpenedPath);
+                        historicOpen.Text = ConfigParser.RemovePaths(historicOpen.OpenedPath, Settings.Default.PathStyleIndex);
                         if (!historicOpen.OpenedLine.Equals("0"))
                         {
                             historicOpen.Text += "(" + historicOpen.OpenedLine + ")";
@@ -467,7 +467,7 @@ namespace qgrepControls.SearchWindow
                 SearchResultGroup newSearchGroup = new SearchResultGroup()
                 {
                     File = searchResult.File,
-                    TrimmedFile = ConfigParser.RemovePaths(searchResult.File),
+                    TrimmedFile = ConfigParser.RemovePaths(searchResult.File, Settings.Default.PathStyleIndex),
                     SearchResults = new ObservableCollection<SearchResult> { searchResult }
                 };
 
@@ -579,12 +579,12 @@ namespace qgrepControls.SearchWindow
                         if (file.Length > 0 && lineNumber.Length > 0)
                         {
                             fileAndLine = file + "(" + lineNumber + ")";
-                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine);
+                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.PathStyleIndex);
                         }
                         else if (file.Length > 0)
                         {
                             fileAndLine = file;
-                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine);
+                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.PathStyleIndex);
                         }
 
                         SearchResult newSearchResult = new SearchResult()
@@ -1424,7 +1424,7 @@ namespace qgrepControls.SearchWindow
         {
             string allResults = LastResults;
             allResults = allResults.Replace("\xB0", "");
-            allResults = ConfigParser.RemovePaths(allResults);
+            allResults = ConfigParser.RemovePaths(allResults, Settings.Default.PathStyleIndex);
             Clipboard.SetText(allResults);
         }
 

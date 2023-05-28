@@ -60,6 +60,10 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.ShowLastUpdateMessage();
             UpdateFilters();
         }
+        public void UpdateFromSettings()
+        {
+            Find();
+        }
 
         private void SearchInput_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -106,7 +110,8 @@ namespace qgrepControls.SearchWindow
         {
             int score = 0;
 
-            foreach (string word in wordsString.Split(' '))
+            inputString = inputString.ToLower();
+            foreach (string word in wordsString.ToLower().Split(' '))
             {
                 int index = inputString.IndexOf(word);
                 if (index != -1)
@@ -172,7 +177,8 @@ namespace qgrepControls.SearchWindow
 
             foreach (SearchResult result in searchResults)
             {
-                int score = CalculateScore(searchOptions.Query, result.TrimmedFileAndLine);
+                string trimmedFileAndLine = ConfigParser.RemovePaths(result.FileAndLine, Settings.Default.FilesSearchScopeIndex);
+                int score = CalculateScore(searchOptions.Query, trimmedFileAndLine);
                 if(score < bestScore)
                 {
                     bestScore = score;
@@ -211,12 +217,12 @@ namespace qgrepControls.SearchWindow
                         if (file.Length > 0 && lineNumber.Length > 0)
                         {
                             fileAndLine = file + "(" + lineNumber + ")";
-                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine);
+                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.FilesPathStyleIndex);
                         }
                         else if(file.Length > 0)
                         {
                             fileAndLine = file;
-                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine);
+                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.FilesPathStyleIndex);
                         }
 
                         SearchResult newSearchResult = new SearchResult()
@@ -537,6 +543,11 @@ namespace qgrepControls.SearchWindow
             {
                 ErrorLabel.Content = message;
             });
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            UIHelper.CreateWindow(new qgrepControls.SearchWindow.FilesSettingsWindow(this), "Settings", WrapperApp, this).ShowDialog();
         }
     }
 }

@@ -109,6 +109,9 @@
     <Compile Include="ToolWindows\SettingsWindow\HotkeysWindow.xaml.cs">
       <DependentUpon>HotkeysWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ToolWindows\SettingsWindow\FilesSettingsWindow.xaml.cs">
+      <DependentUpon>FilesSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ClippingBorder.cs" />
     <Compile Include="ToolWindows\ColorsWindow\ColorsWindow.xaml.cs">
       <DependentUpon>ColorsWindow.xaml</DependentUpon>
@@ -186,6 +189,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolWindows\SettingsWindow\HotkeysWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolWindows\SettingsWindow\FilesSettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

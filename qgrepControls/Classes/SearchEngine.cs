@@ -284,7 +284,7 @@ namespace qgrepControls.Classes
                     "i",
                     "V",
                     "fc",
-                    ConfigParser.GetPathToRemove() + "\xB0" + searchOptions.Query
+                    ConfigParser.GetPathToRemove(Settings.Default.FilesSearchScopeIndex) + "\xB0" + searchOptions.Query
                 };
 
                 QGrepWrapper.CallQGrepAsync(arguments,
@@ -375,14 +375,50 @@ namespace qgrepControls.Classes
                     {
                         if (searchOptions.FilterResultsRegEx)
                         {
-                            if (!Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success && !Regex.Match(result.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                            bool matchesFilter = false;
+
+                            if(Settings.Default.FilterSearchScopeIndex == 1 || Settings.Default.FilterSearchScopeIndex == 2)
+                            {
+                                if(Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                                {
+                                    matchesFilter = true;
+                                }
+                            }
+
+                            if(Settings.Default.FilterSearchScopeIndex == 0 || Settings.Default.FilterSearchScopeIndex == 2)
+                            {
+                                if (Regex.Match(result.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                                {
+                                    matchesFilter = true;
+                                }
+                            }
+
+                            if(!matchesFilter)
                             {
                                 return false;
                             }
                         }
                         else
                         {
-                            if (!file.ToLower().Contains(searchOptions.FilterResults.ToLower()) && !result.ToLower().Contains(searchOptions.FilterResults.ToLower()))
+                            bool matchesFilter = false;
+
+                            if (Settings.Default.FilterSearchScopeIndex == 1 || Settings.Default.FilterSearchScopeIndex == 2)
+                            {
+                                if (file.ToLower().Contains(searchOptions.FilterResults.ToLower()))
+                                {
+                                    matchesFilter = true;
+                                }
+                            }
+
+                            if (Settings.Default.FilterSearchScopeIndex == 0 || Settings.Default.FilterSearchScopeIndex == 2)
+                            {
+                                if (result.ToLower().Contains(searchOptions.FilterResults.ToLower()))
+                                {
+                                    matchesFilter = true;
+                                }
+                            }
+
+                            if (!matchesFilter)
                             {
                                 return false;
                             }

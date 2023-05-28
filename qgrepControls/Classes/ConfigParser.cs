@@ -535,9 +535,9 @@ namespace qgrepControls.Classes
             return commonPathPrefix;
         }
 
-        public static string RemovePaths(string file)
+        public static string RemovePaths(string file, int pathStyle)
         {
-            if (Settings.Default.PathStyleIndex == 1)
+            if (pathStyle == 1)
             {
                 foreach (ConfigProject configProject in Instance.ConfigProjects)
                 {
@@ -566,7 +566,7 @@ namespace qgrepControls.Classes
                     }
                 }
             }
-            else if(Settings.Default.PathStyleIndex == 2)
+            else if(pathStyle == 2)
             {
                 file = System.IO.Path.GetFileName(file);
             }
@@ -574,9 +574,9 @@ namespace qgrepControls.Classes
             return file;
         }
 
-        public static string GetPathToRemove()
+        public static string GetPathToRemove(int pathStyle)
         {
-            if (Settings.Default.PathStyleIndex == 1)
+            if (pathStyle == 1)
             {
                 foreach (ConfigProject configProject in Instance.ConfigProjects)
                 {
@@ -605,7 +605,7 @@ namespace qgrepControls.Classes
                     }
                 }
             }
-            else if(Settings.Default.PathStyleIndex == 2)
+            else if(pathStyle == 2)
             {
                 return "*";
             }

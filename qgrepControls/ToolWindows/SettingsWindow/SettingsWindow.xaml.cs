@@ -29,6 +29,7 @@ namespace qgrepControls.SearchWindow
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
             PathStyleComboBox.SelectedIndex = Settings.Default.PathStyleIndex;
             ExpandModeComboBox.SelectedIndex = Settings.Default.ExpandModeIndex;
+            FilterScopeComboBox.SelectedIndex = Settings.Default.FilterSearchScopeIndex;
 
             ThemeHelper.UpdateColorsFromSettings(this, SearchWindow.WrapperApp);
             UpdateShortcutHints();
@@ -128,6 +129,19 @@ namespace qgrepControls.SearchWindow
             else
             {
                 ConfigParser.RemoveWatchers();
+            }
+        }
+
+        private void FilterScopeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bool changed = Settings.Default.FilterSearchScopeIndex != FilterScopeComboBox.SelectedIndex;
+
+            Settings.Default.FilterSearchScopeIndex = FilterScopeComboBox.SelectedIndex;
+            Settings.Default.Save();
+
+            if (changed)
+            {
+                SearchWindow.UpdateFromSettings();
             }
         }
     }
