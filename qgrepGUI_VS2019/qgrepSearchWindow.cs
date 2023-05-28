@@ -12,11 +12,11 @@ namespace qgrepSearch
         public const string SearchWindowGuid = "e4e2ba26-a455-4c53-adb3-8225fb696f8b";
         public const string Title = "qgrep Search Tool";
 
-        public qgrepSearchWindow(qgrepSearchWindowState state) : base()
+        public qgrepSearchWindow(ExtensionData data) : base()
         {
             Caption = Title;
             BitmapImageMoniker = KnownMonikers.ImageIcon;
-            Content = new qgrepSearchWindowControl(new qgrepExtension(state));
+            Content = new qgrepSearchWindowControl(new VisualStudioWrapper(data));
         }
     }
 }
