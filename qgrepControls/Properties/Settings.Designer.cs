@@ -394,5 +394,17 @@ namespace qgrepControls.Properties {
                 this["FilterSearchScopeIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
+        public string WindowSizes {
+            get {
+                return ((string)(this["WindowSizes"]));
+            }
+            set {
+                this["WindowSizes"] = value;
+            }
+        }
     }
 }

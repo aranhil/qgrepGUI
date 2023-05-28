@@ -95,5 +95,8 @@
     <Setting Name="FilterSearchScopeIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="WindowSizes" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[]</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

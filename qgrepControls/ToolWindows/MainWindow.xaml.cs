@@ -1,4 +1,7 @@
 ﻿using ControlzEx;
+using Newtonsoft.Json;
+using qgrepControls.Classes;
+using qgrepControls.Properties;
 using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
@@ -84,6 +87,15 @@ namespace qgrepControls
                 if (window != null && window.Owner != null)
                     window.Owner.Focus();
             }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            UIHelper.SaveWindowSize(this);
         }
     }
 }

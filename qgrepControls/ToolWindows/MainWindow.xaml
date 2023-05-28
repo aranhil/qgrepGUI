@@ -20,7 +20,7 @@
         ResizeMode="CanResizeWithGrip"
         SizeToContent="Manual"
         Topmost="False"
-        mc:Ignorable="d" KeyDown="Window_PreviewKeyDown">
+        mc:Ignorable="d" KeyDown="Window_PreviewKeyDown" Closed="Window_Closed">
     <controlzEx:WindowChromeWindow.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </controlzEx:WindowChromeWindow.Resources>

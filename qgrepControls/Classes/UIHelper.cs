@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
+using Newtonsoft.Json;
+using qgrepControls.Properties;
+using System.Windows.Media.Media3D;
 
 namespace qgrepControls.Classes
 {
     public class UIHelper
     {
+        private class WindowSize
+        {
+            public string Title { get; set; }
+            public int Width { get; set; }
+            public int Height { get; set; }
+        }
+
         public static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
         {
             while (current != null)
@@ -55,6 +65,8 @@ namespace qgrepControls.Classes
 
             if (resizeable)
             {
+                LoadWindowSize(newWindow);
+
                 userControl.Width = double.NaN;
                 userControl.Height = double.NaN;
             }
@@ -77,6 +89,50 @@ namespace qgrepControls.Classes
         {
             MainWindow window = CreateWindow(userControl, title, WrapperApp, owner, resizeable);
             window.ShowDialog();
+        }
+
+        public static void LoadWindowSize(MainWindow mainWindow)
+        {
+            try
+            {
+                List<WindowSize> windowSizes = null;
+                windowSizes = JsonConvert.DeserializeObject<List<WindowSize>>(Settings.Default.WindowSizes);
+
+                WindowSize windowSize = windowSizes.Find(x => x.Title == mainWindow.Title);
+                if(windowSize != null)
+                {
+                    mainWindow.Width = windowSize.Width;
+                    mainWindow.Height = windowSize.Height;
+                }
+            }
+            catch { }
+        }
+
+        public static void SaveWindowSize(MainWindow mainWindow)
+        {
+            if(mainWindow.ResizeMode == ResizeMode.NoResize)
+            {
+                return;
+            }
+
+            List<WindowSize> windowSizes = null;
+
+            try
+            {
+                windowSizes = JsonConvert.DeserializeObject<List<WindowSize>>(Settings.Default.WindowSizes);
+            }
+            catch { }
+
+            if (windowSizes == null)
+            {
+                windowSizes = new List<WindowSize>();
+            }
+
+            windowSizes.RemoveAll(x => x.Title == mainWindow.Title);
+            windowSizes.Add(new WindowSize { Title = mainWindow.Title, Width = (int)mainWindow.Width, Height = (int)mainWindow.Height });
+
+            Settings.Default.WindowSizes = JsonConvert.SerializeObject(windowSizes);
+            Settings.Default.Save();
         }
     }
 }
