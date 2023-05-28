@@ -13,6 +13,7 @@ namespace qgrepControls.ModelViews
     {
         private bool isSelected = false;
         private bool isExpanded = false;
+        private bool isExpandedChanged = false;
 
         public string File { get; set; } = "";
         public string TrimmedFile { get; set; } = "";
@@ -38,8 +39,18 @@ namespace qgrepControls.ModelViews
             }
             set
             {
+                isExpandedChanged = true;
                 isExpanded = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public void SetIsExpanded(bool value)
+        {
+            if(!isExpandedChanged)
+            {
+                IsExpanded = value;
+                isExpandedChanged = false;
             }
         }
 

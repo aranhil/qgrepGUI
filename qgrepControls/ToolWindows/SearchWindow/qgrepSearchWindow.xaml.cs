@@ -423,7 +423,7 @@ namespace qgrepControls.SearchWindow
             {
                 if (searchResultGroup.IsExpanded != isExpanded)
                 {
-                    searchResultGroup.IsExpanded = isExpanded;
+                    searchResultGroup.SetIsExpanded(isExpanded);
                 }
             }
         }
