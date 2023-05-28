@@ -843,6 +843,12 @@ namespace qgrepControls.SearchWindow
 
         private void InitButton_Click(object sender, RoutedEventArgs e)
         {
+            Overlay.Visibility = Visibility.Visible;
+            InitProgress.Value = 0;
+            InitButton.IsEnabled = false;
+            CleanButton.IsEnabled = false;
+            PathsButton.IsEnabled = false;
+
             SearchEngine.Instance.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
 
             if (Settings.Default.SearchInstantly)

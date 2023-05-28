@@ -228,17 +228,21 @@ namespace qgrepControls.Classes
 
         public void SaveConfig()
         {
-            using (StreamWriter streamWriter = new StreamWriter(Path))
+            try
             {
-                SaveGroup(streamWriter, Groups.First());
-
-                for (int i = 1; i < Groups.Count; i++)
+                using (StreamWriter streamWriter = new StreamWriter(Path))
                 {
-                    streamWriter.WriteLine(GroupBegin);
-                    SaveGroup(streamWriter, Groups[i]);
-                    streamWriter.WriteLine(GroupEnd);
+                    SaveGroup(streamWriter, Groups.First());
+
+                    for (int i = 1; i < Groups.Count; i++)
+                    {
+                        streamWriter.WriteLine(GroupBegin);
+                        SaveGroup(streamWriter, Groups[i]);
+                        streamWriter.WriteLine(GroupEnd);
+                    }
                 }
             }
+            catch { }
         }
 
         public void SaveGroup(StreamWriter streamWriter, ConfigGroup configGroup)
