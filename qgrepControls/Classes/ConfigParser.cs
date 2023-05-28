@@ -405,6 +405,7 @@ namespace qgrepControls.Classes
                         watcher.Deleted += OnDeleted;
                         watcher.Renamed += OnRenamed;
                         watcher.EnableRaisingEvents = true;
+                        watcher.IncludeSubdirectories = true;
                         Instance.Watchers.Add(watcher);
                     }
                     catch { }
