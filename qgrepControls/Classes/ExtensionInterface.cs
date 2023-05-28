@@ -8,10 +8,11 @@ using System.Windows.Media.Imaging;
 
 namespace qgrepControls.Classes
 {
+    public delegate void MessageCallback(string message);
     public interface IWrapperApp
     {
         string GetConfigPath(bool useGlobalPath);
-        void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionCallback, StringCallback folderCallback);
+        void GatherAllFoldersAndExtensionsFromSolution(MessageCallback extensionCallback, MessageCallback folderCallback);
         void OpenFile(string path, string line);
         string GetSelectedText();
         System.Drawing.Color GetColor(string resourceKey);

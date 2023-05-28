@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 
@@ -310,6 +312,9 @@ namespace qgrepControls.Classes
         public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
         public ObservableCollection<ConfigProject> OldConfigProjects = new ObservableCollection<ConfigProject>();
 
+        public event Action FilesChanged;
+        private List<FileSystemWatcher> Watchers = new List<FileSystemWatcher>();
+
         public ConfigParser()
         {
         }
@@ -318,6 +323,7 @@ namespace qgrepControls.Classes
         {
             if(Instance.Path != Path)
             {
+                UnloadConfig();
                 Instance.Path = Path;
                 LoadConfig();
             }
@@ -346,12 +352,72 @@ namespace qgrepControls.Classes
                     Instance.ConfigProjects.Add(configProject);
                 }
             }
+
+            List<string> uniqueFolders = new List<string>();
+            foreach(ConfigProject configProject in Instance.ConfigProjects)
+            {
+                foreach (ConfigGroup configGroup in configProject.Groups)
+                {
+                    foreach (ConfigPath configPath in configGroup.Paths)
+                    {
+                        bool foundCommonPath = false;
+                        for (int i = 0; i < uniqueFolders.Count; i++)
+                        {
+                            string commonPath = GetCommonPathPrefix(uniqueFolders[i], configPath.Path);
+                            if (commonPath.Length > 0)
+                            {
+                                foundCommonPath = true;
+                                uniqueFolders[i] = commonPath;
+                                break;
+                            }
+                        }
+
+                        if (!foundCommonPath)
+                        {
+                            uniqueFolders.Add(configPath.Path);
+                        }
+                    }
+                }
+            }
+
+            foreach(string uniqueFolder in uniqueFolders)
+            {
+                if(Directory.Exists(uniqueFolder))
+                {
+                    try
+                    {
+                        FileSystemWatcher watcher = new FileSystemWatcher(uniqueFolder);
+                        watcher.NotifyFilter = NotifyFilters.Attributes
+                                 | NotifyFilters.CreationTime
+                                 | NotifyFilters.DirectoryName
+                                 | NotifyFilters.FileName
+                                 | NotifyFilters.LastAccess
+                                 | NotifyFilters.LastWrite
+                                 | NotifyFilters.Security
+                                 | NotifyFilters.Size;
+                        watcher.Changed += OnChanged;
+                        watcher.Created += OnCreated;
+                        watcher.Deleted += OnDeleted;
+                        watcher.Renamed += OnRenamed;
+                        watcher.EnableRaisingEvents = true;
+                        Instance.Watchers.Add(watcher);
+                    }
+                    catch { }
+                }
+            }
         }
 
         public static void UnloadConfig()
         {
             Instance.Path = "";
             Instance.ConfigProjects.Clear();
+
+            foreach (var watcher in Instance.Watchers)
+            {
+                watcher.Dispose();
+            }
+
+            Instance.Watchers.Clear();
         }
 
         public static void SaveConfig()
@@ -364,7 +430,7 @@ namespace qgrepControls.Classes
         public static ConfigProject AddNewProject()
         {
             int index = 1;
-            string newPath = "";
+            string newPath;
 
             do
             {
@@ -588,6 +654,75 @@ namespace qgrepControls.Classes
             }
 
             return false;
+        }
+        private static void OnFileChanged(string fullPath)
+        {
+            foreach(ConfigProject configProject in Instance.ConfigProjects)
+            {
+                foreach(ConfigGroup configGroup in configProject.Groups)
+                {
+                    bool matchesPath = false;
+                    foreach(ConfigPath configPath in configGroup.Paths)
+                    {
+                        if(GetCommonPathPrefix(configPath.Path, fullPath).Length > 0)
+                        {
+                            matchesPath = true;
+                            break;
+                        }
+                    }
+
+                    if(matchesPath)
+                    {
+                        bool matchesIncludes = false;
+                        bool matchesExcludes = false;
+
+                        foreach(ConfigRule configRule in configGroup.Rules)
+                        {
+                            var match = Regex.Match(fullPath, configRule.Rule);
+                            if (match.Success)
+                            {
+                                if (!configRule.IsExclude)
+                                {
+                                    matchesIncludes = true;
+                                }
+                                else
+                                {
+                                    matchesExcludes = true;
+                                }
+                            }
+                        }
+
+                        if(matchesIncludes && !matchesExcludes)
+                        {
+                            Instance.FilesChanged?.Invoke();
+                        }
+                    }
+                }
+            }
+        }
+        private static void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType != WatcherChangeTypes.Changed)
+            {
+                return;
+            }
+
+            OnFileChanged(e.FullPath);
+        }
+
+        private static void OnCreated(object sender, FileSystemEventArgs e)
+        {
+            OnFileChanged(e.FullPath);
+        }
+
+        private static void OnDeleted(object sender, FileSystemEventArgs e)
+        {
+            OnFileChanged(e.FullPath);
+        }
+
+        private static void OnRenamed(object sender, RenamedEventArgs e)
+        {
+            OnFileChanged(e.FullPath);
         }
     }
 }

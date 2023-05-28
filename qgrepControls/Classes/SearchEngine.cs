@@ -30,9 +30,9 @@ namespace qgrepControls.Classes
         void OnFinishSearchEvent(SearchOptions searchOptions);
     }
 
-    public delegate void StringCallback(string message);
-    public delegate void UpdateStepCallback();
-    public delegate void UpdateProgressCallback(double percentage);
+    public delegate void UpdateMessageCallback(string message, DatabaseUpdate databaseUpdate);
+    public delegate void UpdateStepCallback(DatabaseUpdate databaseUpdate);
+    public delegate void UpdateProgressCallback(double percentage, DatabaseUpdate databaseUpdate);
     public enum CacheUsageType
     {
         Normal,
@@ -79,6 +79,12 @@ namespace qgrepControls.Classes
         }
     }
 
+    public class DatabaseUpdate
+    {
+        public List<string> ConfigPaths { get; set; }
+        public bool IsSilent { get; set; } = false;
+    }
+
     public class SearchEngine
     {
         private static SearchEngine instance = null;
@@ -118,14 +124,14 @@ namespace qgrepControls.Classes
 
         private SearchOptions QueuedSearchOptions = null;
         private SearchOptions QueuedSearchFilesOptions = null;
-        private List<string> QueuedDatabaseUpdate = null;
+        private DatabaseUpdate QueuedDatabaseUpdate = null;
         private CachedSearch CachedSearch = new CachedSearch();
 
         public UpdateStepCallback StartUpdateCallback { get; set; } = null;
         public UpdateStepCallback FinishUpdateCallback { get; set; } = null;
-        public StringCallback UpdateInfoCallback { get; set; } = null;
+        public UpdateMessageCallback UpdateInfoCallback { get; set; } = null;
         public UpdateProgressCallback UpdateProgressCallback { get; set; } = null;
-        public StringCallback UpdateErrorCallback { get; set; } = null;
+        public UpdateMessageCallback UpdateErrorCallback { get; set; } = null;
 
         public void SearchAsync(SearchOptions searchOptions)
         {
@@ -230,7 +236,7 @@ namespace qgrepControls.Classes
                     QGrepWrapper.CallQGrepAsync(arguments, 
                         (string result) => { return StringHandler(result, searchOptions); }, 
                         (string error) => { SearchErrorHandler(error, searchOptions); }, 
-                        ProgressHandler);
+                        null);
                 }
 
                 IsBusy = false;
@@ -278,7 +284,9 @@ namespace qgrepControls.Classes
                 };
 
                 QGrepWrapper.CallQGrepAsync(arguments,
-                    (string result) => { return StringHandler(result, searchOptions, true); }, UpdateErrorHandler, ProgressHandler);
+                    (string result) => { return StringHandler(result, searchOptions, true); },
+                    (string error) => { SearchErrorHandler(error, searchOptions); },
+                    null);
 
                 IsBusy = false;
                 System.Windows.Application.Current.Dispatcher.Invoke(() =>
@@ -296,12 +304,7 @@ namespace qgrepControls.Classes
             while (true)
             {
                 queueEvent.WaitOne();
-
-                if(MutexUtility.Instance.IsMutexFree())
-                {
-                    ProcessQueue();
-                }
-
+                ProcessQueue();
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
         }
@@ -471,11 +474,16 @@ namespace qgrepControls.Classes
             searchOptions.EventsHandler.OnErrorEvent(message, searchOptions);
         }
 
-        public void UpdateDatabaseAsync(List<string> configsPaths)
+        public void UpdateDatabaseAsync(DatabaseUpdate databaseUpdate)
         {
+            if(QueuedDatabaseUpdate != null)
+            {
+                return;
+            }
+
             if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
             {
-                QueuedDatabaseUpdate = configsPaths;
+                QueuedDatabaseUpdate = databaseUpdate;
                 queueEvent.Set();
                 return;
             }
@@ -484,22 +492,22 @@ namespace qgrepControls.Classes
 
             Task.Run(() =>
             {
-                StartUpdateCallback();
+                StartUpdateCallback(databaseUpdate);
                 UpdateTimer.Stop();
                 LastUpdateProgress = -1;
 
-                foreach (String configPath in configsPaths)
+                foreach (string configPath in databaseUpdate.ConfigPaths)
                 {
-                    QGrepWrapper.StringCallback stringCallback = new QGrepWrapper.StringCallback(DatabaseMessageHandler);
-                    QGrepWrapper.ErrorCallback errorsCallback = new QGrepWrapper.ErrorCallback(UpdateErrorHandler);
-                    QGrepWrapper.ProgressCalback progressCalback = new QGrepWrapper.ProgressCalback(ProgressHandler);
                     List<string> parameters = new List<string>
                     {
                         "qgrep",
                         "update",
                         configPath
                     };
-                    QGrepWrapper.CallQGrepAsync(parameters, stringCallback, errorsCallback, progressCalback);
+                    QGrepWrapper.CallQGrepAsync(parameters, 
+                        (string message) => { return DatabaseMessageHandler(message, databaseUpdate); }, 
+                        (string message) => { UpdateErrorHandler(message, databaseUpdate); }, 
+                        (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
                 }
 
                 IsBusy = false;
@@ -508,7 +516,7 @@ namespace qgrepControls.Classes
                     MutexUtility.Instance.WorkDone();
                 });
 
-                FinishUpdateCallback();
+                FinishUpdateCallback(databaseUpdate);
                 StartLastUpdatedTimer();
                 LastUpdateProgress = -1;
 
@@ -516,12 +524,12 @@ namespace qgrepControls.Classes
             });
         }
 
-        private void UpdateErrorHandler(string result)
+        private void UpdateErrorHandler(string result, DatabaseUpdate databaseUpdate)
         {
-            UpdateErrorCallback(result);
+            UpdateErrorCallback(result, databaseUpdate);
         }
 
-        private bool DatabaseMessageHandler(string result)
+        private bool DatabaseMessageHandler(string result, DatabaseUpdate databaseUpdate)
         {
             if (result.EndsWith("\n"))
             {
@@ -529,15 +537,15 @@ namespace qgrepControls.Classes
             }
 
             LastUpdateMessage = result;
-            UpdateInfoCallback(result);
+            UpdateInfoCallback(result, databaseUpdate);
 
             return false;
         }
 
-        public void ProgressHandler(double percentage)
+        public void ProgressHandler(double percentage, DatabaseUpdate databaseUpdate)
         {
             LastUpdateProgress = percentage;
-            UpdateProgressCallback(percentage);
+            UpdateProgressCallback(percentage, databaseUpdate);
         }
 
         private void StartLastUpdatedTimer()
@@ -560,13 +568,13 @@ namespace qgrepControls.Classes
             DateTime lastUpdated = ConfigParser.GetLastUpdated();
             string timeAgo = "Last index update: " + (lastUpdated == DateTime.MaxValue ? "never" : GetTimeAgoString(lastUpdated));
 
-            DatabaseMessageHandler(timeAgo);
+            DatabaseMessageHandler(timeAgo, null);
         }
 
         public void ShowLastUpdateMessage()
         {
-            UpdateInfoCallback(LastUpdateMessage);
-            UpdateProgressCallback(LastUpdateProgress);
+            UpdateInfoCallback(LastUpdateMessage, null);
+            UpdateProgressCallback(LastUpdateProgress, null);
         }
 
         public static string GetTimeAgoString(DateTime eventTime)

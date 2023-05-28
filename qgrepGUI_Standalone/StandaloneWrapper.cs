@@ -78,7 +78,7 @@ namespace qgrepGUI
             catch { }
         }
 
-        public void GatherAllFoldersAndExtensionsFromSolution(StringCallback extensionsList, StringCallback folderCallback)
+        public void GatherAllFoldersAndExtensionsFromSolution(MessageCallback extensionsList, MessageCallback folderCallback)
         {
         }
 

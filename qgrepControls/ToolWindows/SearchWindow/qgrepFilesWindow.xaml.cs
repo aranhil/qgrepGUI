@@ -370,41 +370,50 @@ namespace qgrepControls.SearchWindow
         private Stopwatch progressUpdateStopWatch = new Stopwatch();
         private string lastMessage = "";
 
-        private void HandleUpdateStart()
+        private void HandleUpdateStart(DatabaseUpdate databaseUpdate)
         {
             Dispatcher.Invoke(() =>
             {
-                InitProgress.Value = 0;
-                InitButton.IsEnabled = false;
-                CleanButton.IsEnabled = false;
+                if (databaseUpdate == null || !databaseUpdate.IsSilent)
+                {
+                    InitProgress.Value = 0;
+                    InitButton.IsEnabled = false;
+                    CleanButton.IsEnabled = false;
+                }
             });
         }
 
-        private void HandleUpdateFinish()
+        private void HandleUpdateFinish(DatabaseUpdate databaseUpdate)
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                InitProgress.Visibility = Visibility.Collapsed;
-                InitButton.IsEnabled = true;
-                CleanButton.IsEnabled = true;
-                InitInfo.Content = lastMessage;
+                if (databaseUpdate == null || !databaseUpdate.IsSilent)
+                {
+                    InitProgress.Visibility = Visibility.Collapsed;
+                    InitButton.IsEnabled = true;
+                    CleanButton.IsEnabled = true;
+                    InitInfo.Content = lastMessage;
 
-                infoUpdateStopWatch.Stop();
-                progressUpdateStopWatch.Stop();
+                    infoUpdateStopWatch.Stop();
+                    progressUpdateStopWatch.Stop();
+                }
             }));
         }
 
-        private void HandleErrorMessage(string message)
+        private void HandleErrorMessage(string message, DatabaseUpdate databaseUpdate)
         {
             lastMessage = message;
 
             Dispatcher.Invoke(new Action(() =>
             {
-                InitInfo.Content = message;
+                if (databaseUpdate == null || !databaseUpdate.IsSilent)
+                {
+                    InitInfo.Content = message;
+                }
             }));
         }
 
-        private void HandleUpdateMessage(string message)
+        private void HandleUpdateMessage(string message, DatabaseUpdate databaseUpdate)
         {
             lastMessage = message;
 
@@ -412,35 +421,41 @@ namespace qgrepControls.SearchWindow
             {
                 Dispatcher.Invoke(new Action(() =>
                 {
-                    InitInfo.Content = message;
-                    infoUpdateStopWatch.Restart();
+                    if (databaseUpdate == null || !databaseUpdate.IsSilent)
+                    {
+                        InitInfo.Content = message;
+                        infoUpdateStopWatch.Restart();
+                    }
                 }));
             }
         }
 
-        private void HandleProgress(double percentage)
+        private void HandleProgress(double percentage, DatabaseUpdate databaseUpdate)
         {
             if (!progressUpdateStopWatch.IsRunning || progressUpdateStopWatch.ElapsedMilliseconds > 20)
             {
                 Dispatcher.Invoke(new Action(() =>
                 {
-                    InitProgress.Value = percentage;
-                    InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
-                    progressUpdateStopWatch.Restart();
+                    if (databaseUpdate == null || !databaseUpdate.IsSilent)
+                    {
+                        InitProgress.Value = percentage;
+                        InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
+                        progressUpdateStopWatch.Restart();
+                    }
                 }));
             }
         }
 
         private void InitButton_Click(object sender, RoutedEventArgs e)
         {
-            SearchEngine.Instance.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+            SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate() { ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList() });
             Find();
         }
 
         private void CleanButton_Click(object sender, RoutedEventArgs e)
         {
             CleanDatabase();
-            SearchEngine.Instance.UpdateDatabaseAsync(ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList());
+            SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate() { ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList() });
             Find();
         }
 
@@ -454,7 +469,7 @@ namespace qgrepControls.SearchWindow
             {
                 Dispatcher.Invoke(new Action(() =>
                 {
-                    HandleErrorMessage("Cannot clean indexes: " + ex.Message + "\n");
+                    HandleErrorMessage("Cannot clean indexes: " + ex.Message + "\n", null);
                 }));
             }
         }
