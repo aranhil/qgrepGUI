@@ -360,8 +360,16 @@ namespace qgrepControls.Classes
                 }
             }
 
+            if(Settings.Default.UpdateIndexAutomatically)
+            {
+                AddWatchers();
+            }
+        }
+
+        public static void AddWatchers()
+        {
             List<string> uniqueFolders = new List<string>();
-            foreach(ConfigProject configProject in Instance.ConfigProjects)
+            foreach (ConfigProject configProject in Instance.ConfigProjects)
             {
                 foreach (ConfigGroup configGroup in configProject.Groups)
                 {
@@ -387,9 +395,9 @@ namespace qgrepControls.Classes
                 }
             }
 
-            foreach(string uniqueFolder in uniqueFolders)
+            foreach (string uniqueFolder in uniqueFolders)
             {
-                if(Directory.Exists(uniqueFolder))
+                if (Directory.Exists(uniqueFolder))
                 {
                     try
                     {
@@ -420,6 +428,11 @@ namespace qgrepControls.Classes
             Instance.Path = "";
             Instance.ConfigProjects.Clear();
 
+            RemoveWatchers();
+        }
+
+        public static void RemoveWatchers()
+        {
             foreach (var watcher in Instance.Watchers)
             {
                 watcher.Dispose();

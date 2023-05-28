@@ -123,6 +123,11 @@ namespace qgrepControls.SearchWindow
             if(Settings.Default.UpdateIndexAutomatically)
             {
                 SearchWindow.UpdateDatabase(true);
+                ConfigParser.AddWatchers();
+            }
+            else
+            {
+                ConfigParser.RemoveWatchers();
             }
         }
     }
