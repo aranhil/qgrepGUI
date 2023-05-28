@@ -476,6 +476,8 @@ namespace qgrepControls.SearchWindow
             }
         }
 
+        uint BackgroundColor = 0;
+
         public void OnStartSearchEvent(SearchOptions searchOptions)
         {
             Dispatcher.Invoke(() =>
@@ -484,6 +486,11 @@ namespace qgrepControls.SearchWindow
                 selectedSearchResultGroup = null;
                 selectedSearchResult = null;
                 OverrideExpansion = null;
+
+                if (!WrapperApp.IsStandalone)
+                {
+                    BackgroundColor = ThemeHelper.GetBackgroundColor(this);
+                }
 
                 SearchItemsListBox.Visibility = searchOptions.GroupingMode == 0 ? Visibility.Visible : Visibility.Collapsed;
                 SearchItemsTreeView.Visibility = searchOptions.GroupingMode != 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -599,6 +606,11 @@ namespace qgrepControls.SearchWindow
                             FullResult = fileAndLine + beginText + highlight + endText
                         };
 
+                        if (searchOptions.IsFileSearch)
+                        {
+                            WrapperApp.GetIcon(newSearchResult.FullResult, BackgroundColor, newSearchResult);
+                        }
+
                         newSearchResults.Add(newSearchResult);
 
                         if (searchOptions.GroupingMode == 1)
@@ -679,13 +691,13 @@ namespace qgrepControls.SearchWindow
                 {
                     EventsHandler = this,
                     Query = IncludeFilesInput.Text,
+                    RegEx = IncludeRegEx.IsChecked == true,
                     FilterResults = Settings.Default.ShowFilter && FilterResultsInput.Text.Length > 0 ? FilterResultsInput.Text : "",
-                    IncludeFilesRegEx = IncludeRegEx.IsChecked == true,
                     FilterResultsRegEx = FilterRegEx.IsChecked == true,
                     GroupingMode = 0,
                     Configs = GetSelectedConfigProjects(),
                     CacheUsageType = CacheUsageType,
-                    BypassHighlight = true
+                    IsFileSearch = true,
                 };
 
                 SearchEngine.Instance.SearchFilesAsync(searchOptions);

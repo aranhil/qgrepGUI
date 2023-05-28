@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace qgrepControls.Classes
@@ -182,6 +183,12 @@ namespace qgrepControls.Classes
         public static void ClearCache()
         {
             Instance.CachedResources = null;
+        }
+
+        public static uint GetBackgroundColor(UserControl userControl)
+        {
+            System.Windows.Media.Color color = (System.Windows.Media.Color)userControl.Resources["Background.Color"];
+            return ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | color.B;
         }
     }
 }

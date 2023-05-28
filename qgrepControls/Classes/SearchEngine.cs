@@ -64,6 +64,8 @@ namespace qgrepControls.Classes
         public List<string> Configs { get; set; } = new List<string>();
         public CacheUsageType CacheUsageType { get; set; } = CacheUsageType.Normal;
         public bool BypassHighlight { get; set; } = false;
+        public bool FileSearchUnorderedKeywords { get; set; } = false;
+        public bool IsFileSearch { get; set; } = false;
 
         public bool CanUseCache(SearchOptions newSearchOptions)
         {
@@ -283,8 +285,9 @@ namespace qgrepControls.Classes
                     string.Join(",", searchOptions.Configs),
                     "i",
                     "V",
-                    "fc",
-                    ConfigParser.GetPathToRemove(Settings.Default.FilesSearchScopeIndex) + "\xB0" + searchOptions.Query
+                    searchOptions.FileSearchUnorderedKeywords ? "fc" : "fp",
+                    (searchOptions.FileSearchUnorderedKeywords ? ConfigParser.GetPathToRemove(Settings.Default.FilesSearchScopeIndex) + "\xB0" : "") +
+                    (searchOptions.RegEx ? searchOptions.Query : Regex.Escape(searchOptions.Query))
                 };
 
                 QGrepWrapper.CallQGrepAsync(arguments,
@@ -357,7 +360,7 @@ namespace qgrepControls.Classes
                 CachedSearch.Results.Add(result);
             }
 
-            string file, beginText, endText, highlightedText, lineNo = "";
+            string file = "", beginText, endText, highlightedText, lineNo = "";
 
             int currentIndex = result.IndexOf('\xB0');
             if (currentIndex >= 0)
@@ -429,11 +432,6 @@ namespace qgrepControls.Classes
                 {
                     return false;
                 }
-            }
-            else
-            {
-                file = result;
-                result = "";
             }
 
             if(!searchOptions.BypassHighlight)

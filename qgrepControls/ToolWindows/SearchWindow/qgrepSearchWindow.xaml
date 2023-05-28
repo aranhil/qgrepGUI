@@ -103,6 +103,18 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
+                            <Image Margin="4,0,-8,0" Width="16" Height="16" Source="{Binding ImageSource}">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ImageSource}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                             <TextBlock Style="{DynamicResource ResultFile}" Text="{Binding Path=TrimmedFileAndLine}" />
                             <TextBlock Style="{DynamicResource ResultTextStart}" Text="{Binding Path=BeginText}" />
                             <TextBlock Style="{DynamicResource ResultHighlightedText}" Text="{Binding Path=HighlightedText}"/>

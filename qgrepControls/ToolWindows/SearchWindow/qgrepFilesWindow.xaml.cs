@@ -87,13 +87,16 @@ namespace qgrepControls.SearchWindow
                 {
                     EventsHandler = this,
                     Query = IncludeFilesInput.Text,
+                    RegEx = true,
                     FilterResults = "",
                     IncludeFilesRegEx = false,
                     FilterResultsRegEx = false,
                     GroupingMode = 0,
                     Configs = GetSelectedConfigProjects(),
                     CacheUsageType = CacheUsageType.Normal,
-                    BypassHighlight = true
+                    BypassHighlight = true,
+                    FileSearchUnorderedKeywords = true,
+                    IsFileSearch = true,
                 };
 
                 SearchEngine.Instance.SearchFilesAsync(searchOptions);
@@ -137,8 +140,7 @@ namespace qgrepControls.SearchWindow
 
                 if(!WrapperApp.IsStandalone)
                 {
-                    System.Windows.Media.Color color = (System.Windows.Media.Color)Resources["Background.Color"];
-                    BackgroundColor = ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | color.B;
+                    BackgroundColor = ThemeHelper.GetBackgroundColor(this);
                 }
             });
         }
@@ -214,15 +216,10 @@ namespace qgrepControls.SearchWindow
                         string fileAndLine = "";
                         string trimmedFileAndLine = "";
 
-                        if (file.Length > 0 && lineNumber.Length > 0)
+                        if(beginText.Length > 0)
                         {
-                            fileAndLine = file + "(" + lineNumber + ")";
-                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.FilesPathStyleIndex);
-                        }
-                        else if(file.Length > 0)
-                        {
-                            fileAndLine = file;
-                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.FilesPathStyleIndex);
+                            fileAndLine = beginText;
+                            trimmedFileAndLine = ConfigParser.RemovePaths(beginText, Settings.Default.FilesPathStyleIndex);
                         }
 
                         SearchResult newSearchResult = new SearchResult()
@@ -237,7 +234,10 @@ namespace qgrepControls.SearchWindow
                             FullResult = fileAndLine + beginText + highlight + endText,
                         };
 
-                        WrapperApp.GetIcon(file, BackgroundColor, newSearchResult);
+                        if(searchOptions.IsFileSearch)
+                        {
+                            WrapperApp.GetIcon(fileAndLine, BackgroundColor, newSearchResult);
+                        }
 
                         newSearchResults.Add(newSearchResult);
 
