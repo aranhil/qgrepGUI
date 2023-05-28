@@ -535,19 +535,19 @@ namespace qgrepSearch
             var options = default(TaskHandlerOptions);
             options.Title = title;
 
-            options.DisplayTaskDetails = task =>
-            {
-                Data.Package.SearchWindowOpened = true;
+            //options.DisplayTaskDetails = task =>
+            //{
+            //    Data.Package.SearchWindowOpened = true;
 
-                Microsoft.VisualStudio.Threading.JoinableTask joinableTask = Data.Package.JoinableTaskFactory.RunAsync(async () =>
-                {
-                    ToolWindowPane window = await Data.Package.ShowToolWindowAsync(
-                        typeof(qgrepSearchWindow),
-                        0,
-                        create: true,
-                        cancellationToken: Data.Package.DisposalToken);
-                });
-            };
+            //    Microsoft.VisualStudio.Threading.JoinableTask joinableTask = Data.Package.JoinableTaskFactory.RunAsync(async () =>
+            //    {
+            //        ToolWindowPane window = await Data.Package.ShowToolWindowAsync(
+            //            typeof(qgrepSearchWindow),
+            //            0,
+            //            create: true,
+            //            cancellationToken: Data.Package.DisposalToken);
+            //    });
+            //};
 
             options.ActionsAfterCompletion = CompletionActions.None;
 
@@ -574,6 +574,11 @@ namespace qgrepSearch
         public void StopBackgroundTask()
         {
             FakeTask.SetResult(true);
+        }
+
+        public bool LoadConfigAtStartup()
+        {
+            return Data.Package.SolutionAlreadyLoaded;
         }
     }
 }

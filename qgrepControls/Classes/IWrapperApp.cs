@@ -30,5 +30,6 @@ namespace qgrepControls.Classes
         void UpdateBackgroundTaskPercentage(int progress);
         void UpdateBackgroundTaskMessage(string message);
         void StopBackgroundTask();
+        bool LoadConfigAtStartup();
     }
 }

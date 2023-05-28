@@ -312,5 +312,10 @@ namespace qgrepGUI
         public void StopBackgroundTask()
         {
         }
+
+        public bool LoadConfigAtStartup()
+        {
+            return true;
+        }
     }
 }

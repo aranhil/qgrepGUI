@@ -90,7 +90,10 @@ namespace qgrepControls.SearchWindow
             ExcludeRegEx.IsChecked = Settings.Default.ExcludesRegEx;
             FilterRegEx.IsChecked = Settings.Default.FilterRegEx;
 
-            SolutionLoaded();
+            if(WrapperApp.LoadConfigAtStartup())
+            {
+                SolutionLoaded();
+            }
 
             ThemeHelper.UpdateColorsFromSettings(this, WrapperApp, false);
             ThemeHelper.UpdateFontFromSettings(this, WrapperApp);
@@ -278,6 +281,7 @@ namespace qgrepControls.SearchWindow
             {
                 ConfigParser.Initialize(solutionPath);
                 ConfigParser.Instance.FilesChanged += FilesChanged;
+                ConfigParser.Instance.FilesAddedOrRemoved += FilesAddedOrRemoved; ;
 
                 if(Settings.Default.UpdateIndexAutomatically)
                 {
@@ -346,11 +350,19 @@ namespace qgrepControls.SearchWindow
 
         bool QueueFindWhenVisible = true;
 
-        private void FilesChanged(string modifiedFile)
+        private void FilesChanged(List<string> modifiedFiles)
         {
             Dispatcher.Invoke(() =>
             {
-                UpdateDatabase(true, modifiedFile);
+                UpdateDatabase(true, modifiedFiles);
+            });
+        }
+
+        private void FilesAddedOrRemoved()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                UpdateDatabase(true);
             });
         }
 
@@ -894,7 +906,7 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        public void UpdateDatabase(bool silently = false, string modifiedFile = null)
+        public void UpdateDatabase(bool silently = false, List<string> modifiedFiles = null)
         {
             if(!ConfigParser.IsInitialized())
             {
@@ -915,7 +927,7 @@ namespace qgrepControls.SearchWindow
             { 
                 ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(), 
                 IsSilent = silently,
-                File = modifiedFile
+                Files = modifiedFiles
             });
 
             if (Settings.Default.SearchInstantly)

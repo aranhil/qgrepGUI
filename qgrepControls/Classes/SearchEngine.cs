@@ -82,7 +82,7 @@ namespace qgrepControls.Classes
     public class DatabaseUpdate
     {
         public List<string> ConfigPaths { get; set; }
-        public string File { get; set; }
+        public List<string> Files { get; set; }
         public bool IsSilent { get; set; } = false;
     }
 
@@ -480,11 +480,6 @@ namespace qgrepControls.Classes
 
         public void UpdateDatabaseAsync(DatabaseUpdate databaseUpdate)
         {
-            if(QueuedDatabaseUpdate != null || IsUpdatingDatabase)
-            {
-                return;
-            }
-
             if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
             {
                 QueuedDatabaseUpdate = databaseUpdate;
@@ -501,37 +496,24 @@ namespace qgrepControls.Classes
                 UpdateTimer.Stop();
                 LastUpdateProgress = -1;
 
-                if(databaseUpdate.File != null && NonIndexedFiles.Count < 15)
+                try
                 {
-                    if(!NonIndexedFiles.Contains(databaseUpdate.File))
+                    if (databaseUpdate.Files != null && NonIndexedFiles.Count < 15)
                     {
-                        NonIndexedFiles.Add(databaseUpdate.File);
-                    }
+                        foreach (string file in databaseUpdate.Files)
+                        {
+                            if (!NonIndexedFiles.Contains(file))
+                            {
+                                NonIndexedFiles.Add(file);
+                            }
+                        }
 
-                    List<string> parameters = new List<string>
-                    {
-                        "qgrep",
-                        "change",
-                        string.Join(",", databaseUpdate.ConfigPaths),
-                        databaseUpdate.File
-                    };
-
-                    QGrepWrapper.CallQGrepAsync(parameters,
-                        (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
-                        (string message) => { UpdateErrorHandler(message, databaseUpdate); },
-                        (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
-                }
-                else
-                {
-                    NonIndexedFiles.Clear();
-
-                    foreach (string configPath in databaseUpdate.ConfigPaths)
-                    {
                         List<string> parameters = new List<string>
                         {
                             "qgrep",
-                            "update",
-                            configPath
+                            "change",
+                            string.Join(",", databaseUpdate.ConfigPaths),
+                            string.Join(",", databaseUpdate.Files)
                         };
 
                         QGrepWrapper.CallQGrepAsync(parameters,
@@ -539,7 +521,27 @@ namespace qgrepControls.Classes
                             (string message) => { UpdateErrorHandler(message, databaseUpdate); },
                             (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
                     }
+                    else
+                    {
+                        NonIndexedFiles.Clear();
+
+                        foreach (string configPath in databaseUpdate.ConfigPaths)
+                        {
+                            List<string> parameters = new List<string>
+                            {
+                                "qgrep",
+                                "update",
+                                configPath
+                            };
+
+                            QGrepWrapper.CallQGrepAsync(parameters,
+                                (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
+                                (string message) => { UpdateErrorHandler(message, databaseUpdate); },
+                                (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
+                        }
+                    }
                 }
+                catch { }
 
                 IsBusy = false;
                 IsUpdatingDatabase = false;

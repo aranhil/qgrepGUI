@@ -313,7 +313,8 @@ namespace qgrepControls.Classes
         public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
         public ObservableCollection<ConfigProject> OldConfigProjects = new ObservableCollection<ConfigProject>();
 
-        public event Action<string> FilesChanged;
+        public event Action<List<string>> FilesChanged;
+        public event Action FilesAddedOrRemoved;
         private List<FileSystemWatcher> Watchers = new List<FileSystemWatcher>();
 
         public ConfigParser()
@@ -673,7 +674,7 @@ namespace qgrepControls.Classes
             return false;
         }
 
-        private static void OnFileChanged(string fullPath, bool isModified)
+        private static bool IsFileRelevant(string fullPath)
         {
             foreach(ConfigProject configProject in Instance.ConfigProjects)
             {
@@ -712,40 +713,24 @@ namespace qgrepControls.Classes
 
                         if(matchesIncludes && !matchesExcludes)
                         {
-                            Instance.FilesChanged?.Invoke(isModified ? fullPath : null);
+                            return true;
                         }
                     }
                 }
             }
-        }
-        private static void OnChanged(object sender, FileSystemEventArgs e)
-        {
-            if (e.ChangeType != WatcherChangeTypes.Changed)
-            {
-                return;
-            }
 
-            OnFileChanged(e.FullPath, true);
+            return false;
         }
 
-        private static void OnCreated(object sender, FileSystemEventArgs e)
-        {
-            OnFileChanged(e.FullPath, false);
-        }
-
-        private static void OnDeleted(object sender, FileSystemEventArgs e)
-        {
-            OnFileChanged(e.FullPath, false);
-        }
-
-        private class DelayedRenameHandler
+        private class DelayedEventsHandler
         {
             private Timer timer;
             private object lockObject = new object();
 
             public List<RenamedEventArgs> renamedEvents = new List<RenamedEventArgs>();
+            public List<FileSystemEventArgs> fileSystemEvents = new List<FileSystemEventArgs>();
 
-            public DelayedRenameHandler()
+            public DelayedEventsHandler()
             {
                 timer = new Timer(500);
                 timer.AutoReset = false;
@@ -754,46 +739,125 @@ namespace qgrepControls.Classes
 
             public void Reset()
             {
+                timer.Stop();
+                timer.Start();
+            }
+
+            public void AddRenameEvent(RenamedEventArgs renamedEventArgs)
+            {
                 lock (lockObject)
                 {
-                    timer.Stop();
-                    timer.Start();
+                    renamedEvents.Add(renamedEventArgs);
+                    Reset();
+                }
+            }
+
+            public void AddFileSystemEvent(FileSystemEventArgs renamedEventArgs)
+            {
+                lock (lockObject)
+                {
+                    fileSystemEvents.Add(renamedEventArgs);
+                    Reset();
                 }
             }
 
             private void TimerElapsed(object sender, ElapsedEventArgs e)
             {
-                timer.Stop();
-
-                HashSet<string> oldFiles = new HashSet<string>();
-                HashSet<string> newFiles = new HashSet<string>();
-
-                foreach (RenamedEventArgs renamedEventArgs in renamedEvents)
+                lock (lockObject)
                 {
-                    oldFiles.Add(renamedEventArgs.OldFullPath);
-                    newFiles.Add(renamedEventArgs.FullPath);
-                }
+                    timer.Stop();
 
-                foreach(string newFile in newFiles)
-                {
-                    if(oldFiles.Contains(newFile))
+                    HashSet<string> changedFiles = new HashSet<string>();
+
+                    foreach(FileSystemEventArgs fileSystemEvent in fileSystemEvents)
                     {
-                        OnFileChanged(newFile, true);
+                        if(!IsFileRelevant(fileSystemEvent.FullPath))
+                        {
+                            continue;
+                        }
+
+                        if(fileSystemEvent.ChangeType == WatcherChangeTypes.Created ||
+                            fileSystemEvent.ChangeType == WatcherChangeTypes.Deleted)
+                        {
+                            Cleanup();
+                            Instance.FilesAddedOrRemoved?.Invoke();
+                            return;
+                        }
+                        else if(fileSystemEvent.ChangeType == WatcherChangeTypes.Changed)
+                        {
+                            changedFiles.Add(fileSystemEvent.FullPath);
+                        }
                     }
-                    else
+
+                    HashSet<string> oldFiles = new HashSet<string>();
+                    HashSet<string> newFiles = new HashSet<string>();
+
+                    foreach (RenamedEventArgs renamedEventArgs in renamedEvents)
                     {
-                        OnFileChanged(newFile, false);
+                        oldFiles.Add(renamedEventArgs.OldFullPath);
+                        newFiles.Add(renamedEventArgs.FullPath);
+                    }
+
+                    foreach (string newFile in newFiles)
+                    {
+                        if (!IsFileRelevant(newFile))
+                        {
+                            continue;
+                        }
+
+                        if (oldFiles.Contains(newFile))
+                        {
+                            changedFiles.Add(newFile);
+                        }
+                        else
+                        {
+                            Cleanup();
+                            Instance.FilesAddedOrRemoved?.Invoke();
+                            return;
+                        }
+                    }
+
+                    Cleanup();
+
+                    if(changedFiles.Count > 0)
+                    {
+                        Instance.FilesChanged?.Invoke(changedFiles.ToList());
                     }
                 }
             }
+
+            private void Cleanup()
+            {
+                renamedEvents.Clear();
+                fileSystemEvents.Clear();
+            }
         }
 
-        DelayedRenameHandler delayedRenameHandler = new DelayedRenameHandler();
+        DelayedEventsHandler delayedEventsHandler = new DelayedEventsHandler();
+
+        private static void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType != WatcherChangeTypes.Changed)
+            {
+                return;
+            }
+
+            Instance.delayedEventsHandler.AddFileSystemEvent(e);
+        }
+
+        private static void OnCreated(object sender, FileSystemEventArgs e)
+        {
+            Instance.delayedEventsHandler.AddFileSystemEvent(e);
+        }
+
+        private static void OnDeleted(object sender, FileSystemEventArgs e)
+        {
+            Instance.delayedEventsHandler.AddFileSystemEvent(e);
+        }
 
         private static void OnRenamed(object sender, RenamedEventArgs e)
         {
-            Instance.delayedRenameHandler.renamedEvents.Add(e);
-            Instance.delayedRenameHandler.Reset();
+            Instance.delayedEventsHandler.AddRenameEvent(e);
         }
     }
 }

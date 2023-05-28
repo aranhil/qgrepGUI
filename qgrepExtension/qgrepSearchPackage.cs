@@ -125,11 +125,18 @@ namespace qgrepSearch
             return toolWindowType == typeof(qgrepSearchWindow) ? qgrepSearchWindow.Title : base.GetToolWindowTitle(toolWindowType, id);
         }
 
+        public bool SolutionAlreadyLoaded = false;
         protected override async Task<object> InitializeToolWindowAsync(Type toolWindowType, int id, CancellationToken cancellationToken)
         {
-            await Task.CompletedTask;
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            IVsSolution solutionService = (IVsSolution)(await GetServiceAsync(typeof(SVsSolution)));
+
+            // Check if a solution is open.
+            int hr = solutionService.GetProperty((int)__VSPROPID.VSPROPID_IsSolutionOpen, out object isSolutionOpen);
+            ErrorHandler.ThrowOnFailure(hr);
 
             toolWindowId = id;
+            SolutionAlreadyLoaded = (bool)isSolutionOpen;
             return GetExtensionData();
         }
 
