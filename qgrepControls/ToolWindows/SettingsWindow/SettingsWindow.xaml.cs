@@ -25,6 +25,7 @@ namespace qgrepControls.SearchWindow
             ShowOpenHistory.IsChecked = Settings.Default.ShowOpenHistory;
             SearchInstantly.IsChecked = Settings.Default.SearchInstantly;
             TrimSpacesOnCopy.IsChecked = Settings.Default.TrimSpacesOnCopy;
+            UpdateIndexAutomatically.IsChecked = Settings.Default.UpdateIndexAutomatically;
             GroupingComboBox.SelectedIndex = Settings.Default.GroupingIndex;
             PathStyleComboBox.SelectedIndex = Settings.Default.PathStyleIndex;
             ExpandModeComboBox.SelectedIndex = Settings.Default.ExpandModeIndex;

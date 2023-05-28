@@ -296,5 +296,21 @@ namespace qgrepGUI
             }
             catch { }
         }
+
+        public void StartBackgroundTask(string title)
+        {
+        }
+
+        public void UpdateBackgroundTaskPercentage(int progress)
+        {
+        }
+
+        public void UpdateBackgroundTaskMessage(string message)
+        {
+        }
+
+        public void StopBackgroundTask()
+        {
+        }
     }
 }

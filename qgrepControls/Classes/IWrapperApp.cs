@@ -27,7 +27,8 @@ namespace qgrepControls.Classes
         System.Windows.Window GetMainWindow();
         void GetIcon(string filePath, uint background, SearchResult searchResult);
         void StartBackgroundTask(string title);
-        void UpdateBackgroundTask(string message, int progress);
+        void UpdateBackgroundTaskPercentage(int progress);
+        void UpdateBackgroundTaskMessage(string message);
         void StopBackgroundTask();
     }
 }

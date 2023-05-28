@@ -457,7 +457,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.UseGlobalPath = UseGlobalPath.IsChecked ?? false;
             Settings.Default.Save();
 
-            ConfigParser.Init(SearchWindow.WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath));
+            ConfigParser.Initialize(SearchWindow.WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath));
             LoadFromConfig();
         }
     }

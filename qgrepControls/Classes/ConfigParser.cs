@@ -319,7 +319,7 @@ namespace qgrepControls.Classes
         {
         }
 
-        public static void Init(string Path)
+        public static void Initialize(string Path)
         {
             if(Instance.Path != Path)
             {
@@ -327,6 +327,11 @@ namespace qgrepControls.Classes
                 Instance.Path = Path;
                 LoadConfig();
             }
+        }
+
+        public static bool IsInitialized()
+        {
+            return Instance.Path.Length > 0;
         }
 
         public static void LoadConfig()

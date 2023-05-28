@@ -276,7 +276,7 @@ namespace qgrepControls.SearchWindow
             string solutionPath = WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath);
             if(solutionPath.Length > 0)
             {
-                ConfigParser.Init(solutionPath);
+                ConfigParser.Initialize(solutionPath);
                 ConfigParser.Instance.FilesChanged += FilesChanged;
 
                 if(Settings.Default.UpdateIndexAutomatically)
@@ -870,7 +870,7 @@ namespace qgrepControls.SearchWindow
 
                     if(databaseUpdate != null)
                     {
-                        WrapperApp.UpdateBackgroundTask(message, (int)InitProgress.Value);
+                        WrapperApp.UpdateBackgroundTaskMessage(message);
                     }
                 }));
             }
@@ -889,13 +889,18 @@ namespace qgrepControls.SearchWindow
                         progressUpdateStopWatch.Restart();
                     }
 
-                    WrapperApp.UpdateBackgroundTask((string)InitInfo.Content, (int)percentage);
+                    WrapperApp.UpdateBackgroundTaskPercentage((int)percentage);
                 }));
             }
         }
 
         public void UpdateDatabase(bool silently = false)
         {
+            if(!ConfigParser.IsInitialized())
+            {
+                return;
+            }
+
             if(!silently)
             {
                 Overlay.Visibility = Visibility.Visible;

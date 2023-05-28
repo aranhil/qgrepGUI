@@ -559,9 +559,14 @@ namespace qgrepSearch
             TaskHandler.RegisterTask(FakeTask.Task);
         }
 
-        public void UpdateBackgroundTask(string message, int progress)
+        public void UpdateBackgroundTaskPercentage(int progress)
         {
             TaskProgressData.PercentComplete = progress;
+            TaskHandler?.Progress.Report(TaskProgressData);
+        }
+
+        public void UpdateBackgroundTaskMessage(string message)
+        {
             TaskProgressData.ProgressText = message;
             TaskHandler?.Progress.Report(TaskProgressData);
         }

@@ -42,7 +42,7 @@ namespace qgrepControls.SearchWindow
             IncludeFilesInput.Focus();
 
             this.WrapperApp = WrapperApp;
-            ConfigParser.Init(WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath));
+            ConfigParser.Initialize(WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath));
 
             ThemeHelper.UpdateColorsFromSettings(this, WrapperApp, false);
             ThemeHelper.UpdateFontFromSettings(this, WrapperApp);
