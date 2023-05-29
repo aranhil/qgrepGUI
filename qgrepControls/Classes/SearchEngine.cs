@@ -113,8 +113,7 @@ namespace qgrepControls.Classes
 
         private SearchEngine()
         {
-            queueThread = new Task(QueueUpdate);
-            queueThread.Start();
+            Task.Run(QueueUpdate);
         }
 
         private string LastUpdateMessage = "";
