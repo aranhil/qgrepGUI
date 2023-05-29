@@ -94,7 +94,6 @@ namespace qgrepControls.Classes
         private static readonly object padlock = new object();
 
         private ManualResetEvent queueEvent = new ManualResetEvent(false);
-        private Task queueThread;
 
         public static SearchEngine Instance
         {
