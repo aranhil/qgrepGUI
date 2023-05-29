@@ -590,11 +590,12 @@ namespace qgrepControls.SearchWindow
             if (Settings.Default.GroupingIndex == 1)
             {
                 double totalNewSize = 0;
+                bool expandAll = (Settings.Default.ExpandModeIndex == 1 && newSearchResultGroups.Count + newSearchResults.Count < 500) || Settings.Default.ExpandModeIndex == 2;
 
                 foreach (SearchResultGroup resultGroup in newSearchResultGroups)
                 {
                     totalNewSize += Settings.Default.GroupHeight;
-                    if (Settings.Default.GroupingIndex == 0 || Settings.Default.GroupingIndex == 1)
+                    if (expandAll)
                     {
                         totalNewSize += Settings.Default.LineHeight * resultGroup.SearchResults.Count;
                     }
@@ -628,7 +629,8 @@ namespace qgrepControls.SearchWindow
             {
                 if(UpdateTimer.HasExpired())
                 {
-                    UpdateTimer.Reset(LastUpdateInterval + 200);
+                    LastUpdateInterval += 200;
+                    UpdateTimer.Reset(LastUpdateInterval);
                     return true;
                 }
 
