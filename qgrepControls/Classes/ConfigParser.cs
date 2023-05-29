@@ -365,6 +365,7 @@ namespace qgrepControls.Classes
 
             if(Settings.Default.UpdateIndexAutomatically)
             {
+                RemoveWatchers();
                 AddWatchers();
             }
         }
@@ -525,7 +526,10 @@ namespace qgrepControls.Classes
             {
                 if (path1[i] == path2[i])
                 {
-                    commonLength++;
+                    if (path1[i] == '\\')
+                    {
+                        commonLength = i + 1;
+                    }
                 }
                 else
                 {
@@ -869,7 +873,7 @@ namespace qgrepControls.Classes
         private static void OnDeleted(object sender, FileSystemEventArgs e)
         {
             Instance.delayedEventsHandler.AddFileSystemEvent(e);
-        }
+        } 
 
         private static void OnRenamed(object sender, RenamedEventArgs e)
         {
