@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Controls.Primitives;
 using qgrepControls.ModelViews;
+using System.Windows.Media;
 
 namespace qgrepControls.SearchWindow
 {
@@ -90,7 +91,7 @@ namespace qgrepControls.SearchWindow
             ExcludeRegEx.IsChecked = Settings.Default.ExcludesRegEx;
             FilterRegEx.IsChecked = Settings.Default.FilterRegEx;
 
-            if(WrapperApp.LoadConfigAtStartup())
+            if (WrapperApp.LoadConfigAtStartup())
             {
                 SolutionLoaded();
             }
@@ -191,7 +192,7 @@ namespace qgrepControls.SearchWindow
                 HistoryContextMenu.HorizontalOffset = screenCoordinates.X - listBox.ActualWidth;
                 HistoryContextMenu.VerticalOffset = screenCoordinates.Y;
 
-                if(listBox.Items.Count > 0)
+                if (listBox.Items.Count > 0)
                 {
                     HistoryContextMenu.Opened += (s, e2) =>
                     {
@@ -226,7 +227,7 @@ namespace qgrepControls.SearchWindow
         {
             List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
             int oldFilterIndex = searchFilters.IndexOf(oldName);
-            if(oldFilterIndex >= 0)
+            if (oldFilterIndex >= 0)
             {
                 searchFilters[oldFilterIndex] = newName;
             }
@@ -277,13 +278,13 @@ namespace qgrepControls.SearchWindow
         public void SolutionLoaded()
         {
             string solutionPath = WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath);
-            if(solutionPath.Length > 0)
+            if (solutionPath.Length > 0)
             {
                 ConfigParser.Initialize(solutionPath);
                 ConfigParser.Instance.FilesChanged += FilesChanged;
                 ConfigParser.Instance.FilesAddedOrRemoved += FilesAddedOrRemoved; ;
 
-                if(Settings.Default.UpdateIndexAutomatically)
+                if (Settings.Default.UpdateIndexAutomatically)
                 {
                     UpdateDatabase(true);
                 }
@@ -323,7 +324,7 @@ namespace qgrepControls.SearchWindow
             searchResults.Clear();
             searchResultsGroups.Clear();
 
-            InitInfo.Visibility= Visibility.Collapsed;
+            InitInfo.Visibility = Visibility.Collapsed;
             InitButton.Visibility = Visibility.Collapsed;
             CleanButton.Visibility = Visibility.Collapsed;
             InitProgress.Visibility = Visibility.Collapsed;
@@ -393,7 +394,7 @@ namespace qgrepControls.SearchWindow
             visibility = Settings.Default.SearchInstantly == false ? Visibility.Visible : Visibility.Collapsed;
             SearchButton.Visibility = visibility;
 
-            if(!Settings.Default.SearchInstantly)
+            if (!Settings.Default.SearchInstantly)
             {
                 CacheUsageType = CacheUsageType.Forced;
             }
@@ -457,7 +458,7 @@ namespace qgrepControls.SearchWindow
 
         private void AddSearchResultToGroups(SearchResult searchResult, ObservableCollection<SearchResultGroup> searchResultGroups)
         {
-            if(searchResultGroups.Count > 0 && searchResultGroups.Last().File == searchResult.File)
+            if (searchResultGroups.Count > 0 && searchResultGroups.Last().File == searchResult.File)
             {
                 searchResultGroups.Last().SearchResults.Add(searchResult);
                 searchResult.Parent = searchResultGroups.Last();
@@ -505,7 +506,7 @@ namespace qgrepControls.SearchWindow
                 if (newSearch)
                 {
                     ScrollViewer scrollViewer = UIHelper.GetChildOfType<ScrollViewer>(SearchItemsListBox);
-                    if(scrollViewer != null)
+                    if (scrollViewer != null)
                     {
                         scrollViewer.ScrollToTop();
                     }
@@ -514,7 +515,7 @@ namespace qgrepControls.SearchWindow
                     newSearchResults = new ObservableCollection<SearchResult>();
                     newSearch = false;
 
-                    if(searchResults.Count > 0)
+                    if (searchResults.Count > 0)
                     {
                         searchResults[0].IsSelected = true;
                     }
@@ -542,7 +543,7 @@ namespace qgrepControls.SearchWindow
                     SearchItemsTreeView.ItemsSource = searchResultsGroups = newSearchResultGroups;
                     searchResults = newSearchResults;
 
-                    if(searchResultsGroups.Count > 0)
+                    if (searchResultsGroups.Count > 0)
                     {
                         searchResultsGroups[0].IsSelected = true;
                     }
@@ -618,7 +619,7 @@ namespace qgrepControls.SearchWindow
                             AddSearchResultToGroups(newSearchResult, newSearchResultGroups);
                         }
 
-                        if (newSearchResults.Count >= 100)
+                        if (newSearchResults.Count >= 100 && SearchWindowControl.IsFocused)
                         {
                             AddResultsBatch(searchOptions);
                         }
@@ -639,7 +640,7 @@ namespace qgrepControls.SearchWindow
         {
             Dispatcher.Invoke(() =>
             {
-                if(!SearchEngine.Instance.IsSearchQueued)
+                if (!SearchEngine.Instance.IsSearchQueued)
                 {
                     if (SearchInput.Text.Length == 0 && IncludeFilesInput.Text.Length == 0)
                     {
@@ -685,7 +686,7 @@ namespace qgrepControls.SearchWindow
 
                 SearchEngine.Instance.SearchAsync(searchOptions);
             }
-            else if(IncludeFilesInput.Text.Length != 0)
+            else if (IncludeFilesInput.Text.Length != 0)
             {
                 SearchOptions searchOptions = new SearchOptions()
                 {
@@ -715,7 +716,7 @@ namespace qgrepControls.SearchWindow
 
         private List<string> GetSelectedConfigProjects()
         {
-            if(ConfigParser.Instance.ConfigProjects.Count == 1)
+            if (ConfigParser.Instance.ConfigProjects.Count == 1)
             {
                 return new List<string>() { ConfigParser.Instance.ConfigProjects[0].Path };
             }
@@ -772,11 +773,11 @@ namespace qgrepControls.SearchWindow
 
         private void OpenSelectedSearchResult()
         {
-            if(selectedSearchResult != null)
+            if (selectedSearchResult != null)
             {
                 OpenSearchResult(selectedSearchResult);
             }
-            else if(selectedSearchResultGroup != null)
+            else if (selectedSearchResultGroup != null)
             {
                 OpenSearchGroup(selectedSearchResultGroup);
             }
@@ -818,7 +819,7 @@ namespace qgrepControls.SearchWindow
                     CleanButton.IsEnabled = false;
                     PathsButton.IsEnabled = false;
 
-                    if(SearchWindowControl.IsVisible || WrapperApp.IsStandalone)
+                    if (SearchWindowControl.IsVisible || WrapperApp.IsStandalone)
                     {
                         if (Settings.Default.SearchInstantly)
                         {
@@ -892,7 +893,7 @@ namespace qgrepControls.SearchWindow
                         infoUpdateStopWatch.Restart();
                     }
 
-                    if(databaseUpdate != null)
+                    if (databaseUpdate != null)
                     {
                         WrapperApp.UpdateBackgroundTaskMessage(message);
                     }
@@ -920,12 +921,12 @@ namespace qgrepControls.SearchWindow
 
         public void UpdateDatabase(bool silently = false, List<string> modifiedFiles = null)
         {
-            if(!ConfigParser.IsInitialized())
+            if (!ConfigParser.IsInitialized())
             {
                 return;
             }
 
-            if(!silently)
+            if (!silently)
             {
                 Overlay.Visibility = Visibility.Visible;
                 InitProgress.Value = 0;
@@ -936,8 +937,8 @@ namespace qgrepControls.SearchWindow
             PathsButton.IsEnabled = false;
 
             SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate()
-            { 
-                ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(), 
+            {
+                ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => x.Path).ToList(),
                 IsSilent = silently,
                 Files = modifiedFiles
             });
@@ -962,7 +963,7 @@ namespace qgrepControls.SearchWindow
 
         private void CaseSensitive_Click(object sender, RoutedEventArgs e)
         {
-            if(Settings.Default.SearchInstantly)
+            if (Settings.Default.SearchInstantly)
             {
                 Find();
             }
@@ -992,7 +993,7 @@ namespace qgrepControls.SearchWindow
 
         private void PathsButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SearchEngine.Instance.IsBusy)
+            if (SearchEngine.Instance.IsBusy)
             {
                 return;
             }
@@ -1022,16 +1023,16 @@ namespace qgrepControls.SearchWindow
 
         private void AddSearchToHistory(string searchedString)
         {
-            if(searchedString.Length > 0)
+            if (searchedString.Length > 0)
             {
-                if(searchHistory.Count > 0)
+                if (searchHistory.Count > 0)
                 {
-                    for(int i = searchHistory.Count - 1; i >= 0; i--)
+                    for (int i = searchHistory.Count - 1; i >= 0; i--)
                     {
                         HistoricSearch historicSearch = searchHistory[i] as HistoricSearch;
                         if (historicSearch != null)
                         {
-                            if(historicSearch.SearchedText == searchedString)
+                            if (historicSearch.SearchedText == searchedString)
                             {
                                 return;
                             }
@@ -1042,14 +1043,14 @@ namespace qgrepControls.SearchWindow
                 }
 
                 HistoryButton.IsEnabled = true;
-                searchHistory.Add(new HistoricSearch() { SearchedText = searchedString});
+                searchHistory.Add(new HistoricSearch() { SearchedText = searchedString });
             }
         }
         private void AddOpenToHistory(string openedPath, string openedLine)
         {
-            if(openedPath.Length > 0)
+            if (openedPath.Length > 0)
             {
-                if(searchHistory.Count > 0)
+                if (searchHistory.Count > 0)
                 {
                     for (int i = searchHistory.Count - 1; i >= 0; i--)
                     {
@@ -1071,7 +1072,7 @@ namespace qgrepControls.SearchWindow
                 }
 
                 HistoryButton.IsEnabled = true;
-                searchHistory.Add(new HistoricOpen() { OpenedPath = openedPath, OpenedLine = openedLine});
+                searchHistory.Add(new HistoricOpen() { OpenedPath = openedPath, OpenedLine = openedLine });
             }
         }
 
@@ -1142,17 +1143,17 @@ namespace qgrepControls.SearchWindow
             {
                 if (!(!SearchInput.IsFocused && !IncludeFilesInput.IsFocused && !ExcludeFilesInput.IsFocused && !FilterResultsInput.IsFocused))
                 {
-                    if(SearchItemsListBox.IsVisible)
+                    if (SearchItemsListBox.IsVisible)
                     {
-                        if(selectedSearchResult == null)
+                        if (selectedSearchResult == null)
                         {
-                            if(searchResults.Count > 0 && searchResults[0].IsSelected)
+                            if (searchResults.Count > 0 && searchResults[0].IsSelected)
                             {
                                 selectedSearchResult = searchResults[0];
                             }
                         }
 
-                        if(selectedSearchResult != null)
+                        if (selectedSearchResult != null)
                         {
                             VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
 
@@ -1163,7 +1164,7 @@ namespace qgrepControls.SearchWindow
                             e.Handled = true;
                         }
                     }
-                    else if(SearchItemsTreeView.IsVisible)
+                    else if (SearchItemsTreeView.IsVisible)
                     {
                         if (selectedSearchResult == null && selectedSearchResultGroup == null)
                         {
@@ -1235,13 +1236,13 @@ namespace qgrepControls.SearchWindow
             {
                 bool openResult = false;
 
-                if(selectedSearchResult != null)
+                if (selectedSearchResult != null)
                 {
-                    if(selectedSearchResult.Parent != null)
+                    if (selectedSearchResult.Parent != null)
                     {
                         TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(selectedSearchResult.Parent) as TreeViewItem;
                         treeViewItem = treeViewItem.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as TreeViewItem;
-                        if(treeViewItem?.IsFocused ?? false)
+                        if (treeViewItem?.IsFocused ?? false)
                         {
                             openResult = true;
                         }
@@ -1255,7 +1256,7 @@ namespace qgrepControls.SearchWindow
                         }
                     }
                 }
-                else if(selectedSearchResultGroup != null)
+                else if (selectedSearchResultGroup != null)
                 {
                     TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(selectedSearchResultGroup) as TreeViewItem;
                     if (treeViewItem?.IsFocused ?? false)
@@ -1280,6 +1281,11 @@ namespace qgrepControls.SearchWindow
                 {
                     Clipboard.SetText(selectedSearchResultGroup.File);
                 }
+            }
+
+            if (e.Key == System.Windows.Input.Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                MessageBox.Show("asd");
             }
         }
 
@@ -1325,7 +1331,7 @@ namespace qgrepControls.SearchWindow
         private void FiltersComboBox_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
         {
             List<string> searchFilters = new List<string>();
-            foreach(ConfigProject configProject in FiltersComboBox.SelectedItems)
+            foreach (ConfigProject configProject in FiltersComboBox.SelectedItems)
             {
                 searchFilters.Add(configProject.Name);
             }
@@ -1399,7 +1405,7 @@ namespace qgrepControls.SearchWindow
         private void MenuCopyText_Click(object sender, RoutedEventArgs e)
         {
             SearchResult searchResult = GetSearchResultFromMenuItem(sender);
-            if(searchResult != null)
+            if (searchResult != null)
             {
                 CopyText(searchResult);
             }
@@ -1499,14 +1505,14 @@ namespace qgrepControls.SearchWindow
                     AddSearchToHistory(SearchInput.Text);
 
                     SearchInput.Focus();
-                    if(!Settings.Default.SearchInstantly)
+                    if (!Settings.Default.SearchInstantly)
                     {
                         Find();
                     }
                 }
 
                 HistoricOpen historicOpen = listBoxItem.Content as HistoricOpen;
-                if(historicOpen != null)
+                if (historicOpen != null)
                 {
                     WrapperApp.OpenFile(historicOpen.OpenedPath, historicOpen.OpenedLine);
                     AddOpenToHistory(historicOpen.OpenedPath, historicOpen.OpenedLine);
@@ -1524,12 +1530,12 @@ namespace qgrepControls.SearchWindow
 
         private void HistoryItem_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 OpenHistoryItem(sender as ListBoxItem);
                 e.Handled = true;
             }
-            else if(e.Key == Key.Escape)
+            else if (e.Key == Key.Escape)
             {
                 SearchInput.Focus();
                 HistoryContextMenu.IsOpen = false;
@@ -1538,7 +1544,7 @@ namespace qgrepControls.SearchWindow
 
         private void SearchInput_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 AddSearchToHistory(SearchInput.Text);
                 Find();
@@ -1598,15 +1604,15 @@ namespace qgrepControls.SearchWindow
         {
             Dispatcher.Invoke(() =>
             {
-                if(IncludeFilesInput.IsFocused)
+                if (IncludeFilesInput.IsFocused)
                 {
                     IncludeRegEx.IsChecked = !IncludeRegEx.IsChecked;
                 }
-                else if(ExcludeFilesInput.IsFocused)
+                else if (ExcludeFilesInput.IsFocused)
                 {
                     ExcludeRegEx.IsChecked = !ExcludeRegEx.IsChecked;
                 }
-                else if(FilterResultsInput.IsFocused)
+                else if (FilterResultsInput.IsFocused)
                 {
                     FilterRegEx.IsChecked = !FilterRegEx.IsChecked;
                 }
@@ -1628,7 +1634,7 @@ namespace qgrepControls.SearchWindow
                 Settings.Default.Save();
                 UpdateFromSettings();
 
-                if(IncludeFilesInput.IsVisible)
+                if (IncludeFilesInput.IsVisible)
                 {
                     IncludeFilesInput.Focus();
                 }
@@ -1732,7 +1738,7 @@ namespace qgrepControls.SearchWindow
 
         private void SearchWindowControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if(QueueFindWhenVisible)
+            if (QueueFindWhenVisible)
             {
                 if (Settings.Default.SearchInstantly)
                 {
@@ -1742,6 +1748,33 @@ namespace qgrepControls.SearchWindow
 
                 QueueFindWhenVisible = false;
             }
+        }
+
+        private void TreeViewItem_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                DependencyObject originalSource = (DependencyObject)e.OriginalSource;
+
+                while ((originalSource != null) && !(originalSource is TreeViewItem))
+                {
+                    try
+                    {
+                        originalSource = VisualTreeHelper.GetParent(originalSource) ?? LogicalTreeHelper.GetParent(originalSource);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        originalSource = LogicalTreeHelper.GetParent(originalSource);
+                    }
+                }
+
+                if (originalSource is TreeViewItem item)
+                {
+                    item.IsSelected = true;
+                    e.Handled = true;
+                }
+            }
+            catch { }
         }
     }
 }

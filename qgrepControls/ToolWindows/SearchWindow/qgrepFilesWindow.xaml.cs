@@ -128,7 +128,6 @@ namespace qgrepControls.SearchWindow
 
         ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
         ObservableCollection<SearchResult> newSearchResults = new ObservableCollection<SearchResult>();
-        SearchResult selectedSearchResult = null;
         bool newSearch = false;
 
         public void OnStartSearchEvent(SearchOptions searchOptions)
@@ -136,7 +135,7 @@ namespace qgrepControls.SearchWindow
             Dispatcher.Invoke(() =>
             {
                 newSearch = true;
-                selectedSearchResult = null;
+                selectedSearchResult = -1;
 
                 if(!WrapperApp.IsStandalone)
                 {
@@ -155,8 +154,7 @@ namespace qgrepControls.SearchWindow
 
                 if (searchResults.Count > 0)
                 {
-                    searchResults[0].IsSelected = true;
-                    selectedSearchResult = searchResults[0];
+                    SelectSearchResult(searchResults[0]);
                 }
             }
             else
@@ -190,18 +188,7 @@ namespace qgrepControls.SearchWindow
 
             if (bestResult != null)
             {
-                foreach (SearchResult result in searchResults)
-                {
-                    result.IsSelected = false;
-                }
-
-                bestResult.IsSelected = true;
-
-                VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
-
-                virtualizingStackPanel.BringIndexIntoViewPublic(searchResults.IndexOf(bestResult));
-                ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(bestResult) as ListBoxItem;
-                listBoxItem?.BringIntoView();
+                SelectSearchResult(bestResult);
             }
         }
 
@@ -275,57 +262,110 @@ namespace qgrepControls.SearchWindow
 
         private void UserControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            FrameworkElement frameworkElement = e.OriginalSource as FrameworkElement;
-            if (frameworkElement != null)
-            {
-                SearchResult searchResult = frameworkElement.DataContext as SearchResult;
-                if (searchResult != null)
-                {
-                    selectedSearchResult = searchResult;
-                }
-            }
+            //FrameworkElement frameworkElement = e.OriginalSource as FrameworkElement;
+            //if (frameworkElement != null)
+            //{
+            //    SearchResult searchResult = frameworkElement.DataContext as SearchResult;
+            //    if (searchResult != null)
+            //    {
+            //        selectedSearchResult = searchResult;
+            //    }
+            //}
         }
+
+        int selectedSearchResult = -1;
 
         private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Down ||
-                e.Key == System.Windows.Input.Key.Up ||
-                e.Key == System.Windows.Input.Key.PageUp ||
-                e.Key == System.Windows.Input.Key.PageDown)
+            SearchResult newSelectedSearchResult = null;
+            SearchResult oldSelectedSearchResult = selectedSearchResult >= 0 && selectedSearchResult < searchResults.Count ? searchResults[selectedSearchResult] : null;
+
+            if (e.Key == System.Windows.Input.Key.Up)
             {
-                if (IncludeFilesInput.IsFocused)
+                if (selectedSearchResult > 0 && selectedSearchResult < searchResults.Count)
                 {
-                    if (selectedSearchResult == null)
-                    {
-                        if (searchResults.Count > 0 && searchResults[0].IsSelected)
-                        {
-                            selectedSearchResult = searchResults[0];
-                        }
-                    }
+                    newSelectedSearchResult = searchResults[selectedSearchResult - 1];
+                }
+                else if (searchResults.Count > 0)
+                {
+                    newSelectedSearchResult = searchResults[0];
+                }
 
-                    if (selectedSearchResult != null)
-                    {
-                        VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.Down)
+            {
+                if (selectedSearchResult < searchResults.Count - 1 && selectedSearchResult >= 0)
+                {
+                    newSelectedSearchResult = searchResults[selectedSearchResult + 1];
+                }
+                else if (searchResults.Count > 0 && selectedSearchResult < 0)
+                {
+                    newSelectedSearchResult = searchResults[0];
+                }
 
-                        virtualizingStackPanel.BringIndexIntoViewPublic(searchResults.IndexOf(selectedSearchResult));
-                        ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as ListBoxItem;
-                        listBoxItem?.Focus();
+                e.Handled = true;
+
+            }
+            else if (e.Key == System.Windows.Input.Key.PageUp)
+            {
+                if (searchResults.Count > 0)
+                {
+                    int newIndex = Math.Max(0, selectedSearchResult - (int)Math.Floor(SearchItemsListBox.ActualHeight / 16.0f));
+                    if (newIndex >= 0 && newIndex < searchResults.Count)
+                    {
+                        newSelectedSearchResult = searchResults[newIndex];
                     }
                 }
+
+                e.Handled = true;
+            }
+            else if (e.Key == System.Windows.Input.Key.PageDown)
+            {
+                if (searchResults.Count > 0)
+                {
+                    int newIndex = Math.Min(searchResults.Count - 1, selectedSearchResult + (int)Math.Floor(SearchItemsListBox.ActualHeight / 16.0f));
+                    if (newIndex > 0 && newIndex < searchResults.Count)
+                    {
+                        newSelectedSearchResult = searchResults[newIndex];
+                    }
+                }
+
+                e.Handled = true;
             }
 
-            if (e.Key == System.Windows.Input.Key.Enter)
+            if (e.Handled)
             {
-                OpenSearchResult(selectedSearchResult);
-            }
-            else if (e.Key == System.Windows.Input.Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                if (selectedSearchResult != null)
+                if (oldSelectedSearchResult != null)
                 {
-                    Clipboard.SetText(selectedSearchResult.FileAndLine);
+                    oldSelectedSearchResult.IsSelected = false;
+                }
+
+                if (newSelectedSearchResult != null)
+                {
+                    SelectSearchResult(newSelectedSearchResult);
                 }
             }
         }
+
+        private void SelectSearchResult(SearchResult newSelectedSearchResult)
+        {
+            newSelectedSearchResult.IsSelected = true;
+            selectedSearchResult = searchResults.IndexOf(newSelectedSearchResult);
+
+            if (selectedSearchResult >= 0)
+            {
+                VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
+                if (virtualizingStackPanel != null)
+                {
+                    virtualizingStackPanel.BringIndexIntoViewPublic(selectedSearchResult);
+                    ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(newSelectedSearchResult) as ListBoxItem;
+
+                    listBoxItem?.BringIntoView();
+                }
+            }
+        }
+
         private void OpenSearchResult(SearchResult result)
         {
             MainWindow mainWindow = UIHelper.FindAncestor<MainWindow>(this);
@@ -339,20 +379,20 @@ namespace qgrepControls.SearchWindow
 
         private void MenuGoTo_Click(object sender, RoutedEventArgs e)
         {
-            SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
-            if (searchResult != null)
-            {
-                OpenSearchResult(searchResult);
-            }
+            //SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
+            //if (searchResult != null)
+            //{
+            //    OpenSearchResult(searchResult);
+            //}
         }
 
         private void MenuCopyFullPath_Click(object sender, RoutedEventArgs e)
         {
-            SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
-            if (searchResult != null)
-            {
-                Clipboard.SetText(searchResult.FileAndLine);
-            }
+            //SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
+            //if (searchResult != null)
+            //{
+            //    Clipboard.SetText(searchResult.FileAndLine);
+            //}
         }
 
         private void SearchResult_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -363,6 +403,8 @@ namespace qgrepControls.SearchWindow
                 SearchResult searchResult = dockPanel.DataContext as SearchResult;
                 if (searchResult != null)
                 {
+                    SelectSearchResult(searchResult);
+
                     if (e.ClickCount == 2)
                     {
                         OpenSearchResult(searchResult);

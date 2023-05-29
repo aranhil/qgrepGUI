@@ -22,3 +22,9 @@
 - Fixed the old search in files from the "include files" field to work as before the new window
 - Fixed issue where tree view items collapsed/expanded by the user were modified by a search that was still appending to the results
 - Fixed issue with escaped backslashes ("\\") in filters that were not being recognized by qgrep as a valid path separator
+
+### Version 2.8
+
+- Fixed the style of textboxes' contextual menus
+- Fixed issue with right click not selecting the tree view item before opening the contextual menu
+- Search file dialog's input textbox and results listbox are now both focused at the same time

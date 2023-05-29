@@ -1077,11 +1077,20 @@
         <Setter Property="Padding" Value="2" />
         <Setter Property="Height" Value="24" />
         <Setter Property="Padding" Value="3,2,3,1" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Command="ApplicationCommands.Cut" Header="Cut"/>
+                    <MenuItem Command="ApplicationCommands.Copy" Header="Copy"/>
+                    <MenuItem Command="ApplicationCommands.Paste" Header="Paste"/>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" MouseEnter="PART_ContentHost_MouseEnter" MouseLeave="PART_ContentHost_MouseLeave" LostFocus="PART_ContentHost_LostFocus" GotFocus="PART_ContentHost_GotFocus" />
+                        <ScrollViewer x:Name="PART_ContentHost" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" MouseEnter="PART_ContentHost_MouseEnter" MouseLeave="PART_ContentHost_MouseLeave" LostFocus="PART_ContentHost_LostFocus" GotFocus="PART_ContentHost_GotFocus" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="true">
@@ -1606,7 +1615,7 @@
                                 <Condition Binding="{Binding IsMouseOver, ElementName=Expander}" Value="True"/>-->
                                 <Condition Binding="{Binding Path=IsSelected}" Value="True"/>
                                 <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Self}}" Value="False"/>
-                                <!--<Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>-->
+                                <Condition Binding="{Binding Focusable, RelativeSource={RelativeSource Self}}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Background" Value="{DynamicResource Result.IsSelected.IsInactive.Background}" />
                         </MultiDataTrigger>
@@ -1893,11 +1902,7 @@
                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource MenuItem.IsMouseOver.Border}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-                <!--<Setter Property="Foreground">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{StaticResource DisabledForegroundColor}" />
-                    </Setter.Value>
-                </Setter>-->
+                <Setter Property="Foreground" Value="{DynamicResource Button.IsDisabled.Foreground}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -1908,14 +1913,14 @@
           Value="True" />
         <Style.Triggers>
             <!--<Trigger Property="Role" Value="TopLevelHeader">
-                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelHeaderTemplateKey}}" />
+                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="true" />
             </Trigger>
             <Trigger Property="Role" Value="TopLevelItem">
-                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelItemTemplateKey}}" />
+                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
             </Trigger>
             <Trigger Property="Role" Value="SubmenuHeader">
-                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuHeaderTemplateKey}}" />
+                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
             </Trigger>-->
             <Trigger Property="Role" Value="SubmenuItem">
                 <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />

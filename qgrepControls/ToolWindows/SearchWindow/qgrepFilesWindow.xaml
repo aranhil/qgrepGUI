@@ -26,7 +26,7 @@
             <Label x:Name="IncludeFilesLabel" Content="Search file..." Style="{DynamicResource SomeHintLabel}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="4" ItemsSource="{Binding}" KeyboardNavigation.TabNavigation="Once" >
+            <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="4" ItemsSource="{Binding}" KeyboardNavigation.TabNavigation="Once" Focusable="False">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
