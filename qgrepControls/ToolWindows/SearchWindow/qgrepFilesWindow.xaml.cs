@@ -172,35 +172,6 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private bool NewResultsFitScreen()
-        {
-            return newSearchResults.Count * Settings.Default.LineHeight > SearchItemsListBox.ActualHeight;
-        }
-
-        int LastUpdateInterval = 0;
-        CountdownTimer UpdateTimer = new CountdownTimer();
-
-        private bool EnoughTimePassed()
-        {
-            if (!UpdateTimer.IsStarted())
-            {
-                UpdateTimer.Start(100);
-                LastUpdateInterval = 100;
-                return false;
-            }
-            else
-            {
-                if (UpdateTimer.HasExpired())
-                {
-                    LastUpdateInterval += 200;
-                    UpdateTimer.Reset(LastUpdateInterval);
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
         public void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
         {
             if (!SearchEngine.Instance.IsSearchQueued)
@@ -237,7 +208,7 @@ namespace qgrepControls.SearchWindow
 
                         newSearchResults.Add(newSearchResult);
 
-                        if (newSearch && NewResultsFitScreen() || EnoughTimePassed())
+                        if (newSearch && newSearchResults.Count >= 500)
                         {
                             AddResultsBatch(searchOptions);
                         }
