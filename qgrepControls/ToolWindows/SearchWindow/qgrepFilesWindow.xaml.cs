@@ -1,33 +1,13 @@
-﻿using qgrepInterop;
-using qgrepControls.Classes;
+﻿using qgrepControls.Classes;
 using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using Newtonsoft.Json;
-using System.Timers;
-using System.Windows.Documents;
-using System.Windows.Shapes;
-using qgrepControls.ColorsWindow;
-using Xceed.Wpf.AvalonDock.Properties;
-using System.Resources;
-using System.Windows.Controls.Primitives;
-using Xceed.Wpf.AvalonDock.Controls;
-using System.Runtime.InteropServices.Expando;
 using qgrepControls.ModelViews;
-using static System.Net.Mime.MediaTypeNames;
-using System.Drawing;
 
 namespace qgrepControls.SearchWindow
 {
@@ -260,19 +240,6 @@ namespace qgrepControls.SearchWindow
             });
         }
 
-        private void UserControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            //FrameworkElement frameworkElement = e.OriginalSource as FrameworkElement;
-            //if (frameworkElement != null)
-            //{
-            //    SearchResult searchResult = frameworkElement.DataContext as SearchResult;
-            //    if (searchResult != null)
-            //    {
-            //        selectedSearchResult = searchResult;
-            //    }
-            //}
-        }
-
         int selectedSearchResult = -1;
 
         private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -311,7 +278,7 @@ namespace qgrepControls.SearchWindow
             {
                 if (searchResults.Count > 0)
                 {
-                    int newIndex = Math.Max(0, selectedSearchResult - (int)Math.Floor(SearchItemsListBox.ActualHeight / 16.0f));
+                    int newIndex = Math.Max(0, selectedSearchResult - (int)Math.Floor(SearchItemsListBox.ActualHeight / Settings.Default.LineHeight));
                     if (newIndex >= 0 && newIndex < searchResults.Count)
                     {
                         newSelectedSearchResult = searchResults[newIndex];
@@ -324,7 +291,7 @@ namespace qgrepControls.SearchWindow
             {
                 if (searchResults.Count > 0)
                 {
-                    int newIndex = Math.Min(searchResults.Count - 1, selectedSearchResult + (int)Math.Floor(SearchItemsListBox.ActualHeight / 16.0f));
+                    int newIndex = Math.Min(searchResults.Count - 1, selectedSearchResult + (int)Math.Floor(SearchItemsListBox.ActualHeight / Settings.Default.LineHeight));
                     if (newIndex > 0 && newIndex < searchResults.Count)
                     {
                         newSelectedSearchResult = searchResults[newIndex];
@@ -379,20 +346,20 @@ namespace qgrepControls.SearchWindow
 
         private void MenuGoTo_Click(object sender, RoutedEventArgs e)
         {
-            //SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
-            //if (searchResult != null)
-            //{
-            //    OpenSearchResult(searchResult);
-            //}
+            SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
+            if (searchResult != null)
+            {
+                OpenSearchResult(searchResult);
+            }
         }
 
         private void MenuCopyFullPath_Click(object sender, RoutedEventArgs e)
         {
-            //SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
-            //if (searchResult != null)
-            //{
-            //    Clipboard.SetText(searchResult.FileAndLine);
-            //}
+            SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
+            if (searchResult != null)
+            {
+                Clipboard.SetText(searchResult.FileAndLine);
+            }
         }
 
         private void SearchResult_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:modelViews="clr-namespace:qgrepControls.ModelViews"
-             mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown" GotKeyboardFocus="UserControl_GotKeyboardFocus"
+             mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown"
              d:DesignHeight="600" d:DesignWidth="1000" Width="800" Height="400">
     <UserControl.Resources>
         <ResourceDictionary>

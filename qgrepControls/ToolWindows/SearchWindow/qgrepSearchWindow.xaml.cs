@@ -573,6 +573,69 @@ namespace qgrepControls.SearchWindow
             InfoLabel.Content = string.Format("Showing {0} result(s) for \"{1}\".", searchResults.Count, searchOptions.Query);
         }
 
+        private double GetScreenHeight()
+        {
+            if (Settings.Default.GroupingIndex == 0)
+            {
+                return SearchItemsListBox.ActualHeight;
+            }
+            else
+            {
+                return SearchItemsTreeView.ActualHeight;
+            }
+        }
+
+        private bool NewResultsFitScreen()
+        {
+            if (Settings.Default.GroupingIndex == 1)
+            {
+                double totalNewSize = 0;
+
+                foreach (SearchResultGroup resultGroup in newSearchResultGroups)
+                {
+                    totalNewSize += Settings.Default.GroupHeight;
+                    if (Settings.Default.GroupingIndex == 0 || Settings.Default.GroupingIndex == 1)
+                    {
+                        totalNewSize += Settings.Default.LineHeight * resultGroup.SearchResults.Count;
+                    }
+
+                    if (totalNewSize > GetScreenHeight())
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            else
+            {
+                return newSearchResults.Count * Settings.Default.LineHeight > GetScreenHeight();
+            }
+        }
+
+        int LastUpdateInterval = 0;
+        CountdownTimer UpdateTimer = new CountdownTimer();
+
+        private bool EnoughTimePassed()
+        {
+            if(!UpdateTimer.IsStarted())
+            {
+                UpdateTimer.Start(100);
+                LastUpdateInterval = 100;
+                return false;
+            }
+            else
+            {
+                if(UpdateTimer.HasExpired())
+                {
+                    UpdateTimer.Reset(LastUpdateInterval + 200);
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
         {
             if (!SearchEngine.Instance.IsSearchQueued)
@@ -619,7 +682,7 @@ namespace qgrepControls.SearchWindow
                             AddSearchResultToGroups(newSearchResult, newSearchResultGroups);
                         }
 
-                        if (newSearchResults.Count >= 100 && SearchWindowControl.IsFocused)
+                        if (newSearch && NewResultsFitScreen() || (EnoughTimePassed() && SearchWindowControl.IsKeyboardFocusWithin))
                         {
                             AddResultsBatch(searchOptions);
                         }
@@ -659,6 +722,8 @@ namespace qgrepControls.SearchWindow
                     newSearchResultGroups.Clear();
                     newSearchResults.Clear();
                 }
+
+                UpdateTimer.Stop();
             });
         }
 
@@ -1281,11 +1346,6 @@ namespace qgrepControls.SearchWindow
                 {
                     Clipboard.SetText(selectedSearchResultGroup.File);
                 }
-            }
-
-            if (e.Key == System.Windows.Input.Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                MessageBox.Show("asd");
             }
         }
 
