@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:resx="clr-namespace:qgrepControls.Properties"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow" xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              Width="900" Height="450" IsVisibleChanged="UserControl_IsVisibleChanged">
@@ -50,14 +51,14 @@
             </Grid>
         </Grid>
         <DockPanel Grid.Row="3" Grid.ColumnSpan="5" Margin="5,5,0,5">
-            <Button x:Name="AdvancedToggle" Content="◀◀ Advanced" ToolTipService.ShowOnDisabled="True" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AdvancedToggle_Click" Padding="5,2,8,2"/>
-            <Button x:Name="ConfigOpen" Content="Open location" HorizontalAlignment="Center" Margin="0,0,5,0" Click="ConfigOpen_Click" Padding="5,2,8,2"/>
-            <Button x:Name="AutomaticPopulation" Content="Gather from solution" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AutomaticPopulation_Click" Padding="5,2,8,2" ToolTip="Gather folders automatically from solution"/>
+            <Button x:Name="AdvancedToggle" Content="{x:Static resx:Resources.AdvancedToggleContent}" ToolTipService.ShowOnDisabled="True" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AdvancedToggle_Click" Padding="5,2,8,2"/>
+            <Button x:Name="ConfigOpen" Content="{x:Static resx:Resources.ConfigOpenContent}" HorizontalAlignment="Center" Margin="0,0,5,0" Click="ConfigOpen_Click" Padding="5,2,8,2"/>
+            <Button x:Name="AutomaticPopulation" Content="{x:Static resx:Resources.AutomaticPopulationContent}" HorizontalAlignment="Center" Margin="0,0,5,0" Click="AutomaticPopulation_Click" Padding="5,2,8,2" ToolTip="Gather folders automatically from solution"/>
             <DockPanel HorizontalAlignment="Left" Margin="0,0,12,0">
                 <ProgressBar Value="100" IsTabStop="False" x:Name="AutomaticProgress" Width="250" Margin="1,3,1,3" Visibility="Visible" HorizontalAlignment="Right"/>
-                <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Center" Margin="5,0,5,0" Click="StopButton_Click" Padding="5,2,8,2" ToolTip="Stop automatic gathering"/>
+                <Button x:Name="StopButton" Content="{x:Static resx:Resources.StopButtonContent}" HorizontalAlignment="Center" Margin="5,0,5,0" Click="StopButton_Click" Padding="5,2,8,2" ToolTip="Stop automatic gathering"/>
             </DockPanel>
-            <CheckBox x:Name="UseGlobalPath" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="UseGlobalPath_Click" Content="Use global path"/>
+            <CheckBox x:Name="UseGlobalPath" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="UseGlobalPath_Click" Content="{x:Static resx:Resources.UseGlobalPathContent}"/>
         </DockPanel>
     </Grid>
 </UserControl>

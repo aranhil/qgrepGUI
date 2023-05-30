@@ -232,5 +232,88 @@
 	<data name="Settings" xml:space="preserve">
   <value>Settings</value>
 </data>
-
+	<data name="AdvancedToggleContent" xml:space="preserve">
+    <value>◀◀ Advanced</value>
+</data>
+	<data name="ConfigOpenContent" xml:space="preserve">
+    <value>Open location</value>
+</data>
+	<data name="AutomaticPopulationContent" xml:space="preserve">
+    <value>Gather from solution</value>
+</data>
+	<data name="StopButtonContent" xml:space="preserve">
+    <value>Stop</value>
+</data>
+	<data name="UseGlobalPathContent" xml:space="preserve">
+    <value>Use global path</value>
+</data>
+	<data name="BasicToggleContent" xml:space="preserve">
+    <value xml:lang="en">›› Basic</value>
+</data>
+	<data name="AdvancedToggleContent" xml:space="preserve">
+    <value xml:lang="en">‹‹ Advanced</value>
+</data>
+	<data name="RemoveExtraContent" xml:space="preserve">
+    <value xml:lang="en">Remove extra projects and groups to go back to basic settings</value>
+</data>
+	<data name="ProjectsListBoxTitle" xml:space="preserve">
+    <value xml:lang="en">Configs</value>
+</data>
+	<data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Add new config</value>
+</data>
+	<data name="ProjectsListBoxEditButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Edit config name</value>
+</data>
+	<data name="ProjectsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove selected config(s)</value>
+</data>
+	<data name="ProjectsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove all configs</value>
+</data>
+	<data name="GroupsListBoxTitle" xml:space="preserve">
+    <value xml:lang="en">Groups</value>
+</data>
+	<data name="GroupsListBoxAddButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Add new group</value>
+</data>
+	<data name="GroupsListBoxEditButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Edit group name</value>
+</data>
+	<data name="GroupsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove selected group(s)</value>
+</data>
+	<data name="GroupsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove all groups</value>
+</data>
+	<data name="PathsListBoxTitle" xml:space="preserve">
+    <value xml:lang="en">Folders</value>
+</data>
+	<data name="PathsListBoxAddButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Add new folder(s)</value>
+</data>
+	<data name="PathsListBoxEditButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Edit folder name</value>
+</data>
+	<data name="PathsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove selected folder(s)</value>
+</data>
+	<data name="PathsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove all folders</value>
+</data>
+	<data name="RulesListBoxTitle" xml:space="preserve">
+    <value xml:lang="en">Filters</value>
+</data>
+	<data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Add new filter</value>
+</data>
+	<data name="RulesListBoxEditButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Edit filter</value>
+</data>
+	<data name="RulesListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove selected filter(s)</value>
+</data>
+	<data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove all filters</value>
+</data>
 </root>

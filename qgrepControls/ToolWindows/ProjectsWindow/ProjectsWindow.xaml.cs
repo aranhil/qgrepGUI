@@ -31,42 +31,42 @@ namespace qgrepControls.SearchWindow
 
             ProjectsListBox.SetItemsSource(SearchConfigs);
             ProjectsListBox.ItemEditType = ConfigListBox.EditType.Text;
-            ProjectsListBox.Title.Text = "Configs";
-            ProjectsListBox.AddButton.ToolTip = "Add new config";
-            ProjectsListBox.EditButton.ToolTip = "Edit config name";
-            ProjectsListBox.RemoveButton.ToolTip = "Remove selected config(s)";
-            ProjectsListBox.RemoveAllButton.ToolTip = "Remove all configs";
+            ProjectsListBox.Title.Text = Properties.Resources.ProjectsListBoxTitle;
+            ProjectsListBox.AddButton.ToolTip = Properties.Resources.ProjectsListBoxAddButtonTooltip;
+            ProjectsListBox.EditButton.ToolTip = Properties.Resources.ProjectsListBoxEditButtonTooltip;
+            ProjectsListBox.RemoveButton.ToolTip = Properties.Resources.ProjectsListBoxRemoveButtonTooltip;
+            ProjectsListBox.RemoveAllButton.ToolTip = Properties.Resources.ProjectsListBoxRemoveAllButtonTooltip;
             ProjectsListBox.AddButton.Click += AddNewProject_Click;
             ProjectsListBox.InnerListBox.SelectionChanged += ConfigProjects_SelectionChanged;
             ProjectsListBox.IsPreviousSelectedOnRemove = true;
             SearchConfigs.CollectionChanged += ConfigProjects_CollectionChanged;
 
-            GroupsListBox.Title.Text = "Groups";
+            GroupsListBox.Title.Text = Properties.Resources.GroupsListBoxTitle;
             GroupsListBox.ItemEditType = ConfigListBox.EditType.Text;
-            GroupsListBox.AddButton.ToolTip = "Add new group";
-            GroupsListBox.EditButton.ToolTip = "Edit group name";
-            GroupsListBox.RemoveButton.ToolTip = "Remove selected group(s)";
-            GroupsListBox.RemoveAllButton.ToolTip = "Remove all groups";
+            GroupsListBox.AddButton.ToolTip = Properties.Resources.GroupsListBoxAddButtonTooltip;
+            GroupsListBox.EditButton.ToolTip = Properties.Resources.GroupsListBoxEditButtonTooltip;
+            GroupsListBox.RemoveButton.ToolTip = Properties.Resources.GroupsListBoxRemoveButtonTooltip;
+            GroupsListBox.RemoveAllButton.ToolTip = Properties.Resources.GroupsListBoxRemoveAllButtonTooltip;
             GroupsListBox.AddButton.Click += AddNewGroup_Click;
             GroupsListBox.InnerListBox.SelectionChanged += ConfigGroups_SelectionChanged;
             GroupsListBox.IsPreviousSelectedOnRemove = true;
 
-            PathsListBox.Title.Text = "Folders";
+            PathsListBox.Title.Text = Properties.Resources.PathsListBoxTitle;
             PathsListBox.ItemEditType = ConfigListBox.EditType.None;
-            PathsListBox.AddButton.ToolTip = "Add new folder(s)";
-            PathsListBox.EditButton.ToolTip = "Edit folder name";
-            PathsListBox.RemoveButton.ToolTip = "Remove selected folder(s)";
-            PathsListBox.RemoveAllButton.ToolTip = "Remove all folders";
+            PathsListBox.AddButton.ToolTip = Properties.Resources.PathsListBoxAddButtonTooltip;
+            PathsListBox.EditButton.ToolTip = Properties.Resources.PathsListBoxEditButtonTooltip;
+            PathsListBox.RemoveButton.ToolTip = Properties.Resources.PathsListBoxRemoveButtonTooltip;
+            PathsListBox.RemoveAllButton.ToolTip = Properties.Resources.PathsListBoxRemoveAllButtonTooltip;
             PathsListBox.AddButton.Click += AddNewPath_Click;
             PathsListBox.IsDeselectable = true;
 
-            RulesListBox.Title.Text = "Filters";
+            RulesListBox.Title.Text = Properties.Resources.RulesListBoxTitle;
             RulesListBox.ItemEditType = ConfigListBox.EditType.Custom;
-            RulesListBox.AddButton.ToolTip = "Add new filter";
-            RulesListBox.EditButton.ToolTip = "Edit filter";
-            RulesListBox.RemoveButton.ToolTip = "Remove selected filter(s)";
-            RulesListBox.RemoveAllButton.ToolTip = "Remove all filters";
-            RulesListBox.AddButton.Click += AddNewRule_Click; ;
+            RulesListBox.AddButton.ToolTip = Properties.Resources.RulesListBoxAddButtonTooltip;
+            RulesListBox.EditButton.ToolTip = Properties.Resources.RulesListBoxEditButtonTooltip;
+            RulesListBox.RemoveButton.ToolTip = Properties.Resources.RulesListBoxRemoveButtonTooltip;
+            RulesListBox.RemoveAllButton.ToolTip = Properties.Resources.RulesListBoxRemoveAllButtonTooltip;
+            RulesListBox.AddButton.Click += AddNewRule_Click;
             RulesListBox.OnEditClicked += EditRule_Click;
             RulesListBox.IsDeselectable = true;
 
@@ -308,10 +308,10 @@ namespace qgrepControls.SearchWindow
             bool canGoBasic = projectsCount <= 1 && groupsCount <= 1;
 
             bool isAdvanced = canGoBasic ? Settings.Default.AdvancedProjectSettings : true;
-            AdvancedToggle.Content = isAdvanced ? "›› Basic" : "‹‹ Advanced";
+            AdvancedToggle.Content = isAdvanced ? Properties.Resources.BasicToggleContent : Properties.Resources.AdvancedToggleContent;
 
             AdvancedToggle.IsEnabled = isAdvanced && canGoBasic || !isAdvanced;
-            AdvancedToggle.ToolTip = !canGoBasic ? "Remove extra projects and groups to go back to basic settings" : null;
+            AdvancedToggle.ToolTip = !canGoBasic ? Properties.Resources.RemoveExtraContent : null;
 
             GridLength advancedGridLength = isAdvanced ? new GridLength(1, GridUnitType.Star) : new GridLength(0, GridUnitType.Pixel);
             GridLength basicGridLength = new GridLength(3, GridUnitType.Star);

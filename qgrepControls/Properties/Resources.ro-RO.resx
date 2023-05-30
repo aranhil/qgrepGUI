@@ -231,4 +231,89 @@
 	<data name="Settings" xml:space="preserve">
     <value>Setări</value>
 </data>
+	<data name="AdvancedToggleContent" xml:space="preserve">
+    <value>◀◀ Avansat</value>
+</data>
+	<data name="ConfigOpenContent" xml:space="preserve">
+    <value>Deschide locația</value>
+</data>
+	<data name="AutomaticPopulationContent" xml:space="preserve">
+    <value>Colectează din soluție</value>
+</data>
+	<data name="StopButtonContent" xml:space="preserve">
+    <value>Oprește</value>
+</data>
+	<data name="UseGlobalPathContent" xml:space="preserve">
+    <value>Folosește calea globală</value>
+</data>
+	<data name="BasicToggleContent" xml:space="preserve">
+    <value xml:lang="en">›› Bazic</value>
+</data>
+	<data name="AdvancedToggleContent" xml:space="preserve">
+    <value xml:lang="en">‹‹ Avansat</value>
+</data>
+	<data name="RemoveExtraContent" xml:space="preserve">
+    <value xml:lang="en">Elimină proiectele și grupurile suplimentare pentru a reveni la setările de bază</value>
+</data>
+	<data name="ProjectsListBoxTitle" xml:space="preserve">
+    <value xml:lang="en">Configurări</value>
+</data>
+	<data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Adaugă nouă configurație</value>
+</data>
+	<data name="ProjectsListBoxEditButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Editează numele configurației</value>
+</data>
+	<data name="ProjectsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge configurația/ile selectate</value>
+</data>
+	<data name="ProjectsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge toate configurațiile</value>
+</data>
+	<data name="GroupsListBoxTitle" xml:space="preserve">
+    <value xml:lang="en">Grupuri</value>
+</data>
+	<data name="GroupsListBoxAddButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Adaugă un nou grup</value>
+</data>
+	<data name="GroupsListBoxEditButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Editează numele grupului</value>
+</data>
+	<data name="GroupsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge grupul/urile selectate</value>
+</data>
+	<data name="GroupsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge toate grupurile</value>
+</data>
+	<data name="PathsListBoxTitle" xml:space="preserve">
+    <value xml:lang="en">Foldere</value>
+</data>
+	<data name="PathsListBoxAddButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Adaugă unul sau mai multe foldere noi</value>
+</data>
+	<data name="PathsListBoxEditButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Editează numele folderului</value>
+</data>
+	<data name="PathsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge folderul/urile selectate</value>
+</data>
+	<data name="PathsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge toate folderele</value>
+</data>
+	<data name="RulesListBoxTitle" xml:space="preserve">
+    <value xml:lang="en">Filtre</value>
+</data>
+	<data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Adaugă un nou filtru</value>
+</data>
+	<data name="RulesListBoxEditButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Editează filtrul</value>
+</data>
+	<data name="RulesListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge filtrul/filtrele selectate</value>
+</data>
+	<data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge toate filtrele</value>
+</data>
+
 </root>

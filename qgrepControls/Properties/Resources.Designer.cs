@@ -70,6 +70,33 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ‹‹ Advanced.
+        /// </summary>
+        public static string AdvancedToggleContent {
+            get {
+                return ResourceManager.GetString("AdvancedToggleContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gather from solution.
+        /// </summary>
+        public static string AutomaticPopulationContent {
+            get {
+                return ResourceManager.GetString("AutomaticPopulationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ›› Basic.
+        /// </summary>
+        public static string BasicToggleContent {
+            get {
+                return ResourceManager.GetString("BasicToggleContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot clean index: {0}.
         /// </summary>
         public static string CannotCleanIndex {
@@ -94,6 +121,15 @@ namespace qgrepControls.Properties {
             get {
                 object obj = ResourceManager.GetObject("colors_schemes", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open location.
+        /// </summary>
+        public static string ConfigOpenContent {
+            get {
+                return ResourceManager.GetString("ConfigOpenContent", resourceCulture);
             }
         }
         
@@ -157,6 +193,51 @@ namespace qgrepControls.Properties {
         public static string FilterResultsLabel {
             get {
                 return ResourceManager.GetString("FilterResultsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new group.
+        /// </summary>
+        public static string GroupsListBoxAddButtonTooltip {
+            get {
+                return ResourceManager.GetString("GroupsListBoxAddButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit group name.
+        /// </summary>
+        public static string GroupsListBoxEditButtonTooltip {
+            get {
+                return ResourceManager.GetString("GroupsListBoxEditButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all groups.
+        /// </summary>
+        public static string GroupsListBoxRemoveAllButtonTooltip {
+            get {
+                return ResourceManager.GetString("GroupsListBoxRemoveAllButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected group(s).
+        /// </summary>
+        public static string GroupsListBoxRemoveButtonTooltip {
+            get {
+                return ResourceManager.GetString("GroupsListBoxRemoveButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups.
+        /// </summary>
+        public static string GroupsListBoxTitle {
+            get {
+                return ResourceManager.GetString("GroupsListBoxTitle", resourceCulture);
             }
         }
         
@@ -287,11 +368,155 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new folder(s).
+        /// </summary>
+        public static string PathsListBoxAddButtonTooltip {
+            get {
+                return ResourceManager.GetString("PathsListBoxAddButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit folder name.
+        /// </summary>
+        public static string PathsListBoxEditButtonTooltip {
+            get {
+                return ResourceManager.GetString("PathsListBoxEditButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all folders.
+        /// </summary>
+        public static string PathsListBoxRemoveAllButtonTooltip {
+            get {
+                return ResourceManager.GetString("PathsListBoxRemoveAllButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected folder(s).
+        /// </summary>
+        public static string PathsListBoxRemoveButtonTooltip {
+            get {
+                return ResourceManager.GetString("PathsListBoxRemoveButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folders.
+        /// </summary>
+        public static string PathsListBoxTitle {
+            get {
+                return ResourceManager.GetString("PathsListBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new config.
+        /// </summary>
+        public static string ProjectsListBoxAddButtonTooltip {
+            get {
+                return ResourceManager.GetString("ProjectsListBoxAddButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit config name.
+        /// </summary>
+        public static string ProjectsListBoxEditButtonTooltip {
+            get {
+                return ResourceManager.GetString("ProjectsListBoxEditButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all configs.
+        /// </summary>
+        public static string ProjectsListBoxRemoveAllButtonTooltip {
+            get {
+                return ResourceManager.GetString("ProjectsListBoxRemoveAllButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected config(s).
+        /// </summary>
+        public static string ProjectsListBoxRemoveButtonTooltip {
+            get {
+                return ResourceManager.GetString("ProjectsListBoxRemoveButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configs.
+        /// </summary>
+        public static string ProjectsListBoxTitle {
+            get {
+                return ResourceManager.GetString("ProjectsListBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regular expressions ({0}).
         /// </summary>
         public static string RegEx {
             get {
                 return ResourceManager.GetString("RegEx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove extra projects and groups to go back to basic settings.
+        /// </summary>
+        public static string RemoveExtraContent {
+            get {
+                return ResourceManager.GetString("RemoveExtraContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new filter.
+        /// </summary>
+        public static string RulesListBoxAddButtonTooltip {
+            get {
+                return ResourceManager.GetString("RulesListBoxAddButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit filter.
+        /// </summary>
+        public static string RulesListBoxEditButtonTooltip {
+            get {
+                return ResourceManager.GetString("RulesListBoxEditButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all filters.
+        /// </summary>
+        public static string RulesListBoxRemoveAllButtonTooltip {
+            get {
+                return ResourceManager.GetString("RulesListBoxRemoveAllButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected filter(s).
+        /// </summary>
+        public static string RulesListBoxRemoveButtonTooltip {
+            get {
+                return ResourceManager.GetString("RulesListBoxRemoveButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filters.
+        /// </summary>
+        public static string RulesListBoxTitle {
+            get {
+                return ResourceManager.GetString("RulesListBoxTitle", resourceCulture);
             }
         }
         
@@ -359,6 +584,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string StopButtonContent {
+            get {
+                return ResourceManager.GetString("StopButtonContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Theme settings.
         /// </summary>
         public static string ThemeSettings {
@@ -373,6 +607,15 @@ namespace qgrepControls.Properties {
         public static string UpdateIndex {
             get {
                 return ResourceManager.GetString("UpdateIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use global path.
+        /// </summary>
+        public static string UseGlobalPathContent {
+            get {
+                return ResourceManager.GetString("UseGlobalPathContent", resourceCulture);
             }
         }
     }
