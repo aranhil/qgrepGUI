@@ -19,7 +19,7 @@ namespace qgrepControls.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -94,6 +94,15 @@ namespace qgrepControls.Properties {
             get {
                 object obj = ResourceManager.GetObject("colors_schemes", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy full path.
+        /// </summary>
+        public static string CopyFullPath {
+            get {
+                return ResourceManager.GetString("CopyFullPath", resourceCulture);
             }
         }
         
@@ -269,6 +278,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open file.
+        /// </summary>
+        public static string OpenFile {
+            get {
+                return ResourceManager.GetString("OpenFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regular expressions ({0}).
         /// </summary>
         public static string RegEx {
@@ -296,6 +314,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search file....
+        /// </summary>
+        public static string SearchFileLabel {
+            get {
+                return ResourceManager.GetString("SearchFileLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search....
         /// </summary>
         public static string SearchLabel {
@@ -310,6 +337,15 @@ namespace qgrepControls.Properties {
         public static string SearchWholeWord {
             get {
                 return ResourceManager.GetString("SearchWholeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

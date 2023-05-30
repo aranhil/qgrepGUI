@@ -484,7 +484,7 @@ namespace qgrepControls.SearchWindow
             {
                 TaskRunner.RunOnUIThreadAsync(() =>
                 {
-                    HandleErrorMessage("Cannot clean indexes: " + ex.Message + "\n", null);
+                    HandleErrorMessage(string.Format(Properties.Resources.CannotCleanIndex, ex.Message), null);
                 });
             }
         }
@@ -556,7 +556,7 @@ namespace qgrepControls.SearchWindow
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            UIHelper.CreateWindow(new qgrepControls.SearchWindow.FilesSettingsWindow(this), "Settings", WrapperApp, this).ShowDialog();
+            UIHelper.CreateWindow(new qgrepControls.SearchWindow.FilesSettingsWindow(this), Properties.Resources.Settings, WrapperApp, this).ShowDialog();
         }
     }
 }

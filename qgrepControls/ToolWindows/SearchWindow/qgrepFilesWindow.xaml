@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:modelViews="clr-namespace:qgrepControls.ModelViews"
+             xmlns:resx="clr-namespace:qgrepControls.Properties"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown"
              d:DesignHeight="600" d:DesignWidth="1000" Width="800" Height="400">
     <UserControl.Resources>
@@ -23,7 +24,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" x:Name="IncludeFilesGrid" Margin="0,-1,0,0">
             <TextBox x:Name="IncludeFilesInput" TabIndex="1" BorderThickness="0,1,0,1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" />
-            <Label x:Name="IncludeFilesLabel" Content="Search file..." Style="{DynamicResource SomeHintLabel}"/>
+            <Label x:Name="IncludeFilesLabel" Content="{x:Static resx:Resources.SearchFileLabel}" Style="{DynamicResource SomeHintLabel}"/>
         </Grid>
         <Grid Grid.Row="1">
             <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="4" ItemsSource="{Binding}" KeyboardNavigation.TabNavigation="Once" Focusable="False">
@@ -34,8 +35,8 @@
                             <TextBlock Style="{DynamicResource ResultTextStart}" Text="{Binding Path=TrimmedFileAndLine}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem x:Name="MenuGoTo" Header="Open file" Click="MenuGoTo_Click"/>
-                                    <MenuItem x:Name="MenuCopyFullPath" Header="Copy full path" Click="MenuCopyFullPath_Click"/>
+                                    <MenuItem x:Name="MenuOpenFile" Header="{x:Static resx:Resources.OpenFile}" Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuCopyFullPath" Header="{x:Static resx:Resources.CopyFullPath}" Click="MenuCopyFullPath_Click"/>
                                 </ContextMenu>
                             </DockPanel.ContextMenu>
                         </DockPanel>
@@ -47,17 +48,17 @@
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,10,0">
                 <Label IsTabStop="False" x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
                 <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
-                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="Update index">
+                <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="{x:Static resx:Resources.UpdateIndex}">
                     <Path Style="{DynamicResource SyncIcon}" />
                 </Button>
-                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" FontSize="18" Click="CleanButton_Click" ToolTip="Clean and update index">
+                <Button IsTabStop="False" x:Name="CleanButton" Style="{StaticResource IconButton}" FontSize="18" Click="CleanButton_Click" ToolTip="{x:Static resx:Resources.CleanAndUpdateIndex}">
                     <Grid Background="Transparent">
                         <Path Style="{DynamicResource TrashIcon}" />
                     </Grid>
                 </Button>
             </StackPanel>
             <StackPanel x:Name="AdvancedPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button x:Name="SettingsButton" Style="{StaticResource IconButton}" Click="SettingsButton_Click" ToolTip="Settings">
+                <Button x:Name="SettingsButton" Style="{StaticResource IconButton}" Click="SettingsButton_Click" ToolTip="{x:Static resx:Resources.Settings}">
                     <Path Style="{DynamicResource SettingsIcon}" />
                 </Button>
                 <wpfTool:CheckComboBox IsTabStop="False" x:Name="FiltersComboBox" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" DisplayMemberPath="Name" ValueMemberPath="Name" SelectedMemberPath="Name" Delimiter=", " ItemsSource="{Binding}" ItemSelectionChanged="FiltersComboBox_ItemSelectionChanged">
@@ -66,5 +67,6 @@
                 <Label IsTabStop="False" x:Name="ErrorLabel" Content="" Style="{DynamicResource SomeHintLabel}" />
             </StackPanel>
         </Grid>
+
     </Grid>
 </UserControl>

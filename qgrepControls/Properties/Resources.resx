@@ -211,4 +211,26 @@
   <data name="UpdateIndex" xml:space="preserve">
     <value>Update index</value>
   </data>
+	<data name="OpenFile" xml:space="preserve">
+  <value>Open file</value>
+</data>
+	<data name="SearchFileLabel" xml:space="preserve">
+  <value>Search file...</value>
+</data>
+	<data name="OpenFile" xml:space="preserve">
+  <value>Open file</value>
+</data>
+	<data name="CopyFullPath" xml:space="preserve">
+  <value>Copy full path</value>
+</data>
+	<data name="UpdateIndex" xml:space="preserve">
+  <value>Update index</value>
+</data>
+	<data name="CleanAndUpdateIndex" xml:space="preserve">
+  <value>Clean and update index</value>
+</data>
+	<data name="Settings" xml:space="preserve">
+  <value>Settings</value>
+</data>
+
 </root>

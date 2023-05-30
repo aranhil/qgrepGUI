@@ -210,4 +210,25 @@
 	<data name="UpdateIndex" xml:space="preserve">
     <value>Actualizează indexul</value>
 </data>
+	<data name="OpenFile" xml:space="preserve">
+    <value>Deschide fișier</value>
+</data>
+	<data name="SearchFileLabel" xml:space="preserve">
+    <value>Caută fișier...</value>
+</data>
+	<data name="OpenFile" xml:space="preserve">
+    <value>Deschide fișier</value>
+</data>
+	<data name="CopyFullPath" xml:space="preserve">
+    <value>Copiază calea completă</value>
+</data>
+	<data name="UpdateIndex" xml:space="preserve">
+    <value>Actualizează indexul</value>
+</data>
+	<data name="CleanAndUpdateIndex" xml:space="preserve">
+    <value>Curăță și actualizează indexul</value>
+</data>
+	<data name="Settings" xml:space="preserve">
+    <value>Setări</value>
+</data>
 </root>
