@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Threading;
 using qgrepControls.Classes;
 using System;
 using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
 
 namespace qgrepExtension
 {
