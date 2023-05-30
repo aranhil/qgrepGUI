@@ -353,11 +353,11 @@ namespace qgrepControls.SearchWindow
             IsAutomaticPopulationBusy = true;
             UpdateVisibility();
 
-            Task.Run(() =>
+            TaskRunner.RunInBackgroundAsync(() =>
             {
                 SearchWindow.WrapperApp.GatherAllFoldersAndExtensionsFromSolution(HandleAutomaticNewExtension, HandleAutomaticNewFolder);
 
-                Dispatcher.Invoke(() =>
+                TaskRunner.RunOnUIThreadAsync(() =>
                 {
                     AddAutomaticRules();
 
@@ -386,7 +386,7 @@ namespace qgrepControls.SearchWindow
                 throw new Exception("Window closed.");
             }
 
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 SearchGroup selectedGroup = GroupsListBox.InnerListBox.SelectedItem as SearchGroup;
                 if (selectedGroup != null)
@@ -409,7 +409,7 @@ namespace qgrepControls.SearchWindow
                 throw new Exception("Window closed.");
             }
 
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if(!CurrentlyPopulatingExtensions.Contains(newExtension))
                 {

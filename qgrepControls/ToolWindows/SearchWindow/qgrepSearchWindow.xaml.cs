@@ -353,7 +353,7 @@ namespace qgrepControls.SearchWindow
 
         private void FilesChanged(List<string> modifiedFiles)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 UpdateDatabase(true, modifiedFiles);
             });
@@ -361,7 +361,7 @@ namespace qgrepControls.SearchWindow
 
         private void FilesAddedOrRemoved()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 UpdateDatabase(true);
             });
@@ -481,7 +481,7 @@ namespace qgrepControls.SearchWindow
 
         public void OnStartSearchEvent(SearchOptions searchOptions)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 newSearch = true;
                 selectedSearchResultGroup = null;
@@ -642,7 +642,7 @@ namespace qgrepControls.SearchWindow
         {
             if (!SearchEngine.Instance.IsSearchQueued)
             {
-                Dispatcher.Invoke(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     if (SearchInput.Text.Length != 0 || IncludeFilesInput.Text.Length != 0)
                     {
@@ -695,7 +695,7 @@ namespace qgrepControls.SearchWindow
 
         public void OnErrorEvent(string message, SearchOptions searchOptions)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 ErrorLabel.Content = message;
             });
@@ -703,7 +703,7 @@ namespace qgrepControls.SearchWindow
 
         public void OnFinishSearchEvent(SearchOptions searchOptions)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (!SearchEngine.Instance.IsSearchQueued)
                 {
@@ -858,10 +858,10 @@ namespace qgrepControls.SearchWindow
             }
             catch (Exception ex)
             {
-                Dispatcher.Invoke(new Action(() =>
+                TaskRunner.RunOnUIThreadAsync(() =>
                 {
                     HandleErrorMessage("Cannot clean indexes: " + ex.Message, null);
-                }));
+                });
             }
         }
 
@@ -870,7 +870,7 @@ namespace qgrepControls.SearchWindow
         private string lastMessage = "";
         private void HandleUpdateStart(DatabaseUpdate databaseUpdate)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
@@ -906,7 +906,7 @@ namespace qgrepControls.SearchWindow
 
         private void HandleUpdateFinish(DatabaseUpdate databaseUpdate)
         {
-            Dispatcher.Invoke(new Action(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
@@ -930,20 +930,20 @@ namespace qgrepControls.SearchWindow
                 }
 
                 WrapperApp.StopBackgroundTask();
-            }));
+            });
         }
 
         private void HandleErrorMessage(string message, DatabaseUpdate databaseUpdate)
         {
             lastMessage = message;
 
-            Dispatcher.Invoke(new Action(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
                     InitInfo.Content = message;
                 }
-            }));
+            });
         }
 
         private void HandleUpdateMessage(string message, DatabaseUpdate databaseUpdate)
@@ -952,7 +952,7 @@ namespace qgrepControls.SearchWindow
 
             if (!infoUpdateStopWatch.IsRunning || infoUpdateStopWatch.ElapsedMilliseconds > 10)
             {
-                Dispatcher.Invoke(new Action(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     if (databaseUpdate == null || !databaseUpdate.IsSilent)
                     {
@@ -964,7 +964,7 @@ namespace qgrepControls.SearchWindow
                     {
                         WrapperApp.UpdateBackgroundTaskMessage(message);
                     }
-                }));
+                });
             }
         }
 
@@ -972,7 +972,7 @@ namespace qgrepControls.SearchWindow
         {
             if (!progressUpdateStopWatch.IsRunning || progressUpdateStopWatch.ElapsedMilliseconds > 20)
             {
-                Dispatcher.Invoke(new Action(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     if (databaseUpdate == null || !databaseUpdate.IsSilent)
                     {
@@ -982,7 +982,7 @@ namespace qgrepControls.SearchWindow
                     }
 
                     WrapperApp.UpdateBackgroundTaskPercentage((int)percentage);
-                }));
+                });
             }
         }
 
@@ -1644,7 +1644,7 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleCaseSensitive()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 SearchCaseSensitive.IsChecked = !SearchCaseSensitive.IsChecked;
                 SaveOptions();
@@ -1654,7 +1654,7 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleWholeWord()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 SearchWholeWord.IsChecked = !SearchWholeWord.IsChecked;
                 SaveOptions();
@@ -1664,7 +1664,7 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleRegEx()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 if (IncludeFilesInput.IsFocused)
                 {
@@ -1690,7 +1690,7 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleIncludeFiles()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 Settings.Default.ShowIncludes = !Settings.Default.ShowIncludes;
                 Settings.Default.Save();
@@ -1705,7 +1705,7 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleExcludeFiles()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 Settings.Default.ShowExcludes = !Settings.Default.ShowExcludes;
                 Settings.Default.Save();
@@ -1720,7 +1720,7 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleFilterResults()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 Settings.Default.ShowFilter = !Settings.Default.ShowFilter;
                 Settings.Default.Save();
@@ -1735,7 +1735,7 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleGroupBy()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 Settings.Default.GroupingIndex = 1 - Settings.Default.GroupingIndex;
                 Settings.Default.Save();
@@ -1745,7 +1745,7 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleGroupExpand()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 OverrideExpansion = !(OverrideExpansion ?? CurrentExpansion);
                 SetTreeCollapsing(OverrideExpansion ?? false);
@@ -1754,7 +1754,7 @@ namespace qgrepControls.SearchWindow
 
         public void ShowHistory()
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThreadAsync(() =>
             {
                 HistoryContextMenu.IsOpen = true;
             });

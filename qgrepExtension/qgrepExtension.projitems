@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)VisualStudioWrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)qgrepSearchPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShowToolWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VsTaskRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)VSCommandTable.vsct" />

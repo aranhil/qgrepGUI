@@ -80,6 +80,7 @@
     <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="Classes\MutexUtility.cs" />
     <Compile Include="Classes\SearchEngine.cs" />
+    <Compile Include="Classes\TaskRunner.cs" />
     <Compile Include="Classes\ThemeHelper.cs" />
     <Compile Include="Classes\UIHelper.cs" />
     <Compile Include="ModelViews\ColorOverride.cs" />

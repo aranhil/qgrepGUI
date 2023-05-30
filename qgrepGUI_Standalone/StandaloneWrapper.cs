@@ -7,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -244,7 +246,7 @@ namespace qgrepGUI
                     lock (lockObject)
                     {
                         BitmapSource iconSource = null;
-                        Application.Current.Dispatcher.Invoke(() =>
+                        TaskRunner.RunOnUIThread(() =>
                         {
                             iconSource = iconCache.ContainsKey(fileExtension) ? iconCache[fileExtension] : null;
                         });
@@ -263,7 +265,7 @@ namespace qgrepGUI
 
                             DestroyIcon(shfi.hIcon);
 
-                            Application.Current.Dispatcher.Invoke(() =>
+                            TaskRunner.RunOnUIThread(() =>
                             {
                                 if (icon != null)
                                 {

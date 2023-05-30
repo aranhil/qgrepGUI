@@ -34,6 +34,8 @@ namespace qgrepGUI
         public MainWindow()
         {
             InitializeComponent();
+            TaskRunner.Initialize(new WpfTaskRunner(Dispatcher));
+
             SearchWindow = new qgrepSearchWindowControl(new StandaloneWrapper(this));
             WindowContent.Children.Add(SearchWindow);
 

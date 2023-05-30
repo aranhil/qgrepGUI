@@ -112,7 +112,7 @@ namespace qgrepControls.Classes
 
         private SearchEngine()
         {
-            Task.Run(QueueUpdate);
+            TaskRunner.RunInBackgroundAsync(QueueUpdate);
         }
 
         private string LastUpdateMessage = "";
@@ -155,7 +155,7 @@ namespace qgrepControls.Classes
             IsBusy = true;
             ForceStop = false;
 
-            Task.Run(() =>
+            TaskRunner.RunInBackgroundAsync(() =>
             {
                 searchOptions.EventsHandler.OnStartSearchEvent(searchOptions);
 
@@ -244,7 +244,7 @@ namespace qgrepControls.Classes
                 }
 
                 IsBusy = false;
-                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     MutexUtility.Instance.WorkDone();
                 });
@@ -272,7 +272,7 @@ namespace qgrepControls.Classes
             IsBusy = true;
             ForceStop = false;
 
-            Task.Run(() =>
+            TaskRunner.RunInBackgroundAsync(() =>
             {
                 searchOptions.EventsHandler.OnStartSearchEvent(searchOptions);
 
@@ -294,7 +294,7 @@ namespace qgrepControls.Classes
                     null);
 
                 IsBusy = false;
-                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     MutexUtility.Instance.WorkDone();
                 });
@@ -316,7 +316,7 @@ namespace qgrepControls.Classes
 
         private void ProcessQueue()
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (QueuedDatabaseUpdate != null)
                 {
@@ -522,7 +522,7 @@ namespace qgrepControls.Classes
             IsBusy = true;
             IsUpdatingDatabase = true;
 
-            Task.Run(() =>
+            TaskRunner.RunInBackgroundAsync(() =>
             {
                 StartUpdateCallback(databaseUpdate);
                 UpdateTimer.Stop();
@@ -578,59 +578,7 @@ namespace qgrepControls.Classes
                 IsBusy = false;
                 IsUpdatingDatabase = false;
 
-                System.Windows.Application.Current.Dispatcher.Invoke(() =>
-                {
-                    MutexUtility.Instance.WorkDone();
-                });
-
-                FinishUpdateCallback(databaseUpdate);
-                StartLastUpdatedTimer();
-                LastUpdateProgress = -1;
-
-                ProcessQueue();
-            });
-        }
-        public void UpdateFileAsync(DatabaseUpdate databaseUpdate)
-        {
-            if (QueuedDatabaseUpdate != null || IsUpdatingDatabase)
-            {
-                return;
-            }
-
-            if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
-            {
-                QueuedDatabaseUpdate = databaseUpdate;
-                queueEvent.Set();
-                return;
-            }
-
-            IsBusy = true;
-            IsUpdatingDatabase = true;
-
-            Task.Run(() =>
-            {
-                StartUpdateCallback(databaseUpdate);
-                UpdateTimer.Stop();
-                LastUpdateProgress = -1;
-
-                foreach (string configPath in databaseUpdate.ConfigPaths)
-                {
-                    List<string> parameters = new List<string>
-                    {
-                        "qgrep",
-                        "update",
-                        configPath
-                    };
-                    QGrepWrapper.CallQGrepAsync(parameters,
-                        (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
-                        (string message) => { UpdateErrorHandler(message, databaseUpdate); },
-                        (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
-                }
-
-                IsBusy = false;
-                IsUpdatingDatabase = false;
-
-                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     MutexUtility.Instance.WorkDone();
                 });

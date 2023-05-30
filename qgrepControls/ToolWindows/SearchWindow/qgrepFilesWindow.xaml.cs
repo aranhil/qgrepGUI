@@ -112,7 +112,7 @@ namespace qgrepControls.SearchWindow
 
         public void OnStartSearchEvent(SearchOptions searchOptions)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 newSearch = true;
                 selectedSearchResult = -1;
@@ -176,7 +176,7 @@ namespace qgrepControls.SearchWindow
         {
             if (!SearchEngine.Instance.IsSearchQueued)
             {
-                Dispatcher.Invoke(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     if (IncludeFilesInput.Text.Length != 0)
                     {
@@ -219,7 +219,7 @@ namespace qgrepControls.SearchWindow
 
         public void OnFinishSearchEvent(SearchOptions searchOptions)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (!SearchEngine.Instance.IsSearchQueued)
                 {
@@ -387,7 +387,7 @@ namespace qgrepControls.SearchWindow
 
         private void HandleUpdateStart(DatabaseUpdate databaseUpdate)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
@@ -400,7 +400,7 @@ namespace qgrepControls.SearchWindow
 
         private void HandleUpdateFinish(DatabaseUpdate databaseUpdate)
         {
-            Dispatcher.Invoke(new Action(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
@@ -412,20 +412,20 @@ namespace qgrepControls.SearchWindow
                     infoUpdateStopWatch.Stop();
                     progressUpdateStopWatch.Stop();
                 }
-            }));
+            });
         }
 
         private void HandleErrorMessage(string message, DatabaseUpdate databaseUpdate)
         {
             lastMessage = message;
 
-            Dispatcher.Invoke(new Action(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
                     InitInfo.Content = message;
                 }
-            }));
+            });
         }
 
         private void HandleUpdateMessage(string message, DatabaseUpdate databaseUpdate)
@@ -434,14 +434,14 @@ namespace qgrepControls.SearchWindow
 
             if (!infoUpdateStopWatch.IsRunning || infoUpdateStopWatch.ElapsedMilliseconds > 10)
             {
-                Dispatcher.Invoke(new Action(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     if (databaseUpdate == null || !databaseUpdate.IsSilent)
                     {
                         InitInfo.Content = message;
                         infoUpdateStopWatch.Restart();
                     }
-                }));
+                });
             }
         }
 
@@ -449,7 +449,7 @@ namespace qgrepControls.SearchWindow
         {
             if (!progressUpdateStopWatch.IsRunning || progressUpdateStopWatch.ElapsedMilliseconds > 20)
             {
-                Dispatcher.Invoke(new Action(() =>
+                TaskRunner.RunOnUIThread(() =>
                 {
                     if (databaseUpdate == null || !databaseUpdate.IsSilent)
                     {
@@ -457,7 +457,7 @@ namespace qgrepControls.SearchWindow
                         InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
                         progressUpdateStopWatch.Restart();
                     }
-                }));
+                });
             }
         }
 
@@ -482,10 +482,10 @@ namespace qgrepControls.SearchWindow
             }
             catch (Exception ex)
             {
-                Dispatcher.Invoke(new Action(() =>
+                TaskRunner.RunOnUIThreadAsync(() =>
                 {
                     HandleErrorMessage("Cannot clean indexes: " + ex.Message + "\n", null);
-                }));
+                });
             }
         }
 
@@ -548,7 +548,7 @@ namespace qgrepControls.SearchWindow
 
         public void OnErrorEvent(string message, SearchOptions searchOptions)
         {
-            Dispatcher.Invoke(() =>
+            TaskRunner.RunOnUIThread(() =>
             {
                 ErrorLabel.Content = message;
             });

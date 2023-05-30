@@ -16,6 +16,7 @@ using static System.Windows.Forms.AxHost;
 using System.Windows.Input;
 using qgrepControls.Classes;
 using Microsoft.VisualStudio.TaskStatusCenter;
+using qgrepExtension;
 
 namespace qgrepSearch
 {
@@ -38,6 +39,8 @@ namespace qgrepSearch
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync();
             await ShowToolWindow.InitializeAsync(this);
+
+            TaskRunner.Initialize(new VsTaskRunner());
 
             DTE = await GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
 

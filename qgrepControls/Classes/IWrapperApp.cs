@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -9,6 +10,7 @@ using System.Windows.Media.Imaging;
 namespace qgrepControls.Classes
 {
     public delegate void MessageCallback(string message);
+
     public interface IWrapperApp
     {
         string GetConfigPath(bool useGlobalPath);
