@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Controls.Primitives;
 using qgrepControls.ModelViews;
 using System.Windows.Media;
+using System.Threading;
+using System.Globalization;
+using System.Reflection;
+using System.Resources;
 
 namespace qgrepControls.SearchWindow
 {
@@ -50,10 +54,15 @@ namespace qgrepControls.SearchWindow
         ObservableCollection<HistoricItem> shownSearchHistory = new ObservableCollection<HistoricItem>();
 
         CacheUsageType CacheUsageType = CacheUsageType.Normal;
+        ResourceManager ResourceManager;
 
         public qgrepSearchWindowControl(IWrapperApp WrapperApp)
         {
             this.WrapperApp = WrapperApp;
+            ResourceManager = new ResourceManager("qgrepControls.Properties.Resources", Assembly.GetExecutingAssembly());
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
 
             SearchEngine.Instance.StartUpdateCallback += HandleUpdateStart;
             SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
@@ -137,19 +146,19 @@ namespace qgrepControls.SearchWindow
                         }
 
                         historicOpen.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
-                        historicOpen.Operation = "Opened ";
+                        historicOpen.SetOperationText(ResourceManager.GetString("HistoricOpen"));
                         historicOpen.Text = ConfigParser.RemovePaths(historicOpen.OpenedPath, Settings.Default.PathStyleIndex);
-                        if (!historicOpen.OpenedLine.Equals("0"))
-                        {
-                            historicOpen.Text += "(" + historicOpen.OpenedLine + ")";
-                        }
+                        //if (!historicOpen.OpenedLine.Equals("0"))
+                        //{
+                        //    historicOpen.Text += "(" + historicOpen.OpenedLine + ")";
+                        //}
                     }
 
                     HistoricSearch historicSearch = searchHistory[i] as HistoricSearch;
                     if (historicSearch != null)
                     {
                         historicSearch.OperationVisibility = Settings.Default.ShowOpenHistory ? Visibility.Visible : Visibility.Collapsed;
-                        historicSearch.Operation = "Searched ";
+                        historicSearch.SetOperationText(ResourceManager.GetString("HistoricSearch"));
                         historicSearch.Text = historicSearch.SearchedText;
                     }
 
@@ -215,12 +224,12 @@ namespace qgrepControls.SearchWindow
 
         private void UpdateShortcutHints()
         {
-            SearchCaseSensitive.ToolTip = "Case sensitive (" + bindings["ToggleCaseSensitive"].ToString() + ")";
-            SearchWholeWord.ToolTip = "Whole word (" + bindings["ToggleWholeWord"].ToString() + ")";
-            SearchRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
-            IncludeRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
-            ExcludeRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
-            FilterRegEx.ToolTip = "Regular expressions (" + bindings["ToggleRegEx"].ToString() + ")";
+            SearchCaseSensitive.ToolTip = string.Format(ResourceManager.GetString("SearchCaseSensitive", new CultureInfo("ro-RO")), bindings["ToggleRegEx"].ToString());
+            SearchWholeWord.ToolTip = string.Format(ResourceManager.GetString("SearchWholeWord"), bindings["ToggleRegEx"].ToString());
+            SearchRegEx.ToolTip = string.Format(ResourceManager.GetString("RegEx"), bindings["ToggleRegEx"].ToString());
+            IncludeRegEx.ToolTip = string.Format(ResourceManager.GetString("RegEx"), bindings["ToggleRegEx"].ToString());
+            ExcludeRegEx.ToolTip = string.Format(ResourceManager.GetString("RegEx"), bindings["ToggleRegEx"].ToString());
+            FilterRegEx.ToolTip = string.Format(ResourceManager.GetString("RegEx"), bindings["ToggleRegEx"].ToString());
         }
 
         public void RenameFilter(string oldName, string newName)
@@ -314,7 +323,7 @@ namespace qgrepControls.SearchWindow
 
         public void SolutionUnloaded()
         {
-            WarningText.Text = "No solution loaded.";
+            WarningText.Text = ResourceManager.GetString("NoSolutionLoaded");
             WarningText.Visibility = Visibility.Visible;
 
             FiltersComboBox.Visibility = Visibility.Collapsed;
@@ -372,7 +381,7 @@ namespace qgrepControls.SearchWindow
             WarningText.Visibility = Visibility.Hidden;
             if (!ConfigParser.HasAnyPaths())
             {
-                WarningText.Text = "No search folders set.";
+                WarningText.Text = ResourceManager.GetString("NoSearchFoldersSet");
                 WarningText.Visibility = Visibility.Visible;
             }
         }
@@ -570,7 +579,7 @@ namespace qgrepControls.SearchWindow
                 ProcessTreeCollapsing();
             }
 
-            InfoLabel.Content = string.Format("Showing {0} result(s) for \"{1}\".", searchResults.Count, searchOptions.Query);
+            InfoLabel.Content = string.Format(ResourceManager.GetString("ShowingResults"), searchResults.Count, searchOptions.Query);
         }
 
         private double GetScreenHeight()
@@ -651,8 +660,8 @@ namespace qgrepControls.SearchWindow
 
                         if (file.Length > 0 && lineNumber.Length > 0)
                         {
-                            fileAndLine = file + "(" + lineNumber + ")";
-                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.PathStyleIndex);
+                            fileAndLine = string.Format(ResourceManager.GetString("FileAndLine"), file, lineNumber);
+                            trimmedFileAndLine = string.Format(ResourceManager.GetString("FileAndLine"), ConfigParser.RemovePaths(file, Settings.Default.PathStyleIndex), lineNumber);
                         }
                         else if (file.Length > 0)
                         {
@@ -816,12 +825,8 @@ namespace qgrepControls.SearchWindow
             {
                 try
                 {
-                    int lastIndex = result.FileAndLine.LastIndexOf('(');
-                    string file = result.FileAndLine.Substring(0, lastIndex);
-                    string line = result.FileAndLine.Substring(lastIndex + 1, result.FileAndLine.Length - lastIndex - 2);
-
-                    WrapperApp.OpenFile(file, line);
-                    AddOpenToHistory(file, line);
+                    WrapperApp.OpenFile(result.File, result.Line);
+                    AddOpenToHistory(result.File, result.Line);
                 }
                 catch (Exception)
                 {
@@ -860,7 +865,7 @@ namespace qgrepControls.SearchWindow
             {
                 TaskRunner.RunOnUIThreadAsync(() =>
                 {
-                    HandleErrorMessage("Cannot clean indexes: " + ex.Message, null);
+                    HandleErrorMessage(string.Format(ResourceManager.GetString("CannotCleanIndex"), ex.Message), null);
                 });
             }
         }
@@ -899,8 +904,6 @@ namespace qgrepControls.SearchWindow
                         QueueFindWhenVisible = true;
                     }
                 }
-
-                WrapperApp.StartBackgroundTask("qgrep index update");
             });
         }
 
@@ -928,8 +931,6 @@ namespace qgrepControls.SearchWindow
 
                     SearchEngine.Instance.UpdateLastUpdated();
                 }
-
-                WrapperApp.StopBackgroundTask();
             });
         }
 
@@ -959,11 +960,6 @@ namespace qgrepControls.SearchWindow
                         InitInfo.Content = message;
                         infoUpdateStopWatch.Restart();
                     }
-
-                    if (databaseUpdate != null)
-                    {
-                        WrapperApp.UpdateBackgroundTaskMessage(message);
-                    }
                 });
             }
         }
@@ -980,8 +976,6 @@ namespace qgrepControls.SearchWindow
                         InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
                         progressUpdateStopWatch.Restart();
                     }
-
-                    WrapperApp.UpdateBackgroundTaskPercentage((int)percentage);
                 });
             }
         }
@@ -1068,7 +1062,7 @@ namespace qgrepControls.SearchWindow
             ConfigParser.SaveOldCopy();
 
             ProjectsWindow newProjectsWindow = new ProjectsWindow(this);
-            UIHelper.CreateWindow(newProjectsWindow, "Search configurations", WrapperApp, this, true).ShowDialog();
+            UIHelper.CreateWindow(newProjectsWindow, ResourceManager.GetString("SearchConfigurations"), WrapperApp, this, true).ShowDialog();
 
             ConfigParser.SaveConfig();
 
@@ -1085,7 +1079,7 @@ namespace qgrepControls.SearchWindow
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            UIHelper.CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), "Advanced settings", WrapperApp, this).ShowDialog();
+            UIHelper.CreateWindow(new qgrepControls.SearchWindow.SettingsWindow(this), ResourceManager.GetString("AdvancedSettings"), WrapperApp, this).ShowDialog();
         }
 
         private void AddSearchToHistory(string searchedString)
@@ -1353,7 +1347,7 @@ namespace qgrepControls.SearchWindow
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            UIHelper.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), "Theme settings", WrapperApp, this, true).ShowDialog();
+            UIHelper.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), ResourceManager.GetString("ThemeSettings"), WrapperApp, this, true).ShowDialog();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)
@@ -1763,7 +1757,7 @@ namespace qgrepControls.SearchWindow
         private void KeyboardButton_Click(object sender, RoutedEventArgs e)
         {
             HotkeysWindow hotkeysWindow = new HotkeysWindow(this);
-            MainWindow hotkeysDialog = UIHelper.CreateWindow(hotkeysWindow, "Edit hotkeys", WrapperApp, this);
+            MainWindow hotkeysDialog = UIHelper.CreateWindow(hotkeysWindow, ResourceManager.GetString("EditHotkeys"), WrapperApp, this);
             hotkeysWindow.Dialog = hotkeysDialog;
             hotkeysDialog.ShowDialog();
 

@@ -19,7 +19,7 @@ namespace qgrepControls.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,12 +61,282 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced Settings.
+        /// </summary>
+        public static string AdvancedSettings {
+            get {
+                return ResourceManager.GetString("AdvancedSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot clean index: {0}.
+        /// </summary>
+        public static string CannotCleanIndex {
+            get {
+                return ResourceManager.GetString("CannotCleanIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clean and update index.
+        /// </summary>
+        public static string CleanAndUpdateIndex {
+            get {
+                return ResourceManager.GetString("CleanAndUpdateIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] colors_schemes {
             get {
                 object obj = ResourceManager.GetObject("colors_schemes", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customize shortcuts.
+        /// </summary>
+        public static string CustomizeShortcuts {
+            get {
+                return ResourceManager.GetString("CustomizeShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customize theme.
+        /// </summary>
+        public static string CustomizeTheme {
+            get {
+                return ResourceManager.GetString("CustomizeTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit hotkeys.
+        /// </summary>
+        public static string EditHotkeys {
+            get {
+                return ResourceManager.GetString("EditHotkeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude files....
+        /// </summary>
+        public static string ExcludeFilesLabel {
+            get {
+                return ResourceManager.GetString("ExcludeFilesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}({1}).
+        /// </summary>
+        public static string FileAndLine {
+            get {
+                return ResourceManager.GetString("FileAndLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter results....
+        /// </summary>
+        public static string FilterResultsLabel {
+            get {
+                return ResourceManager.GetString("FilterResultsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opened {0}.
+        /// </summary>
+        public static string HistoricOpen {
+            get {
+                return ResourceManager.GetString("HistoricOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searched {0}.
+        /// </summary>
+        public static string HistoricSearch {
+            get {
+                return ResourceManager.GetString("HistoricSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show recent searches ({0}).
+        /// </summary>
+        public static string HistoryButton {
+            get {
+                return ResourceManager.GetString("HistoryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include files....
+        /// </summary>
+        public static string IncludeFilesLabel {
+            get {
+                return ResourceManager.GetString("IncludeFilesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info Label.
+        /// </summary>
+        public static string InfoLabel {
+            get {
+                return ResourceManager.GetString("InfoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Init Info.
+        /// </summary>
+        public static string InitInfo {
+            get {
+                return ResourceManager.GetString("InitInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy all results.
+        /// </summary>
+        public static string MenuCopyAllResults {
+            get {
+                return ResourceManager.GetString("MenuCopyAllResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy full path.
+        /// </summary>
+        public static string MenuCopyFullPath {
+            get {
+                return ResourceManager.GetString("MenuCopyFullPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy entire result.
+        /// </summary>
+        public static string MenuCopyResult {
+            get {
+                return ResourceManager.GetString("MenuCopyResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy text.
+        /// </summary>
+        public static string MenuCopyText {
+            get {
+                return ResourceManager.GetString("MenuCopyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to location.
+        /// </summary>
+        public static string MenuGoTo {
+            get {
+                return ResourceManager.GetString("MenuGoTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No search folders set..
+        /// </summary>
+        public static string NoSearchFoldersSet {
+            get {
+                return ResourceManager.GetString("NoSearchFoldersSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No solution loaded..
+        /// </summary>
+        public static string NoSolutionLoaded {
+            get {
+                return ResourceManager.GetString("NoSolutionLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regular expressions ({0}).
+        /// </summary>
+        public static string RegEx {
+            get {
+                return ResourceManager.GetString("RegEx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Case sensitive ({0}).
+        /// </summary>
+        public static string SearchCaseSensitive {
+            get {
+                return ResourceManager.GetString("SearchCaseSensitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search configurations.
+        /// </summary>
+        public static string SearchConfigurations {
+            get {
+                return ResourceManager.GetString("SearchConfigurations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        public static string SearchLabel {
+            get {
+                return ResourceManager.GetString("SearchLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whole word ({0}).
+        /// </summary>
+        public static string SearchWholeWord {
+            get {
+                return ResourceManager.GetString("SearchWholeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing {0} result(s) for &quot;{1}&quot;..
+        /// </summary>
+        public static string ShowingResults {
+            get {
+                return ResourceManager.GetString("ShowingResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme settings.
+        /// </summary>
+        public static string ThemeSettings {
+            get {
+                return ResourceManager.GetString("ThemeSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update index.
+        /// </summary>
+        public static string UpdateIndex {
+            get {
+                return ResourceManager.GetString("UpdateIndex", resourceCulture);
             }
         }
     }

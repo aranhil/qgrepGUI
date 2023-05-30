@@ -71,61 +71,66 @@ namespace qgrepSearch
             ThreadHelper.ThrowIfNotOnUIThread();
 
             string currentlySelectedText = (Data.DTE?.ActiveDocument?.Selection as EnvDTE.TextSelection)?.Text ?? "";
-            if(currentlySelectedText.Length == 0)
+
+            try
             {
-                EnvDTE.TextDocument textDoc = (EnvDTE.TextDocument)Data.DTE?.ActiveDocument?.Object("TextDocument");
-                EnvDTE.TextSelection selection = textDoc?.Selection;
-
-                if (selection != null)
+                if (currentlySelectedText.Length == 0)
                 {
-                    EnvDTE.EditPoint startPoint = selection.ActivePoint.CreateEditPoint();
-                    EnvDTE.EditPoint endPoint = selection.ActivePoint.CreateEditPoint();
+                    EnvDTE.TextDocument textDoc = (EnvDTE.TextDocument)Data.DTE?.ActiveDocument?.Object("TextDocument");
+                    EnvDTE.TextSelection selection = textDoc?.Selection;
 
-                    char c = '\0';
-
-                    // Move the start point to the left until a non-alphanumeric character (excluding underscore) is encountered.
-                    while (!startPoint.AtStartOfDocument)
+                    if (selection != null)
                     {
-                        startPoint.CharLeft(1);
-                        c = startPoint.GetText(1)[0];
-                        if (!(Char.IsLetterOrDigit(c) || c == '_'))
+                        EnvDTE.EditPoint startPoint = selection.ActivePoint.CreateEditPoint();
+                        EnvDTE.EditPoint endPoint = selection.ActivePoint.CreateEditPoint();
+
+                        char c = '\0';
+
+                        // Move the start point to the left until a non-alphanumeric character (excluding underscore) is encountered.
+                        while (!startPoint.AtStartOfDocument)
                         {
-                            startPoint.CharRight(1);
-                            break;
+                            startPoint.CharLeft(1);
+                            c = startPoint.GetText(1)[0];
+                            if (!(Char.IsLetterOrDigit(c) || c == '_'))
+                            {
+                                startPoint.CharRight(1);
+                                break;
+                            }
                         }
-                    }
 
-                    // Move the end point to the right until a non-alphanumeric character (excluding underscore) is encountered.
-                    c = endPoint.GetText(1)[0];
-                    while (Char.IsLetterOrDigit(c) || c == '_')
-                    {
-                        if (!endPoint.AtEndOfDocument)
+                        // Move the end point to the right until a non-alphanumeric character (excluding underscore) is encountered.
+                        c = endPoint.GetText(1)[0];
+                        while (Char.IsLetterOrDigit(c) || c == '_')
                         {
-                            endPoint.CharRight(1);
-                            c = endPoint.GetText(1)[0];
+                            if (!endPoint.AtEndOfDocument)
+                            {
+                                endPoint.CharRight(1);
+                                c = endPoint.GetText(1)[0];
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+
+                        // Get the text between the start and end points.
+                        string word = startPoint.GetText(endPoint);
+
+                        // Check if word contains any alphanumeric characters
+                        bool wordContainsAlphanumeric = word.Any(x => Char.IsLetterOrDigit(x));
+
+                        if (wordContainsAlphanumeric)
+                        {
+                            return word;
                         }
                         else
                         {
-                            break;
+                            return "";
                         }
-                    }
-
-                    // Get the text between the start and end points.
-                    string word = startPoint.GetText(endPoint);
-
-                    // Check if word contains any alphanumeric characters
-                    bool wordContainsAlphanumeric = word.Any(x => Char.IsLetterOrDigit(x));
-
-                    if (wordContainsAlphanumeric)
-                    {
-                        return word;
-                    }
-                    else
-                    {
-                        return "";
                     }
                 }
             }
+            catch { }
 
             return currentlySelectedText;
         }

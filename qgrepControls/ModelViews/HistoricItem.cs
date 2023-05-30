@@ -25,8 +25,22 @@ namespace qgrepControls.ModelViews
             }
         }
 
-        public string Operation { get; set; }
+        public string OperationBeginText { get; set; }
+        public string OperationEndText { get; set; }
         public Visibility OperationVisibility { get; set; }
+
+        public void SetOperationText(string text)
+        {
+            string[] parts = text.Split(new string[] { "{0}" }, StringSplitOptions.None);
+            if(parts.Length > 0)
+            {
+                OperationBeginText = parts[0];
+            }
+            if(parts.Length > 1)
+            {
+                OperationEndText = parts[1];
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

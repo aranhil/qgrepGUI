@@ -117,98 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AdvancedSettings" xml:space="preserve">
-    <value>Advanced Settings</value>
+    <value>Setări avansate</value>
   </data>
   <data name="CannotCleanIndex" xml:space="preserve">
-    <value>Cannot clean index: {0}</value>
-  </data>
+    <value>Nu se poate curăța indexul: {0}</value>
+</data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
-    <value>Clean and update index</value>
-  </data>
+    <value>Curăță și actualizează indexul</value>
+</data>
   <data name="colors_schemes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\colors-schemes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
-    <value>Customize shortcuts</value>
-  </data>
+    <value>Personalizează scurtăturile</value>
+</data>
   <data name="CustomizeTheme" xml:space="preserve">
-    <value>Customize theme</value>
-  </data>
+    <value>Personalizează tema</value>
+</data>
   <data name="EditHotkeys" xml:space="preserve">
-  <value>Edit hotkeys</value>
+    <value>Editează tastele de acces rapid</value>
 </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>Exclude files...</value>
-  </data>
+    <value>Excludeți fișierele...</value>
+</data>
   <data name="FileAndLine" xml:space="preserve">
     <value>{0}({1})</value>
-  </data>
-  <data name="FilterResultsLabel" xml:space="preserve">
-    <value>Filter results...</value>
-  </data>
-  <data name="HistoricOpen" xml:space="preserve">
-    <value>Opened {0}</value>
-  </data>
-  <data name="HistoricSearch" xml:space="preserve">
-    <value>Searched {0}</value>
-  </data>
-  <data name="HistoryButton" xml:space="preserve">
-    <value>Show recent searches ({0})</value>
-  </data>
-  <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>Include files...</value>
-  </data>
-  <data name="InfoLabel" xml:space="preserve">
-    <value>Info Label</value>
-  </data>
-  <data name="InitInfo" xml:space="preserve">
-    <value>Init Info</value>
-  </data>
-  <data name="MenuCopyAllResults" xml:space="preserve">
-    <value>Copy all results</value>
-  </data>
-  <data name="MenuCopyFullPath" xml:space="preserve">
-    <value>Copy full path</value>
-  </data>
-  <data name="MenuCopyResult" xml:space="preserve">
-    <value>Copy entire result</value>
-  </data>
-  <data name="MenuCopyText" xml:space="preserve">
-    <value>Copy text</value>
-  </data>
-  <data name="MenuGoTo" xml:space="preserve">
-    <value>Go to location</value>
-  </data>
-  <data name="NoSearchFoldersSet" xml:space="preserve">
-    <value>No search folders set.</value>
-  </data>
-  <data name="NoSolutionLoaded" xml:space="preserve">
-    <value>No solution loaded.</value>
-  </data>
-  <data name="RegEx" xml:space="preserve">
-    <value>Regular expressions ({0})</value>
-  </data>
-  <data name="SearchCaseSensitive" xml:space="preserve">
-    <value>Case sensitive ({0})</value>
-  </data>
-  <data name="SearchConfigurations" xml:space="preserve">
-    <value>Search configurations</value>
-  </data>
-  <data name="SearchLabel" xml:space="preserve">
-    <value>Search...</value>
-  </data>
-  <data name="SearchWholeWord" xml:space="preserve">
-    <value>Whole word ({0})</value>
-  </data>
-  <data name="ShowingResults" xml:space="preserve">
-    <value>Showing {0} result(s) for "{1}".</value>
-  </data>
-  <data name="ThemeSettings" xml:space="preserve">
-  <value>Theme settings</value>
 </data>
-  <data name="UpdateIndex" xml:space="preserve">
-    <value>Update index</value>
-  </data>
+  <data name="FilterResultsLabel" xml:space="preserve">
+    <value>Filtrați rezultatele...</value>
+</data>
+  <data name="HistoricOpen" xml:space="preserve">
+    <value>Deschis {0}</value>
+</data>
+  <data name="HistoricSearch" xml:space="preserve">
+    <value>Căutat {0}</value>
+</data>
+  <data name="HistoryButton" xml:space="preserve">
+    <value>Afișează căutările recente ({0})</value>
+</data>
+  <data name="IncludeFilesLabel" xml:space="preserve">
+    <value>Includeti fișierele...</value>
+</data>
+  <data name="InfoLabel" xml:space="preserve">
+    <value>Etichetă informații</value>
+</data>
+  <data name="InitInfo" xml:space="preserve">
+    <value>Informații de inițializare</value>
+</data>
+  <data name="MenuCopyAllResults" xml:space="preserve">
+    <value>Copiază toate rezultatele</value>
+</data>
+  <data name="MenuCopyFullPath" xml:space="preserve">
+    <value>Copiază calea completă</value>
+</data>
+  <data name="MenuCopyResult" xml:space="preserve">
+    <value>Copiază rezultatul complet</value>
+</data>
+  <data name="MenuCopyText" xml:space="preserve">
+    <value>Copiază textul</value>
+</data>
+  <data name="MenuGoTo" xml:space="preserve">
+    <value>Mergi la locație</value>
+</data>
+  <data name="NoSearchFoldersSet" xml:space="preserve">
+    <value>Nu sunt setate foldere de căutare.</value>
+</data>
+  <data name="NoSolutionLoaded" xml:space="preserve">
+    <value>Nicio soluție încărcată.</value>
+</data>
+	<data name="RegEx" xml:space="preserve">
+    <value>Expresii regulate ({0})</value>
+</data>
+	<data name="SearchCaseSensitive" xml:space="preserve">
+    <value>Sensibil la majuscule/minuscule ({0})</value>
+</data>
+	<data name="SearchConfigurations" xml:space="preserve">
+    <value>Configurări de căutare</value>
+</data>
+	<data name="SearchLabel" xml:space="preserve">
+    <value>Caută...</value>
+</data>
+	<data name="SearchWholeWord" xml:space="preserve">
+    <value>Cuvânt întreg ({0})</value>
+</data>
+	<data name="ShowingResults" xml:space="preserve">
+    <value>Se afișează {0} rezultat(e) pentru "{1}".</value>
+</data>
+	<data name="ThemeSettings" xml:space="preserve">
+    <value>Setări temă</value>
+</data>
+	<data name="UpdateIndex" xml:space="preserve">
+    <value>Actualizează indexul</value>
+</data>
 </root>
