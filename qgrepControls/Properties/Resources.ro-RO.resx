@@ -315,5 +315,13 @@
 	<data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
     <value xml:lang="en">Șterge toate filtrele</value>
 </data>
-
+	<data name="GroupFormat" xml:space="preserve">
+    <value xml:lang="en">Grupul {0}</value>
+</data>
+	<data name="RootContent" xml:space="preserve">
+    <value xml:lang="en">&lt;rădăcină&gt;</value>
+</data>
+	<data name="ConfigFormat" xml:space="preserve">
+    <value xml:lang="en">Configuratia{0}</value>
+</data>
 </root>

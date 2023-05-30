@@ -316,4 +316,13 @@
 	<data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
     <value xml:lang="en">Remove all filters</value>
 </data>
+	<data name="GroupFormat" xml:space="preserve">
+    <value xml:lang="en">Group {0}</value>
+</data>
+	<data name="RootContent" xml:space="preserve">
+    <value xml:lang="en">&lt;root&gt;</value>
+</data>
+	<data name="ConfigFormat" xml:space="preserve">
+    <value xml:lang="en">Config{0}</value>
+</data>
 </root>

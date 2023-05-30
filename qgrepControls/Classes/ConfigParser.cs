@@ -172,10 +172,10 @@ namespace qgrepControls.Classes
         private string GetNewGroupName()
         {
             int index = 1;
-            string newName = Groups.Count > 0 ? "Group " + index++ : "<root>";
+            string newName = Groups.Count > 0 ? string.Format(Properties.Resources.GroupFormat, index++) : Properties.Resources.RootContent;
             while (Groups.Any(x => x.Name == newName))
             {
-                newName = "Group " + index++;
+                newName = string.Format(Properties.Resources.GroupFormat, index++);
             }
             return newName;
         }
@@ -459,7 +459,7 @@ namespace qgrepControls.Classes
 
             do
             {
-                newPath = Instance.Path + Instance.PathSuffix + "Config" + index + ".cfg";
+                newPath = Instance.Path + Instance.PathSuffix + string.Format(Properties.Resources.ConfigFormat, index) + ".cfg";
                 index++;
             }
             while(File.Exists(newPath));

@@ -125,6 +125,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Config{0}.
+        /// </summary>
+        public static string ConfigFormat {
+            get {
+                return ResourceManager.GetString("ConfigFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open location.
         /// </summary>
         public static string ConfigOpenContent {
@@ -193,6 +202,15 @@ namespace qgrepControls.Properties {
         public static string FilterResultsLabel {
             get {
                 return ResourceManager.GetString("FilterResultsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group {0}.
+        /// </summary>
+        public static string GroupFormat {
+            get {
+                return ResourceManager.GetString("GroupFormat", resourceCulture);
             }
         }
         
@@ -472,6 +490,15 @@ namespace qgrepControls.Properties {
         public static string RemoveExtraContent {
             get {
                 return ResourceManager.GetString("RemoveExtraContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;root&gt;.
+        /// </summary>
+        public static string RootContent {
+            get {
+                return ResourceManager.GetString("RootContent", resourceCulture);
             }
         }
         
