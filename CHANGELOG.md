@@ -30,3 +30,4 @@
 - Search file dialog's input textbox and results listbox are now both focused at the same time
 - Improved the UI responsiveness for searches with a lot of results
 - Migrated to using Visual Studio's ThreadHelper.JoinableTaskFactory for a more responsive UI
+- Added support for UTF-8 paths

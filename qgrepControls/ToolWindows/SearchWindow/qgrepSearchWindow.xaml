@@ -16,9 +16,9 @@
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type modelViews:HistoricItem}">
                 <StackPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Left" FlowDirection="LeftToRight">
-                    <Label Style="{DynamicResource HistoricOperationBeginText}" Content="{Binding Path=Operation}" Visibility="{Binding Path=OperationVisibility}" />
+                    <Label Style="{DynamicResource HistoricOperation}" Content="{Binding Path=OperationBeginText}" Visibility="{Binding Path=OperationVisibility}" />
                     <Label Style="{DynamicResource HistoricEntry}" Content="{Binding Path=Text}" />
-                    <Label Style="{DynamicResource HistoricOperationEndText}" Content="{Binding Path=Operation}" Visibility="{Binding Path=OperationVisibility}" />
+                    <Label Style="{DynamicResource HistoricOperation}" Content="{Binding Path=OperationEndText}" Visibility="{Binding Path=OperationVisibility}" />
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>

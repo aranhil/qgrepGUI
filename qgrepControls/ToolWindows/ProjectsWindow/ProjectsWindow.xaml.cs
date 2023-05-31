@@ -90,7 +90,7 @@ namespace qgrepControls.SearchWindow
         {
             RuleWindow ruleWindow = new RuleWindow(SearchWindow.WrapperApp);
 
-            MainWindow ruleDialog = UIHelper.CreateWindow(ruleWindow, "Add filter", SearchWindow.WrapperApp, this);
+            MainWindow ruleDialog = UIHelper.CreateWindow(ruleWindow, Properties.Resources.AddFilterTitle, SearchWindow.WrapperApp, this);
             ruleWindow.Dialog = ruleDialog;
             ruleDialog.ShowDialog();
 
@@ -120,7 +120,7 @@ namespace qgrepControls.SearchWindow
             ruleWindow.RegExTextBox.SelectAll();
             ruleWindow.RegExTextBox.Focus();
 
-            MainWindow ruleDialog = UIHelper.CreateWindow(ruleWindow, "Edit rule", SearchWindow.WrapperApp, this);
+            MainWindow ruleDialog = UIHelper.CreateWindow(ruleWindow, Properties.Resources.EditFilterTitle, SearchWindow.WrapperApp, this);
             ruleWindow.Dialog = ruleDialog;
             ruleDialog.ShowDialog();
 
@@ -139,6 +139,7 @@ namespace qgrepControls.SearchWindow
             FolderSelectDialog folderSelectDialog = new FolderSelectDialog();
             folderSelectDialog.InitialDirectory = ConfigParser.Instance.Path;
             folderSelectDialog.Multiselect = true;
+            folderSelectDialog.Title = Properties.Resources.SelectFolderPrompt;
             if (folderSelectDialog.ShowDialog())
             {
                 SearchGroup selectedGroup = GroupsListBox.InnerListBox.SelectedItem as SearchGroup;
