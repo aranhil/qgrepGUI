@@ -454,14 +454,46 @@
   <data name="AddColorOverrideTooltip" xml:space="preserve">
     <value xml:lang="en">Add color override</value>
 </data>
-	<data name="TargetLabelContent" xml:space="preserve">
+  <data name="TargetLabelContent" xml:space="preserve">
     <value xml:lang="en">Target:</value>
 </data>
-	<data name="ColorLabelContent" xml:space="preserve">
+  <data name="ColorLabelContent" xml:space="preserve">
     <value xml:lang="en">Color:</value>
 </data>
-	<data name="OverrideExistsErrorMessage" xml:space="preserve">
+  <data name="OverrideExistsErrorMessage" xml:space="preserve">
     <value xml:lang="en">Override already exists!</value>
 </data>
-
+  <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
+    <value xml:lang="en">Toggle case sensitive:</value>
+</data>
+  <data name="ToggleWholeWordLabelContent" xml:space="preserve">
+    <value xml:lang="en">Toggle whole word:</value>
+</data>
+  <data name="ToggleRegexLabelContent" xml:space="preserve">
+    <value xml:lang="en">Toggle regular expressions:</value>
+</data>
+  <data name="ToggleIncludeFilesLabelContent" xml:space="preserve">
+    <value xml:lang="en">Toggle include files:</value>
+</data>
+  <data name="ToggleExcludeFilesLabelContent" xml:space="preserve">
+    <value xml:lang="en">Toggle exclude files:</value>
+</data>
+  <data name="ToggleFilterResultsLabelContent" xml:space="preserve">
+    <value xml:lang="en">Toggle filter results:</value>
+</data>
+  <data name="ShowHistoryLabelContent" xml:space="preserve">
+    <value xml:lang="en">Show history:</value>
+</data>
+  <data name="OpenFileSearchLabelContent" xml:space="preserve">
+    <value xml:lang="en">Open file search:</value>
+</data>
+  <data name="ToggleGroupingByLabelContent" xml:space="preserve">
+    <value xml:lang="en">Toggle grouping by:</value>
+</data>
+  <data name="ToggleGroupingExpandLabelContent" xml:space="preserve">
+    <value xml:lang="en">Toggle grouping expand:</value>
+</data>
+  <data name="SearchScopeLabelContent" xml:space="preserve">
+    <value xml:lang="en">Search scope:</value>
+</data>
 </root>

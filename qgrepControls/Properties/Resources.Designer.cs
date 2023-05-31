@@ -629,6 +629,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open file search:.
+        /// </summary>
+        public static string OpenFileSearchLabelContent {
+            get {
+                return ResourceManager.GetString("OpenFileSearchLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Override already exists!.
         /// </summary>
         public static string OverrideExistsErrorMessage {
@@ -935,6 +944,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search scope:.
+        /// </summary>
+        public static string SearchScopeLabelContent {
+            get {
+                return ResourceManager.GetString("SearchScopeLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search while typing:.
         /// </summary>
         public static string SearchWhileTypingLabelContent {
@@ -985,6 +1003,15 @@ namespace qgrepControls.Properties {
         public static string ShortcutTooltipNoChangeFormat {
             get {
                 return ResourceManager.GetString("ShortcutTooltipNoChangeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show history:.
+        /// </summary>
+        public static string ShowHistoryLabelContent {
+            get {
+                return ResourceManager.GetString("ShowHistoryLabelContent", resourceCulture);
             }
         }
         
@@ -1048,6 +1075,78 @@ namespace qgrepControls.Properties {
         public static string ThemeSettings {
             get {
                 return ResourceManager.GetString("ThemeSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle case sensitive:.
+        /// </summary>
+        public static string ToggleCaseSensitiveLabelContent {
+            get {
+                return ResourceManager.GetString("ToggleCaseSensitiveLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle exclude files:.
+        /// </summary>
+        public static string ToggleExcludeFilesLabelContent {
+            get {
+                return ResourceManager.GetString("ToggleExcludeFilesLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle filter results:.
+        /// </summary>
+        public static string ToggleFilterResultsLabelContent {
+            get {
+                return ResourceManager.GetString("ToggleFilterResultsLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle grouping by:.
+        /// </summary>
+        public static string ToggleGroupingByLabelContent {
+            get {
+                return ResourceManager.GetString("ToggleGroupingByLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle grouping expand:.
+        /// </summary>
+        public static string ToggleGroupingExpandLabelContent {
+            get {
+                return ResourceManager.GetString("ToggleGroupingExpandLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle include files:.
+        /// </summary>
+        public static string ToggleIncludeFilesLabelContent {
+            get {
+                return ResourceManager.GetString("ToggleIncludeFilesLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle regular expressions:.
+        /// </summary>
+        public static string ToggleRegexLabelContent {
+            get {
+                return ResourceManager.GetString("ToggleRegexLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle whole word:.
+        /// </summary>
+        public static string ToggleWholeWordLabelContent {
+            get {
+                return ResourceManager.GetString("ToggleWholeWordLabelContent", resourceCulture);
             }
         }
         

@@ -33,7 +33,7 @@ namespace qgrepControls.SearchWindow
             ToggleGroupExpand.Hotkey = new Classes.Hotkey(bindings[ToggleGroupExpand.Name].Key, bindings[ToggleGroupExpand.Name].Modifiers);
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void OK_Click(object sender, RoutedEventArgs e)
         {
             IsOk = true;
 
