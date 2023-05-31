@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Timers;
 using System.Threading;
+using System.Globalization;
 
 namespace qgrepControls.Classes
 {
@@ -240,7 +241,8 @@ namespace qgrepControls.Classes
                     QGrepWrapper.CallQGrepAsync(arguments, 
                         (string result) => { return StringHandler(result, searchOptions); }, 
                         (string error) => { SearchErrorHandler(error, searchOptions); }, 
-                        null);
+                        null,
+                        LocalizedStringHandler);
                 }
 
                 IsBusy = false;
@@ -291,7 +293,8 @@ namespace qgrepControls.Classes
                 QGrepWrapper.CallQGrepAsync(arguments,
                     (string result) => { return StringHandler(result, searchOptions, true); },
                     (string error) => { SearchErrorHandler(error, searchOptions); },
-                    null);
+                    null,
+                    LocalizedStringHandler);
 
                 IsBusy = false;
                 TaskRunner.RunOnUIThread(() =>
@@ -551,7 +554,8 @@ namespace qgrepControls.Classes
                         QGrepWrapper.CallQGrepAsync(parameters,
                             (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
                             (string message) => { UpdateErrorHandler(message, databaseUpdate); },
-                            (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
+                            (double percentage) => { ProgressHandler(percentage, databaseUpdate); },
+                            LocalizedStringHandler);
                     }
                     else
                     {
@@ -569,7 +573,8 @@ namespace qgrepControls.Classes
                             QGrepWrapper.CallQGrepAsync(parameters,
                                 (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
                                 (string message) => { UpdateErrorHandler(message, databaseUpdate); },
-                                (double percentage) => { ProgressHandler(percentage, databaseUpdate); });
+                                (double percentage) => { ProgressHandler(percentage, databaseUpdate); },
+                                LocalizedStringHandler);
                         }
                     }
                 }
@@ -594,6 +599,30 @@ namespace qgrepControls.Classes
         private void UpdateErrorHandler(string result, DatabaseUpdate databaseUpdate)
         {
             UpdateErrorCallback(result, databaseUpdate);
+        }
+
+        private void LocalizedStringHandler(List<string> result)
+        {
+            if(result.Count > 1)
+            {
+                string resourceKey = result[0];
+                string format = Resources.ResourceManager.GetString(resourceKey);
+
+                if (format != null)
+                {
+                    object[] args = result.Skip(1).Select(s =>
+                    {
+                        if (double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out double num))
+                        {
+                            return (object)num;
+                        }
+                        return s;
+                    }).ToArray();
+                    string formattedString = string.Format(format, args);
+
+                    UpdateInfoCallback(formattedString, null);
+                }
+            }
         }
 
         private bool DatabaseMessageHandler(string result, DatabaseUpdate databaseUpdate)

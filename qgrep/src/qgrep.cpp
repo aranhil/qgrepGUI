@@ -95,6 +95,10 @@ public:
 		return istty;
 	}
 
+	virtual void printLocalized(const std::string& initialString, std::initializer_list<std::string> args) override
+	{
+	}
+
 private:
 	bool istty;
 };
@@ -141,10 +145,11 @@ private:
 class AsyncStringOutput: public Output
 {
 public:
-	AsyncStringOutput(bool (*stringCb)(const char*, int), void (*errorsCb)(const char*, int), void (*progressCb)(double))
+	AsyncStringOutput(bool (*stringCb)(const char*), void (*errorsCb)(const char*), void (*progressCb)(double), void (*localizedMsgCb)(const char**, int))
 		: stringCallback(stringCb)
 		, errorsCallback(errorsCb)
 		, progressCallback(progressCb)
+		, localizedStringCallback(localizedMsgCb)
 		, forceStop(false)
 	{
 	}
@@ -152,7 +157,7 @@ public:
 	virtual void rawprint(const char* data, size_t size)
 	{
 		std::unique_lock<std::mutex> lock(mutex);
-		forceStop |= stringCallback(data, (int)size);
+		forceStop |= stringCallback(std::string(data, size).c_str());
 	}
 
 	virtual void print(const char* message, ...)
@@ -165,7 +170,7 @@ public:
 		strprintf(result, message, l);
 		va_end(l);
 
-		forceStop |= stringCallback(result.c_str(), (int)result.size());
+		forceStop |= stringCallback(result.c_str());
 	}
 
 	virtual void error(const char* message, ...)
@@ -178,7 +183,7 @@ public:
 		strprintf(error, message, l);
 		va_end(l);
 
-		errorsCallback(error.c_str(), (int)error.size());
+		errorsCallback(error.c_str());
 	}
 
 	virtual void progress(double percentage)
@@ -191,10 +196,25 @@ public:
 		return forceStop;
 	}
 
+	virtual void printLocalized(const std::string& initialString, std::initializer_list<std::string> args)
+	{
+		std::vector<std::string> argVector(args);
+		std::vector<const char*> cStringVector;
+
+		cStringVector.push_back(initialString.c_str());
+		for (const auto& arg : argVector)
+		{
+			cStringVector.push_back(arg.c_str());
+		}
+
+		localizedStringCallback(cStringVector.data(), cStringVector.size());
+	}
+
 private:
-	bool (*stringCallback)(const char*, int);
-	void (*errorsCallback)(const char*, int);
+	bool (*stringCallback)(const char*);
+	void (*errorsCallback)(const char*);
 	void (*progressCallback)(double);
+	void (*localizedStringCallback)(const char**, int size);
 	std::mutex mutex;
 	bool forceStop;
 };
@@ -604,7 +624,7 @@ int main(int argc, const char** argv)
 	mainImpl(&output, argc, argv, 0, 0);
 }
 
-void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const char*, int), void (*errorsCallback)(const char*, int), void (*progressCallback)(double))
+void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const char*), void (*errorsCallback)(const char*), void (*progressCallback)(double), void (*localizedStringCallback)(const char**, int size))
 {
 	std::vector<const char*> argv;
 
@@ -622,6 +642,6 @@ void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const c
 	static std::string result;
 	result.clear();
 
-	AsyncStringOutput output(stringCallback, errorsCallback, progressCallback);
+	AsyncStringOutput output(stringCallback, errorsCallback, progressCallback, localizedStringCallback);
 	mainImpl(&output, argv.size(), &argv[0], 0, 0);
 }

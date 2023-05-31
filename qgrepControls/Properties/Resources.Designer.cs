@@ -350,6 +350,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} files; {1}/{2} chunks updated in {3:0.00} sec.
+        /// </summary>
+        public static string FilesUpdatedMessage {
+            get {
+                return ResourceManager.GetString("FilesUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter results....
         /// </summary>
         public static string FilterResultsLabel {
@@ -634,6 +643,15 @@ namespace qgrepControls.Properties {
         public static string NeverText {
             get {
                 return ResourceManager.GetString("NeverText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} No changes; {1}/{2} chunks updated in {3:0.00} sec.
+        /// </summary>
+        public static string NoChangesMessage {
+            get {
+                return ResourceManager.GetString("NoChangesMessage", resourceCulture);
             }
         }
         

@@ -8,7 +8,7 @@
 
 #include "qgrepInterop.h"
 
-void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, StringCallback^ stringCb, ErrorCallback^ errorsCb, ProgressCalback^ progressCb)
+void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, StringCallback^ stringCb, ErrorCallback^ errorsCb, ProgressCalback^ progressCb, LocalizedStringCallback^ localizedStringCb)
 {
     std::string unmanagedArguments;
 
@@ -20,15 +20,16 @@ void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::Li
     stringCallback = stringCb;
     errorCallback = errorsCb;
     progressCalback = progressCb;
+    localizedStringCalback = localizedStringCb;
 
-    qgrepWrapperAsync(const_cast<char*>(unmanagedArguments.c_str()), (int)unmanagedArguments.size(), &NativeQGrepWrapper::nativeStringCallback, &NativeQGrepWrapper::nativeErrorsCallback, &NativeQGrepWrapper::nativeProgressCallback);
+    qgrepWrapperAsync(const_cast<char*>(unmanagedArguments.c_str()), (int)unmanagedArguments.size(), &NativeQGrepWrapper::nativeStringCallback, &NativeQGrepWrapper::nativeErrorsCallback, &NativeQGrepWrapper::nativeProgressCallback, &NativeQGrepWrapper::nativeLocalizedStringCallback);
 }
 
-bool qgrepInterop::NativeQGrepWrapper::nativeStringCallback(const char* result, int size)
+bool qgrepInterop::NativeQGrepWrapper::nativeStringCallback(const char* result)
 {
     if (QGrepWrapper::stringCallback != nullptr)
     {
-        return QGrepWrapper::stringCallback(gcnew System::String(result, 0, size));
+        return QGrepWrapper::stringCallback(gcnew System::String(result));
     }
 
     return false;
@@ -42,10 +43,24 @@ void qgrepInterop::NativeQGrepWrapper::nativeProgressCallback(double percentage)
     }
 }
 
-void qgrepInterop::NativeQGrepWrapper::nativeErrorsCallback(const char* error, int size)
+void qgrepInterop::NativeQGrepWrapper::nativeErrorsCallback(const char* error)
 {
     if (QGrepWrapper::errorCallback != nullptr)
     {
-        QGrepWrapper::errorCallback(gcnew System::String(error, 0, size));
+        QGrepWrapper::errorCallback(gcnew System::String(error));
+    }
+}
+
+void qgrepInterop::NativeQGrepWrapper::nativeLocalizedStringCallback(const char** result, int size)
+{
+    if (QGrepWrapper::localizedStringCalback != nullptr)
+    {
+        List<String^>^ stringsList = gcnew List<String^>();
+        for (int i = 0; i < size; i++)
+        {
+            stringsList->Add(gcnew String(result[i]));
+        }
+
+        QGrepWrapper::localizedStringCalback(stringsList);
     }
 }

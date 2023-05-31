@@ -514,5 +514,10 @@
 	<data name="DaysAgoText" xml:space="preserve">
     <value xml:lang="en">{0}d ago</value>
 </data>
-
+	<data name="FilesUpdatedMessage" xml:space="preserve">
+    <value xml:lang="en">{0} files; {1}/{2} chunks updated in {3:0.00} sec</value>
+</data>
+	<data name="NoChangesMessage" xml:space="preserve">
+    <value xml:lang="en">{0} No changes; {1}/{2} chunks updated in {3:0.00} sec</value>
+</data>
 </root>

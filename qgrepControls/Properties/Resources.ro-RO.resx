@@ -513,5 +513,11 @@
 	<data name="DaysAgoText" xml:space="preserve">
     <value xml:lang="en">acum {0}z</value>
 </data>
+	<data name="FilesUpdatedMessage" xml:space="preserve">
+    <value xml:lang="en">{0} fișiere; {1}/{2} bucăți actualizate în {3:0.00} sec</value>
+</data>
+	<data name="NoChangesMessage" xml:space="preserve">
+    <value xml:lang="en">{0} Fără modificări; {1}/{2} bucăți actualizate în {3:0.00} sec</value>
+</data>
 
 </root>
