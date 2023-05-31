@@ -151,6 +151,24 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Building file table....
+        /// </summary>
+        public static string BuildingFileTableMessage {
+            get {
+                return ResourceManager.GetString("BuildingFileTableMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Building {0}.
+        /// </summary>
+        public static string BuildingMessage {
+            get {
+                return ResourceManager.GetString("BuildingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CancelButtonContent {
@@ -260,6 +278,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning: data file {0} has an out of date format, rebuilding.
+        /// </summary>
+        public static string DataFileOutOfDateFormatWarning {
+            get {
+                return ResourceManager.GetString("DataFileOutOfDateFormatWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}d ago.
         /// </summary>
         public static string DaysAgoText {
@@ -292,6 +319,33 @@ namespace qgrepControls.Properties {
         public static string EditHotkeys {
             get {
                 return ResourceManager.GetString("EditHotkeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error opening data file {0} for writing.
+        /// </summary>
+        public static string ErrorOpeningDataFileForWriting {
+            get {
+                return ResourceManager.GetString("ErrorOpeningDataFileForWriting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error reading file {0}.
+        /// </summary>
+        public static string ErrorReadingFile {
+            get {
+                return ResourceManager.GetString("ErrorReadingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving data file {0}.
+        /// </summary>
+        public static string ErrorSavingDataFile {
+            get {
+                return ResourceManager.GetString("ErrorSavingDataFile", resourceCulture);
             }
         }
         
@@ -346,6 +400,15 @@ namespace qgrepControls.Properties {
         public static string FileOptionContent {
             get {
                 return ResourceManager.GetString("FileOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} files, {1} Mb in, {2} Mb out.
+        /// </summary>
+        public static string FilesInAndOutMessage {
+            get {
+                return ResourceManager.GetString("FilesInAndOutMessage", resourceCulture);
             }
         }
         
@@ -566,6 +629,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error reading data file {0}: malformed chunk.
+        /// </summary>
+        public static string MalformedChunkErrorMessage {
+            get {
+                return ResourceManager.GetString("MalformedChunkErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy all results.
         /// </summary>
         public static string MenuCopyAllResults {
@@ -706,6 +778,15 @@ namespace qgrepControls.Properties {
         public static string OpenFileSearchLabelContent {
             get {
                 return ResourceManager.GetString("OpenFileSearchLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error reading file {0}: out of memory.
+        /// </summary>
+        public static string OutOfMemoryErrorReadingFile {
+            get {
+                return ResourceManager.GetString("OutOfMemoryErrorReadingFile", resourceCulture);
             }
         }
         
@@ -976,6 +1057,15 @@ namespace qgrepControls.Properties {
         public static string SaveButtonContent {
             get {
                 return ResourceManager.GetString("SaveButtonContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanning project....
+        /// </summary>
+        public static string ScanningProjectMessage {
+            get {
+                return ResourceManager.GetString("ScanningProjectMessage", resourceCulture);
             }
         }
         
@@ -1255,6 +1345,15 @@ namespace qgrepControls.Properties {
         public static string UpdateIndexAutomaticallyLabelContent {
             get {
                 return ResourceManager.GetString("UpdateIndexAutomaticallyLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating {0}:.
+        /// </summary>
+        public static string UpdatingMessage {
+            get {
+                return ResourceManager.GetString("UpdatingMessage", resourceCulture);
             }
         }
         

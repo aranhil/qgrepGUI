@@ -600,11 +600,26 @@ namespace qgrepControls.Classes
         {
             UpdateErrorCallback(result, databaseUpdate);
         }
+        public static bool LooksLikePath(string path)
+        {
+            try
+            {
+                string fullPath = System.IO.Path.GetFullPath(path);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         private void LocalizedStringHandler(List<string> result)
         {
             if(result.Count > 1)
             {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
+
                 string resourceKey = result[0];
                 string format = Resources.ResourceManager.GetString(resourceKey);
 
@@ -615,6 +630,10 @@ namespace qgrepControls.Classes
                         if (double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out double num))
                         {
                             return (object)num;
+                        }
+                        else if(LooksLikePath(s))
+                        {
+                            return ConfigParser.FromUtf8(s);
                         }
                         return s;
                     }).ToArray();

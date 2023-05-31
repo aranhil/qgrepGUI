@@ -135,8 +135,11 @@ struct BuildContext
 
 static void printStatistics(Output* output, const BuildStatistics& stats, unsigned int totalFileCount)
 {
-	output->print("%d files, %d Mb in, %d Mb out ",
-		stats.fileCount, (int)(stats.fileSize / 1024 / 1024), (int)(stats.resultSize / 1024 / 1024));
+	output->printLocalized("FilesInAndOutMessage", {
+		std::to_string(stats.fileCount),
+		std::to_string((int)(stats.fileSize / 1024 / 1024)),
+		std::to_string((int)(stats.resultSize / 1024 / 1024))
+	});
 
 	output->progress(totalFileCount == 0 ? 100.0f : stats.fileCount * 100.0f / totalFileCount);
 }
@@ -583,7 +586,7 @@ BuildContext* buildStart(Output* output, const char* path, unsigned int fileCoun
 	context->outData.open(path, "wb");
 	if (!context->outData)
 	{
-		output->error("Error opening data file %s for writing\n", path);
+		output->printLocalized("ErrorOpeningDataFileForWriting", { path });
 		return 0;
 	}
 
@@ -641,7 +644,7 @@ bool buildAppendFile(BuildContext* context, const char* path, uint64_t timeStamp
 	FileStream in(path, "rb");
 	if (!in)
 	{
-		context->output->error("Error reading file %s\n", path);
+		context->output->printLocalized("ErrorReadingFile", { path });
 		return false;
 	}
 
@@ -655,7 +658,7 @@ bool buildAppendFile(BuildContext* context, const char* path, uint64_t timeStamp
 	}
 	catch (const std::bad_alloc&)
 	{
-		context->output->error("Error reading file %s: out of memory\n", path);
+		context->output->printLocalized("OutOfMemoryErrorReadingFile", { path });
 		return false;
 	}
 }
@@ -733,7 +736,7 @@ unsigned int buildFinish(BuildContext* context)
 
 void buildProject(Output* output, const char* path)
 {
-	output->print("Building %s:\n", path);
+	output->printLocalized("BuildingMessage", { path });
 
 	std::unique_ptr<ProjectGroup> group = parseProject(output, path);
 	if (!group)
@@ -741,11 +744,11 @@ void buildProject(Output* output, const char* path)
 
 	removeFile(replaceExtension(path, ".qgc").c_str());
 
-	output->print("Scanning project...\r");
+	output->printLocalized("ScanningProjectMessage", { });
 
 	std::vector<FileInfo> files = getProjectGroupFiles(output, group.get());
 
-	output->print("Building file table...\r");
+	output->printLocalized("BuildingFileTableMessage", { });
 
 	if (!buildFiles(output, path, files))
 		return;
@@ -764,12 +767,10 @@ void buildProject(Output* output, const char* path)
 
 		buildFinish(builder);
 	}
-
-	output->print("\n");
 	
 	if (!renameFile(tempPath.c_str(), targetPath.c_str()))
 	{
-		output->error("Error saving data file %s\n", targetPath.c_str());
+		output->printLocalized("ErrorSavingDataFile", { targetPath });
 		return;
 	}
 }

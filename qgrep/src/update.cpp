@@ -176,7 +176,7 @@ static bool processFile(Output* output, BuildContext* builder, UpdateFileIterato
 	DataFileHeader header;
 	if (!read(in, header) || memcmp(header.magic, kDataFileHeaderMagic, strlen(kDataFileHeaderMagic)) != 0)
 	{
-		output->error("Warning: data file %s has an out of date format, rebuilding\n", path);
+		output->printLocalized("DataFileOutOfDateFormatWarning", { path });
 		return true;
 	}
 
@@ -190,7 +190,7 @@ static bool processFile(Output* output, BuildContext* builder, UpdateFileIterato
 
 		if (!extra || !index || !data || !read(in, extra.get(), chunk.extraSize) || !read(in, index.get(), chunk.indexSize) || !read(in, data.get(), chunk.compressedSize))
 		{
-			output->error("Error reading data file %s: malformed chunk\n", path);
+			output->printLocalized("MalformedChunkErrorMessage", { path });
 			return false;
 		}
 
@@ -232,7 +232,7 @@ bool updateProject(Output* output, const char* path)
 {
 	auto start = std::chrono::high_resolution_clock::now();
 
-    output->print("Updating %s:", path);
+	output->printLocalized("UpdatingMessage", { path });
 	output->progress(-1);
 
 	std::unique_ptr<ProjectGroup> group = parseProject(output, path);
@@ -241,11 +241,11 @@ bool updateProject(Output* output, const char* path)
 
 	removeFile(replaceExtension(path, ".qgc").c_str());
 
-	output->print("Scanning project...\r");
+	output->printLocalized("ScanningProjectMessage", { });
 
 	std::vector<FileInfo> files = getProjectGroupFiles(output, group.get());
 
-	output->print("Building file table...\r");
+	output->printLocalized("BuildingFileTableMessage", { });
 
 	if (!buildFiles(output, path, files))
 		return false;
@@ -287,7 +287,7 @@ bool updateProject(Output* output, const char* path)
 	
 	if (!renameFile(tempPath.c_str(), targetPath.c_str()))
 	{
-		output->error("Error saving data file %s\n", targetPath.c_str());
+		output->printLocalized("ErrorSavingDataFile", { targetPath });
 		return false;
 	}
 

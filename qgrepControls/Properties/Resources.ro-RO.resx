@@ -495,29 +495,61 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
 </data>
-	<data name="LastIndexUpdateLabelContent" xml:space="preserve">
+  <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value xml:lang="en">Ultima actualizare a indexului: {0}</value>
 </data>
-	<data name="NeverText" xml:space="preserve">
+  <data name="NeverText" xml:space="preserve">
     <value xml:lang="en">niciodată</value>
 </data>
-	<data name="JustNowText" xml:space="preserve">
+  <data name="JustNowText" xml:space="preserve">
     <value xml:lang="en">acum</value>
 </data>
-	<data name="MinutesAgoText" xml:space="preserve">
+  <data name="MinutesAgoText" xml:space="preserve">
     <value xml:lang="en">acum {0}m</value>
 </data>
-	<data name="HoursAgoText" xml:space="preserve">
+  <data name="HoursAgoText" xml:space="preserve">
     <value xml:lang="en">acum {0}h</value>
 </data>
-	<data name="DaysAgoText" xml:space="preserve">
+  <data name="DaysAgoText" xml:space="preserve">
     <value xml:lang="en">acum {0}z</value>
 </data>
-	<data name="FilesUpdatedMessage" xml:space="preserve">
+  <data name="FilesUpdatedMessage" xml:space="preserve">
     <value xml:lang="en">{0} fișiere; {1}/{2} bucăți actualizate în {3:0.00} sec</value>
 </data>
-	<data name="NoChangesMessage" xml:space="preserve">
+  <data name="NoChangesMessage" xml:space="preserve">
     <value xml:lang="en">{0} Fără modificări; {1}/{2} bucăți actualizate în {3:0.00} sec</value>
 </data>
-
+  <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
+    <value xml:lang="en">Atenție: fișierul de date {0} are un format expirat, se reconstruiește</value>
+</data>
+  <data name="MalformedChunkErrorMessage" xml:space="preserve">
+    <value xml:lang="en">Eroare la citirea fișierului de date {0}: bucata neformatată corect</value>
+</data>
+  <data name="UpdatingMessage" xml:space="preserve">
+    <value xml:lang="en">Se actualizează {0}:</value>
+</data>
+  <data name="ScanningProjectMessage" xml:space="preserve">
+    <value xml:lang="en">Se scanează proiectul...</value>
+</data>
+  <data name="BuildingFileTableMessage" xml:space="preserve">
+    <value xml:lang="en">Se construiește tabela de fișiere...</value>
+</data>
+  <data name="ErrorSavingDataFile" xml:space="preserve">
+    <value xml:lang="en">Eroare la salvarea fișierului de date {0}</value>
+</data>
+  <data name="FilesInAndOutMessage" xml:space="preserve">
+    <value xml:lang="en">{0} fișiere, {1} Mb în, {2} Mb ieșire</value>
+</data>
+  <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
+    <value xml:lang="en">Eroare la deschiderea fișierului de date {0} pentru scriere</value>
+</data>
+  <data name="ErrorReadingFile" xml:space="preserve">
+    <value xml:lang="en">Eroare la citirea fișierului {0}</value>
+</data>
+  <data name="OutOfMemoryErrorReadingFile" xml:space="preserve">
+    <value xml:lang="en">Eroare la citirea fișierului {0}: memorie insuficientă</value>
+</data>
+  <data name="BuildingMessage" xml:space="preserve">
+    <value xml:lang="en">Se construiește {0}</value>
+</data>
 </root>
