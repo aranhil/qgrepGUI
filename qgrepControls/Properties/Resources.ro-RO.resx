@@ -321,98 +321,146 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
 </data>
-	<data name="TypeLabelContent" xml:space="preserve">
+  <data name="TypeLabelContent" xml:space="preserve">
     <value xml:lang="en">Tip:</value>
 </data>
-	<data name="RegExLabelContent" xml:space="preserve">
+  <data name="RegExLabelContent" xml:space="preserve">
     <value xml:lang="en">Expresie regulată:</value>
 </data>
-	<data name="IncludeOptionContent" xml:space="preserve">
+  <data name="IncludeOptionContent" xml:space="preserve">
     <value xml:lang="en">Include</value>
 </data>
-	<data name="ExcludeOptionContent" xml:space="preserve">
+  <data name="ExcludeOptionContent" xml:space="preserve">
     <value xml:lang="en">Exclude</value>
 </data>
-	<data name="PredefinedButtonTooltip" xml:space="preserve">
+  <data name="PredefinedButtonTooltip" xml:space="preserve">
     <value xml:lang="en">O listă de expresii regulate predefinite</value>
 </data>
-	<data name="PlainTextContent" xml:space="preserve">
+  <data name="PlainTextContent" xml:space="preserve">
     <value xml:lang="en">Text simplu</value>
 </data>
-	<data name="SaveButtonContent" xml:space="preserve">
+  <data name="SaveButtonContent" xml:space="preserve">
     <value xml:lang="en">Salvează</value>
 </data>
-	<data name="CancelButtonContent" xml:space="preserve">
+  <data name="CancelButtonContent" xml:space="preserve">
     <value xml:lang="en">Anulează</value>
 </data>
-	<data name="IncludeFilesLabelContent" xml:space="preserve">
+  <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value xml:lang="en">Includere fișiere:</value>
 </data>
-	<data name="ExcludeFilesLabelContent" xml:space="preserve">
+  <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value xml:lang="en">Excludere fișiere:</value>
 </data>
-	<data name="FilterResultsLabelContent" xml:space="preserve">
+  <data name="FilterResultsLabelContent" xml:space="preserve">
     <value xml:lang="en">Filtrare rezultate:</value>
 </data>
-	<data name="HistoryButtonLabelContent" xml:space="preserve">
+  <data name="HistoryButtonLabelContent" xml:space="preserve">
     <value xml:lang="en">Buton istoric:</value>
 </data>
-	<data name="ShowOpenHistoryLabelContent" xml:space="preserve">
+  <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
     <value xml:lang="en">Afișare istoric deschideri:</value>
 </data>
-	<data name="SearchWhileTypingLabelContent" xml:space="preserve">
+  <data name="SearchWhileTypingLabelContent" xml:space="preserve">
     <value xml:lang="en">Căutare în timpul tastării:</value>
 </data>
-	<data name="GroupByLabelContent" xml:space="preserve">
+  <data name="GroupByLabelContent" xml:space="preserve">
     <value xml:lang="en">Grupare după:</value>
 </data>
-	<data name="GroupExpandLabelContent" xml:space="preserve">
+  <data name="GroupExpandLabelContent" xml:space="preserve">
     <value xml:lang="en">Expandare grup:</value>
 </data>
-	<data name="PathStyleLabelContent" xml:space="preserve">
+  <data name="PathStyleLabelContent" xml:space="preserve">
     <value xml:lang="en">Stil cale:</value>
 </data>
-	<data name="FilterSearchScopeLabelContent" xml:space="preserve">
+  <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value xml:lang="en">Filtrare domeniu căutare:</value>
 </data>
-	<data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
+  <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
     <value xml:lang="en">Decupare spații la copiere:</value>
 </data>
-	<data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
+  <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
     <value xml:lang="en">Actualizare index automată:</value>
 </data>
-	<data name="NoneOptionContent" xml:space="preserve">
+  <data name="NoneOptionContent" xml:space="preserve">
     <value xml:lang="en">Niciunul</value>
 </data>
-	<data name="FileOptionContent" xml:space="preserve">
+  <data name="FileOptionContent" xml:space="preserve">
     <value xml:lang="en">Fișier</value>
 </data>
-	<data name="NeverOptionContent" xml:space="preserve">
+  <data name="NeverOptionContent" xml:space="preserve">
     <value xml:lang="en">Niciodată</value>
 </data>
-	<data name="AutomaticOptionContent" xml:space="preserve">
+  <data name="AutomaticOptionContent" xml:space="preserve">
     <value xml:lang="en">Automată</value>
 </data>
-	<data name="AlwaysOptionContent" xml:space="preserve">
+  <data name="AlwaysOptionContent" xml:space="preserve">
     <value xml:lang="en">Întotdeauna</value>
 </data>
-	<data name="AbsolutePathOptionContent" xml:space="preserve">
+  <data name="AbsolutePathOptionContent" xml:space="preserve">
     <value xml:lang="en">Cale absolută</value>
 </data>
-	<data name="RelativePathOptionContent" xml:space="preserve">
+  <data name="RelativePathOptionContent" xml:space="preserve">
     <value xml:lang="en">Cale relativă</value>
 </data>
-	<data name="FileOnlyOptionContent" xml:space="preserve">
+  <data name="FileOnlyOptionContent" xml:space="preserve">
     <value xml:lang="en">Doar fișier</value>
 </data>
-	<data name="TextOnlyOptionContent" xml:space="preserve">
+  <data name="TextOnlyOptionContent" xml:space="preserve">
     <value xml:lang="en">Doar text</value>
 </data>
-	<data name="PathOnlyOptionContent" xml:space="preserve">
+  <data name="PathOnlyOptionContent" xml:space="preserve">
     <value xml:lang="en">Doar cale</value>
 </data>
-	<data name="TextAndPathOptionContent" xml:space="preserve">
+  <data name="TextAndPathOptionContent" xml:space="preserve">
     <value xml:lang="en">Text și cale</value>
+</data>
+  <data name="ShortcutTooltipFormat" xml:space="preserve">
+    <value xml:lang="en">Scurtătură: {0}</value>
+</data>
+  <data name="ShortcutTooltipNoChangeFormat" xml:space="preserve">
+    <value xml:lang="en">Scurtătură: {0} (nu modifică setarea)</value>
+</data>
+  <data name="ColorSchemeLabelContent" xml:space="preserve">
+    <value xml:lang="en">Scheme de culori:</value>
+</data>
+  <data name="NormalFontLabelContent" xml:space="preserve">
+    <value xml:lang="en">Font normal:</value>
+</data>
+  <data name="MonospaceFontLabelContent" xml:space="preserve">
+    <value xml:lang="en">Font cu spațiu fix:</value>
+</data>
+  <data name="ResultGroupHeightLabelContent" xml:space="preserve">
+    <value xml:lang="en">Înălțime grup rezultate:</value>
+</data>
+  <data name="ResultLineHeightLabelContent" xml:space="preserve">
+    <value xml:lang="en">Înălțime linie rezultat:</value>
+</data>
+  <data name="AutoOptionContent" xml:space="preserve">
+    <value xml:lang="en">Automat</value>
+</data>
+  <data name="ColorOverridesTitle" xml:space="preserve">
+    <value xml:lang="en">Suprascrieri culori</value>
+</data>
+  <data name="EditColorOverrideTooltip" xml:space="preserve">
+    <value xml:lang="en">Editează suprascriere culoare</value>
+</data>
+  <data name="RemoveColorOverrideTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge suprascriere culoare selectată</value>
+</data>
+  <data name="RemoveAllColorOverridesTooltip" xml:space="preserve">
+    <value xml:lang="en">Șterge toate suprascrierile de culoare</value>
+</data>
+  <data name="AddColorOverrideTooltip" xml:space="preserve">
+    <value xml:lang="en">Adaugă suprascriere culoare</value>
+</data>
+	<data name="TargetLabelContent" xml:space="preserve">
+    <value xml:lang="en">Destinație:</value>
+</data>
+	<data name="ColorLabelContent" xml:space="preserve">
+    <value xml:lang="en">Culoare:</value>
+</data>
+	<data name="OverrideExistsErrorMessage" xml:space="preserve">
+    <value xml:lang="en">Suprascrierea există deja!</value>
 </data>
 
 </root>

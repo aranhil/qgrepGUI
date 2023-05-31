@@ -70,6 +70,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add color override.
+        /// </summary>
+        public static string AddColorOverrideTooltip {
+            get {
+                return ResourceManager.GetString("AddColorOverrideTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add filter.
         /// </summary>
         public static string AddFilterTitle {
@@ -124,6 +133,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto.
+        /// </summary>
+        public static string AutoOptionContent {
+            get {
+                return ResourceManager.GetString("AutoOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ›› Basic.
         /// </summary>
         public static string BasicToggleContent {
@@ -160,12 +178,39 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color:.
+        /// </summary>
+        public static string ColorLabelContent {
+            get {
+                return ResourceManager.GetString("ColorLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color overrides.
+        /// </summary>
+        public static string ColorOverridesTitle {
+            get {
+                return ResourceManager.GetString("ColorOverridesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] colors_schemes {
             get {
                 object obj = ResourceManager.GetObject("colors_schemes", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color scheme:.
+        /// </summary>
+        public static string ColorSchemeLabelContent {
+            get {
+                return ResourceManager.GetString("ColorSchemeLabelContent", resourceCulture);
             }
         }
         
@@ -211,6 +256,15 @@ namespace qgrepControls.Properties {
         public static string CustomizeTheme {
             get {
                 return ResourceManager.GetString("CustomizeTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit color override.
+        /// </summary>
+        public static string EditColorOverrideTooltip {
+            get {
+                return ResourceManager.GetString("EditColorOverrideTooltip", resourceCulture);
             }
         }
         
@@ -512,6 +566,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monospace font:.
+        /// </summary>
+        public static string MonospaceFontLabelContent {
+            get {
+                return ResourceManager.GetString("MonospaceFontLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Never.
         /// </summary>
         public static string NeverOptionContent {
@@ -526,6 +589,15 @@ namespace qgrepControls.Properties {
         public static string NoneOptionContent {
             get {
                 return ResourceManager.GetString("NoneOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal font:.
+        /// </summary>
+        public static string NormalFontLabelContent {
+            get {
+                return ResourceManager.GetString("NormalFontLabelContent", resourceCulture);
             }
         }
         
@@ -553,6 +625,15 @@ namespace qgrepControls.Properties {
         public static string OpenFile {
             get {
                 return ResourceManager.GetString("OpenFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override already exists!.
+        /// </summary>
+        public static string OverrideExistsErrorMessage {
+            get {
+                return ResourceManager.GetString("OverrideExistsErrorMessage", resourceCulture);
             }
         }
         
@@ -710,11 +791,47 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove all color overrides.
+        /// </summary>
+        public static string RemoveAllColorOverridesTooltip {
+            get {
+                return ResourceManager.GetString("RemoveAllColorOverridesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected color override(s).
+        /// </summary>
+        public static string RemoveColorOverrideTooltip {
+            get {
+                return ResourceManager.GetString("RemoveColorOverrideTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove extra projects and groups to go back to basic settings.
         /// </summary>
         public static string RemoveExtraContent {
             get {
                 return ResourceManager.GetString("RemoveExtraContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result group height:.
+        /// </summary>
+        public static string ResultGroupHeightLabelContent {
+            get {
+                return ResourceManager.GetString("ResultGroupHeightLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result line height:.
+        /// </summary>
+        public static string ResultLineHeightLabelContent {
+            get {
+                return ResourceManager.GetString("ResultLineHeightLabelContent", resourceCulture);
             }
         }
         
@@ -854,6 +971,24 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shortcut: {0}.
+        /// </summary>
+        public static string ShortcutTooltipFormat {
+            get {
+                return ResourceManager.GetString("ShortcutTooltipFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcut: {0} (doesn&apos;t change setting).
+        /// </summary>
+        public static string ShortcutTooltipNoChangeFormat {
+            get {
+                return ResourceManager.GetString("ShortcutTooltipNoChangeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Showing {0} result(s) for &quot;{1}&quot;..
         /// </summary>
         public static string ShowingResults {
@@ -877,6 +1012,15 @@ namespace qgrepControls.Properties {
         public static string StopButtonContent {
             get {
                 return ResourceManager.GetString("StopButtonContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target:.
+        /// </summary>
+        public static string TargetLabelContent {
+            get {
+                return ResourceManager.GetString("TargetLabelContent", resourceCulture);
             }
         }
         

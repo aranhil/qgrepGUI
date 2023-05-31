@@ -70,7 +70,7 @@ namespace qgrepControls.ColorsWindow
                 {
                     bool alreadyExists = currentOverrides.Any(x => x.Name == selectedName.Name);
                     OK.IsEnabled = !alreadyExists;
-                    OK.ToolTip = alreadyExists ? "Override already exists!" : null;
+                    OK.ToolTip = alreadyExists ? Properties.Resources.OverrideExistsErrorMessage : null;
                 }
             }
         }

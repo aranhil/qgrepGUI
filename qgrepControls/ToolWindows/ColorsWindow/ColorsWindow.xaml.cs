@@ -81,7 +81,7 @@ namespace qgrepControls.ColorsWindow
 
             foreach (ColorScheme colorScheme in ThemeHelper.Instance.ColorSchemes)
             {
-                if (SearchWindow.WrapperApp.IsStandalone && colorScheme.Name == "Auto")
+                if (SearchWindow.WrapperApp.IsStandalone && colorScheme.Name == Properties.Resources.AutoOptionContent)
                     continue;
 
                 ColorSchemeComboBox.Items.Add(new ComboBoxItem() { Content = colorScheme.Name, });
@@ -89,8 +89,8 @@ namespace qgrepControls.ColorsWindow
 
             if(!SearchWindow.WrapperApp.IsStandalone)
             {
-                NormalFontComboBox.Items.Add(new ComboBoxItem() { Content = "Auto" });
-                MonospaceFontComboBox.Items.Add(new ComboBoxItem() { Content = "Auto" });
+                NormalFontComboBox.Items.Add(new ComboBoxItem() { Content = Properties.Resources.AutoOptionContent });
+                MonospaceFontComboBox.Items.Add(new ComboBoxItem() { Content = Properties.Resources.AutoOptionContent });
             }
 
             List<FontFamily> fontFamilies = new List<FontFamily>(Fonts.SystemFontFamilies);
@@ -127,11 +127,11 @@ namespace qgrepControls.ColorsWindow
             ColorSchemeComboBox.SelectedIndex = Settings.Default.ColorScheme - (SearchWindow.WrapperApp.IsStandalone ? 1 : 0);
 
             ColorsListBox.ItemEditType = ConfigListBox.EditType.Custom;
-            ColorsListBox.Title.Text = "Color overrides";
-            ColorsListBox.AddButton.ToolTip = "Add new color override";
-            ColorsListBox.EditButton.ToolTip = "Edit color override";
-            ColorsListBox.RemoveButton.ToolTip = "Remove selected color override(s)";
-            ColorsListBox.RemoveAllButton.ToolTip = "Remove all color overrides";
+            ColorsListBox.Title.Text = Properties.Resources.ColorOverridesTitle;
+            ColorsListBox.AddButton.ToolTip = Properties.Resources.AddColorOverrideTooltip;
+            ColorsListBox.EditButton.ToolTip = Properties.Resources.EditColorOverrideTooltip;
+            ColorsListBox.RemoveButton.ToolTip = Properties.Resources.RemoveColorOverrideTooltip;
+            ColorsListBox.RemoveAllButton.ToolTip = Properties.Resources.RemoveAllColorOverridesTooltip;
             ColorsListBox.AddButton.Click += AddNewColor_Click;
             ColorsListBox.OnEditClicked += EditColor_Click;
             ColorsListBox.IsDeselectable = true;
@@ -255,9 +255,8 @@ namespace qgrepControls.ColorsWindow
 
                     uniqueColors.Add(new ComboBoxColorItem() { Name = colorEntry.Name, Color = extensionColor });
 
-                    Debug.Write($"Name: {colorEntry.Name}, ");
-                    Debug.WriteLine($"Color: {extensionColor}");
-
+                    //Debug.Write($"Name: {colorEntry.Name}, ");
+                    //Debug.WriteLine($"Color: {extensionColor}");
                 }
             }
 
@@ -286,7 +285,9 @@ namespace qgrepControls.ColorsWindow
                 overrideWindow.OverrideColor.SelectedColor = ThemeHelper.ConvertColor(selectedItem.Color);
             }
 
-            MainWindow overrideDialog = UIHelper.CreateWindow(overrideWindow, isEditing ? "Edit color override" : "Add color override", SearchWindow.WrapperApp, this);
+            MainWindow overrideDialog = UIHelper.CreateWindow(overrideWindow, 
+                isEditing ? Properties.Resources.EditColorOverrideTooltip : Properties.Resources.AddColorOverrideTooltip, SearchWindow.WrapperApp, this);
+
             overrideWindow.Dialog = overrideDialog;
             overrideDialog.ShowDialog();
             return overrideWindow;

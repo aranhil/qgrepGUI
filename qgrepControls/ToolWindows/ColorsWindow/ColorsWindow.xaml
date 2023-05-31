@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
+             xmlns:resx="clr-namespace:qgrepControls.Properties"
              xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
              Width="350" Height="400">
@@ -24,11 +25,11 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Color scheme:" />
-        <Label Grid.Row="1" Style="{DynamicResource SettingsLabel}" Content="Normal font:" />
-        <Label Grid.Row="2" Style="{DynamicResource SettingsLabel}" Content="Monospace font:" />
-        <Label Grid.Row="3" Style="{DynamicResource SettingsLabel}" Content="Result group height:" />
-        <Label Grid.Row="4" Style="{DynamicResource SettingsLabel}" Content="Result line height:" />
+        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.ColorSchemeLabelContent}" />
+        <Label Grid.Row="1" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.NormalFontLabelContent}" />
+        <Label Grid.Row="2" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.MonospaceFontLabelContent}" />
+        <Label Grid.Row="3" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.ResultGroupHeightLabelContent}" />
+        <Label Grid.Row="4" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.ResultLineHeightLabelContent}" />
         <ComboBox Grid.Row="0" Grid.Column="1" x:Name="ColorSchemeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ColorSchemeComboBox_SelectionChanged" />
         <DockPanel Grid.Row="1" Grid.Column="1" LastChildFill="False">
             <ComboBox x:Name="NormalFontComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,3,0" SelectionChanged="NormalFontComboBox_SelectionChanged" />

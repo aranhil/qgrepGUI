@@ -37,11 +37,11 @@ namespace qgrepControls.SearchWindow
 
         private void UpdateShortcutHints()
         {
-            ShowIncludes.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleIncludeFiles"].ToString();
-            ShowExcludes.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleExcludeFiles"].ToString();
-            ShowFilter.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleFilterResults"].ToString();
-            GroupingComboBox.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleGroupBy"].ToString();
-            ExpandModeComboBox.ToolTip = "Shortcut: " + SearchWindow.bindings["ToggleGroupExpand"].ToString() + " (doesn't change setting)";
+            ShowIncludes.ToolTip = string.Format(Properties.Resources.ShortcutTooltipFormat, SearchWindow.bindings["ToggleIncludeFiles"].ToString());
+            ShowExcludes.ToolTip = string.Format(Properties.Resources.ShortcutTooltipFormat, SearchWindow.bindings["ToggleExcludeFiles"].ToString());
+            ShowFilter.ToolTip = string.Format(Properties.Resources.ShortcutTooltipFormat, SearchWindow.bindings["ToggleFilterResults"].ToString());
+            GroupingComboBox.ToolTip = string.Format(Properties.Resources.ShortcutTooltipFormat, SearchWindow.bindings["ToggleGroupBy"].ToString());
+            ExpandModeComboBox.ToolTip = string.Format(Properties.Resources.ShortcutTooltipNoChangeFormat, SearchWindow.bindings["ToggleGroupExpand"].ToString());
         }
 
         private void SaveOptions()

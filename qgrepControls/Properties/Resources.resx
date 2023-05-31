@@ -334,85 +334,134 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Use global path</value>
 </data>
-	<data name="PredefinedButtonTooltip" xml:space="preserve">
+  <data name="PredefinedButtonTooltip" xml:space="preserve">
     <value xml:lang="en">A list of predefined regexes</value>
 </data>
-	<data name="PlainTextContent" xml:space="preserve">
+  <data name="PlainTextContent" xml:space="preserve">
     <value xml:lang="en">Plain Text</value>
 </data>
-	<data name="SaveButtonContent" xml:space="preserve">
+  <data name="SaveButtonContent" xml:space="preserve">
     <value xml:lang="en">Save</value>
 </data>
-	<data name="CancelButtonContent" xml:space="preserve">
+  <data name="CancelButtonContent" xml:space="preserve">
     <value xml:lang="en">Cancel</value>
 </data>
-	<data name="IncludeFilesLabelContent" xml:space="preserve">
+  <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value xml:lang="en">Include files:</value>
 </data>
-	<data name="ExcludeFilesLabelContent" xml:space="preserve">
+  <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value xml:lang="en">Exclude files:</value>
 </data>
-	<data name="FilterResultsLabelContent" xml:space="preserve">
+  <data name="FilterResultsLabelContent" xml:space="preserve">
     <value xml:lang="en">Filter results:</value>
 </data>
-	<data name="HistoryButtonLabelContent" xml:space="preserve">
+  <data name="HistoryButtonLabelContent" xml:space="preserve">
     <value xml:lang="en">History button:</value>
 </data>
-	<data name="ShowOpenHistoryLabelContent" xml:space="preserve">
+  <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
     <value xml:lang="en">Show open history:</value>
 </data>
-	<data name="SearchWhileTypingLabelContent" xml:space="preserve">
+  <data name="SearchWhileTypingLabelContent" xml:space="preserve">
     <value xml:lang="en">Search while typing:</value>
 </data>
-	<data name="GroupByLabelContent" xml:space="preserve">
+  <data name="GroupByLabelContent" xml:space="preserve">
     <value xml:lang="en">Group by:</value>
 </data>
-	<data name="GroupExpandLabelContent" xml:space="preserve">
+  <data name="GroupExpandLabelContent" xml:space="preserve">
     <value xml:lang="en">Group expand:</value>
 </data>
-	<data name="PathStyleLabelContent" xml:space="preserve">
+  <data name="PathStyleLabelContent" xml:space="preserve">
     <value xml:lang="en">Path style:</value>
 </data>
-	<data name="FilterSearchScopeLabelContent" xml:space="preserve">
+  <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value xml:lang="en">Filter search scope:</value>
 </data>
-	<data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
+  <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
     <value xml:lang="en">Trim spaces on copy:</value>
 </data>
-	<data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
+  <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
     <value xml:lang="en">Update index automatically:</value>
 </data>
-	<data name="NoneOptionContent" xml:space="preserve">
+  <data name="NoneOptionContent" xml:space="preserve">
     <value xml:lang="en">None</value>
 </data>
-	<data name="FileOptionContent" xml:space="preserve">
+  <data name="FileOptionContent" xml:space="preserve">
     <value xml:lang="en">File</value>
 </data>
-	<data name="NeverOptionContent" xml:space="preserve">
+  <data name="NeverOptionContent" xml:space="preserve">
     <value xml:lang="en">Never</value>
 </data>
-	<data name="AutomaticOptionContent" xml:space="preserve">
+  <data name="AutomaticOptionContent" xml:space="preserve">
     <value xml:lang="en">Automatic</value>
 </data>
-	<data name="AlwaysOptionContent" xml:space="preserve">
+  <data name="AlwaysOptionContent" xml:space="preserve">
     <value xml:lang="en">Always</value>
 </data>
-	<data name="AbsolutePathOptionContent" xml:space="preserve">
+  <data name="AbsolutePathOptionContent" xml:space="preserve">
     <value xml:lang="en">Absolute path</value>
 </data>
-	<data name="RelativePathOptionContent" xml:space="preserve">
+  <data name="RelativePathOptionContent" xml:space="preserve">
     <value xml:lang="en">Relative path</value>
 </data>
-	<data name="FileOnlyOptionContent" xml:space="preserve">
+  <data name="FileOnlyOptionContent" xml:space="preserve">
     <value xml:lang="en">File only</value>
 </data>
-	<data name="TextOnlyOptionContent" xml:space="preserve">
+  <data name="TextOnlyOptionContent" xml:space="preserve">
     <value xml:lang="en">Text only</value>
 </data>
-	<data name="PathOnlyOptionContent" xml:space="preserve">
+  <data name="PathOnlyOptionContent" xml:space="preserve">
     <value xml:lang="en">Path only</value>
 </data>
-	<data name="TextAndPathOptionContent" xml:space="preserve">
+  <data name="TextAndPathOptionContent" xml:space="preserve">
     <value xml:lang="en">Text and path</value>
 </data>
+  <data name="ShortcutTooltipFormat" xml:space="preserve">
+    <value xml:lang="en">Shortcut: {0}</value>
+</data>
+  <data name="ShortcutTooltipNoChangeFormat" xml:space="preserve">
+    <value xml:lang="en">Shortcut: {0} (doesn't change setting)</value>
+</data>
+  <data name="ColorSchemeLabelContent" xml:space="preserve">
+    <value xml:lang="en">Color scheme:</value>
+</data>
+  <data name="NormalFontLabelContent" xml:space="preserve">
+    <value xml:lang="en">Normal font:</value>
+</data>
+  <data name="MonospaceFontLabelContent" xml:space="preserve">
+    <value xml:lang="en">Monospace font:</value>
+</data>
+  <data name="ResultGroupHeightLabelContent" xml:space="preserve">
+    <value xml:lang="en">Result group height:</value>
+</data>
+  <data name="ResultLineHeightLabelContent" xml:space="preserve">
+    <value xml:lang="en">Result line height:</value>
+</data>
+  <data name="AutoOptionContent" xml:space="preserve">
+    <value xml:lang="en">Auto</value>
+</data>
+  <data name="ColorOverridesTitle" xml:space="preserve">
+    <value xml:lang="en">Color overrides</value>
+</data>
+  <data name="EditColorOverrideTooltip" xml:space="preserve">
+    <value xml:lang="en">Edit color override</value>
+</data>
+  <data name="RemoveColorOverrideTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove selected color override(s)</value>
+</data>
+  <data name="RemoveAllColorOverridesTooltip" xml:space="preserve">
+    <value xml:lang="en">Remove all color overrides</value>
+</data>
+  <data name="AddColorOverrideTooltip" xml:space="preserve">
+    <value xml:lang="en">Add color override</value>
+</data>
+	<data name="TargetLabelContent" xml:space="preserve">
+    <value xml:lang="en">Target:</value>
+</data>
+	<data name="ColorLabelContent" xml:space="preserve">
+    <value xml:lang="en">Color:</value>
+</data>
+	<data name="OverrideExistsErrorMessage" xml:space="preserve">
+    <value xml:lang="en">Override already exists!</value>
+</data>
+
 </root>
