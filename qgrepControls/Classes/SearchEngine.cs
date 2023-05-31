@@ -633,7 +633,7 @@ namespace qgrepControls.Classes
         public void UpdateLastUpdated()
         {
             DateTime lastUpdated = ConfigParser.GetLastUpdated();
-            string timeAgo = "Last index update: " + (lastUpdated == DateTime.MaxValue ? "never" : GetTimeAgoString(lastUpdated));
+            string timeAgo = string.Format(Properties.Resources.LastIndexUpdateLabelContent, GetTimeAgoString(lastUpdated));
 
             DatabaseMessageHandler(timeAgo, null);
         }
@@ -646,23 +646,28 @@ namespace qgrepControls.Classes
 
         public static string GetTimeAgoString(DateTime eventTime)
         {
+            if(eventTime == DateTime.MaxValue)
+            {
+                return Properties.Resources.NeverText;
+            }
+
             TimeSpan timeSinceEvent = DateTime.Now - eventTime;
 
             if (timeSinceEvent.TotalSeconds < 60)
             {
-                return "just now";
+                return Properties.Resources.JustNowText;
             }
             else if (timeSinceEvent.TotalMinutes < 60)
             {
-                return $"{(int)timeSinceEvent.TotalMinutes}m ago";
+                return string.Format(Properties.Resources.MinutesAgoText, (int)timeSinceEvent.TotalMinutes);
             }
             else if (timeSinceEvent.TotalHours < 24)
             {
-                return $"{(int)timeSinceEvent.TotalHours}h ago";
+                return string.Format(Properties.Resources.HoursAgoText, (int)timeSinceEvent.TotalHours);
             }
             else if (timeSinceEvent.TotalDays < 7)
             {
-                return $"{(int)timeSinceEvent.TotalDays}d ago";
+                return string.Format(Properties.Resources.DaysAgoText, (int)timeSinceEvent.TotalDays);
             }
             else
             {

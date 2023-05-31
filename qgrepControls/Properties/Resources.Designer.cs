@@ -260,6 +260,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}d ago.
+        /// </summary>
+        public static string DaysAgoText {
+            get {
+                return ResourceManager.GetString("DaysAgoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit color override.
         /// </summary>
         public static string EditColorOverrideTooltip {
@@ -476,6 +485,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}h ago.
+        /// </summary>
+        public static string HoursAgoText {
+            get {
+                return ResourceManager.GetString("HoursAgoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include files....
         /// </summary>
         public static string IncludeFilesLabel {
@@ -517,6 +535,24 @@ namespace qgrepControls.Properties {
         public static string InitInfo {
             get {
                 return ResourceManager.GetString("InitInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to just now.
+        /// </summary>
+        public static string JustNowText {
+            get {
+                return ResourceManager.GetString("JustNowText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last index update: {0}.
+        /// </summary>
+        public static string LastIndexUpdateLabelContent {
+            get {
+                return ResourceManager.GetString("LastIndexUpdateLabelContent", resourceCulture);
             }
         }
         
@@ -566,6 +602,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}m ago.
+        /// </summary>
+        public static string MinutesAgoText {
+            get {
+                return ResourceManager.GetString("MinutesAgoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monospace font:.
         /// </summary>
         public static string MonospaceFontLabelContent {
@@ -580,6 +625,15 @@ namespace qgrepControls.Properties {
         public static string NeverOptionContent {
             get {
                 return ResourceManager.GetString("NeverOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to never.
+        /// </summary>
+        public static string NeverText {
+            get {
+                return ResourceManager.GetString("NeverText", resourceCulture);
             }
         }
         

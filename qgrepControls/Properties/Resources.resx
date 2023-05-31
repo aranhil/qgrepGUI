@@ -496,4 +496,23 @@
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value xml:lang="en">Search scope:</value>
 </data>
+	<data name="LastIndexUpdateLabelContent" xml:space="preserve">
+    <value xml:lang="en">Last index update: {0}</value>
+</data>
+	<data name="NeverText" xml:space="preserve">
+    <value xml:lang="en">never</value>
+</data>
+	<data name="JustNowText" xml:space="preserve">
+    <value xml:lang="en">just now</value>
+</data>
+	<data name="MinutesAgoText" xml:space="preserve">
+    <value xml:lang="en">{0}m ago</value>
+</data>
+	<data name="HoursAgoText" xml:space="preserve">
+    <value xml:lang="en">{0}h ago</value>
+</data>
+	<data name="DaysAgoText" xml:space="preserve">
+    <value xml:lang="en">{0}d ago</value>
+</data>
+
 </root>

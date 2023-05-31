@@ -495,4 +495,23 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
 </data>
+	<data name="LastIndexUpdateLabelContent" xml:space="preserve">
+    <value xml:lang="en">Ultima actualizare a indexului: {0}</value>
+</data>
+	<data name="NeverText" xml:space="preserve">
+    <value xml:lang="en">niciodată</value>
+</data>
+	<data name="JustNowText" xml:space="preserve">
+    <value xml:lang="en">acum</value>
+</data>
+	<data name="MinutesAgoText" xml:space="preserve">
+    <value xml:lang="en">acum {0}m</value>
+</data>
+	<data name="HoursAgoText" xml:space="preserve">
+    <value xml:lang="en">acum {0}h</value>
+</data>
+	<data name="DaysAgoText" xml:space="preserve">
+    <value xml:lang="en">acum {0}z</value>
+</data>
+
 </root>
