@@ -598,7 +598,7 @@ void mainImpl(Output* output, int argc, const char** argv, const char* input, si
 	}
 	catch (const std::exception& e)
 	{
-		output->error("Uncaught exception: %s\n", e.what());
+		output->printLocalized("UncaughtExceptionMessage", { e.what() });
 	}
 }
 

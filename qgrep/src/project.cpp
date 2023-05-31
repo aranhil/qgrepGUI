@@ -243,7 +243,7 @@ std::unique_ptr<ProjectGroup> parseProject(Output* output, const char* file)
 	std::ifstream in(fromUtf8(file));
 	if (!in)
 	{
-		output->error("Error reading file %s\n", file);
+		output->printLocalized("ErrorReadingFile", { file } );
 		return std::unique_ptr<ProjectGroup>();
 	}
 
@@ -259,7 +259,7 @@ std::unique_ptr<ProjectGroup> parseProject(Output* output, const char* file)
 	}
 	catch (const std::exception& e)
 	{
-		output->error("%s(%d): %s\n", file, line, e.what());
+		output->printLocalized("FileLineErrorMessage", { file, std::to_string(line), e.what() });
 		return std::unique_ptr<ProjectGroup>();
 	}
 }
@@ -289,7 +289,7 @@ static void getProjectGroupFilesRec(Output* output, ProjectGroup* group, std::ve
 		if (getFileAttributes(path.c_str(), &mtime, &size))
 			files.push_back({ path, mtime, size });
 		else
-			output->error("Error reading metadata for file %s\n", path.c_str());
+			output->printLocalized("ErrorReadingMetadataForFile", { path });
 	}
 
 	for (auto& folder: group->paths)
@@ -304,7 +304,7 @@ static void getProjectGroupFilesRec(Output* output, ProjectGroup* group, std::ve
 			}
 		});
 
-		if (!result) output->error("Error reading folder %s\n", folder.c_str());
+		if (!result) output->printLocalized("ErrorReadingFolder", { folder });
 	}
 
 	for (auto& child: group->groups)

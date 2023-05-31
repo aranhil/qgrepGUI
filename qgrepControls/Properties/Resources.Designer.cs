@@ -332,11 +332,38 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error reading data file {0}.
+        /// </summary>
+        public static string ErrorReadingDataFile {
+            get {
+                return ResourceManager.GetString("ErrorReadingDataFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error reading file {0}.
         /// </summary>
         public static string ErrorReadingFile {
             get {
                 return ResourceManager.GetString("ErrorReadingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error reading folder {0}.
+        /// </summary>
+        public static string ErrorReadingFolder {
+            get {
+                return ResourceManager.GetString("ErrorReadingFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error reading metadata for file {0}.
+        /// </summary>
+        public static string ErrorReadingMetadataForFile {
+            get {
+                return ResourceManager.GetString("ErrorReadingMetadataForFile", resourceCulture);
             }
         }
         
@@ -382,6 +409,15 @@ namespace qgrepControls.Properties {
         public static string FileAndLine {
             get {
                 return ResourceManager.GetString("FileAndLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}({1}): {2}.
+        /// </summary>
+        public static string FileLineErrorMessage {
+            get {
+                return ResourceManager.GetString("FileLineErrorMessage", resourceCulture);
             }
         }
         
@@ -634,6 +670,15 @@ namespace qgrepControls.Properties {
         public static string MalformedChunkErrorMessage {
             get {
                 return ResourceManager.GetString("MalformedChunkErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error reading data file {0}: malformed header.
+        /// </summary>
+        public static string MalformedHeaderErrorReadingDataFile {
+            get {
+                return ResourceManager.GetString("MalformedHeaderErrorReadingDataFile", resourceCulture);
             }
         }
         
@@ -1327,6 +1372,15 @@ namespace qgrepControls.Properties {
         public static string TypeLabelContent {
             get {
                 return ResourceManager.GetString("TypeLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uncaught exception: {0}.
+        /// </summary>
+        public static string UncaughtExceptionMessage {
+            get {
+                return ResourceManager.GetString("UncaughtExceptionMessage", resourceCulture);
             }
         }
         

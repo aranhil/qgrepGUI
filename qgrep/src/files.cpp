@@ -99,7 +99,7 @@ bool buildFiles(Output* output, const char* path, const std::vector<FileInfo>& f
 		FileStream out(tempPath.c_str(), "wb");
 		if (!out)
 		{
-			output->error("Error saving data file %s\n", tempPath.c_str());
+			output->printLocalized("ErrorSavingDataFile", { tempPath });
 			return false;
 		}
 
@@ -124,7 +124,7 @@ bool buildFiles(Output* output, const char* path, const std::vector<FileInfo>& f
 
 	if (!renameFile(tempPath.c_str(), targetPath.c_str()))
 	{
-		output->error("Error saving data file %s\n", targetPath.c_str());
+		output->printLocalized("ErrorSavingDataFile", { targetPath });
 		return false;
 	}
 
@@ -162,14 +162,14 @@ unsigned int searchFiles(Output* output, const char* file, const char* string, u
 	FileStream in(dataPath.c_str(), "rb");
 	if (!in)
 	{
-		output->error("Error reading data file %s\n", dataPath.c_str());
+		output->printLocalized("ErrorReadingDataFile", { dataPath });
 		return 0;
 	}
 	
 	FileFileHeader header;
 	if (!read(in, header) || memcmp(header.magic, kFileFileHeaderMagic, strlen(kFileFileHeaderMagic)) != 0)
 	{
-		output->error("Error reading data file %s: malformed header\n", dataPath.c_str());
+		output->printLocalized("MalformedHeaderErrorReadingDataFile", { dataPath });
 		return 0;
 	}
 
@@ -177,7 +177,7 @@ unsigned int searchFiles(Output* output, const char* file, const char* string, u
 
 	if (!buffer || !read(in, buffer.get(), header.compressedSize))
 	{
-		output->error("Error reading data file %s: malformed header\n", dataPath.c_str());
+		output->printLocalized("MalformedHeaderErrorReadingDataFile", { dataPath });
 		return 0;
 	}
 

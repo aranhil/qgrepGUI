@@ -552,4 +552,28 @@
   <data name="BuildingMessage" xml:space="preserve">
     <value xml:lang="en">Se construiește {0}</value>
 </data>
+	<data name="UncaughtExceptionMessage" xml:space="preserve">
+    <value xml:lang="en">Excepție neprinsă: {0}</value>
+</data>
+	<data name="ErrorSavingDataFile" xml:space="preserve">
+    <value xml:lang="en">Eroare la salvarea fișierului de date {0}</value>
+</data>
+	<data name="ErrorReadingDataFile" xml:space="preserve">
+    <value xml:lang="en">Eroare la citirea fișierului de date {0}</value>
+</data>
+	<data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+    <value xml:lang="en">Eroare la citirea fișierului de date {0}: antet neformatat corect</value>
+</data>
+	<data name="ErrorReadingFile" xml:space="preserve">
+    <value xml:lang="en">Eroare la citirea fișierului {0}</value>
+</data>
+	<data name="FileLineErrorMessage" xml:space="preserve">
+    <value xml:lang="en">{0}({1}): {2}</value>
+</data>
+	<data name="ErrorReadingMetadataForFile" xml:space="preserve">
+    <value xml:lang="en">Eroare la citirea metadatelor pentru fișierul {0}</value>
+</data>
+	<data name="ErrorReadingFolder" xml:space="preserve">
+    <value xml:lang="en">Eroare la citirea folderului {0}</value>
+</data>
 </root>

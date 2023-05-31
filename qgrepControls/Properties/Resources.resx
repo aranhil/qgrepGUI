@@ -553,4 +553,28 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Use global path</value>
 </data>
+	<data name="UncaughtExceptionMessage" xml:space="preserve">
+  <value xml:lang="en">Uncaught exception: {0}</value>
+</data>
+	<data name="ErrorSavingDataFile" xml:space="preserve">
+  <value xml:lang="en">Error saving data file {0}</value>
+</data>
+	<data name="ErrorReadingDataFile" xml:space="preserve">
+  <value xml:lang="en">Error reading data file {0}</value>
+</data>
+	<data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+  <value xml:lang="en">Error reading data file {0}: malformed header</value>
+</data>
+	<data name="ErrorReadingFile" xml:space="preserve">
+  <value xml:lang="en">Error reading file {0}</value>
+</data>
+	<data name="FileLineErrorMessage" xml:space="preserve">
+  <value xml:lang="en">{0}({1}): {2}</value>
+</data>
+	<data name="ErrorReadingMetadataForFile" xml:space="preserve">
+  <value xml:lang="en">Error reading metadata for file {0}</value>
+</data>
+	<data name="ErrorReadingFolder" xml:space="preserve">
+  <value xml:lang="en">Error reading folder {0}</value>
+</data>
 </root>
