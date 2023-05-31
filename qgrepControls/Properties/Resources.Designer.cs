@@ -61,6 +61,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Absolute path.
+        /// </summary>
+        public static string AbsolutePathOptionContent {
+            get {
+                return ResourceManager.GetString("AbsolutePathOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add filter.
         /// </summary>
         public static string AddFilterTitle {
@@ -84,6 +93,24 @@ namespace qgrepControls.Properties {
         public static string AdvancedToggleContent {
             get {
                 return ResourceManager.GetString("AdvancedToggleContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always.
+        /// </summary>
+        public static string AlwaysOptionContent {
+            get {
+                return ResourceManager.GetString("AlwaysOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic.
+        /// </summary>
+        public static string AutomaticOptionContent {
+            get {
+                return ResourceManager.GetString("AutomaticOptionContent", resourceCulture);
             }
         }
         
@@ -215,6 +242,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exclude files:.
+        /// </summary>
+        public static string ExcludeFilesLabelContent {
+            get {
+                return ResourceManager.GetString("ExcludeFilesLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude.
         /// </summary>
         public static string ExcludeOptionContent {
@@ -233,11 +269,65 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File only.
+        /// </summary>
+        public static string FileOnlyOptionContent {
+            get {
+                return ResourceManager.GetString("FileOnlyOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string FileOptionContent {
+            get {
+                return ResourceManager.GetString("FileOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter results....
         /// </summary>
         public static string FilterResultsLabel {
             get {
                 return ResourceManager.GetString("FilterResultsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter results:.
+        /// </summary>
+        public static string FilterResultsLabelContent {
+            get {
+                return ResourceManager.GetString("FilterResultsLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter search scope:.
+        /// </summary>
+        public static string FilterSearchScopeLabelContent {
+            get {
+                return ResourceManager.GetString("FilterSearchScopeLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group by:.
+        /// </summary>
+        public static string GroupByLabelContent {
+            get {
+                return ResourceManager.GetString("GroupByLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group expand:.
+        /// </summary>
+        public static string GroupExpandLabelContent {
+            get {
+                return ResourceManager.GetString("GroupExpandLabelContent", resourceCulture);
             }
         }
         
@@ -323,11 +413,29 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to History button:.
+        /// </summary>
+        public static string HistoryButtonLabelContent {
+            get {
+                return ResourceManager.GetString("HistoryButtonLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include files....
         /// </summary>
         public static string IncludeFilesLabel {
             get {
                 return ResourceManager.GetString("IncludeFilesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include files:.
+        /// </summary>
+        public static string IncludeFilesLabelContent {
+            get {
+                return ResourceManager.GetString("IncludeFilesLabelContent", resourceCulture);
             }
         }
         
@@ -404,6 +512,24 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Never.
+        /// </summary>
+        public static string NeverOptionContent {
+            get {
+                return ResourceManager.GetString("NeverOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string NoneOptionContent {
+            get {
+                return ResourceManager.GetString("NoneOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No search folders set..
         /// </summary>
         public static string NoSearchFoldersSet {
@@ -427,6 +553,15 @@ namespace qgrepControls.Properties {
         public static string OpenFile {
             get {
                 return ResourceManager.GetString("OpenFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path only.
+        /// </summary>
+        public static string PathOnlyOptionContent {
+            get {
+                return ResourceManager.GetString("PathOnlyOptionContent", resourceCulture);
             }
         }
         
@@ -472,6 +607,15 @@ namespace qgrepControls.Properties {
         public static string PathsListBoxTitle {
             get {
                 return ResourceManager.GetString("PathsListBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path style:.
+        /// </summary>
+        public static string PathStyleLabelContent {
+            get {
+                return ResourceManager.GetString("PathStyleLabelContent", resourceCulture);
             }
         }
         
@@ -553,6 +697,15 @@ namespace qgrepControls.Properties {
         public static string RegExLabelContent {
             get {
                 return ResourceManager.GetString("RegExLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relative path.
+        /// </summary>
+        public static string RelativePathOptionContent {
+            get {
+                return ResourceManager.GetString("RelativePathOptionContent", resourceCulture);
             }
         }
         
@@ -665,6 +818,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search while typing:.
+        /// </summary>
+        public static string SearchWhileTypingLabelContent {
+            get {
+                return ResourceManager.GetString("SearchWhileTypingLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Whole word ({0}).
         /// </summary>
         public static string SearchWholeWord {
@@ -701,6 +863,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show open history:.
+        /// </summary>
+        public static string ShowOpenHistoryLabelContent {
+            get {
+                return ResourceManager.GetString("ShowOpenHistoryLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop.
         /// </summary>
         public static string StopButtonContent {
@@ -710,11 +881,38 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Text and path.
+        /// </summary>
+        public static string TextAndPathOptionContent {
+            get {
+                return ResourceManager.GetString("TextAndPathOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text only.
+        /// </summary>
+        public static string TextOnlyOptionContent {
+            get {
+                return ResourceManager.GetString("TextOnlyOptionContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Theme settings.
         /// </summary>
         public static string ThemeSettings {
             get {
                 return ResourceManager.GetString("ThemeSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trim spaces on copy:.
+        /// </summary>
+        public static string TrimSpacesOnCopyLabelContent {
+            get {
+                return ResourceManager.GetString("TrimSpacesOnCopyLabelContent", resourceCulture);
             }
         }
         
@@ -733,6 +931,15 @@ namespace qgrepControls.Properties {
         public static string UpdateIndex {
             get {
                 return ResourceManager.GetString("UpdateIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update index automatically:.
+        /// </summary>
+        public static string UpdateIndexAutomaticallyLabelContent {
+            get {
+                return ResourceManager.GetString("UpdateIndexAutomaticallyLabelContent", resourceCulture);
             }
         }
         

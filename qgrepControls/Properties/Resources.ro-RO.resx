@@ -345,4 +345,74 @@
 	<data name="CancelButtonContent" xml:space="preserve">
     <value xml:lang="en">Anulează</value>
 </data>
+	<data name="IncludeFilesLabelContent" xml:space="preserve">
+    <value xml:lang="en">Includere fișiere:</value>
+</data>
+	<data name="ExcludeFilesLabelContent" xml:space="preserve">
+    <value xml:lang="en">Excludere fișiere:</value>
+</data>
+	<data name="FilterResultsLabelContent" xml:space="preserve">
+    <value xml:lang="en">Filtrare rezultate:</value>
+</data>
+	<data name="HistoryButtonLabelContent" xml:space="preserve">
+    <value xml:lang="en">Buton istoric:</value>
+</data>
+	<data name="ShowOpenHistoryLabelContent" xml:space="preserve">
+    <value xml:lang="en">Afișare istoric deschideri:</value>
+</data>
+	<data name="SearchWhileTypingLabelContent" xml:space="preserve">
+    <value xml:lang="en">Căutare în timpul tastării:</value>
+</data>
+	<data name="GroupByLabelContent" xml:space="preserve">
+    <value xml:lang="en">Grupare după:</value>
+</data>
+	<data name="GroupExpandLabelContent" xml:space="preserve">
+    <value xml:lang="en">Expandare grup:</value>
+</data>
+	<data name="PathStyleLabelContent" xml:space="preserve">
+    <value xml:lang="en">Stil cale:</value>
+</data>
+	<data name="FilterSearchScopeLabelContent" xml:space="preserve">
+    <value xml:lang="en">Filtrare domeniu căutare:</value>
+</data>
+	<data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
+    <value xml:lang="en">Decupare spații la copiere:</value>
+</data>
+	<data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
+    <value xml:lang="en">Actualizare index automată:</value>
+</data>
+	<data name="NoneOptionContent" xml:space="preserve">
+    <value xml:lang="en">Niciunul</value>
+</data>
+	<data name="FileOptionContent" xml:space="preserve">
+    <value xml:lang="en">Fișier</value>
+</data>
+	<data name="NeverOptionContent" xml:space="preserve">
+    <value xml:lang="en">Niciodată</value>
+</data>
+	<data name="AutomaticOptionContent" xml:space="preserve">
+    <value xml:lang="en">Automată</value>
+</data>
+	<data name="AlwaysOptionContent" xml:space="preserve">
+    <value xml:lang="en">Întotdeauna</value>
+</data>
+	<data name="AbsolutePathOptionContent" xml:space="preserve">
+    <value xml:lang="en">Cale absolută</value>
+</data>
+	<data name="RelativePathOptionContent" xml:space="preserve">
+    <value xml:lang="en">Cale relativă</value>
+</data>
+	<data name="FileOnlyOptionContent" xml:space="preserve">
+    <value xml:lang="en">Doar fișier</value>
+</data>
+	<data name="TextOnlyOptionContent" xml:space="preserve">
+    <value xml:lang="en">Doar text</value>
+</data>
+	<data name="PathOnlyOptionContent" xml:space="preserve">
+    <value xml:lang="en">Doar cale</value>
+</data>
+	<data name="TextAndPathOptionContent" xml:space="preserve">
+    <value xml:lang="en">Text și cale</value>
+</data>
+
 </root>

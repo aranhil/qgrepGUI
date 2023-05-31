@@ -6,15 +6,16 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
+             xmlns:resx="clr-namespace:qgrepControls.Properties"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="300" Height="325">
+             Width="325" Height="325">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
     <Grid Margin="0,10,0,0" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="155"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*" MinWidth="155"/>
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -30,18 +31,18 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Include files:" />
-        <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Exclude files:" />
-        <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Filter results:" />
-        <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="History button:" />
-        <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Show open history:" />
-        <Label Grid.Row="5" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Search while typing:" />
-        <Label Grid.Row="6" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Group by:" />
-        <Label Grid.Row="7" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Group expand:" />
-        <Label Grid.Row="8" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Path style:" />
-        <Label Grid.Row="9" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Filter search scope:" />
-        <Label Grid.Row="10" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Trim spaces on copy:" />
-        <Label Grid.Row="11" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="Update index automatically:" />
+        <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.IncludeFilesLabelContent}" />
+        <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.ExcludeFilesLabelContent}" />
+        <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.FilterResultsLabelContent}" />
+        <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.HistoryButtonLabelContent}" />
+        <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.ShowOpenHistoryLabelContent}" />
+        <Label Grid.Row="5" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.SearchWhileTypingLabelContent}" />
+        <Label Grid.Row="6" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.GroupByLabelContent}" />
+        <Label Grid.Row="7" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.GroupExpandLabelContent}" />
+        <Label Grid.Row="8" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.PathStyleLabelContent}" />
+        <Label Grid.Row="9" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.FilterSearchScopeLabelContent}" />
+        <Label Grid.Row="10" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.TrimSpacesOnCopyLabelContent}" />
+        <Label Grid.Row="11" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.UpdateIndexAutomaticallyLabelContent}" />
         <CheckBox Grid.Row="0" Grid.Column="1" x:Name="ShowIncludes" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content="" ToolTip="(Alt+I)" ToolTipService.InitialShowDelay="0"/>
         <CheckBox Grid.Row="1" Grid.Column="1" x:Name="ShowExcludes" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click"  Content="" ToolTip="(Alt+E)" ToolTipService.InitialShowDelay="0"/>
         <CheckBox Grid.Row="2" Grid.Column="1" x:Name="ShowFilter" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click"  Content="" ToolTip="(Alt+F)" ToolTipService.InitialShowDelay="0"/>
@@ -49,23 +50,23 @@
         <CheckBox Grid.Row="4" Grid.Column="1" x:Name="ShowOpenHistory" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="5" Grid.Column="1" x:Name="SearchInstantly" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <ComboBox Grid.Row="6" Grid.Column="1" x:Name="GroupingComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="GroupingComboBox_SelectionChanged" ToolTipService.InitialShowDelay="250">
-            <ComboBoxItem>None</ComboBoxItem>
-            <ComboBoxItem>File</ComboBoxItem>
+            <ComboBoxItem Content="{x:Static resx:Resources.NoneOptionContent}" />
+            <ComboBoxItem Content="{x:Static resx:Resources.FileOptionContent}" />
         </ComboBox>
         <ComboBox Grid.Row="7" Grid.Column="1" x:Name="ExpandModeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ExpandModeComboBox_SelectionChanged" ToolTipService.InitialShowDelay="250">
-            <ComboBoxItem>Never</ComboBoxItem>
-            <ComboBoxItem>Automatic</ComboBoxItem>
-            <ComboBoxItem>Always</ComboBoxItem>
+            <ComboBoxItem Content="{x:Static resx:Resources.NeverOptionContent}" />
+            <ComboBoxItem Content="{x:Static resx:Resources.AutomaticOptionContent}" />
+            <ComboBoxItem Content="{x:Static resx:Resources.AlwaysOptionContent}" />
         </ComboBox>
         <ComboBox Grid.Row="8" Grid.Column="1" x:Name="PathStyleComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="PathStyleComboBox_SelectionChanged">
-            <ComboBoxItem>Absolute path</ComboBoxItem>
-            <ComboBoxItem>Relative path</ComboBoxItem>
-            <ComboBoxItem>File only</ComboBoxItem>
+            <ComboBoxItem Content="{x:Static resx:Resources.AbsolutePathOptionContent}" />
+            <ComboBoxItem Content="{x:Static resx:Resources.RelativePathOptionContent}" />
+            <ComboBoxItem Content="{x:Static resx:Resources.FileOnlyOptionContent}" />
         </ComboBox>
         <ComboBox Grid.Row="9" Grid.Column="1" x:Name="FilterScopeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="FilterScopeComboBox_SelectionChanged">
-            <ComboBoxItem>Text only</ComboBoxItem>
-            <ComboBoxItem>Path only</ComboBoxItem>
-            <ComboBoxItem>Text and path</ComboBoxItem>
+            <ComboBoxItem Content="{x:Static resx:Resources.TextOnlyOptionContent}" />
+            <ComboBoxItem Content="{x:Static resx:Resources.PathOnlyOptionContent}" />
+            <ComboBoxItem Content="{x:Static resx:Resources.TextAndPathOptionContent}" />
         </ComboBox>
         <CheckBox Grid.Row="10" Grid.Column="1" x:Name="TrimSpacesOnCopy" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="11" Grid.Column="1" x:Name="UpdateIndexAutomatically" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="UpdateIndexAutomatically_Click" Content=""/>

@@ -346,4 +346,73 @@
 	<data name="CancelButtonContent" xml:space="preserve">
     <value xml:lang="en">Cancel</value>
 </data>
+	<data name="IncludeFilesLabelContent" xml:space="preserve">
+    <value xml:lang="en">Include files:</value>
+</data>
+	<data name="ExcludeFilesLabelContent" xml:space="preserve">
+    <value xml:lang="en">Exclude files:</value>
+</data>
+	<data name="FilterResultsLabelContent" xml:space="preserve">
+    <value xml:lang="en">Filter results:</value>
+</data>
+	<data name="HistoryButtonLabelContent" xml:space="preserve">
+    <value xml:lang="en">History button:</value>
+</data>
+	<data name="ShowOpenHistoryLabelContent" xml:space="preserve">
+    <value xml:lang="en">Show open history:</value>
+</data>
+	<data name="SearchWhileTypingLabelContent" xml:space="preserve">
+    <value xml:lang="en">Search while typing:</value>
+</data>
+	<data name="GroupByLabelContent" xml:space="preserve">
+    <value xml:lang="en">Group by:</value>
+</data>
+	<data name="GroupExpandLabelContent" xml:space="preserve">
+    <value xml:lang="en">Group expand:</value>
+</data>
+	<data name="PathStyleLabelContent" xml:space="preserve">
+    <value xml:lang="en">Path style:</value>
+</data>
+	<data name="FilterSearchScopeLabelContent" xml:space="preserve">
+    <value xml:lang="en">Filter search scope:</value>
+</data>
+	<data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
+    <value xml:lang="en">Trim spaces on copy:</value>
+</data>
+	<data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
+    <value xml:lang="en">Update index automatically:</value>
+</data>
+	<data name="NoneOptionContent" xml:space="preserve">
+    <value xml:lang="en">None</value>
+</data>
+	<data name="FileOptionContent" xml:space="preserve">
+    <value xml:lang="en">File</value>
+</data>
+	<data name="NeverOptionContent" xml:space="preserve">
+    <value xml:lang="en">Never</value>
+</data>
+	<data name="AutomaticOptionContent" xml:space="preserve">
+    <value xml:lang="en">Automatic</value>
+</data>
+	<data name="AlwaysOptionContent" xml:space="preserve">
+    <value xml:lang="en">Always</value>
+</data>
+	<data name="AbsolutePathOptionContent" xml:space="preserve">
+    <value xml:lang="en">Absolute path</value>
+</data>
+	<data name="RelativePathOptionContent" xml:space="preserve">
+    <value xml:lang="en">Relative path</value>
+</data>
+	<data name="FileOnlyOptionContent" xml:space="preserve">
+    <value xml:lang="en">File only</value>
+</data>
+	<data name="TextOnlyOptionContent" xml:space="preserve">
+    <value xml:lang="en">Text only</value>
+</data>
+	<data name="PathOnlyOptionContent" xml:space="preserve">
+    <value xml:lang="en">Path only</value>
+</data>
+	<data name="TextAndPathOptionContent" xml:space="preserve">
+    <value xml:lang="en">Text and path</value>
+</data>
 </root>
