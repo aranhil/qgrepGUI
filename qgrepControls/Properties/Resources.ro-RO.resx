@@ -118,507 +118,505 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AbsolutePathOptionContent" xml:space="preserve">
-    <value xml:lang="en">Cale absolută</value>
-</data>
+    <value>Cale absolută</value>
+  </data>
   <data name="AddColorOverrideTooltip" xml:space="preserve">
-    <value xml:lang="en">Adaugă suprascriere culoare</value>
-</data>
+    <value>Adaugă suprascriere culoare</value>
+  </data>
   <data name="AddFilterTitle" xml:space="preserve">
-    <value xml:lang="en">Adaugă filtru</value>
-</data>
+    <value>Adaugă filtru</value>
+  </data>
   <data name="AdvancedSettings" xml:space="preserve">
     <value>Setări avansate</value>
   </data>
   <data name="AdvancedToggleContent" xml:space="preserve">
-    <value xml:lang="en">‹‹ Avansat</value>
-</data>
+    <value>‹‹ Avansat</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
-    <value xml:lang="en">Întotdeauna</value>
-</data>
+    <value>Întotdeauna</value>
+  </data>
   <data name="AutomaticOptionContent" xml:space="preserve">
-    <value xml:lang="en">Automată</value>
-</data>
+    <value>Automată</value>
+  </data>
   <data name="AutomaticPopulationContent" xml:space="preserve">
     <value>Colectează din soluție</value>
-</data>
+  </data>
   <data name="AutoOptionContent" xml:space="preserve">
-    <value xml:lang="en">Automat</value>
-</data>
+    <value>Automat</value>
+  </data>
+  <data name="BadRepetitionOperator" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: operator de repetare greșit</value>
+  </data>
   <data name="BasicToggleContent" xml:space="preserve">
-    <value xml:lang="en">›› Bazic</value>
-</data>
+    <value>›› De bază</value>
+  </data>
+  <data name="BuildingFileTableMessage" xml:space="preserve">
+    <value>Se construiește tabela de fișiere...</value>
+  </data>
+  <data name="BuildingMessage" xml:space="preserve">
+    <value>Se construiește {0}</value>
+  </data>
   <data name="CancelButtonContent" xml:space="preserve">
-    <value xml:lang="en">Anulează</value>
-</data>
+    <value>Anulează</value>
+  </data>
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Nu se poate curăța indexul: {0}</value>
-</data>
+  </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} fragmente actualizate în {4:0.00} sec</value>
+  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Curăță și actualizează indexul</value>
-</data>
+  </data>
   <data name="ColorLabelContent" xml:space="preserve">
-    <value xml:lang="en">Culoare:</value>
-</data>
+    <value>Culoare:</value>
+  </data>
   <data name="ColorOverridesTitle" xml:space="preserve">
-    <value xml:lang="en">Suprascrieri culori</value>
-</data>
+    <value>Suprascrieri culori</value>
+  </data>
   <data name="ColorSchemeLabelContent" xml:space="preserve">
-    <value xml:lang="en">Scheme de culori:</value>
-</data>
+    <value>Scheme de culori:</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="colors_schemes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\colors-schemes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ConfigFormat" xml:space="preserve">
-    <value xml:lang="en">Configurația{0}</value>
-</data>
+    <value>Configurația{0}</value>
+  </data>
   <data name="ConfigOpenContent" xml:space="preserve">
     <value>Deschide locația</value>
-</data>
+  </data>
   <data name="CopyFullPath" xml:space="preserve">
     <value>Copiază calea completă</value>
-</data>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Personalizează scurtăturile</value>
-</data>
+  </data>
   <data name="CustomizeTheme" xml:space="preserve">
     <value>Personalizează tema</value>
-</data>
+  </data>
+  <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
+    <value>Atenție: fișierul de date {0} are un format expirat, se reconstruiește</value>
+  </data>
+  <data name="DaysAgoText" xml:space="preserve">
+    <value>acum {0} zile</value>
+  </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
-    <value xml:lang="en">Editează suprascriere culoare</value>
-</data>
+    <value>Editează suprascriere culoare</value>
+  </data>
   <data name="EditFilterTitle" xml:space="preserve">
-    <value xml:lang="en">Editează filtrul</value>
-</data>
+    <value>Editează filtrul</value>
+  </data>
   <data name="EditHotkeys" xml:space="preserve">
     <value>Editează tastele de acces rapid</value>
-</data>
+  </data>
+  <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
+    <value>Eroare la deschiderea fișierului de date {0} pentru scriere</value>
+  </data>
+  <data name="ErrorReadingDataFile" xml:space="preserve">
+    <value>Eroare la citirea fișierului de date {0}</value>
+  </data>
+  <data name="ErrorReadingFile" xml:space="preserve">
+    <value>Eroare la citirea fișierului {0}</value>
+  </data>
+  <data name="ErrorReadingFolder" xml:space="preserve">
+    <value>Eroare la citirea folderului {0}</value>
+  </data>
+  <data name="ErrorReadingMetadataForFile" xml:space="preserve">
+    <value>Eroare la citirea metadatelor pentru fișierul {0}</value>
+  </data>
+  <data name="ErrorSavingDataFile" xml:space="preserve">
+    <value>Eroare la salvarea fișierului de date {0}</value>
+  </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
     <value>Excludeți fișierele...</value>
-</data>
+  </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
-    <value xml:lang="en">Excludere fișiere:</value>
-</data>
+    <value>Excludere fișiere:</value>
+  </data>
   <data name="ExcludeOptionContent" xml:space="preserve">
-    <value xml:lang="en">Exclude</value>
-</data>
+    <value>Exclude</value>
+  </data>
   <data name="FileAndLine" xml:space="preserve">
     <value>{0}({1})</value>
-</data>
+  </data>
+  <data name="FileLineErrorMessage" xml:space="preserve">
+    <value>{0}({1}): {2}</value>
+  </data>
   <data name="FileOnlyOptionContent" xml:space="preserve">
-    <value xml:lang="en">Doar fișier</value>
-</data>
+    <value>Doar fișier</value>
+  </data>
   <data name="FileOptionContent" xml:space="preserve">
-    <value xml:lang="en">Fișier</value>
-</data>
+    <value>Fișier</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>fișiere</value>
+  </data>
+  <data name="FilesInAndOutMessage" xml:space="preserve">
+    <value>{0} fișiere, {1} Mb intrare, {2} Mb ieșire</value>
+  </data>
   <data name="FilterResultsLabel" xml:space="preserve">
     <value>Filtrați rezultatele...</value>
-</data>
+  </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
-    <value xml:lang="en">Filtrare rezultate:</value>
-</data>
+    <value>Filtrare rezultate:</value>
+  </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
-    <value xml:lang="en">Filtrare domeniu căutare:</value>
-</data>
+    <value>Filtrare domeniu căutare:</value>
+  </data>
   <data name="GroupByLabelContent" xml:space="preserve">
-    <value xml:lang="en">Grupare după:</value>
-</data>
+    <value>Grupare după:</value>
+  </data>
   <data name="GroupExpandLabelContent" xml:space="preserve">
-    <value xml:lang="en">Expandare grup:</value>
-</data>
+    <value>Expandare grup:</value>
+  </data>
   <data name="GroupFormat" xml:space="preserve">
-    <value xml:lang="en">Grupul {0}</value>
-</data>
+    <value>Grupul {0}</value>
+  </data>
   <data name="GroupsListBoxAddButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Adaugă un nou grup</value>
-</data>
+    <value>Adaugă un nou grup</value>
+  </data>
   <data name="GroupsListBoxEditButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Editează numele grupului</value>
-</data>
+    <value>Editează numele grupului</value>
+  </data>
   <data name="GroupsListBoxRemoveAllButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge toate grupurile</value>
-</data>
+    <value>Șterge toate grupurile</value>
+  </data>
   <data name="GroupsListBoxRemoveButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge grupul/urile selectate</value>
-</data>
+    <value>Șterge grupul/urile selectate</value>
+  </data>
   <data name="GroupsListBoxTitle" xml:space="preserve">
-    <value xml:lang="en">Grupuri</value>
-</data>
+    <value>Grupuri</value>
+  </data>
   <data name="HistoricOpen" xml:space="preserve">
     <value>Deschis {0}</value>
-</data>
+  </data>
   <data name="HistoricSearch" xml:space="preserve">
     <value>Căutat {0}</value>
-</data>
+  </data>
   <data name="HistoryButton" xml:space="preserve">
     <value>Afișează căutările recente ({0})</value>
-</data>
+  </data>
   <data name="HistoryButtonLabelContent" xml:space="preserve">
-    <value xml:lang="en">Buton istoric:</value>
-</data>
+    <value>Buton istoric:</value>
+  </data>
+  <data name="HoursAgoText" xml:space="preserve">
+    <value>acum {0} ore</value>
+  </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>Includeti fișierele...</value>
-</data>
+  </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
-    <value xml:lang="en">Includere fișiere:</value>
-</data>
+    <value>Includere fișiere:</value>
+  </data>
   <data name="IncludeOptionContent" xml:space="preserve">
-    <value xml:lang="en">Include</value>
-</data>
+    <value>Include</value>
+  </data>
   <data name="InfoLabel" xml:space="preserve">
     <value>Etichetă informații</value>
-</data>
+  </data>
   <data name="InitInfo" xml:space="preserve">
     <value>Informații de inițializare</value>
-</data>
+  </data>
+  <data name="InvalidCharacterClass" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: clasă de caractere nevalidă</value>
+  </data>
+  <data name="InvalidCharacterClassRange" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: interval de clasă de caractere nevalid</value>
+  </data>
+  <data name="InvalidEscapeSequence" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: secvență de escape nevalidă</value>
+  </data>
+  <data name="InvalidNamedCaptureGroup" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: grup de captură cu nume nevalid</value>
+  </data>
+  <data name="InvalidPerlOperator" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: operator Perl nevalid</value>
+  </data>
+  <data name="InvalidRepetitionSize" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: dimensiune de repetare nevalidă</value>
+  </data>
+  <data name="InvalidUTF8" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: UTF-8 nevalid</value>
+  </data>
+  <data name="JustNowText" xml:space="preserve">
+    <value>adineauri</value>
+  </data>
+  <data name="LastIndexUpdateLabelContent" xml:space="preserve">
+    <value>Ultima actualizare a indexului: {0}</value>
+  </data>
+  <data name="MalformedChunkErrorMessage" xml:space="preserve">
+    <value>Eroare la citirea fișierului de date {0}: bucata neformatată corect</value>
+  </data>
+  <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+    <value>Eroare la citirea fișierului de date {0}: antet neformatat corect</value>
+  </data>
   <data name="MenuCopyAllResults" xml:space="preserve">
     <value>Copiază toate rezultatele</value>
-</data>
+  </data>
   <data name="MenuCopyFullPath" xml:space="preserve">
     <value>Copiază calea completă</value>
-</data>
+  </data>
   <data name="MenuCopyResult" xml:space="preserve">
     <value>Copiază rezultatul complet</value>
-</data>
+  </data>
   <data name="MenuCopyText" xml:space="preserve">
     <value>Copiază textul</value>
-</data>
+  </data>
   <data name="MenuGoTo" xml:space="preserve">
     <value>Mergi la locație</value>
-</data>
+  </data>
+  <data name="MinutesAgoText" xml:space="preserve">
+    <value>acum {0} minute</value>
+  </data>
+  <data name="MissingClosingParenthesis" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: lipsește )</value>
+  </data>
+  <data name="MissingClosingSquareBracket" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: lipsește ]</value>
+  </data>
   <data name="MonospaceFontLabelContent" xml:space="preserve">
-    <value xml:lang="en">Font cu spațiu fix:</value>
-</data>
+    <value>Font cu spațiu fix:</value>
+  </data>
   <data name="NeverOptionContent" xml:space="preserve">
-    <value xml:lang="en">Niciodată</value>
-</data>
+    <value>Niciodată</value>
+  </data>
+  <data name="NeverText" xml:space="preserve">
+    <value>niciodată</value>
+  </data>
+  <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: niciun argument pentru operatorul de repetare</value>
+  </data>
+  <data name="NoChanges" xml:space="preserve">
+    <value>Nicio modificare</value>
+  </data>
+  <data name="NoError" xml:space="preserve">
+    <value>fără eroare</value>
+  </data>
   <data name="NoneOptionContent" xml:space="preserve">
-    <value xml:lang="en">Niciunul</value>
-</data>
+    <value>Niciunul</value>
+  </data>
   <data name="NormalFontLabelContent" xml:space="preserve">
-    <value xml:lang="en">Font normal:</value>
-</data>
+    <value>Font normal:</value>
+  </data>
   <data name="NoSearchFoldersSet" xml:space="preserve">
     <value>Nu sunt setate foldere de căutare.</value>
-</data>
+  </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>Nicio soluție încărcată.</value>
-</data>
+  </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Deschide fișier</value>
-</data>
+  </data>
   <data name="OpenFileSearchLabelContent" xml:space="preserve">
-    <value xml:lang="en">Căutare fișier deschis:</value>
-</data>
+    <value>Căutare fișier deschis:</value>
+  </data>
+  <data name="OutOfMemoryErrorReadingFile" xml:space="preserve">
+    <value>Eroare la citirea fișierului {0}: memorie insuficientă</value>
+  </data>
   <data name="OverrideExistsErrorMessage" xml:space="preserve">
-    <value xml:lang="en">Suprascrierea există deja!</value>
-</data>
+    <value>Suprascrierea există deja!</value>
+  </data>
   <data name="PathOnlyOptionContent" xml:space="preserve">
-    <value xml:lang="en">Doar cale</value>
-</data>
+    <value>Doar cale</value>
+  </data>
   <data name="PathsListBoxAddButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Adaugă unul sau mai multe foldere noi</value>
-</data>
+    <value>Adaugă unul sau mai multe foldere noi</value>
+  </data>
   <data name="PathsListBoxEditButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Editează numele folderului</value>
-</data>
+    <value>Editează numele folderului</value>
+  </data>
   <data name="PathsListBoxRemoveAllButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge toate folderele</value>
-</data>
+    <value>Șterge toate folderele</value>
+  </data>
   <data name="PathsListBoxRemoveButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge folderul/urile selectate</value>
-</data>
+    <value>Șterge folderul/urile selectate</value>
+  </data>
   <data name="PathsListBoxTitle" xml:space="preserve">
-    <value xml:lang="en">Foldere</value>
-</data>
+    <value>Foldere</value>
+  </data>
   <data name="PathStyleLabelContent" xml:space="preserve">
-    <value xml:lang="en">Stil cale:</value>
-</data>
+    <value>Stil cale:</value>
+  </data>
   <data name="PlainTextContent" xml:space="preserve">
-    <value xml:lang="en">Text simplu</value>
-</data>
+    <value>Text simplu</value>
+  </data>
   <data name="PredefinedButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">O listă de expresii regulate predefinite</value>
-</data>
+    <value>O listă de expresii regulate predefinite</value>
+  </data>
   <data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Adaugă nouă configurație</value>
-</data>
+    <value>Adaugă nouă configurație</value>
+  </data>
   <data name="ProjectsListBoxEditButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Editează numele configurației</value>
-</data>
+    <value>Editează numele configurației</value>
+  </data>
   <data name="ProjectsListBoxRemoveAllButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge toate configurațiile</value>
-</data>
+    <value>Șterge toate configurațiile</value>
+  </data>
   <data name="ProjectsListBoxRemoveButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge configurația/ile selectate</value>
-</data>
+    <value>Șterge configurația/ile selectate</value>
+  </data>
   <data name="ProjectsListBoxTitle" xml:space="preserve">
-    <value xml:lang="en">Configurări</value>
-</data>
+    <value>Configurări</value>
+  </data>
   <data name="RegEx" xml:space="preserve">
     <value>Expresii regulate ({0})</value>
-</data>
+  </data>
   <data name="RegExLabelContent" xml:space="preserve">
-    <value xml:lang="en">Expresie regulată:</value>
-</data>
+    <value>Expresie regulată:</value>
+  </data>
   <data name="RelativePathOptionContent" xml:space="preserve">
-    <value xml:lang="en">Cale relativă</value>
-</data>
+    <value>Cale relativă</value>
+  </data>
   <data name="RemoveAllColorOverridesTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge toate suprascrierile de culoare</value>
-</data>
+    <value>Șterge toate suprascrierile de culoare</value>
+  </data>
   <data name="RemoveColorOverrideTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge suprascriere culoare selectată</value>
-</data>
+    <value>Șterge suprascriere culoare selectată</value>
+  </data>
   <data name="RemoveExtraContent" xml:space="preserve">
-    <value xml:lang="en">Elimină proiectele și grupurile suplimentare pentru a reveni la setările de bază</value>
-</data>
+    <value>Elimină proiectele și grupurile suplimentare pentru a reveni la setările de bază</value>
+  </data>
   <data name="ResultGroupHeightLabelContent" xml:space="preserve">
-    <value xml:lang="en">Înălțime grup rezultate:</value>
-</data>
+    <value>Înălțime grup rezultate:</value>
+  </data>
   <data name="ResultLineHeightLabelContent" xml:space="preserve">
-    <value xml:lang="en">Înălțime linie rezultat:</value>
-</data>
+    <value>Înălțime linie rezultat:</value>
+  </data>
   <data name="RootContent" xml:space="preserve">
-    <value xml:lang="en">&lt;rădăcină&gt;</value>
-</data>
+    <value>&lt;rădăcină&gt;</value>
+  </data>
   <data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Adaugă un nou filtru</value>
-</data>
+    <value>Adaugă un nou filtru</value>
+  </data>
   <data name="RulesListBoxEditButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Editează filtrul</value>
-</data>
+    <value>Editează filtrul</value>
+  </data>
   <data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge toate filtrele</value>
-</data>
+    <value>Șterge toate filtrele</value>
+  </data>
   <data name="RulesListBoxRemoveButtonTooltip" xml:space="preserve">
-    <value xml:lang="en">Șterge filtrul/filtrele selectate</value>
-</data>
+    <value>Șterge filtrul/filtrele selectate</value>
+  </data>
   <data name="RulesListBoxTitle" xml:space="preserve">
-    <value xml:lang="en">Filtre</value>
-</data>
+    <value>Filtre</value>
+  </data>
   <data name="SaveButtonContent" xml:space="preserve">
-    <value xml:lang="en">Salvează</value>
-</data>
+    <value>Salvează</value>
+  </data>
+  <data name="ScanningProjectMessage" xml:space="preserve">
+    <value>Se scanează proiectul...</value>
+  </data>
   <data name="SearchCaseSensitive" xml:space="preserve">
-    <value>Sensibil la majuscule/minuscule ({0})</value>
-</data>
+    <value>Sensibil la majuscule ({0})</value>
+  </data>
   <data name="SearchConfigurations" xml:space="preserve">
     <value>Configurări de căutare</value>
-</data>
+  </data>
   <data name="SearchFileLabel" xml:space="preserve">
     <value>Caută fișier...</value>
-</data>
+  </data>
   <data name="SearchLabel" xml:space="preserve">
     <value>Caută...</value>
-</data>
+  </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
-    <value xml:lang="en">Domeniu căutare:</value>
-</data>
+    <value>Domeniu căutare:</value>
+  </data>
   <data name="SearchWhileTypingLabelContent" xml:space="preserve">
-    <value xml:lang="en">Căutare în timpul tastării:</value>
-</data>
+    <value>Căutare în timpul tastării:</value>
+  </data>
   <data name="SearchWholeWord" xml:space="preserve">
     <value>Cuvânt întreg ({0})</value>
-</data>
+  </data>
   <data name="SelectFolderPrompt" xml:space="preserve">
-    <value xml:lang="en">Selectează folder(e)</value>
-</data>
+    <value>Selectează folder(e)</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Setări</value>
-</data>
+  </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
-    <value xml:lang="en">Scurtătură: {0}</value>
-</data>
+    <value>Scurtătură: {0}</value>
+  </data>
   <data name="ShortcutTooltipNoChangeFormat" xml:space="preserve">
-    <value xml:lang="en">Scurtătură: {0} (nu modifică setarea)</value>
-</data>
+    <value>Scurtătură: {0} (nu modifică setarea)</value>
+  </data>
   <data name="ShowHistoryLabelContent" xml:space="preserve">
-    <value xml:lang="en">Afișează istoricul:</value>
-</data>
+    <value>Afișează istoricul:</value>
+  </data>
   <data name="ShowingResults" xml:space="preserve">
     <value>Se afișează {0} rezultat(e) pentru "{1}".</value>
-</data>
+  </data>
   <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
-    <value xml:lang="en">Afișare istoric deschideri:</value>
-</data>
+    <value>Afișare istoric deschideri:</value>
+  </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>Oprește</value>
-</data>
+  </data>
   <data name="TargetLabelContent" xml:space="preserve">
-    <value xml:lang="en">Destinație:</value>
-</data>
+    <value>Destinație:</value>
+  </data>
   <data name="TextAndPathOptionContent" xml:space="preserve">
-    <value xml:lang="en">Text și cale</value>
-</data>
+    <value>Text și cale</value>
+  </data>
   <data name="TextOnlyOptionContent" xml:space="preserve">
-    <value xml:lang="en">Doar text</value>
-</data>
+    <value>Doar text</value>
+  </data>
   <data name="ThemeSettings" xml:space="preserve">
     <value>Setări temă</value>
-</data>
+  </data>
   <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
-    <value xml:lang="en">Comută sensibilitatea la majuscule:</value>
-</data>
+    <value>Comută sensibilitatea la majuscule:</value>
+  </data>
   <data name="ToggleExcludeFilesLabelContent" xml:space="preserve">
-    <value xml:lang="en">Comută excluderea fișierelor:</value>
-</data>
+    <value>Comută excluderea fișierelor:</value>
+  </data>
   <data name="ToggleFilterResultsLabelContent" xml:space="preserve">
-    <value xml:lang="en">Comută filtrarea rezultatelor:</value>
-</data>
+    <value>Comută filtrarea rezultatelor:</value>
+  </data>
   <data name="ToggleGroupingByLabelContent" xml:space="preserve">
-    <value xml:lang="en">Comută gruparea după:</value>
-</data>
+    <value>Comută gruparea după:</value>
+  </data>
   <data name="ToggleGroupingExpandLabelContent" xml:space="preserve">
-    <value xml:lang="en">Comută expandarea grupurilor:</value>
-</data>
+    <value>Comută expandarea grupurilor:</value>
+  </data>
   <data name="ToggleIncludeFilesLabelContent" xml:space="preserve">
-    <value xml:lang="en">Comută includerea fișierelor:</value>
-</data>
+    <value>Comută includerea fișierelor:</value>
+  </data>
   <data name="ToggleRegexLabelContent" xml:space="preserve">
-    <value xml:lang="en">Comută expresiile regulate:</value>
-</data>
+    <value>Comută expresiile regulate:</value>
+  </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
-    <value xml:lang="en">Comută întreaga cuvânt:</value>
-</data>
+    <value>Comută întreaga cuvânt:</value>
+  </data>
+  <data name="TrailingBackslash" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: \ final</value>
+  </data>
   <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
-    <value xml:lang="en">Decupare spații la copiere:</value>
-</data>
+    <value>Decupare spații la copiere:</value>
+  </data>
   <data name="TypeLabelContent" xml:space="preserve">
-    <value xml:lang="en">Tip:</value>
-</data>
+    <value>Tip:</value>
+  </data>
+  <data name="UncaughtExceptionMessage" xml:space="preserve">
+    <value>Excepție neprinsă: {0}</value>
+  </data>
+  <data name="UnexpectedClosingParenthesis" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: ) neașteptat</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Eroare la analizarea expresiei regulate: eroare neașteptată</value>
+  </data>
   <data name="UpdateIndex" xml:space="preserve">
     <value>Actualizează indexul</value>
-</data>
+  </data>
   <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
-    <value xml:lang="en">Actualizare index automată:</value>
-</data>
+    <value>Actualizare index automată:</value>
+  </data>
+  <data name="UpdatingMessage" xml:space="preserve">
+    <value>Se actualizează {0}:</value>
+  </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
-</data>
-  <data name="LastIndexUpdateLabelContent" xml:space="preserve">
-    <value xml:lang="en">Ultima actualizare a indexului: {0}</value>
-</data>
-  <data name="NeverText" xml:space="preserve">
-    <value xml:lang="en">niciodată</value>
-</data>
-  <data name="JustNowText" xml:space="preserve">
-    <value xml:lang="en">acum</value>
-</data>
-  <data name="MinutesAgoText" xml:space="preserve">
-    <value xml:lang="en">acum {0}m</value>
-</data>
-  <data name="HoursAgoText" xml:space="preserve">
-    <value xml:lang="en">acum {0}h</value>
-</data>
-  <data name="DaysAgoText" xml:space="preserve">
-    <value xml:lang="en">acum {0}z</value>
-</data>
-  <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
-    <value xml:lang="en">Atenție: fișierul de date {0} are un format expirat, se reconstruiește</value>
-</data>
-  <data name="MalformedChunkErrorMessage" xml:space="preserve">
-    <value xml:lang="en">Eroare la citirea fișierului de date {0}: bucata neformatată corect</value>
-</data>
-  <data name="UpdatingMessage" xml:space="preserve">
-    <value xml:lang="en">Se actualizează {0}:</value>
-</data>
-  <data name="ScanningProjectMessage" xml:space="preserve">
-    <value xml:lang="en">Se scanează proiectul...</value>
-</data>
-  <data name="BuildingFileTableMessage" xml:space="preserve">
-    <value xml:lang="en">Se construiește tabela de fișiere...</value>
-</data>
-  <data name="ErrorSavingDataFile" xml:space="preserve">
-    <value xml:lang="en">Eroare la salvarea fișierului de date {0}</value>
-</data>
-  <data name="FilesInAndOutMessage" xml:space="preserve">
-    <value xml:lang="en">{0} fișiere, {1} Mb în, {2} Mb ieșire</value>
-</data>
-  <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
-    <value xml:lang="en">Eroare la deschiderea fișierului de date {0} pentru scriere</value>
-</data>
-  <data name="ErrorReadingFile" xml:space="preserve">
-    <value xml:lang="en">Eroare la citirea fișierului {0}</value>
-</data>
-  <data name="OutOfMemoryErrorReadingFile" xml:space="preserve">
-    <value xml:lang="en">Eroare la citirea fișierului {0}: memorie insuficientă</value>
-</data>
-  <data name="BuildingMessage" xml:space="preserve">
-    <value xml:lang="en">Se construiește {0}</value>
-</data>
-  <data name="UncaughtExceptionMessage" xml:space="preserve">
-    <value xml:lang="en">Excepție neprinsă: {0}</value>
-</data>
-  <data name="ErrorReadingDataFile" xml:space="preserve">
-    <value xml:lang="en">Eroare la citirea fișierului de date {0}</value>
-</data>
-  <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
-    <value xml:lang="en">Eroare la citirea fișierului de date {0}: antet neformatat corect</value>
-</data>
-  <data name="FileLineErrorMessage" xml:space="preserve">
-    <value xml:lang="en">{0}({1}): {2}</value>
-</data>
-  <data name="ErrorReadingMetadataForFile" xml:space="preserve">
-    <value xml:lang="en">Eroare la citirea metadatelor pentru fișierul {0}</value>
-</data>
-  <data name="ErrorReadingFolder" xml:space="preserve">
-    <value xml:lang="en">Eroare la citirea folderului {0}</value>
-</data>
-	<data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value xml:lang="en">{0} {1}; {2}/{3} fragmente actualizate în {4:0.00} sec</value>
-</data>
-
-	<data name="NoChanges" xml:space="preserve">
-    <value xml:lang="en">Nicio modificare</value>
-</data>
-
-	<data name="Files" xml:space="preserve">
-    <value xml:lang="en">fișiere</value>
-</data>
-
-	<data name="NoError" xml:space="preserve">
-    <value xml:lang="en">fără eroare</value>
-</data>
-  <data name="UnexpectedError" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: eroare neașteptată</value>
-</data>
-  <data name="InvalidEscapeSequence" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: secvență de escape nevalidă</value>
-</data>
-  <data name="InvalidCharacterClass" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: clasă de caractere nevalidă</value>
-</data>
-  <data name="InvalidCharacterClassRange" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: interval de clasă de caractere nevalid</value>
-</data>
-  <data name="MissingClosingSquareBracket" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: lipsește ]</value>
-</data>
-  <data name="MissingClosingParenthesis" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: lipsește )</value>
-</data>
-  <data name="UnexpectedClosingParenthesis" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: ) neașteptat</value>
-</data>
-  <data name="TrailingBackslash" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: \\ final</value>
-</data>
-  <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: niciun argument pentru operatorul de repetare</value>
-</data>
-  <data name="InvalidRepetitionSize" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: dimensiune de repetare nevalidă</value>
-</data>
-  <data name="BadRepetitionOperator" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: operator de repetare greșit</value>
-</data>
-  <data name="InvalidPerlOperator" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: operator Perl nevalid</value>
-</data>
-  <data name="InvalidUTF8" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: UTF-8 nevalid</value>
-</data>
-  <data name="InvalidNamedCaptureGroup" xml:space="preserve">
-    <value xml:lang="en">Eroare la analizarea expresiei regulate: grup de captură cu nume nevalid</value>
-</data>
+  </data>
 </root>

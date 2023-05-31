@@ -1475,7 +1475,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error parsing regular expression: trailing \\.
+        ///   Looks up a localized string similar to Error parsing regular expression: trailing \.
         /// </summary>
         public static string TrailingBackslash {
             get {

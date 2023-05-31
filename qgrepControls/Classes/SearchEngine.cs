@@ -242,7 +242,7 @@ namespace qgrepControls.Classes
                         (string result) => { return StringHandler(result, searchOptions); }, 
                         (string error) => { SearchErrorHandler(error, searchOptions); }, 
                         null,
-                        LocalizedStringHandler);
+                        (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
                 }
 
                 IsBusy = false;
@@ -294,7 +294,7 @@ namespace qgrepControls.Classes
                     (string result) => { return StringHandler(result, searchOptions, true); },
                     (string error) => { SearchErrorHandler(error, searchOptions); },
                     null,
-                    LocalizedStringHandler);
+                    (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
 
                 IsBusy = false;
                 TaskRunner.RunOnUIThread(() =>
@@ -503,6 +503,11 @@ namespace qgrepControls.Classes
             catch { }
         }
 
+        private void SearchLocalizedStringHandler(List<string> results, SearchOptions searchOptions)
+        {
+            searchOptions.EventsHandler.OnErrorEvent(LocalizationHelper.Translate(results), searchOptions);
+        }
+
         private void SearchErrorHandler(string message, SearchOptions searchOptions)
         {
             if (message.EndsWith("\n"))
@@ -555,7 +560,7 @@ namespace qgrepControls.Classes
                             (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
                             (string message) => { UpdateErrorHandler(message, databaseUpdate); },
                             (double percentage) => { ProgressHandler(percentage, databaseUpdate); },
-                            LocalizedStringHandler);
+                            (List<string> messages) => { UpdateLocalizedStringHandler(messages, databaseUpdate); } );
                     }
                     else
                     {
@@ -574,7 +579,7 @@ namespace qgrepControls.Classes
                                 (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
                                 (string message) => { UpdateErrorHandler(message, databaseUpdate); },
                                 (double percentage) => { ProgressHandler(percentage, databaseUpdate); },
-                                LocalizedStringHandler);
+                                (List<string> messages) => { UpdateLocalizedStringHandler(messages, databaseUpdate); });
                         }
                     }
                 }
@@ -600,55 +605,10 @@ namespace qgrepControls.Classes
         {
             UpdateErrorCallback(result, databaseUpdate);
         }
-        public static bool LooksLikePath(string path)
+
+        private void UpdateLocalizedStringHandler(List<string> results, DatabaseUpdate databaseUpdate)
         {
-            try
-            {
-                string fullPath = System.IO.Path.GetFullPath(path);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        private void LocalizedStringHandler(List<string> result)
-        {
-            if(result.Count > 1)
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
-
-                string resourceKey = result[0];
-                string format = Resources.ResourceManager.GetString(resourceKey);
-
-                if (format != null)
-                {
-                    object[] args = result.Skip(1).Select(s =>
-                    {
-                        string resourceValue = Resources.ResourceManager.GetString(s);
-                        if (resourceValue != null)
-                        {
-                            return resourceValue;
-                        }
-
-                        if (double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out double num))
-                        {
-                            return (object)num;
-                        }
-                        else if(LooksLikePath(s))
-                        {
-                            return ConfigParser.FromUtf8(s);
-                        }
-
-                        return s;
-                    }).ToArray();
-                    string formattedString = string.Format(format, args);
-
-                    UpdateInfoCallback(formattedString, null);
-                }
-            }
+            UpdateInfoCallback(LocalizationHelper.Translate(results), databaseUpdate);
         }
 
         private bool DatabaseMessageHandler(string result, DatabaseUpdate databaseUpdate)

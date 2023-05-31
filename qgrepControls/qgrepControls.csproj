@@ -78,6 +78,7 @@
     <Compile Include="Classes\IWrapperApp.cs" />
     <Compile Include="Classes\FolderSelectDialog.cs" />
     <Compile Include="Classes\Hotkey.cs" />
+    <Compile Include="Classes\LocalizationHelper.cs" />
     <Compile Include="Classes\MutexUtility.cs" />
     <Compile Include="Classes\SearchEngine.cs" />
     <Compile Include="Classes\TaskRunner.cs" />

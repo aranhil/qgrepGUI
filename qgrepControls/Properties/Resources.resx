@@ -145,6 +145,9 @@
   <data name="AutoOptionContent" xml:space="preserve">
     <value xml:lang="en">Auto</value>
 </data>
+  <data name="BadRepetitionOperator" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: bad repetition operator</value>
+</data>
   <data name="BasicToggleContent" xml:space="preserve">
     <value xml:lang="en">›› Basic</value>
 </data>
@@ -247,6 +250,9 @@
   <data name="FileOptionContent" xml:space="preserve">
     <value xml:lang="en">File</value>
 </data>
+  <data name="Files" xml:space="preserve">
+  <value xml:lang="en">files</value>
+</data>
   <data name="FilesInAndOutMessage" xml:space="preserve">
   <value xml:lang="en">{0} files, {1} Mb in, {2} Mb out</value>
 </data>
@@ -313,6 +319,27 @@
   <data name="InitInfo" xml:space="preserve">
     <value>Init Info</value>
   </data>
+  <data name="InvalidCharacterClass" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid character class</value>
+</data>
+  <data name="InvalidCharacterClassRange" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid character class range</value>
+</data>
+  <data name="InvalidEscapeSequence" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid escape sequence</value>
+</data>
+  <data name="InvalidNamedCaptureGroup" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid named capture group</value>
+</data>
+  <data name="InvalidPerlOperator" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid perl operator</value>
+</data>
+  <data name="InvalidRepetitionSize" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid repetition size</value>
+</data>
+  <data name="InvalidUTF8" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid UTF-8</value>
+</data>
   <data name="JustNowText" xml:space="preserve">
     <value xml:lang="en">just now</value>
 </data>
@@ -343,6 +370,12 @@
   <data name="MinutesAgoText" xml:space="preserve">
     <value xml:lang="en">{0}m ago</value>
 </data>
+  <data name="MissingClosingParenthesis" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: missing )</value>
+</data>
+  <data name="MissingClosingSquareBracket" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: missing ]</value>
+</data>
   <data name="MonospaceFontLabelContent" xml:space="preserve">
     <value xml:lang="en">Monospace font:</value>
 </data>
@@ -351,6 +384,15 @@
 </data>
   <data name="NeverText" xml:space="preserve">
     <value xml:lang="en">never</value>
+</data>
+  <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: no argument for repetition operator</value>
+</data>
+  <data name="NoChanges" xml:space="preserve">
+  <value xml:lang="en">No changes</value>
+</data>
+  <data name="NoError" xml:space="preserve">
+  <value xml:lang="en">no error</value>
 </data>
   <data name="NoneOptionContent" xml:space="preserve">
     <value xml:lang="en">None</value>
@@ -547,6 +589,9 @@
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value xml:lang="en">Toggle whole word:</value>
 </data>
+  <data name="TrailingBackslash" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: trailing \</value>
+</data>
   <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
     <value xml:lang="en">Trim spaces on copy:</value>
 </data>
@@ -555,6 +600,12 @@
 </data>
   <data name="UncaughtExceptionMessage" xml:space="preserve">
   <value xml:lang="en">Uncaught exception: {0}</value>
+</data>
+  <data name="UnexpectedClosingParenthesis" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: unexpected )</value>
+</data>
+  <data name="UnexpectedError" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: unexpected error</value>
 </data>
   <data name="UpdateIndex" xml:space="preserve">
     <value>Update index</value>
@@ -567,56 +618,5 @@
 </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Use global path</value>
-</data>
-	<data name="Files" xml:space="preserve">
-  <value xml:lang="en">files</value>
-</data>
-	<data name="NoChanges" xml:space="preserve">
-  <value xml:lang="en">No changes</value>
-</data>
-	<data name="NoError" xml:space="preserve">
-  <value xml:lang="en">no error</value>
-</data>
-	<data name="UnexpectedError" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: unexpected error</value>
-</data>
-	<data name="InvalidEscapeSequence" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: invalid escape sequence</value>
-</data>
-	<data name="InvalidCharacterClass" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: invalid character class</value>
-</data>
-	<data name="InvalidCharacterClassRange" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: invalid character class range</value>
-</data>
-	<data name="MissingClosingSquareBracket" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: missing ]</value>
-</data>
-	<data name="MissingClosingParenthesis" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: missing )</value>
-</data>
-	<data name="UnexpectedClosingParenthesis" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: unexpected )</value>
-</data>
-	<data name="TrailingBackslash" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: trailing \\</value>
-</data>
-	<data name="NoArgumentForRepetitionOperator" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: no argument for repetition operator</value>
-</data>
-	<data name="InvalidRepetitionSize" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: invalid repetition size</value>
-</data>
-	<data name="BadRepetitionOperator" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: bad repetition operator</value>
-</data>
-	<data name="InvalidPerlOperator" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: invalid perl operator</value>
-</data>
-	<data name="InvalidUTF8" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: invalid UTF-8</value>
-</data>
-	<data name="InvalidNamedCaptureGroup" xml:space="preserve">
-  <value xml:lang="en">Error parsing regular expression: invalid named capture group</value>
 </data>
 </root>
