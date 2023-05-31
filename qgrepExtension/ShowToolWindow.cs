@@ -19,24 +19,28 @@ namespace qgrepSearch
 
         private static void Execute(AsyncPackage package)
         {
-            qgrepSearchPackage qgrepPackage = package as qgrepSearchPackage;
-            if(qgrepPackage != null)
+            try
             {
-                qgrepPackage.SearchWindowOpened = true;
+                qgrepSearchPackage qgrepPackage = package as qgrepSearchPackage;
+                if (qgrepPackage != null)
+                {
+                    qgrepPackage.SearchWindowOpened = true;
+                }
+
+                Microsoft.VisualStudio.Threading.JoinableTask joinableTask = package.JoinableTaskFactory.RunAsync(async () =>
+                {
+                    ToolWindowPane window = await package.ShowToolWindowAsync(
+                        typeof(qgrepSearchWindow),
+                        0,
+                        create: true,
+                        cancellationToken: package.DisposalToken);
+
+                    await Microsoft.VisualStudio.Shell.ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                    IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                    windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_CmdUIGuid, "6e3b2e95-902b-4385-a966-30c06ab3c7a6");
+                });
             }
-
-            Microsoft.VisualStudio.Threading.JoinableTask joinableTask = package.JoinableTaskFactory.RunAsync(async () =>
-            {
-                ToolWindowPane window = await package.ShowToolWindowAsync(
-                    typeof(qgrepSearchWindow),
-                    0,
-                    create: true,
-                    cancellationToken: package.DisposalToken);
-
-                await Microsoft.VisualStudio.Shell.ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-                windowFrame.SetProperty((int)__VSFPROPID.VSFPROPID_CmdUIGuid, "6e3b2e95-902b-4385-a966-30c06ab3c7a6");
-            });
+            catch { }
         }
     }
 }

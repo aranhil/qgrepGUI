@@ -627,6 +627,12 @@ namespace qgrepControls.Classes
                 {
                     object[] args = result.Skip(1).Select(s =>
                     {
+                        string resourceValue = Resources.ResourceManager.GetString(s);
+                        if (resourceValue != null)
+                        {
+                            return resourceValue;
+                        }
+
                         if (double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out double num))
                         {
                             return (object)num;
@@ -635,6 +641,7 @@ namespace qgrepControls.Classes
                         {
                             return ConfigParser.FromUtf8(s);
                         }
+
                         return s;
                     }).ToArray();
                     string formattedString = string.Format(format, args);

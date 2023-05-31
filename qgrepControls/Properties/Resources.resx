@@ -160,6 +160,9 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Cannot clean index: {0}</value>
   </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value xml:lang="en">{0} {1}; {2}/{3} chunks updated in {4:0.00} sec</value>
+</data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Clean and update index</value>
   </data>
@@ -208,8 +211,17 @@
   <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
   <value xml:lang="en">Error opening data file {0} for writing</value>
 </data>
+  <data name="ErrorReadingDataFile" xml:space="preserve">
+  <value xml:lang="en">Error reading data file {0}</value>
+</data>
   <data name="ErrorReadingFile" xml:space="preserve">
   <value xml:lang="en">Error reading file {0}</value>
+</data>
+  <data name="ErrorReadingFolder" xml:space="preserve">
+  <value xml:lang="en">Error reading folder {0}</value>
+</data>
+  <data name="ErrorReadingMetadataForFile" xml:space="preserve">
+  <value xml:lang="en">Error reading metadata for file {0}</value>
 </data>
   <data name="ErrorSavingDataFile" xml:space="preserve">
     <value xml:lang="en">Error saving data file {0}</value>
@@ -226,6 +238,9 @@
   <data name="FileAndLine" xml:space="preserve">
     <value>{0}({1})</value>
   </data>
+  <data name="FileLineErrorMessage" xml:space="preserve">
+  <value xml:lang="en">{0}({1}): {2}</value>
+</data>
   <data name="FileOnlyOptionContent" xml:space="preserve">
     <value xml:lang="en">File only</value>
 </data>
@@ -234,9 +249,6 @@
 </data>
   <data name="FilesInAndOutMessage" xml:space="preserve">
   <value xml:lang="en">{0} files, {1} Mb in, {2} Mb out</value>
-</data>
-  <data name="FilesUpdatedMessage" xml:space="preserve">
-    <value xml:lang="en">{0} files; {1}/{2} chunks updated in {3:0.00} sec</value>
 </data>
   <data name="FilterResultsLabel" xml:space="preserve">
     <value>Filter results...</value>
@@ -310,6 +322,9 @@
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value xml:lang="en">Error reading data file {0}: malformed chunk</value>
 </data>
+  <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+  <value xml:lang="en">Error reading data file {0}: malformed header</value>
+</data>
   <data name="MenuCopyAllResults" xml:space="preserve">
     <value>Copy all results</value>
   </data>
@@ -336,9 +351,6 @@
 </data>
   <data name="NeverText" xml:space="preserve">
     <value xml:lang="en">never</value>
-</data>
-  <data name="NoChangesMessage" xml:space="preserve">
-    <value xml:lang="en">{0} No changes; {1}/{2} chunks updated in {3:0.00} sec</value>
 </data>
   <data name="NoneOptionContent" xml:space="preserve">
     <value xml:lang="en">None</value>
@@ -541,6 +553,9 @@
   <data name="TypeLabelContent" xml:space="preserve">
     <value xml:lang="en">Type:</value>
 </data>
+  <data name="UncaughtExceptionMessage" xml:space="preserve">
+  <value xml:lang="en">Uncaught exception: {0}</value>
+</data>
   <data name="UpdateIndex" xml:space="preserve">
     <value>Update index</value>
   </data>
@@ -553,28 +568,55 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Use global path</value>
 </data>
-	<data name="UncaughtExceptionMessage" xml:space="preserve">
-  <value xml:lang="en">Uncaught exception: {0}</value>
+	<data name="Files" xml:space="preserve">
+  <value xml:lang="en">files</value>
 </data>
-	<data name="ErrorSavingDataFile" xml:space="preserve">
-  <value xml:lang="en">Error saving data file {0}</value>
+	<data name="NoChanges" xml:space="preserve">
+  <value xml:lang="en">No changes</value>
 </data>
-	<data name="ErrorReadingDataFile" xml:space="preserve">
-  <value xml:lang="en">Error reading data file {0}</value>
+	<data name="NoError" xml:space="preserve">
+  <value xml:lang="en">no error</value>
 </data>
-	<data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
-  <value xml:lang="en">Error reading data file {0}: malformed header</value>
+	<data name="UnexpectedError" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: unexpected error</value>
 </data>
-	<data name="ErrorReadingFile" xml:space="preserve">
-  <value xml:lang="en">Error reading file {0}</value>
+	<data name="InvalidEscapeSequence" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid escape sequence</value>
 </data>
-	<data name="FileLineErrorMessage" xml:space="preserve">
-  <value xml:lang="en">{0}({1}): {2}</value>
+	<data name="InvalidCharacterClass" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid character class</value>
 </data>
-	<data name="ErrorReadingMetadataForFile" xml:space="preserve">
-  <value xml:lang="en">Error reading metadata for file {0}</value>
+	<data name="InvalidCharacterClassRange" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid character class range</value>
 </data>
-	<data name="ErrorReadingFolder" xml:space="preserve">
-  <value xml:lang="en">Error reading folder {0}</value>
+	<data name="MissingClosingSquareBracket" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: missing ]</value>
+</data>
+	<data name="MissingClosingParenthesis" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: missing )</value>
+</data>
+	<data name="UnexpectedClosingParenthesis" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: unexpected )</value>
+</data>
+	<data name="TrailingBackslash" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: trailing \\</value>
+</data>
+	<data name="NoArgumentForRepetitionOperator" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: no argument for repetition operator</value>
+</data>
+	<data name="InvalidRepetitionSize" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid repetition size</value>
+</data>
+	<data name="BadRepetitionOperator" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: bad repetition operator</value>
+</data>
+	<data name="InvalidPerlOperator" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid perl operator</value>
+</data>
+	<data name="InvalidUTF8" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid UTF-8</value>
+</data>
+	<data name="InvalidNamedCaptureGroup" xml:space="preserve">
+  <value xml:lang="en">Error parsing regular expression: invalid named capture group</value>
 </data>
 </root>

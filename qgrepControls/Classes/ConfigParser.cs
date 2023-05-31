@@ -532,17 +532,17 @@ namespace qgrepControls.Classes
 
         public static string GetCommonPathPrefix(string path1, string path2)
         {
-            int minLength = Math.Min(path1.Length, path2.Length);
+            var parts1 = path1.Split('\\');
+            var parts2 = path2.Split('\\');
+
+            int minLength = Math.Min(parts1.Length, parts2.Length);
             int commonLength = 0;
 
             for (int i = 0; i < minLength; i++)
             {
-                if (path1[i] == path2[i])
+                if (parts1[i] == parts2[i])
                 {
-                    if (path1[i] == '\\')
-                    {
-                        commonLength = i + 1;
-                    }
+                    commonLength++;
                 }
                 else
                 {
@@ -550,7 +550,14 @@ namespace qgrepControls.Classes
                 }
             }
 
-            string commonPathPrefix = path1.Substring(0, commonLength);
+            var commonParts = parts1.Take(commonLength);
+            string commonPathPrefix = string.Join("\\", commonParts);
+
+            // Ensure the common path prefix ends with a backslash if it's not the root
+            if (commonPathPrefix.Length > 0 && !commonPathPrefix.EndsWith("\\"))
+            {
+                commonPathPrefix += "\\";
+            }
 
             return commonPathPrefix;
         }

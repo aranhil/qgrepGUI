@@ -491,21 +491,21 @@ bool Regexp::Equal(Regexp* a, Regexp* b) {
 
 // Keep in sync with enum RegexpStatusCode in regexp.h
 static const char *kErrorStrings[] = {
-  "no error",
-  "unexpected error",
-  "invalid escape sequence",
-  "invalid character class",
-  "invalid character class range",
-  "missing ]",
-  "missing )",
-  "unexpected )",
-  "trailing \\",
-  "no argument for repetition operator",
-  "invalid repetition size",
-  "bad repetition operator",
-  "invalid perl operator",
-  "invalid UTF-8",
-  "invalid named capture group",
+    "NoError",
+    "UnexpectedError",
+    "InvalidEscapeSequence",
+    "InvalidCharacterClass",
+    "InvalidCharacterClassRange",
+    "MissingClosingSquareBracket",
+    "MissingClosingParenthesis",
+    "UnexpectedClosingParenthesis",
+    "TrailingBackslash",
+    "NoArgumentForRepetitionOperator",
+    "InvalidRepetitionSize",
+    "BadRepetitionOperator",
+    "InvalidPerlOperator",
+    "InvalidUTF8",
+    "InvalidNamedCaptureGroup",
 };
 
 std::string RegexpStatus::CodeText(enum RegexpStatusCode code) {

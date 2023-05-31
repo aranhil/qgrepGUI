@@ -255,7 +255,7 @@ public:
 		
 		re.reset(new RE2(pattern, opts));
 		if (!re->ok())
-			throw std::runtime_error("Error parsing regular expression " + (string + (": " + re->error())));
+			throw std::runtime_error(re->error());
 
 		std::string prefix = getPrefix(re.get(), 128);
 

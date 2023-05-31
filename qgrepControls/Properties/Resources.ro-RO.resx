@@ -513,12 +513,6 @@
   <data name="DaysAgoText" xml:space="preserve">
     <value xml:lang="en">acum {0}z</value>
 </data>
-  <data name="FilesUpdatedMessage" xml:space="preserve">
-    <value xml:lang="en">{0} fișiere; {1}/{2} bucăți actualizate în {3:0.00} sec</value>
-</data>
-  <data name="NoChangesMessage" xml:space="preserve">
-    <value xml:lang="en">{0} Fără modificări; {1}/{2} bucăți actualizate în {3:0.00} sec</value>
-</data>
   <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
     <value xml:lang="en">Atenție: fișierul de date {0} are un format expirat, se reconstruiește</value>
 </data>
@@ -552,28 +546,79 @@
   <data name="BuildingMessage" xml:space="preserve">
     <value xml:lang="en">Se construiește {0}</value>
 </data>
-	<data name="UncaughtExceptionMessage" xml:space="preserve">
+  <data name="UncaughtExceptionMessage" xml:space="preserve">
     <value xml:lang="en">Excepție neprinsă: {0}</value>
 </data>
-	<data name="ErrorSavingDataFile" xml:space="preserve">
-    <value xml:lang="en">Eroare la salvarea fișierului de date {0}</value>
-</data>
-	<data name="ErrorReadingDataFile" xml:space="preserve">
+  <data name="ErrorReadingDataFile" xml:space="preserve">
     <value xml:lang="en">Eroare la citirea fișierului de date {0}</value>
 </data>
-	<data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+  <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
     <value xml:lang="en">Eroare la citirea fișierului de date {0}: antet neformatat corect</value>
 </data>
-	<data name="ErrorReadingFile" xml:space="preserve">
-    <value xml:lang="en">Eroare la citirea fișierului {0}</value>
-</data>
-	<data name="FileLineErrorMessage" xml:space="preserve">
+  <data name="FileLineErrorMessage" xml:space="preserve">
     <value xml:lang="en">{0}({1}): {2}</value>
 </data>
-	<data name="ErrorReadingMetadataForFile" xml:space="preserve">
+  <data name="ErrorReadingMetadataForFile" xml:space="preserve">
     <value xml:lang="en">Eroare la citirea metadatelor pentru fișierul {0}</value>
 </data>
-	<data name="ErrorReadingFolder" xml:space="preserve">
+  <data name="ErrorReadingFolder" xml:space="preserve">
     <value xml:lang="en">Eroare la citirea folderului {0}</value>
+</data>
+	<data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value xml:lang="en">{0} {1}; {2}/{3} fragmente actualizate în {4:0.00} sec</value>
+</data>
+
+	<data name="NoChanges" xml:space="preserve">
+    <value xml:lang="en">Nicio modificare</value>
+</data>
+
+	<data name="Files" xml:space="preserve">
+    <value xml:lang="en">fișiere</value>
+</data>
+
+	<data name="NoError" xml:space="preserve">
+    <value xml:lang="en">fără eroare</value>
+</data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: eroare neașteptată</value>
+</data>
+  <data name="InvalidEscapeSequence" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: secvență de escape nevalidă</value>
+</data>
+  <data name="InvalidCharacterClass" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: clasă de caractere nevalidă</value>
+</data>
+  <data name="InvalidCharacterClassRange" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: interval de clasă de caractere nevalid</value>
+</data>
+  <data name="MissingClosingSquareBracket" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: lipsește ]</value>
+</data>
+  <data name="MissingClosingParenthesis" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: lipsește )</value>
+</data>
+  <data name="UnexpectedClosingParenthesis" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: ) neașteptat</value>
+</data>
+  <data name="TrailingBackslash" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: \\ final</value>
+</data>
+  <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: niciun argument pentru operatorul de repetare</value>
+</data>
+  <data name="InvalidRepetitionSize" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: dimensiune de repetare nevalidă</value>
+</data>
+  <data name="BadRepetitionOperator" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: operator de repetare greșit</value>
+</data>
+  <data name="InvalidPerlOperator" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: operator Perl nevalid</value>
+</data>
+  <data name="InvalidUTF8" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: UTF-8 nevalid</value>
+</data>
+  <data name="InvalidNamedCaptureGroup" xml:space="preserve">
+    <value xml:lang="en">Eroare la analizarea expresiei regulate: grup de captură cu nume nevalid</value>
 </data>
 </root>

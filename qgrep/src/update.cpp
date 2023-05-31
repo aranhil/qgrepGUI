@@ -210,22 +210,12 @@ static void printStatistics(Output* output, const UpdateStatistics& stats, unsig
 	if (stats.filesRemoved) result += "-" + std::to_string(stats.filesRemoved) + " ";
 	if (stats.filesChanged) result += "*" + std::to_string(stats.filesChanged);
 
-	if ((stats.filesAdded || stats.filesRemoved || stats.filesChanged))
-	{
-		output->printLocalized("FilesUpdatedMessage", {
-			result,
-			std::to_string(totalChunks - stats.chunksPreserved),
-			std::to_string(totalChunks),
-			std::to_string(time) });
-	}
-	else
-	{
-		output->printLocalized("NoChangesMessage", {
-			result,
-			std::to_string(totalChunks - stats.chunksPreserved),
-			std::to_string(totalChunks),
-			std::to_string(time) });
-	}
+	output->printLocalized("ChunksUpdatedMessage", {
+		result,
+		(stats.filesAdded || stats.filesRemoved || stats.filesChanged) ? "Files" : "NoChanges",
+		std::to_string(totalChunks - stats.chunksPreserved),
+		std::to_string(totalChunks),
+		std::to_string(time) });
 }
 
 bool updateProject(Output* output, const char* path)
