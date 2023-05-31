@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows.Shapes;
@@ -322,6 +323,18 @@ namespace qgrepControls.Classes
 
         public ConfigParser()
         {
+        }
+
+        public static string ToUtf8(string path)
+        {
+            byte[] utf8Bytes = Encoding.UTF8.GetBytes(path);
+            return Encoding.GetEncoding("Windows-1252").GetString(utf8Bytes);
+        }
+
+        public static string FromUtf8(string path)
+        {
+            byte[] windows1252Bytes = Encoding.GetEncoding("Windows-1252").GetBytes(path);
+            return Encoding.UTF8.GetString(windows1252Bytes);
         }
 
         public static void Initialize(string Path)

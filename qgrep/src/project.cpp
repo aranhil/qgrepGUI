@@ -240,7 +240,7 @@ static std::unique_ptr<ProjectGroup> parseGroup(std::ifstream& in, const char* f
 
 std::unique_ptr<ProjectGroup> parseProject(Output* output, const char* file)
 {
-	std::ifstream in(file);
+	std::ifstream in(fromUtf8(file));
 	if (!in)
 	{
 		output->error("Error reading file %s\n", file);

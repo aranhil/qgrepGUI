@@ -17,7 +17,7 @@ std::vector<std::string> readChanges(const char* path)
 	std::vector<std::string> result;
 	std::string line;
 
-	std::ifstream in(filePath.c_str(), std::ios::in);
+	std::ifstream in(fromUtf8(filePath.c_str()), std::ios::in);
 
 	while (std::getline(in, line))
 		result.push_back(line);

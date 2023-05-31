@@ -498,11 +498,11 @@ namespace qgrepControls.SearchWindow
         {
             if (ConfigParser.Instance.ConfigProjects.Count == 1)
             {
-                return new List<string>() { ConfigParser.Instance.ConfigProjects[0].Path };
+                return new List<string>() { ConfigParser.ToUtf8(ConfigParser.Instance.ConfigProjects[0].Path) };
             }
             else
             {
-                return FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => x.Path).ToList();
+                return FiltersComboBox.SelectedItems.Cast<ConfigProject>().Select(x => ConfigParser.ToUtf8(x.Path)).ToList();
             }
         }
 

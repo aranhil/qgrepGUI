@@ -353,7 +353,7 @@ namespace qgrepControls.Classes
                 return true;
             }
 
-            if(cacheResult)
+            if (cacheResult)
             {
                 CachedSearch.Results.Add(result);
             }
@@ -370,7 +370,7 @@ namespace qgrepControls.Classes
                 if (indexOfParanthesis >= 0)
                 {
                     lineNo = fileAndLineNo.Substring(indexOfParanthesis + 1, fileAndLineNo.Length - indexOfParanthesis - 2);
-                    file = fileAndLineNo.Substring(0, indexOfParanthesis);
+                    file = ConfigParser.FromUtf8(fileAndLineNo.Substring(0, indexOfParanthesis));
 
                     if (searchOptions.FilterResults.Length > 0)
                     {
@@ -432,7 +432,7 @@ namespace qgrepControls.Classes
                 }
             }
 
-            if(!searchOptions.BypassHighlight)
+            if (!searchOptions.BypassHighlight)
             {
                 int highlightBegin = 0, highlightEnd = 0;
                 Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);

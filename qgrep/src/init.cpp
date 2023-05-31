@@ -32,7 +32,7 @@ static const char* kDefaultLanguages[] =
 
 static bool fileExists(const char* path)
 {
-	std::ifstream in(path);
+	std::ifstream in(fromUtf8(path));
 
 	return !!in;
 }

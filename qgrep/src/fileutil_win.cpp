@@ -3,6 +3,7 @@
 
 #include "common.hpp"
 #include "fileutil.hpp"
+#include "project.hpp"
 
 #include <string>
 #include <vector>
@@ -11,23 +12,52 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <iostream>
+#include <fstream>
+#include <shlobj.h> // For SHGetFolderPath
 
-const size_t kMaxPathLength = 32768;
-
-static std::wstring fromUtf8(const char* path)
+std::string getRoamingAppDataPath()
 {
-	wchar_t buf[kMaxPathLength];
-	size_t result = MultiByteToWideChar(CP_UTF8, 0, path, strlen(path), buf, ARRAYSIZE(buf));
-	assert(result);
-
-	return std::wstring(buf, result);
+	TCHAR appDataPath[MAX_PATH];
+	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appDataPath)))
+	{
+		std::wstring wstr(appDataPath);
+		return std::string(wstr.begin(), wstr.end());
+	}
+	else
+	{
+		return std::string();
+	}
 }
 
 static std::string toUtf8(const wchar_t* path, size_t length)
 {
 	char buf[kMaxPathLength];
 	size_t result = WideCharToMultiByte(CP_UTF8, 0, path, length, buf, sizeof(buf), NULL, NULL);
-	assert(result);
+
+	if (!result)
+	{
+		DWORD error = GetLastError();
+		LPWSTR buffer;
+		FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&buffer, 0, NULL);
+
+		std::string roamingAppDataPath = getRoamingAppDataPath();
+		if (roamingAppDataPath.length() > 0)
+		{
+			std::ofstream logFile(getRoamingAppDataPath() + "\\qgrepSearch\\LogErrors.txt", std::ios::app);
+
+			if (logFile.is_open())
+			{
+				std::wstring wstr(buffer);
+				std::string str(wstr.begin(), wstr.end());
+
+				logFile << "Failed to convert unicode path to UTF-8: " << str << std::endl;
+				logFile.close();
+			}
+		}
+
+		LocalFree(buffer);
+	}
 
 	return std::string(buf, result);
 }

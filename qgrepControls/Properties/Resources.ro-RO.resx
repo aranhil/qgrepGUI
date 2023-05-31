@@ -322,6 +322,6 @@
     <value xml:lang="en">&lt;rădăcină&gt;</value>
 </data>
 	<data name="ConfigFormat" xml:space="preserve">
-    <value xml:lang="en">Configuratia{0}</value>
+    <value xml:lang="en">Configurația{0}</value>
 </data>
 </root>

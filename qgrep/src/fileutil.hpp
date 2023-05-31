@@ -28,3 +28,11 @@ FILE* openFile(const char* path, const char* mode);
 
 bool watchDirectory(const char* path, const std::function<void (const char* name)>& callback);
 int getLastError();
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <iostream>
+
+const size_t kMaxPathLength = 32768;
+
+std::wstring fromUtf8(const char* path);
