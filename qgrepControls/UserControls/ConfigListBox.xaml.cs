@@ -144,17 +144,28 @@ namespace qgrepControls.UserControls
             RemoveButton.IsEnabled = InnerListBox.SelectedItems.Count > 0 ? true : false;
         }
 
-        private void OnRemove()
+        private bool OnRemove()
         {
-            List<Object> selectedItems = new List<object>();
+            List<object> selectedItems = new List<object>();
             foreach (object item in InnerListBox.SelectedItems)
             {
                 selectedItems.Add(item);
             }
+
+            bool removedAnything = false;
             foreach (object item in selectedItems)
             {
+                IEditableData editableItem = item as IEditableData;
+                if (editableItem != null && editableItem.InEditMode)
+                {
+                    continue;
+                }
+
+                removedAnything = true;
                 (InnerListBox.Items as IEditableCollectionView).Remove(item);
             }
+
+            return removedAnything;
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
@@ -254,8 +265,7 @@ namespace qgrepControls.UserControls
         {
             if(e.Key == Key.Delete)
             {
-                OnRemove();
-                e.Handled = true;
+                e.Handled = OnRemove();
             }
         }
     }
