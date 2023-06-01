@@ -26,7 +26,7 @@
 ### Version 2.8
 
 - Fixed occasional crash when opening the tool window
-- Localized all strings and added machine translations (Chinese Simplified, Chinese Traditional, French, German, Italian, Japanese, Korean, Polish, Romanian, Spanish and Portuguese)
+- Localized all strings and added some machine translations (Chinese Simplified, Chinese Traditional, French, German, Italian, Japanese, Korean, Polish, Romanian, Spanish and Portuguese)
 - Improved the UI responsiveness for searches with lots of results
 - Migrated to using Visual Studio's ThreadHelper.JoinableTaskFactory for a more responsive UI
 - Fixed the style of textboxes' contextual menus
