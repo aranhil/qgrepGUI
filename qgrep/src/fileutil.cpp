@@ -173,7 +173,56 @@ std::wstring fromUtf8(const char* path)
 {
     wchar_t buf[kMaxPathLength];
     size_t result = MultiByteToWideChar(CP_UTF8, 0, path, strlen(path), buf, ARRAYSIZE(buf));
-    assert(result);
+
+    if (!result)
+    {
+        printWin32Error();
+    }
 
     return std::wstring(buf, result);
+}
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <iostream>
+#include <fstream>
+#include <shlobj.h> // For SHGetFolderPath
+
+std::string getRoamingAppDataPath()
+{
+    TCHAR appDataPath[MAX_PATH];
+    if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appDataPath)))
+    {
+        std::wstring wstr(appDataPath);
+        return std::string(wstr.begin(), wstr.end());
+    }
+    else
+    {
+        return std::string();
+    }
+}
+
+void printWin32Error()
+{
+    DWORD error = GetLastError();
+    LPWSTR buffer;
+    FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&buffer, 0, NULL);
+
+    std::string roamingAppDataPath = getRoamingAppDataPath();
+    if (roamingAppDataPath.length() > 0)
+    {
+        std::ofstream logFile(getRoamingAppDataPath() + "\\qgrepSearch\\LogErrors.txt", std::ios::app);
+
+        if (logFile.is_open())
+        {
+            std::wstring wstr(buffer);
+            std::string str(wstr.begin(), wstr.end());
+
+            logFile << "Failed to convert unicode path to UTF-8: " << str << std::endl;
+            logFile.close();
+        }
+    }
+
+    LocalFree(buffer);
 }

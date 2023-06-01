@@ -83,11 +83,11 @@ unsigned int filterStdin(Output* output, const char* string, unsigned int option
 		{
 			auto p = filterBufferPartial(output, string, options, limit, buffer.empty() ? nullptr : &buffer[0], buffer.size(), offset);
 
-			assert(p.first <= limit);
+			if (!(p.first <= limit)) throw std::exception("");
 			limit -= p.first;
 			matches += p.first;
 
-			assert(p.second <= buffer.size());
+			if (!(p.second <= buffer.size())) throw std::exception("");
 			buffer.erase(buffer.begin(), buffer.begin() + p.second);
 		}
 	}

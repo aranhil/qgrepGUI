@@ -36,3 +36,4 @@ int getLastError();
 const size_t kMaxPathLength = 32768;
 
 std::wstring fromUtf8(const char* path);
+void printWin32Error();

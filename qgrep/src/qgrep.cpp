@@ -397,7 +397,7 @@ void processSearchCommand(Output* output, int argc, const char** argv, unsigned 
 	{
 		unsigned int result = search(output, paths[i].c_str(), query, options, limit, include.empty() ? 0 : include.c_str(), exclude.empty() ? 0 : exclude.c_str());
 
-		assert(result <= limit);
+		if (!(result <= limit)) throw std::exception("");
 		limit -= result;
 		total += result;
 	}

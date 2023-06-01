@@ -46,7 +46,7 @@ static int rankRecursive(const RankContext& c, size_t pathOffset, int lastMatch,
 
             if (distance > 1 && lastMatch >= 0)
             {
-                assert(static_cast<unsigned int>(lastMatch) == path[pathOffset - 1].position);
+                if (!(static_cast<unsigned int>(lastMatch) == path[pathOffset - 1].position)) throw std::exception("");
 
                 charScore += path[pathOffset - 1].rightScore;
                 charScore += 10 + (distance - 2);
@@ -86,10 +86,10 @@ static void fillPositions(int* positions, const RankPathElement* path, size_t pa
 
     for (size_t i = 0; i < patternLength; ++i)
     {
-        assert(pathOffset < pathLength);
+        if (!(pathOffset < pathLength)) throw std::exception("");
 
         int pos = cachepos[pathOffset * patternLength + i];
-        assert(pos >= 0 && pos < (int)pathLength);
+        if(!(pos >= 0 && pos < (int)pathLength)) throw std::exception("");
 
         positions[i] = path[pos].position;
 

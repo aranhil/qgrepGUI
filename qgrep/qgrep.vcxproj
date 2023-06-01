@@ -132,7 +132,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>USE_SSE2;NOMINMAX;_WIN32_WINNT=0x0600;QGREP_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_SSE2;NOMINMAX;_WIN32_WINNT=0x0600;QGREP_EXPORT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>extern/lz4/lib;extern/re2</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableSpecificWarnings>4996;4267;4244</DisableSpecificWarnings>
@@ -154,7 +154,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>USE_SSE2;NOMINMAX;_WIN32_WINNT=0x0600;QGREP_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_SSE2;NOMINMAX;_WIN32_WINNT=0x0600;QGREP_EXPORT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>extern/lz4/lib;extern/re2</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableSpecificWarnings>4996;4267;4244</DisableSpecificWarnings>

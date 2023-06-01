@@ -13,21 +13,6 @@
 #include <windows.h>
 #include <iostream>
 #include <fstream>
-#include <shlobj.h> // For SHGetFolderPath
-
-std::string getRoamingAppDataPath()
-{
-	TCHAR appDataPath[MAX_PATH];
-	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appDataPath)))
-	{
-		std::wstring wstr(appDataPath);
-		return std::string(wstr.begin(), wstr.end());
-	}
-	else
-	{
-		return std::string();
-	}
-}
 
 static std::string toUtf8(const wchar_t* path, size_t length)
 {
@@ -36,27 +21,7 @@ static std::string toUtf8(const wchar_t* path, size_t length)
 
 	if (!result)
 	{
-		DWORD error = GetLastError();
-		LPWSTR buffer;
-		FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-			NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&buffer, 0, NULL);
-
-		std::string roamingAppDataPath = getRoamingAppDataPath();
-		if (roamingAppDataPath.length() > 0)
-		{
-			std::ofstream logFile(getRoamingAppDataPath() + "\\qgrepSearch\\LogErrors.txt", std::ios::app);
-
-			if (logFile.is_open())
-			{
-				std::wstring wstr(buffer);
-				std::string str(wstr.begin(), wstr.end());
-
-				logFile << "Failed to convert unicode path to UTF-8: " << str << std::endl;
-				logFile.close();
-			}
-		}
-
-		LocalFree(buffer);
+		printWin32Error();
 	}
 
 	return std::string(buf, result);
@@ -192,12 +157,7 @@ FILE* openFile(const char* path, const char* mode)
 	FILE* toReturn = _wfopen(wpath.c_str(), wmode);
 	if (toReturn == NULL)
 	{
-		DWORD error = GetLastError();
-		LPWSTR buffer;
-		FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-			NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPWSTR)&buffer, 0, NULL);
-		std::wcerr << L"Failed to open file: " << wpath << L". Error: " << buffer << std::endl;
-		LocalFree(buffer);
+		printWin32Error();
 		return nullptr;
 	}
 

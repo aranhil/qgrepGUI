@@ -103,7 +103,7 @@ static size_t printMatchLineColumn(unsigned int line, size_t matchOffset, size_t
 	if (options & SO_HIGHLIGHT) pos = printString(pos, kHighlightSeparator);
 	pos = printString(pos, sepend);
 
-	assert(pos <= buf + sizeof(buf));
+	if (!(pos <= buf + sizeof(buf))) throw std::exception("");
 	return pos - buf;
 }
 

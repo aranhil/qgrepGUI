@@ -30,7 +30,7 @@ struct UpdateFileIterator
 {
 	const FileInfo& operator*() const
 	{
-		assert(index < files.size());
+		if (!(index < files.size())) throw std::exception("");
 		return files[index];
 	}
 
@@ -46,14 +46,14 @@ struct UpdateFileIterator
 
 	UpdateFileIterator& operator++()
 	{
-		assert(index < files.size());
+		if(!(index < files.size())) throw std::exception("");
 		index++;
 		return *this;
 	}
 
 	UpdateFileIterator& operator+=(unsigned int diff)
 	{
-		assert(index + diff <= files.size());
+		if(!(index + diff <= files.size())) throw std::exception("");
 		index += diff;
 		return *this;
 	}
@@ -69,7 +69,7 @@ static int comparePath(const FileInfo& info, const DataChunkFileHeader& file, co
 
 static bool isFileCurrent(const FileInfo& info, const DataChunkFileHeader& file, const char* data)
 {
-	assert(comparePath(info, file, data) == 0);
+	if(!(comparePath(info, file, data) == 0)) throw std::exception("");
 	return info.timeStamp == file.timeStamp && info.fileSize == file.fileSize;
 }
 
@@ -103,7 +103,7 @@ static void processChunkData(Output* output, BuildContext* builder, UpdateFileIt
 	const DataChunkFileHeader* files = reinterpret_cast<const DataChunkFileHeader*>(data);
 
 	// if chunk is fully up-to-date, we can try adding it directly and skipping chunk recompression
-	assert(chunk.fileCount > 0);
+	if(!(chunk.fileCount > 0)) throw std::exception("");
 
 	bool firstFileIsSuffix = files[0].startLine > 0;
 

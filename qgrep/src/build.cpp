@@ -50,7 +50,7 @@ struct Blob
 
 	const char* data() const
 	{
-		assert(offset + count <= storage->size());
+		if (!(offset + count <= storage->size())) throw std::exception("");
 		return storage->empty() ? nullptr : &(*storage)[0] + offset;
 	}
 
@@ -184,7 +184,7 @@ static std::vector<char> readFile(FileStream& in)
 	if (!result.empty())
 	{
 		size_t size = normalizeEOL(&result[0], result.size());
-		assert(size <= result.size());
+		if (!(size <= result.size())) throw std::exception("");
 		result.resize(size);
 	}
 
@@ -218,7 +218,7 @@ static File splitPrefix(File& file, size_t size)
 {
 	File result = file;
 
-	assert(size <= file.contents.size());
+	if (!(size <= file.contents.size())) throw std::exception("");
 	result.contents.count = size;
 	file.contents.offset += size;
 	file.contents.count -= size;
@@ -237,7 +237,7 @@ static void appendChunkFilePrefix(Chunk& chunk, File& file, size_t remainingSize
 	const char* data = file.contents.data();
 	size_t dataSize = file.contents.size();
 
-	assert(remainingSize < dataSize);
+	if (!(remainingSize < dataSize)) throw std::exception("");
 	std::pair<size_t, unsigned int> skip = skipByLines(data, remainingSize);
 
 	// add file even if we could not split the (very large) line if it'll be the only file in chunk
@@ -255,7 +255,7 @@ static void appendChunkFilePrefix(Chunk& chunk, File& file, size_t remainingSize
 
 static void writeChunk(BuildContext* context, unsigned int order, const DataChunkHeader& header, std::unique_ptr<char[]> compressedData, std::unique_ptr<char[]> index, std::unique_ptr<char[]> extra, bool firstFileIsSuffix)
 {
-	assert(compressedData);
+	if (!(compressedData)) throw std::exception("");
 	ChunkFileData chunk = { order, header, std::move(compressedData), std::move(index), std::move(extra), firstFileIsSuffix };
 
 	context->writeChunkQueue.push(std::move(chunk));
@@ -321,7 +321,7 @@ static ChunkData prepareChunkData(const Chunk& chunk)
 		dataOffset += f.contents.size();
 	}
 
-	assert(nameOffset == headerSize + nameSize && dataOffset == totalSize);
+	if(!(nameOffset == headerSize + nameSize && dataOffset == totalSize)) throw std::exception("");
 
 	return result;
 }
@@ -355,7 +355,7 @@ struct IntSet
 
 	IntSet(size_t capacity = 0): data(new unsigned int[capacity]), capacity(capacity), size(0)
 	{
-		assert((capacity & (capacity - 1)) == 0);
+		if(!((capacity & (capacity - 1)) == 0)) throw std::exception("");
 
 		memset(data, 0, capacity * sizeof(unsigned int));
 	}
@@ -380,12 +380,12 @@ struct IntSet
 
 		std::swap(data, res.data);
 		std::swap(capacity, res.capacity);
-		assert(size == res.size);
+		if(!(size == res.size)) throw std::exception("");
 	}
 
 	void insert(unsigned int key)
 	{
-		assert(key != 0);
+		if(!(key != 0)) throw std::exception("");
 
 		if (size >= capacity / 2)
 			grow();
@@ -527,7 +527,7 @@ static void flushChunk(BuildContext* context, size_t size)
 	}
 
 	// update pending size
-	assert(chunk.totalSize <= context->pendingSize);
+	if(!(chunk.totalSize <= context->pendingSize)) throw std::exception("");
 	context->pendingSize -= chunk.totalSize;
 
 	// store resulting chunk
@@ -547,7 +547,7 @@ static void writeChunkThreadFun(BuildContext* context)
 	{
 		ChunkFileData chunk = context->writeChunkQueue.pop();
 
-		assert(chunks.count(chunk.order) == 0);
+		if(!(chunks.count(chunk.order) == 0)) throw std::exception("");
 		chunks[chunk.order] = std::move(chunk);
 
 		while (!chunks.empty() && chunks.begin()->first == order)
@@ -606,9 +606,9 @@ void buildAppendFilePart(BuildContext* context, const char* path, unsigned int s
 	{
 		File& file = context->pendingFiles.back();
 
-		assert(file.startLine < startLine);
-		assert(file.timeStamp == timeStamp && file.fileSize == fileSize);
-		assert(file.contents.offset + file.contents.count == file.contents.storage->size());
+		if(!(file.startLine < startLine)) throw std::exception("");
+		if(!(file.timeStamp == timeStamp && file.fileSize == fileSize)) throw std::exception("");
+		if(!(file.contents.offset + file.contents.count == file.contents.storage->size())) throw std::exception("");
 
 		file.contents.storage->insert(file.contents.storage->end(), data, data + dataSize);
 		file.contents.count += dataSize;
@@ -704,7 +704,7 @@ bool buildAppendChunk(BuildContext* context, const DataChunkHeader& header, std:
 	}
 
 	// We should be good to go now
-	assert(context->pendingSize == 0 && context->pendingFiles.empty());
+	if(!(context->pendingSize == 0 && context->pendingFiles.empty())) throw std::exception("");
 
 	unsigned int order = context->chunkOrder++;
 	writeChunk(context, order, header, std::move(compressedData), std::move(index), std::move(extra), firstFileIsSuffix);

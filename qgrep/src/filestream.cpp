@@ -26,7 +26,7 @@ FileStream::~FileStream()
 
 bool FileStream::open(const char* path, const char* mode)
 {
-    assert(!file);
+    if (!(!file)) throw std::exception("");
     file = openFile(path, mode);
     return file != nullptr;
 }

@@ -36,7 +36,7 @@ std::shared_ptr<char> BlockPool::allocate(size_t size)
 	return std::shared_ptr<char>(block, [this](char* block) {
 		std::lock_guard<std::mutex> lock(this->mutex);
 
-		assert(liveBlocks > 0);
+		if (!(liveBlocks > 0)) throw std::exception("");
 		liveBlocks--;
 
 		blocks.push_back(block);

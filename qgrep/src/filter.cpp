@@ -79,7 +79,7 @@ template <typename Pred> static void filterRegex(const FilterEntries& entries, R
                 [](size_t l, const FilterEntry& r) { return l < r.offset; });
 
 		// find last file entry with offset <= matchOffset
-		assert(entry > entries.entries);
+		if(!(entry > entries.entries)) throw std::exception("");
 		entry--;
 
 		// print match
@@ -220,7 +220,7 @@ static void processMatchHighlightFuzzy(FuzzyMatcher& matcher, bool ranked, Filte
 {
     const char* data = buffer + entry.offset;
 
-	assert(matcher.size() > 0);
+	if(!(matcher.size() > 0)) throw std::exception("");
 	hlbuf.posbuf.resize(matcher.size());
 
 	if (ranked)
@@ -254,7 +254,7 @@ static unsigned int filterFuzzy(const FilterEntries& entries, const char* string
 		if (matcher.match(data, e.length))
 		{
             int score = matcher.rank(data, e.length);
-			assert(score != INT_MAX);
+			if(!(score != INT_MAX)) throw std::exception("");
 
 			matches.push_back(std::make_pair(score, &e));
 
@@ -431,7 +431,7 @@ static unsigned int filterCustom(const FilterEntries& entries, const FilterEntri
 
 unsigned int filter(Output* output_, const char* string, unsigned int options, unsigned int limit, const FilterEntries& entries, const FilterEntries* namesOpt)
 {
-    assert(!namesOpt || namesOpt->entryCount == entries.entryCount);
+    if(!(!namesOpt || namesOpt->entryCount == entries.entryCount)) throw std::exception("");
 
     FilterEntries names = {};
     std::unique_ptr<FilterEntry[]> nameEntries;

@@ -149,7 +149,7 @@ template <typename Decoder> inline std::vector<char> convertToUTF8Impl(const cha
 	{
 		uint8_t* beg = reinterpret_cast<uint8_t*>(&result[0]);
 		uint8_t* end = Decoder::decode(source, count, beg, UTF8Writer());
-		assert(beg + utf8Length == end);
+		if (!(beg + utf8Length == end)) throw std::exception("");
 	}
 
 	return result;

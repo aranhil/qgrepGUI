@@ -43,7 +43,7 @@ public:
 
 		if (item.size > 0)
 		{
-			assert(totalSize >= item.size);
+			if(!(totalSize >= item.size)) throw std::exception("");
 			totalSize -= item.size;
 
 			lock.unlock();

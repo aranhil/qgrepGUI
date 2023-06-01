@@ -286,7 +286,7 @@ public:
 		if (matcher)
 		{
 			offset = matcher->match(data, size);
-			assert(offset <= size);
+			if (!(offset <= size)) throw std::exception("");
 
 			if (offset == size) return RegexMatch();
 		}
@@ -347,7 +347,7 @@ public:
 		std::vector<int> result;
 		prefilter->RegexpsGivenStrings(matches, &result);
 
-		assert(result.size() <= 1);
+		if (!(result.size() <= 1)) throw std::exception("");
 		return !result.empty();
 	}
 	

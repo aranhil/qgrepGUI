@@ -46,8 +46,8 @@ void highlight(std::string& result, const char* data, size_t dataSize, Highlight
     {
         const HighlightRange& r = ranges[i];
 
-        assert(last <= r.first);
-        assert(r.first + r.second <= dataSize);
+        if (!(last <= r.first)) throw std::exception("");
+        if(!(r.first + r.second <= dataSize)) throw std::exception("");
 
         result.insert(result.end(), data + last, data + r.first);
         result += groupBegin;

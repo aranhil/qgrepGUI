@@ -52,7 +52,7 @@ OrderedOutput::~OrderedOutput()
 
 OrderedOutput::Chunk* OrderedOutput::begin(unsigned int id)
 {
-	assert(id >= currentChunk);
+	if (!(id >= currentChunk)) throw std::exception("");
 
 	return new Chunk(id, 0);
 }
@@ -87,7 +87,7 @@ void OrderedOutput::end(Chunk* chunk)
 {
 	std::lock_guard<std::mutex> lock(mutex);
 
-	assert(chunks[chunk->id] == 0);
+	if (!(chunks[chunk->id] == 0)) throw std::exception("");
 	chunks[chunk->id] = chunk;
 
 	while (!chunks.empty() && chunks.begin()->first == currentChunk)

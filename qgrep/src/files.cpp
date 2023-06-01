@@ -83,7 +83,7 @@ static std::pair<std::vector<char>, std::pair<BufferOffsetLength, BufferOffsetLe
 		pathOffset += pathLength + 1;
 	}
 
-	assert(nameOffset == entrySize + nameSize && pathOffset == totalSize);
+	if (!(nameOffset == entrySize + nameSize && pathOffset == totalSize)) throw std::exception("");
 
 	return std::make_pair(data, std::make_pair(BufferOffsetLength(entrySize, nameSize), BufferOffsetLength(entrySize + nameSize, pathSize)));
 }
