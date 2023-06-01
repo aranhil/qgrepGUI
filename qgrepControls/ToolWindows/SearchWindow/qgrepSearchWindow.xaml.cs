@@ -347,7 +347,7 @@ namespace qgrepControls.SearchWindow
             IncludeFilesInput.Text = "";
             ExcludeFilesInput.Text = "";
             FilterResultsInput.Text = "";
-            InfoLabel.Content = "";
+            InfoLabel.Text = "";
             SearchButton.IsEnabled = false;
             HistoryButton.IsEnabled = false;
             SearchCaseSensitive.IsEnabled = false;
@@ -503,14 +503,12 @@ namespace qgrepControls.SearchWindow
 
                 SearchItemsListBox.Visibility = searchOptions.GroupingMode == 0 ? Visibility.Visible : Visibility.Collapsed;
                 SearchItemsTreeView.Visibility = searchOptions.GroupingMode != 0 ? Visibility.Visible : Visibility.Collapsed;
-                ErrorLabel.Content = "";
+                ErrorLabel.Text = "";
             });
         }
 
         private void AddResultsBatch(SearchOptions searchOptions)
         {
-            SearchEngine.DebugToRoamingLog($"AddResultsBatch newSearch: {searchOptions.IsNewSearch}");
-
             if (searchOptions.GroupingMode == 0)
             {
                 if (searchOptions.IsNewSearch)
@@ -583,9 +581,7 @@ namespace qgrepControls.SearchWindow
             Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
 
-            InfoLabel.Content = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query);
-
-            SearchEngine.DebugToRoamingLog($"AddResultsBatch Query: {searchOptions.Query}, WasForceStopped: {searchOptions.WasForceStopped}, InfoLabel.Content: {InfoLabel.Content}");
+            InfoLabel.Text = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query);
         }
 
         private double GetScreenHeight()
@@ -712,7 +708,7 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                ErrorLabel.Content = message;
+                ErrorLabel.Text = message;
             });
         }
 
@@ -726,7 +722,7 @@ namespace qgrepControls.SearchWindow
                     {
                         searchResults.Clear();
                         searchResultsGroups.Clear();
-                        InfoLabel.Content = "";
+                        InfoLabel.Text = "";
                     }
                     else
                     {
@@ -786,8 +782,8 @@ namespace qgrepControls.SearchWindow
             {
                 searchResults.Clear();
                 searchResultsGroups.Clear();
-                InfoLabel.Content = "";
-                ErrorLabel.Content = "";
+                InfoLabel.Text = "";
+                ErrorLabel.Text = "";
             }
 
             CacheUsageType = CacheUsageType.Normal;
@@ -921,7 +917,7 @@ namespace qgrepControls.SearchWindow
                     InitButton.IsEnabled = true;
                     CleanButton.IsEnabled = true;
                     PathsButton.IsEnabled = true;
-                    InitInfo.Content = lastMessage;
+                    InitInfo.Text = lastMessage;
 
                     infoUpdateStopWatch.Stop();
                     progressUpdateStopWatch.Stop();
@@ -945,7 +941,7 @@ namespace qgrepControls.SearchWindow
             {
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
-                    InitInfo.Content = message;
+                    InitInfo.Text = message;
                 }
             });
         }
@@ -960,7 +956,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (databaseUpdate == null || !databaseUpdate.IsSilent)
                     {
-                        InitInfo.Content = message;
+                        InitInfo.Text = message;
                         infoUpdateStopWatch.Restart();
                     }
                 });

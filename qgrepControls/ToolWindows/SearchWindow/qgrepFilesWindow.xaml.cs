@@ -547,7 +547,7 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                ErrorLabel.Content = message;
+                ErrorLabel.Text = message;
             });
         }
 

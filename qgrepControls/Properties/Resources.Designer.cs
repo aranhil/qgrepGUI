@@ -647,24 +647,6 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Info Label.
-        /// </summary>
-        public static string InfoLabel {
-            get {
-                return ResourceManager.GetString("InfoLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Init Info.
-        /// </summary>
-        public static string InitInfo {
-            get {
-                return ResourceManager.GetString("InitInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error parsing regular expression: invalid character class.
         /// </summary>
         public static string InvalidCharacterClass {
