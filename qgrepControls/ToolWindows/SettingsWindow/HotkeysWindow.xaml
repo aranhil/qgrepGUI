@@ -8,14 +8,14 @@
              xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              xmlns:resx="clr-namespace:qgrepControls.Properties"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="325" Height="300">
+             MinWidth="325" MinHeight="300">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
-    <Grid Margin="0,10,0,0" >
+    <Grid Margin="15, 10" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="160"/>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" MinWidth="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>

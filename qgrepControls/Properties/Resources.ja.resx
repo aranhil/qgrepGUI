@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsolutePathOptionContent" xml:space="preserve">
+    <value>絶対パス</value>
+  </data>
+  <data name="AddColorOverrideTooltip" xml:space="preserve">
+    <value>カラーオーバーライドを追加</value>
+  </data>
+  <data name="AddFilterTitle" xml:space="preserve">
+    <value>フィルターを追加</value>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>高度な設定</value>
+  </data>
+  <data name="AdvancedToggleContent" xml:space="preserve">
+    <value>&lt;&lt; 高度</value>
+  </data>
+  <data name="AlwaysOptionContent" xml:space="preserve">
+    <value>いつも</value>
+  </data>
+  <data name="AutomaticOptionContent" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="AutomaticPopulationContent" xml:space="preserve">
+    <value>ソリューションから収集</value>
+  </data>
+  <data name="AutoOptionContent" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="BadRepetitionOperator" xml:space="preserve">
+    <value>正規表現の解析エラー: 繰り返し演算子が間違っています</value>
+  </data>
+  <data name="BasicToggleContent" xml:space="preserve">
+    <value>›› 基本</value>
+  </data>
+  <data name="BuildingFileTableMessage" xml:space="preserve">
+    <value>ファイルテーブルを構築しています...</value>
+  </data>
+  <data name="BuildingMessage" xml:space="preserve">
+    <value>建物 {0}</value>
+  </data>
+  <data name="CancelButtonContent" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CannotCleanIndex" xml:space="preserve">
+    <value>インデックスをクリーンできません: {0}</value>
+  </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} 個のチャンクが {4:0.00} 秒以内に更新されました</value>
+  </data>
+  <data name="CleanAndUpdateIndex" xml:space="preserve">
+    <value>インデックスのクリーンアップと更新</value>
+  </data>
+  <data name="ColorLabelContent" xml:space="preserve">
+    <value>色：</value>
+  </data>
+  <data name="ColorOverridesTitle" xml:space="preserve">
+    <value>色のオーバーライド</value>
+  </data>
+  <data name="ColorSchemeLabelContent" xml:space="preserve">
+    <value>カラースキーム：</value>
+  </data>
+  <data name="ConfigFormat" xml:space="preserve">
+    <value>設定{0}</value>
+  </data>
+  <data name="ConfigOpenContent" xml:space="preserve">
+    <value>オープンロケーション</value>
+  </data>
+  <data name="CopyFullPath" xml:space="preserve">
+    <value>フルパスをコピーする</value>
+  </data>
+  <data name="CustomizeShortcuts" xml:space="preserve">
+    <value>ショートカットをカスタマイズする</value>
+  </data>
+  <data name="CustomizeTheme" xml:space="preserve">
+    <value>テーマのカスタマイズ</value>
+  </data>
+  <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
+    <value>警告: データ ファイル {0} の形式が古いため、再構築しています</value>
+  </data>
+  <data name="DaysAgoText" xml:space="preserve">
+    <value>{0}日前</value>
+  </data>
+  <data name="EditColorOverrideTooltip" xml:space="preserve">
+    <value>カラーオーバーライドを編集する</value>
+  </data>
+  <data name="EditFilterTitle" xml:space="preserve">
+    <value>フィルターの編集</value>
+  </data>
+  <data name="EditHotkeys" xml:space="preserve">
+    <value>ホットキーを編集する</value>
+  </data>
+  <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
+    <value>データ ファイル {0} を書き込みのために開くときにエラーが発生しました</value>
+  </data>
+  <data name="ErrorReadingDataFile" xml:space="preserve">
+    <value>データ ファイル {0} の読み取り中にエラーが発生しました</value>
+  </data>
+  <data name="ErrorReadingFile" xml:space="preserve">
+    <value>ファイル {0} の読み取りエラー</value>
+  </data>
+  <data name="ErrorReadingFolder" xml:space="preserve">
+    <value>フォルダー {0} の読み取り中にエラーが発生しました</value>
+  </data>
+  <data name="ErrorReadingMetadataForFile" xml:space="preserve">
+    <value>ファイル {0} のメタデータの読み取りエラー</value>
+  </data>
+  <data name="ErrorSavingDataFile" xml:space="preserve">
+    <value>データ ファイル {0} の保存中にエラーが発生しました</value>
+  </data>
+  <data name="ExcludeFilesLabel" xml:space="preserve">
+    <value>ファイルを除外します...</value>
+  </data>
+  <data name="ExcludeFilesLabelContent" xml:space="preserve">
+    <value>除外ファイル:</value>
+  </data>
+  <data name="ExcludeOptionContent" xml:space="preserve">
+    <value>除外する</value>
+  </data>
+  <data name="FileAndLine" xml:space="preserve">
+    <value>{0}({1})</value>
+  </data>
+  <data name="FileLineErrorMessage" xml:space="preserve">
+    <value>{0}({1}): {2}</value>
+  </data>
+  <data name="FileOnlyOptionContent" xml:space="preserve">
+    <value>ファイルのみ</value>
+  </data>
+  <data name="FileOptionContent" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="FilesInAndOutMessage" xml:space="preserve">
+    <value>{0} ファイル、{1} MB 入力、{2} Mb 出力</value>
+  </data>
+  <data name="FilterResultsLabel" xml:space="preserve">
+    <value>結果をフィルタリング...</value>
+  </data>
+  <data name="FilterResultsLabelContent" xml:space="preserve">
+    <value>フィルタ結果:</value>
+  </data>
+  <data name="FilterSearchScopeLabelContent" xml:space="preserve">
+    <value>フィルター検索範囲:</value>
+  </data>
+  <data name="GroupByLabelContent" xml:space="preserve">
+    <value>グループ化:</value>
+  </data>
+  <data name="GroupExpandLabelContent" xml:space="preserve">
+    <value>グループを展開:</value>
+  </data>
+  <data name="GroupFormat" xml:space="preserve">
+    <value>グループ{0}</value>
+  </data>
+  <data name="GroupsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>新しいグループを追加</value>
+  </data>
+  <data name="GroupsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>グループ名の編集</value>
+  </data>
+  <data name="GroupsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>すべてのグループを削除する</value>
+  </data>
+  <data name="GroupsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>選択したグループを削除します</value>
+  </data>
+  <data name="GroupsListBoxTitle" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="HistoricOpen" xml:space="preserve">
+    <value>{0}を開きました</value>
+  </data>
+  <data name="HistoricSearch" xml:space="preserve">
+    <value>{0}を検索しました</value>
+  </data>
+  <data name="HistoryButton" xml:space="preserve">
+    <value>最近の検索を表示 ({0})</value>
+  </data>
+  <data name="HistoryButtonLabelContent" xml:space="preserve">
+    <value>履歴ボタン:</value>
+  </data>
+  <data name="HoursAgoText" xml:space="preserve">
+    <value>{0} 時間前</value>
+  </data>
+  <data name="IncludeFilesLabel" xml:space="preserve">
+    <value>ファイルを含める...</value>
+  </data>
+  <data name="IncludeFilesLabelContent" xml:space="preserve">
+    <value>インクルードファイル:</value>
+  </data>
+  <data name="IncludeOptionContent" xml:space="preserve">
+    <value>含む</value>
+  </data>
+  <data name="InvalidCharacterClass" xml:space="preserve">
+    <value>正規表現の解析エラー: 無効な文字クラス</value>
+  </data>
+  <data name="InvalidCharacterClassRange" xml:space="preserve">
+    <value>正規表現の解析エラー: 文字クラスの範囲が無効です</value>
+  </data>
+  <data name="InvalidEscapeSequence" xml:space="preserve">
+    <value>正規表現の解析エラー: 無効なエスケープ シーケンス</value>
+  </data>
+  <data name="InvalidNamedCaptureGroup" xml:space="preserve">
+    <value>正規表現の解析エラー: 無効な名前付きキャプチャ グループ</value>
+  </data>
+  <data name="InvalidPerlOperator" xml:space="preserve">
+    <value>正規表現の解析エラー: 無効な Perl 演算子</value>
+  </data>
+  <data name="InvalidRepetitionSize" xml:space="preserve">
+    <value>正規表現の解析エラー: 繰り返しサイズが無効です</value>
+  </data>
+  <data name="InvalidUTF8" xml:space="preserve">
+    <value>正規表現の解析エラー: 無効な UTF-8</value>
+  </data>
+  <data name="JustNowText" xml:space="preserve">
+    <value>ちょうど今</value>
+  </data>
+  <data name="LastIndexUpdateLabelContent" xml:space="preserve">
+    <value>最終インデックス更新: {0}</value>
+  </data>
+  <data name="MalformedChunkErrorMessage" xml:space="preserve">
+    <value>データ ファイル {0} の読み取りエラー: 不正な形式のチャンク</value>
+  </data>
+  <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+    <value>データ ファイル {0} の読み取りエラー: 不正な形式のヘッダー</value>
+  </data>
+  <data name="MenuCopyAllResults" xml:space="preserve">
+    <value>すべての結果をコピーする</value>
+  </data>
+  <data name="MenuCopyFullPath" xml:space="preserve">
+    <value>フルパスをコピーする</value>
+  </data>
+  <data name="MenuCopyResult" xml:space="preserve">
+    <value>結果全体をコピーする</value>
+  </data>
+  <data name="MenuCopyText" xml:space="preserve">
+    <value>テキストをコピーする</value>
+  </data>
+  <data name="MenuGoTo" xml:space="preserve">
+    <value>場所に行く</value>
+  </data>
+  <data name="MinutesAgoText" xml:space="preserve">
+    <value>{0}分前</value>
+  </data>
+  <data name="MissingClosingParenthesis" xml:space="preserve">
+    <value>正規表現の解析エラー: 欠落しています)</value>
+  </data>
+  <data name="MissingClosingSquareBracket" xml:space="preserve">
+    <value>正規表現の解析エラー: がありません]</value>
+  </data>
+  <data name="MonospaceFontLabelContent" xml:space="preserve">
+    <value>等幅フォント:</value>
+  </data>
+  <data name="NeverOptionContent" xml:space="preserve">
+    <value>一度もない</value>
+  </data>
+  <data name="NeverText" xml:space="preserve">
+    <value>一度もない</value>
+  </data>
+  <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
+    <value>正規表現の解析エラー: 繰り返し演算子の引数がありません</value>
+  </data>
+  <data name="NoChanges" xml:space="preserve">
+    <value>変更なし</value>
+  </data>
+  <data name="NoError" xml:space="preserve">
+    <value>エラーはありません</value>
+  </data>
+  <data name="NoneOptionContent" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="NormalFontLabelContent" xml:space="preserve">
+    <value>通常のフォント:</value>
+  </data>
+  <data name="NoSearchFoldersSet" xml:space="preserve">
+    <value>検索フォルダーが設定されていません。</value>
+  </data>
+  <data name="NoSolutionLoaded" xml:space="preserve">
+    <value>ソリューションが読み込まれていません。</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>ファイルを開く</value>
+  </data>
+  <data name="OpenFileSearchLabelContent" xml:space="preserve">
+    <value>ファイル検索を開く:</value>
+  </data>
+  <data name="OutOfMemoryErrorReadingFile" xml:space="preserve">
+    <value>ファイル {0} の読み取りエラー: メモリ不足です</value>
+  </data>
+  <data name="OverrideExistsErrorMessage" xml:space="preserve">
+    <value>オーバーライドはすでに存在します!</value>
+  </data>
+  <data name="PathOnlyOptionContent" xml:space="preserve">
+    <value>パスのみ</value>
+  </data>
+  <data name="PathsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>新しいフォルダーを追加する</value>
+  </data>
+  <data name="PathsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>フォルダー名の編集</value>
+  </data>
+  <data name="PathsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>すべてのフォルダーを削除します</value>
+  </data>
+  <data name="PathsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>選択したフォルダーを削除します</value>
+  </data>
+  <data name="PathsListBoxTitle" xml:space="preserve">
+    <value>フォルダー</value>
+  </data>
+  <data name="PathStyleLabelContent" xml:space="preserve">
+    <value>パスのスタイル:</value>
+  </data>
+  <data name="PlainTextContent" xml:space="preserve">
+    <value>プレーンテキスト</value>
+  </data>
+  <data name="PredefinedButtonTooltip" xml:space="preserve">
+    <value>事前定義された正規表現のリスト</value>
+  </data>
+  <data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>新しい構成を追加</value>
+  </data>
+  <data name="ProjectsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>構成名の編集</value>
+  </data>
+  <data name="ProjectsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>すべての構成を削除します</value>
+  </data>
+  <data name="ProjectsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>選択した構成を削除します</value>
+  </data>
+  <data name="ProjectsListBoxTitle" xml:space="preserve">
+    <value>構成</value>
+  </data>
+  <data name="RegEx" xml:space="preserve">
+    <value>正規表現 ({0})</value>
+  </data>
+  <data name="RegExLabelContent" xml:space="preserve">
+    <value>正規表現：</value>
+  </data>
+  <data name="RelativePathOptionContent" xml:space="preserve">
+    <value>相対パス</value>
+  </data>
+  <data name="RemoveAllColorOverridesTooltip" xml:space="preserve">
+    <value>すべての色のオーバーライドを削除します</value>
+  </data>
+  <data name="RemoveColorOverrideTooltip" xml:space="preserve">
+    <value>選択した色のオーバーライドを削除します</value>
+  </data>
+  <data name="RemoveExtraContent" xml:space="preserve">
+    <value>余分な設定とグループを削除して基本設定に戻します</value>
+  </data>
+  <data name="ResultGroupHeightLabelContent" xml:space="preserve">
+    <value>結果のグループの高さ:</value>
+  </data>
+  <data name="ResultLineHeightLabelContent" xml:space="preserve">
+    <value>結果の行の高さ:</value>
+  </data>
+  <data name="RootContent" xml:space="preserve">
+    <value>&lt;ルート&gt;</value>
+  </data>
+  <data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
+    <value>新しいフィルターを追加</value>
+  </data>
+  <data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>すべてのフィルターを削除します</value>
+  </data>
+  <data name="RulesListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>選択したフィルターを削除します</value>
+  </data>
+  <data name="RulesListBoxTitle" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="SaveButtonContent" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ScanningProjectMessage" xml:space="preserve">
+    <value>プロジェクトをスキャン中...</value>
+  </data>
+  <data name="SearchCaseSensitive" xml:space="preserve">
+    <value>大文字と小文字が区別されます ({0})</value>
+  </data>
+  <data name="SearchConfigurations" xml:space="preserve">
+    <value>検索構成</value>
+  </data>
+  <data name="SearchFileLabel" xml:space="preserve">
+    <value>ファイルを検索...</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>検索...</value>
+  </data>
+  <data name="SearchScopeLabelContent" xml:space="preserve">
+    <value>検索範囲:</value>
+  </data>
+  <data name="SearchWhileTypingLabelContent" xml:space="preserve">
+    <value>入力しながら検索します:</value>
+  </data>
+  <data name="SearchWholeWord" xml:space="preserve">
+    <value>単語全体 ({0})</value>
+  </data>
+  <data name="SelectFolderPrompt" xml:space="preserve">
+    <value>フォルダーを選択してください</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ShortcutTooltipFormat" xml:space="preserve">
+    <value>ショートカット: {0}</value>
+  </data>
+  <data name="ShortcutTooltipNoChangeFormat" xml:space="preserve">
+    <value>ショートカット: {0} (設定は変更されません)</value>
+  </data>
+  <data name="ShowHistoryLabelContent" xml:space="preserve">
+    <value>番組履歴:</value>
+  </data>
+  <data name="ShowingResults" xml:space="preserve">
+    <value>「{1}」の {0} 件の結果を表示しています。</value>
+  </data>
+  <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
+    <value>開いたファイルの履歴を表示します。</value>
+  </data>
+  <data name="StopButtonContent" xml:space="preserve">
+    <value>ストップ</value>
+  </data>
+  <data name="TargetLabelContent" xml:space="preserve">
+    <value>目標：</value>
+  </data>
+  <data name="TextAndPathOptionContent" xml:space="preserve">
+    <value>テキストとパス</value>
+  </data>
+  <data name="TextOnlyOptionContent" xml:space="preserve">
+    <value>テキストのみ</value>
+  </data>
+  <data name="ThemeSettings" xml:space="preserve">
+    <value>テーマ設定</value>
+  </data>
+  <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
+    <value>大文字と小文字の区別を切り替えます:</value>
+  </data>
+  <data name="ToggleExcludeFilesLabelContent" xml:space="preserve">
+    <value>ファイルの除外を切り替えます。</value>
+  </data>
+  <data name="ToggleFilterResultsLabelContent" xml:space="preserve">
+    <value>フィルター結果を切り替えます。</value>
+  </data>
+  <data name="ToggleGroupingByLabelContent" xml:space="preserve">
+    <value>グループ化を切り替える:</value>
+  </data>
+  <data name="ToggleGroupingExpandLabelContent" xml:space="preserve">
+    <value>グループ化の展開を切り替えます:</value>
+  </data>
+  <data name="ToggleIncludeFilesLabelContent" xml:space="preserve">
+    <value>インクルードファイルを切り替えます:</value>
+  </data>
+  <data name="ToggleRegexLabelContent" xml:space="preserve">
+    <value>正規表現を切り替えます:</value>
+  </data>
+  <data name="ToggleWholeWordLabelContent" xml:space="preserve">
+    <value>単語全体を切り替えます:</value>
+  </data>
+  <data name="TrailingBackslash" xml:space="preserve">
+    <value>正規表現の解析エラー: 末尾の \</value>
+  </data>
+  <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
+    <value>コピー時にスペースをトリミングします。</value>
+  </data>
+  <data name="TypeLabelContent" xml:space="preserve">
+    <value>タイプ：</value>
+  </data>
+  <data name="UncaughtExceptionMessage" xml:space="preserve">
+    <value>キャッチされなかった例外: {0}</value>
+  </data>
+  <data name="UnexpectedClosingParenthesis" xml:space="preserve">
+    <value>正規表現の解析エラー: 予期しない)</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>正規表現の解析エラー: 予期しないエラー</value>
+  </data>
+  <data name="UpdateIndex" xml:space="preserve">
+    <value>インデックスを更新する</value>
+  </data>
+  <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
+    <value>インデックスを自動的に更新します。</value>
+  </data>
+  <data name="UpdatingMessage" xml:space="preserve">
+    <value>{0} を更新しています:</value>
+  </data>
+  <data name="UseGlobalPathContent" xml:space="preserve">
+    <value>グローバルパスを使用する</value>
+  </data>
+</root>

@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsolutePathOptionContent" xml:space="preserve">
+    <value>camino absoluto</value>
+  </data>
+  <data name="AddColorOverrideTooltip" xml:space="preserve">
+    <value>Agregar anulación de color</value>
+  </data>
+  <data name="AddFilterTitle" xml:space="preserve">
+    <value>Añadir filtro</value>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>Ajustes avanzados</value>
+  </data>
+  <data name="AdvancedToggleContent" xml:space="preserve">
+    <value>&lt;&lt; Avanzado</value>
+  </data>
+  <data name="AlwaysOptionContent" xml:space="preserve">
+    <value>Siempre</value>
+  </data>
+  <data name="AutomaticOptionContent" xml:space="preserve">
+    <value>Automático</value>
+  </data>
+  <data name="AutomaticPopulationContent" xml:space="preserve">
+    <value>Recoger de la solución</value>
+  </data>
+  <data name="AutoOptionContent" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="BadRepetitionOperator" xml:space="preserve">
+    <value>Error al analizar la expresión regular: operador de repetición incorrecto</value>
+  </data>
+  <data name="BasicToggleContent" xml:space="preserve">
+    <value>&gt;&gt; Básico</value>
+  </data>
+  <data name="BuildingFileTableMessage" xml:space="preserve">
+    <value>Construyendo tabla de archivos...</value>
+  </data>
+  <data name="BuildingMessage" xml:space="preserve">
+    <value>Edificio {0}</value>
+  </data>
+  <data name="CancelButtonContent" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="CannotCleanIndex" xml:space="preserve">
+    <value>No se puede limpiar el índice: {0}</value>
+  </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} fragmentos actualizados en {4:0.00} seg.</value>
+  </data>
+  <data name="CleanAndUpdateIndex" xml:space="preserve">
+    <value>Limpiar y actualizar índice</value>
+  </data>
+  <data name="ColorLabelContent" xml:space="preserve">
+    <value>Color:</value>
+  </data>
+  <data name="ColorOverridesTitle" xml:space="preserve">
+    <value>Anulaciones de color</value>
+  </data>
+  <data name="ColorSchemeLabelContent" xml:space="preserve">
+    <value>Esquema de colores:</value>
+  </data>
+  <data name="ConfigFormat" xml:space="preserve">
+    <value>Configuración{0}</value>
+  </data>
+  <data name="ConfigOpenContent" xml:space="preserve">
+    <value>Abrir ubicación</value>
+  </data>
+  <data name="CopyFullPath" xml:space="preserve">
+    <value>Copiar ruta completa</value>
+  </data>
+  <data name="CustomizeShortcuts" xml:space="preserve">
+    <value>Personalizar accesos directos</value>
+  </data>
+  <data name="CustomizeTheme" xml:space="preserve">
+    <value>Tema personalizado</value>
+  </data>
+  <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
+    <value>Advertencia: el archivo de datos {0} tiene un formato desactualizado, reconstruyendo</value>
+  </data>
+  <data name="DaysAgoText" xml:space="preserve">
+    <value>hace {0} días</value>
+  </data>
+  <data name="EditColorOverrideTooltip" xml:space="preserve">
+    <value>Editar anulación de color</value>
+  </data>
+  <data name="EditFilterTitle" xml:space="preserve">
+    <value>Editar filtro</value>
+  </data>
+  <data name="EditHotkeys" xml:space="preserve">
+    <value>Editar teclas de acceso rápido</value>
+  </data>
+  <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
+    <value>Error al abrir el archivo de datos {0} para escribir</value>
+  </data>
+  <data name="ErrorReadingDataFile" xml:space="preserve">
+    <value>Error al leer el archivo de datos {0}</value>
+  </data>
+  <data name="ErrorReadingFile" xml:space="preserve">
+    <value>Error al leer el archivo {0}</value>
+  </data>
+  <data name="ErrorReadingFolder" xml:space="preserve">
+    <value>Error al leer la carpeta {0}</value>
+  </data>
+  <data name="ErrorReadingMetadataForFile" xml:space="preserve">
+    <value>Error al leer los metadatos del archivo {0}</value>
+  </data>
+  <data name="ErrorSavingDataFile" xml:space="preserve">
+    <value>Error al guardar el archivo de datos {0}</value>
+  </data>
+  <data name="ExcludeFilesLabel" xml:space="preserve">
+    <value>Excluir archivos...</value>
+  </data>
+  <data name="ExcludeFilesLabelContent" xml:space="preserve">
+    <value>Excluir archivos:</value>
+  </data>
+  <data name="ExcludeOptionContent" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="FileAndLine" xml:space="preserve">
+    <value>{0}({1})</value>
+  </data>
+  <data name="FileLineErrorMessage" xml:space="preserve">
+    <value>{0}({1}): {2}</value>
+  </data>
+  <data name="FileOnlyOptionContent" xml:space="preserve">
+    <value>Solo archivo</value>
+  </data>
+  <data name="FileOptionContent" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>archivos</value>
+  </data>
+  <data name="FilesInAndOutMessage" xml:space="preserve">
+    <value>{0} archivos, {1} Mb de entrada, {2} Mb de salida</value>
+  </data>
+  <data name="FilterResultsLabel" xml:space="preserve">
+    <value>Filtrar Resultados...</value>
+  </data>
+  <data name="FilterResultsLabelContent" xml:space="preserve">
+    <value>Filtrar Resultados:</value>
+  </data>
+  <data name="FilterSearchScopeLabelContent" xml:space="preserve">
+    <value>Filtrar ámbito de búsqueda:</value>
+  </data>
+  <data name="GroupByLabelContent" xml:space="preserve">
+    <value>Agrupar por:</value>
+  </data>
+  <data name="GroupExpandLabelContent" xml:space="preserve">
+    <value>Grupo expandir:</value>
+  </data>
+  <data name="GroupFormat" xml:space="preserve">
+    <value>Grupo {0}</value>
+  </data>
+  <data name="GroupsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>Agregar nuevo grupo</value>
+  </data>
+  <data name="GroupsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>Editar nombre del grupo</value>
+  </data>
+  <data name="GroupsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>Eliminar todos los grupos</value>
+  </data>
+  <data name="GroupsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>Eliminar grupo(s) seleccionado(s)</value>
+  </data>
+  <data name="GroupsListBoxTitle" xml:space="preserve">
+    <value>Grupos</value>
+  </data>
+  <data name="HistoricOpen" xml:space="preserve">
+    <value>Abierto {0}</value>
+  </data>
+  <data name="HistoricSearch" xml:space="preserve">
+    <value>buscado {0}</value>
+  </data>
+  <data name="HistoryButton" xml:space="preserve">
+    <value>Mostrar búsquedas recientes ({0})</value>
+  </data>
+  <data name="HistoryButtonLabelContent" xml:space="preserve">
+    <value>Botón de historial:</value>
+  </data>
+  <data name="HoursAgoText" xml:space="preserve">
+    <value>hace {0} horas</value>
+  </data>
+  <data name="IncludeFilesLabel" xml:space="preserve">
+    <value>Incluir archivos...</value>
+  </data>
+  <data name="IncludeFilesLabelContent" xml:space="preserve">
+    <value>Incluir archivos:</value>
+  </data>
+  <data name="IncludeOptionContent" xml:space="preserve">
+    <value>Incluir</value>
+  </data>
+  <data name="InvalidCharacterClass" xml:space="preserve">
+    <value>Error al analizar la expresión regular: clase de carácter no válida</value>
+  </data>
+  <data name="InvalidCharacterClassRange" xml:space="preserve">
+    <value>Error al analizar la expresión regular: rango de clase de caracteres no válido</value>
+  </data>
+  <data name="InvalidEscapeSequence" xml:space="preserve">
+    <value>Error al analizar la expresión regular: secuencia de escape no válida</value>
+  </data>
+  <data name="InvalidNamedCaptureGroup" xml:space="preserve">
+    <value>Error al analizar la expresión regular: grupo de captura con nombre no válido</value>
+  </data>
+  <data name="InvalidPerlOperator" xml:space="preserve">
+    <value>Error al analizar la expresión regular: operador perl no válido</value>
+  </data>
+  <data name="InvalidRepetitionSize" xml:space="preserve">
+    <value>Error al analizar la expresión regular: tamaño de repetición no válido</value>
+  </data>
+  <data name="InvalidUTF8" xml:space="preserve">
+    <value>Error al analizar la expresión regular: UTF-8 no válido</value>
+  </data>
+  <data name="JustNowText" xml:space="preserve">
+    <value>En este momento</value>
+  </data>
+  <data name="LastIndexUpdateLabelContent" xml:space="preserve">
+    <value>Última actualización del índice: {0}</value>
+  </data>
+  <data name="MalformedChunkErrorMessage" xml:space="preserve">
+    <value>Error al leer el archivo de datos {0}: fragmento con formato incorrecto</value>
+  </data>
+  <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+    <value>Error al leer el archivo de datos {0}: encabezado con formato incorrecto</value>
+  </data>
+  <data name="MenuCopyAllResults" xml:space="preserve">
+    <value>Copiar todos los resultados</value>
+  </data>
+  <data name="MenuCopyFullPath" xml:space="preserve">
+    <value>Copiar ruta completa</value>
+  </data>
+  <data name="MenuCopyResult" xml:space="preserve">
+    <value>Copiar todo el resultado</value>
+  </data>
+  <data name="MenuCopyText" xml:space="preserve">
+    <value>Copiar texto</value>
+  </data>
+  <data name="MenuGoTo" xml:space="preserve">
+    <value>ir a ubicación</value>
+  </data>
+  <data name="MinutesAgoText" xml:space="preserve">
+    <value>hace {0} minutos</value>
+  </data>
+  <data name="MissingClosingParenthesis" xml:space="preserve">
+    <value>Error al analizar la expresión regular: falta)</value>
+  </data>
+  <data name="MissingClosingSquareBracket" xml:space="preserve">
+    <value>Error al analizar la expresión regular: falta]</value>
+  </data>
+  <data name="MonospaceFontLabelContent" xml:space="preserve">
+    <value>Fuente monoespaciada:</value>
+  </data>
+  <data name="NeverOptionContent" xml:space="preserve">
+    <value>Nunca</value>
+  </data>
+  <data name="NeverText" xml:space="preserve">
+    <value>nunca</value>
+  </data>
+  <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
+    <value>Error al analizar la expresión regular: no hay argumento para el operador de repetición</value>
+  </data>
+  <data name="NoChanges" xml:space="preserve">
+    <value>Sin cambios</value>
+  </data>
+  <data name="NoError" xml:space="preserve">
+    <value>No hay error</value>
+  </data>
+  <data name="NoneOptionContent" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="NormalFontLabelContent" xml:space="preserve">
+    <value>Fuente normal:</value>
+  </data>
+  <data name="NoSearchFoldersSet" xml:space="preserve">
+    <value>No se han establecido carpetas de búsqueda.</value>
+  </data>
+  <data name="NoSolutionLoaded" xml:space="preserve">
+    <value>No se ha cargado ninguna solución.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Abrir documento</value>
+  </data>
+  <data name="OpenFileSearchLabelContent" xml:space="preserve">
+    <value>Abrir búsqueda de archivos:</value>
+  </data>
+  <data name="OutOfMemoryErrorReadingFile" xml:space="preserve">
+    <value>Error al leer el archivo {0}: memoria insuficiente</value>
+  </data>
+  <data name="OverrideExistsErrorMessage" xml:space="preserve">
+    <value>¡La anulación ya existe!</value>
+  </data>
+  <data name="PathOnlyOptionContent" xml:space="preserve">
+    <value>Solo ruta</value>
+  </data>
+  <data name="PathsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>Agregar nuevas carpetas</value>
+  </data>
+  <data name="PathsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>Editar nombre de carpeta</value>
+  </data>
+  <data name="PathsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>Eliminar todas las carpetas</value>
+  </data>
+  <data name="PathsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>Quitar la(s) carpeta(s) seleccionada(s)</value>
+  </data>
+  <data name="PathsListBoxTitle" xml:space="preserve">
+    <value>carpetas</value>
+  </data>
+  <data name="PathStyleLabelContent" xml:space="preserve">
+    <value>Estilo de ruta:</value>
+  </data>
+  <data name="PlainTextContent" xml:space="preserve">
+    <value>Texto sin formato</value>
+  </data>
+  <data name="PredefinedButtonTooltip" xml:space="preserve">
+    <value>Una lista de expresiones regulares predefinidas</value>
+  </data>
+  <data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>Agregar nueva configuración</value>
+  </data>
+  <data name="ProjectsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>Editar nombre de configuración</value>
+  </data>
+  <data name="ProjectsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>Eliminar todas las configuraciones</value>
+  </data>
+  <data name="ProjectsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>Eliminar configuraciones seleccionadas</value>
+  </data>
+  <data name="ProjectsListBoxTitle" xml:space="preserve">
+    <value>Configuraciones</value>
+  </data>
+  <data name="RegEx" xml:space="preserve">
+    <value>Expresiones regulares ({0})</value>
+  </data>
+  <data name="RegExLabelContent" xml:space="preserve">
+    <value>Expresión regular:</value>
+  </data>
+  <data name="RelativePathOptionContent" xml:space="preserve">
+    <value>Camino relativo</value>
+  </data>
+  <data name="RemoveAllColorOverridesTooltip" xml:space="preserve">
+    <value>Eliminar todas las anulaciones de color</value>
+  </data>
+  <data name="RemoveColorOverrideTooltip" xml:space="preserve">
+    <value>Eliminar las anulaciones de color seleccionadas</value>
+  </data>
+  <data name="RemoveExtraContent" xml:space="preserve">
+    <value>Elimine configuraciones y grupos adicionales para volver a la configuración básica</value>
+  </data>
+  <data name="ResultGroupHeightLabelContent" xml:space="preserve">
+    <value>Altura del grupo de resultados:</value>
+  </data>
+  <data name="ResultLineHeightLabelContent" xml:space="preserve">
+    <value>Altura de la línea de resultado:</value>
+  </data>
+  <data name="RootContent" xml:space="preserve">
+    <value>&lt;raíz&gt;</value>
+  </data>
+  <data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
+    <value>Agregar nuevo filtro</value>
+  </data>
+  <data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>Eliminar todos los filtros</value>
+  </data>
+  <data name="RulesListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>Eliminar filtro(s) seleccionado(s)</value>
+  </data>
+  <data name="RulesListBoxTitle" xml:space="preserve">
+    <value>filtros</value>
+  </data>
+  <data name="SaveButtonContent" xml:space="preserve">
+    <value>Ahorrar</value>
+  </data>
+  <data name="ScanningProjectMessage" xml:space="preserve">
+    <value>Proyecto de escaneado...</value>
+  </data>
+  <data name="SearchCaseSensitive" xml:space="preserve">
+    <value>Se distingue entre mayúsculas y minúsculas ({0})</value>
+  </data>
+  <data name="SearchConfigurations" xml:space="preserve">
+    <value>Buscar configuraciones</value>
+  </data>
+  <data name="SearchFileLabel" xml:space="preserve">
+    <value>Buscar archivo...</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="SearchScopeLabelContent" xml:space="preserve">
+    <value>Ámbito de búsqueda:</value>
+  </data>
+  <data name="SearchWhileTypingLabelContent" xml:space="preserve">
+    <value>Buscar mientras escribe:</value>
+  </data>
+  <data name="SearchWholeWord" xml:space="preserve">
+    <value>Palabra completa ({0})</value>
+  </data>
+  <data name="SelectFolderPrompt" xml:space="preserve">
+    <value>Seleccionar carpeta(s)</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="ShortcutTooltipFormat" xml:space="preserve">
+    <value>Acceso directo: {0}</value>
+  </data>
+  <data name="ShortcutTooltipNoChangeFormat" xml:space="preserve">
+    <value>Atajo: {0} (no cambia la configuración)</value>
+  </data>
+  <data name="ShowHistoryLabelContent" xml:space="preserve">
+    <value>Mostrar historial:</value>
+  </data>
+  <data name="ShowingResults" xml:space="preserve">
+    <value>Mostrando {0} resultados para "{1}".</value>
+  </data>
+  <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
+    <value>Mostrar historial de archivos abiertos:</value>
+  </data>
+  <data name="StopButtonContent" xml:space="preserve">
+    <value>Detener</value>
+  </data>
+  <data name="TargetLabelContent" xml:space="preserve">
+    <value>Objetivo:</value>
+  </data>
+  <data name="TextAndPathOptionContent" xml:space="preserve">
+    <value>Texto y ruta</value>
+  </data>
+  <data name="TextOnlyOptionContent" xml:space="preserve">
+    <value>Solo texto</value>
+  </data>
+  <data name="ThemeSettings" xml:space="preserve">
+    <value>Ajustes de tema</value>
+  </data>
+  <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
+    <value>Alternar entre mayúsculas y minúsculas:</value>
+  </data>
+  <data name="ToggleExcludeFilesLabelContent" xml:space="preserve">
+    <value>Alternar excluir archivos:</value>
+  </data>
+  <data name="ToggleFilterResultsLabelContent" xml:space="preserve">
+    <value>Alternar resultados de filtro:</value>
+  </data>
+  <data name="ToggleGroupingByLabelContent" xml:space="preserve">
+    <value>Alternar agrupación por:</value>
+  </data>
+  <data name="ToggleGroupingExpandLabelContent" xml:space="preserve">
+    <value>Alternar agrupación expandir:</value>
+  </data>
+  <data name="ToggleIncludeFilesLabelContent" xml:space="preserve">
+    <value>Alternar incluir archivos:</value>
+  </data>
+  <data name="ToggleRegexLabelContent" xml:space="preserve">
+    <value>Alternar expresiones regulares:</value>
+  </data>
+  <data name="ToggleWholeWordLabelContent" xml:space="preserve">
+    <value>Alternar palabra completa:</value>
+  </data>
+  <data name="TrailingBackslash" xml:space="preserve">
+    <value>Error al analizar la expresión regular: final \</value>
+  </data>
+  <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
+    <value>Recortar espacios en la copia:</value>
+  </data>
+  <data name="TypeLabelContent" xml:space="preserve">
+    <value>Tipo:</value>
+  </data>
+  <data name="UncaughtExceptionMessage" xml:space="preserve">
+    <value>Excepción no detectada: {0}</value>
+  </data>
+  <data name="UnexpectedClosingParenthesis" xml:space="preserve">
+    <value>Error al analizar la expresión regular: inesperado)</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Error al analizar la expresión regular: error inesperado</value>
+  </data>
+  <data name="UpdateIndex" xml:space="preserve">
+    <value>Actualizar índice</value>
+  </data>
+  <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
+    <value>Actualizar índice automáticamente:</value>
+  </data>
+  <data name="UpdatingMessage" xml:space="preserve">
+    <value>Actualizando {0}:</value>
+  </data>
+  <data name="UseGlobalPathContent" xml:space="preserve">
+    <value>Usar ruta global</value>
+  </data>
+</root>

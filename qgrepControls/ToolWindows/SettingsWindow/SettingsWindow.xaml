@@ -8,14 +8,14 @@
              xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              xmlns:resx="clr-namespace:qgrepControls.Properties"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             Width="325" Height="325">
+             MinWidth="325" MinHeight="325">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
-    <Grid Margin="0,10,0,0" >
+    <Grid Margin="15, 10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="155"/>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" MinWidth="155"/>
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -49,21 +49,21 @@
         <CheckBox Grid.Row="3" Grid.Column="1" x:Name="ShowHistory" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click"  Content=""/>
         <CheckBox Grid.Row="4" Grid.Column="1" x:Name="ShowOpenHistory" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
         <CheckBox Grid.Row="5" Grid.Column="1" x:Name="SearchInstantly" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="Option_Click" Content=""/>
-        <ComboBox Grid.Row="6" Grid.Column="1" x:Name="GroupingComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="GroupingComboBox_SelectionChanged" ToolTipService.InitialShowDelay="250">
+        <ComboBox Grid.Row="6" Grid.Column="1" x:Name="GroupingComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,0,0" SelectionChanged="GroupingComboBox_SelectionChanged" ToolTipService.InitialShowDelay="250">
             <ComboBoxItem Content="{x:Static resx:Resources.NoneOptionContent}" />
             <ComboBoxItem Content="{x:Static resx:Resources.FileOptionContent}" />
         </ComboBox>
-        <ComboBox Grid.Row="7" Grid.Column="1" x:Name="ExpandModeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="ExpandModeComboBox_SelectionChanged" ToolTipService.InitialShowDelay="250">
+        <ComboBox Grid.Row="7" Grid.Column="1" x:Name="ExpandModeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,0,0" SelectionChanged="ExpandModeComboBox_SelectionChanged" ToolTipService.InitialShowDelay="250">
             <ComboBoxItem Content="{x:Static resx:Resources.NeverOptionContent}" />
             <ComboBoxItem Content="{x:Static resx:Resources.AutomaticOptionContent}" />
             <ComboBoxItem Content="{x:Static resx:Resources.AlwaysOptionContent}" />
         </ComboBox>
-        <ComboBox Grid.Row="8" Grid.Column="1" x:Name="PathStyleComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="PathStyleComboBox_SelectionChanged">
+        <ComboBox Grid.Row="8" Grid.Column="1" x:Name="PathStyleComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,0,0" SelectionChanged="PathStyleComboBox_SelectionChanged">
             <ComboBoxItem Content="{x:Static resx:Resources.AbsolutePathOptionContent}" />
             <ComboBoxItem Content="{x:Static resx:Resources.RelativePathOptionContent}" />
             <ComboBoxItem Content="{x:Static resx:Resources.FileOnlyOptionContent}" />
         </ComboBox>
-        <ComboBox Grid.Row="9" Grid.Column="1" x:Name="FilterScopeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,5,0" SelectionChanged="FilterScopeComboBox_SelectionChanged">
+        <ComboBox Grid.Row="9" Grid.Column="1" x:Name="FilterScopeComboBox" Width="120" HorizontalAlignment="Left" Margin="5,0,0,0" SelectionChanged="FilterScopeComboBox_SelectionChanged">
             <ComboBoxItem Content="{x:Static resx:Resources.TextOnlyOptionContent}" />
             <ComboBoxItem Content="{x:Static resx:Resources.PathOnlyOptionContent}" />
             <ComboBoxItem Content="{x:Static resx:Resources.TextAndPathOptionContent}" />

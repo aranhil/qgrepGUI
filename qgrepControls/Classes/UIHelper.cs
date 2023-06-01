@@ -55,10 +55,8 @@ namespace qgrepControls.Classes
             {
                 Title = title,
                 Content = userControl,
-                SizeToContent = SizeToContent.Manual,
+                SizeToContent = resizeable ? SizeToContent.Manual : SizeToContent.WidthAndHeight,
                 ResizeMode = resizeable ? ResizeMode.CanResizeWithGrip : ResizeMode.NoResize,
-                Width = userControl.Width + 37,
-                Height = userControl.Height + 37,
                 Owner = UIHelper.FindAncestor<Window>(owner) ?? WrapperApp.GetMainWindow(),
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
             };

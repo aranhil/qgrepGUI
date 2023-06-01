@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsolutePathOptionContent" xml:space="preserve">
+    <value>绝对路径</value>
+  </data>
+  <data name="AddColorOverrideTooltip" xml:space="preserve">
+    <value>添加颜色覆盖</value>
+  </data>
+  <data name="AddFilterTitle" xml:space="preserve">
+    <value>添加过滤器</value>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>高级设置</value>
+  </data>
+  <data name="AdvancedToggleContent" xml:space="preserve">
+    <value>&lt;&lt; 先进的</value>
+  </data>
+  <data name="AlwaysOptionContent" xml:space="preserve">
+    <value>总是</value>
+  </data>
+  <data name="AutomaticOptionContent" xml:space="preserve">
+    <value>自动的</value>
+  </data>
+  <data name="AutomaticPopulationContent" xml:space="preserve">
+    <value>从解决方案中收集</value>
+  </data>
+  <data name="AutoOptionContent" xml:space="preserve">
+    <value>汽车</value>
+  </data>
+  <data name="BadRepetitionOperator" xml:space="preserve">
+    <value>解析正则表达式时出错：错误的重复运算符</value>
+  </data>
+  <data name="BasicToggleContent" xml:space="preserve">
+    <value>&gt;&gt; 基本的</value>
+  </data>
+  <data name="BuildingFileTableMessage" xml:space="preserve">
+    <value>构建文件表...</value>
+  </data>
+  <data name="BuildingMessage" xml:space="preserve">
+    <value>建筑物 {0}</value>
+  </data>
+  <data name="CancelButtonContent" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CannotCleanIndex" xml:space="preserve">
+    <value>无法清除索引：{0}</value>
+  </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}； {2}/{3} 个块在 {4:0.00} 秒内更新</value>
+  </data>
+  <data name="CleanAndUpdateIndex" xml:space="preserve">
+    <value>清理和更新索引</value>
+  </data>
+  <data name="ColorLabelContent" xml:space="preserve">
+    <value>颜色：</value>
+  </data>
+  <data name="ColorOverridesTitle" xml:space="preserve">
+    <value>颜色覆盖</value>
+  </data>
+  <data name="ColorSchemeLabelContent" xml:space="preserve">
+    <value>配色方案：</value>
+  </data>
+  <data name="ConfigFormat" xml:space="preserve">
+    <value>配置{0}</value>
+  </data>
+  <data name="ConfigOpenContent" xml:space="preserve">
+    <value>打开位置</value>
+  </data>
+  <data name="CopyFullPath" xml:space="preserve">
+    <value>复制完整路径</value>
+  </data>
+  <data name="CustomizeShortcuts" xml:space="preserve">
+    <value>自定义快捷方式</value>
+  </data>
+  <data name="CustomizeTheme" xml:space="preserve">
+    <value>自定义主题</value>
+  </data>
+  <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
+    <value>警告：数据文件 {0} 的格式已过时，正在重建</value>
+  </data>
+  <data name="DaysAgoText" xml:space="preserve">
+    <value>{0} 天前</value>
+  </data>
+  <data name="EditColorOverrideTooltip" xml:space="preserve">
+    <value>编辑颜色覆盖</value>
+  </data>
+  <data name="EditFilterTitle" xml:space="preserve">
+    <value>编辑过滤器</value>
+  </data>
+  <data name="EditHotkeys" xml:space="preserve">
+    <value>编辑热键</value>
+  </data>
+  <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
+    <value>打开数据文件 {0} 进行写入时出错</value>
+  </data>
+  <data name="ErrorReadingDataFile" xml:space="preserve">
+    <value>读取数据文件 {0} 时出错</value>
+  </data>
+  <data name="ErrorReadingFile" xml:space="preserve">
+    <value>读取文件 {0} 时出错</value>
+  </data>
+  <data name="ErrorReadingFolder" xml:space="preserve">
+    <value>读取文件夹 {0} 时出错</value>
+  </data>
+  <data name="ErrorReadingMetadataForFile" xml:space="preserve">
+    <value>读取文件 {0} 的元数据时出错</value>
+  </data>
+  <data name="ErrorSavingDataFile" xml:space="preserve">
+    <value>保存数据文件 {0} 时出错</value>
+  </data>
+  <data name="ExcludeFilesLabel" xml:space="preserve">
+    <value>排除文件...</value>
+  </data>
+  <data name="ExcludeFilesLabelContent" xml:space="preserve">
+    <value>排除文件：</value>
+  </data>
+  <data name="ExcludeOptionContent" xml:space="preserve">
+    <value>排除</value>
+  </data>
+  <data name="FileAndLine" xml:space="preserve">
+    <value>{0}({1})</value>
+  </data>
+  <data name="FileLineErrorMessage" xml:space="preserve">
+    <value>{0}({1})：{2}</value>
+  </data>
+  <data name="FileOnlyOptionContent" xml:space="preserve">
+    <value>仅文件</value>
+  </data>
+  <data name="FileOptionContent" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="FilesInAndOutMessage" xml:space="preserve">
+    <value>{0} 个文件，{1} Mb 输入，{2} Mb 输出</value>
+  </data>
+  <data name="FilterResultsLabel" xml:space="preserve">
+    <value>筛选结果...</value>
+  </data>
+  <data name="FilterResultsLabelContent" xml:space="preserve">
+    <value>筛选结果：</value>
+  </data>
+  <data name="FilterSearchScopeLabelContent" xml:space="preserve">
+    <value>筛选搜索范围：</value>
+  </data>
+  <data name="GroupByLabelContent" xml:space="preserve">
+    <value>通过...分组：</value>
+  </data>
+  <data name="GroupExpandLabelContent" xml:space="preserve">
+    <value>集团展开：</value>
+  </data>
+  <data name="GroupFormat" xml:space="preserve">
+    <value>群组{0}</value>
+  </data>
+  <data name="GroupsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>添加新组</value>
+  </data>
+  <data name="GroupsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>修改群组名称</value>
+  </data>
+  <data name="GroupsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>删除所有组</value>
+  </data>
+  <data name="GroupsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>删除选定的组</value>
+  </data>
+  <data name="GroupsListBoxTitle" xml:space="preserve">
+    <value>团体</value>
+  </data>
+  <data name="HistoricOpen" xml:space="preserve">
+    <value>打开{0}</value>
+  </data>
+  <data name="HistoricSearch" xml:space="preserve">
+    <value>搜索了 {0}</value>
+  </data>
+  <data name="HistoryButton" xml:space="preserve">
+    <value>显示最近的搜索 ({0})</value>
+  </data>
+  <data name="HistoryButtonLabelContent" xml:space="preserve">
+    <value>历史按钮：</value>
+  </data>
+  <data name="HoursAgoText" xml:space="preserve">
+    <value>{0} 小时前</value>
+  </data>
+  <data name="IncludeFilesLabel" xml:space="preserve">
+    <value>包含文件...</value>
+  </data>
+  <data name="IncludeFilesLabelContent" xml:space="preserve">
+    <value>包含文件：</value>
+  </data>
+  <data name="IncludeOptionContent" xml:space="preserve">
+    <value>包括</value>
+  </data>
+  <data name="InvalidCharacterClass" xml:space="preserve">
+    <value>解析正则表达式时出错：无效的字符类</value>
+  </data>
+  <data name="InvalidCharacterClassRange" xml:space="preserve">
+    <value>解析正则表达式时出错：字符类范围无效</value>
+  </data>
+  <data name="InvalidEscapeSequence" xml:space="preserve">
+    <value>解析正则表达式时出错：转义序列无效</value>
+  </data>
+  <data name="InvalidNamedCaptureGroup" xml:space="preserve">
+    <value>解析正则表达式时出错：命名捕获组无效</value>
+  </data>
+  <data name="InvalidPerlOperator" xml:space="preserve">
+    <value>解析正则表达式时出错：无效的 perl 运算符</value>
+  </data>
+  <data name="InvalidRepetitionSize" xml:space="preserve">
+    <value>解析正则表达式时出错：重复大小无效</value>
+  </data>
+  <data name="InvalidUTF8" xml:space="preserve">
+    <value>解析正则表达式时出错：UTF-8 无效</value>
+  </data>
+  <data name="JustNowText" xml:space="preserve">
+    <value>现在</value>
+  </data>
+  <data name="LastIndexUpdateLabelContent" xml:space="preserve">
+    <value>上次索引更新：{0}</value>
+  </data>
+  <data name="MalformedChunkErrorMessage" xml:space="preserve">
+    <value>读取数据文件 {0} 时出错：块格式错误</value>
+  </data>
+  <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+    <value>读取数据文件 {0} 时出错：标头格式错误</value>
+  </data>
+  <data name="MenuCopyAllResults" xml:space="preserve">
+    <value>复制所有结果</value>
+  </data>
+  <data name="MenuCopyFullPath" xml:space="preserve">
+    <value>复制完整路径</value>
+  </data>
+  <data name="MenuCopyResult" xml:space="preserve">
+    <value>复制整个结果</value>
+  </data>
+  <data name="MenuCopyText" xml:space="preserve">
+    <value>复制文字</value>
+  </data>
+  <data name="MenuGoTo" xml:space="preserve">
+    <value>前往地点</value>
+  </data>
+  <data name="MinutesAgoText" xml:space="preserve">
+    <value>{0} 分钟前</value>
+  </data>
+  <data name="MissingClosingParenthesis" xml:space="preserve">
+    <value>解析正则表达式时出错：缺少 )</value>
+  </data>
+  <data name="MissingClosingSquareBracket" xml:space="preserve">
+    <value>解析正则表达式时出错：缺少]</value>
+  </data>
+  <data name="MonospaceFontLabelContent" xml:space="preserve">
+    <value>等宽字体：</value>
+  </data>
+  <data name="NeverOptionContent" xml:space="preserve">
+    <value>绝不</value>
+  </data>
+  <data name="NeverText" xml:space="preserve">
+    <value>绝不</value>
+  </data>
+  <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
+    <value>解析正则表达式时出错：没有重复运算符的参数</value>
+  </data>
+  <data name="NoChanges" xml:space="preserve">
+    <value>没有变化</value>
+  </data>
+  <data name="NoError" xml:space="preserve">
+    <value>没有错误</value>
+  </data>
+  <data name="NoneOptionContent" xml:space="preserve">
+    <value>没有任何</value>
+  </data>
+  <data name="NormalFontLabelContent" xml:space="preserve">
+    <value>普通字体：</value>
+  </data>
+  <data name="NoSearchFoldersSet" xml:space="preserve">
+    <value>未设置搜索文件夹。</value>
+  </data>
+  <data name="NoSolutionLoaded" xml:space="preserve">
+    <value>没有加载解决方案。</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="OpenFileSearchLabelContent" xml:space="preserve">
+    <value>打开文件搜索：</value>
+  </data>
+  <data name="OutOfMemoryErrorReadingFile" xml:space="preserve">
+    <value>读取文件 {0} 时出错：内存不足</value>
+  </data>
+  <data name="OverrideExistsErrorMessage" xml:space="preserve">
+    <value>覆盖已经存在！</value>
+  </data>
+  <data name="PathOnlyOptionContent" xml:space="preserve">
+    <value>仅路径</value>
+  </data>
+  <data name="PathsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>添加新文件夹</value>
+  </data>
+  <data name="PathsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>编辑文件夹名称</value>
+  </data>
+  <data name="PathsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>删除所有文件夹</value>
+  </data>
+  <data name="PathsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>删除选定的文件夹</value>
+  </data>
+  <data name="PathsListBoxTitle" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="PathStyleLabelContent" xml:space="preserve">
+    <value>路径样式：</value>
+  </data>
+  <data name="PlainTextContent" xml:space="preserve">
+    <value>纯文本</value>
+  </data>
+  <data name="PredefinedButtonTooltip" xml:space="preserve">
+    <value>预定义正则表达式列表</value>
+  </data>
+  <data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>添加新配置</value>
+  </data>
+  <data name="ProjectsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>编辑配置名称</value>
+  </data>
+  <data name="ProjectsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>删除所有配置</value>
+  </data>
+  <data name="ProjectsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>删除选定的配置</value>
+  </data>
+  <data name="ProjectsListBoxTitle" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="RegEx" xml:space="preserve">
+    <value>正则表达式 ({0})</value>
+  </data>
+  <data name="RegExLabelContent" xml:space="preserve">
+    <value>正则表达式：</value>
+  </data>
+  <data name="RelativePathOptionContent" xml:space="preserve">
+    <value>相对路径</value>
+  </data>
+  <data name="RemoveAllColorOverridesTooltip" xml:space="preserve">
+    <value>删除所有颜色覆盖</value>
+  </data>
+  <data name="RemoveColorOverrideTooltip" xml:space="preserve">
+    <value>删除选定的颜色覆盖</value>
+  </data>
+  <data name="RemoveExtraContent" xml:space="preserve">
+    <value>删除额外的配置和组以返回基本设置</value>
+  </data>
+  <data name="ResultGroupHeightLabelContent" xml:space="preserve">
+    <value>结果组高度：</value>
+  </data>
+  <data name="ResultLineHeightLabelContent" xml:space="preserve">
+    <value>结果行高：</value>
+  </data>
+  <data name="RootContent" xml:space="preserve">
+    <value>&lt;根&gt;</value>
+  </data>
+  <data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
+    <value>添加新过滤器</value>
+  </data>
+  <data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>删除所有过滤器</value>
+  </data>
+  <data name="RulesListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>删除选定的过滤器</value>
+  </data>
+  <data name="RulesListBoxTitle" xml:space="preserve">
+    <value>过滤器</value>
+  </data>
+  <data name="SaveButtonContent" xml:space="preserve">
+    <value>节省</value>
+  </data>
+  <data name="ScanningProjectMessage" xml:space="preserve">
+    <value>扫描项目...</value>
+  </data>
+  <data name="SearchCaseSensitive" xml:space="preserve">
+    <value>区分大小写 ({0})</value>
+  </data>
+  <data name="SearchConfigurations" xml:space="preserve">
+    <value>搜索配置</value>
+  </data>
+  <data name="SearchFileLabel" xml:space="preserve">
+    <value>搜索文件...</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>搜索...</value>
+  </data>
+  <data name="SearchScopeLabelContent" xml:space="preserve">
+    <value>搜索范围：</value>
+  </data>
+  <data name="SearchWhileTypingLabelContent" xml:space="preserve">
+    <value>边输入边搜索：</value>
+  </data>
+  <data name="SearchWholeWord" xml:space="preserve">
+    <value>整个单词 ({0})</value>
+  </data>
+  <data name="SelectFolderPrompt" xml:space="preserve">
+    <value>选择文件夹</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="ShortcutTooltipFormat" xml:space="preserve">
+    <value>快捷方式：{0}</value>
+  </data>
+  <data name="ShortcutTooltipNoChangeFormat" xml:space="preserve">
+    <value>快捷方式：{0}（不更改设置）</value>
+  </data>
+  <data name="ShowHistoryLabelContent" xml:space="preserve">
+    <value>显示历史：</value>
+  </data>
+  <data name="ShowingResults" xml:space="preserve">
+    <value>显示“{1}”的 {0} 个结果。</value>
+  </data>
+  <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
+    <value>显示打开文件的历史：</value>
+  </data>
+  <data name="StopButtonContent" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="TargetLabelContent" xml:space="preserve">
+    <value>目标：</value>
+  </data>
+  <data name="TextAndPathOptionContent" xml:space="preserve">
+    <value>文本和路径</value>
+  </data>
+  <data name="TextOnlyOptionContent" xml:space="preserve">
+    <value>纯文本</value>
+  </data>
+  <data name="ThemeSettings" xml:space="preserve">
+    <value>主题设置</value>
+  </data>
+  <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
+    <value>切换区分大小写：</value>
+  </data>
+  <data name="ToggleExcludeFilesLabelContent" xml:space="preserve">
+    <value>切换排除文件：</value>
+  </data>
+  <data name="ToggleFilterResultsLabelContent" xml:space="preserve">
+    <value>切换筛选结果：</value>
+  </data>
+  <data name="ToggleGroupingByLabelContent" xml:space="preserve">
+    <value>切换分组方式：</value>
+  </data>
+  <data name="ToggleGroupingExpandLabelContent" xml:space="preserve">
+    <value>切换分组展开：</value>
+  </data>
+  <data name="ToggleIncludeFilesLabelContent" xml:space="preserve">
+    <value>切换包含文件：</value>
+  </data>
+  <data name="ToggleRegexLabelContent" xml:space="preserve">
+    <value>切换正则表达式：</value>
+  </data>
+  <data name="ToggleWholeWordLabelContent" xml:space="preserve">
+    <value>切换整个单词：</value>
+  </data>
+  <data name="TrailingBackslash" xml:space="preserve">
+    <value>解析正则表达式时出错：尾随 \</value>
+  </data>
+  <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
+    <value>修剪副本上的空间：</value>
+  </data>
+  <data name="TypeLabelContent" xml:space="preserve">
+    <value>类型：</value>
+  </data>
+  <data name="UncaughtExceptionMessage" xml:space="preserve">
+    <value>未捕获的异常：{0}</value>
+  </data>
+  <data name="UnexpectedClosingParenthesis" xml:space="preserve">
+    <value>解析正则表达式时出错：意外）</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>解析正则表达式时出错：意外错误</value>
+  </data>
+  <data name="UpdateIndex" xml:space="preserve">
+    <value>更新索引</value>
+  </data>
+  <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
+    <value>自动更新索引：</value>
+  </data>
+  <data name="UpdatingMessage" xml:space="preserve">
+    <value>更新 {0}：</value>
+  </data>
+  <data name="UseGlobalPathContent" xml:space="preserve">
+    <value>使用全局路径</value>
+  </data>
+</root>

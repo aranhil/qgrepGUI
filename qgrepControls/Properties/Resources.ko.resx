@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsolutePathOptionContent" xml:space="preserve">
+    <value>절대 경로</value>
+  </data>
+  <data name="AddColorOverrideTooltip" xml:space="preserve">
+    <value>색상 재지정 추가</value>
+  </data>
+  <data name="AddFilterTitle" xml:space="preserve">
+    <value>필터 추가</value>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>고급 설정</value>
+  </data>
+  <data name="AdvancedToggleContent" xml:space="preserve">
+    <value>&lt;&lt; 고급의</value>
+  </data>
+  <data name="AlwaysOptionContent" xml:space="preserve">
+    <value>언제나</value>
+  </data>
+  <data name="AutomaticOptionContent" xml:space="preserve">
+    <value>자동적 인</value>
+  </data>
+  <data name="AutomaticPopulationContent" xml:space="preserve">
+    <value>솔루션에서 수집</value>
+  </data>
+  <data name="AutoOptionContent" xml:space="preserve">
+    <value>자동</value>
+  </data>
+  <data name="BadRepetitionOperator" xml:space="preserve">
+    <value>정규식 구문 분석 오류: 잘못된 반복 연산자</value>
+  </data>
+  <data name="BasicToggleContent" xml:space="preserve">
+    <value>&gt;&gt; 기초적인</value>
+  </data>
+  <data name="BuildingFileTableMessage" xml:space="preserve">
+    <value>파일 테이블 작성 중...</value>
+  </data>
+  <data name="BuildingMessage" xml:space="preserve">
+    <value>건물 {0}</value>
+  </data>
+  <data name="CancelButtonContent" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CannotCleanIndex" xml:space="preserve">
+    <value>색인을 정리할 수 없음: {0}</value>
+  </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} 청크가 {4:0.00}초에 업데이트됨</value>
+  </data>
+  <data name="CleanAndUpdateIndex" xml:space="preserve">
+    <value>색인 정리 및 업데이트</value>
+  </data>
+  <data name="ColorLabelContent" xml:space="preserve">
+    <value>색상:</value>
+  </data>
+  <data name="ColorOverridesTitle" xml:space="preserve">
+    <value>색상 재지정</value>
+  </data>
+  <data name="ColorSchemeLabelContent" xml:space="preserve">
+    <value>색 구성표:</value>
+  </data>
+  <data name="ConfigFormat" xml:space="preserve">
+    <value>구성{0}</value>
+  </data>
+  <data name="ConfigOpenContent" xml:space="preserve">
+    <value>열린 위치</value>
+  </data>
+  <data name="CopyFullPath" xml:space="preserve">
+    <value>전체 경로 복사</value>
+  </data>
+  <data name="CustomizeShortcuts" xml:space="preserve">
+    <value>바로가기 맞춤설정</value>
+  </data>
+  <data name="CustomizeTheme" xml:space="preserve">
+    <value>테마 맞춤설정</value>
+  </data>
+  <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
+    <value>경고: 데이터 파일 {0}이(가) 오래된 형식입니다. 재구축 중입니다.</value>
+  </data>
+  <data name="DaysAgoText" xml:space="preserve">
+    <value>{0}일 전</value>
+  </data>
+  <data name="EditColorOverrideTooltip" xml:space="preserve">
+    <value>색상 재지정 편집</value>
+  </data>
+  <data name="EditFilterTitle" xml:space="preserve">
+    <value>필터 수정</value>
+  </data>
+  <data name="EditHotkeys" xml:space="preserve">
+    <value>단축키 편집</value>
+  </data>
+  <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
+    <value>쓰기 위해 데이터 파일 {0}을(를) 여는 중 오류가 발생했습니다.</value>
+  </data>
+  <data name="ErrorReadingDataFile" xml:space="preserve">
+    <value>데이터 파일 {0} 읽기 오류</value>
+  </data>
+  <data name="ErrorReadingFile" xml:space="preserve">
+    <value>파일 {0} 읽기 오류</value>
+  </data>
+  <data name="ErrorReadingFolder" xml:space="preserve">
+    <value>폴더 {0} 읽기 오류</value>
+  </data>
+  <data name="ErrorReadingMetadataForFile" xml:space="preserve">
+    <value>파일 {0}에 대한 메타데이터를 읽는 중 오류가 발생했습니다.</value>
+  </data>
+  <data name="ErrorSavingDataFile" xml:space="preserve">
+    <value>데이터 파일 {0} 저장 오류</value>
+  </data>
+  <data name="ExcludeFilesLabel" xml:space="preserve">
+    <value>파일 제외...</value>
+  </data>
+  <data name="ExcludeFilesLabelContent" xml:space="preserve">
+    <value>파일 제외:</value>
+  </data>
+  <data name="ExcludeOptionContent" xml:space="preserve">
+    <value>들어오지 못하게 하다</value>
+  </data>
+  <data name="FileAndLine" xml:space="preserve">
+    <value>{0}({1})</value>
+  </data>
+  <data name="FileLineErrorMessage" xml:space="preserve">
+    <value>{0}({1}): {2}</value>
+  </data>
+  <data name="FileOnlyOptionContent" xml:space="preserve">
+    <value>파일만</value>
+  </data>
+  <data name="FileOptionContent" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="FilesInAndOutMessage" xml:space="preserve">
+    <value>{0}개 파일, {1}Mb 입력, {2}Mb 출력</value>
+  </data>
+  <data name="FilterResultsLabel" xml:space="preserve">
+    <value>결과 필터링...</value>
+  </data>
+  <data name="FilterResultsLabelContent" xml:space="preserve">
+    <value>필터 결과:</value>
+  </data>
+  <data name="FilterSearchScopeLabelContent" xml:space="preserve">
+    <value>필터 검색 범위:</value>
+  </data>
+  <data name="GroupByLabelContent" xml:space="preserve">
+    <value>그룹화 기준:</value>
+  </data>
+  <data name="GroupExpandLabelContent" xml:space="preserve">
+    <value>그룹 확장:</value>
+  </data>
+  <data name="GroupFormat" xml:space="preserve">
+    <value>그룹 {0}</value>
+  </data>
+  <data name="GroupsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>새 그룹 추가</value>
+  </data>
+  <data name="GroupsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>그룹 이름 수정</value>
+  </data>
+  <data name="GroupsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>모든 그룹 제거</value>
+  </data>
+  <data name="GroupsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>선택한 그룹 제거</value>
+  </data>
+  <data name="GroupsListBoxTitle" xml:space="preserve">
+    <value>여러 떼</value>
+  </data>
+  <data name="HistoricOpen" xml:space="preserve">
+    <value>열림 {0}</value>
+  </data>
+  <data name="HistoricSearch" xml:space="preserve">
+    <value>{0} 검색됨</value>
+  </data>
+  <data name="HistoryButton" xml:space="preserve">
+    <value>최근 검색 표시({0})</value>
+  </data>
+  <data name="HistoryButtonLabelContent" xml:space="preserve">
+    <value>히스토리 버튼:</value>
+  </data>
+  <data name="HoursAgoText" xml:space="preserve">
+    <value>{0}시간 전</value>
+  </data>
+  <data name="IncludeFilesLabel" xml:space="preserve">
+    <value>파일 포함...</value>
+  </data>
+  <data name="IncludeFilesLabelContent" xml:space="preserve">
+    <value>포함 파일:</value>
+  </data>
+  <data name="IncludeOptionContent" xml:space="preserve">
+    <value>포함하다</value>
+  </data>
+  <data name="InvalidCharacterClass" xml:space="preserve">
+    <value>정규식 구문 분석 오류: 잘못된 문자 클래스</value>
+  </data>
+  <data name="InvalidCharacterClassRange" xml:space="preserve">
+    <value>정규식 구문 분석 오류: 잘못된 문자 클래스 범위</value>
+  </data>
+  <data name="InvalidEscapeSequence" xml:space="preserve">
+    <value>정규식 구문 분석 오류: 유효하지 않은 이스케이프 시퀀스</value>
+  </data>
+  <data name="InvalidNamedCaptureGroup" xml:space="preserve">
+    <value>정규식 구문 분석 오류: 잘못된 명명된 캡처 그룹</value>
+  </data>
+  <data name="InvalidPerlOperator" xml:space="preserve">
+    <value>정규 표현식 구문 분석 오류: 유효하지 않은 perl 연산자</value>
+  </data>
+  <data name="InvalidRepetitionSize" xml:space="preserve">
+    <value>정규 표현식 구문 분석 오류: 잘못된 반복 크기</value>
+  </data>
+  <data name="InvalidUTF8" xml:space="preserve">
+    <value>정규 표현식 구문 분석 오류: 잘못된 UTF-8</value>
+  </data>
+  <data name="JustNowText" xml:space="preserve">
+    <value>방금</value>
+  </data>
+  <data name="LastIndexUpdateLabelContent" xml:space="preserve">
+    <value>마지막 색인 업데이트: {0}</value>
+  </data>
+  <data name="MalformedChunkErrorMessage" xml:space="preserve">
+    <value>데이터 파일 {0} 읽기 오류: 잘못된 청크</value>
+  </data>
+  <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
+    <value>데이터 파일 {0} 읽기 오류: 잘못된 형식의 헤더</value>
+  </data>
+  <data name="MenuCopyAllResults" xml:space="preserve">
+    <value>모든 결과 복사</value>
+  </data>
+  <data name="MenuCopyFullPath" xml:space="preserve">
+    <value>전체 경로 복사</value>
+  </data>
+  <data name="MenuCopyResult" xml:space="preserve">
+    <value>전체 결과 복사</value>
+  </data>
+  <data name="MenuCopyText" xml:space="preserve">
+    <value>텍스트 복사</value>
+  </data>
+  <data name="MenuGoTo" xml:space="preserve">
+    <value>위치로 이동</value>
+  </data>
+  <data name="MinutesAgoText" xml:space="preserve">
+    <value>{0}분 전</value>
+  </data>
+  <data name="MissingClosingParenthesis" xml:space="preserve">
+    <value>정규 표현식 구문 분석 오류: 누락 )</value>
+  </data>
+  <data name="MissingClosingSquareBracket" xml:space="preserve">
+    <value>정규 표현식 구문 분석 오류: 누락]</value>
+  </data>
+  <data name="MonospaceFontLabelContent" xml:space="preserve">
+    <value>모노스페이스 글꼴:</value>
+  </data>
+  <data name="NeverOptionContent" xml:space="preserve">
+    <value>절대</value>
+  </data>
+  <data name="NeverText" xml:space="preserve">
+    <value>절대</value>
+  </data>
+  <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
+    <value>정규식 구문 분석 오류: 반복 연산자에 대한 인수가 없습니다.</value>
+  </data>
+  <data name="NoChanges" xml:space="preserve">
+    <value>변경 사항 없음</value>
+  </data>
+  <data name="NoError" xml:space="preserve">
+    <value>오류 없음</value>
+  </data>
+  <data name="NoneOptionContent" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="NormalFontLabelContent" xml:space="preserve">
+    <value>일반 글꼴:</value>
+  </data>
+  <data name="NoSearchFoldersSet" xml:space="preserve">
+    <value>검색 폴더가 설정되지 않았습니다.</value>
+  </data>
+  <data name="NoSolutionLoaded" xml:space="preserve">
+    <value>로드된 솔루션이 없습니다.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>파일 열기</value>
+  </data>
+  <data name="OpenFileSearchLabelContent" xml:space="preserve">
+    <value>파일 검색 열기:</value>
+  </data>
+  <data name="OutOfMemoryErrorReadingFile" xml:space="preserve">
+    <value>파일 {0} 읽기 오류: 메모리 부족</value>
+  </data>
+  <data name="OverrideExistsErrorMessage" xml:space="preserve">
+    <value>재정의가 이미 존재합니다!</value>
+  </data>
+  <data name="PathOnlyOptionContent" xml:space="preserve">
+    <value>경로만</value>
+  </data>
+  <data name="PathsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>새 폴더 추가</value>
+  </data>
+  <data name="PathsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>폴더 이름 수정</value>
+  </data>
+  <data name="PathsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>모든 폴더 제거</value>
+  </data>
+  <data name="PathsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>선택한 폴더 제거</value>
+  </data>
+  <data name="PathsListBoxTitle" xml:space="preserve">
+    <value>폴더</value>
+  </data>
+  <data name="PathStyleLabelContent" xml:space="preserve">
+    <value>경로 스타일:</value>
+  </data>
+  <data name="PlainTextContent" xml:space="preserve">
+    <value>일반 텍스트</value>
+  </data>
+  <data name="PredefinedButtonTooltip" xml:space="preserve">
+    <value>미리 정의된 정규식 목록</value>
+  </data>
+  <data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
+    <value>새 구성 추가</value>
+  </data>
+  <data name="ProjectsListBoxEditButtonTooltip" xml:space="preserve">
+    <value>구성 이름 수정</value>
+  </data>
+  <data name="ProjectsListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>모든 구성 제거</value>
+  </data>
+  <data name="ProjectsListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>선택한 구성 제거</value>
+  </data>
+  <data name="ProjectsListBoxTitle" xml:space="preserve">
+    <value>구성</value>
+  </data>
+  <data name="RegEx" xml:space="preserve">
+    <value>정규식({0})</value>
+  </data>
+  <data name="RegExLabelContent" xml:space="preserve">
+    <value>정규 표현식:</value>
+  </data>
+  <data name="RelativePathOptionContent" xml:space="preserve">
+    <value>상대 경로</value>
+  </data>
+  <data name="RemoveAllColorOverridesTooltip" xml:space="preserve">
+    <value>모든 색상 재지정 제거</value>
+  </data>
+  <data name="RemoveColorOverrideTooltip" xml:space="preserve">
+    <value>선택한 색상 재지정 제거</value>
+  </data>
+  <data name="RemoveExtraContent" xml:space="preserve">
+    <value>기본 설정으로 돌아가려면 추가 구성 및 그룹을 제거하세요.</value>
+  </data>
+  <data name="ResultGroupHeightLabelContent" xml:space="preserve">
+    <value>결과 그룹 높이:</value>
+  </data>
+  <data name="ResultLineHeightLabelContent" xml:space="preserve">
+    <value>결과 행 높이:</value>
+  </data>
+  <data name="RootContent" xml:space="preserve">
+    <value>&lt;루트&gt;</value>
+  </data>
+  <data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
+    <value>새 필터 추가</value>
+  </data>
+  <data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
+    <value>모든 필터 제거</value>
+  </data>
+  <data name="RulesListBoxRemoveButtonTooltip" xml:space="preserve">
+    <value>선택한 필터 제거</value>
+  </data>
+  <data name="RulesListBoxTitle" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="SaveButtonContent" xml:space="preserve">
+    <value>구하다</value>
+  </data>
+  <data name="ScanningProjectMessage" xml:space="preserve">
+    <value>스캔 프로젝트...</value>
+  </data>
+  <data name="SearchCaseSensitive" xml:space="preserve">
+    <value>대소문자 구분({0})</value>
+  </data>
+  <data name="SearchConfigurations" xml:space="preserve">
+    <value>검색 구성</value>
+  </data>
+  <data name="SearchFileLabel" xml:space="preserve">
+    <value>파일 검색...</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>찾다...</value>
+  </data>
+  <data name="SearchScopeLabelContent" xml:space="preserve">
+    <value>검색 범위:</value>
+  </data>
+  <data name="SearchWhileTypingLabelContent" xml:space="preserve">
+    <value>입력하는 동안 검색:</value>
+  </data>
+  <data name="SearchWholeWord" xml:space="preserve">
+    <value>전체 단어({0})</value>
+  </data>
+  <data name="SelectFolderPrompt" xml:space="preserve">
+    <value>폴더 선택</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="ShortcutTooltipFormat" xml:space="preserve">
+    <value>바로가기: {0}</value>
+  </data>
+  <data name="ShortcutTooltipNoChangeFormat" xml:space="preserve">
+    <value>바로 가기: {0}(설정을 변경하지 않음)</value>
+  </data>
+  <data name="ShowHistoryLabelContent" xml:space="preserve">
+    <value>기록 보기:</value>
+  </data>
+  <data name="ShowingResults" xml:space="preserve">
+    <value>"{1}"에 대한 {0}개의 결과를 표시합니다.</value>
+  </data>
+  <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
+    <value>열린 파일의 기록 표시:</value>
+  </data>
+  <data name="StopButtonContent" xml:space="preserve">
+    <value>멈추다</value>
+  </data>
+  <data name="TargetLabelContent" xml:space="preserve">
+    <value>표적:</value>
+  </data>
+  <data name="TextAndPathOptionContent" xml:space="preserve">
+    <value>텍스트 및 경로</value>
+  </data>
+  <data name="TextOnlyOptionContent" xml:space="preserve">
+    <value>텍스트만</value>
+  </data>
+  <data name="ThemeSettings" xml:space="preserve">
+    <value>주제 설정</value>
+  </data>
+  <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
+    <value>대소문자 구분 전환:</value>
+  </data>
+  <data name="ToggleExcludeFilesLabelContent" xml:space="preserve">
+    <value>제외 파일 전환:</value>
+  </data>
+  <data name="ToggleFilterResultsLabelContent" xml:space="preserve">
+    <value>필터 결과 전환:</value>
+  </data>
+  <data name="ToggleGroupingByLabelContent" xml:space="preserve">
+    <value>그룹화 전환 기준:</value>
+  </data>
+  <data name="ToggleGroupingExpandLabelContent" xml:space="preserve">
+    <value>그룹화 확장 전환:</value>
+  </data>
+  <data name="ToggleIncludeFilesLabelContent" xml:space="preserve">
+    <value>포함 파일을 전환합니다.</value>
+  </data>
+  <data name="ToggleRegexLabelContent" xml:space="preserve">
+    <value>정규식 전환:</value>
+  </data>
+  <data name="ToggleWholeWordLabelContent" xml:space="preserve">
+    <value>전체 단어 전환:</value>
+  </data>
+  <data name="TrailingBackslash" xml:space="preserve">
+    <value>정규식 구문 분석 오류: 후행 \</value>
+  </data>
+  <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
+    <value>사본에서 공백 자르기:</value>
+  </data>
+  <data name="TypeLabelContent" xml:space="preserve">
+    <value>유형:</value>
+  </data>
+  <data name="UncaughtExceptionMessage" xml:space="preserve">
+    <value>포착되지 않은 예외: {0}</value>
+  </data>
+  <data name="UnexpectedClosingParenthesis" xml:space="preserve">
+    <value>정규 표현식 구문 분석 오류: 예기치 않은 )</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>정규식 구문 분석 오류: 예기치 않은 오류</value>
+  </data>
+  <data name="UpdateIndex" xml:space="preserve">
+    <value>인덱스 업데이트</value>
+  </data>
+  <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
+    <value>자동으로 인덱스 업데이트:</value>
+  </data>
+  <data name="UpdatingMessage" xml:space="preserve">
+    <value>{0} 업데이트 중:</value>
+  </data>
+  <data name="UseGlobalPathContent" xml:space="preserve">
+    <value>전역 경로 사용</value>
+  </data>
+</root>

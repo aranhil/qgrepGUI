@@ -1344,7 +1344,7 @@ namespace qgrepControls.SearchWindow
 
         private void Colors_Click(object sender, RoutedEventArgs e)
         {
-            UIHelper.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), Properties.Resources.ThemeSettings, WrapperApp, this, true).ShowDialog();
+            UIHelper.CreateWindow(new qgrepControls.ColorsWindow.ColorsWindow(this), Properties.Resources.ThemeSettings, WrapperApp, this).ShowDialog();
         }
 
         private void SearchInput_MouseEnter(object sender, RoutedEventArgs e)

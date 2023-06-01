@@ -19,6 +19,7 @@
         ShowMaxRestoreButton="False"
         ResizeMode="CanResizeWithGrip"
         SizeToContent="Manual"
+        SnapsToDevicePixels="True"
         Topmost="False"
         mc:Ignorable="d" KeyDown="Window_PreviewKeyDown" Closed="Window_Closed">
     <controlzEx:WindowChromeWindow.Resources>

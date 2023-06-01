@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
-    <Grid Margin="0,10,0,0">
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="50"/>
             <ColumnDefinition/>
