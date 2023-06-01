@@ -108,13 +108,11 @@ namespace qgrepControls.SearchWindow
 
         ObservableCollection<SearchResult> searchResults = new ObservableCollection<SearchResult>();
         ObservableCollection<SearchResult> newSearchResults = new ObservableCollection<SearchResult>();
-        bool newSearch = false;
 
         public void OnStartSearchEvent(SearchOptions searchOptions)
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                newSearch = true;
                 selectedSearchResult = -1;
 
                 if(!WrapperApp.IsStandalone)
@@ -126,11 +124,11 @@ namespace qgrepControls.SearchWindow
 
         private void AddResultsBatch(SearchOptions searchOptions)
         {
-            if (newSearch)
+            if (searchOptions.IsNewSearch)
             {
                 SearchItemsListBox.ItemsSource = searchResults = newSearchResults;
                 newSearchResults = new ObservableCollection<SearchResult>();
-                newSearch = false;
+                searchOptions.IsNewSearch = false;
 
                 if (searchResults.Count > 0)
                 {
@@ -208,7 +206,7 @@ namespace qgrepControls.SearchWindow
 
                         newSearchResults.Add(newSearchResult);
 
-                        if (newSearch && newSearchResults.Count >= 500)
+                        if (searchOptions.IsNewSearch && newSearchResults.Count >= 500)
                         {
                             AddResultsBatch(searchOptions);
                         }
@@ -234,7 +232,6 @@ namespace qgrepControls.SearchWindow
                 }
                 else
                 {
-                    newSearch = false;
                     newSearchResults.Clear();
                 }
             });

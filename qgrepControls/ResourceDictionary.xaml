@@ -1077,6 +1077,7 @@
         <Setter Property="Padding" Value="2" />
         <Setter Property="Height" Value="24" />
         <Setter Property="Padding" Value="3,2,3,1" />
+        <Setter Property="AcceptsReturn" Value="False" />
         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>

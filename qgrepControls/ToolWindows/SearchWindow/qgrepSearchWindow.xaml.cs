@@ -15,6 +15,7 @@ using System.Threading;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
+using System.IO;
 
 namespace qgrepControls.SearchWindow
 {
@@ -462,7 +463,6 @@ namespace qgrepControls.SearchWindow
 
         ObservableCollection<SearchResult> newSearchResults = new ObservableCollection<SearchResult>();
         ObservableCollection<SearchResultGroup> newSearchResultGroups = new ObservableCollection<SearchResultGroup>();
-        bool newSearch = false;
 
         private void AddSearchResultToGroups(SearchResult searchResult, ObservableCollection<SearchResultGroup> searchResultGroups)
         {
@@ -491,10 +491,10 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                newSearch = true;
                 selectedSearchResultGroup = null;
                 selectedSearchResult = null;
                 OverrideExpansion = null;
+                UpdateTimer.Stop();
 
                 if (!WrapperApp.IsStandalone)
                 {
@@ -509,9 +509,11 @@ namespace qgrepControls.SearchWindow
 
         private void AddResultsBatch(SearchOptions searchOptions)
         {
+            SearchEngine.DebugToRoamingLog($"AddResultsBatch newSearch: {searchOptions.IsNewSearch}");
+
             if (searchOptions.GroupingMode == 0)
             {
-                if (newSearch)
+                if (searchOptions.IsNewSearch)
                 {
                     ScrollViewer scrollViewer = UIHelper.GetChildOfType<ScrollViewer>(SearchItemsListBox);
                     if (scrollViewer != null)
@@ -521,7 +523,7 @@ namespace qgrepControls.SearchWindow
 
                     SearchItemsListBox.ItemsSource = searchResults = newSearchResults;
                     newSearchResults = new ObservableCollection<SearchResult>();
-                    newSearch = false;
+                    searchOptions.IsNewSearch = false;
 
                     if (searchResults.Count > 0)
                     {
@@ -540,7 +542,7 @@ namespace qgrepControls.SearchWindow
             }
             else
             {
-                if (newSearch)
+                if (searchOptions.IsNewSearch)
                 {
                     ScrollViewer scrollViewer = UIHelper.GetChildOfType<ScrollViewer>(SearchItemsTreeView);
                     if (scrollViewer != null)
@@ -558,7 +560,7 @@ namespace qgrepControls.SearchWindow
 
                     newSearchResultGroups = new ObservableCollection<SearchResultGroup>();
                     newSearchResults = new ObservableCollection<SearchResult>();
-                    newSearch = false;
+                    searchOptions.IsNewSearch = false;
                 }
                 else
                 {
@@ -578,7 +580,12 @@ namespace qgrepControls.SearchWindow
                 ProcessTreeCollapsing();
             }
 
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
+
             InfoLabel.Content = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query);
+
+            SearchEngine.DebugToRoamingLog($"AddResultsBatch Query: {searchOptions.Query}, WasForceStopped: {searchOptions.WasForceStopped}, InfoLabel.Content: {InfoLabel.Content}");
         }
 
         private double GetScreenHeight()
@@ -598,6 +605,7 @@ namespace qgrepControls.SearchWindow
             if (Settings.Default.GroupingIndex == 1)
             {
                 double totalNewSize = 0;
+                int totalLines = 0;
                 bool expandAll = (Settings.Default.ExpandModeIndex == 1 && newSearchResultGroups.Count + newSearchResults.Count < 500) || Settings.Default.ExpandModeIndex == 2;
 
                 foreach (SearchResultGroup resultGroup in newSearchResultGroups)
@@ -606,6 +614,7 @@ namespace qgrepControls.SearchWindow
                     if (expandAll)
                     {
                         totalNewSize += Settings.Default.LineHeight * resultGroup.SearchResults.Count;
+                        totalLines += resultGroup.SearchResults.Count;
                     }
 
                     if (totalNewSize > GetScreenHeight())
@@ -622,23 +631,20 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        int LastUpdateInterval = 0;
         CountdownTimer UpdateTimer = new CountdownTimer();
 
         private bool EnoughTimePassed()
         {
             if(!UpdateTimer.IsStarted())
             {
-                UpdateTimer.Start(100);
-                LastUpdateInterval = 100;
+                UpdateTimer.Start();
                 return false;
             }
             else
             {
                 if(UpdateTimer.HasExpired())
                 {
-                    LastUpdateInterval += 200;
-                    UpdateTimer.Reset(LastUpdateInterval);
+                    UpdateTimer.Reset();
                     return true;
                 }
 
@@ -648,7 +654,7 @@ namespace qgrepControls.SearchWindow
 
         public void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
         {
-            if (!SearchEngine.Instance.IsSearchQueued)
+            if (!searchOptions.WasForceStopped)
             {
                 TaskRunner.RunOnUIThread(() =>
                 {
@@ -692,7 +698,8 @@ namespace qgrepControls.SearchWindow
                             AddSearchResultToGroups(newSearchResult, newSearchResultGroups);
                         }
 
-                        if (newSearch && NewResultsFitScreen() || (EnoughTimePassed() && SearchWindowControl.IsKeyboardFocusWithin))
+                        if ((searchOptions.IsNewSearch && NewResultsFitScreen()) || 
+                            (!searchOptions.IsNewSearch && EnoughTimePassed() && SearchWindowControl.IsKeyboardFocusWithin))
                         {
                             AddResultsBatch(searchOptions);
                         }
@@ -713,7 +720,7 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                if (!SearchEngine.Instance.IsSearchQueued)
+                if (!searchOptions.WasForceStopped)
                 {
                     if (SearchInput.Text.Length == 0 && IncludeFilesInput.Text.Length == 0)
                     {
@@ -728,12 +735,9 @@ namespace qgrepControls.SearchWindow
                 }
                 else
                 {
-                    newSearch = false;
                     newSearchResultGroups.Clear();
                     newSearchResults.Clear();
                 }
-
-                UpdateTimer.Stop();
             });
         }
 

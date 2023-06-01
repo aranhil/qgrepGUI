@@ -11,11 +11,20 @@ namespace qgrepControls.Classes
     {
         private Timer _timer;
         private bool _hasExpired = false;
+        int LastUpdateInterval = 0;
+        int FirstInterval = 50;
+        int IntervalIncrement = 50;
 
-        public void Start(int intervalInMilliseconds)
+        public void Start()
+        {
+            LastUpdateInterval = FirstInterval;
+            StartInternal();
+        }
+
+        private void StartInternal()
         {
             _hasExpired = false;
-            _timer = new Timer(TimerCallback, null, intervalInMilliseconds, Timeout.Infinite);
+            _timer = new Timer(TimerCallback, null, LastUpdateInterval, Timeout.Infinite);
         }
 
         private void TimerCallback(object state)
@@ -33,10 +42,12 @@ namespace qgrepControls.Classes
             return _timer != null;
         }
 
-        public void Reset(int intervalInMilliseconds)
+        public void Reset()
         {
+            LastUpdateInterval += IntervalIncrement;
+
             Stop();
-            Start(intervalInMilliseconds);
+            StartInternal();
         }
 
         public void Stop()

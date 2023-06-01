@@ -67,6 +67,8 @@ namespace qgrepControls.Classes
         public bool BypassHighlight { get; set; } = false;
         public bool FileSearchUnorderedKeywords { get; set; } = false;
         public bool IsFileSearch { get; set; } = false;
+        public bool WasForceStopped { get; internal set; }
+        public bool IsNewSearch { get; set; } = true;
 
         public bool CanUseCache(SearchOptions newSearchOptions)
         {
@@ -140,11 +142,11 @@ namespace qgrepControls.Classes
 
         public void SearchAsync(SearchOptions searchOptions)
         {
-            if(IsBusy || !MutexUtility.Instance.TryAcquireMutex())
+            if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
             {
                 QueuedSearchOptions = searchOptions;
 
-                if(searchOptions.CacheUsageType != CacheUsageType.Forced)
+                if (searchOptions.CacheUsageType != CacheUsageType.Forced)
                 {
                     ForceStop = true;
                 }
@@ -155,6 +157,9 @@ namespace qgrepControls.Classes
 
             IsBusy = true;
             ForceStop = false;
+
+            QueuedSearchOptions = null; 
+            QueuedSearchFilesOptions = null;
 
             TaskRunner.RunInBackgroundAsync(() =>
             {
@@ -274,6 +279,9 @@ namespace qgrepControls.Classes
             IsBusy = true;
             ForceStop = false;
 
+            QueuedSearchOptions = null;
+            QueuedSearchFilesOptions = null;
+
             TaskRunner.RunInBackgroundAsync(() =>
             {
                 searchOptions.EventsHandler.OnStartSearchEvent(searchOptions);
@@ -353,6 +361,7 @@ namespace qgrepControls.Classes
         {
             if(ForceStop)
             {
+                searchOptions.WasForceStopped = true;
                 return true;
             }
 
@@ -687,6 +696,16 @@ namespace qgrepControls.Classes
             else
             {
                 return eventTime.ToString("g");
+            }
+        }
+
+        public static void DebugToRoamingLog(string message)
+        {
+            string roamingFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string filePath = System.IO.Path.Combine(roamingFolderPath, "qgrep-log.txt");
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                writer.WriteLine(message);
             }
         }
     }

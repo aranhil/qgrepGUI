@@ -25,9 +25,11 @@
 
 ### Version 2.8
 
+- Fixed occasional crash when opening the tool window
 - Fixed the style of textboxes' contextual menus
 - Fixed issue with right click not selecting the tree view item before opening the contextual menu
 - Search file dialog's input textbox and results listbox are now both focused at the same time
-- Improved the UI responsiveness for searches with a lot of results
+- Improved the UI responsiveness for searches with lots of results
 - Migrated to using Visual Studio's ThreadHelper.JoinableTaskFactory for a more responsive UI
-- Added support for UTF-8 paths
+- Added support for UTF-8 encoded paths
+- Localized all strings

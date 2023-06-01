@@ -77,49 +77,63 @@ namespace qgrepSearch
                 if (currentlySelectedText.Length == 0)
                 {
                     EnvDTE.TextDocument textDoc = (EnvDTE.TextDocument)Data.DTE?.ActiveDocument?.Object("TextDocument");
-                    EnvDTE.TextSelection selection = textDoc?.Selection;
+                    EnvDTE.VirtualPoint activePoint = textDoc?.Selection?.ActivePoint;
 
-                    if (selection != null)
+                    if (activePoint != null)
                     {
-                        EnvDTE.EditPoint startPoint = selection.ActivePoint.CreateEditPoint();
-                        EnvDTE.EditPoint endPoint = selection.ActivePoint.CreateEditPoint();
+                        EnvDTE.EditPoint startPoint = activePoint.CreateEditPoint();
+                        EnvDTE.EditPoint endPoint = activePoint.CreateEditPoint();
 
-                        char c = '\0';
+                        if(startPoint == null || endPoint == null)
+                        {
+                            return "";
+                        }
 
-                        // Move the start point to the left until a non-alphanumeric character (excluding underscore) is encountered.
-                        while (!startPoint.AtStartOfDocument)
+                        int startLine = startPoint.Line;
+                        int endLine = endPoint.Line;
+
+                        int letterCounter = 0;
+                        int wordLetterLimit = 256;
+
+                        while (!startPoint.AtStartOfDocument && letterCounter < wordLetterLimit)
                         {
                             startPoint.CharLeft(1);
-                            c = startPoint.GetText(1)[0];
-                            if (!(Char.IsLetterOrDigit(c) || c == '_'))
+                            string text = startPoint.GetText(1);
+
+                            if (string.IsNullOrEmpty(text) || !(char.IsLetterOrDigit(text[0]) || text[0] == '_') || startPoint.Line != startLine)
                             {
                                 startPoint.CharRight(1);
                                 break;
                             }
+
+                            letterCounter++;
                         }
 
-                        // Move the end point to the right until a non-alphanumeric character (excluding underscore) is encountered.
-                        c = endPoint.GetText(1)[0];
-                        while (Char.IsLetterOrDigit(c) || c == '_')
+                        string textEnd = endPoint.GetText(1);
+                        while (!string.IsNullOrEmpty(textEnd) && (char.IsLetterOrDigit(textEnd[0]) || textEnd[0] == '_') && letterCounter < wordLetterLimit)
                         {
                             if (!endPoint.AtEndOfDocument)
                             {
                                 endPoint.CharRight(1);
-                                c = endPoint.GetText(1)[0];
+                                textEnd = endPoint.GetText(1);
                             }
                             else
                             {
                                 break;
                             }
+
+                            if (endPoint.Line != endLine)
+                            {
+                                endPoint.CharLeft(1);
+                                break;
+                            }
+
+                            letterCounter++;
                         }
 
-                        // Get the text between the start and end points.
                         string word = startPoint.GetText(endPoint);
 
-                        // Check if word contains any alphanumeric characters
-                        bool wordContainsAlphanumeric = word.Any(x => Char.IsLetterOrDigit(x));
-
-                        if (wordContainsAlphanumeric)
+                        if (word.Any(x => char.IsLetterOrDigit(x)))
                         {
                             return word;
                         }
@@ -132,7 +146,7 @@ namespace qgrepSearch
             }
             catch { }
 
-            return currentlySelectedText;
+            return currentlySelectedText.Replace("\n", "").Replace("\r", "");
         }
 
         public string GetConfigPath(bool useGlobalPath)
