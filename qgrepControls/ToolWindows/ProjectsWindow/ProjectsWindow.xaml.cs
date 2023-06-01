@@ -63,7 +63,7 @@ namespace qgrepControls.SearchWindow
             RulesListBox.Title.Text = Properties.Resources.RulesListBoxTitle;
             RulesListBox.ItemEditType = ConfigListBox.EditType.Custom;
             RulesListBox.AddButton.ToolTip = Properties.Resources.RulesListBoxAddButtonTooltip;
-            RulesListBox.EditButton.ToolTip = Properties.Resources.RulesListBoxEditButtonTooltip;
+            RulesListBox.EditButton.ToolTip = Properties.Resources.EditFilterTitle;
             RulesListBox.RemoveButton.ToolTip = Properties.Resources.RulesListBoxRemoveButtonTooltip;
             RulesListBox.RemoveAllButton.ToolTip = Properties.Resources.RulesListBoxRemoveAllButtonTooltip;
             RulesListBox.AddButton.Click += AddNewRule_Click;

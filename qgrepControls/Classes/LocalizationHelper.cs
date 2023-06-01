@@ -15,8 +15,7 @@ namespace qgrepControls.Classes
         {
             if (parameters.Count > 1)
             {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
+                TestLanguage();
 
                 string resourceKey = parameters[0];
                 string format = Resources.ResourceManager.GetString(resourceKey);
@@ -48,6 +47,12 @@ namespace qgrepControls.Classes
             }
 
             return "";
+        }
+
+        public static void TestLanguage()
+        {
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
         }
 
         private static bool LooksLikePath(string path)

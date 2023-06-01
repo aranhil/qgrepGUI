@@ -313,12 +313,6 @@
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>Include</value>
   </data>
-  <data name="InfoLabel" xml:space="preserve">
-    <value>Etichetă informații</value>
-  </data>
-  <data name="InitInfo" xml:space="preserve">
-    <value>Informații de inițializare</value>
-  </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>Eroare la analizarea expresiei regulate: clasă de caractere nevalidă</value>
   </data>
@@ -490,9 +484,6 @@
   <data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
     <value>Adaugă un nou filtru</value>
   </data>
-  <data name="RulesListBoxEditButtonTooltip" xml:space="preserve">
-    <value>Editează filtrul</value>
-  </data>
   <data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
     <value>Șterge toate filtrele</value>
   </data>
@@ -545,7 +536,7 @@
     <value>Afișează istoricul:</value>
   </data>
   <data name="ShowingResults" xml:space="preserve">
-    <value>Se afișează {0} rezultat(e) pentru "{1}".</value>
+    <value>Se afișează {0} rezultat(e) pentru „{1}”.</value>
   </data>
   <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
     <value>Afișare istoric deschideri:</value>

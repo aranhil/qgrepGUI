@@ -305,7 +305,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}d ago.
+        ///   Looks up a localized string similar to {0} days ago.
         /// </summary>
         public static string DaysAgoText {
             get {
@@ -611,7 +611,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}h ago.
+        ///   Looks up a localized string similar to {0} hours ago.
         /// </summary>
         public static string HoursAgoText {
             get {
@@ -791,7 +791,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}m ago.
+        ///   Looks up a localized string similar to {0} minutes ago.
         /// </summary>
         public static string MinutesAgoText {
             get {
@@ -1016,7 +1016,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A list of predefined regexes.
+        ///   Looks up a localized string similar to A list of predefined regular expressions.
         /// </summary>
         public static string PredefinedButtonTooltip {
             get {
@@ -1079,7 +1079,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RegEx:.
+        ///   Looks up a localized string similar to Regular expression:.
         /// </summary>
         public static string RegExLabelContent {
             get {
@@ -1115,7 +1115,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove extra projects and groups to go back to basic settings.
+        ///   Looks up a localized string similar to Remove extra configs and groups to go back to basic settings.
         /// </summary>
         public static string RemoveExtraContent {
             get {
@@ -1156,15 +1156,6 @@ namespace qgrepControls.Properties {
         public static string RulesListBoxAddButtonTooltip {
             get {
                 return ResourceManager.GetString("RulesListBoxAddButtonTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit filter.
-        /// </summary>
-        public static string RulesListBoxEditButtonTooltip {
-            get {
-                return ResourceManager.GetString("RulesListBoxEditButtonTooltip", resourceCulture);
             }
         }
         
@@ -1331,7 +1322,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show open history:.
+        ///   Looks up a localized string similar to Show history of opened files:.
         /// </summary>
         public static string ShowOpenHistoryLabelContent {
             get {

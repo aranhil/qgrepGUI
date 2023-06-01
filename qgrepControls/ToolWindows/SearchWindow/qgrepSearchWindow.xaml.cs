@@ -60,8 +60,7 @@ namespace qgrepControls.SearchWindow
         {
             this.WrapperApp = WrapperApp;
 
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
+            LocalizationHelper.TestLanguage();
 
             SearchEngine.Instance.StartUpdateCallback += HandleUpdateStart;
             SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
@@ -578,8 +577,7 @@ namespace qgrepControls.SearchWindow
                 ProcessTreeCollapsing();
             }
 
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("ro-RO");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
+            LocalizationHelper.TestLanguage();
 
             InfoLabel.Text = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query);
         }

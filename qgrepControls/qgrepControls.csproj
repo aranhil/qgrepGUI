@@ -98,10 +98,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.ro-RO.Designer.cs">
+    <Compile Include="Properties\Resources.ro.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.ro-RO.resx</DependentUpon>
+      <DependentUpon>Resources.ro.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -148,9 +148,9 @@
     <Compile Include="UserControls\HotkeyEditorControl.xaml.cs">
       <DependentUpon>HotkeyEditorControl.xaml</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.ro-RO.resx">
+    <EmbeddedResource Include="Properties\Resources.ro.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.ro-RO.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.ro.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Resource Include="Resources\magnifying-glass-128px.png" />

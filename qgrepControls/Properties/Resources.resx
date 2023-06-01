@@ -200,7 +200,7 @@
     <value>Warning: data file {0} has an out of date format, rebuilding</value>
   </data>
   <data name="DaysAgoText" xml:space="preserve">
-    <value>{0}d ago</value>
+    <value>{0} days ago</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Edit color override</value>
@@ -302,7 +302,7 @@
     <value>History button:</value>
   </data>
   <data name="HoursAgoText" xml:space="preserve">
-    <value>{0}h ago</value>
+    <value>{0} hours ago</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>Include files...</value>
@@ -362,7 +362,7 @@
     <value>Go to location</value>
   </data>
   <data name="MinutesAgoText" xml:space="preserve">
-    <value>{0}m ago</value>
+    <value>{0} minutes ago</value>
   </data>
   <data name="MissingClosingParenthesis" xml:space="preserve">
     <value>Error parsing regular expression: missing )</value>
@@ -437,7 +437,7 @@
     <value>Plain Text</value>
   </data>
   <data name="PredefinedButtonTooltip" xml:space="preserve">
-    <value>A list of predefined regexes</value>
+    <value>A list of predefined regular expressions</value>
   </data>
   <data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
     <value>Add new config</value>
@@ -458,7 +458,7 @@
     <value>Regular expressions ({0})</value>
   </data>
   <data name="RegExLabelContent" xml:space="preserve">
-    <value>RegEx:</value>
+    <value>Regular expression:</value>
   </data>
   <data name="RelativePathOptionContent" xml:space="preserve">
     <value>Relative path</value>
@@ -470,7 +470,7 @@
     <value>Remove selected color override(s)</value>
   </data>
   <data name="RemoveExtraContent" xml:space="preserve">
-    <value>Remove extra projects and groups to go back to basic settings</value>
+    <value>Remove extra configs and groups to go back to basic settings</value>
   </data>
   <data name="ResultGroupHeightLabelContent" xml:space="preserve">
     <value>Result group height:</value>
@@ -483,9 +483,6 @@
   </data>
   <data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
     <value>Add new filter</value>
-  </data>
-  <data name="RulesListBoxEditButtonTooltip" xml:space="preserve">
-    <value>Edit filter</value>
   </data>
   <data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
     <value>Remove all filters</value>
@@ -542,7 +539,7 @@
     <value>Showing {0} result(s) for "{1}".</value>
   </data>
   <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
-    <value>Show open history:</value>
+    <value>Show history of opened files:</value>
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>Stop</value>
