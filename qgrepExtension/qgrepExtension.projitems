@@ -25,7 +25,4 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShowToolWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VsTaskRunner.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)VSCommandTable.vsct" />
-  </ItemGroup>
 </Project>

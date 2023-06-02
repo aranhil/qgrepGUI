@@ -203,12 +203,14 @@ namespace qgrepControls.Classes
 
                     if (searchOptions.IncludeFiles.Length > 0)
                     {
-                        arguments.Add("fi" + (searchOptions.IncludeFilesRegEx ? searchOptions.IncludeFiles : Regex.Escape(searchOptions.IncludeFiles)));
+                        string processedIncludeFiles = searchOptions.IncludeFiles.Replace("\\", "/");
+                        arguments.Add("fi" + (searchOptions.IncludeFilesRegEx ? processedIncludeFiles : Regex.Escape(processedIncludeFiles)));
                     }
 
                     if (searchOptions.ExcludeFiles.Length > 0)
                     {
-                        arguments.Add("fe" + (searchOptions.ExcludeFilesRegEx ? searchOptions.ExcludeFiles : Regex.Escape(searchOptions.ExcludeFiles)));
+                        string processedExcludeFiles = searchOptions.ExcludeFiles.Replace("\\", "/");
+                        arguments.Add("fe" + (searchOptions.ExcludeFilesRegEx ? processedExcludeFiles : Regex.Escape(processedExcludeFiles)));
                     }
 
                     arguments.Add("HD");
@@ -286,6 +288,7 @@ namespace qgrepControls.Classes
             {
                 searchOptions.EventsHandler.OnStartSearchEvent(searchOptions);
 
+                string processedQuery = searchOptions.FileSearchUnorderedKeywords ? searchOptions.Query : searchOptions.Query.Replace("\\", "/");
                 List<string> arguments = new List<string>
                 {
                     "qgrep",
@@ -295,7 +298,7 @@ namespace qgrepControls.Classes
                     "V",
                     searchOptions.FileSearchUnorderedKeywords ? "fc" : "fp",
                     (searchOptions.FileSearchUnorderedKeywords ? ConfigParser.GetPathToRemove(Settings.Default.FilesSearchScopeIndex) + "\xB0" : "") +
-                    (searchOptions.RegEx ? searchOptions.Query : Regex.Escape(searchOptions.Query))
+                    (searchOptions.RegEx ? processedQuery : Regex.Escape(processedQuery))
                 };
 
                 QGrepWrapper.CallQGrepAsync(arguments,

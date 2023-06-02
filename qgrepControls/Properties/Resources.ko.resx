@@ -606,4 +606,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>전역 경로 사용</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>qgrep 검색 도구</value>
+  </data>
 </root>

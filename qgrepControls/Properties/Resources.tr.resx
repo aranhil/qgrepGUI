@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,125 +118,121 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AbsolutePathOptionContent" xml:space="preserve">
-    <value>Absolute path</value>
+    <value>Kesin yol</value>
   </data>
   <data name="AddColorOverrideTooltip" xml:space="preserve">
-    <value>Add color override</value>
+    <value>Renk geçersiz kılma ekle</value>
   </data>
   <data name="AddFilterTitle" xml:space="preserve">
-    <value>Add filter</value>
+    <value>Filtre ekle</value>
   </data>
   <data name="AdvancedSettings" xml:space="preserve">
-    <value>Advanced Settings</value>
+    <value>Gelişmiş Ayarlar</value>
   </data>
   <data name="AdvancedToggleContent" xml:space="preserve">
-    <value>‹‹ Advanced</value>
+    <value>&lt;&lt; Gelişmiş</value>
   </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
-    <value>Always</value>
+    <value>Her zaman</value>
   </data>
   <data name="AutomaticOptionContent" xml:space="preserve">
-    <value>Automatic</value>
+    <value>Otomatik</value>
   </data>
   <data name="AutomaticPopulationContent" xml:space="preserve">
-    <value>Gather from solution</value>
+    <value>Çözümden topla</value>
   </data>
   <data name="AutoOptionContent" xml:space="preserve">
-    <value>Auto</value>
+    <value>Oto</value>
   </data>
   <data name="BadRepetitionOperator" xml:space="preserve">
-    <value>Error parsing regular expression: bad repetition operator</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: hatalı yineleme operatörü</value>
   </data>
   <data name="BasicToggleContent" xml:space="preserve">
-    <value>›› Basic</value>
+    <value>&gt;&gt; Temel</value>
   </data>
   <data name="BuildingFileTableMessage" xml:space="preserve">
-    <value>Building file table...</value>
+    <value>Dosya tablosu oluşturuluyor...</value>
   </data>
   <data name="BuildingMessage" xml:space="preserve">
-    <value>Building {0}</value>
+    <value>Bina {0}</value>
   </data>
   <data name="CancelButtonContent" xml:space="preserve">
-    <value>Cancel</value>
+    <value>İptal etmek</value>
   </data>
   <data name="CannotCleanIndex" xml:space="preserve">
-    <value>Cannot clean index: {0}</value>
+    <value>Dizin temizlenemiyor: {0}</value>
   </data>
   <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} chunks updated in {4:0.00} sec</value>
+    <value>{0} {1}; {4:0.00} saniyede {2}/{3} parça güncellendi</value>
   </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
-    <value>Clean and update index</value>
+    <value>Dizini temizle ve güncelle</value>
   </data>
   <data name="ColorLabelContent" xml:space="preserve">
-    <value>Color:</value>
+    <value>Renk:</value>
   </data>
   <data name="ColorOverridesTitle" xml:space="preserve">
-    <value>Color overrides</value>
+    <value>Renk geçersiz kılmaları</value>
   </data>
   <data name="ColorSchemeLabelContent" xml:space="preserve">
-    <value>Color scheme:</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="colors_schemes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\colors-schemes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Renk uyumu:</value>
   </data>
   <data name="ConfigFormat" xml:space="preserve">
-    <value>Config{0}</value>
+    <value>Yapılandırma{0}</value>
   </data>
   <data name="ConfigOpenContent" xml:space="preserve">
-    <value>Open location</value>
+    <value>Açık konum</value>
   </data>
   <data name="CopyFullPath" xml:space="preserve">
-    <value>Copy full path</value>
+    <value>Tam yolu kopyala</value>
   </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
-    <value>Customize shortcuts</value>
+    <value>Kısayolları özelleştir</value>
   </data>
   <data name="CustomizeTheme" xml:space="preserve">
-    <value>Customize theme</value>
+    <value>Temayı özelleştir</value>
   </data>
   <data name="DataFileOutOfDateFormatWarning" xml:space="preserve">
-    <value>Warning: data file {0} has an out of date format, rebuilding</value>
+    <value>Uyarı: {0} veri dosyasının biçimi eski, yeniden oluşturuluyor</value>
   </data>
   <data name="DaysAgoText" xml:space="preserve">
-    <value>{0} days ago</value>
+    <value>{0} gün önce</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
-    <value>Edit color override</value>
+    <value>Renk geçersiz kılmayı düzenle</value>
   </data>
   <data name="EditFilterTitle" xml:space="preserve">
-    <value>Edit filter</value>
+    <value>Filtreyi düzenle</value>
   </data>
   <data name="EditHotkeys" xml:space="preserve">
-    <value>Edit hotkeys</value>
+    <value>Kısayol tuşlarını düzenle</value>
   </data>
   <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
-    <value>Error opening data file {0} for writing</value>
+    <value>{0} veri dosyası yazmak için açılırken hata oluştu</value>
   </data>
   <data name="ErrorReadingDataFile" xml:space="preserve">
-    <value>Error reading data file {0}</value>
+    <value>{0} veri dosyası okunurken hata oluştu</value>
   </data>
   <data name="ErrorReadingFile" xml:space="preserve">
-    <value>Error reading file {0}</value>
+    <value>{0} dosyası okunurken hata oluştu</value>
   </data>
   <data name="ErrorReadingFolder" xml:space="preserve">
-    <value>Error reading folder {0}</value>
+    <value>{0} klasörü okunurken hata oluştu</value>
   </data>
   <data name="ErrorReadingMetadataForFile" xml:space="preserve">
-    <value>Error reading metadata for file {0}</value>
+    <value>{0} dosyası için meta veriler okunurken hata oluştu</value>
   </data>
   <data name="ErrorSavingDataFile" xml:space="preserve">
-    <value>Error saving data file {0}</value>
+    <value>{0} veri dosyası kaydedilirken hata oluştu</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>Exclude files...</value>
+    <value>Dosyaları hariç tut...</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
-    <value>Exclude files:</value>
+    <value>Dosyaları hariç tut:</value>
   </data>
   <data name="ExcludeOptionContent" xml:space="preserve">
-    <value>Exclude</value>
+    <value>Hariç tutmak</value>
   </data>
   <data name="FileAndLine" xml:space="preserve">
     <value>{0}({1})</value>
@@ -245,372 +241,372 @@
     <value>{0}({1}): {2}</value>
   </data>
   <data name="FileOnlyOptionContent" xml:space="preserve">
-    <value>File only</value>
+    <value>Yalnızca dosya</value>
   </data>
   <data name="FileOptionContent" xml:space="preserve">
-    <value>File</value>
+    <value>Dosya</value>
   </data>
   <data name="Files" xml:space="preserve">
-    <value>files</value>
+    <value>Dosyalar</value>
   </data>
   <data name="FilesInAndOutMessage" xml:space="preserve">
-    <value>{0} files, {1} Mb in, {2} Mb out</value>
+    <value>{0} dosya, {1} Mb giriş, {2} Mb çıkış</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>Filter results...</value>
+    <value>Sonuçları filtrele...</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
-    <value>Filter results:</value>
+    <value>Sonuçları filtrele:</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
-    <value>Filter search scope:</value>
+    <value>Arama kapsamını filtrele:</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
-    <value>Group by:</value>
+    <value>Gruplandır:</value>
   </data>
   <data name="GroupExpandLabelContent" xml:space="preserve">
-    <value>Group expand:</value>
+    <value>Grup genişletme:</value>
   </data>
   <data name="GroupFormat" xml:space="preserve">
-    <value>Group {0}</value>
+    <value>Grup {0}</value>
   </data>
   <data name="GroupsListBoxAddButtonTooltip" xml:space="preserve">
-    <value>Add new group</value>
+    <value>yeni grup ekle</value>
   </data>
   <data name="GroupsListBoxEditButtonTooltip" xml:space="preserve">
-    <value>Edit group name</value>
+    <value>Grup adını düzenle</value>
   </data>
   <data name="GroupsListBoxRemoveAllButtonTooltip" xml:space="preserve">
-    <value>Remove all groups</value>
+    <value>Tüm grupları kaldır</value>
   </data>
   <data name="GroupsListBoxRemoveButtonTooltip" xml:space="preserve">
-    <value>Remove selected group(s)</value>
+    <value>Seçilen grupları kaldır</value>
   </data>
   <data name="GroupsListBoxTitle" xml:space="preserve">
-    <value>Groups</value>
+    <value>Gruplar</value>
   </data>
   <data name="HistoricOpen" xml:space="preserve">
-    <value>Opened {0}</value>
+    <value>{0} açıldı</value>
   </data>
   <data name="HistoricSearch" xml:space="preserve">
-    <value>Searched {0}</value>
+    <value>{0} arandı</value>
   </data>
   <data name="HistoryButton" xml:space="preserve">
-    <value>Show recent searches ({0})</value>
+    <value>Son aramaları göster ({0})</value>
   </data>
   <data name="HistoryButtonLabelContent" xml:space="preserve">
-    <value>History button:</value>
+    <value>Geçmiş düğmesi:</value>
   </data>
   <data name="HoursAgoText" xml:space="preserve">
-    <value>{0} hours ago</value>
+    <value>{0} saat önce</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>Include files...</value>
+    <value>Dosyaları dahil et...</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
-    <value>Include files:</value>
+    <value>Dosyaları dahil et:</value>
   </data>
   <data name="IncludeOptionContent" xml:space="preserve">
-    <value>Include</value>
+    <value>Katmak</value>
   </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
-    <value>Error parsing regular expression: invalid character class</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: geçersiz karakter sınıfı</value>
   </data>
   <data name="InvalidCharacterClassRange" xml:space="preserve">
-    <value>Error parsing regular expression: invalid character class range</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: geçersiz karakter sınıfı aralığı</value>
   </data>
   <data name="InvalidEscapeSequence" xml:space="preserve">
-    <value>Error parsing regular expression: invalid escape sequence</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: geçersiz çıkış sırası</value>
   </data>
   <data name="InvalidNamedCaptureGroup" xml:space="preserve">
-    <value>Error parsing regular expression: invalid named capture group</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: geçersiz adlandırılmış yakalama grubu</value>
   </data>
   <data name="InvalidPerlOperator" xml:space="preserve">
-    <value>Error parsing regular expression: invalid perl operator</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: geçersiz perl operatörü</value>
   </data>
   <data name="InvalidRepetitionSize" xml:space="preserve">
-    <value>Error parsing regular expression: invalid repetition size</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: geçersiz yineleme boyutu</value>
   </data>
   <data name="InvalidUTF8" xml:space="preserve">
-    <value>Error parsing regular expression: invalid UTF-8</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: geçersiz UTF-8</value>
   </data>
   <data name="JustNowText" xml:space="preserve">
-    <value>just now</value>
+    <value>Şu anda</value>
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
-    <value>Last index update: {0}</value>
+    <value>Son dizin güncellemesi: {0}</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
-    <value>Error reading data file {0}: malformed chunk</value>
+    <value>{0} veri dosyası okunurken hata oluştu: hatalı biçimlendirilmiş öbek</value>
   </data>
   <data name="MalformedHeaderErrorReadingDataFile" xml:space="preserve">
-    <value>Error reading data file {0}: malformed header</value>
+    <value>{0} veri dosyası okunurken hata oluştu: bozuk başlık</value>
   </data>
   <data name="MenuCopyAllResults" xml:space="preserve">
-    <value>Copy all results</value>
+    <value>Tüm sonuçları kopyala</value>
   </data>
   <data name="MenuCopyFullPath" xml:space="preserve">
-    <value>Copy full path</value>
+    <value>Tam yolu kopyala</value>
   </data>
   <data name="MenuCopyResult" xml:space="preserve">
-    <value>Copy entire result</value>
+    <value>Tüm sonucu kopyala</value>
   </data>
   <data name="MenuCopyText" xml:space="preserve">
-    <value>Copy text</value>
+    <value>Metni kopyala</value>
   </data>
   <data name="MenuGoTo" xml:space="preserve">
-    <value>Go to location</value>
+    <value>konuma git</value>
   </data>
   <data name="MinutesAgoText" xml:space="preserve">
-    <value>{0} minutes ago</value>
+    <value>{0} dakika önce</value>
   </data>
   <data name="MissingClosingParenthesis" xml:space="preserve">
-    <value>Error parsing regular expression: missing )</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: eksik)</value>
   </data>
   <data name="MissingClosingSquareBracket" xml:space="preserve">
-    <value>Error parsing regular expression: missing ]</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: eksik ]</value>
   </data>
   <data name="MonospaceFontLabelContent" xml:space="preserve">
-    <value>Monospace font:</value>
+    <value>Tek aralıklı yazı tipi:</value>
   </data>
   <data name="NeverOptionContent" xml:space="preserve">
-    <value>Never</value>
+    <value>Asla</value>
   </data>
   <data name="NeverText" xml:space="preserve">
-    <value>never</value>
+    <value>Asla</value>
   </data>
   <data name="NoArgumentForRepetitionOperator" xml:space="preserve">
-    <value>Error parsing regular expression: no argument for repetition operator</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: tekrar işleci için bağımsız değişken yok</value>
   </data>
   <data name="NoChanges" xml:space="preserve">
-    <value>No changes</value>
+    <value>Değişiklik yok</value>
   </data>
   <data name="NoError" xml:space="preserve">
-    <value>no error</value>
+    <value>hata yok</value>
   </data>
   <data name="NoneOptionContent" xml:space="preserve">
-    <value>None</value>
+    <value>Hiçbiri</value>
   </data>
   <data name="NormalFontLabelContent" xml:space="preserve">
-    <value>Normal font:</value>
+    <value>Normal yazı tipi:</value>
   </data>
   <data name="NoSearchFoldersSet" xml:space="preserve">
-    <value>No search folders set.</value>
+    <value>Arama klasörü ayarlanmadı.</value>
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
-    <value>No solution loaded.</value>
+    <value>Çözüm yüklenmedi.</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
-    <value>Open file</value>
+    <value>Açık dosya</value>
   </data>
   <data name="OpenFileSearchLabelContent" xml:space="preserve">
-    <value>Open file search:</value>
+    <value>Dosya aramayı aç:</value>
   </data>
   <data name="OutOfMemoryErrorReadingFile" xml:space="preserve">
-    <value>Error reading file {0}: out of memory</value>
+    <value>{0} dosyası okunurken hata oluştu: yetersiz bellek</value>
   </data>
   <data name="OverrideExistsErrorMessage" xml:space="preserve">
-    <value>Override already exists!</value>
+    <value>Geçersiz kılma zaten var!</value>
   </data>
   <data name="PathOnlyOptionContent" xml:space="preserve">
-    <value>Path only</value>
+    <value>Yalnızca yol</value>
   </data>
   <data name="PathsListBoxAddButtonTooltip" xml:space="preserve">
-    <value>Add new folder(s)</value>
+    <value>Yeni klasör(ler) ekle</value>
   </data>
   <data name="PathsListBoxEditButtonTooltip" xml:space="preserve">
-    <value>Edit folder name</value>
+    <value>Klasör adını düzenle</value>
   </data>
   <data name="PathsListBoxRemoveAllButtonTooltip" xml:space="preserve">
-    <value>Remove all folders</value>
+    <value>Tüm klasörleri kaldır</value>
   </data>
   <data name="PathsListBoxRemoveButtonTooltip" xml:space="preserve">
-    <value>Remove selected folder(s)</value>
+    <value>Seçilen klasörleri kaldır</value>
   </data>
   <data name="PathsListBoxTitle" xml:space="preserve">
-    <value>Folders</value>
+    <value>Klasörler</value>
   </data>
   <data name="PathStyleLabelContent" xml:space="preserve">
-    <value>Path style:</value>
+    <value>Yol stili:</value>
   </data>
   <data name="PlainTextContent" xml:space="preserve">
-    <value>Plain Text</value>
+    <value>Düz Metin</value>
   </data>
   <data name="PredefinedButtonTooltip" xml:space="preserve">
-    <value>A list of predefined regular expressions</value>
+    <value>Önceden tanımlanmış normal ifadelerin listesi</value>
   </data>
   <data name="ProjectsListBoxAddButtonTooltip" xml:space="preserve">
-    <value>Add new config</value>
+    <value>Yeni yapılandırma ekle</value>
   </data>
   <data name="ProjectsListBoxEditButtonTooltip" xml:space="preserve">
-    <value>Edit config name</value>
+    <value>Yapılandırma adını düzenle</value>
   </data>
   <data name="ProjectsListBoxRemoveAllButtonTooltip" xml:space="preserve">
-    <value>Remove all configs</value>
+    <value>Tüm yapılandırmaları kaldır</value>
   </data>
   <data name="ProjectsListBoxRemoveButtonTooltip" xml:space="preserve">
-    <value>Remove selected config(s)</value>
+    <value>Seçilen yapılandırmaları kaldır</value>
   </data>
   <data name="ProjectsListBoxTitle" xml:space="preserve">
-    <value>Configs</value>
+    <value>yapılandırmalar</value>
   </data>
   <data name="RegEx" xml:space="preserve">
-    <value>Regular expressions ({0})</value>
+    <value>Normal ifadeler ({0})</value>
   </data>
   <data name="RegExLabelContent" xml:space="preserve">
-    <value>Regular expression:</value>
+    <value>Düzenli ifade:</value>
   </data>
   <data name="RelativePathOptionContent" xml:space="preserve">
-    <value>Relative path</value>
+    <value>Göreceli yol</value>
   </data>
   <data name="RemoveAllColorOverridesTooltip" xml:space="preserve">
-    <value>Remove all color overrides</value>
+    <value>Tüm renk geçersiz kılmalarını kaldır</value>
   </data>
   <data name="RemoveColorOverrideTooltip" xml:space="preserve">
-    <value>Remove selected color override(s)</value>
+    <value>Seçilen renk geçersiz kılmalarını kaldır</value>
   </data>
   <data name="RemoveExtraContent" xml:space="preserve">
-    <value>Remove extra configs and groups to go back to basic settings</value>
+    <value>Temel ayarlara geri dönmek için fazladan yapılandırmaları ve grupları kaldırın</value>
   </data>
   <data name="ResultGroupHeightLabelContent" xml:space="preserve">
-    <value>Result group height:</value>
+    <value>Sonuç grubu yüksekliği:</value>
   </data>
   <data name="ResultLineHeightLabelContent" xml:space="preserve">
-    <value>Result line height:</value>
+    <value>Sonuç satırı yüksekliği:</value>
   </data>
   <data name="RootContent" xml:space="preserve">
-    <value>&lt;root&gt;</value>
+    <value>&lt;kök&gt;</value>
   </data>
   <data name="RulesListBoxAddButtonTooltip" xml:space="preserve">
-    <value>Add new filter</value>
+    <value>Yeni filtre ekle</value>
   </data>
   <data name="RulesListBoxRemoveAllButtonTooltip" xml:space="preserve">
-    <value>Remove all filters</value>
+    <value>Tüm filtreleri kaldır</value>
   </data>
   <data name="RulesListBoxRemoveButtonTooltip" xml:space="preserve">
-    <value>Remove selected filter(s)</value>
+    <value>Seçili filtreleri kaldır</value>
   </data>
   <data name="RulesListBoxTitle" xml:space="preserve">
-    <value>Filters</value>
+    <value>Filtreler</value>
   </data>
   <data name="SaveButtonContent" xml:space="preserve">
-    <value>Save</value>
+    <value>Kaydetmek</value>
   </data>
   <data name="ScanningProjectMessage" xml:space="preserve">
-    <value>Scanning project...</value>
+    <value>Proje taranıyor...</value>
   </data>
   <data name="SearchCaseSensitive" xml:space="preserve">
-    <value>Case sensitive ({0})</value>
+    <value>Büyük/küçük harfe duyarlı ({0})</value>
   </data>
   <data name="SearchConfigurations" xml:space="preserve">
-    <value>Search configurations</value>
+    <value>Arama yapılandırmaları</value>
   </data>
   <data name="SearchFileLabel" xml:space="preserve">
-    <value>Search file...</value>
+    <value>Dosya ara...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>Search...</value>
+    <value>Aramak...</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
-    <value>Search scope:</value>
+    <value>Arama kapsamı:</value>
   </data>
   <data name="SearchWhileTypingLabelContent" xml:space="preserve">
-    <value>Search while typing:</value>
+    <value>Yazarken ara:</value>
   </data>
   <data name="SearchWholeWord" xml:space="preserve">
-    <value>Whole word ({0})</value>
+    <value>Tam kelime ({0})</value>
   </data>
   <data name="SelectFolderPrompt" xml:space="preserve">
-    <value>Select folder(s)</value>
+    <value>Klasör(ler) seçin</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Ayarlar</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
-    <value>Shortcut: {0}</value>
+    <value>Kısayol: {0}</value>
   </data>
   <data name="ShortcutTooltipNoChangeFormat" xml:space="preserve">
-    <value>Shortcut: {0} (doesn't change setting)</value>
+    <value>Kısayol: {0} (ayar değişmez)</value>
   </data>
   <data name="ShowHistoryLabelContent" xml:space="preserve">
-    <value>Show history:</value>
+    <value>Geçmişi göster:</value>
   </data>
   <data name="ShowingResults" xml:space="preserve">
-    <value>Showing {0} result(s) for "{1}".</value>
+    <value>"{1}" için {0} sonuç gösteriliyor.</value>
   </data>
   <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
-    <value>Show history of opened files:</value>
+    <value>Açılan dosyaların geçmişini göster:</value>
   </data>
   <data name="StopButtonContent" xml:space="preserve">
-    <value>Stop</value>
+    <value>Durmak</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
-    <value>Target:</value>
+    <value>Hedef:</value>
   </data>
   <data name="TextAndPathOptionContent" xml:space="preserve">
-    <value>Text and path</value>
+    <value>Metin ve yol</value>
   </data>
   <data name="TextOnlyOptionContent" xml:space="preserve">
-    <value>Text only</value>
+    <value>Sadece yazı</value>
   </data>
   <data name="ThemeSettings" xml:space="preserve">
-    <value>Theme settings</value>
+    <value>Tema ayarları</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>qgrep Search Tool</value>
+    <value>qgrep Arama Aracı</value>
   </data>
   <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
-    <value>Toggle case sensitive:</value>
+    <value>Büyük/küçük harf duyarlılığını değiştir:</value>
   </data>
   <data name="ToggleExcludeFilesLabelContent" xml:space="preserve">
-    <value>Toggle exclude files:</value>
+    <value>Hariç tutulan dosyaları değiştir:</value>
   </data>
   <data name="ToggleFilterResultsLabelContent" xml:space="preserve">
-    <value>Toggle filter results:</value>
+    <value>Filtre sonuçlarını değiştir:</value>
   </data>
   <data name="ToggleGroupingByLabelContent" xml:space="preserve">
-    <value>Toggle grouping by:</value>
+    <value>Gruplandırmayı değiştir:</value>
   </data>
   <data name="ToggleGroupingExpandLabelContent" xml:space="preserve">
-    <value>Toggle grouping expand:</value>
+    <value>Gruplandırmayı aç / kapat genişlet:</value>
   </data>
   <data name="ToggleIncludeFilesLabelContent" xml:space="preserve">
-    <value>Toggle include files:</value>
+    <value>Dosyaları dahil et arasında geçiş yap:</value>
   </data>
   <data name="ToggleRegexLabelContent" xml:space="preserve">
-    <value>Toggle regular expressions:</value>
+    <value>Normal ifadeleri değiştir:</value>
   </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
-    <value>Toggle whole word:</value>
+    <value>Kelimenin tamamını değiştir:</value>
   </data>
   <data name="TrailingBackslash" xml:space="preserve">
-    <value>Error parsing regular expression: trailing \</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: sonundaki \</value>
   </data>
   <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
-    <value>Trim spaces on copy:</value>
+    <value>Kopyadaki boşlukları kırpın:</value>
   </data>
   <data name="TypeLabelContent" xml:space="preserve">
-    <value>Type:</value>
+    <value>Tip:</value>
   </data>
   <data name="UncaughtExceptionMessage" xml:space="preserve">
-    <value>Uncaught exception: {0}</value>
+    <value>Yakalanmayan istisna: {0}</value>
   </data>
   <data name="UnexpectedClosingParenthesis" xml:space="preserve">
-    <value>Error parsing regular expression: unexpected )</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: beklenmeyen )</value>
   </data>
   <data name="UnexpectedError" xml:space="preserve">
-    <value>Error parsing regular expression: unexpected error</value>
+    <value>Normal ifade ayrıştırılırken hata oluştu: beklenmeyen hata</value>
   </data>
   <data name="UpdateIndex" xml:space="preserve">
-    <value>Update index</value>
+    <value>Dizini güncelle</value>
   </data>
   <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
-    <value>Update index automatically:</value>
+    <value>Dizini otomatik olarak güncelle:</value>
   </data>
   <data name="UpdatingMessage" xml:space="preserve">
-    <value>Updating {0}:</value>
+    <value>{0} güncelleniyor:</value>
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
-    <value>Use global path</value>
+    <value>Genel yolu kullan</value>
   </data>
 </root>

@@ -1376,6 +1376,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to qgrep Search Tool.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle case sensitive:.
         /// </summary>
         public static string ToggleCaseSensitiveLabelContent {
