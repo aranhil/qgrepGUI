@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageLanguagePackManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+	<Metadata>
+		<DisplayName>Visual Studio 2022 için qgrep Arama Aracı</DisplayName>
+		<Description xml:space="preserve">Büyük kod tabanları için dosyalarda anında arama</Description>
+	</Metadata>
+</PackageLanguagePackManifest>

@@ -404,7 +404,7 @@ namespace qgrepControls.SearchWindow
                     InitProgress.Visibility = Visibility.Collapsed;
                     InitButton.IsEnabled = true;
                     CleanButton.IsEnabled = true;
-                    InitInfo.Content = lastMessage;
+                    InitInfo.Text = lastMessage;
 
                     infoUpdateStopWatch.Stop();
                     progressUpdateStopWatch.Stop();
@@ -420,7 +420,7 @@ namespace qgrepControls.SearchWindow
             {
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
-                    InitInfo.Content = message;
+                    InitInfo.Text = message;
                 }
             });
         }
@@ -435,7 +435,7 @@ namespace qgrepControls.SearchWindow
                 {
                     if (databaseUpdate == null || !databaseUpdate.IsSilent)
                     {
-                        InitInfo.Content = message;
+                        InitInfo.Text = message;
                         infoUpdateStopWatch.Restart();
                     }
                 });

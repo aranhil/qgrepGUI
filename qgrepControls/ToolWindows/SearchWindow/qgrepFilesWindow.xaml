@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" x:Name="IncludeFilesGrid" Margin="0,-1,0,0">
             <TextBox x:Name="IncludeFilesInput" TabIndex="1" BorderThickness="0,1,0,1" Style="{DynamicResource SomeTextBoxStyle}" TextChanged="SearchInput_TextChanged" />
-            <Label x:Name="IncludeFilesLabel" Content="{x:Static resx:Resources.SearchFileLabel}" Style="{DynamicResource SomeHintLabel}"/>
+            <TextBlock x:Name="IncludeFilesLabel" Text="{x:Static resx:Resources.SearchFileLabel}" Style="{DynamicResource SomeHintLabel}"/>
         </Grid>
         <Grid Grid.Row="1">
             <ListBox x:Name="SearchItemsListBox" Style="{DynamicResource ResultsListBox}" TabIndex="4" ItemsSource="{Binding}" KeyboardNavigation.TabNavigation="Once" Focusable="False">
@@ -46,7 +46,7 @@
         </Grid>
         <Grid Grid.Row="2">
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,10,0">
-                <Label IsTabStop="False" x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
+                <TextBlock x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
                 <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
                 <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="{x:Static resx:Resources.UpdateIndex}">
                     <Path Style="{DynamicResource SyncIcon}" />

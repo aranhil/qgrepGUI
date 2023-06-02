@@ -23,10 +23,10 @@
 - Fixed issue where tree view items collapsed/expanded by the user were modified by a search that was still appending to the results
 - Fixed issue with escaped backslashes ("\\") in filters that were not being recognized by qgrep as a valid path separator
 
-### Version 2.8
+### Version 2.8 (02/06/2023)
 
 - Fixed occasional crash when opening the tool window
-- Localized all strings and added some machine translations (Chinese Simplified, Chinese Traditional, French, German, Italian, Japanese, Korean, Polish, Romanian, Spanish and Portuguese)
+- Localized all strings and added some machine translations (Chinese Simplified, Chinese Traditional, Czech, French, German, Italian, Japanese, Korean, Polish, Romanian, Spanish, Portuguese and Turkish)
 - Improved the UI responsiveness for searches with lots of results
 - Migrated to using Visual Studio's ThreadHelper.JoinableTaskFactory for a more responsive UI
 - Fixed the style of textboxes' contextual menus
@@ -34,4 +34,5 @@
 - Search file dialog's input textbox and results listbox are now both focused at the same time
 - Added support for UTF-8 encoded paths
 - Fixed issue where pressing Delete would delete the Config/Group while editing the name
-- Fixed issue where the '_' character wasn't showing up in the search summary info
+- Fixed issue where the underscore ('_') character wasn't showing up in the search summary info
+- Fixed issue with backslashes ('\') not being recognized as a valid path separator in all the fields that expect a path (file search, include files and exclude files)

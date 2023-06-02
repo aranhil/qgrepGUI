@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<Extern href="stdidcmd.h" />
+	<Extern href="vsshlids.h" />
+	<Include href="KnownImageIds.vsct" />
+	<Commands package="guidMyPackage">
+		<Buttons>
+			<Button guid="guidMyPackageCmdSet" id="ShowToolWindowId" priority="0x9000" type="Button">
+				<!-- parent is View > Other Windows -->
+				<Parent guid="guidSHLMainMenu" id="IDG_VS_VIEW_DEV_WINDOWS" />
+				<Icon guid="guidImages1" id="bmpPic1" />
+				<Strings>
+					<ButtonText>qgrep 搜索工具</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidCaseSensitiveCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleCaseSensitive</LocCanonicalName>
+					<ButtonText>Toggle Case Sensitive</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidWholeWordCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleWholeWord</LocCanonicalName>
+					<ButtonText>Toggle Whole Word</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidRegExCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleRegEx</LocCanonicalName>
+					<ButtonText>Toggle Regular Expressions</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidIncludeFilesCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleIncludeFiles</LocCanonicalName>
+					<ButtonText>Toggle Include Files</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidExcludeFilesCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleExcludeFiles</LocCanonicalName>
+					<ButtonText>Toggle Exclude Files</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidFilterResultsCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleFilterResults</LocCanonicalName>
+					<ButtonText>Toggle Filter Results</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidShowHistoryCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ShowHistory</LocCanonicalName>
+					<ButtonText>Show Recent History</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidGroupByCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleGroupBy</LocCanonicalName>
+					<ButtonText>Toggle Grouping By</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidGroupExpandCommand" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleGroupExpand</LocCanonicalName>
+					<ButtonText>Toggle Grouping Expand</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidOpenSearchFiles" priority="0x9100" type="Button">
+				<Parent guid="guidSHLMainMenu" id="IDG_VS_VIEW_DEV_WINDOWS" />
+				<Icon guid="guidImages1" id="bmpPic1" />
+				<Strings>
+					<ButtonText>qgrep 搜索文件</ButtonText>
+				</Strings>
+			</Button>
+		</Buttons>
+		<Groups>
+			<Group guid="guidqgrepSearchPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
+			</Group>
+		</Groups>
+		<Bitmaps>
+			<Bitmap guid="guidImages1" href="Resources\magnifying-glass.ico" usedList="bmpPic1" />
+		</Bitmaps>
+	</Commands>
+
+	<KeyBindings>
+		<KeyBinding guid="guidMyPackageCmdSet" id="ShowToolWindowId" editor="guidVSStd97" key1="F" mod1="Alt Shift" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidCaseSensitiveCommand" editor="guidMyToolWindow" key1="C" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidWholeWordCommand" editor="guidMyToolWindow" key1="W" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidRegExCommand" editor="guidMyToolWindow" key1="R" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidIncludeFilesCommand" editor="guidMyToolWindow" key1="I" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidExcludeFilesCommand" editor="guidMyToolWindow" key1="E" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidFilterResultsCommand" editor="guidMyToolWindow" key1="F" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidShowHistoryCommand" editor="guidMyToolWindow" key1="H" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidOpenSearchFiles" editor="guidVSStd97" key1="I" mod1="Alt Shift" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidGroupByCommand" editor="guidMyToolWindow" key1="G" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidGroupExpandCommand" editor="guidMyToolWindow" key1="X" mod1="Alt" />
+	</KeyBindings>
+
+	<Symbols>
+		<GuidSymbol name="guidMyPackage" value="{6e3b2e95-902b-4385-a966-30c06ab3c7a6}" />
+
+		<GuidSymbol name="guidMyToolWindow" value="{e4e2ba26-a455-4c53-adb3-8225fb696f8b}" />
+
+		<GuidSymbol name="guidMyPackageCmdSet" value="{9cc1062b-4c82-46d2-adcb-f5c17d55fb85}">
+			<IDSymbol name="ShowToolWindowId" value="0x0100" />
+			<IDSymbol name="SearchId" value="0x0102" />
+		</GuidSymbol>
+
+		<GuidSymbol value="{00ac5e41-0a1a-4013-9d40-a1af7a0f2ff0}" name="guidImages">
+			<IDSymbol name="bmpPic1" value="1" />
+			<IDSymbol name="bmpPic2" value="2" />
+			<IDSymbol name="bmpPicSearch" value="3" />
+			<IDSymbol name="bmpPicX" value="4" />
+			<IDSymbol name="bmpPicArrows" value="5" />
+			<IDSymbol name="bmpPicStrikethrough" value="6" />
+		</GuidSymbol>
+
+		<GuidSymbol value="{d480acd1-c9b7-45da-a687-4cacc45acf16}" name="guidqgrepSearchPackageCmdSet">
+			<IDSymbol value="4128" name="MyMenuGroup" />
+			<IDSymbol value="256" name="cmdidCaseSensitiveCommand" />
+			<IDSymbol value="4134" name="cmdidWholeWordCommand" />
+			<IDSymbol value="4135" name="cmdidRegExCommand" />
+			<IDSymbol value="4136" name="cmdidIncludeFilesCommand" />
+			<IDSymbol value="4137" name="cmdidExcludeFilesCommand" />
+			<IDSymbol value="4138" name="cmdidFilterResultsCommand" />
+			<IDSymbol value="4139" name="cmdidShowHistoryCommand" />
+			<IDSymbol value="4141" name="cmdidOpenSearchFiles" />
+			<IDSymbol value="4142" name="cmdidGroupByCommand" />
+			<IDSymbol value="4143" name="cmdidGroupExpandCommand" />
+		</GuidSymbol>
+
+		<GuidSymbol value="{6e14650b-c446-4769-8f15-897898db7422}" name="guidImages1">
+			<IDSymbol name="bmpPic1" value="1" />
+		</GuidSymbol>
+
+		<GuidSymbol value="{79401754-2682-4219-95ba-f6e0a64df413}" name="guidImages2">
+			<IDSymbol name="bmpPic1" value="1" />
+			<IDSymbol name="bmpPic2" value="2" />
+			<IDSymbol name="bmpPicSearch" value="3" />
+			<IDSymbol name="bmpPicX" value="4" />
+			<IDSymbol name="bmpPicArrows" value="5" />
+			<IDSymbol name="bmpPicStrikethrough" value="6" />
+		</GuidSymbol>
+	</Symbols>
+</CommandTable>

@@ -14,7 +14,7 @@ namespace qgrepSearch
 
         public qgrepSearchWindow(ExtensionData data) : base()
         {
-            Caption = Title;
+            Caption = qgrepControls.Properties.Resources.Title;
             BitmapImageMoniker = KnownMonikers.ImageIcon;
             Content = new qgrepSearchWindowControl(new VisualStudioWrapper(data));
         }
