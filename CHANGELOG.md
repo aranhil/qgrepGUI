@@ -34,5 +34,5 @@
 - Search file dialog's input textbox and results listbox are now both focused at the same time
 - Added support for UTF-8 encoded paths
 - Fixed issue where pressing Delete would delete the Config/Group while editing the name
-- Fixed issue where the underscore ('_') character wasn't showing up in the search summary info
-- Fixed issue with backslashes ('\') not being recognized as a valid path separator in all the fields that expect a path (file search, include files and exclude files)
+- Fixed issue where underscores ('_') weren't showing up in the search summary info
+- Fixed issue with backslashes ('\\') not being recognized as a valid path separator in all the fields that expect a path (file search, include files and exclude files)
