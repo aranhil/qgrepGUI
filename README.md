@@ -68,6 +68,20 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
 ## Changelog
+
+### Version 2.8 (02/06/2023)
+- Fixed occasional crash when opening the tool window
+- Localized all strings and added some machine translations (Chinese Simplified, Chinese Traditional, Czech, French, German, Italian, Japanese, Korean, Polish, Romanian, Spanish, Portuguese and Turkish)
+- Improved the UI responsiveness for searches with lots of results
+- Migrated to using Visual Studio's ThreadHelper.JoinableTaskFactory for a more responsive UI
+- Fixed the style of textboxes' contextual menus
+- Fixed issue with right click not selecting the tree view item before opening the contextual menu
+- Search file dialog's input textbox and results listbox are now both focused at the same time
+- Added support for UTF-8 encoded paths
+- Fixed issue where pressing Delete would delete the Config/Group while editing the name
+- Fixed issue where underscores ('_') weren't showing up in the search summary info
+- Fixed issue with backslashes ('\\') not being recognized as a valid path separator in all the fields that expect a path (file search, include files and exclude files)
+
 ### Version 2.7 (28/05/2023)
 - Added an experimental option to update the index automatically that tries its best to optimize index time if only a few files are updated
 - The word under the caret is now grabbed automatically when opening the tool window using the command
