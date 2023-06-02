@@ -1,6 +1,6 @@
 [Setup]
 AppName=qgrep GUI
-AppVersion=2.7
+AppVersion=2.8
 WizardStyle=modern
 DefaultDirName={autopf}\qgrepGUI
 DefaultGroupName=qgrep GUI
@@ -18,7 +18,7 @@ ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 
 [Files]
-Source: "..\build\Release_x64\qgrepGUI_Standalone\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
+Source: "..\build\Release_x64\qgrepGUI_Standalone\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\qgrep GUI"; Filename: "{app}\qgrepGUI.exe"
