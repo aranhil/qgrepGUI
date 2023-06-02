@@ -130,7 +130,7 @@
     <value>Zaawansowane ustawienia</value>
   </data>
   <data name="AdvancedToggleContent" xml:space="preserve">
-    <value>&lt;&lt; Zaawansowany</value>
+    <value>‹‹ Zaawansowany</value>
   </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Zawsze</value>
@@ -161,9 +161,6 @@
   </data>
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Nie można wyczyścić indeksu: {0}</value>
-  </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} porcji zaktualizowano w {4:0.00} sek</value>
   </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Wyczyść i zaktualizuj indeks</value>
@@ -552,6 +549,9 @@
   <data name="ThemeSettings" xml:space="preserve">
     <value>Ustawienia motywu</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>Narzędzie wyszukiwania qgrep</value>
+  </data>
   <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
     <value>Przełącz rozróżnianie wielkości liter:</value>
   </data>
@@ -606,7 +606,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Użyj ścieżki globalnej</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Narzędzie wyszukiwania qgrep</value>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} porcji zaktualizowano w ciągu {4:0,00} sekund</value>
   </data>
 </root>

@@ -130,7 +130,7 @@
     <value>Ajustes avanzados</value>
   </data>
   <data name="AdvancedToggleContent" xml:space="preserve">
-    <value>&lt;&lt; Avanzado</value>
+    <value>‹‹ Avanzado</value>
   </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Siempre</value>
@@ -161,9 +161,6 @@
   </data>
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>No se puede limpiar el índice: {0}</value>
-  </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} fragmentos actualizados en {4:0.00} seg.</value>
   </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Limpiar y actualizar índice</value>
@@ -552,6 +549,9 @@
   <data name="ThemeSettings" xml:space="preserve">
     <value>Ajustes de tema</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>Herramienta de búsqueda qgrep</value>
+  </data>
   <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
     <value>Alternar entre mayúsculas y minúsculas:</value>
   </data>
@@ -606,7 +606,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Usar ruta global</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Herramienta de búsqueda qgrep</value>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} fragmentos actualizados en {4:0.00} segundos</value>
   </data>
 </root>

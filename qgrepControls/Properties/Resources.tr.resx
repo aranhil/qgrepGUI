@@ -130,7 +130,7 @@
     <value>Gelişmiş Ayarlar</value>
   </data>
   <data name="AdvancedToggleContent" xml:space="preserve">
-    <value>&lt;&lt; Gelişmiş</value>
+    <value>‹‹ Gelişmiş</value>
   </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Her zaman</value>
@@ -148,7 +148,7 @@
     <value>Normal ifade ayrıştırılırken hata oluştu: hatalı yineleme operatörü</value>
   </data>
   <data name="BasicToggleContent" xml:space="preserve">
-    <value>&gt;&gt; Temel</value>
+    <value>›› Temel</value>
   </data>
   <data name="BuildingFileTableMessage" xml:space="preserve">
     <value>Dosya tablosu oluşturuluyor...</value>
@@ -161,9 +161,6 @@
   </data>
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Dizin temizlenemiyor: {0}</value>
-  </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {4:0.00} saniyede {2}/{3} parça güncellendi</value>
   </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Dizini temizle ve güncelle</value>
@@ -608,5 +605,8 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Genel yolu kullan</value>
+  </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {4:0.00} saniyede {2}/{3} parça güncellendi</value>
   </data>
 </root>

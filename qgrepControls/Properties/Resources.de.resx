@@ -130,7 +130,7 @@
     <value>Erweiterte Einstellungen</value>
   </data>
   <data name="AdvancedToggleContent" xml:space="preserve">
-    <value>&lt;&lt; Fortschrittlich</value>
+    <value>‹‹ Fortschrittlich</value>
   </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Stets</value>
@@ -161,9 +161,6 @@
   </data>
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Index kann nicht bereinigt werden: {0}</value>
-  </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} Blöcke wurden in {4:0,00} Sek. aktualisiert</value>
   </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Index bereinigen und aktualisieren</value>
@@ -552,6 +549,9 @@
   <data name="ThemeSettings" xml:space="preserve">
     <value>Themen Einstellungen</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>qgrep-Suchtool</value>
+  </data>
   <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
     <value>Groß- und Kleinschreibung umschalten:</value>
   </data>
@@ -606,7 +606,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Verwenden Sie den globalen Pfad</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>qgrep-Suchtool</value>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} Blöcke wurden in {4:0,00} Sekunden aktualisiert</value>
   </data>
 </root>

@@ -117,6 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AbsolutePathOptionContent" xml:space="preserve">
     <value>Cale absolută</value>
   </data>
@@ -162,9 +163,6 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Nu se poate curăța indexul: {0}</value>
   </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} fragmente actualizate în {4:0.00} sec</value>
-  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Curăță și actualizează indexul</value>
   </data>
@@ -177,7 +175,6 @@
   <data name="ColorSchemeLabelContent" xml:space="preserve">
     <value>Scheme de culori:</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="colors_schemes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\colors-schemes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -556,6 +553,9 @@
   <data name="ThemeSettings" xml:space="preserve">
     <value>Setări temă</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>Instrumentul de căutare qgrep</value>
+  </data>
   <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
     <value>Comută sensibilitatea la majuscule:</value>
   </data>
@@ -610,7 +610,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Instrumentul de căutare qgrep</value>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} bucăți actualizate în {4:0.00} secunde</value>
   </data>
 </root>

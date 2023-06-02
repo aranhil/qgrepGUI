@@ -162,9 +162,6 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>インデックスをクリーンできません: {0}</value>
   </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} 個のチャンクが {4:0.00} 秒以内に更新されました</value>
-  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>インデックスのクリーンアップと更新</value>
   </data>
@@ -535,7 +532,7 @@
     <value>「{1}」の {0} 件の結果を表示しています。</value>
   </data>
   <data name="ShowOpenHistoryLabelContent" xml:space="preserve">
-    <value>開いたファイルの履歴を表示します。</value>
+    <value>開いたファイルの履歴を表示します:</value>
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>ストップ</value>
@@ -552,14 +549,17 @@
   <data name="ThemeSettings" xml:space="preserve">
     <value>テーマ設定</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>qgrep検索ツール</value>
+  </data>
   <data name="ToggleCaseSensitiveLabelContent" xml:space="preserve">
     <value>大文字と小文字の区別を切り替えます:</value>
   </data>
   <data name="ToggleExcludeFilesLabelContent" xml:space="preserve">
-    <value>ファイルの除外を切り替えます。</value>
+    <value>ファイルの除外を切り替えます:</value>
   </data>
   <data name="ToggleFilterResultsLabelContent" xml:space="preserve">
-    <value>フィルター結果を切り替えます。</value>
+    <value>フィルター結果を切り替えます:</value>
   </data>
   <data name="ToggleGroupingByLabelContent" xml:space="preserve">
     <value>グループ化を切り替える:</value>
@@ -580,7 +580,7 @@
     <value>正規表現の解析エラー: 末尾の \</value>
   </data>
   <data name="TrimSpacesOnCopyLabelContent" xml:space="preserve">
-    <value>コピー時にスペースをトリミングします。</value>
+    <value>コピー時にスペースをトリミングします:</value>
   </data>
   <data name="TypeLabelContent" xml:space="preserve">
     <value>タイプ：</value>
@@ -598,7 +598,7 @@
     <value>インデックスを更新する</value>
   </data>
   <data name="UpdateIndexAutomaticallyLabelContent" xml:space="preserve">
-    <value>インデックスを自動的に更新します。</value>
+    <value>インデックスを自動的に更新しますコピー時にスペースをトリミングします:</value>
   </data>
   <data name="UpdatingMessage" xml:space="preserve">
     <value>{0} を更新しています:</value>
@@ -606,7 +606,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>グローバルパスを使用する</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>qgrep検索ツール</value>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} 個のチャンクが {4:0.00} 秒以内に更新されました</value>
   </data>
 </root>

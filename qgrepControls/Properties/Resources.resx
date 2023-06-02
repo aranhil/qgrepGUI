@@ -163,7 +163,7 @@
     <value>Cannot clean index: {0}</value>
   </data>
   <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} chunks updated in {4:0.00} sec</value>
+    <value>{0} {1}; {2}/{3} chunks updated in {4:0.00} seconds</value>
   </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Clean and update index</value>

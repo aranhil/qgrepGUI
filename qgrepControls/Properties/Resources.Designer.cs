@@ -196,7 +196,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1}; {2}/{3} chunks updated in {4:0.00} sec.
+        ///   Looks up a localized string similar to {0} {1}; {2}/{3} chunks updated in {4:0.00} seconds.
         /// </summary>
         public static string ChunksUpdatedMessage {
             get {
