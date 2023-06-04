@@ -69,6 +69,13 @@ You can change these as well, from **Tools >> Options >> Environment >> Keyboard
 
 ## Changelog
 
+### Version 2.9 (04/06/2023)
+
+- Added an experimental option to automatically include the selected file as a C++ include statement in the currently active document
+- The history is now a circular buffer of 50 items that is preserved between sessions
+- Made the shortcuts of the contextual menu items visible
+- Fixed several issues with the search file window
+
 ### Version 2.8 (02/06/2023)
 - Fixed occasional crash when opening the tool window
 - Localized all strings and added some machine translations (Chinese Simplified, Chinese Traditional, Czech, French, German, Italian, Japanese, Korean, Polish, Romanian, Spanish, Portuguese and Turkish)
