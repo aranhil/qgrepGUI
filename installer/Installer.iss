@@ -1,6 +1,6 @@
 [Setup]
 AppName=qgrep GUI
-AppVersion=2.8
+AppVersion=2.9
 WizardStyle=modern
 DefaultDirName={autopf}\qgrepGUI
 DefaultGroupName=qgrep GUI
