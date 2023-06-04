@@ -6,8 +6,6 @@ using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -45,7 +43,7 @@ namespace qgrepControls.Classes
 
         public static Dictionary<string, object> GetResourcesFromColorScheme(IWrapperApp WrapperApp)
         {
-            if(Instance.CachedResources == null)
+            if (Instance.CachedResources == null)
             {
                 UpdateResourcesFromColorScheme(WrapperApp);
             }

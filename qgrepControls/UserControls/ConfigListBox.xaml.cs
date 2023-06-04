@@ -2,21 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ListBox = System.Windows.Controls.ListBox;
 
 namespace qgrepControls.UserControls
@@ -67,7 +58,7 @@ namespace qgrepControls.UserControls
         {
             InnerListBox.ItemsSource = ItemsSource;
 
-            if(ItemsSource != null)
+            if (ItemsSource != null)
             {
                 (ItemsSource as INotifyCollectionChanged).CollectionChanged += ConfigListBox_CollectionChanged;
             }
@@ -79,7 +70,7 @@ namespace qgrepControls.UserControls
 
         private void InnerListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(IsDeselectable)
+            if (IsDeselectable)
             {
                 try
                 {
@@ -112,7 +103,7 @@ namespace qgrepControls.UserControls
             RemoveAllButton.IsEnabled = InnerListBox.Items.Count > 0 ? true : false;
             RemoveButton.IsEnabled = InnerListBox.SelectedItems.Count > 0 ? true : false;
 
-            if(IsPreviousSelectedOnRemove)
+            if (IsPreviousSelectedOnRemove)
             {
                 if (InnerListBox.SelectedItems.Count == 0 && InnerListBox.Items.Count > 0)
                 {
@@ -245,7 +236,7 @@ namespace qgrepControls.UserControls
 
         private void EditBox_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if((bool)e.NewValue)
+            if ((bool)e.NewValue)
             {
                 (sender as TextBox).Focus();
                 (sender as TextBox).SelectAll();
@@ -254,7 +245,7 @@ namespace qgrepControls.UserControls
 
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.ClickCount == 2 && InnerListBox.SelectedItems.Count == 1)
+            if (e.ClickCount == 2 && InnerListBox.SelectedItems.Count == 1)
             {
                 OnEdit();
                 e.Handled = true;
@@ -263,7 +254,7 @@ namespace qgrepControls.UserControls
 
         private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Delete)
+            if (e.Key == Key.Delete)
             {
                 e.Handled = OnRemove();
             }

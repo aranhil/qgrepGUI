@@ -1,15 +1,6 @@
 ﻿using qgrepControls.Classes;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Animation;
-using System.Xml.Linq;
 
 namespace qgrepControls.ModelViews
 {
@@ -212,7 +203,7 @@ namespace qgrepControls.ModelViews
 
                 if (!inEditMode && !name.Equals(ConfigProject.Name))
                 {
-                    if(!ConfigProject.Rename(name))
+                    if (!ConfigProject.Rename(name))
                     {
                         Name = ConfigProject.Name;
                     }

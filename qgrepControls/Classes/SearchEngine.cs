@@ -1,25 +1,12 @@
 ﻿using qgrepControls.Properties;
-using qgrepControls.SearchWindow;
 using qgrepInterop;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Threading;
-using System.Windows;
-using System.Reflection;
 using System.IO;
-using System.Xml.Linq;
-using System.Windows.Shapes;
-using System.Windows.Forms;
-using System.Timers;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
-using System.Globalization;
+using System.Timers;
 
 namespace qgrepControls.Classes
 {
@@ -59,7 +46,7 @@ namespace qgrepControls.Classes
         public bool WholeWord { get; set; } = false;
         public bool RegEx { get; set; } = false;
         public bool IncludeFilesRegEx { get; set; } = false;
-        public bool ExcludeFilesRegEx { get; set;} = false;
+        public bool ExcludeFilesRegEx { get; set; } = false;
         public bool FilterResultsRegEx { get; set; } = false;
         public int GroupingMode { get; set; } = 0;
         public List<string> Configs { get; set; } = new List<string>();
@@ -158,17 +145,17 @@ namespace qgrepControls.Classes
             IsBusy = true;
             ForceStop = false;
 
-            QueuedSearchOptions = null; 
+            QueuedSearchOptions = null;
             QueuedSearchFilesOptions = null;
 
             TaskRunner.RunInBackgroundAsync(() =>
             {
                 searchOptions.EventsHandler.OnStartSearchEvent(searchOptions);
 
-                if(searchOptions.CacheUsageType != CacheUsageType.Bypass && CachedSearch.SearchOptions != null && 
+                if (searchOptions.CacheUsageType != CacheUsageType.Bypass && CachedSearch.SearchOptions != null &&
                     (searchOptions.CacheUsageType == CacheUsageType.Forced || CachedSearch.SearchOptions.CanUseCache(searchOptions)))
                 {
-                    if(searchOptions.CacheUsageType == CacheUsageType.Forced)
+                    if (searchOptions.CacheUsageType == CacheUsageType.Forced)
                     {
                         searchOptions.Query = CachedSearch.SearchOptions.Query;
                         searchOptions.CaseSensitive = CachedSearch.SearchOptions.CaseSensitive;
@@ -215,23 +202,23 @@ namespace qgrepControls.Classes
 
                     arguments.Add("HD");
 
-                    switch(searchOptions.Query.Length)
+                    switch (searchOptions.Query.Length)
                     {
                         case 1:
                             arguments.Add("L1000");
-                        break;
+                            break;
                         case 2:
                             arguments.Add("L2000");
-                        break;
+                            break;
                         case 3:
                             arguments.Add("L4000");
-                        break;
+                            break;
                         case 4:
                             arguments.Add("L6000");
-                        break;
+                            break;
                         default:
                             arguments.Add("L10000");
-                        break;
+                            break;
                     }
 
                     arguments.Add("V");
@@ -245,9 +232,9 @@ namespace qgrepControls.Classes
                         arguments.Add(searchOptions.Query);
                     }
 
-                    QGrepWrapper.CallQGrepAsync(arguments, 
-                        (string result) => { return StringHandler(result, searchOptions); }, 
-                        (string error) => { SearchErrorHandler(error, searchOptions); }, 
+                    QGrepWrapper.CallQGrepAsync(arguments,
+                        (string result) => { return StringHandler(result, searchOptions); },
+                        (string error) => { SearchErrorHandler(error, searchOptions); },
                         null,
                         (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
                 }
@@ -362,7 +349,7 @@ namespace qgrepControls.Classes
 
         private bool StringHandler(string result, SearchOptions searchOptions, bool cacheResult = true)
         {
-            if(ForceStop)
+            if (ForceStop)
             {
                 searchOptions.WasForceStopped = true;
                 return true;
@@ -393,15 +380,15 @@ namespace qgrepControls.Classes
                         {
                             bool matchesFilter = false;
 
-                            if(Settings.Default.FilterSearchScopeIndex == 1 || Settings.Default.FilterSearchScopeIndex == 2)
+                            if (Settings.Default.FilterSearchScopeIndex == 1 || Settings.Default.FilterSearchScopeIndex == 2)
                             {
-                                if(Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                                if (Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success)
                                 {
                                     matchesFilter = true;
                                 }
                             }
 
-                            if(Settings.Default.FilterSearchScopeIndex == 0 || Settings.Default.FilterSearchScopeIndex == 2)
+                            if (Settings.Default.FilterSearchScopeIndex == 0 || Settings.Default.FilterSearchScopeIndex == 2)
                             {
                                 if (Regex.Match(result.ToLower(), searchOptions.FilterResults.ToLower()).Success)
                                 {
@@ -409,7 +396,7 @@ namespace qgrepControls.Classes
                                 }
                             }
 
-                            if(!matchesFilter)
+                            if (!matchesFilter)
                             {
                                 return false;
                             }
@@ -572,7 +559,7 @@ namespace qgrepControls.Classes
                             (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
                             (string message) => { UpdateErrorHandler(message, databaseUpdate); },
                             (double percentage) => { ProgressHandler(percentage, databaseUpdate); },
-                            (List<string> messages) => { UpdateLocalizedStringHandler(messages, databaseUpdate); } );
+                            (List<string> messages) => { UpdateLocalizedStringHandler(messages, databaseUpdate); });
                     }
                     else
                     {
@@ -673,7 +660,7 @@ namespace qgrepControls.Classes
 
         public static string GetTimeAgoString(DateTime eventTime)
         {
-            if(eventTime == DateTime.MaxValue)
+            if (eventTime == DateTime.MaxValue)
             {
                 return Properties.Resources.NeverText;
             }

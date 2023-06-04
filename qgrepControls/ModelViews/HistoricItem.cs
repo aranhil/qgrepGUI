@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace qgrepControls.ModelViews
@@ -45,11 +41,11 @@ namespace qgrepControls.ModelViews
         public void SetOperationText(string text)
         {
             string[] parts = text.Split(new string[] { "{0}" }, StringSplitOptions.None);
-            if(parts.Length > 0)
+            if (parts.Length > 0)
             {
                 OperationBeginText = parts[0];
             }
-            if(parts.Length > 1)
+            if (parts.Length > 1)
             {
                 OperationEndText = parts[1];
             }

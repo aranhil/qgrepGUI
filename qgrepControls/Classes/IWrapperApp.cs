@@ -1,11 +1,5 @@
 ﻿using qgrepControls.ModelViews;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace qgrepControls.Classes
 {

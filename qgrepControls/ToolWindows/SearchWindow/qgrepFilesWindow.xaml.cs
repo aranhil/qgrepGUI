@@ -1,4 +1,5 @@
 ﻿using qgrepControls.Classes;
+using qgrepControls.ModelViews;
 using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using qgrepControls.ModelViews;
-using System.Windows.Documents;
-using System.Xml.Linq;
 using System.Windows.Input;
 
 namespace qgrepControls.SearchWindow
@@ -121,7 +119,7 @@ namespace qgrepControls.SearchWindow
             {
                 selectedSearchResult = -1;
 
-                if(!WrapperApp.IsStandalone)
+                if (!WrapperApp.IsStandalone)
                 {
                     BackgroundColor = ThemeHelper.GetBackgroundColor(this);
                 }
@@ -163,14 +161,14 @@ namespace qgrepControls.SearchWindow
             {
                 string trimmedFileAndLine = ConfigParser.RemovePaths(result.FileAndLine, Settings.Default.FilesSearchScopeIndex);
                 int score = CalculateScore(searchOptions.Query, trimmedFileAndLine);
-                if(score < bestScore)
+                if (score < bestScore)
                 {
                     bestScore = score;
                     bestResult = result;
                 }
             }
 
-            if(bestResult != null)
+            if (bestResult != null)
             {
                 SelectSearchResult(bestResult);
             }
@@ -187,7 +185,7 @@ namespace qgrepControls.SearchWindow
                         string fileAndLine = "";
                         string trimmedFileAndLine = "";
 
-                        if(beginText.Length > 0)
+                        if (beginText.Length > 0)
                         {
                             fileAndLine = beginText;
                             trimmedFileAndLine = ConfigParser.RemovePaths(beginText, Settings.Default.FilesPathStyleIndex);
@@ -206,7 +204,7 @@ namespace qgrepControls.SearchWindow
                             IsActiveDocumentCpp = IsActiveDocumentCpp
                         };
 
-                        if(searchOptions.IsFileSearch)
+                        if (searchOptions.IsFileSearch)
                         {
                             WrapperApp.GetIcon(fileAndLine, BackgroundColor, newSearchResult);
                         }
@@ -312,7 +310,7 @@ namespace qgrepControls.SearchWindow
                     oldSelectedSearchResult.IsSelected = false;
                 }
 
-                if(newSelectedSearchResult != null)
+                if (newSelectedSearchResult != null)
                 {
                     SelectSearchResult(newSelectedSearchResult);
                 }
@@ -349,7 +347,7 @@ namespace qgrepControls.SearchWindow
 
         private SearchResult GetSelectedSearchResult()
         {
-            if(selectedSearchResult > -1 && selectedSearchResult < searchResults.Count)
+            if (selectedSearchResult > -1 && selectedSearchResult < searchResults.Count)
             {
                 return searchResults[selectedSearchResult];
             }
@@ -608,7 +606,7 @@ namespace qgrepControls.SearchWindow
         private void MenuIncludeFile_Click(object sender, RoutedEventArgs e)
         {
             SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
-            if(searchResult != null)
+            if (searchResult != null)
             {
                 IncludeSearchResult(searchResult);
             }

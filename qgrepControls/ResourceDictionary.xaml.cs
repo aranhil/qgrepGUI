@@ -1,10 +1,8 @@
 ﻿using qgrepControls.Classes;
-using qgrepControls.SearchWindow;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace qgrepControls
 {
@@ -54,12 +52,12 @@ namespace qgrepControls
         private void PART_ContentHost_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             TextBox textBox = (sender as FrameworkElement)?.TemplatedParent as TextBox;
-            if(textBox != null)
+            if (textBox != null)
             {
                 SolidColorBrush newBrush = GetBrush(textBox, true, textBox.IsFocused);
                 SolidColorBrush oldBrush = GetBrush(textBox, false, textBox.IsFocused);
 
-                if(!BrushesAreTheSame(newBrush, oldBrush))
+                if (!BrushesAreTheSame(newBrush, oldBrush))
                 {
                     Grid parentGrid = UIHelper.FindAncestor<Grid>(textBox);
                     Panel.SetZIndex(parentGrid, 2);
@@ -98,7 +96,7 @@ namespace qgrepControls
                 if (!BrushesAreTheSame(newBrush, oldBrush))
                 {
                     Grid parentGrid = UIHelper.FindAncestor<Grid>(textBox);
-                        Panel.SetZIndex(parentGrid, textBox.IsMouseOver ? 2 : 1);
+                    Panel.SetZIndex(parentGrid, textBox.IsMouseOver ? 2 : 1);
                 }
             }
         }
@@ -118,7 +116,7 @@ namespace qgrepControls
         private void ListBox_MouseLeave(object sender, MouseEventArgs e)
         {
             ListBox listBox = (sender as FrameworkElement)?.TemplatedParent as ListBox;
-            if(listBox != null)
+            if (listBox != null)
             {
                 listBox.SelectedIndex = -1;
             }

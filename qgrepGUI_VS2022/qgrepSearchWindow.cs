@@ -1,10 +1,8 @@
-﻿using System;
-using System.Resources;
-using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.Imaging;
+﻿using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Shell;
-using qgrepControls.Properties;
 using qgrepControls.SearchWindow;
+using System;
+using System.Runtime.InteropServices;
 
 namespace qgrepSearch
 {

@@ -1,15 +1,8 @@
-﻿using Microsoft.VisualStudio.PlatformUI;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using qgrepControls.SearchWindow;
+﻿using Microsoft.VisualStudio.Shell;
 using qgrepControls.Classes;
-using qgrepControls;
+using qgrepControls.SearchWindow;
 using System;
 using System.ComponentModel.Design;
-using System.Globalization;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using Task = System.Threading.Tasks.Task;
 
 namespace qgrepSearch

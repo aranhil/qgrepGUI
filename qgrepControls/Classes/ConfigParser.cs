@@ -8,8 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Timers;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 
 namespace qgrepControls.Classes
 {
@@ -55,7 +53,7 @@ namespace qgrepControls.Classes
 
         public ConfigPath AddNewPath(string path)
         {
-            if(Paths.Any(x => x.Path == path))
+            if (Paths.Any(x => x.Path == path))
             {
                 return null;
             }
@@ -147,12 +145,12 @@ namespace qgrepControls.Classes
                 {
                     System.IO.File.Move(directory + "\\" + Name + ".cfg", directory + "\\" + newName + ".cfg");
 
-                    if(File.Exists(directory + "\\" + Name + ".qgd"))
+                    if (File.Exists(directory + "\\" + Name + ".qgd"))
                     {
                         System.IO.File.Move(directory + "\\" + Name + ".qgd", directory + "\\" + newName + ".qgd");
                     }
 
-                    if(File.Exists(directory + "\\" + Name + ".qgf"))
+                    if (File.Exists(directory + "\\" + Name + ".qgf"))
                     {
                         System.IO.File.Move(directory + "\\" + Name + ".qgf", directory + "\\" + newName + ".qgf");
                     }
@@ -351,7 +349,7 @@ namespace qgrepControls.Classes
 
         public static void Initialize(string Path)
         {
-            if(Instance.Path != Path)
+            if (Instance.Path != Path)
             {
                 UnloadConfig();
                 Instance.Path = Path;
@@ -374,13 +372,13 @@ namespace qgrepControls.Classes
             }
 
             string[] configs = Directory.GetFiles(Instance.Path + Instance.PathSuffix, "*.cfg");
-            if(configs.Length == 0)
+            if (configs.Length == 0)
             {
                 AddNewProject();
             }
             else
             {
-                foreach(string config in configs)
+                foreach (string config in configs)
                 {
                     ConfigProject configProject = new ConfigProject(config);
                     configProject.LoadConfig();
@@ -388,7 +386,7 @@ namespace qgrepControls.Classes
                 }
             }
 
-            if(Settings.Default.UpdateIndexAutomatically)
+            if (Settings.Default.UpdateIndexAutomatically)
             {
                 RemoveWatchers();
                 AddWatchers();
@@ -472,7 +470,7 @@ namespace qgrepControls.Classes
 
         public static void SaveConfig()
         {
-            foreach(ConfigProject configProject in Instance.ConfigProjects)
+            foreach (ConfigProject configProject in Instance.ConfigProjects)
             {
                 configProject.SaveConfig();
             }
@@ -487,7 +485,7 @@ namespace qgrepControls.Classes
                 newPath = Instance.Path + Instance.PathSuffix + string.Format(Properties.Resources.ConfigFormat, index) + ".cfg";
                 index++;
             }
-            while(File.Exists(newPath));
+            while (File.Exists(newPath));
 
             ConfigProject newConfigProject = new ConfigProject(newPath);
             Instance.ConfigProjects.Add(newConfigProject);
@@ -519,10 +517,10 @@ namespace qgrepControls.Classes
                 string directory = System.IO.Path.GetDirectoryName(configProject.Path);
                 string fileToCheck = directory + "\\" + configProject.Name + ".qgd";
 
-                if(File.Exists(fileToCheck))
+                if (File.Exists(fileToCheck))
                 {
                     DateTime lastModified = File.GetLastWriteTime(fileToCheck);
-                    if(lastModified < lastUpdated)
+                    if (lastModified < lastUpdated)
                     {
                         lastUpdated = lastModified;
                     }
@@ -605,7 +603,7 @@ namespace qgrepControls.Classes
                     }
                 }
             }
-            else if(pathStyle == 2)
+            else if (pathStyle == 2)
             {
                 file = System.IO.Path.GetFileName(file);
             }
@@ -644,7 +642,7 @@ namespace qgrepControls.Classes
                     }
                 }
             }
-            else if(pathStyle == 2)
+            else if (pathStyle == 2)
             {
                 return "*";
             }
@@ -654,11 +652,11 @@ namespace qgrepControls.Classes
 
         public static bool HasAnyPaths()
         {
-            foreach(ConfigProject configProject in Instance.ConfigProjects)
+            foreach (ConfigProject configProject in Instance.ConfigProjects)
             {
-                foreach(ConfigGroup configGroup in configProject.Groups)
+                foreach (ConfigGroup configGroup in configProject.Groups)
                 {
-                    if(configGroup.Paths.Count > 0)
+                    if (configGroup.Paths.Count > 0)
                     {
                         return true;
                     }
@@ -675,12 +673,12 @@ namespace qgrepControls.Classes
 
         public static bool IsConfigChanged()
         {
-            if(Instance.ConfigProjects.Count != Instance.OldConfigProjects.Count)
+            if (Instance.ConfigProjects.Count != Instance.OldConfigProjects.Count)
             {
                 return true;
             }
 
-            for(int i = 0; i < Instance.ConfigProjects.Count; i++)
+            for (int i = 0; i < Instance.ConfigProjects.Count; i++)
             {
                 if (!instance.ConfigProjects[i].HasGeneratedFiles())
                 {
@@ -692,7 +690,7 @@ namespace qgrepControls.Classes
                     return true;
                 }
 
-                for(int j = 0; j < Instance.ConfigProjects[i].Groups.Count; j++)
+                for (int j = 0; j < Instance.ConfigProjects[i].Groups.Count; j++)
                 {
                     if (Instance.ConfigProjects[i].Groups[j].Paths.Count != Instance.OldConfigProjects[i].Groups[j].Paths.Count)
                     {
@@ -712,7 +710,7 @@ namespace qgrepControls.Classes
                         }
                     }
 
-                    for(int k = 0; k < Instance.ConfigProjects[i].Groups[j].Rules.Count; k++)
+                    for (int k = 0; k < Instance.ConfigProjects[i].Groups[j].Rules.Count; k++)
                     {
                         if (!Instance.ConfigProjects[i].Groups[j].Rules[k].Rule.Equals(Instance.OldConfigProjects[i].Groups[j].Rules[k].Rule) ||
                             Instance.ConfigProjects[i].Groups[j].Rules[k].IsExclude != Instance.OldConfigProjects[i].Groups[j].Rules[k].IsExclude)
@@ -728,26 +726,26 @@ namespace qgrepControls.Classes
 
         private static bool IsFileRelevant(string fullPath)
         {
-            foreach(ConfigProject configProject in Instance.ConfigProjects)
+            foreach (ConfigProject configProject in Instance.ConfigProjects)
             {
-                foreach(ConfigGroup configGroup in configProject.Groups)
+                foreach (ConfigGroup configGroup in configProject.Groups)
                 {
                     bool matchesPath = false;
-                    foreach(ConfigPath configPath in configGroup.Paths)
+                    foreach (ConfigPath configPath in configGroup.Paths)
                     {
-                        if(GetCommonPathPrefix(configPath.Path, fullPath).Length > 0)
+                        if (GetCommonPathPrefix(configPath.Path, fullPath).Length > 0)
                         {
                             matchesPath = true;
                             break;
                         }
                     }
 
-                    if(matchesPath)
+                    if (matchesPath)
                     {
                         bool matchesIncludes = false;
                         bool matchesExcludes = false;
 
-                        foreach(ConfigRule configRule in configGroup.Rules)
+                        foreach (ConfigRule configRule in configGroup.Rules)
                         {
                             var match = Regex.Match(fullPath, configRule.Rule);
                             if (match.Success)
@@ -763,7 +761,7 @@ namespace qgrepControls.Classes
                             }
                         }
 
-                        if(matchesIncludes && !matchesExcludes)
+                        if (matchesIncludes && !matchesExcludes)
                         {
                             return true;
                         }
@@ -821,21 +819,21 @@ namespace qgrepControls.Classes
 
                     HashSet<string> changedFiles = new HashSet<string>();
 
-                    foreach(FileSystemEventArgs fileSystemEvent in fileSystemEvents)
+                    foreach (FileSystemEventArgs fileSystemEvent in fileSystemEvents)
                     {
-                        if(!IsFileRelevant(fileSystemEvent.FullPath))
+                        if (!IsFileRelevant(fileSystemEvent.FullPath))
                         {
                             continue;
                         }
 
-                        if(fileSystemEvent.ChangeType == WatcherChangeTypes.Created ||
+                        if (fileSystemEvent.ChangeType == WatcherChangeTypes.Created ||
                             fileSystemEvent.ChangeType == WatcherChangeTypes.Deleted)
                         {
                             Cleanup();
                             Instance.FilesAddedOrRemoved?.Invoke();
                             return;
                         }
-                        else if(fileSystemEvent.ChangeType == WatcherChangeTypes.Changed)
+                        else if (fileSystemEvent.ChangeType == WatcherChangeTypes.Changed)
                         {
                             changedFiles.Add(fileSystemEvent.FullPath);
                         }
@@ -871,7 +869,7 @@ namespace qgrepControls.Classes
 
                     Cleanup();
 
-                    if(changedFiles.Count > 0)
+                    if (changedFiles.Count > 0)
                     {
                         Instance.FilesChanged?.Invoke(changedFiles.ToList());
                     }
@@ -905,7 +903,7 @@ namespace qgrepControls.Classes
         private static void OnDeleted(object sender, FileSystemEventArgs e)
         {
             Instance.delayedEventsHandler.AddFileSystemEvent(e);
-        } 
+        }
 
         private static void OnRenamed(object sender, RenamedEventArgs e)
         {

@@ -1,10 +1,8 @@
 ﻿using qgrepControls.Classes;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace qgrepControls.SearchWindow
 {
@@ -13,7 +11,7 @@ namespace qgrepControls.SearchWindow
         public MainWindow Dialog = null;
         public delegate void Callback(bool accepted);
         public bool IsOK = false;
- 
+
         public RuleWindow(IWrapperApp WrapperApp)
         {
             InitializeComponent();
@@ -23,7 +21,7 @@ namespace qgrepControls.SearchWindow
         private void OK_Click(object sender, RoutedEventArgs e)
         {
             IsOK = true;
-            if(Dialog != null)
+            if (Dialog != null)
             {
                 Dialog.Close();
             }
@@ -40,7 +38,7 @@ namespace qgrepControls.SearchWindow
 
         private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 IsOK = true;
                 if (Dialog != null)

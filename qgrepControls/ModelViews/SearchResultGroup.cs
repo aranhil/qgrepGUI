@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace qgrepControls.ModelViews
 {
@@ -61,7 +56,7 @@ namespace qgrepControls.ModelViews
 
         public void SetIsExpanded(bool value)
         {
-            if(!isExpandedChanged)
+            if (!isExpandedChanged)
             {
                 IsExpanded = value;
                 isExpandedChanged = false;

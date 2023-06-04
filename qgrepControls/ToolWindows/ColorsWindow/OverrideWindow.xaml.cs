@@ -1,14 +1,10 @@
 ﻿using qgrepControls.Classes;
 using qgrepControls.ModelViews;
-using qgrepControls.SearchWindow;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace qgrepControls.ColorsWindow
 {
@@ -31,7 +27,7 @@ namespace qgrepControls.ColorsWindow
         private void OK_Click(object sender, RoutedEventArgs e)
         {
             IsOK = true;
-            if(Dialog != null)
+            if (Dialog != null)
             {
                 Dialog.Close();
             }
@@ -48,7 +44,7 @@ namespace qgrepControls.ColorsWindow
 
         private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 IsOK = true;
                 if (Dialog != null)

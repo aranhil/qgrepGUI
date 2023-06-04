@@ -1,11 +1,7 @@
 ﻿using qgrepControls.Classes;
 using qgrepControls.Properties;
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace qgrepControls.SearchWindow
 {
@@ -17,7 +13,7 @@ namespace qgrepControls.SearchWindow
         {
             this.SearchWindow = SearchWindow;
             InitializeComponent();
-            
+
             ShowIncludes.IsChecked = Settings.Default.ShowIncludes;
             ShowExcludes.IsChecked = Settings.Default.ShowExcludes;
             ShowFilter.IsChecked = Settings.Default.ShowFilter;
@@ -87,7 +83,7 @@ namespace qgrepControls.SearchWindow
             Settings.Default.GroupingIndex = GroupingComboBox.SelectedIndex;
             Settings.Default.Save();
 
-            if(changed)
+            if (changed)
             {
                 SearchWindow.UpdateFromSettings();
             }
@@ -123,7 +119,7 @@ namespace qgrepControls.SearchWindow
         {
             SaveOptions();
 
-            if(Settings.Default.UpdateIndexAutomatically)
+            if (Settings.Default.UpdateIndexAutomatically)
             {
                 SearchWindow.UpdateDatabase(true);
                 ConfigParser.AddWatchers();

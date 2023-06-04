@@ -1,4 +1,6 @@
-﻿using qgrepControls.Classes;
+﻿using Newtonsoft.Json;
+using qgrepControls.Classes;
+using qgrepControls.ModelViews;
 using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
@@ -7,16 +9,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Controls.Primitives;
-using qgrepControls.ModelViews;
+using System.Windows.Input;
 using System.Windows.Media;
-using System.Threading;
-using System.Globalization;
-using System.Reflection;
-using System.Resources;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace qgrepControls.SearchWindow
 {
@@ -645,14 +640,14 @@ namespace qgrepControls.SearchWindow
 
         private bool EnoughTimePassed()
         {
-            if(!UpdateTimer.IsStarted())
+            if (!UpdateTimer.IsStarted())
             {
                 UpdateTimer.Start();
                 return false;
             }
             else
             {
-                if(UpdateTimer.HasExpired())
+                if (UpdateTimer.HasExpired())
                 {
                     UpdateTimer.Reset();
                     return true;
@@ -709,7 +704,7 @@ namespace qgrepControls.SearchWindow
                             AddSearchResultToGroups(newSearchResult, newSearchResultGroups);
                         }
 
-                        if ((searchOptions.IsNewSearch && NewResultsFitScreen()) || 
+                        if ((searchOptions.IsNewSearch && NewResultsFitScreen()) ||
                             (!searchOptions.IsNewSearch && EnoughTimePassed() && SearchWindowControl.IsKeyboardFocusWithin))
                         {
                             AddResultsBatch(searchOptions);
@@ -1171,7 +1166,7 @@ namespace qgrepControls.SearchWindow
                 HistoryButton.IsEnabled = true;
                 searchHistory.Add(new HistoricItemData() { Text = openedPath, Line = openedLine, Type = HistoricItemType.Open });
 
-                if(searchHistory.Count > 50)
+                if (searchHistory.Count > 50)
                 {
                     searchHistory.RemoveAt(0);
                 }
@@ -1904,7 +1899,7 @@ namespace qgrepControls.SearchWindow
         {
             try
             {
-                if(e.RightButton == MouseButtonState.Pressed)
+                if (e.RightButton == MouseButtonState.Pressed)
                 {
                     DependencyObject originalSource = (DependencyObject)e.OriginalSource;
 

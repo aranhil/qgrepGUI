@@ -5,17 +5,10 @@ using qgrepControls.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Forms;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace qgrepControls.SearchWindow
 {
@@ -148,7 +141,7 @@ namespace qgrepControls.SearchWindow
                     foreach (string filename in folderSelectDialog.FileNames)
                     {
                         ConfigPath configPath = selectedGroup.ConfigGroup.AddNewPath(filename);
-                        if(configPath != null)
+                        if (configPath != null)
                         {
                             selectedGroup.Paths.Add(new SearchPath(configPath));
                         }
@@ -188,12 +181,12 @@ namespace qgrepControls.SearchWindow
 
         private void ConfigProjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(e.RemovedItems != null && e.RemovedItems.Count == 1)
+            if (e.RemovedItems != null && e.RemovedItems.Count == 1)
             {
                 (e.RemovedItems[0] as SearchConfig).SearchGroups.CollectionChanged -= ConfigGroups_CollectionChanged;
             }
 
-            if(ProjectsListBox.InnerListBox.SelectedItems.Count == 1)
+            if (ProjectsListBox.InnerListBox.SelectedItems.Count == 1)
             {
                 ObservableCollection<SearchGroup> searchGroups = (ProjectsListBox.InnerListBox.SelectedItem as SearchConfig).SearchGroups;
 
@@ -247,7 +240,7 @@ namespace qgrepControls.SearchWindow
                 {
                     oldItem.ConfigGroup.Parent.Groups.Remove(oldItem.ConfigGroup);
 
-                    if(IsAutomaticPopulationBusy && oldItem == CurrentlyPopulatingGroup)
+                    if (IsAutomaticPopulationBusy && oldItem == CurrentlyPopulatingGroup)
                     {
                         IsAutomaticPopulationBusy = false;
                         AddAutomaticRules();
@@ -278,7 +271,7 @@ namespace qgrepControls.SearchWindow
 
         private void ConfigProjects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if(e.OldItems != null)
+            if (e.OldItems != null)
             {
                 foreach (SearchConfig oldItem in e.OldItems)
                 {
@@ -286,9 +279,9 @@ namespace qgrepControls.SearchWindow
 
                     if (IsAutomaticPopulationBusy)
                     {
-                        foreach(SearchGroup searchGroup in oldItem.SearchGroups)
+                        foreach (SearchGroup searchGroup in oldItem.SearchGroups)
                         {
-                            if(searchGroup == CurrentlyPopulatingGroup)
+                            if (searchGroup == CurrentlyPopulatingGroup)
                             {
                                 IsAutomaticPopulationBusy = false;
                                 AddAutomaticRules();
@@ -405,14 +398,14 @@ namespace qgrepControls.SearchWindow
 
         private void HandleAutomaticNewExtension(string newExtension)
         {
-            if(!IsAutomaticPopulationBusy)
+            if (!IsAutomaticPopulationBusy)
             {
                 throw new Exception("Window closed.");
             }
 
             TaskRunner.RunOnUIThread(() =>
             {
-                if(!CurrentlyPopulatingExtensions.Contains(newExtension))
+                if (!CurrentlyPopulatingExtensions.Contains(newExtension))
                 {
                     CurrentlyPopulatingExtensions.Add(newExtension);
                 }
@@ -437,9 +430,9 @@ namespace qgrepControls.SearchWindow
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if(!(bool)e.NewValue)
+            if (!(bool)e.NewValue)
             {
-                if(IsAutomaticPopulationBusy)
+                if (IsAutomaticPopulationBusy)
                 {
                     IsAutomaticPopulationBusy = false;
                     AddAutomaticRules();

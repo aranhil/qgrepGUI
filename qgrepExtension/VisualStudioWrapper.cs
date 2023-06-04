@@ -1,38 +1,28 @@
 ﻿using EnvDTE;
-using EnvDTE80;
-using Microsoft.Build.Evaluation;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TaskStatusCenter;
-using qgrepControls;
 using qgrepControls.Classes;
 using qgrepControls.ModelViews;
-using qgrepControls.SearchWindow;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 
 namespace qgrepSearch
 {
-    public class VisualStudioWrapper: IWrapperApp
+    public class VisualStudioWrapper : IWrapperApp
     {
         private ExtensionData Data;
 
@@ -45,7 +35,7 @@ namespace qgrepSearch
         {
             get
             {
-                if(Data.Package.SearchWindowOpened)
+                if (Data.Package.SearchWindowOpened)
                 {
                     Data.Package.SearchWindowOpened = false;
                     return true;
@@ -84,7 +74,7 @@ namespace qgrepSearch
                         EnvDTE.EditPoint startPoint = activePoint.CreateEditPoint();
                         EnvDTE.EditPoint endPoint = activePoint.CreateEditPoint();
 
-                        if(startPoint == null || endPoint == null)
+                        if (startPoint == null || endPoint == null)
                         {
                             return "";
                         }
@@ -151,7 +141,7 @@ namespace qgrepSearch
 
         public string GetConfigPath(bool useGlobalPath)
         {
-            if(useGlobalPath)
+            if (useGlobalPath)
             {
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string appFolderPath = Path.Combine(appDataPath, "qgrepSearch");
@@ -265,8 +255,8 @@ namespace qgrepSearch
                     {
                         lastIncludeLine = i;
 
-                        includeFile = line.Substring(8).Trim(new char[] { ' ', '\t'} );
-                        if(!includeFile.StartsWith("<"))
+                        includeFile = line.Substring(8).Trim(new char[] { ' ', '\t' });
+                        if (!includeFile.StartsWith("<"))
                         {
                             isRelevantInclude = true;
                         }
@@ -331,7 +321,7 @@ namespace qgrepSearch
                     largestBlockSize = currentBlockSize;
                 }
 
-                if(!containsBackslashes)
+                if (!containsBackslashes)
                 {
                     relativePath = relativePath.Replace('\\', '/');
                 }
@@ -356,7 +346,7 @@ namespace qgrepSearch
                     selection.MoveToLineAndOffset(insertLine, 1);
                     selection.Insert($"#include {relativePath}\n");
                 }
-                else if(lastIncludeLine >= 0)
+                else if (lastIncludeLine >= 0)
                 {
                     selection.MoveToLineAndOffset(lastIncludeLine + 1, 1);
                     selection.Insert($"#include {relativePath}\n");
@@ -404,7 +394,7 @@ namespace qgrepSearch
 
                 string relativePath = projectItem.EvaluatedInclude;
                 string fullPath = "";
-                
+
                 try
                 {
                     fullPath = Path.Combine(projectDirectory, relativePath);
@@ -456,7 +446,7 @@ namespace qgrepSearch
                         ProcessProject(subProject, extensionCallback, folderCallback);
                     }
 
-                    if(subProjectItems != null)
+                    if (subProjectItems != null)
                     {
                         GetAllFoldersFromProject(subProjectItems, extensionCallback, folderCallback);
                     }

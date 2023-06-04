@@ -1,14 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using qgrepControls.Properties;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
-using Newtonsoft.Json;
-using qgrepControls.Properties;
-using System.Windows.Media.Media3D;
+using System.Windows.Media;
 
 namespace qgrepControls.Classes
 {
@@ -97,7 +92,7 @@ namespace qgrepControls.Classes
                 windowSizes = JsonConvert.DeserializeObject<List<WindowSize>>(Settings.Default.WindowSizes);
 
                 WindowSize windowSize = windowSizes.Find(x => x.Title == mainWindow.Title);
-                if(windowSize != null)
+                if (windowSize != null)
                 {
                     mainWindow.Width = windowSize.Width;
                     mainWindow.Height = windowSize.Height;
@@ -108,7 +103,7 @@ namespace qgrepControls.Classes
 
         public static void SaveWindowSize(MainWindow mainWindow)
         {
-            if(mainWindow.ResizeMode == ResizeMode.NoResize)
+            if (mainWindow.ResizeMode == ResizeMode.NoResize)
             {
                 return;
             }

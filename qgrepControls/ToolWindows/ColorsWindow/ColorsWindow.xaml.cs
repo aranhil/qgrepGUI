@@ -8,18 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing.Text;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace qgrepControls.ColorsWindow
 {
@@ -29,7 +22,7 @@ namespace qgrepControls.ColorsWindow
         public ObservableCollection<ColorOverride> ColorOverrides = new ObservableCollection<ColorOverride>();
     }
 
-    public class ComboBoxColorItem: INotifyPropertyChanged
+    public class ComboBoxColorItem : INotifyPropertyChanged
     {
         private string _name = "";
         private System.Drawing.Color _color = new System.Drawing.Color();
@@ -87,7 +80,7 @@ namespace qgrepControls.ColorsWindow
                 ColorSchemeComboBox.Items.Add(new ComboBoxItem() { Content = colorScheme.Name, });
             }
 
-            if(!SearchWindow.WrapperApp.IsStandalone)
+            if (!SearchWindow.WrapperApp.IsStandalone)
             {
                 NormalFontComboBox.Items.Add(new ComboBoxItem() { Content = Properties.Resources.AutoOptionContent });
                 MonospaceFontComboBox.Items.Add(new ComboBoxItem() { Content = Properties.Resources.AutoOptionContent });
@@ -101,7 +94,7 @@ namespace qgrepControls.ColorsWindow
                 MonospaceFontComboBox.Items.Add(new ComboBoxItem() { Content = family.Source });
             }
 
-            for(int i = 0; i < MonospaceFontComboBox.Items.Count; i++)
+            for (int i = 0; i < MonospaceFontComboBox.Items.Count; i++)
             {
                 if ((MonospaceFontComboBox.Items[i] as ComboBoxItem).Content.Equals(Settings.Default.MonospaceFontFamily))
                 {
@@ -110,7 +103,7 @@ namespace qgrepControls.ColorsWindow
                 }
             }
 
-            for(int i = 0; i < NormalFontComboBox.Items.Count; i++)
+            for (int i = 0; i < NormalFontComboBox.Items.Count; i++)
             {
                 if ((NormalFontComboBox.Items[i] as ComboBoxItem).Content.Equals(Settings.Default.NormalFontFamily))
                 {
@@ -171,7 +164,7 @@ namespace qgrepControls.ColorsWindow
             {
                 ComboBoxColorItem selectedColor = overrideWindow.OverrideName.SelectedItem as ComboBoxColorItem;
 
-                CurrentColorOverrides.Add(new ColorOverride(selectedColor.Name, 
+                CurrentColorOverrides.Add(new ColorOverride(selectedColor.Name,
                     ThemeHelper.ConvertColor(overrideWindow.OverrideColor.SelectedColor.GetValueOrDefault(new Color()))));
 
                 Settings.Default.ColorOverrides = JsonConvert.SerializeObject(colorSchemeOverrides, Formatting.None);
@@ -285,7 +278,7 @@ namespace qgrepControls.ColorsWindow
                 overrideWindow.OverrideColor.SelectedColor = ThemeHelper.ConvertColor(selectedItem.Color);
             }
 
-            MainWindow overrideDialog = UIHelper.CreateWindow(overrideWindow, 
+            MainWindow overrideDialog = UIHelper.CreateWindow(overrideWindow,
                 isEditing ? Properties.Resources.EditColorOverrideTooltip : Properties.Resources.AddColorOverrideTooltip, SearchWindow.WrapperApp, this);
 
             overrideWindow.Dialog = overrideDialog;
@@ -312,7 +305,7 @@ namespace qgrepControls.ColorsWindow
         private void NormalFontTextBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             int value;
-            if(Int32.TryParse(NormalFontTextBox.Text, out value) && value > 0 && value < 50)
+            if (Int32.TryParse(NormalFontTextBox.Text, out value) && value > 0 && value < 50)
             {
                 Settings.Default.NormalFontSize = value;
                 Settings.Default.Save();

@@ -1,11 +1,6 @@
 ﻿using qgrepControls.Classes;
-using qgrepControls.Properties;
-using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace qgrepControls.SearchWindow
 {
@@ -45,7 +40,7 @@ namespace qgrepControls.SearchWindow
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            if(Dialog != null)
+            if (Dialog != null)
             {
                 Dialog.Close();
             }

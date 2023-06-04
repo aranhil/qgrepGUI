@@ -1,11 +1,6 @@
 ﻿using qgrepControls.Classes;
 using qgrepControls.Properties;
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace qgrepControls.SearchWindow
 {
@@ -17,7 +12,7 @@ namespace qgrepControls.SearchWindow
         {
             this.SearchWindow = SearchWindow;
             InitializeComponent();
-            
+
             PathStyleComboBox.SelectedIndex = Settings.Default.FilesPathStyleIndex;
             SearchScopeComboBox.SelectedIndex = Settings.Default.FilesSearchScopeIndex;
 

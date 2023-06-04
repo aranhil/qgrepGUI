@@ -1,24 +1,19 @@
-﻿using System;
+﻿using EnvDTE;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.OLE.Interop;
+using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.TaskStatusCenter;
+using Microsoft.VisualStudio.TextManager.Interop;
+using qgrepControls.Classes;
+using qgrepControls.SearchWindow;
+using qgrepExtension;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.PlatformUI;
-using qgrepControls.SearchWindow;
-using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio.OLE.Interop;
-using System.Net;
-using Microsoft.Internal.VisualStudio.Shell;
-using static System.Windows.Forms.AxHost;
-using System.Windows.Input;
-using qgrepControls.Classes;
-using Microsoft.VisualStudio.TaskStatusCenter;
-using qgrepExtension;
-using EnvDTE80;
-using EnvDTE;
 
 namespace qgrepSearch
 {
@@ -46,7 +41,7 @@ namespace qgrepSearch
 
             DTE = await GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
 
-            if(DTE != null)
+            if (DTE != null)
             {
                 DTE.Events.WindowEvents.WindowActivated += OnWindowActivated;
             }
@@ -137,7 +132,7 @@ namespace qgrepSearch
                 }
             }
 
-            if(DTE != null)
+            if (DTE != null)
             {
                 DTE.Events.WindowEvents.WindowActivated -= OnWindowActivated;
             }
