@@ -9,6 +9,19 @@ using System.Windows;
 
 namespace qgrepControls.ModelViews
 {
+    public enum HistoricItemType
+    {
+        Search,
+        Open,
+    }
+
+    public class HistoricItemData
+    {
+        public string Text { get; set; }
+        public string Line { get; set; }
+        public HistoricItemType Type { get; set; }
+    }
+
     public class HistoricItem
     {
         private string text;

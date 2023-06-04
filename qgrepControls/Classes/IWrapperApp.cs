@@ -33,5 +33,7 @@ namespace qgrepControls.Classes
         void UpdateBackgroundTaskMessage(string message);
         void StopBackgroundTask();
         bool LoadConfigAtStartup();
+        void IncludeFile(string path);
+        bool IsActiveDocumentCpp();
     }
 }

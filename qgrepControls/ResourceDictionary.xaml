@@ -346,6 +346,7 @@
         <Setter Property="Background" Value="{DynamicResource Menu.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Menu.Foreground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Menu.Border}" />
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContextMenu}">
@@ -1879,8 +1880,8 @@
                         </Path.Stroke>
                     </Path>
                 </Border>-->
-                <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" Margin="5,0,0,0" />
-                <!--<TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" DockPanel.Dock="Right" />-->
+                <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" Margin="0,0,0,0" />
+                <TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" Foreground="{DynamicResource Button.IsDisabled.Foreground}" DockPanel.Dock="Right" VerticalAlignment="Center" Padding="20,0,0,0" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>

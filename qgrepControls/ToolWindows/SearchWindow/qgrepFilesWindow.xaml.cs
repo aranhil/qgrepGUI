@@ -8,12 +8,16 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using qgrepControls.ModelViews;
+using System.Windows.Documents;
+using System.Xml.Linq;
+using System.Windows.Input;
 
 namespace qgrepControls.SearchWindow
 {
     public partial class qgrepFilesWindowControl : UserControl, ISearchEngineEventsHandler
     {
         public IWrapperApp WrapperApp;
+        public bool IsActiveDocumentCpp = false;
 
         public qgrepFilesWindowControl(IWrapperApp WrapperApp)
         {
@@ -39,6 +43,8 @@ namespace qgrepControls.SearchWindow
             InitProgress.Visibility = Visibility.Collapsed;
             SearchEngine.Instance.ShowLastUpdateMessage();
             UpdateFilters();
+
+            IsActiveDocumentCpp = Settings.Default.CppHeaderInclusion && WrapperApp.IsActiveDocumentCpp();
         }
         public void UpdateFromSettings()
         {
@@ -164,7 +170,7 @@ namespace qgrepControls.SearchWindow
                 }
             }
 
-            if (bestResult != null)
+            if(bestResult != null)
             {
                 SelectSearchResult(bestResult);
             }
@@ -197,6 +203,7 @@ namespace qgrepControls.SearchWindow
                             HighlightedText = highlight,
                             EndText = endText,
                             FullResult = fileAndLine + beginText + highlight + endText,
+                            IsActiveDocumentCpp = IsActiveDocumentCpp
                         };
 
                         if(searchOptions.IsFileSearch)
@@ -305,11 +312,49 @@ namespace qgrepControls.SearchWindow
                     oldSelectedSearchResult.IsSelected = false;
                 }
 
-                if (newSelectedSearchResult != null)
+                if(newSelectedSearchResult != null)
                 {
                     SelectSearchResult(newSelectedSearchResult);
                 }
             }
+
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                SearchResult searchResult = GetSelectedSearchResult();
+                if (searchResult != null)
+                {
+                    if (IsActiveDocumentCpp && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                    {
+                        IncludeSearchResult(searchResult);
+                    }
+                    else
+                    {
+                        OpenSearchResult(searchResult);
+                    }
+                }
+            }
+            else if (e.Key == System.Windows.Input.Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                SearchResult selectedSearchResult = GetSelectedSearchResult();
+                if (selectedSearchResult != null)
+                {
+                    try
+                    {
+                        Clipboard.SetText(selectedSearchResult.FileAndLine);
+                    }
+                    catch { }
+                }
+            }
+        }
+
+        private SearchResult GetSelectedSearchResult()
+        {
+            if(selectedSearchResult > -1 && selectedSearchResult < searchResults.Count)
+            {
+                return searchResults[selectedSearchResult];
+            }
+
+            return null;
         }
 
         private void SelectSearchResult(SearchResult newSelectedSearchResult)
@@ -333,7 +378,7 @@ namespace qgrepControls.SearchWindow
         private void OpenSearchResult(SearchResult result)
         {
             MainWindow mainWindow = UIHelper.FindAncestor<MainWindow>(this);
-            if(mainWindow != null)
+            if (mainWindow != null)
             {
                 mainWindow.Close();
             }
@@ -355,7 +400,11 @@ namespace qgrepControls.SearchWindow
             SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
             if (searchResult != null)
             {
-                Clipboard.SetText(searchResult.FileAndLine);
+                try
+                {
+                    Clipboard.SetText(searchResult.FileAndLine);
+                }
+                catch { }
             }
         }
 
@@ -554,6 +603,26 @@ namespace qgrepControls.SearchWindow
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             UIHelper.CreateWindow(new qgrepControls.SearchWindow.FilesSettingsWindow(this), Properties.Resources.Settings, WrapperApp, this).ShowDialog();
+        }
+
+        private void MenuIncludeFile_Click(object sender, RoutedEventArgs e)
+        {
+            SearchResult searchResult = qgrepSearchWindowControl.GetSearchResultFromMenuItem(sender);
+            if(searchResult != null)
+            {
+                IncludeSearchResult(searchResult);
+            }
+        }
+
+        private void IncludeSearchResult(SearchResult searchResult)
+        {
+            MainWindow mainWindow = UIHelper.FindAncestor<MainWindow>(this);
+            if (mainWindow != null)
+            {
+                mainWindow.Close();
+            }
+
+            WrapperApp.IncludeFile(searchResult.FileAndLine);
         }
     }
 }

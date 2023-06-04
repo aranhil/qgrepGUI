@@ -17,6 +17,8 @@ using System.Windows.Input;
 using qgrepControls.Classes;
 using Microsoft.VisualStudio.TaskStatusCenter;
 using qgrepExtension;
+using EnvDTE80;
+using EnvDTE;
 
 namespace qgrepSearch
 {
@@ -43,6 +45,11 @@ namespace qgrepSearch
             TaskRunner.Initialize(new VsTaskRunner());
 
             DTE = await GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+
+            if(DTE != null)
+            {
+                DTE.Events.WindowEvents.WindowActivated += OnWindowActivated;
+            }
 
             IVsSolution solution = await GetServiceAsync(typeof(SVsSolution)) as IVsSolution;
             solution?.AdviseSolutionEvents(this, out SolutionEvents);
@@ -94,6 +101,19 @@ namespace qgrepSearch
             }
         }
 
+        private void OnWindowActivated(Window gotFocus, Window lostFocus)
+        {
+            qgrepSearchWindow searchWindow = FindToolWindow(typeof(qgrepSearchWindow), toolWindowId, false) as qgrepSearchWindow;
+            if (searchWindow != null)
+            {
+                qgrepSearchWindowControl searchWindowControl = searchWindow.Content as qgrepSearchWindowControl;
+                if (searchWindowControl != null)
+                {
+                    searchWindowControl.ActiveDocumentChanged();
+                }
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -115,6 +135,11 @@ namespace qgrepSearch
                     ((IConnectionPointContainer)textManager).FindConnectionPoint(typeof(IVsTextManagerEvents).GUID, out IConnectionPoint connectionPoint);
                     connectionPoint.Unadvise(_cookie);
                 }
+            }
+
+            if(DTE != null)
+            {
+                DTE.Events.WindowEvents.WindowActivated -= OnWindowActivated;
             }
         }
 

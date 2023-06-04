@@ -123,9 +123,20 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             <TextBlock Style="{DynamicResource ResultTextEnd}" Text="{Binding Path=EndText}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem x:Name="MenuGoTo" Header="{x:Static resx:Resources.MenuGoTo}" Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuGoTo" Header="{x:Static resx:Resources.MenuGoTo}" InputGestureText="Enter" Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuIncludeFile" Header="{x:Static resx:Resources.IncludeFile}" InputGestureText="Shift+Enter" Click="MenuIncludeFile_Click">
+                                        <MenuItem.Style>
+                                            <Style TargetType="MenuItem">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsActiveDocumentCpp}" Value="false">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MenuItem.Style>
+                                    </MenuItem>
                                     <Separator/>
-                                    <MenuItem x:Name="MenuCopyText" Header="{x:Static resx:Resources.MenuCopyText}" Click="MenuCopyText_Click"/>
+                                    <MenuItem x:Name="MenuCopyText" Header="{x:Static resx:Resources.MenuCopyText}" InputGestureText="Ctrl+C" Click="MenuCopyText_Click"/>
                                     <MenuItem x:Name="MenuCopyFullPath" Header="{x:Static resx:Resources.MenuCopyFullPath}" Click="MenuCopyFullPath_Click"/>
                                     <MenuItem x:Name="MenuCopyResult" Header="{x:Static resx:Resources.MenuCopyResult}" Click="MenuCopyResult_Click"/>
                                     <Separator/>
@@ -140,6 +151,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource SomeTreeViewItem}">
                         <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>
+                        <EventSetter Event="PreviewMouseDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
                         <EventSetter Event="Selected" Handler="OnSelected"/>
                         <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
@@ -151,8 +163,19 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             <TextBlock Style="{DynamicResource ResultGroupFile}" Text="{Binding Path=TrimmedFile}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem x:Name="MenuGoTo" Header="{x:Static resx:Resources.MenuGoTo}" Click="MenuGoTo_Click"/>
-                                    <MenuItem x:Name="MenuCopyFullPath" Header="{x:Static resx:Resources.MenuCopyFullPath}" Click="MenuCopyFullPath_Click"/>
+                                    <MenuItem x:Name="MenuGoTo" Header="{x:Static resx:Resources.MenuGoTo}" InputGestureText="Enter" Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuIncludeFile" Header="{x:Static resx:Resources.IncludeFile}" InputGestureText="Shift+Enter" Click="MenuIncludeFile_Click">
+                                        <MenuItem.Style>
+                                            <Style TargetType="MenuItem">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsActiveDocumentCpp}" Value="false">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MenuItem.Style>
+                                    </MenuItem>
+                                    <MenuItem x:Name="MenuCopyFullPath" Header="{x:Static resx:Resources.MenuCopyFullPath}" InputGestureText="Ctrl+C" Click="MenuCopyFullPath_Click"/>
                                 </ContextMenu>
                             </DockPanel.ContextMenu>
                         </DockPanel>
@@ -166,9 +189,20 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                             <TextBlock Style="{DynamicResource ResultTextEnd}" Text="{Binding Path=EndText}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem x:Name="MenuGoTo" Header="{x:Static resx:Resources.MenuGoTo}" Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuGoTo" Header="{x:Static resx:Resources.MenuGoTo}" InputGestureText="Enter"  Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuIncludeFile" Header="{x:Static resx:Resources.IncludeFile}" InputGestureText="Shift+Enter" Click="MenuIncludeFile_Click">
+                                        <MenuItem.Style>
+                                            <Style TargetType="MenuItem">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsActiveDocumentCpp}" Value="false">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MenuItem.Style>
+                                    </MenuItem>
                                     <Separator/>
-                                    <MenuItem x:Name="MenuCopyText" Header="{x:Static resx:Resources.MenuCopyText}" Click="MenuCopyText_Click"/>
+                                    <MenuItem x:Name="MenuCopyText" Header="{x:Static resx:Resources.MenuCopyText}" InputGestureText="Ctrl+C"  Click="MenuCopyText_Click"/>
                                     <MenuItem x:Name="MenuCopyFullPath" Header="{x:Static resx:Resources.MenuCopyFullPath}" Click="MenuCopyFullPath_Click"/>
                                     <MenuItem x:Name="MenuCopyResult" Header="{x:Static resx:Resources.MenuCopyResult}" Click="MenuCopyResult_Click"/>
                                     <Separator/>

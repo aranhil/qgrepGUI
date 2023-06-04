@@ -142,6 +142,9 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>无法清除索引：{0}</value>
   </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}； {2}/{3} 个块在 {4:0.00} 秒内更新</value>
+  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>清理和更新索引</value>
   </data>
@@ -586,7 +589,10 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>使用全局路径</value>
   </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}； {2}/{3} 个块在 {4:0.00} 秒内更新</value>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ 标头包含：</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>包含文件</value>
   </data>
 </root>

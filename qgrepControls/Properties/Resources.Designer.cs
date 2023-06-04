@@ -278,6 +278,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to C++ header inclusions:.
+        /// </summary>
+        public static string CppHeaderInclusion {
+            get {
+                return ResourceManager.GetString("CppHeaderInclusion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customize shortcuts.
         /// </summary>
         public static string CustomizeShortcuts {
@@ -616,6 +625,15 @@ namespace qgrepControls.Properties {
         public static string HoursAgoText {
             get {
                 return ResourceManager.GetString("HoursAgoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include file.
+        /// </summary>
+        public static string IncludeFile {
+            get {
+                return ResourceManager.GetString("IncludeFile", resourceCulture);
             }
         }
         

@@ -190,6 +190,9 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>Copy full path</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ header inclusions:</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Customize shortcuts</value>
   </data>
@@ -303,6 +306,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>{0} hours ago</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Include file</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>Include files...</value>

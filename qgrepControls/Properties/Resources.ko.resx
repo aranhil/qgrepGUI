@@ -162,6 +162,9 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>색인을 정리할 수 없음: {0}</value>
   </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} 청크가 {4:0.00}초 후에 업데이트됨</value>
+  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>색인 정리 및 업데이트</value>
   </data>
@@ -606,7 +609,10 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>전역 경로 사용</value>
   </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} 청크가 {4:0.00}초 후에 업데이트됨</value>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ 헤더 포함:</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>파일 포함</value>
   </data>
 </root>

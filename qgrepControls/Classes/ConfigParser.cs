@@ -16,7 +16,19 @@ namespace qgrepControls.Classes
     public class ConfigPath
     {
         public ConfigGroup Parent;
-        public string Path = "";
+
+        private string path = "";
+        public string Path
+        {
+            get
+            {
+                return path;
+            }
+            set
+            {
+                path = System.IO.Path.GetFullPath(value);
+            }
+        }
 
         public ConfigPath DeepClone()
         {

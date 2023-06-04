@@ -163,6 +163,9 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Nu se poate curăța indexul: {0}</value>
   </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} bucăți actualizate în {4:0.00} secunde</value>
+  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Curăță și actualizează indexul</value>
   </data>
@@ -610,7 +613,10 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
   </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} bucăți actualizate în {4:0.00} secunde</value>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>Incluziuni de antet C++:</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Includeți fișierul</value>
   </data>
 </root>

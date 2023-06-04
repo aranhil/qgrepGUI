@@ -36,3 +36,10 @@
 - Fixed issue where pressing Delete would delete the Config/Group while editing the name
 - Fixed issue where underscores ('_') weren't showing up in the search summary info
 - Fixed issue with backslashes ('\\') not being recognized as a valid path separator in all the fields that expect a path (file search, include files and exclude files)
+
+### Version 2.9 (04/06/2023)
+
+- Added an experimental option to automatically include the selected file as a C++ include statement in the currently active document
+- The history is now a circular buffer of 50 items that is preserved between sessions
+- Made the shortcuts of the contextual menu items visible
+- Fixed several issues with the search file window

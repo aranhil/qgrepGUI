@@ -26,6 +26,20 @@ namespace qgrepControls.ModelViews
         public string FullResult { get; set; }
         public SearchResultGroup Parent { get; set; }
 
+        public bool isActiveDocumentCpp = false;
+        public bool IsActiveDocumentCpp
+        {
+            get
+            {
+                return isActiveDocumentCpp;
+            }
+            set
+            {
+                isActiveDocumentCpp = value;
+                OnPropertyChanged();
+            }
+        }
+
         public BitmapSource imageSource;
         public BitmapSource ImageSource
         {

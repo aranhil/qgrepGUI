@@ -184,6 +184,186 @@ namespace qgrepSearch
             }
             catch { }
         }
+        public static string GetRelativePath(string fromPath, string toPath)
+        {
+            if (string.IsNullOrEmpty(fromPath))
+            {
+                throw new ArgumentNullException("fromPath");
+            }
+
+            if (string.IsNullOrEmpty(toPath))
+            {
+                throw new ArgumentNullException("toPath");
+            }
+
+            Uri fromUri = new Uri(AppendDirectorySeparatorChar(fromPath));
+            Uri toUri = new Uri(AppendDirectorySeparatorChar(toPath));
+
+            if (fromUri.Scheme != toUri.Scheme)
+            {
+                return toPath;
+            }
+
+            Uri relativeUri = fromUri.MakeRelativeUri(toUri);
+            string relativePath = Uri.UnescapeDataString(relativeUri.ToString());
+
+            if (string.Equals(toUri.Scheme, Uri.UriSchemeFile, StringComparison.OrdinalIgnoreCase))
+            {
+                relativePath = relativePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            }
+
+            return relativePath;
+        }
+
+        private static string AppendDirectorySeparatorChar(string path)
+        {
+            // Append a slash only if the path is a directory and does not have a slash.
+            if (!Path.HasExtension(path) &&
+                !path.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                return path + Path.DirectorySeparatorChar;
+            }
+
+            return path;
+        }
+
+        public void IncludeFile(string path)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            try
+            {
+                EnvDTE.Document activeDocument = Data.DTE.ActiveDocument;
+
+                string activeDocumentDirectory = Path.GetDirectoryName(activeDocument.FullName);
+                string relativePath = "\"" + GetRelativePath(activeDocumentDirectory, path) + "\"";
+
+                TextDocument textDocument = (TextDocument)activeDocument.Object("TextDocument");
+                TextSelection selection = textDocument.Selection;
+                selection.StartOfDocument();
+
+                string lastInclude = null;
+                int currentBlockStart = -1;
+                int currentBlockEnd = -1;
+                int currentBlockSize = 0;
+                int largestBlockStart = -1;
+                int largestBlockEnd = -1;
+                int largestBlockSize = 0;
+                int lastIncludeLine = -1;
+
+                bool containsForwardSlashes = false;
+                bool containsBackslashes = false;
+
+                for (int i = 1; i <= textDocument.EndPoint.Line; i++)
+                {
+                    string line = textDocument.CreateEditPoint(textDocument.StartPoint).GetLines(i, i + 1).Trim();
+
+                    bool isRelevantInclude = false;
+                    string includeFile = "";
+
+                    if (line.StartsWith("#include"))
+                    {
+                        lastIncludeLine = i;
+
+                        includeFile = line.Substring(8).Trim(new char[] { ' ', '\t'} );
+                        if(!includeFile.StartsWith("<"))
+                        {
+                            isRelevantInclude = true;
+                        }
+                    }
+
+                    if (isRelevantInclude)
+                    {
+                        containsForwardSlashes |= includeFile.Contains("/");
+                        containsBackslashes |= includeFile.Contains("\\");
+
+                        if (currentBlockStart == -1)
+                        {
+                            currentBlockStart = i;
+                            currentBlockEnd = i;
+                            currentBlockSize = 1;
+                            lastInclude = includeFile;
+                        }
+                        else if (includeFile.CompareTo(lastInclude) >= 0)
+                        {
+                            currentBlockEnd = i;
+                            currentBlockSize++;
+                            lastInclude = includeFile;
+                        }
+                        else
+                        {
+                            if (largestBlockStart == -1 || currentBlockSize > largestBlockSize)
+                            {
+                                largestBlockStart = currentBlockStart;
+                                largestBlockEnd = currentBlockEnd;
+                                largestBlockSize = currentBlockSize;
+                            }
+
+                            currentBlockStart = i;
+                            currentBlockEnd = i;
+                            currentBlockSize = 1;
+                            lastInclude = includeFile;
+                        }
+                    }
+                    else if (!string.IsNullOrWhiteSpace(line))
+                    {
+                        if (currentBlockStart != -1)
+                        {
+                            if (largestBlockStart == -1 || currentBlockSize > largestBlockSize)
+                            {
+                                largestBlockStart = currentBlockStart;
+                                largestBlockEnd = currentBlockEnd;
+                                largestBlockSize = currentBlockSize;
+                            }
+
+                            currentBlockStart = -1;
+                            currentBlockEnd = -1;
+                            currentBlockSize = 0;
+                            lastInclude = null;
+                        }
+                    }
+                }
+
+                if (currentBlockStart != -1 && (largestBlockStart == -1 || (currentBlockEnd - currentBlockStart) > (largestBlockEnd - largestBlockStart)))
+                {
+                    largestBlockStart = currentBlockStart;
+                    largestBlockEnd = currentBlockEnd;
+                    largestBlockSize = currentBlockSize;
+                }
+
+                if(!containsBackslashes)
+                {
+                    relativePath = relativePath.Replace('\\', '/');
+                }
+
+                if (largestBlockStart != -1 && largestBlockSize >= 3)
+                {
+                    int insertLine = largestBlockStart;
+
+                    for (int i = largestBlockStart; i <= largestBlockEnd; i++)
+                    {
+                        string line = textDocument.CreateEditPoint(textDocument.StartPoint).GetLines(i, i + 1).Trim();
+                        string includeFile = line.Substring(8).Trim(new char[] { ' ', '\t' });
+
+                        if (includeFile.CompareTo(relativePath) > 0)
+                        {
+                            break;
+                        }
+
+                        insertLine++;
+                    }
+
+                    selection.MoveToLineAndOffset(insertLine, 1);
+                    selection.Insert($"#include {relativePath}\n");
+                }
+                else if(lastIncludeLine >= 0)
+                {
+                    selection.MoveToLineAndOffset(lastIncludeLine + 1, 1);
+                    selection.Insert($"#include {relativePath}\n");
+                }
+            }
+            catch { }
+        }
         public void GatherAllFoldersAndExtensionsFromSolution(MessageCallback extensionCallback, MessageCallback folderCallback)
         {
             try
@@ -598,6 +778,13 @@ namespace qgrepSearch
         public bool LoadConfigAtStartup()
         {
             return Data.Package.SolutionAlreadyLoaded;
+        }
+
+        public bool IsActiveDocumentCpp()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            EnvDTE.Document activeDocument = Data.DTE.ActiveDocument;
+            return activeDocument.Language == "C/C++";
         }
     }
 }

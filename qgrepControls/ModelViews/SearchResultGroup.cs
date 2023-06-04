@@ -19,6 +19,20 @@ namespace qgrepControls.ModelViews
         public string TrimmedFile { get; set; } = "";
         public ObservableCollection<SearchResult> SearchResults { get; set; } = new ObservableCollection<SearchResult>();
 
+        public bool isActiveDocumentCpp = false;
+        public bool IsActiveDocumentCpp
+        {
+            get
+            {
+                return isActiveDocumentCpp;
+            }
+            set
+            {
+                isActiveDocumentCpp = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsSelected
         {
             get

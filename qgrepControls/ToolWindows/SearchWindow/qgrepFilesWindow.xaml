@@ -35,8 +35,19 @@
                             <TextBlock Style="{DynamicResource ResultTextStart}" Text="{Binding Path=TrimmedFileAndLine}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem x:Name="MenuOpenFile" Header="{x:Static resx:Resources.OpenFile}" Click="MenuGoTo_Click"/>
-                                    <MenuItem x:Name="MenuCopyFullPath" Header="{x:Static resx:Resources.CopyFullPath}" Click="MenuCopyFullPath_Click"/>
+                                    <MenuItem x:Name="MenuOpenFile" Header="{x:Static resx:Resources.OpenFile}" InputGestureText="Enter"  Click="MenuGoTo_Click"/>
+                                    <MenuItem x:Name="MenuIncludeFile" Header="{x:Static resx:Resources.IncludeFile}" InputGestureText="Shift+Enter" Click="MenuIncludeFile_Click">
+                                        <MenuItem.Style>
+                                            <Style TargetType="MenuItem">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsActiveDocumentCpp}" Value="false">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MenuItem.Style>
+                                    </MenuItem>
+                                    <MenuItem x:Name="MenuCopyFullPath" Header="{x:Static resx:Resources.CopyFullPath}" InputGestureText="Ctrl+C" Click="MenuCopyFullPath_Click"/>
                                 </ContextMenu>
                             </DockPanel.ContextMenu>
                         </DockPanel>

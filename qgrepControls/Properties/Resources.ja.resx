@@ -162,6 +162,9 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>インデックスをクリーンできません: {0}</value>
   </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} 個のチャンクが {4:0.00} 秒以内に更新されました</value>
+  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>インデックスのクリーンアップと更新</value>
   </data>
@@ -606,7 +609,10 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>グローバルパスを使用する</value>
   </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} 個のチャンクが {4:0.00} 秒以内に更新されました</value>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ ヘッダーのインクルード:</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>インクルードファイル</value>
   </data>
 </root>

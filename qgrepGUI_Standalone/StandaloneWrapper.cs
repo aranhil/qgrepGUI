@@ -319,5 +319,14 @@ namespace qgrepGUI
         {
             return true;
         }
+
+        public void IncludeFile(string path)
+        {
+        }
+
+        public bool IsActiveDocumentCpp()
+        {
+            return false;
+        }
     }
 }

@@ -162,6 +162,9 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Dizin temizlenemiyor: {0}</value>
   </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {4:0.00} saniyede {2}/{3} parça güncellendi</value>
+  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Dizini temizle ve güncelle</value>
   </data>
@@ -606,7 +609,10 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Genel yolu kullan</value>
   </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {4:0.00} saniyede {2}/{3} parça güncellendi</value>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ başlık eklemeleri:</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Dosyayı dahil et</value>
   </data>
 </root>

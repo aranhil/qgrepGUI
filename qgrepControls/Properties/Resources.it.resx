@@ -162,6 +162,9 @@
   <data name="CannotCleanIndex" xml:space="preserve">
     <value>Impossibile pulire l'indice: {0}</value>
   </data>
+  <data name="ChunksUpdatedMessage" xml:space="preserve">
+    <value>{0} {1}; {2}/{3} blocchi aggiornati in {4:0.00} secondi</value>
+  </data>
   <data name="CleanAndUpdateIndex" xml:space="preserve">
     <value>Pulisci e aggiorna index</value>
   </data>
@@ -606,7 +609,10 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Usa percorso globale</value>
   </data>
-  <data name="ChunksUpdatedMessage" xml:space="preserve">
-    <value>{0} {1}; {2}/{3} blocchi aggiornati in {4:0.00} secondi</value>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>Inclusioni di intestazione C++:</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Includi file</value>
   </data>
 </root>
