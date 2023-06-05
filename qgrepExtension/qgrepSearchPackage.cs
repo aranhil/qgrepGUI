@@ -69,6 +69,18 @@ namespace qgrepSearch
             await OpenSearchFiles.InitializeAsync(this);
             await GroupingByCommand.InitializeAsync(this);
             await GroupExpandCommand.InitializeAsync(this);
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            System.Windows.Application.Current.DispatcherUnhandledException += App_DispatcherUnhandledException;
+        }
+        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            CrashReportsHelper.WriteCrashReport(e.Exception);
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            CrashReportsHelper.WriteCrashReport((Exception)e.ExceptionObject);
         }
 
         public IVsImageService2 ImageService

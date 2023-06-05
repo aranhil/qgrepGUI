@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Classes\ConfigParser.cs" />
     <Compile Include="Classes\CountdownTimer.cs" />
+    <Compile Include="Classes\CrashReportsHelper.cs" />
     <Compile Include="Classes\IWrapperApp.cs" />
     <Compile Include="Classes\FolderSelectDialog.cs" />
     <Compile Include="Classes\Hotkey.cs" />

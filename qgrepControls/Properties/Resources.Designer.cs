@@ -287,6 +287,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to qgrep Search Tool encountered an unhandled exception last session:.
+        /// </summary>
+        public static string CrashMessage {
+            get {
+                return ResourceManager.GetString("CrashMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customize shortcuts.
         /// </summary>
         public static string CustomizeShortcuts {
@@ -319,6 +328,15 @@ namespace qgrepControls.Properties {
         public static string DaysAgoText {
             get {
                 return ResourceManager.GetString("DaysAgoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t send.
+        /// </summary>
+        public static string DontSend {
+            get {
+                return ResourceManager.GetString("DontSend", resourceCulture);
             }
         }
         
@@ -1291,6 +1309,24 @@ namespace qgrepControls.Properties {
         public static string SelectFolderPrompt {
             get {
                 return ResourceManager.GetString("SelectFolderPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send report.
+        /// </summary>
+        public static string SendReport {
+            get {
+                return ResourceManager.GetString("SendReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opens a Google Form and fills it with just the callstack from above, no other information is sent.
+        /// </summary>
+        public static string SendReportTooltip {
+            get {
+                return ResourceManager.GetString("SendReportTooltip", resourceCulture);
             }
         }
         

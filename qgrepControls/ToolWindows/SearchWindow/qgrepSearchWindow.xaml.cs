@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -120,6 +121,22 @@ namespace qgrepControls.SearchWindow
 
             KeyboardButton.Visibility = WrapperApp.IsStandalone ? Visibility.Visible : Visibility.Collapsed;
             UpdateShortcutHints();
+
+            LoadCrashReports();
+        }
+
+        private void LoadCrashReports()
+        {
+            CrashReportsHelper.ReadLatestCrashReport(Settings.Default.LastCrashReport);
+            if(CrashReportsHelper.LastReport.Length > 0)
+            {
+                CrashReportOverlay.Visibility = Visibility.Visible;
+                CrashReportStack.Text = CrashReportsHelper.LastReport;
+            }
+            else
+            {
+                CrashReportOverlay.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void OnContextMenuLoaded(object sender, RoutedEventArgs e)
@@ -472,6 +489,7 @@ namespace qgrepControls.SearchWindow
 
         ObservableCollection<SearchResult> newSearchResults = new ObservableCollection<SearchResult>();
         ObservableCollection<SearchResultGroup> newSearchResultGroups = new ObservableCollection<SearchResultGroup>();
+        private static SemaphoreSlim ResultListsSemaphore = new SemaphoreSlim(1, 1);
 
         private void AddSearchResultToGroups(SearchResult searchResult, ObservableCollection<SearchResultGroup> searchResultGroups)
         {
@@ -501,6 +519,8 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
+                //SearchEngine.DebugToRoamingLog($"OnStartSearchEvent Query:{searchOptions.Query}, Id: {searchOptions.Id}, ForceStopped: {searchOptions.WasForceStopped}");
+
                 selectedSearchResultGroup = null;
                 selectedSearchResult = null;
                 OverrideExpansion = null;
@@ -519,6 +539,8 @@ namespace qgrepControls.SearchWindow
 
         private void AddResultsBatch(SearchOptions searchOptions)
         {
+            //SearchEngine.DebugToRoamingLog($"AddResultsBatch Id: {searchOptions.Id}, Count: {searchOptions.ResultsCount}");
+
             if (searchOptions.GroupingMode == 0)
             {
                 if (searchOptions.IsNewSearch)
@@ -531,6 +553,7 @@ namespace qgrepControls.SearchWindow
 
                     SearchItemsListBox.ItemsSource = searchResults = newSearchResults;
                     newSearchResults = new ObservableCollection<SearchResult>();
+
                     searchOptions.IsNewSearch = false;
 
                     if (searchResults.Count > 0)
@@ -561,13 +584,14 @@ namespace qgrepControls.SearchWindow
                     SearchItemsTreeView.ItemsSource = searchResultsGroups = newSearchResultGroups;
                     searchResults = newSearchResults;
 
+                    newSearchResultGroups = new ObservableCollection<SearchResultGroup>();
+                    newSearchResults = new ObservableCollection<SearchResult>();
+
                     if (searchResultsGroups.Count > 0)
                     {
                         searchResultsGroups[0].IsSelected = true;
                     }
 
-                    newSearchResultGroups = new ObservableCollection<SearchResultGroup>();
-                    newSearchResults = new ObservableCollection<SearchResult>();
                     searchOptions.IsNewSearch = false;
                 }
                 else
@@ -590,7 +614,7 @@ namespace qgrepControls.SearchWindow
 
             LocalizationHelper.TestLanguage();
 
-            InfoLabel.Text = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query);
+            InfoLabel.Text = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query) + searchOptions.Id;
         }
 
         private double GetScreenHeight()
@@ -657,46 +681,50 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        public void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
+        public async void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
         {
             if (!searchOptions.WasForceStopped)
             {
-                TaskRunner.RunOnUIThread(() =>
+                searchOptions.ResultsCount++;
+
+                //if (SearchInput.Text.Length != 0 || IncludeFilesInput.Text.Length != 0)
                 {
-                    if (SearchInput.Text.Length != 0 || IncludeFilesInput.Text.Length != 0)
+                    string fileAndLine = "";
+                    string trimmedFileAndLine = "";
+
+                    if (file.Length > 0 && lineNumber.Length > 0)
                     {
-                        string fileAndLine = "";
-                        string trimmedFileAndLine = "";
+                        fileAndLine = string.Format(Properties.Resources.FileAndLine, file, lineNumber);
+                        trimmedFileAndLine = string.Format(Properties.Resources.FileAndLine, ConfigParser.RemovePaths(file, Settings.Default.PathStyleIndex), lineNumber);
+                    }
+                    else if (file.Length > 0)
+                    {
+                        fileAndLine = file;
+                        trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.PathStyleIndex);
+                    }
 
-                        if (file.Length > 0 && lineNumber.Length > 0)
-                        {
-                            fileAndLine = string.Format(Properties.Resources.FileAndLine, file, lineNumber);
-                            trimmedFileAndLine = string.Format(Properties.Resources.FileAndLine, ConfigParser.RemovePaths(file, Settings.Default.PathStyleIndex), lineNumber);
-                        }
-                        else if (file.Length > 0)
-                        {
-                            fileAndLine = file;
-                            trimmedFileAndLine = ConfigParser.RemovePaths(fileAndLine, Settings.Default.PathStyleIndex);
-                        }
+                    SearchResult newSearchResult = new SearchResult()
+                    {
+                        File = file,
+                        Line = lineNumber,
+                        FileAndLine = fileAndLine,
+                        TrimmedFileAndLine = trimmedFileAndLine,
+                        BeginText = beginText,
+                        HighlightedText = highlight,
+                        EndText = endText,
+                        FullResult = fileAndLine + beginText + highlight + endText,
+                        IsActiveDocumentCpp = IsActiveDocumentCpp,
+                    };
 
-                        SearchResult newSearchResult = new SearchResult()
-                        {
-                            File = file,
-                            Line = lineNumber,
-                            FileAndLine = fileAndLine,
-                            TrimmedFileAndLine = trimmedFileAndLine,
-                            BeginText = beginText,
-                            HighlightedText = highlight,
-                            EndText = endText,
-                            FullResult = fileAndLine + beginText + highlight + endText,
-                            IsActiveDocumentCpp = IsActiveDocumentCpp,
-                        };
+                    if (searchOptions.IsFileSearch)
+                    {
+                        WrapperApp.GetIcon(newSearchResult.FullResult, BackgroundColor, newSearchResult);
+                    }
 
-                        if (searchOptions.IsFileSearch)
-                        {
-                            WrapperApp.GetIcon(newSearchResult.FullResult, BackgroundColor, newSearchResult);
-                        }
+                    bool addResultsBatch = false;
 
+                    await ResultListsSemaphore.WaitAsync();
+                    {
                         newSearchResults.Add(newSearchResult);
 
                         if (searchOptions.GroupingMode == 1)
@@ -704,13 +732,18 @@ namespace qgrepControls.SearchWindow
                             AddSearchResultToGroups(newSearchResult, newSearchResultGroups);
                         }
 
-                        if ((searchOptions.IsNewSearch && NewResultsFitScreen()) ||
-                            (!searchOptions.IsNewSearch && EnoughTimePassed() && SearchWindowControl.IsKeyboardFocusWithin))
+                        addResultsBatch = (searchOptions.IsNewSearch && NewResultsFitScreen()) ||
+                                            (!searchOptions.IsNewSearch && EnoughTimePassed() && SearchWindowControl.IsKeyboardFocusWithin);
+                        if (addResultsBatch)
                         {
-                            AddResultsBatch(searchOptions);
+                            TaskRunner.RunOnUIThread(() =>
+                            {
+                                AddResultsBatch(searchOptions);
+                            });
                         }
                     }
-                });
+                    ResultListsSemaphore.Release();
+                }
             }
         }
 
@@ -722,29 +755,35 @@ namespace qgrepControls.SearchWindow
             });
         }
 
-        public void OnFinishSearchEvent(SearchOptions searchOptions)
+        public async void OnFinishSearchEvent(SearchOptions searchOptions)
         {
-            TaskRunner.RunOnUIThread(() =>
+            await ResultListsSemaphore.WaitAsync();
             {
-                if (!searchOptions.WasForceStopped)
+                TaskRunner.RunOnUIThread(() =>
                 {
-                    if (SearchInput.Text.Length == 0 && IncludeFilesInput.Text.Length == 0)
+                    //SearchEngine.DebugToRoamingLog($"OnFinishSearchEvent Id: {searchOptions.Id}, ForceStopped: {searchOptions.WasForceStopped}, Count: {searchOptions.ResultsCount}");
+
+                    if (!searchOptions.WasForceStopped)
                     {
-                        searchResults.Clear();
-                        searchResultsGroups.Clear();
-                        InfoLabel.Text = "";
+                        if (SearchInput.Text.Length == 0 && IncludeFilesInput.Text.Length == 0)
+                        {
+                            searchResults.Clear();
+                            searchResultsGroups.Clear();
+                            InfoLabel.Text = "";
+                        }
+                        else
+                        {
+                            AddResultsBatch(searchOptions);
+                        }
                     }
                     else
                     {
-                        AddResultsBatch(searchOptions);
+                        newSearchResultGroups.Clear();
+                        newSearchResults.Clear();
                     }
-                }
-                else
-                {
-                    newSearchResultGroups.Clear();
-                    newSearchResults.Clear();
-                }
-            });
+                });
+            }
+            ResultListsSemaphore.Release();
         }
 
         private void Find()
@@ -1959,6 +1998,24 @@ namespace qgrepControls.SearchWindow
             {
                 WrapperApp.IncludeFile(searchResultGroup.File);
             }
+        }
+
+        private void SendReport_Click(object sender, RoutedEventArgs e)
+        {
+            CrashReportsHelper.SendCrashReport();
+
+            Settings.Default.LastCrashReport = CrashReportsHelper.LastReportTimestamp;
+            Settings.Default.Save();
+
+            LoadCrashReports();
+        }
+
+        private void DontSend_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.LastCrashReport = CrashReportsHelper.LastReportTimestamp;
+            Settings.Default.Save();
+
+            LoadCrashReports();
         }
     }
 }

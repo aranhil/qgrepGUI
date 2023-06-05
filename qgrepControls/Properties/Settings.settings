@@ -104,5 +104,8 @@
     <Setting Name="History" Type="System.String" Scope="User">
       <Value Profile="(Default)">[]</Value>
     </Setting>
+    <Setting Name="LastCrashReport" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">1753-01-01</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
