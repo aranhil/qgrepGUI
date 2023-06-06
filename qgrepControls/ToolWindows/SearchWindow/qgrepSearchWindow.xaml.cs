@@ -48,6 +48,7 @@ namespace qgrepControls.SearchWindow
         ObservableCollection<SearchResultGroup> searchResultsGroups = new ObservableCollection<SearchResultGroup>();
         SearchResult selectedSearchResult = null;
         SearchResultGroup selectedSearchResultGroup = null;
+        CancellationTokenSource searchCancellationToken = new CancellationTokenSource();
 
         List<HistoricItemData> searchHistory = new List<HistoricItemData>();
         ObservableCollection<HistoricItem> shownSearchHistory = new ObservableCollection<HistoricItem>();
@@ -517,9 +518,11 @@ namespace qgrepControls.SearchWindow
 
         public void OnStartSearchEvent(SearchOptions searchOptions)
         {
+            searchCancellationToken = new CancellationTokenSource();
+
             TaskRunner.RunOnUIThread(() =>
             {
-                //SearchEngine.DebugToRoamingLog($"OnStartSearchEvent Query:{searchOptions.Query}, Id: {searchOptions.Id}, ForceStopped: {searchOptions.WasForceStopped}");
+                //CrashReportsHelper.DebugToRoamingLog($"OnStartSearchEvent Query:{searchOptions.Query}, Id: {searchOptions.Id}, ForceStopped: {searchOptions.WasForceStopped}");
 
                 selectedSearchResultGroup = null;
                 selectedSearchResult = null;
@@ -539,7 +542,7 @@ namespace qgrepControls.SearchWindow
 
         private void AddResultsBatch(SearchOptions searchOptions)
         {
-            //SearchEngine.DebugToRoamingLog($"AddResultsBatch Id: {searchOptions.Id}, Count: {searchOptions.ResultsCount}");
+            //CrashReportsHelper.DebugToRoamingLog($"AddResultsBatch Id: {searchOptions.Id}, Count: {searchOptions.ResultsCount}");
 
             if (searchOptions.GroupingMode == 0)
             {
@@ -565,6 +568,11 @@ namespace qgrepControls.SearchWindow
                 {
                     foreach (SearchResult result in newSearchResults)
                     {
+                        if (searchCancellationToken?.Token.IsCancellationRequested ?? false)
+                        {
+                            break;
+                        }
+
                         searchResults.Add(result);
                     }
 
@@ -600,6 +608,11 @@ namespace qgrepControls.SearchWindow
                     {
                         foreach (SearchResult result in resultGroup.SearchResults)
                         {
+                            if(searchCancellationToken?.Token.IsCancellationRequested ?? false)
+                            {
+                                break;
+                            }
+
                             AddSearchResultToGroups(result, searchResultsGroups);
                             searchResults.Add(result);
                         }
@@ -614,7 +627,7 @@ namespace qgrepControls.SearchWindow
 
             LocalizationHelper.TestLanguage();
 
-            InfoLabel.Text = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query) + searchOptions.Id;
+            InfoLabel.Text = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query) + $" Id: {searchOptions.Id}";
         }
 
         private double GetScreenHeight()
@@ -681,7 +694,7 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        public async void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
+        public void OnResultEvent(string file, string lineNumber, string beginText, string highlight, string endText, SearchOptions searchOptions)
         {
             if (!searchOptions.WasForceStopped)
             {
@@ -723,7 +736,7 @@ namespace qgrepControls.SearchWindow
 
                     bool addResultsBatch = false;
 
-                    await ResultListsSemaphore.WaitAsync();
+                    ResultListsSemaphore.Wait();
                     {
                         newSearchResults.Add(newSearchResult);
 
@@ -733,7 +746,8 @@ namespace qgrepControls.SearchWindow
                         }
 
                         addResultsBatch = (searchOptions.IsNewSearch && NewResultsFitScreen()) ||
-                                            (!searchOptions.IsNewSearch && EnoughTimePassed() && SearchWindowControl.IsKeyboardFocusWithin);
+                                            (!searchOptions.IsNewSearch && (EnoughTimePassed() /*|| newSearchResults.Count >= 1000*/) && SearchWindowControl.IsKeyboardFocusWithin);
+
                         if (addResultsBatch)
                         {
                             TaskRunner.RunOnUIThread(() =>
@@ -755,13 +769,15 @@ namespace qgrepControls.SearchWindow
             });
         }
 
-        public async void OnFinishSearchEvent(SearchOptions searchOptions)
+        public void OnFinishSearchEvent(SearchOptions searchOptions)
         {
-            await ResultListsSemaphore.WaitAsync();
+            ResultListsSemaphore.Wait();
             {
+                //CrashReportsHelper.DebugToRoamingLog($"OnFinishSearchEvent AfterSemaphore Id: {searchOptions.Id}, ForceStopped: {searchOptions.WasForceStopped}, Count: {searchOptions.ResultsCount}");
+
                 TaskRunner.RunOnUIThread(() =>
                 {
-                    //SearchEngine.DebugToRoamingLog($"OnFinishSearchEvent Id: {searchOptions.Id}, ForceStopped: {searchOptions.WasForceStopped}, Count: {searchOptions.ResultsCount}");
+                    //CrashReportsHelper.DebugToRoamingLog($"OnFinishSearchEvent AfterTaskRunner Id: {searchOptions.Id}, ForceStopped: {searchOptions.WasForceStopped}, Count: {searchOptions.ResultsCount}");
 
                     if (!searchOptions.WasForceStopped)
                     {
@@ -788,6 +804,8 @@ namespace qgrepControls.SearchWindow
 
         private void Find()
         {
+            searchCancellationToken?.Cancel();
+
             if (SearchInput.Text.Length != 0)
             {
                 SearchOptions searchOptions = new SearchOptions()

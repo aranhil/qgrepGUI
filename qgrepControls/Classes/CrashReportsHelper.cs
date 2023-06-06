@@ -13,14 +13,22 @@ namespace qgrepControls.Classes
     {
         public static DateTime LastReportTimestamp = DateTime.MinValue;
         public static string LastReport = "";
+        public static readonly object padlock = new object();
 
         public static void DebugToRoamingLog(string message)
         {
-            string roamingFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string filePath = System.IO.Path.Combine(roamingFolderPath, "LogErrors.txt");
-            using (StreamWriter writer = new StreamWriter(filePath, true))
+            lock(padlock)
             {
-                writer.WriteLine(message);
+                try
+                {
+                    string roamingFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    string filePath = System.IO.Path.Combine(roamingFolderPath, "LogErrors.txt");
+                    using (StreamWriter writer = new StreamWriter(filePath, true))
+                    {
+                        writer.WriteLine(message);
+                    }
+                }
+                catch { }
             }
         }
 

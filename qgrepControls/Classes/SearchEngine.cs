@@ -145,7 +145,6 @@ namespace qgrepControls.Classes
                     ForceStop = true;
                 }
 
-                queueEvent.Set();
                 return;
             }
 
@@ -255,6 +254,8 @@ namespace qgrepControls.Classes
                 });
 
                 searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
+
+                CheckQueue();
             });
         }
         public void SearchFilesAsync(SearchOptions searchOptions)
@@ -268,7 +269,6 @@ namespace qgrepControls.Classes
                     ForceStop = true;
                 }
 
-                queueEvent.Set();
                 return;
             }
 
@@ -308,8 +308,19 @@ namespace qgrepControls.Classes
                 });
 
                 searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
+
+                CheckQueue();
             });
         }
+
+        private void CheckQueue()
+        {
+            if(QueuedDatabaseUpdate != null || QueuedSearchOptions != null || QueuedSearchFilesOptions != null)
+            {
+                queueEvent.Set();
+            }
+        }
+
         private void QueueUpdate()
         {
             while (true)
@@ -528,7 +539,6 @@ namespace qgrepControls.Classes
             if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
             {
                 QueuedDatabaseUpdate = databaseUpdate;
-                queueEvent.Set();
                 return;
             }
 
@@ -601,6 +611,8 @@ namespace qgrepControls.Classes
                 FinishUpdateCallback(databaseUpdate);
                 StartLastUpdatedTimer();
                 LastUpdateProgress = -1;
+
+                CheckQueue();
             });
         }
 
