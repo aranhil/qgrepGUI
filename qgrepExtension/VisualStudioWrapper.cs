@@ -773,8 +773,15 @@ namespace qgrepSearch
         public bool IsActiveDocumentCpp()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            EnvDTE.Document activeDocument = Data.DTE.ActiveDocument;
-            return activeDocument.Language == "C/C++";
+
+            try
+            {
+                EnvDTE.Document activeDocument = Data.DTE.ActiveDocument;
+                return activeDocument.Language == "C/C++";
+            }
+            catch { }
+
+            return false;
         }
     }
 }
