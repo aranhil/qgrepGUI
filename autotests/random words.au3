@@ -21,9 +21,23 @@ While 1
 
    ; Type the word
    Send($sWord)
+   
+      ; 50/50 chance to send Down key presses
+   If Random(0, 1) > 0.5 Then
+      ; Send between 1-10 Down key presses
+      For $i = 1 To Random(1, 10, 1)
+         Send("{DOWN}")
+      Next
+   EndIf
+
+   ; Send Shift+Tab
+   Send("+{TAB}")
 
    ; Select all text
    Send("^a")
+   
+   ; Delete selected text
+   Send("{DEL}")
 
    ; Wait for a random amount of time between 1 and 5 seconds
    Sleep(Random(10, 100, 1))

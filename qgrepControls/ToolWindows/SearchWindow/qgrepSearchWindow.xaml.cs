@@ -69,7 +69,6 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.UpdateErrorCallback += HandleErrorMessage;
 
             InitializeComponent();
-            SearchItemsListBox.DataContext = searchResults;
 
             InitInfo.Visibility = Visibility.Collapsed;
             InitButton.Visibility = Visibility.Collapsed;
@@ -111,8 +110,6 @@ namespace qgrepControls.SearchWindow
 
             HistoryContextMenu.Loaded += OnContextMenuLoaded;
             HistoryContextMenu.Resources = Resources;
-
-            SearchItemsListBox.ItemsSource = searchResults;
 
             SearchItemsListBox.Focusable = true;
             SearchItemsTreeView.Focusable = true;
@@ -343,7 +340,7 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        public void SolutionUnloaded()
+        public async void SolutionUnloaded()
         {
             WarningText.Text = Properties.Resources.NoSolutionLoaded;
             WarningText.Visibility = Visibility.Visible;
@@ -352,8 +349,12 @@ namespace qgrepControls.SearchWindow
             ConfigParser.UnloadConfig();
             ConfigParser.Instance.FilesChanged -= FilesChanged;
 
-            searchResults.Clear();
-            searchResultsGroups.Clear();
+            await ResultListsSemaphore.WaitAsync();
+            {
+                searchResults.Clear();
+                searchResultsGroups.Clear();
+            }
+            ResultListsSemaphore.Release();
 
             UnloadHistory();
 
@@ -802,7 +803,7 @@ namespace qgrepControls.SearchWindow
             ResultListsSemaphore.Release();
         }
 
-        private void Find()
+        private async void Find()
         {
             searchCancellationToken?.Cancel();
 
@@ -847,8 +848,13 @@ namespace qgrepControls.SearchWindow
             }
             else
             {
-                searchResults.Clear();
-                searchResultsGroups.Clear();
+                await ResultListsSemaphore.WaitAsync();
+                {
+                    searchResults.Clear();
+                    searchResultsGroups.Clear();
+                }
+                ResultListsSemaphore.Release();
+
                 InfoLabel.Text = "";
                 ErrorLabel.Text = "";
             }
@@ -1309,102 +1315,106 @@ namespace qgrepControls.SearchWindow
             }
         }
 
-        private void SearchWindowControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private async void SearchWindowControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Down ||
                 e.Key == System.Windows.Input.Key.Up ||
                 e.Key == System.Windows.Input.Key.PageUp ||
                 e.Key == System.Windows.Input.Key.PageDown)
             {
-                if (!(!SearchInput.IsFocused && !IncludeFilesInput.IsFocused && !ExcludeFilesInput.IsFocused && !FilterResultsInput.IsFocused))
+                await ResultListsSemaphore.WaitAsync();
                 {
-                    if (SearchItemsListBox.IsVisible)
+                    if (!(!SearchInput.IsFocused && !IncludeFilesInput.IsFocused && !ExcludeFilesInput.IsFocused && !FilterResultsInput.IsFocused))
                     {
-                        if (selectedSearchResult == null)
+                        if (SearchItemsListBox.IsVisible)
                         {
-                            if (searchResults.Count > 0 && searchResults[0].IsSelected)
+                            if (selectedSearchResult == null)
                             {
-                                selectedSearchResult = searchResults[0];
-                            }
-                        }
-
-                        if (selectedSearchResult != null)
-                        {
-                            VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
-
-                            virtualizingStackPanel.BringIndexIntoViewPublic(searchResults.IndexOf(selectedSearchResult));
-                            ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as ListBoxItem;
-                            listBoxItem?.Focus();
-
-                            e.Handled = true;
-                        }
-                    }
-                    else if (SearchItemsTreeView.IsVisible)
-                    {
-                        if (selectedSearchResult == null && selectedSearchResultGroup == null)
-                        {
-                            if (searchResultsGroups.Count > 0 && searchResultsGroups[0].IsSelected)
-                            {
-                                selectedSearchResultGroup = searchResultsGroups[0];
-                            }
-                        }
-
-                        if (selectedSearchResult != null || selectedSearchResultGroup != null)
-                        {
-                            mSuppressRequestBringIntoView = true;
-
-                            SearchResultGroup parentSearchResultGroup = selectedSearchResultGroup;
-
-                            if (selectedSearchResult != null)
-                            {
-                                parentSearchResultGroup = selectedSearchResult.Parent;
-                            }
-
-                            VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsTreeView);
-                            virtualizingStackPanel.BringIndexIntoViewPublic(searchResultsGroups.IndexOf(parentSearchResultGroup));
-                            TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(parentSearchResultGroup) as TreeViewItem;
-
-                            if (selectedSearchResult != null)
-                            {
-                                if (treeViewItem != null)
+                                if (searchResults.Count > 0 && searchResults[0].IsSelected)
                                 {
-                                    treeViewItem.ApplyTemplate();
-                                    if (treeViewItem.Template.FindName("ItemsHost", treeViewItem) is ItemsPresenter itemsPresenter)
+                                    selectedSearchResult = searchResults[0];
+                                }
+                            }
+
+                            if (selectedSearchResult != null)
+                            {
+                                VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
+
+                                virtualizingStackPanel.BringIndexIntoViewPublic(searchResults.IndexOf(selectedSearchResult));
+                                ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as ListBoxItem;
+                                listBoxItem?.Focus();
+
+                                e.Handled = true;
+                            }
+                        }
+                        else if (SearchItemsTreeView.IsVisible)
+                        {
+                            if (selectedSearchResult == null && selectedSearchResultGroup == null)
+                            {
+                                if (searchResultsGroups.Count > 0 && searchResultsGroups[0].IsSelected)
+                                {
+                                    selectedSearchResultGroup = searchResultsGroups[0];
+                                }
+                            }
+
+                            if (selectedSearchResult != null || selectedSearchResultGroup != null)
+                            {
+                                mSuppressRequestBringIntoView = true;
+
+                                SearchResultGroup parentSearchResultGroup = selectedSearchResultGroup;
+
+                                if (selectedSearchResult != null)
+                                {
+                                    parentSearchResultGroup = selectedSearchResult.Parent;
+                                }
+
+                                VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsTreeView);
+                                virtualizingStackPanel.BringIndexIntoViewPublic(searchResultsGroups.IndexOf(parentSearchResultGroup));
+                                TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(parentSearchResultGroup) as TreeViewItem;
+
+                                if (selectedSearchResult != null)
+                                {
+                                    if (treeViewItem != null)
                                     {
-                                        itemsPresenter.ApplyTemplate();
-                                    }
-                                    else
-                                    {
-                                        itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
-                                        if (itemsPresenter == null)
+                                        treeViewItem.ApplyTemplate();
+                                        if (treeViewItem.Template.FindName("ItemsHost", treeViewItem) is ItemsPresenter itemsPresenter)
                                         {
-                                            treeViewItem.UpdateLayout();
-                                            itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
+                                            itemsPresenter.ApplyTemplate();
                                         }
+                                        else
+                                        {
+                                            itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
+                                            if (itemsPresenter == null)
+                                            {
+                                                treeViewItem.UpdateLayout();
+                                                itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
+                                            }
+                                        }
+
+                                        virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(treeViewItem);
+                                        virtualizingStackPanel.BringIndexIntoViewPublic(parentSearchResultGroup.SearchResults.IndexOf(selectedSearchResult));
+
+                                        treeViewItem = treeViewItem.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as TreeViewItem;
+                                        treeViewItem?.BringIntoView(new Rect(0, 0, 0, 0));
+                                        treeViewItem?.Focus();
+
+                                        e.Handled = true;
                                     }
-
-                                    virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(treeViewItem);
-                                    virtualizingStackPanel.BringIndexIntoViewPublic(parentSearchResultGroup.SearchResults.IndexOf(selectedSearchResult));
-
-                                    treeViewItem = treeViewItem.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as TreeViewItem;
+                                }
+                                else
+                                {
                                     treeViewItem?.BringIntoView(new Rect(0, 0, 0, 0));
                                     treeViewItem?.Focus();
 
                                     e.Handled = true;
                                 }
-                            }
-                            else
-                            {
-                                treeViewItem?.BringIntoView(new Rect(0, 0, 0, 0));
-                                treeViewItem?.Focus();
 
-                                e.Handled = true;
+                                mSuppressRequestBringIntoView = false;
                             }
-
-                            mSuppressRequestBringIntoView = false;
                         }
                     }
                 }
+                ResultListsSemaphore.Release();
             }
 
             if (e.Key == System.Windows.Input.Key.Enter)
@@ -1885,10 +1895,14 @@ namespace qgrepControls.SearchWindow
 
         public void ToggleGroupExpand()
         {
-            TaskRunner.RunOnUIThreadAsync(() =>
+            TaskRunner.RunOnUIThreadAsync(async () =>
             {
-                OverrideExpansion = !(OverrideExpansion ?? CurrentExpansion);
-                SetTreeCollapsing(OverrideExpansion ?? false);
+                await ResultListsSemaphore.WaitAsync();
+                {
+                    OverrideExpansion = !(OverrideExpansion ?? CurrentExpansion);
+                    SetTreeCollapsing(OverrideExpansion ?? false);
+                }
+                ResultListsSemaphore.Release();
             });
         }
 
@@ -1989,17 +2003,21 @@ namespace qgrepControls.SearchWindow
 
         private void UpdateMenuItems()
         {
-            TaskRunner.RunOnUIThreadAsync(() =>
+            TaskRunner.RunOnUIThreadAsync(async () =>
             {
-                IsActiveDocumentCpp = Settings.Default.CppHeaderInclusion && WrapperApp.IsActiveDocumentCpp();
-                foreach (SearchResult searchResult in searchResults)
+                await ResultListsSemaphore.WaitAsync();
                 {
-                    searchResult.IsActiveDocumentCpp = IsActiveDocumentCpp;
+                    IsActiveDocumentCpp = Settings.Default.CppHeaderInclusion && WrapperApp.IsActiveDocumentCpp();
+                    foreach (SearchResult searchResult in searchResults)
+                    {
+                        searchResult.IsActiveDocumentCpp = IsActiveDocumentCpp;
+                    }
+                    foreach (SearchResultGroup searchResultGroup in searchResultsGroups)
+                    {
+                        searchResultGroup.IsActiveDocumentCpp = IsActiveDocumentCpp;
+                    }
                 }
-                foreach (SearchResultGroup searchResultGroup in searchResultsGroups)
-                {
-                    searchResultGroup.IsActiveDocumentCpp = IsActiveDocumentCpp;
-                }
+                ResultListsSemaphore.Release();
             });
         }
 
