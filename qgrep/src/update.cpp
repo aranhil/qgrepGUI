@@ -143,6 +143,9 @@ static void processChunkData(Output* output, BuildContext* builder, UpdateFileIt
 			buildAppendFile(builder, fileit->path.c_str(), fileit->timeStamp, fileit->fileSize);
 			++fileit;
 			stats.filesAdded++;
+
+			if (output->isStopped())
+				break;
 		}
 
 		// check if file exists
