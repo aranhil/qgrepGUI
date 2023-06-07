@@ -69,6 +69,12 @@ You can change these as well, from **Tools >> Options >> Environment >> Keyboard
 
 ## Changelog
 
+### Version 2.10 (07/06/2023)
+
+- Improved performance significantly when loading the results to the UI
+- Implemented a crash handler to record unhandled exceptions and their callstacks in log files, with an additional option to forward them to a Google form
+- Implemented automated stress tests for the UI and resolved all identified issues
+
 ### Version 2.9 (04/06/2023)
 
 - Added an experimental option to automatically include the selected file as a C++ include statement in the currently active document
