@@ -542,11 +542,6 @@ namespace qgrepControls.SearchWindow
 
             if (searchOptions.GroupingMode == 0)
             {
-                if (newSearchResults.Count == 0)
-                {
-                    Debugger.Launch();
-                }
-
                 if (searchOptions.IsNewSearch)
                 {
                     ScrollViewer scrollViewer = UIHelper.GetChildOfType<ScrollViewer>(SearchItemsListBox);
