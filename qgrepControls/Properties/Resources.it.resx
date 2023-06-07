@@ -627,4 +627,10 @@
   <data name="SendReportTooltip" xml:space="preserve">
     <value>Apre un modulo Google e lo riempie solo con lo stack di chiamate dall'alto, non vengono inviate altre informazioni</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>L'aggiornamento dell'indice è stato forzatamente interrotto.</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Forza l'aggiornamento dell'indice di arresto</value>
+  </data>
 </root>

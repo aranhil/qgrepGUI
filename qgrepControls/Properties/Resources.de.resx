@@ -627,4 +627,10 @@
   <data name="SendReportTooltip" xml:space="preserve">
     <value>Öffnet ein Google-Formular und füllt es nur mit dem Callstack von oben, es werden keine weiteren Informationen gesendet</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>Die Indexaktualisierung wurde zwangsweise gestoppt.</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Stoppen der Indexaktualisierung erzwingen</value>
+  </data>
 </root>

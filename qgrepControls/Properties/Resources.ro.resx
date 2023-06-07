@@ -631,4 +631,10 @@
   <data name="SendReportTooltip" xml:space="preserve">
     <value>Deschide un formular Google și îl completează doar cu stiva de apeluri de mai sus, nu se trimite alte informații</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>Actualizarea indexului a fost oprită forțat.</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Oprirea forțată a actualizării indexului</value>
+  </data>
 </root>

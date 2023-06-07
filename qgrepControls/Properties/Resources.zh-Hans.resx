@@ -607,4 +607,10 @@
   <data name="SendReportTooltip" xml:space="preserve">
     <value>打开一个 Google 表单并仅使用上面的调用堆栈填充它，不发送其他信息</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>索引更新被强制停止。</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>强制停止索引更新</value>
+  </data>
 </root>

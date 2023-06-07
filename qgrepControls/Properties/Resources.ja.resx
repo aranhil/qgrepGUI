@@ -627,4 +627,10 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>グローバルパスを使用する</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>インデックス更新を強制停止しました。</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>インデックス更新を強制停止する</value>
+  </data>
 </root>

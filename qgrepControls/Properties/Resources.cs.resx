@@ -627,4 +627,10 @@
   <data name="SendReportTooltip" xml:space="preserve">
     <value>Otevře formulář Google a vyplní jej pouze zásobníkem hovorů shora, žádné další informace se neodesílají</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>Aktualizace indexu byla násilně zastavena.</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Vynutit zastavení aktualizace indexu</value>
+  </data>
 </root>
