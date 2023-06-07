@@ -186,6 +186,12 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>전체 경로 복사</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ 헤더 포함:</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>qgrep 검색 도구가 지난 세션에서 처리되지 않은 예외를 발견했습니다:</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>바로가기 맞춤설정</value>
   </data>
@@ -197,6 +203,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>{0}일 전</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>보내지 마세요</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>색상 재지정 편집</value>
@@ -299,6 +308,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>{0}시간 전</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>파일 포함</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>파일 포함...</value>
@@ -519,6 +531,12 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>폴더 선택</value>
   </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>보고서 보내기</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Google 양식을 열고 위의 호출 스택으로 채웁니다. 다른 정보는 전송되지 않습니다</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>설정</value>
   </data>
@@ -608,11 +626,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>전역 경로 사용</value>
-  </data>
-  <data name="CppHeaderInclusion" xml:space="preserve">
-    <value>C++ 헤더 포함:</value>
-  </data>
-  <data name="IncludeFile" xml:space="preserve">
-    <value>파일 포함</value>
   </data>
 </root>

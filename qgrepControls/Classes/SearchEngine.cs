@@ -37,6 +37,8 @@ namespace qgrepControls.Classes
 
     public class SearchOptions
     {
+        public int Id { get; set; }
+        public int ResultsCount { get; set; } = 0;
         public ISearchEngineEventsHandler EventsHandler { get; set; }
         public string Query { get; set; } = "";
         public string IncludeFiles { get; set; } = "";
@@ -84,6 +86,7 @@ namespace qgrepControls.Classes
         private static readonly object padlock = new object();
 
         private ManualResetEvent queueEvent = new ManualResetEvent(false);
+        public int currentId = 1;
 
         public static SearchEngine Instance
         {
@@ -129,8 +132,12 @@ namespace qgrepControls.Classes
 
         public void SearchAsync(SearchOptions searchOptions)
         {
+            searchOptions.Id = currentId++;
+
             if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
             {
+                //CrashReportsHelper.DebugToRoamingLog($"SearchAsync Busy Id: {searchOptions.Id}, Query: {searchOptions.Query}");
+
                 QueuedSearchOptions = searchOptions;
 
                 if (searchOptions.CacheUsageType != CacheUsageType.Forced)
@@ -138,12 +145,13 @@ namespace qgrepControls.Classes
                     ForceStop = true;
                 }
 
-                queueEvent.Set();
                 return;
             }
 
             IsBusy = true;
             ForceStop = false;
+
+            //CrashReportsHelper.DebugToRoamingLog($"SearchAsync Id: {searchOptions.Id}, Query: {searchOptions.Query}");
 
             QueuedSearchOptions = null;
             QueuedSearchFilesOptions = null;
@@ -239,15 +247,15 @@ namespace qgrepControls.Classes
                         (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
                 }
 
+                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
+
                 IsBusy = false;
                 TaskRunner.RunOnUIThread(() =>
                 {
                     MutexUtility.Instance.WorkDone();
                 });
 
-                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
-
-                ProcessQueue();
+                CheckQueue();
             });
         }
         public void SearchFilesAsync(SearchOptions searchOptions)
@@ -261,7 +269,6 @@ namespace qgrepControls.Classes
                     ForceStop = true;
                 }
 
-                queueEvent.Set();
                 return;
             }
 
@@ -294,24 +301,33 @@ namespace qgrepControls.Classes
                     null,
                     (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
 
+                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
+
                 IsBusy = false;
                 TaskRunner.RunOnUIThread(() =>
                 {
                     MutexUtility.Instance.WorkDone();
                 });
 
-                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
-
-                ProcessQueue();
+                CheckQueue();
             });
         }
+
+        private void CheckQueue()
+        {
+            if(QueuedDatabaseUpdate != null || QueuedSearchOptions != null || QueuedSearchFilesOptions != null)
+            {
+                queueEvent.Set();
+            }
+        }
+
         private void QueueUpdate()
         {
             while (true)
             {
                 queueEvent.WaitOne();
                 ProcessQueue();
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                Thread.Sleep(10);
             }
         }
 
@@ -352,6 +368,7 @@ namespace qgrepControls.Classes
             if (ForceStop)
             {
                 searchOptions.WasForceStopped = true;
+                CachedSearch.SearchOptions = null;
                 return true;
             }
 
@@ -522,7 +539,6 @@ namespace qgrepControls.Classes
             if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
             {
                 QueuedDatabaseUpdate = databaseUpdate;
-                queueEvent.Set();
                 return;
             }
 
@@ -584,6 +600,10 @@ namespace qgrepControls.Classes
                 }
                 catch { }
 
+                FinishUpdateCallback(databaseUpdate);
+                StartLastUpdatedTimer();
+                LastUpdateProgress = -1;
+
                 IsBusy = false;
                 IsUpdatingDatabase = false;
 
@@ -592,11 +612,7 @@ namespace qgrepControls.Classes
                     MutexUtility.Instance.WorkDone();
                 });
 
-                FinishUpdateCallback(databaseUpdate);
-                StartLastUpdatedTimer();
-                LastUpdateProgress = -1;
-
-                ProcessQueue();
+                CheckQueue();
             });
         }
 
@@ -686,16 +702,6 @@ namespace qgrepControls.Classes
             else
             {
                 return eventTime.ToString("g");
-            }
-        }
-
-        public static void DebugToRoamingLog(string message)
-        {
-            string roamingFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string filePath = System.IO.Path.Combine(roamingFolderPath, "qgrep-log.txt");
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                writer.WriteLine(message);
             }
         }
     }

@@ -37,7 +37,7 @@ namespace qgrepGUI
             else
             {
                 // If not on UI thread, use Dispatcher.InvokeAsync to post the task on the UI thread.
-                await _dispatcher.InvokeAsync(() => uiTask?.Invoke());
+                await _dispatcher.InvokeAsync(() => uiTask?.Invoke(), DispatcherPriority.ApplicationIdle);
             }
         }
 

@@ -248,5 +248,20 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
                 <TextBlock x:Name="ErrorLabel" Style="{DynamicResource SomeHintLabel}" Margin="-5,0,0,0" />
             </StackPanel>
         </Grid>
+        <Border x:Name="CrashReportOverlay" Grid.RowSpan="10" Style="{DynamicResource OverlayBorder}" Visibility="Collapsed">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" Margin="5" Text="{x:Static resx:Resources.CrashMessage}" />
+                <Border Style="{DynamicResource SomeBorderStyle}" MaxWidth="700" MaxHeight="200" Height="Auto">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="CrashReportStack">
+                        </TextBlock>
+                    </ScrollViewer>
+                </Border>
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
+                    <Button x:Name="SendReport" Content="{x:Static resx:Resources.SendReport}" Margin="0,0,5,0" Click="SendReport_Click" ToolTip="{x:Static resx:Resources.SendReportTooltip}" ToolTipService.InitialShowDelay="500" />
+                    <Button x:Name="DontSend" Content="{x:Static resx:Resources.DontSend}" Margin="0,0,5,0" Click="DontSend_Click" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

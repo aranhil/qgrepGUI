@@ -7,8 +7,8 @@ namespace qgrepControls.Classes
         private Timer _timer;
         private bool _hasExpired = false;
         int LastUpdateInterval = 0;
-        int FirstInterval = 50;
-        int IntervalIncrement = 50;
+        int FirstInterval = 150;
+        int IntervalIncrement = 100;
 
         public void Start()
         {

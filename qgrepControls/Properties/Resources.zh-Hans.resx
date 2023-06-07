@@ -166,6 +166,9 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>复制完整路径</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ 标头包含：</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>自定义快捷方式</value>
   </data>
@@ -279,6 +282,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>{0} 小时前</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>包含文件</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>包含文件...</value>
@@ -589,10 +595,16 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>使用全局路径</value>
   </data>
-  <data name="CppHeaderInclusion" xml:space="preserve">
-    <value>C++ 标头包含：</value>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>qgrep 搜索工具上次会话遇到未处理的异常：</value>
   </data>
-  <data name="IncludeFile" xml:space="preserve">
-    <value>包含文件</value>
+  <data name="DontSend" xml:space="preserve">
+    <value>不要发送</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>发送报告</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>打开一个 Google 表单并仅使用上面的调用堆栈填充它，不发送其他信息</value>
   </data>
 </root>
