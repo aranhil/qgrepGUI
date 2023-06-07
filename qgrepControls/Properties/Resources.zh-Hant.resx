@@ -186,6 +186,12 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>複製完整路徑</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ 標頭包含：</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>qgrep 搜索工具上次會話遇到未處理的異常：</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>自定義快捷方式</value>
   </data>
@@ -197,6 +203,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>{0} 天前</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>不要發送</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>編輯顏色覆蓋</value>
@@ -299,6 +308,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>{0} 小時前</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>包含文件</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>包含文件...</value>
@@ -519,6 +531,12 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>選擇文件夾</value>
   </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>發送報告</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>打開一個 Google 表單並僅使用上面的調用堆棧填充它，不發送其他信息</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>設置</value>
   </data>
@@ -608,11 +626,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>使用全局路徑</value>
-  </data>
-  <data name="CppHeaderInclusion" xml:space="preserve">
-    <value>C++ 標頭包含：</value>
-  </data>
-  <data name="IncludeFile" xml:space="preserve">
-    <value>包含文件</value>
   </data>
 </root>

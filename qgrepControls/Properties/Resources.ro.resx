@@ -190,6 +190,12 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>Copiază calea completă</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>Incluziuni de antet C++:</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>Instrumentul de căutare qgrep a întâlnit o excepție netratată în ultima sesiune:</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Personalizează scurtăturile</value>
   </data>
@@ -201,6 +207,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>acum {0} zile</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>Nu trimite</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Editează suprascriere culoare</value>
@@ -303,6 +312,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>acum {0} ore</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Includeți fișierul</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>Includeti fișierele...</value>
@@ -523,6 +535,12 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Selectează folder(e)</value>
   </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Trimite raport</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Deschide un formular Google și îl completează doar cu stiva de apeluri de mai sus, nu se trimite alte informații</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Setări</value>
   </data>
@@ -612,11 +630,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
-  </data>
-  <data name="CppHeaderInclusion" xml:space="preserve">
-    <value>Incluziuni de antet C++:</value>
-  </data>
-  <data name="IncludeFile" xml:space="preserve">
-    <value>Includeți fișierul</value>
   </data>
 </root>

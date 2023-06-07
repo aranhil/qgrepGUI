@@ -186,6 +186,12 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>Skopiuj pełną ścieżkę</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>Inkluzje nagłówka C++:</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>Narzędzie wyszukiwania qgrep napotkało nieobsługiwany wyjątek w ostatniej sesji:</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Dostosuj skróty</value>
   </data>
@@ -197,6 +203,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>{0} dni temu</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>Nie wysyłaj</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Edytuj nadpisanie koloru</value>
@@ -299,6 +308,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>{0} godzin temu</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Dołącz plik</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>Dołącz pliki...</value>
@@ -519,6 +531,12 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Wybierz folder(y)</value>
   </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Wyślij raport</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Otwiera formularz Google i wypełnia go tylko stosem wywołań z góry, żadne inne informacje nie są wysyłane</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Ustawienia</value>
   </data>
@@ -608,11 +626,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Użyj ścieżki globalnej</value>
-  </data>
-  <data name="CppHeaderInclusion" xml:space="preserve">
-    <value>Inkluzje nagłówka C++:</value>
-  </data>
-  <data name="IncludeFile" xml:space="preserve">
-    <value>Dołącz plik</value>
   </data>
 </root>

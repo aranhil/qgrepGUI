@@ -186,6 +186,12 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>Tam yolu kopyala</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>C++ başlık eklemeleri:</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>qgrep Arama Aracı, son oturumda işlenmeyen bir özel durumla karşılaştı:</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Kısayolları özelleştir</value>
   </data>
@@ -197,6 +203,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>{0} gün önce</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>gönderme</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Renk geçersiz kılmayı düzenle</value>
@@ -299,6 +308,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>{0} saat önce</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Dosyayı dahil et</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>Dosyaları dahil et...</value>
@@ -519,6 +531,12 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Klasör(ler) seçin</value>
   </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Rapor gönder</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Bir Google Formu açar ve onu yalnızca yukarıdan çağrı yığınıyla doldurur, başka hiçbir bilgi gönderilmez</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Ayarlar</value>
   </data>
@@ -608,11 +626,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Genel yolu kullan</value>
-  </data>
-  <data name="CppHeaderInclusion" xml:space="preserve">
-    <value>C++ başlık eklemeleri:</value>
-  </data>
-  <data name="IncludeFile" xml:space="preserve">
-    <value>Dosyayı dahil et</value>
   </data>
 </root>
