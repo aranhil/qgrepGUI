@@ -247,13 +247,13 @@ namespace qgrepControls.Classes
                         (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
                 }
 
+                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
+
                 IsBusy = false;
                 TaskRunner.RunOnUIThread(() =>
                 {
                     MutexUtility.Instance.WorkDone();
                 });
-
-                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
 
                 CheckQueue();
             });
@@ -301,13 +301,13 @@ namespace qgrepControls.Classes
                     null,
                     (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
 
+                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
+
                 IsBusy = false;
                 TaskRunner.RunOnUIThread(() =>
                 {
                     MutexUtility.Instance.WorkDone();
                 });
-
-                searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
 
                 CheckQueue();
             });
@@ -600,6 +600,10 @@ namespace qgrepControls.Classes
                 }
                 catch { }
 
+                FinishUpdateCallback(databaseUpdate);
+                StartLastUpdatedTimer();
+                LastUpdateProgress = -1;
+
                 IsBusy = false;
                 IsUpdatingDatabase = false;
 
@@ -607,10 +611,6 @@ namespace qgrepControls.Classes
                 {
                     MutexUtility.Instance.WorkDone();
                 });
-
-                FinishUpdateCallback(databaseUpdate);
-                StartLastUpdatedTimer();
-                LastUpdateProgress = -1;
 
                 CheckQueue();
             });

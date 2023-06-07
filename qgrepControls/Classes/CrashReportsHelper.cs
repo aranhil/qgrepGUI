@@ -11,8 +11,8 @@ namespace qgrepControls.Classes
 {
     public class CrashReportsHelper
     {
-        public static DateTime LastReportTimestamp = DateTime.MinValue;
         public static string LastReport = "";
+        public static string LastReportPath = "";
         public static readonly object padlock = new object();
 
         public static void DebugToRoamingLog(string message)
@@ -70,14 +70,9 @@ namespace qgrepControls.Classes
             return report;
         }
 
-        public static void ReadLatestCrashReport(DateTime lastReportTime)
+        public static void ReadLatestCrashReport()
         {
             LastReport = "";
-
-            if (lastReportTime == null)
-            {
-                lastReportTime = DateTime.MinValue;
-            }
 
             try
             {
@@ -87,18 +82,8 @@ namespace qgrepControls.Classes
 
                 foreach (FileInfo file in files)
                 {
-                    // Remove the prefix and extension from the filename to get the date-time suffix.
-                    string dateTimeSuffix = file.Name.Substring(12, file.Name.Length - 16);
-
-                    if (DateTime.TryParseExact(dateTimeSuffix, "yyyyMMdd_HHmmss",
-                                               null, System.Globalization.DateTimeStyles.None,
-                                               out DateTime fileTime) &&
-                        fileTime > lastReportTime)
-                    {
-                        LastReport = File.ReadAllText(file.FullName);
-                        LastReportTimestamp = fileTime;
-                        break;
-                    }
+                    LastReportPath = file.FullName;
+                    LastReport = File.ReadAllText(file.FullName);
                 }
             }
             catch { }
@@ -120,6 +105,20 @@ namespace qgrepControls.Classes
             {
                 Console.WriteLine("An error occurred while opening the URL: " + ex.Message);
             }
+        }
+
+        public static void MarkReportAsRead()
+        {
+            try
+            {
+                string reportDirectory = Path.GetDirectoryName(LastReportPath);
+                string reportFileName = Path.GetFileName(LastReportPath);
+
+                string newReportPath = Path.Combine(reportDirectory, "_" + reportFileName);
+
+                File.Move(LastReportPath, newReportPath);
+            }
+            catch { }
         }
     }
 }

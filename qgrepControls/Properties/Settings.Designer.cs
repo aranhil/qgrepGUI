@@ -430,17 +430,5 @@ namespace qgrepControls.Properties {
                 this["History"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1753-01-01")]
-        public global::System.DateTime LastCrashReport {
-            get {
-                return ((global::System.DateTime)(this["LastCrashReport"]));
-            }
-            set {
-                this["LastCrashReport"] = value;
-            }
-        }
     }
 }
