@@ -189,9 +189,6 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>Inclusions d'en-tête C++ :</value>
   </data>
-  <data name="CrashMessage" xml:space="preserve">
-    <value>L'outil de recherche qgrep a rencontré une exception non gérée lors de la dernière session :</value>
-  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Personnaliser les raccourcis</value>
   </data>
@@ -203,9 +200,6 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>il y a {0} jours</value>
-  </data>
-  <data name="DontSend" xml:space="preserve">
-    <value>N'envoyez pas</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Modifier le remplacement des couleurs</value>
@@ -531,12 +525,6 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Sélectionnez le(s) dossier(s)</value>
   </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>Envoyer un rapport</value>
-  </data>
-  <data name="SendReportTooltip" xml:space="preserve">
-    <value>Ouvre un formulaire Google et le remplit uniquement avec la pile d'appels ci-dessus, aucune autre information n'est envoyée</value>
-  </data>
   <data name="Settings" xml:space="preserve">
     <value>Paramètres</value>
   </data>
@@ -626,5 +614,17 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Utiliser le chemin global</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>L'outil de recherche qgrep a rencontré une exception non gérée lors de la dernière session :</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>N'envoyez pas</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Envoyer un rapport</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Ouvre un formulaire Google et le remplit uniquement avec la pile d'appels ci-dessus, aucune autre information n'est envoyée</value>
   </data>
 </root>

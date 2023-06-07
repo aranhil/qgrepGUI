@@ -1,4 +1,5 @@
-﻿using System;
+﻿using qgrepControls.Classes;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -14,6 +15,20 @@ namespace qgrepGUI
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            Current.DispatcherUnhandledException += App_DispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        }
+        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            CrashReportsHelper.WriteCrashReport(e.Exception);
+        }
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            CrashReportsHelper.WriteCrashReport((Exception)e.ExceptionObject);
+        }
+
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
             Window window = (sender as FrameworkElement)?.TemplatedParent as Window;

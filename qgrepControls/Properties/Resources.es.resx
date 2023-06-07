@@ -189,9 +189,6 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>Inclusiones de encabezado de C++:</value>
   </data>
-  <data name="CrashMessage" xml:space="preserve">
-    <value>La herramienta de búsqueda qgrep encontró una excepción no controlada en la última sesión:</value>
-  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Personalizar accesos directos</value>
   </data>
@@ -203,9 +200,6 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>hace {0} días</value>
-  </data>
-  <data name="DontSend" xml:space="preserve">
-    <value>no enviar</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Editar anulación de color</value>
@@ -531,12 +525,6 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Seleccionar carpeta(s)</value>
   </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>Enviar reporte</value>
-  </data>
-  <data name="SendReportTooltip" xml:space="preserve">
-    <value>Abre un formulario de Google y lo llena solo con la pila de llamadas de arriba, no se envía ninguna otra información</value>
-  </data>
   <data name="Settings" xml:space="preserve">
     <value>Ajustes</value>
   </data>
@@ -626,5 +614,17 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Usar ruta global</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>La herramienta de búsqueda qgrep encontró una excepción no controlada en la última sesión:</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>no enviar</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Enviar reporte</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Abre un formulario de Google y lo llena solo con la pila de llamadas de arriba, no se envía ninguna otra información</value>
   </data>
 </root>

@@ -169,9 +169,6 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>C++ 标头包含：</value>
   </data>
-  <data name="CrashMessage" xml:space="preserve">
-    <value>qgrep 搜索工具上次会话遇到未处理的异常：</value>
-  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>自定义快捷方式</value>
   </data>
@@ -183,9 +180,6 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>{0} 天前</value>
-  </data>
-  <data name="DontSend" xml:space="preserve">
-    <value>不要发送</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>编辑颜色覆盖</value>
@@ -511,12 +505,6 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>选择文件夹</value>
   </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>发送报告</value>
-  </data>
-  <data name="SendReportTooltip" xml:space="preserve">
-    <value>打开一个 Google 表单并仅使用上面的调用堆栈填充它，不发送其他信息</value>
-  </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
@@ -606,5 +594,17 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>使用全局路径</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>qgrep 搜索工具上次会话遇到未处理的异常：</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>不要发送</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>发送报告</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>打开一个 Google 表单并仅使用上面的调用堆栈填充它，不发送其他信息</value>
   </data>
 </root>

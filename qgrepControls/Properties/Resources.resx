@@ -193,6 +193,9 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>C++ header inclusions:</value>
   </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>qgrep Search Tool encountered an unhandled exception last session:</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Customize shortcuts</value>
   </data>
@@ -204,6 +207,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>{0} days ago</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>Don't send</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Edit color override</value>
@@ -528,6 +534,12 @@
   </data>
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Select folder(s)</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Send report</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Opens a Google Form and fills it with just the callstack from above, no other information is sent</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
