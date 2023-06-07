@@ -999,11 +999,6 @@ namespace qgrepControls.SearchWindow
                     else
                     {
                         InitInfo.Text = lastMessage;
-
-                        if(string.IsNullOrEmpty(InitInfo.Text))
-                        {
-                            Debugger.Launch();
-                        }
                     }
 
                     infoUpdateStopWatch.Stop();
@@ -1046,11 +1041,6 @@ namespace qgrepControls.SearchWindow
                     {
                         InitInfo.Text = message;
                         infoUpdateStopWatch.Restart();
-
-                        if (string.IsNullOrEmpty(InitInfo.Text))
-                        {
-                            Debugger.Launch();
-                        }
                     }
                 });
             }

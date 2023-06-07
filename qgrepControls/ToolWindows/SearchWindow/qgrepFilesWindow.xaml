@@ -59,6 +59,9 @@
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,10,0">
                 <TextBlock x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" />
                 <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
+                <Button IsTabStop="False" x:Name="StopButton" Style="{StaticResource IconButton}" FontSize="18" Click="StopButton_Click" ToolTip="{x:Static resx:Resources.StopIndexTooltip}" Visibility="Collapsed">
+                    <Path Style="{DynamicResource StopIcon}" />
+                </Button>
                 <Button IsTabStop="False" x:Name="InitButton" Style="{StaticResource IconButton}" FontSize="18" Click="InitButton_Click" ToolTip="{x:Static resx:Resources.UpdateIndex}">
                     <Path Style="{DynamicResource SyncIcon}" />
                 </Button>
