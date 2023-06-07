@@ -558,6 +558,8 @@ namespace qgrepControls.SearchWindow
                     SearchItemsListBox.ItemsSource = searchResults = newSearchResults;
                     newSearchResults = new ObservableCollection<SearchResult>();
 
+                    selectedSearchResult = null;
+
                     searchOptions.IsNewSearch = false;
 
                     if (searchResults.Count > 0)
@@ -596,6 +598,9 @@ namespace qgrepControls.SearchWindow
                     newSearchResultGroups = new ObservableCollection<SearchResultGroup>();
                     newSearchResults = new ObservableCollection<SearchResult>();
 
+                    selectedSearchResultGroup = null;
+                    selectedSearchResult = null;
+
                     if (searchResultsGroups.Count > 0)
                     {
                         searchResultsGroups[0].IsSelected = true;
@@ -628,7 +633,7 @@ namespace qgrepControls.SearchWindow
 
             LocalizationHelper.TestLanguage();
 
-            InfoLabel.Text = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query) + $" Id: {searchOptions.Id}";
+            InfoLabel.Text = string.Format(Properties.Resources.ShowingResults, searchResults.Count, searchOptions.Query);
         }
 
         private double GetScreenHeight()
@@ -1338,13 +1343,30 @@ namespace qgrepControls.SearchWindow
 
                             if (selectedSearchResult != null)
                             {
-                                VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
+                                int indexOfResult = searchResults.IndexOf(selectedSearchResult);
+                                if (indexOfResult < 0)
+                                {
+                                    if (searchResultsGroups.Count > 0 && searchResultsGroups[0].IsSelected)
+                                    {
+                                        indexOfResult = 0;
+                                    }
+                                }
 
-                                virtualizingStackPanel.BringIndexIntoViewPublic(searchResults.IndexOf(selectedSearchResult));
-                                ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as ListBoxItem;
-                                listBoxItem?.Focus();
+                                if (indexOfResult >= 0)
+                                {
+                                    VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsListBox);
 
-                                e.Handled = true;
+                                    try
+                                    {
+                                        virtualizingStackPanel.BringIndexIntoViewPublic(searchResults.IndexOf(selectedSearchResult));
+                                    }
+                                    catch { }
+
+                                    ListBoxItem listBoxItem = SearchItemsListBox.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as ListBoxItem;
+                                    listBoxItem?.Focus();
+
+                                    e.Handled = true;
+                                }
                             }
                         }
                         else if (SearchItemsTreeView.IsVisible)
@@ -1368,45 +1390,63 @@ namespace qgrepControls.SearchWindow
                                     parentSearchResultGroup = selectedSearchResult.Parent;
                                 }
 
-                                VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsTreeView);
-                                virtualizingStackPanel.BringIndexIntoViewPublic(searchResultsGroups.IndexOf(parentSearchResultGroup));
-                                TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(parentSearchResultGroup) as TreeViewItem;
-
-                                if (selectedSearchResult != null)
+                                int indexOfGroup = searchResultsGroups.IndexOf(parentSearchResultGroup);
+                                if(indexOfGroup < 0)
                                 {
-                                    if (treeViewItem != null)
+                                    if (searchResultsGroups.Count > 0 && searchResultsGroups[0].IsSelected)
                                     {
-                                        treeViewItem.ApplyTemplate();
-                                        if (treeViewItem.Template.FindName("ItemsHost", treeViewItem) is ItemsPresenter itemsPresenter)
+                                        indexOfGroup = 0;
+                                    }
+                                }
+
+                                if(indexOfGroup >= 0)
+                                {
+                                    VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsTreeView);
+
+                                    try
+                                    { 
+                                        virtualizingStackPanel.BringIndexIntoViewPublic(indexOfGroup); 
+                                    }
+                                    catch { }
+
+                                    TreeViewItem treeViewItem = SearchItemsTreeView.ItemContainerGenerator.ContainerFromItem(parentSearchResultGroup) as TreeViewItem;
+
+                                    if (selectedSearchResult != null)
+                                    {
+                                        if (treeViewItem != null)
                                         {
-                                            itemsPresenter.ApplyTemplate();
-                                        }
-                                        else
-                                        {
-                                            itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
-                                            if (itemsPresenter == null)
+                                            treeViewItem.ApplyTemplate();
+                                            if (treeViewItem.Template.FindName("ItemsHost", treeViewItem) is ItemsPresenter itemsPresenter)
                                             {
-                                                treeViewItem.UpdateLayout();
-                                                itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
+                                                itemsPresenter.ApplyTemplate();
                                             }
+                                            else
+                                            {
+                                                itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
+                                                if (itemsPresenter == null)
+                                                {
+                                                    treeViewItem.UpdateLayout();
+                                                    itemsPresenter = UIHelper.GetChildOfType<ItemsPresenter>(treeViewItem);
+                                                }
+                                            }
+
+                                            virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(treeViewItem);
+                                            virtualizingStackPanel.BringIndexIntoViewPublic(parentSearchResultGroup.SearchResults.IndexOf(selectedSearchResult));
+
+                                            treeViewItem = treeViewItem.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as TreeViewItem;
+                                            treeViewItem?.BringIntoView(new Rect(0, 0, 0, 0));
+                                            treeViewItem?.Focus();
+
+                                            e.Handled = true;
                                         }
-
-                                        virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(treeViewItem);
-                                        virtualizingStackPanel.BringIndexIntoViewPublic(parentSearchResultGroup.SearchResults.IndexOf(selectedSearchResult));
-
-                                        treeViewItem = treeViewItem.ItemContainerGenerator.ContainerFromItem(selectedSearchResult) as TreeViewItem;
+                                    }
+                                    else
+                                    {
                                         treeViewItem?.BringIntoView(new Rect(0, 0, 0, 0));
                                         treeViewItem?.Focus();
 
                                         e.Handled = true;
                                     }
-                                }
-                                else
-                                {
-                                    treeViewItem?.BringIntoView(new Rect(0, 0, 0, 0));
-                                    treeViewItem?.Focus();
-
-                                    e.Handled = true;
                                 }
 
                                 mSuppressRequestBringIntoView = false;

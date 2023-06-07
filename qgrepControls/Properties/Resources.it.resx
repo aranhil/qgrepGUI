@@ -186,6 +186,9 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>Copia il percorso completo</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>Inclusioni di intestazione C++:</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Personalizza le scorciatoie</value>
   </data>
@@ -299,6 +302,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>{0} ore fa</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Includi file</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>Includi file...</value>
@@ -609,10 +615,16 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Usa percorso globale</value>
   </data>
-  <data name="CppHeaderInclusion" xml:space="preserve">
-    <value>Inclusioni di intestazione C++:</value>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>Lo strumento di ricerca qgrep ha rilevato un'eccezione non gestita nell'ultima sessione:</value>
   </data>
-  <data name="IncludeFile" xml:space="preserve">
-    <value>Includi file</value>
+  <data name="DontSend" xml:space="preserve">
+    <value>Non inviare</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Spedisci il rapporto</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Apre un modulo Google e lo riempie solo con lo stack di chiamate dall'alto, non vengono inviate altre informazioni</value>
   </data>
 </root>

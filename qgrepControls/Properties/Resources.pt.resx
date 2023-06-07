@@ -186,6 +186,9 @@
   <data name="CopyFullPath" xml:space="preserve">
     <value>Copiar caminho completo</value>
   </data>
+  <data name="CppHeaderInclusion" xml:space="preserve">
+    <value>Inclusões de cabeçalho C++:</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Personalizar atalhos</value>
   </data>
@@ -299,6 +302,9 @@
   </data>
   <data name="HoursAgoText" xml:space="preserve">
     <value>{0} horas atrás</value>
+  </data>
+  <data name="IncludeFile" xml:space="preserve">
+    <value>Incluir arquivo</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
     <value>Incluir arquivos...</value>
@@ -609,10 +615,16 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Usar caminho global</value>
   </data>
-  <data name="CppHeaderInclusion" xml:space="preserve">
-    <value>Inclusões de cabeçalho C++:</value>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>A ferramenta de pesquisa qgrep encontrou uma exceção não tratada na última sessão:</value>
   </data>
-  <data name="IncludeFile" xml:space="preserve">
-    <value>Incluir arquivo</value>
+  <data name="DontSend" xml:space="preserve">
+    <value>não envie</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Enviar relatório</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Abre um formulário do Google e o preenche apenas com a pilha de chamadas acima, nenhuma outra informação é enviada</value>
   </data>
 </root>

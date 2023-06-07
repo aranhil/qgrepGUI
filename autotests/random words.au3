@@ -23,24 +23,31 @@ While 1
    Send($sWord)
    
       ; 50/50 chance to send Down key presses
-   If Random(0, 1) > 0.5 Then
+   ;If Random(0, 1) > 0.5 Then
+      ;Opt("SendKeyDelay", Random(10, 100, 1))
       ; Send between 1-10 Down key presses
-      For $i = 1 To Random(1, 10, 1)
-         Send("{DOWN}")
-      Next
-   EndIf
+      ;For $i = 1 To Random(1, 10, 1)
+         ;Send("{DOWN}")
+		 ;If Random(0, 1) > 0.5 Then
+			 ;Send("{PGDN}")
+		 ;EndIf
+		 ;If Random(0, 1) > 0.5 Then
+			 ;Send("{LEFT}{LEFT}")
+		 ;EndIf
+      ;Next
+   ;EndIf
 
    ; Send Shift+Tab
-   Send("+{TAB}")
+   ;Send("{TAB}")
 
    ; Select all text
    Send("^a")
    
    ; Delete selected text
-   Send("{DEL}")
+   ;Send("{DEL}")
 
    ; Wait for a random amount of time between 1 and 5 seconds
-   Sleep(Random(10, 100, 1))
+   ;Sleep(Random(10, 100, 1))
    ;Sleep(500)
    
    ; If the "qgrep GUI" window becomes inactive, exit the script
