@@ -69,6 +69,9 @@ You can change these as well, from **Tools >> Options >> Environment >> Keyboard
 
 ## Changelog
 
+### Version 2.11 (08/06/2023)
+- Added a stop button to allow forcible interruption of the index updates
+
 ### Version 2.10 (07/06/2023)
 
 - Improved performance significantly when loading the results to the UI

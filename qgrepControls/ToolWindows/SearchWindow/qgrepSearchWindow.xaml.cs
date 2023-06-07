@@ -5,6 +5,7 @@ using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -66,7 +67,6 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
             SearchEngine.Instance.UpdateInfoCallback += HandleUpdateMessage;
             SearchEngine.Instance.UpdateProgressCallback += HandleProgress;
-            SearchEngine.Instance.UpdateErrorCallback += HandleErrorMessage;
 
             InitializeComponent();
 
@@ -948,6 +948,8 @@ namespace qgrepControls.SearchWindow
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
                     Overlay.Visibility = Visibility.Visible;
+                    StopButton.Visibility = Visibility.Visible;
+                    StopButton.IsEnabled = true;
                     InitProgress.Value = 0;
                     InitButton.IsEnabled = false;
                     CleanButton.IsEnabled = false;
@@ -955,6 +957,8 @@ namespace qgrepControls.SearchWindow
                 }
                 else
                 {
+                    StopButton.Visibility = Visibility.Visible;
+                    StopButton.IsEnabled = true;
                     InitButton.IsEnabled = false;
                     CleanButton.IsEnabled = false;
                     PathsButton.IsEnabled = false;
@@ -983,16 +987,26 @@ namespace qgrepControls.SearchWindow
                 {
                     Overlay.Visibility = Visibility.Collapsed;
                     InitProgress.Visibility = Visibility.Collapsed;
+                    StopButton.Visibility = Visibility.Collapsed;
                     InitButton.IsEnabled = true;
                     CleanButton.IsEnabled = true;
                     PathsButton.IsEnabled = true;
-                    InitInfo.Text = lastMessage;
+
+                    if (databaseUpdate.WasForceStopped)
+                    {
+                        InitInfo.Text = Properties.Resources.IndexForceStop;
+                    }
+                    else
+                    {
+                        InitInfo.Text = lastMessage;
+                    }
 
                     infoUpdateStopWatch.Stop();
                     progressUpdateStopWatch.Stop();
                 }
                 else
                 {
+                    StopButton.Visibility = Visibility.Collapsed;
                     InitButton.IsEnabled = true;
                     CleanButton.IsEnabled = true;
                     PathsButton.IsEnabled = true;
@@ -2054,6 +2068,12 @@ namespace qgrepControls.SearchWindow
         {
             CrashReportsHelper.MarkReportAsRead();
             LoadCrashReports();
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchEngine.Instance.ForceStopDatabaseUpdate();
+            StopButton.IsEnabled = false;
         }
     }
 }

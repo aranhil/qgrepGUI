@@ -143,6 +143,9 @@ static void processChunkData(Output* output, BuildContext* builder, UpdateFileIt
 			buildAppendFile(builder, fileit->path.c_str(), fileit->timeStamp, fileit->fileSize);
 			++fileit;
 			stats.filesAdded++;
+
+			if (output->isStopped())
+				break;
 		}
 
 		// check if file exists
@@ -194,6 +197,9 @@ static bool processFile(Output* output, BuildContext* builder, UpdateFileIterato
 			return false;
 		}
 
+		if (output->isStopped())
+			return false;
+
 		char* uncompressed = data.get() + chunk.compressedSize;
 
 		processChunkData(output, builder, fileit, stats, chunk, uncompressed, data, index, extra);
@@ -235,6 +241,9 @@ bool updateProject(Output* output, const char* path)
 
 	std::vector<FileInfo> files = getProjectGroupFiles(output, group.get());
 
+	if (output->isStopped())
+		return false;
+
 	output->printLocalized("BuildingFileTableMessage", { });
 
 	if (!buildFiles(output, path, files))
@@ -247,6 +256,9 @@ bool updateProject(Output* output, const char* path)
 	unsigned int totalChunks = 0;
 
 	{
+		if (output->isStopped())
+			return false;
+
 		BuildContext* builder = buildStart(output, tempPath.c_str(), files.size());
 		if (!builder)
 			return false;
@@ -266,6 +278,12 @@ bool updateProject(Output* output, const char* path)
 			buildAppendFile(builder, fileit->path.c_str(), fileit->timeStamp, fileit->fileSize);
 			++fileit;
 			stats.filesAdded++;
+
+			if (output->isStopped())
+			{
+				buildFinish(builder);
+				return false;
+			}
 		}
 
 		totalChunks = buildFinish(builder);

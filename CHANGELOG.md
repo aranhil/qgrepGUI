@@ -49,3 +49,7 @@
 - Improved performance significantly when loading the results to the UI
 - Implemented a crash handler to record unhandled exceptions and their callstacks in log files, with an additional option to forward them to a Google form
 - Added automated stress tests for the UI and resolved all identified issues
+
+### Version 2.11 (08/06/2023)
+
+- Added a stop button to allow forcible interruption of the index updates

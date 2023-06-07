@@ -10,7 +10,7 @@ namespace qgrepControls.Classes
     {
         public static string Translate(List<string> parameters)
         {
-            if (parameters.Count > 1)
+            if (parameters.Count >= 1)
             {
                 TestLanguage();
 

@@ -78,6 +78,7 @@ namespace qgrepControls.Classes
         public List<string> ConfigPaths { get; set; }
         public List<string> Files { get; set; }
         public bool IsSilent { get; set; } = false;
+        public bool WasForceStopped { get; internal set; }
     }
 
     public class SearchEngine
@@ -115,6 +116,7 @@ namespace qgrepControls.Classes
         public bool IsBusy { get; private set; } = false;
         public bool IsUpdatingDatabase { get; private set; } = false;
         private bool ForceStop { get; set; } = false;
+        private bool ForceDatabaseStop { get; set; } = false;
         public bool IsSearchQueued { get { return QueuedSearchOptions != null || QueuedSearchFilesOptions != null; } }
 
         private List<string> NonIndexedFiles = new List<string>();
@@ -128,7 +130,6 @@ namespace qgrepControls.Classes
         public UpdateStepCallback FinishUpdateCallback { get; set; } = null;
         public UpdateMessageCallback UpdateInfoCallback { get; set; } = null;
         public UpdateProgressCallback UpdateProgressCallback { get; set; } = null;
-        public UpdateMessageCallback UpdateErrorCallback { get; set; } = null;
 
         public void SearchAsync(SearchOptions searchOptions)
         {
@@ -175,10 +176,12 @@ namespace qgrepControls.Classes
 
                     foreach (string cachedSearchResult in CachedSearch.Results)
                     {
-                        if (StringHandler(cachedSearchResult, searchOptions, false))
+                        if(ForceStop)
                         {
                             break;
                         }
+
+                        StringHandler(cachedSearchResult, searchOptions, false);
                     }
                 }
                 else
@@ -241,10 +244,16 @@ namespace qgrepControls.Classes
                     }
 
                     QGrepWrapper.CallQGrepAsync(arguments,
-                        (string result) => { return StringHandler(result, searchOptions); },
-                        (string error) => { SearchErrorHandler(error, searchOptions); },
+                        (string result) => { StringHandler(result, searchOptions); },
+                        () => { return ForceStop; },
                         null,
                         (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
+                }
+
+                if (ForceStop)
+                {
+                    searchOptions.WasForceStopped = true;
+                    CachedSearch.SearchOptions = null;
                 }
 
                 searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
@@ -296,10 +305,16 @@ namespace qgrepControls.Classes
                 };
 
                 QGrepWrapper.CallQGrepAsync(arguments,
-                    (string result) => { return StringHandler(result, searchOptions, true); },
-                    (string error) => { SearchErrorHandler(error, searchOptions); },
+                    (string result) => { StringHandler(result, searchOptions, true); },
+                    () => { return ForceStop; },
                     null,
                     (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
+                
+                if(ForceStop)
+                {
+                    searchOptions.WasForceStopped = true;
+                    CachedSearch.SearchOptions = null;
+                }
 
                 searchOptions.EventsHandler.OnFinishSearchEvent(searchOptions);
 
@@ -363,13 +378,11 @@ namespace qgrepControls.Classes
             });
         }
 
-        private bool StringHandler(string result, SearchOptions searchOptions, bool cacheResult = true)
+        private void StringHandler(string result, SearchOptions searchOptions, bool cacheResult = true)
         {
             if (ForceStop)
             {
-                searchOptions.WasForceStopped = true;
-                CachedSearch.SearchOptions = null;
-                return true;
+                return;
             }
 
             if (cacheResult)
@@ -415,7 +428,7 @@ namespace qgrepControls.Classes
 
                             if (!matchesFilter)
                             {
-                                return false;
+                                return;
                             }
                         }
                         else
@@ -440,14 +453,14 @@ namespace qgrepControls.Classes
 
                             if (!matchesFilter)
                             {
-                                return false;
+                                return;
                             }
                         }
                     }
                 }
                 else
                 {
-                    return false;
+                    return;
                 }
             }
 
@@ -464,7 +477,7 @@ namespace qgrepControls.Classes
                 }
                 else
                 {
-                    return false;
+                    return;
                 }
 
                 currentIndex = highlightEnd;
@@ -475,7 +488,7 @@ namespace qgrepControls.Classes
                 }
                 else
                 {
-                    return false;
+                    return;
                 }
 
                 endText = result;
@@ -488,8 +501,6 @@ namespace qgrepControls.Classes
             }
 
             searchOptions.EventsHandler.OnResultEvent(file, lineNo, beginText, highlightedText, endText, searchOptions);
-
-            return false;
         }
 
         private void Highlight(string result, ref int begingHighlight, ref int endHighlight, SearchOptions searchOptions)
@@ -521,17 +532,12 @@ namespace qgrepControls.Classes
 
         private void SearchLocalizedStringHandler(List<string> results, SearchOptions searchOptions)
         {
-            searchOptions.EventsHandler.OnErrorEvent(LocalizationHelper.Translate(results), searchOptions);
-        }
-
-        private void SearchErrorHandler(string message, SearchOptions searchOptions)
-        {
-            if (message.EndsWith("\n"))
+            if (ForceStop)
             {
-                message = message.Substring(0, message.Length - 1);
+                return;
             }
 
-            searchOptions.EventsHandler.OnErrorEvent(message, searchOptions);
+            searchOptions.EventsHandler.OnErrorEvent(LocalizationHelper.Translate(results), searchOptions);
         }
 
         public void UpdateDatabaseAsync(DatabaseUpdate databaseUpdate)
@@ -544,6 +550,7 @@ namespace qgrepControls.Classes
 
             IsBusy = true;
             IsUpdatingDatabase = true;
+            ForceDatabaseStop = false;
 
             TaskRunner.RunInBackgroundAsync(() =>
             {
@@ -572,8 +579,8 @@ namespace qgrepControls.Classes
                         };
 
                         QGrepWrapper.CallQGrepAsync(parameters,
-                            (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
-                            (string message) => { UpdateErrorHandler(message, databaseUpdate); },
+                            (string message) => { DatabaseMessageHandler(message, databaseUpdate); },
+                            () => { return ForceDatabaseStop; },
                             (double percentage) => { ProgressHandler(percentage, databaseUpdate); },
                             (List<string> messages) => { UpdateLocalizedStringHandler(messages, databaseUpdate); });
                     }
@@ -591,14 +598,19 @@ namespace qgrepControls.Classes
                             };
 
                             QGrepWrapper.CallQGrepAsync(parameters,
-                                (string message) => { return DatabaseMessageHandler(message, databaseUpdate); },
-                                (string message) => { UpdateErrorHandler(message, databaseUpdate); },
+                                (string message) => { DatabaseMessageHandler(message, databaseUpdate); },
+                                () => { return ForceDatabaseStop; },
                                 (double percentage) => { ProgressHandler(percentage, databaseUpdate); },
                                 (List<string> messages) => { UpdateLocalizedStringHandler(messages, databaseUpdate); });
                         }
                     }
                 }
                 catch { }
+
+                if(ForceDatabaseStop)
+                {
+                    databaseUpdate.WasForceStopped = true;
+                }
 
                 FinishUpdateCallback(databaseUpdate);
                 StartLastUpdatedTimer();
@@ -615,19 +627,32 @@ namespace qgrepControls.Classes
                 CheckQueue();
             });
         }
-
-        private void UpdateErrorHandler(string result, DatabaseUpdate databaseUpdate)
+        public void ForceStopDatabaseUpdate()
         {
-            UpdateErrorCallback(result, databaseUpdate);
+            if (IsBusy || !MutexUtility.Instance.TryAcquireMutex())
+            {
+                ForceDatabaseStop = true;
+                return;
+            }
         }
 
         private void UpdateLocalizedStringHandler(List<string> results, DatabaseUpdate databaseUpdate)
         {
+            if (ForceDatabaseStop)
+            {
+                return;
+            }
+
             UpdateInfoCallback(LocalizationHelper.Translate(results), databaseUpdate);
         }
 
-        private bool DatabaseMessageHandler(string result, DatabaseUpdate databaseUpdate)
+        private void DatabaseMessageHandler(string result, DatabaseUpdate databaseUpdate)
         {
+            if(ForceDatabaseStop)
+            {
+                return;
+            }
+
             if (result.EndsWith("\n"))
             {
                 result = result.Substring(0, result.Length - 1);
@@ -635,12 +660,15 @@ namespace qgrepControls.Classes
 
             LastUpdateMessage = result;
             UpdateInfoCallback(result, databaseUpdate);
-
-            return false;
         }
 
         public void ProgressHandler(double percentage, DatabaseUpdate databaseUpdate)
         {
+            if (ForceDatabaseStop)
+            {
+                return;
+            }
+
             LastUpdateProgress = percentage;
             UpdateProgressCallback(percentage, databaseUpdate);
         }

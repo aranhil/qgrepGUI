@@ -627,4 +627,10 @@
   <data name="SendReportTooltip" xml:space="preserve">
     <value>Bir Google Formu açar ve onu yalnızca yukarıdan çağrı yığınıyla doldurur, başka hiçbir bilgi gönderilmez</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>Dizin güncellemesi zorla durduruldu.</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Dizin güncellemesini durdurmaya zorla</value>
+  </data>
 </root>

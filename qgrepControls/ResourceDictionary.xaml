@@ -127,6 +127,15 @@
         <Setter Property="Width" Value="16" />
     </Style>
 
+    <Style x:Key="StopIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="Data">
+            <Setter.Value>
+                <PathGeometry Figures="m13 2l1 1v10l-1 1H3l-1-1V3l1-1h10Zm-.254 1.25H3.255v9.5h9.491v-9.5Z" FillRule="EvenOdd"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="SettingsIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource IconPath}">
         <Setter Property="Margin" Value="0,2,0,0" />
         <Setter Property="Data">

@@ -627,4 +627,10 @@
   <data name="SendReportTooltip" xml:space="preserve">
     <value>Otwiera formularz Google i wypełnia go tylko stosem wywołań z góry, żadne inne informacje nie są wysyłane</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>Aktualizacja indeksu została wymuszona zatrzymana.</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Wymuś aktualizację indeksu zatrzymania</value>
+  </data>
 </root>

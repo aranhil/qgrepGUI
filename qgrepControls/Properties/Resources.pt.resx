@@ -627,4 +627,10 @@
   <data name="SendReportTooltip" xml:space="preserve">
     <value>Abre um formulário do Google e o preenche apenas com a pilha de chamadas acima, nenhuma outra informação é enviada</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>A atualização do índice foi interrompida à força.</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Forçar atualização do índice de parada</value>
+  </data>
 </root>

@@ -33,7 +33,6 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
             SearchEngine.Instance.UpdateInfoCallback += HandleUpdateMessage;
             SearchEngine.Instance.UpdateProgressCallback += HandleProgress;
-            SearchEngine.Instance.UpdateErrorCallback += HandleErrorMessage;
 
             InitButton.IsEnabled = SearchEngine.Instance.IsBusy ? false : true;
             CleanButton.IsEnabled = SearchEngine.Instance.IsBusy ? false : true;
@@ -439,6 +438,9 @@ namespace qgrepControls.SearchWindow
                     InitButton.IsEnabled = false;
                     CleanButton.IsEnabled = false;
                 }
+
+                StopButton.Visibility = Visibility.Visible;
+                StopButton.IsEnabled = true;
             });
         }
 
@@ -449,9 +451,18 @@ namespace qgrepControls.SearchWindow
                 if (databaseUpdate == null || !databaseUpdate.IsSilent)
                 {
                     InitProgress.Visibility = Visibility.Collapsed;
+                    StopButton.Visibility = Visibility.Collapsed;
                     InitButton.IsEnabled = true;
                     CleanButton.IsEnabled = true;
-                    InitInfo.Text = lastMessage;
+
+                    if (databaseUpdate.WasForceStopped)
+                    {
+                        InitInfo.Text = Properties.Resources.IndexForceStop;
+                    }
+                    else
+                    {
+                        InitInfo.Text = lastMessage;
+                    }
 
                     infoUpdateStopWatch.Stop();
                     progressUpdateStopWatch.Stop();
@@ -621,6 +632,12 @@ namespace qgrepControls.SearchWindow
             }
 
             WrapperApp.IncludeFile(searchResult.FileAndLine);
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchEngine.Instance.ForceStopDatabaseUpdate();
+            StopButton.IsEnabled = false;
         }
     }
 }

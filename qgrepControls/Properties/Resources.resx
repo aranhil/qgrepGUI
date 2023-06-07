@@ -325,6 +325,9 @@
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>Include</value>
   </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>The index update was forcibly stopped.</value>
+  </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>Error parsing regular expression: invalid character class</value>
   </data>
@@ -561,6 +564,9 @@
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Force stop index update</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
     <value>Target:</value>
