@@ -43,3 +43,9 @@
 - The history is now a circular buffer of 50 items that is preserved between sessions
 - Made the shortcuts of the contextual menu items visible
 - Fixed several issues with the search file window
+
+### Version 2.10 (07/06/2023)
+
+- Improved performance significantly when loading the results to the UI
+- Implemented a crash handler to record unhandled exceptions and their callstacks in log files, with an additional option to forward them to a Google form
+- Implemented automated stress tests for the UI, and resolved all identified issues
