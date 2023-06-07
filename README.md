@@ -73,7 +73,7 @@ You can change these as well, from **Tools >> Options >> Environment >> Keyboard
 
 - Improved performance significantly when loading the results to the UI
 - Implemented a crash handler to record unhandled exceptions and their callstacks in log files, with an additional option to forward them to a Google form
-- Implemented automated stress tests for the UI and resolved all identified issues
+- Added automated stress tests for the UI and resolved all identified issues
 
 ### Version 2.9 (04/06/2023)
 
