@@ -86,6 +86,8 @@ static std::vector<std::string> getProjectsByPrefix(const char* prefix)
 			{
 				result.push_back(pprefix + std::string(path, dot));
 			}
+
+			return false;
 		});
 	}
 
@@ -302,6 +304,8 @@ static void getProjectGroupFilesRec(Output* output, ProjectGroup* group, std::ve
 				joinPaths(buf, folder.c_str(), path);
 				files.push_back({ buf, mtime, size });
 			}
+
+			return output->isStopped();
 		});
 
 		if (!result) output->printLocalized("ErrorReadingFolder", { folder });

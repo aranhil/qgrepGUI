@@ -145,9 +145,9 @@ private:
 class AsyncStringOutput: public Output
 {
 public:
-	AsyncStringOutput(bool (*stringCb)(const char*), void (*errorsCb)(const char*), void (*progressCb)(double), void (*localizedMsgCb)(const char**, int))
+	AsyncStringOutput(void (*stringCb)(const char*), bool (*forceStoppedCb)(), void (*progressCb)(double), void (*localizedMsgCb)(const char**, int))
 		: stringCallback(stringCb)
-		, errorsCallback(errorsCb)
+		, forcedStoppedCallback(forceStoppedCb)
 		, progressCallback(progressCb)
 		, localizedStringCallback(localizedMsgCb)
 		, forceStop(false)
@@ -157,7 +157,7 @@ public:
 	virtual void rawprint(const char* data, size_t size)
 	{
 		std::unique_lock<std::mutex> lock(mutex);
-		forceStop |= stringCallback(std::string(data, size).c_str());
+		stringCallback(std::string(data, size).c_str());
 	}
 
 	virtual void print(const char* message, ...)
@@ -170,7 +170,7 @@ public:
 		strprintf(result, message, l);
 		va_end(l);
 
-		forceStop |= stringCallback(result.c_str());
+		stringCallback(result.c_str());
 	}
 
 	virtual void error(const char* message, ...)
@@ -182,8 +182,6 @@ public:
 		va_start(l, message);
 		strprintf(error, message, l);
 		va_end(l);
-
-		errorsCallback(error.c_str());
 	}
 
 	virtual void progress(double percentage)
@@ -192,8 +190,8 @@ public:
 	}
 
 	virtual bool isStopped() 
-	{ 
-		return forceStop;
+	{
+		return forcedStoppedCallback();
 	}
 
 	virtual void printLocalized(const std::string& initialString, std::initializer_list<std::string> args)
@@ -211,8 +209,8 @@ public:
 	}
 
 private:
-	bool (*stringCallback)(const char*);
-	void (*errorsCallback)(const char*);
+	void (*stringCallback)(const char*);
+	bool (*forcedStoppedCallback)();
 	void (*progressCallback)(double);
 	void (*localizedStringCallback)(const char**, int size);
 	std::mutex mutex;
@@ -624,7 +622,7 @@ int main(int argc, const char** argv)
 	mainImpl(&output, argc, argv, 0, 0);
 }
 
-void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const char*), void (*errorsCallback)(const char*), void (*progressCallback)(double), void (*localizedStringCallback)(const char**, int size))
+void qgrepWrapperAsync(char* arguments, int size, void (*stringCallback)(const char*), bool (*checkStoppedCallback)(), void (*progressCallback)(double), void (*localizedStringCallback)(const char**, int size))
 {
 	std::vector<const char*> argv;
 
@@ -642,6 +640,6 @@ void qgrepWrapperAsync(char* arguments, int size, bool (*stringCallback)(const c
 	static std::string result;
 	result.clear();
 
-	AsyncStringOutput output(stringCallback, errorsCallback, progressCallback, localizedStringCallback);
+	AsyncStringOutput output(stringCallback, checkStoppedCallback, progressCallback, localizedStringCallback);
 	mainImpl(&output, argv.size(), &argv[0], 0, 0);
 }

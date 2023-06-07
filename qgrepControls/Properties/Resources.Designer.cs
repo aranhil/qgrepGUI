@@ -683,6 +683,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The index update was forcibly stopped..
+        /// </summary>
+        public static string IndexForceStop {
+            get {
+                return ResourceManager.GetString("IndexForceStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error parsing regular expression: invalid character class.
         /// </summary>
         public static string InvalidCharacterClass {
@@ -1390,6 +1399,15 @@ namespace qgrepControls.Properties {
         public static string StopButtonContent {
             get {
                 return ResourceManager.GetString("StopButtonContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force stop index update.
+        /// </summary>
+        public static string StopIndexTooltip {
+            get {
+                return ResourceManager.GetString("StopIndexTooltip", resourceCulture);
             }
         }
         

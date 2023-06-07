@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 
-bool traverseDirectory(const char* path, const std::function<void (const char* name, uint64_t mtime, uint64_t size)>& callback);
+bool traverseDirectory(const char* path, const std::function<bool (const char* name, uint64_t mtime, uint64_t size)>& callback);
 bool traverseFileNeeded(const char* name);
 
 void createDirectory(const char* path);

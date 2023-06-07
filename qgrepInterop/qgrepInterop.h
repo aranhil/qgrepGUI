@@ -8,25 +8,25 @@ namespace qgrepInterop {
     class NativeQGrepWrapper
     {
     public:
-        static bool nativeStringCallback(const char* result);
+        static void nativeStringCallback(const char* result);
         static void nativeProgressCallback(double percentage);
-        static void nativeErrorsCallback(const char* result);
         static void nativeLocalizedStringCallback(const char** result, int size);
+        static bool nativeCheckForceStopped();
     };
 
 	public ref class QGrepWrapper
 	{
 	public:
-        delegate bool StringCallback(String^ result);
-        delegate void ErrorCallback(String^ result);
+        delegate void StringCallback(String^ result);
         delegate void ProgressCalback(double percentage);
         delegate void LocalizedStringCallback(List<String^>^ result);
+        delegate bool CheckForceStoppedCallback();
 
-        static void CallQGrepAsync(List<String^>^ arguments, StringCallback^ stringCb, ErrorCallback^ errorsCb, ProgressCalback^ progressCb, LocalizedStringCallback^ localizedStringCb);
+        static void CallQGrepAsync(List<String^>^ arguments, StringCallback^ stringCb, CheckForceStoppedCallback^ checkStoppedCb, ProgressCalback^ progressCb, LocalizedStringCallback^ localizedStringCb);
 
 		static StringCallback^ stringCallback = nullptr;
-		static ErrorCallback^ errorCallback = nullptr;
 		static ProgressCalback^ progressCalback = nullptr;
 		static LocalizedStringCallback^ localizedStringCalback = nullptr;
+		static CheckForceStoppedCallback^ checkStoppedCalback = nullptr;
 	};
 }

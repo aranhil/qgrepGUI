@@ -33,7 +33,6 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.FinishUpdateCallback += HandleUpdateFinish;
             SearchEngine.Instance.UpdateInfoCallback += HandleUpdateMessage;
             SearchEngine.Instance.UpdateProgressCallback += HandleProgress;
-            SearchEngine.Instance.UpdateErrorCallback += HandleErrorMessage;
 
             InitButton.IsEnabled = SearchEngine.Instance.IsBusy ? false : true;
             CleanButton.IsEnabled = SearchEngine.Instance.IsBusy ? false : true;

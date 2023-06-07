@@ -8,7 +8,7 @@
 
 #include "qgrepInterop.h"
 
-void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, StringCallback^ stringCb, ErrorCallback^ errorsCb, ProgressCalback^ progressCb, LocalizedStringCallback^ localizedStringCb)
+void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::List<System::String^>^ arguments, StringCallback^ stringCb, CheckForceStoppedCallback^ checkStoppedCb, ProgressCalback^ progressCb, LocalizedStringCallback^ localizedStringCb)
 {
     std::string unmanagedArguments;
 
@@ -18,21 +18,19 @@ void qgrepInterop::QGrepWrapper::CallQGrepAsync(System::Collections::Generic::Li
     }
 
     stringCallback = stringCb;
-    errorCallback = errorsCb;
+    checkStoppedCalback = checkStoppedCb;
     progressCalback = progressCb;
     localizedStringCalback = localizedStringCb;
 
-    qgrepWrapperAsync(const_cast<char*>(unmanagedArguments.c_str()), (int)unmanagedArguments.size(), &NativeQGrepWrapper::nativeStringCallback, &NativeQGrepWrapper::nativeErrorsCallback, &NativeQGrepWrapper::nativeProgressCallback, &NativeQGrepWrapper::nativeLocalizedStringCallback);
+    qgrepWrapperAsync(const_cast<char*>(unmanagedArguments.c_str()), (int)unmanagedArguments.size(), &NativeQGrepWrapper::nativeStringCallback, &NativeQGrepWrapper::nativeCheckForceStopped, &NativeQGrepWrapper::nativeProgressCallback, &NativeQGrepWrapper::nativeLocalizedStringCallback);
 }
 
-bool qgrepInterop::NativeQGrepWrapper::nativeStringCallback(const char* result)
+void qgrepInterop::NativeQGrepWrapper::nativeStringCallback(const char* result)
 {
     if (QGrepWrapper::stringCallback != nullptr)
     {
-        return QGrepWrapper::stringCallback(gcnew System::String(result));
+        QGrepWrapper::stringCallback(gcnew System::String(result));
     }
-
-    return false;
 }
 
 void qgrepInterop::NativeQGrepWrapper::nativeProgressCallback(double percentage)
@@ -43,12 +41,14 @@ void qgrepInterop::NativeQGrepWrapper::nativeProgressCallback(double percentage)
     }
 }
 
-void qgrepInterop::NativeQGrepWrapper::nativeErrorsCallback(const char* error)
+bool qgrepInterop::NativeQGrepWrapper::nativeCheckForceStopped()
 {
-    if (QGrepWrapper::errorCallback != nullptr)
+    if (QGrepWrapper::checkStoppedCalback != nullptr)
     {
-        QGrepWrapper::errorCallback(gcnew System::String(error));
+        return QGrepWrapper::checkStoppedCalback();
     }
+
+    return false;
 }
 
 void qgrepInterop::NativeQGrepWrapper::nativeLocalizedStringCallback(const char** result, int size)
