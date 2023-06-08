@@ -250,5 +250,50 @@ namespace qgrepGUI
                 Task.Run(DownloadLatestReleaseAsync);
             }
         }
+        private void ToggleSearchFilter1_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(0);
+        }
+
+        private void ToggleSearchFilter2_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(1);
+        }
+
+        private void ToggleSearchFilter3_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(2);
+        }
+
+        private void ToggleSearchFilter4_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(3);
+        }
+
+        private void ToggleSearchFilter5_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(4);
+        }
+
+        private void ToggleSearchFilter6_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(5);
+        }
+
+        private void ToggleSearchFilter7_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(6);
+        }
+
+        private void ToggleSearchFilter8_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(7);
+        }
+
+        private void ToggleSearchFilter9_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.ToggleSearchFilter(8);
+        }
+
     }
 }

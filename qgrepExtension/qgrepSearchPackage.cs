@@ -72,6 +72,7 @@ namespace qgrepSearch
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             System.Windows.Application.Current.DispatcherUnhandledException += App_DispatcherUnhandledException;
+            await SearchFilterCommands.InitializeAsync(this);
         }
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
@@ -345,6 +346,18 @@ namespace qgrepSearch
         {
             qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
             searchWindowControl.ToggleGroupExpand();
+        }
+
+        public void ToggleSearchFilter(int index)
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.ToggleSearchFilter(index);
+        }
+
+        public void SelectSearchFilter(int index)
+        {
+            qgrepSearchWindowControl searchWindowControl = GetSearchWindowControl();
+            searchWindowControl.SelectSearchFilter(index);
         }
     }
 }

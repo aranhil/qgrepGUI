@@ -113,6 +113,15 @@ namespace qgrepGUI
             bindings["OpenFileSearch"] = new Hotkey(mainWindow.OpenFileSearch.Key, mainWindow.OpenFileSearch.Modifiers);
             bindings["ToggleGroupBy"] = new Hotkey(mainWindow.ToggleGroupBy.Key, mainWindow.ToggleGroupBy.Modifiers);
             bindings["ToggleGroupExpand"] = new Hotkey(mainWindow.ToggleGroupExpand.Key, mainWindow.ToggleGroupExpand.Modifiers);
+            bindings["ToggleSearchFilter1"] = new Hotkey(mainWindow.ToggleSearchFilter1.Key, mainWindow.ToggleSearchFilter1.Modifiers);
+            bindings["ToggleSearchFilter2"] = new Hotkey(mainWindow.ToggleSearchFilter2.Key, mainWindow.ToggleSearchFilter2.Modifiers);
+            bindings["ToggleSearchFilter3"] = new Hotkey(mainWindow.ToggleSearchFilter3.Key, mainWindow.ToggleSearchFilter3.Modifiers);
+            bindings["ToggleSearchFilter4"] = new Hotkey(mainWindow.ToggleSearchFilter4.Key, mainWindow.ToggleSearchFilter4.Modifiers);
+            bindings["ToggleSearchFilter5"] = new Hotkey(mainWindow.ToggleSearchFilter5.Key, mainWindow.ToggleSearchFilter5.Modifiers);
+            bindings["ToggleSearchFilter6"] = new Hotkey(mainWindow.ToggleSearchFilter6.Key, mainWindow.ToggleSearchFilter6.Modifiers);
+            bindings["ToggleSearchFilter7"] = new Hotkey(mainWindow.ToggleSearchFilter7.Key, mainWindow.ToggleSearchFilter7.Modifiers);
+            bindings["ToggleSearchFilter8"] = new Hotkey(mainWindow.ToggleSearchFilter8.Key, mainWindow.ToggleSearchFilter8.Modifiers);
+            bindings["ToggleSearchFilter9"] = new Hotkey(mainWindow.ToggleSearchFilter9.Key, mainWindow.ToggleSearchFilter9.Modifiers);
             SaveKeyBindings(bindings);
             return bindings;
         }
@@ -133,7 +142,7 @@ namespace qgrepGUI
                 }
                 catch { }
 
-                if (bindings.Count != 10)
+                if (bindings.Count != 19)
                 {
                     LoadDefaultKeyBindings();
                 }
@@ -175,6 +184,33 @@ namespace qgrepGUI
 
             mainWindow.ToggleGroupExpand.Key = bindings["ToggleGroupExpand"].Key;
             mainWindow.ToggleGroupExpand.Modifiers = bindings["ToggleGroupExpand"].Modifiers;
+
+            mainWindow.ToggleSearchFilter1.Key = bindings["ToggleSearchFilter1"].Key;
+            mainWindow.ToggleSearchFilter1.Modifiers = bindings["ToggleSearchFilter1"].Modifiers;
+
+            mainWindow.ToggleSearchFilter2.Key = bindings["ToggleSearchFilter2"].Key;
+            mainWindow.ToggleSearchFilter2.Modifiers = bindings["ToggleSearchFilter2"].Modifiers;
+
+            mainWindow.ToggleSearchFilter3.Key = bindings["ToggleSearchFilter3"].Key;
+            mainWindow.ToggleSearchFilter3.Modifiers = bindings["ToggleSearchFilter3"].Modifiers;
+
+            mainWindow.ToggleSearchFilter4.Key = bindings["ToggleSearchFilter4"].Key;
+            mainWindow.ToggleSearchFilter4.Modifiers = bindings["ToggleSearchFilter4"].Modifiers;
+
+            mainWindow.ToggleSearchFilter5.Key = bindings["ToggleSearchFilter5"].Key;
+            mainWindow.ToggleSearchFilter5.Modifiers = bindings["ToggleSearchFilter5"].Modifiers;
+
+            mainWindow.ToggleSearchFilter6.Key = bindings["ToggleSearchFilter6"].Key;
+            mainWindow.ToggleSearchFilter6.Modifiers = bindings["ToggleSearchFilter6"].Modifiers;
+
+            mainWindow.ToggleSearchFilter7.Key = bindings["ToggleSearchFilter7"].Key;
+            mainWindow.ToggleSearchFilter7.Modifiers = bindings["ToggleSearchFilter7"].Modifiers;
+
+            mainWindow.ToggleSearchFilter8.Key = bindings["ToggleSearchFilter8"].Key;
+            mainWindow.ToggleSearchFilter8.Modifiers = bindings["ToggleSearchFilter8"].Modifiers;
+
+            mainWindow.ToggleSearchFilter9.Key = bindings["ToggleSearchFilter9"].Key;
+            mainWindow.ToggleSearchFilter9.Modifiers = bindings["ToggleSearchFilter9"].Modifiers;
         }
 
         public void SaveKeyBindings(Dictionary<string, Hotkey> bindings)

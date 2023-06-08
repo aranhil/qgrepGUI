@@ -2075,5 +2075,35 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.ForceStopDatabaseUpdate();
             StopButton.IsEnabled = false;
         }
+
+        public void ToggleSearchFilter(int index)
+        {
+            TaskRunner.RunOnUIThreadAsync(() =>
+            {
+                if(index >= 0 && index < FiltersComboBox.Items.Count)
+                {
+                    if (FiltersComboBox.SelectedItems.Contains(FiltersComboBox.Items[index]))
+                    {
+                        FiltersComboBox.SelectedItems.Remove(FiltersComboBox.Items[index]);
+                    }
+                    else
+                    {
+                        FiltersComboBox.SelectedItems.Add(FiltersComboBox.Items[index]);
+                    }
+                }
+            });
+        }
+
+        public void SelectSearchFilter(int index)
+        {
+            TaskRunner.RunOnUIThreadAsync(() =>
+            {
+                if (index >= 0 && index < FiltersComboBox.Items.Count)
+                {
+                    FiltersComboBox.SelectedItems.Clear();
+                    FiltersComboBox.SelectedItems.Add(FiltersComboBox.Items[index]);
+                }
+            });
+        }
     }
 }
