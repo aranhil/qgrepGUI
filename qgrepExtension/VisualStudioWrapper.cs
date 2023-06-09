@@ -334,11 +334,14 @@ namespace qgrepSearch
                     for (int i = largestBlockStart; i <= largestBlockEnd; i++)
                     {
                         string line = textDocument.CreateEditPoint(textDocument.StartPoint).GetLines(i, i + 1).Trim();
-                        string includeFile = line.Substring(8).Trim(new char[] { ' ', '\t' });
-
-                        if (includeFile.CompareTo(relativePath) > 0)
+                        if (!string.IsNullOrWhiteSpace(line))
                         {
-                            break;
+                            string includeFile = line.Substring(8).Trim(new char[] { ' ', '\t' });
+
+                            if (includeFile.CompareTo(relativePath) > 0)
+                            {
+                                break;
+                            }
                         }
 
                         insertLine++;
