@@ -4,21 +4,10 @@ using qgrepControls.Classes;
 using qgrepControls.SearchWindow;
 using qgrepGUI.Properties;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace qgrepGUI
 {
@@ -102,7 +91,7 @@ namespace qgrepGUI
                 var skippedVersionString = Settings.Default.SkippedVersion;
 
                 var latestReleaseTag = await GetLatestRelease();
-                if(latestReleaseTag.StartsWith("v"))
+                if (latestReleaseTag.StartsWith("v"))
                 {
                     latestReleaseTag = latestReleaseTag.Substring(1);
                 }
@@ -119,11 +108,11 @@ namespace qgrepGUI
                         installUpdateWindow.Dialog = installUpdateDialog;
                         installUpdateDialog.ShowDialog();
 
-                        if(installUpdateWindow.IsOk)
+                        if (installUpdateWindow.IsOk)
                         {
                             UpdateQueued = true;
                         }
-                        else if(installUpdateWindow.IsSkip)
+                        else if (installUpdateWindow.IsSkip)
                         {
                             Settings.Default.SkippedVersion = latestVersion.ToString();
                             Settings.Default.Save();
@@ -242,7 +231,7 @@ namespace qgrepGUI
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(UpdateQueued)
+            if (UpdateQueued)
             {
                 e.Cancel = true;
                 Hide();

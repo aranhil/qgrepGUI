@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
@@ -339,7 +338,7 @@ namespace qgrepControls.Classes
             return configProject;
         }
     }
-    public class ConfigParser: ConfigSettings
+    public class ConfigParser : ConfigSettings
     {
         private static ConfigParser instance = null;
         private static readonly object padlock = new object();

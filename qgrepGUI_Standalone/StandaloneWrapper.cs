@@ -1,28 +1,16 @@
-﻿using ControlzEx;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using qgrepControls.Classes;
 using qgrepControls.ModelViews;
 using qgrepGUI.Properties;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Dynamic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
-using System.Xml.Linq;
 
 namespace qgrepGUI
 {
@@ -34,9 +22,9 @@ namespace qgrepGUI
             Window = window;
         }
 
-        public bool SearchWindowOpened 
+        public bool SearchWindowOpened
         {
-            get 
+            get
             {
                 return false;
             }
@@ -92,7 +80,7 @@ namespace qgrepGUI
 
         public void RefreshResources(Dictionary<string, object> newResources)
         {
-            foreach(var resource in newResources)
+            foreach (var resource in newResources)
             {
                 Window.Resources[resource.Key] = resource.Value;
                 Application.Current.Resources[resource.Key] = resource.Value;

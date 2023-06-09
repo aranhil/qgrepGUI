@@ -5,7 +5,6 @@ using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -127,7 +126,7 @@ namespace qgrepControls.SearchWindow
         private void LoadCrashReports()
         {
             CrashReportsHelper.ReadLatestCrashReport();
-            if(CrashReportsHelper.LastReport.Length > 0)
+            if (CrashReportsHelper.LastReport.Length > 0)
             {
                 CrashReportOverlay.Visibility = Visibility.Visible;
                 CrashReportStack.Text = CrashReportsHelper.LastReport;
@@ -598,7 +597,7 @@ namespace qgrepControls.SearchWindow
                     {
                         foreach (SearchResult result in resultGroup.SearchResults)
                         {
-                            if(searchCancellationToken?.Token.IsCancellationRequested ?? false)
+                            if (searchCancellationToken?.Token.IsCancellationRequested ?? false)
                             {
                                 break;
                             }
@@ -1371,7 +1370,7 @@ namespace qgrepControls.SearchWindow
                             }
 
                             int indexOfGroup = searchResultsGroups.IndexOf(parentSearchResultGroup);
-                            if(indexOfGroup < 0)
+                            if (indexOfGroup < 0)
                             {
                                 if (searchResultsGroups.Count > 0 && searchResultsGroups[0].IsSelected)
                                 {
@@ -1379,13 +1378,13 @@ namespace qgrepControls.SearchWindow
                                 }
                             }
 
-                            if(indexOfGroup >= 0)
+                            if (indexOfGroup >= 0)
                             {
                                 VirtualizingStackPanel virtualizingStackPanel = UIHelper.GetChildOfType<VirtualizingStackPanel>(SearchItemsTreeView);
 
                                 try
-                                { 
-                                    virtualizingStackPanel.BringIndexIntoViewPublic(indexOfGroup); 
+                                {
+                                    virtualizingStackPanel.BringIndexIntoViewPublic(indexOfGroup);
                                 }
                                 catch { }
 
@@ -2070,7 +2069,7 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThreadAsync(() =>
             {
-                if(index >= 0 && index < FiltersComboBox.Items.Count)
+                if (index >= 0 && index < FiltersComboBox.Items.Count)
                 {
                     if (FiltersComboBox.SelectedItems.Contains(FiltersComboBox.Items[index]))
                     {
