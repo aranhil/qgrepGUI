@@ -96,6 +96,11 @@ namespace qgrepSearch
 
             qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new VisualStudioWrapper(qgrepPackage.GetExtensionData()));
             UIHelper.ShowDialog(filesWindowControl, qgrepControls.Properties.Resources.OpenFile, filesWindowControl.WrapperApp, null, true);
+
+            if(filesWindowControl.IncludeFile != null)
+            {
+                filesWindowControl.WrapperApp.IncludeFile(filesWindowControl.IncludeFile);
+            }
         }
     }
 }
