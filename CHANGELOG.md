@@ -53,3 +53,10 @@
 ### Version 2.11 (08/06/2023)
 
 - Added a stop button to allow forcible interruption of the index updates
+
+### Version 2.12 (09/06/2023)
+
+- Added shortcuts to toggle individual search configurations and also for exclusive selection of a single configuration
+- Resolved an issue where the automatic gathering of folders added duplicates
+- Fixed several issues with the automatic C++ header inclusion
+- Fixed issue with the shortcuts context missing its name in Visual Studio

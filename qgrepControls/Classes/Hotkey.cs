@@ -20,15 +20,20 @@ namespace qgrepControls.Classes
             var str = new StringBuilder();
 
             if (Modifiers.HasFlag(ModifierKeys.Control))
-                str.Append("Ctrl+");
+                str.Append($"{Properties.Resources.Ctrl}+");
             if (Modifiers.HasFlag(ModifierKeys.Shift))
-                str.Append("Shift+");
+                str.Append($"{Properties.Resources.Shift}+");
             if (Modifiers.HasFlag(ModifierKeys.Alt))
-                str.Append("Alt+");
-            if (Modifiers.HasFlag(ModifierKeys.Windows))
-                str.Append("Win+");
+                str.Append($"{Properties.Resources.Alt}+");
 
-            str.Append(Key);
+            if (Key.ToString().StartsWith("D") && Key.ToString().Length == 2 && char.IsDigit(Key.ToString()[1]))
+            {
+                str.Append(Key.ToString()[1]);
+            }
+            else
+            {
+                str.Append(Key);
+            }
 
             return str.ToString();
         }

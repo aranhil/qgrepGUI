@@ -122,6 +122,16 @@ namespace qgrepGUI
             bindings["ToggleSearchFilter7"] = new Hotkey(mainWindow.ToggleSearchFilter7.Key, mainWindow.ToggleSearchFilter7.Modifiers);
             bindings["ToggleSearchFilter8"] = new Hotkey(mainWindow.ToggleSearchFilter8.Key, mainWindow.ToggleSearchFilter8.Modifiers);
             bindings["ToggleSearchFilter9"] = new Hotkey(mainWindow.ToggleSearchFilter9.Key, mainWindow.ToggleSearchFilter9.Modifiers);
+            bindings["SelectSearchFilter1"] = new Hotkey(mainWindow.SelectSearchFilter1.Key, mainWindow.SelectSearchFilter1.Modifiers);
+            bindings["SelectSearchFilter2"] = new Hotkey(mainWindow.SelectSearchFilter2.Key, mainWindow.SelectSearchFilter2.Modifiers);
+            bindings["SelectSearchFilter3"] = new Hotkey(mainWindow.SelectSearchFilter3.Key, mainWindow.SelectSearchFilter3.Modifiers);
+            bindings["SelectSearchFilter4"] = new Hotkey(mainWindow.SelectSearchFilter4.Key, mainWindow.SelectSearchFilter4.Modifiers);
+            bindings["SelectSearchFilter5"] = new Hotkey(mainWindow.SelectSearchFilter5.Key, mainWindow.SelectSearchFilter5.Modifiers);
+            bindings["SelectSearchFilter6"] = new Hotkey(mainWindow.SelectSearchFilter6.Key, mainWindow.SelectSearchFilter6.Modifiers);
+            bindings["SelectSearchFilter7"] = new Hotkey(mainWindow.SelectSearchFilter7.Key, mainWindow.SelectSearchFilter7.Modifiers);
+            bindings["SelectSearchFilter8"] = new Hotkey(mainWindow.SelectSearchFilter8.Key, mainWindow.SelectSearchFilter8.Modifiers);
+            bindings["SelectSearchFilter9"] = new Hotkey(mainWindow.SelectSearchFilter9.Key, mainWindow.SelectSearchFilter9.Modifiers);
+
             SaveKeyBindings(bindings);
             return bindings;
         }
@@ -142,7 +152,7 @@ namespace qgrepGUI
                 }
                 catch { }
 
-                if (bindings.Count != 19)
+                if (bindings.Count != 28)
                 {
                     LoadDefaultKeyBindings();
                 }
@@ -211,6 +221,33 @@ namespace qgrepGUI
 
             mainWindow.ToggleSearchFilter9.Key = bindings["ToggleSearchFilter9"].Key;
             mainWindow.ToggleSearchFilter9.Modifiers = bindings["ToggleSearchFilter9"].Modifiers;
+
+            mainWindow.SelectSearchFilter1.Key = bindings["SelectSearchFilter1"].Key;
+            mainWindow.SelectSearchFilter1.Modifiers = bindings["SelectSearchFilter1"].Modifiers;
+
+            mainWindow.SelectSearchFilter2.Key = bindings["SelectSearchFilter2"].Key;
+            mainWindow.SelectSearchFilter2.Modifiers = bindings["SelectSearchFilter2"].Modifiers;
+
+            mainWindow.SelectSearchFilter3.Key = bindings["SelectSearchFilter3"].Key;
+            mainWindow.SelectSearchFilter3.Modifiers = bindings["SelectSearchFilter3"].Modifiers;
+
+            mainWindow.SelectSearchFilter4.Key = bindings["SelectSearchFilter4"].Key;
+            mainWindow.SelectSearchFilter4.Modifiers = bindings["SelectSearchFilter4"].Modifiers;
+
+            mainWindow.SelectSearchFilter5.Key = bindings["SelectSearchFilter5"].Key;
+            mainWindow.SelectSearchFilter5.Modifiers = bindings["SelectSearchFilter5"].Modifiers;
+
+            mainWindow.SelectSearchFilter6.Key = bindings["SelectSearchFilter6"].Key;
+            mainWindow.SelectSearchFilter6.Modifiers = bindings["SelectSearchFilter6"].Modifiers;
+
+            mainWindow.SelectSearchFilter7.Key = bindings["SelectSearchFilter7"].Key;
+            mainWindow.SelectSearchFilter7.Modifiers = bindings["SelectSearchFilter7"].Modifiers;
+
+            mainWindow.SelectSearchFilter8.Key = bindings["SelectSearchFilter8"].Key;
+            mainWindow.SelectSearchFilter8.Modifiers = bindings["SelectSearchFilter8"].Modifiers;
+
+            mainWindow.SelectSearchFilter9.Key = bindings["SelectSearchFilter9"].Key;
+            mainWindow.SelectSearchFilter9.Modifiers = bindings["SelectSearchFilter9"].Modifiers;
         }
 
         public void SaveKeyBindings(Dictionary<string, Hotkey> bindings)

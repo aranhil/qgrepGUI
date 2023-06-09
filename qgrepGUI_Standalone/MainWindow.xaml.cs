@@ -250,6 +250,7 @@ namespace qgrepGUI
                 Task.Run(DownloadLatestReleaseAsync);
             }
         }
+
         private void ToggleSearchFilter1_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SearchWindow.ToggleSearchFilter(0);
@@ -295,5 +296,49 @@ namespace qgrepGUI
             SearchWindow.ToggleSearchFilter(8);
         }
 
+        private void SelectSearchFilter1_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(0);
+        }
+
+        private void SelectSearchFilter2_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(1);
+        }
+
+        private void SelectSearchFilter3_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(2);
+        }
+
+        private void SelectSearchFilter4_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(3);
+        }
+
+        private void SelectSearchFilter5_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(4);
+        }
+
+        private void SelectSearchFilter6_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(5);
+        }
+
+        private void SelectSearchFilter7_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(6);
+        }
+
+        private void SelectSearchFilter8_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(7);
+        }
+
+        private void SelectSearchFilter9_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchWindow.SelectSearchFilter(8);
+        }
     }
 }

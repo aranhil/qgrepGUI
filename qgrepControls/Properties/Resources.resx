@@ -132,6 +132,9 @@
   <data name="AdvancedToggleContent" xml:space="preserve">
     <value>‹‹ Advanced</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Always</value>
   </data>
@@ -195,6 +198,9 @@
   </data>
   <data name="CrashMessage" xml:space="preserve">
     <value>qgrep Search Tool encountered an unhandled exception last session:</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
   </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Customize shortcuts</value>
@@ -538,6 +544,9 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Select folder(s)</value>
   </data>
+  <data name="SelectSearchFilter" xml:space="preserve">
+    <value>Select search configuration {0}</value>
+  </data>
   <data name="SendReport" xml:space="preserve">
     <value>Send report</value>
   </data>
@@ -546,6 +555,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
     <value>Shortcut: {0}</value>
@@ -603,6 +615,9 @@
   </data>
   <data name="ToggleRegexLabelContent" xml:space="preserve">
     <value>Toggle regular expressions:</value>
+  </data>
+  <data name="ToggleSearchFilter" xml:space="preserve">
+    <value>Toggle search configuration {0}</value>
   </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value>Toggle whole word:</value>

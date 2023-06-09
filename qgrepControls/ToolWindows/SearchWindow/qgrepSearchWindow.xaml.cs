@@ -115,6 +115,7 @@ namespace qgrepControls.SearchWindow
             SearchItemsTreeView.Focusable = true;
 
             bindings = WrapperApp.ReadKeyBindings();
+            ConfigParser.ApplyKeyBindings(bindings);
             WrapperApp.ApplyKeyBindings(bindings);
 
             KeyboardButton.Visibility = WrapperApp.IsStandalone ? Visibility.Visible : Visibility.Collapsed;
@@ -249,23 +250,11 @@ namespace qgrepControls.SearchWindow
             HistoryButton.ToolTip = string.Format(Properties.Resources.HistoryButton, bindings["ShowHistory"].ToString());
         }
 
-        public void RenameFilter(string oldName, string newName)
-        {
-            List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
-            int oldFilterIndex = searchFilters.IndexOf(oldName);
-            if (oldFilterIndex >= 0)
-            {
-                searchFilters[oldFilterIndex] = newName;
-            }
-            Settings.Default.SearchFilters = string.Join(",", searchFilters);
-            Settings.Default.Save();
-        }
-
         public void UpdateFilters()
         {
             Visibility visibility = Visibility.Collapsed;
 
-            List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
+            List<string> searchFilters = ConfigParser.Instance.SelectedProjects;
 
             FiltersComboBox.ItemsSource = ConfigParser.Instance.ConfigProjects;
             FiltersComboBox.SelectedItems.Clear();
@@ -1556,8 +1545,8 @@ namespace qgrepControls.SearchWindow
                 searchFilters.Add(configProject.Name);
             }
 
-            Settings.Default.SearchFilters = string.Join(",", searchFilters);
-            Settings.Default.Save();
+            ConfigParser.Instance.SelectedProjects = searchFilters;
+            ConfigParser.SaveSettings();
 
             if (Settings.Default.SearchInstantly)
             {
@@ -1951,6 +1940,7 @@ namespace qgrepControls.SearchWindow
                 bindings = hotkeysWindow.GetBindings();
                 WrapperApp.SaveKeyBindings(bindings);
                 WrapperApp.ApplyKeyBindings(bindings);
+                ConfigParser.ApplyKeyBindings(bindings);
                 UpdateShortcutHints();
             }
         }

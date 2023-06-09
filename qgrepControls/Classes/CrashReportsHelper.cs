@@ -85,6 +85,12 @@ namespace qgrepControls.Classes
                     LastReportPath = file.FullName;
                     LastReport = File.ReadAllText(file.FullName);
                 }
+
+                string errorsLogPath = Path.Combine(folderPath, "LogErrors.txt");
+                if(File.Exists(errorsLogPath))
+                {
+                    File.Delete(errorsLogPath);
+                }
             }
             catch { }
         }

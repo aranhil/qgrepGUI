@@ -68,6 +68,114 @@
 					<ButtonText>Toggle Grouping Expand</ButtonText>
 				</Strings>
 			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand1" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter1</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 1</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand2" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter2</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 2</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand3" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter3</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 3</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand4" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter4</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 4</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand5" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter5</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 5</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand6" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter6</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 6</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand7" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter7</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 7</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand8" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter8</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 8</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand9" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.ToggleSearchFilter9</LocCanonicalName>
+					<ButtonText>Toggle Search Filter 9</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand1" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter1</LocCanonicalName>
+					<ButtonText>Select Search Filter 1</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand2" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter2</LocCanonicalName>
+					<ButtonText>Select Search Filter 2</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand3" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter3</LocCanonicalName>
+					<ButtonText>Select Search Filter 3</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand4" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter4</LocCanonicalName>
+					<ButtonText>Select Search Filter 4</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand5" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter5</LocCanonicalName>
+					<ButtonText>Select Search Filter 5</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand6" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter6</LocCanonicalName>
+					<ButtonText>Select Search Filter 6</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand7" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter7</LocCanonicalName>
+					<ButtonText>Select Search Filter 7</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand8" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter8</LocCanonicalName>
+					<ButtonText>Select Search Filter 8</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand9" priority="0x0100" type="Button">
+				<Strings>
+					<LocCanonicalName>qgrep.SelectSearchFilter9</LocCanonicalName>
+					<ButtonText>Select Search Filter 9</ButtonText>
+				</Strings>
+			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidOpenSearchFiles" priority="0x9100" type="Button">
 				<Parent guid="guidSHLMainMenu" id="IDG_VS_VIEW_DEV_WINDOWS" />
 				<Icon guid="guidImages1" id="bmpPic1" />
@@ -98,6 +206,24 @@
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidOpenSearchFiles" editor="guidVSStd97" key1="I" mod1="Alt Shift" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidGroupByCommand" editor="guidMyToolWindow" key1="G" mod1="Alt" />
 		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidGroupExpandCommand" editor="guidMyToolWindow" key1="X" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand1" editor="guidMyToolWindow" key1="1" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand2" editor="guidMyToolWindow" key1="2" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand3" editor="guidMyToolWindow" key1="3" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand4" editor="guidMyToolWindow" key1="4" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand5" editor="guidMyToolWindow" key1="5" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand6" editor="guidMyToolWindow" key1="6" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand7" editor="guidMyToolWindow" key1="7" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand8" editor="guidMyToolWindow" key1="8" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand9" editor="guidMyToolWindow" key1="9" mod1="Alt" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand1" editor="guidMyToolWindow" key1="1" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand2" editor="guidMyToolWindow" key1="2" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand3" editor="guidMyToolWindow" key1="3" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand4" editor="guidMyToolWindow" key1="4" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand5" editor="guidMyToolWindow" key1="5" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand6" editor="guidMyToolWindow" key1="6" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand7" editor="guidMyToolWindow" key1="7" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand8" editor="guidMyToolWindow" key1="8" mod1="Control" />
+		<KeyBinding guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand9" editor="guidMyToolWindow" key1="9" mod1="Control" />
 	</KeyBindings>
 
 	<Symbols>
@@ -131,6 +257,24 @@
 			<IDSymbol value="4141" name="cmdidOpenSearchFiles" />
 			<IDSymbol value="4142" name="cmdidGroupByCommand" />
 			<IDSymbol value="4143" name="cmdidGroupExpandCommand" />
+			<IDSymbol value="4144" name="cmdidSearchFilterToggleCommand1" />
+			<IDSymbol value="4145" name="cmdidSearchFilterToggleCommand2" />
+			<IDSymbol value="4146" name="cmdidSearchFilterToggleCommand3" />
+			<IDSymbol value="4147" name="cmdidSearchFilterToggleCommand4" />
+			<IDSymbol value="4148" name="cmdidSearchFilterToggleCommand5" />
+			<IDSymbol value="4149" name="cmdidSearchFilterToggleCommand6" />
+			<IDSymbol value="4150" name="cmdidSearchFilterToggleCommand7" />
+			<IDSymbol value="4151" name="cmdidSearchFilterToggleCommand8" />
+			<IDSymbol value="4152" name="cmdidSearchFilterToggleCommand9" />
+			<IDSymbol value="4153" name="cmdidSearchFilterSelectCommand1" />
+			<IDSymbol value="4154" name="cmdidSearchFilterSelectCommand2" />
+			<IDSymbol value="4155" name="cmdidSearchFilterSelectCommand3" />
+			<IDSymbol value="4156" name="cmdidSearchFilterSelectCommand4" />
+			<IDSymbol value="4157" name="cmdidSearchFilterSelectCommand5" />
+			<IDSymbol value="4158" name="cmdidSearchFilterSelectCommand6" />
+			<IDSymbol value="4159" name="cmdidSearchFilterSelectCommand7" />
+			<IDSymbol value="4160" name="cmdidSearchFilterSelectCommand8" />
+			<IDSymbol value="4161" name="cmdidSearchFilterSelectCommand9" />
 		</GuidSymbol>
 
 		<GuidSymbol value="{6e14650b-c446-4769-8f15-897898db7422}" name="guidImages1">

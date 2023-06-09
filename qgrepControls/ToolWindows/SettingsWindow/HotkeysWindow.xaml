@@ -8,7 +8,7 @@
              xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              xmlns:resx="clr-namespace:qgrepControls.Properties"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}"
-             MinWidth="325" MinHeight="300">
+             MinWidth="325" MinHeight="350">
     <UserControl.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />
     </UserControl.Resources>
@@ -18,6 +18,8 @@
             <ColumnDefinition Width="Auto" MinWidth="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
@@ -40,17 +42,21 @@
         <Label Grid.Row="7" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.OpenFileSearchLabelContent}" />
         <Label Grid.Row="8" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.ToggleGroupingByLabelContent}" />
         <Label Grid.Row="9" Grid.Column="0" Style="{DynamicResource SettingsLabel}" Content="{x:Static resx:Resources.ToggleGroupingExpandLabelContent}" />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="0" x:Name="ToggleCaseSensitive" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left" />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="1" x:Name="ToggleWholeWord" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="2" x:Name="ToggleRegEx" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="3" x:Name="ToggleIncludeFiles" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="4" x:Name="ToggleExcludeFiles" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="5" x:Name="ToggleFilterResults" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="6" x:Name="ShowHistory" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="7" x:Name="OpenFileSearch" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="8" x:Name="ToggleGroupBy" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="9" x:Name="ToggleGroupExpand" Margin="5,0,0,2" Width="100" HorizontalAlignment="Left"  />
-        <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
+        <ComboBox Grid.Row="10" x:Name="ToggleSearchFilterComboBox" Margin="0,0,0,1" DisplayMemberPath="Value" SelectionChanged="ToggleSearchFilterComboBox_SelectionChanged"/>
+        <ComboBox Grid.Row="11" x:Name="SelectSearchFilterComboBox" Margin="0,0,0,1" DisplayMemberPath="Value" SelectionChanged="SelectSearchFilterComboBox_SelectionChanged"/>
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="0" x:Name="ToggleCaseSensitive" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left" />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="1" x:Name="ToggleWholeWord" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="2" x:Name="ToggleRegEx" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="3" x:Name="ToggleIncludeFiles" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="4" x:Name="ToggleExcludeFiles" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="5" x:Name="ToggleFilterResults" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="6" x:Name="ShowHistory" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="7" x:Name="OpenFileSearch" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="8" x:Name="ToggleGroupBy" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="9" x:Name="ToggleGroupExpand" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="10" x:Name="ToggleSearchFilter" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <usercontrols:HotkeyEditorControl Grid.Column="1" Grid.Row="11" x:Name="SelectSearchFilter" Margin="5,0,0,2" Width="110" HorizontalAlignment="Left"  />
+        <StackPanel Grid.Row="12" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,0,4">
             <Button x:Name="OK" Content="{x:Static resx:Resources.SaveButtonContent}" Margin="0,0,5,0" Click="OK_Click" ToolTipService.ShowOnDisabled="True"/>
             <Button x:Name="Cancel" Content="{x:Static resx:Resources.CancelButtonContent}" Margin="0,0,5,0" Click="Cancel_Click"/>
         </StackPanel>

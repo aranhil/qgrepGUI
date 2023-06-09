@@ -106,6 +106,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt.
+        /// </summary>
+        public static string Alt {
+            get {
+                return ResourceManager.GetString("Alt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always.
         /// </summary>
         public static string AlwaysOptionContent {
@@ -292,6 +301,15 @@ namespace qgrepControls.Properties {
         public static string CrashMessage {
             get {
                 return ResourceManager.GetString("CrashMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl.
+        /// </summary>
+        public static string Ctrl {
+            get {
+                return ResourceManager.GetString("Ctrl", resourceCulture);
             }
         }
         
@@ -1322,6 +1340,15 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select search configuration {0}.
+        /// </summary>
+        public static string SelectSearchFilter {
+            get {
+                return ResourceManager.GetString("SelectSearchFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send report.
         /// </summary>
         public static string SendReport {
@@ -1345,6 +1372,15 @@ namespace qgrepControls.Properties {
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift.
+        /// </summary>
+        public static string Shift {
+            get {
+                return ResourceManager.GetString("Shift", resourceCulture);
             }
         }
         
@@ -1516,6 +1552,15 @@ namespace qgrepControls.Properties {
         public static string ToggleRegexLabelContent {
             get {
                 return ResourceManager.GetString("ToggleRegexLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle search configuration {0}.
+        /// </summary>
+        public static string ToggleSearchFilter {
+            get {
+                return ResourceManager.GetString("ToggleSearchFilter", resourceCulture);
             }
         }
         

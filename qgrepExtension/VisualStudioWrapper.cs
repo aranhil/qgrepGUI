@@ -19,6 +19,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Xceed.Wpf.Toolkit.Core.Input;
 
 namespace qgrepSearch
 {
@@ -535,36 +536,51 @@ namespace qgrepSearch
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            EnvDTE.Command command = Data.DTE.Commands.Item("qgrep." + commandString);
-
-            if (command.Bindings is object[] bindings && bindings.Length > 0 && bindings[0] is string binding)
+            try
             {
-                ModifierKeys modifiers = ModifierKeys.None;
-                Key key = Key.None;
+                EnvDTE.Command command = Data.DTE.Commands.Item("qgrep." + commandString);
 
-                int position = binding.IndexOf("::");
-
-                if (position >= 0)
+                if (command.Bindings is object[] bindings && bindings.Length > 0 && bindings[0] is string binding)
                 {
-                    string result = binding.Substring(position + 2);
+                    ModifierKeys modifiers = ModifierKeys.None;
+                    Key key = Key.None;
 
-                    string[] parts = result.Split('+');
+                    int position = binding.IndexOf("::");
 
-                    foreach (string part in parts)
+                    if (position >= 0)
                     {
-                        if (Enum.TryParse(part, true, out Key tempKey))
-                        {
-                            key = tempKey;
-                        }
-                        else if (Enum.TryParse(part, true, out ModifierKeys tempModifier))
-                        {
-                            modifiers |= tempModifier;
-                        }
-                    }
+                        string result = binding.Substring(position + 2);
 
-                    return new Hotkey(key, modifiers);
+                        string[] parts = result.Split('+');
+
+                        foreach (string part in parts)
+                        {
+                            if (int.TryParse(part, out int number) && number >= 0 && number <= 9)
+                            {
+                                if (Enum.TryParse($"D{number}", true, out Key numberKey))
+                                {
+                                    key = numberKey;
+                                }
+                            }
+                            else if (Enum.TryParse(part, true, out Key tempKey))
+                            {
+                                key = tempKey;
+                            }
+                            else
+                            {
+                                ModifierKeys keyModifier = LocalizationHelper.GetKeyModifier(part);
+                                if (keyModifier != ModifierKeys.None)
+                                {
+                                    modifiers |= keyModifier;
+                                }
+                            }
+                        }
+
+                        return new Hotkey(key, modifiers);
+                    }
                 }
             }
+            catch { }
 
             return new Hotkey(Key.None, ModifierKeys.None);
         }
@@ -584,6 +600,25 @@ namespace qgrepSearch
             bindings["ShowHistory"] = GetBindingForCommand("ShowHistory");
             bindings["ToggleGroupBy"] = GetBindingForCommand("ToggleGroupBy");
             bindings["ToggleGroupExpand"] = GetBindingForCommand("ToggleGroupExpand");
+            bindings["ToggleSearchFilter1"] = GetBindingForCommand("ToggleSearchFilter1");
+            bindings["ToggleSearchFilter2"] = GetBindingForCommand("ToggleSearchFilter2");
+            bindings["ToggleSearchFilter3"] = GetBindingForCommand("ToggleSearchFilter3");
+            bindings["ToggleSearchFilter4"] = GetBindingForCommand("ToggleSearchFilter4");
+            bindings["ToggleSearchFilter5"] = GetBindingForCommand("ToggleSearchFilter5");
+            bindings["ToggleSearchFilter6"] = GetBindingForCommand("ToggleSearchFilter6");
+            bindings["ToggleSearchFilter7"] = GetBindingForCommand("ToggleSearchFilter7");
+            bindings["ToggleSearchFilter8"] = GetBindingForCommand("ToggleSearchFilter8");
+            bindings["ToggleSearchFilter9"] = GetBindingForCommand("ToggleSearchFilter9");
+            bindings["SelectSearchFilter1"] = GetBindingForCommand("SelectSearchFilter1");
+            bindings["SelectSearchFilter2"] = GetBindingForCommand("SelectSearchFilter2");
+            bindings["SelectSearchFilter3"] = GetBindingForCommand("SelectSearchFilter3");
+            bindings["SelectSearchFilter4"] = GetBindingForCommand("SelectSearchFilter4");
+            bindings["SelectSearchFilter5"] = GetBindingForCommand("SelectSearchFilter5");
+            bindings["SelectSearchFilter6"] = GetBindingForCommand("SelectSearchFilter6");
+            bindings["SelectSearchFilter7"] = GetBindingForCommand("SelectSearchFilter7");
+            bindings["SelectSearchFilter8"] = GetBindingForCommand("SelectSearchFilter8");
+            bindings["SelectSearchFilter9"] = GetBindingForCommand("SelectSearchFilter9");
+
             return bindings;
         }
 
@@ -776,8 +811,11 @@ namespace qgrepSearch
 
             try
             {
-                EnvDTE.Document activeDocument = Data.DTE.ActiveDocument;
-                return activeDocument.Language == "C/C++";
+                EnvDTE.Document activeDocument = Data?.DTE?.ActiveDocument;
+                if(activeDocument != null)
+                {
+                    return activeDocument.Language == "C/C++";
+                }
             }
             catch { }
 

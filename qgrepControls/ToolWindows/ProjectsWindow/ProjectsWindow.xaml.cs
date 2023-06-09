@@ -259,6 +259,7 @@ namespace qgrepControls.SearchWindow
         public void LoadFromConfig()
         {
             ConfigParser.LoadConfig();
+            ConfigParser.ApplyKeyBindings(SearchWindow.bindings);
 
             SearchConfigs.Clear();
             foreach (ConfigProject configProject in ConfigParser.Instance.ConfigProjects)
@@ -299,7 +300,7 @@ namespace qgrepControls.SearchWindow
             int projectsCount = ConfigParser.Instance.ConfigProjects.Count;
             int groupsCount = projectsCount > 0 ? ConfigParser.Instance.ConfigProjects[0].Groups.Count : 0;
 
-            bool canGoBasic = projectsCount <= 1 && groupsCount <= 1;
+            bool canGoBasic = projectsCount == 1 && groupsCount == 1;
 
             bool isAdvanced = canGoBasic ? Settings.Default.AdvancedProjectSettings : true;
             AdvancedToggle.Content = isAdvanced ? Properties.Resources.BasicToggleContent : Properties.Resources.AdvancedToggleContent;

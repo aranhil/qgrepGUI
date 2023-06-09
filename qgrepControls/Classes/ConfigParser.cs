@@ -1,16 +1,26 @@
-﻿using qgrepControls.Properties;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Timers;
 
 namespace qgrepControls.Classes
 {
+    public class ConfigSettings
+    {
+        public List<string> SelectedProjects = new List<string>();
+        public List<string> FileSelectedProjects = new List<string>();
+    }
+
     public class ConfigPath
     {
         public ConfigGroup Parent;
@@ -53,6 +63,8 @@ namespace qgrepControls.Classes
 
         public ConfigPath AddNewPath(string path)
         {
+            path = System.IO.Path.GetFullPath(path);
+
             if (Paths.Any(x => x.Path == path))
             {
                 return null;
@@ -83,8 +95,9 @@ namespace qgrepControls.Classes
             return configGroup;
         }
     }
-    public class ConfigProject
+    public class ConfigProject : INotifyPropertyChanged
     {
+        public ConfigParser Parent;
         private string PathPrefix = "path ";
         private string IncludePrefix = "include ";
         private string ExcludePrefix = "exclude ";
@@ -105,6 +118,26 @@ namespace qgrepControls.Classes
                 _Path = value;
                 Name = System.IO.Path.GetFileNameWithoutExtension(value);
             }
+        }
+
+        public string gestureText = "";
+        public string GestureText
+        {
+            get
+            {
+                return gestureText;
+            }
+            set
+            {
+                gestureText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public List<ConfigGroup> Groups = new List<ConfigGroup>();
@@ -162,8 +195,13 @@ namespace qgrepControls.Classes
 
                 try
                 {
-                    Settings.Default.SearchFilters = Settings.Default.SearchFilters.Replace(Name, newName);
-                    Settings.Default.Save();
+                    int selectedProjectIndex = Parent.SelectedProjects.IndexOf(Name);
+                    if (selectedProjectIndex >= 0)
+                    {
+                        Parent.SelectedProjects[selectedProjectIndex] = newName;
+                    }
+
+                    ConfigParser.SaveSettings();
                 }
                 catch { }
 
@@ -301,7 +339,7 @@ namespace qgrepControls.Classes
             return configProject;
         }
     }
-    public class ConfigParser
+    public class ConfigParser: ConfigSettings
     {
         private static ConfigParser instance = null;
         private static readonly object padlock = new object();
@@ -381,6 +419,7 @@ namespace qgrepControls.Classes
                 foreach (string config in configs)
                 {
                     ConfigProject configProject = new ConfigProject(config);
+                    configProject.Parent = Instance;
                     configProject.LoadConfig();
                     Instance.ConfigProjects.Add(configProject);
                 }
@@ -391,6 +430,8 @@ namespace qgrepControls.Classes
                 RemoveWatchers();
                 AddWatchers();
             }
+
+            LoadSettings();
         }
 
         public static void AddWatchers()
@@ -456,6 +497,7 @@ namespace qgrepControls.Classes
             Instance.ConfigProjects.Clear();
 
             RemoveWatchers();
+            UnloadSettings();
         }
 
         public static void RemoveWatchers()
@@ -488,6 +530,7 @@ namespace qgrepControls.Classes
             while (File.Exists(newPath));
 
             ConfigProject newConfigProject = new ConfigProject(newPath);
+            newConfigProject.Parent = Instance;
             Instance.ConfigProjects.Add(newConfigProject);
             newConfigProject.SaveConfig();
             return newConfigProject;
@@ -908,6 +951,53 @@ namespace qgrepControls.Classes
         private static void OnRenamed(object sender, RenamedEventArgs e)
         {
             Instance.delayedEventsHandler.AddRenameEvent(e);
+        }
+
+        public static void SaveSettings()
+        {
+            string filePath = System.IO.Path.Combine(Instance.Path, ".qgrep", "settings.json");
+            try
+            {
+                ConfigSettings ConfigSettings = new ConfigSettings()
+                {
+                    SelectedProjects = Instance.SelectedProjects,
+                    FileSelectedProjects = Instance.FileSelectedProjects,
+                };
+
+                string json = JsonConvert.SerializeObject(ConfigSettings, Formatting.Indented);
+                File.WriteAllText(filePath, json);
+            }
+            catch { }
+        }
+
+        public static void LoadSettings()
+        {
+            string filePath = System.IO.Path.Combine(Instance.Path, ".qgrep", "settings.json");
+            try
+            {
+                string json = File.ReadAllText(filePath);
+                ConfigSettings ConfigSettings = JsonConvert.DeserializeObject<ConfigSettings>(json);
+                Instance.SelectedProjects = ConfigSettings.SelectedProjects;
+                Instance.FileSelectedProjects = ConfigSettings.FileSelectedProjects;
+            }
+            catch { }
+        }
+        public static void UnloadSettings()
+        {
+            Instance.SelectedProjects.Clear();
+            Instance.FileSelectedProjects.Clear();
+        }
+
+        public static void ApplyKeyBindings(Dictionary<string, Hotkey> bindings)
+        {
+            try
+            {
+                for (int i = 0; i < Math.Min(9, Instance.ConfigProjects.Count); i++)
+                {
+                    Instance.ConfigProjects[i].GestureText = bindings["ToggleSearchFilter" + (i + 1)].ToString() + "/" + bindings["SelectSearchFilter" + (i + 1)].ToString();
+                }
+            }
+            catch { }
         }
     }
 }

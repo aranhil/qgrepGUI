@@ -633,4 +633,13 @@
   <data name="StopIndexTooltip" xml:space="preserve">
     <value>인덱스 업데이트 강제 중지</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
 </root>

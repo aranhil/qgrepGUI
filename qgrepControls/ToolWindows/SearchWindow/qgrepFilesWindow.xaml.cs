@@ -16,6 +16,8 @@ namespace qgrepControls.SearchWindow
     {
         public IWrapperApp WrapperApp;
         public bool IsActiveDocumentCpp = false;
+        public Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
+        public string IncludeFile;
 
         public qgrepFilesWindowControl(IWrapperApp WrapperApp)
         {
@@ -41,11 +43,73 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.ShowLastUpdateMessage();
             UpdateFilters();
 
+            bindings = WrapperApp.ReadKeyBindings();
+            ConfigParser.ApplyKeyBindings(bindings);
+            ApplyKeyBindings();
+
             IsActiveDocumentCpp = Settings.Default.CppHeaderInclusion && WrapperApp.IsActiveDocumentCpp();
         }
         public void UpdateFromSettings()
         {
             Find();
+        }
+
+        private void ApplyKeyBindings()
+        {
+            ToggleSearchFilter1.Key = bindings["ToggleSearchFilter1"].Key;
+            ToggleSearchFilter1.Modifiers = bindings["ToggleSearchFilter1"].Modifiers;
+
+            ToggleSearchFilter2.Key = bindings["ToggleSearchFilter2"].Key;
+            ToggleSearchFilter2.Modifiers = bindings["ToggleSearchFilter2"].Modifiers;
+
+            ToggleSearchFilter3.Key = bindings["ToggleSearchFilter3"].Key;
+            ToggleSearchFilter3.Modifiers = bindings["ToggleSearchFilter3"].Modifiers;
+
+            ToggleSearchFilter4.Key = bindings["ToggleSearchFilter4"].Key;
+            ToggleSearchFilter4.Modifiers = bindings["ToggleSearchFilter4"].Modifiers;
+
+            ToggleSearchFilter5.Key = bindings["ToggleSearchFilter5"].Key;
+            ToggleSearchFilter5.Modifiers = bindings["ToggleSearchFilter5"].Modifiers;
+
+            ToggleSearchFilter6.Key = bindings["ToggleSearchFilter6"].Key;
+            ToggleSearchFilter6.Modifiers = bindings["ToggleSearchFilter6"].Modifiers;
+
+            ToggleSearchFilter7.Key = bindings["ToggleSearchFilter7"].Key;
+            ToggleSearchFilter7.Modifiers = bindings["ToggleSearchFilter7"].Modifiers;
+
+            ToggleSearchFilter8.Key = bindings["ToggleSearchFilter8"].Key;
+            ToggleSearchFilter8.Modifiers = bindings["ToggleSearchFilter8"].Modifiers;
+
+            ToggleSearchFilter9.Key = bindings["ToggleSearchFilter9"].Key;
+            ToggleSearchFilter9.Modifiers = bindings["ToggleSearchFilter9"].Modifiers;
+
+            SelectSearchFilter1.Key = bindings["SelectSearchFilter1"].Key;
+            SelectSearchFilter1.Modifiers = bindings["SelectSearchFilter1"].Modifiers;
+
+            SelectSearchFilter2.Key = bindings["SelectSearchFilter2"].Key;
+            SelectSearchFilter2.Modifiers = bindings["SelectSearchFilter2"].Modifiers;
+
+            SelectSearchFilter3.Key = bindings["SelectSearchFilter3"].Key;
+            SelectSearchFilter3.Modifiers = bindings["SelectSearchFilter3"].Modifiers;
+
+            SelectSearchFilter4.Key = bindings["SelectSearchFilter4"].Key;
+            SelectSearchFilter4.Modifiers = bindings["SelectSearchFilter4"].Modifiers;
+
+            SelectSearchFilter5.Key = bindings["SelectSearchFilter5"].Key;
+            SelectSearchFilter5.Modifiers = bindings["SelectSearchFilter5"].Modifiers;
+
+            SelectSearchFilter6.Key = bindings["SelectSearchFilter6"].Key;
+            SelectSearchFilter6.Modifiers = bindings["SelectSearchFilter6"].Modifiers;
+
+            SelectSearchFilter7.Key = bindings["SelectSearchFilter7"].Key;
+            SelectSearchFilter7.Modifiers = bindings["SelectSearchFilter7"].Modifiers;
+
+            SelectSearchFilter8.Key = bindings["SelectSearchFilter8"].Key;
+            SelectSearchFilter8.Modifiers = bindings["SelectSearchFilter8"].Modifiers;
+
+            SelectSearchFilter9.Key = bindings["SelectSearchFilter9"].Key;
+            SelectSearchFilter9.Modifiers = bindings["SelectSearchFilter9"].Modifiers;
+
         }
 
         private void SearchInput_TextChanged(object sender, TextChangedEventArgs e)
@@ -546,6 +610,15 @@ namespace qgrepControls.SearchWindow
 
         private void FiltersComboBox_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
         {
+            List<string> searchFilters = new List<string>();
+            foreach (ConfigProject configProject in FiltersComboBox.SelectedItems)
+            {
+                searchFilters.Add(configProject.Name);
+            }
+
+            ConfigParser.Instance.FileSelectedProjects = searchFilters;
+            ConfigParser.SaveSettings();
+
             Find();
         }
 
@@ -565,7 +638,15 @@ namespace qgrepControls.SearchWindow
         {
             Visibility visibility = Visibility.Collapsed;
 
-            List<string> searchFilters = Settings.Default.SearchFilters.Split(',').ToList();
+            List<string> searchFilters;
+            if (ConfigParser.Instance.FileSelectedProjects.Count > 0)
+            {
+                searchFilters = ConfigParser.Instance.FileSelectedProjects;
+            }
+            else
+            {
+                searchFilters = ConfigParser.Instance.SelectedProjects;
+            }
 
             FiltersComboBox.ItemsSource = ConfigParser.Instance.ConfigProjects;
             FiltersComboBox.SelectedItems.Clear();
@@ -631,13 +712,131 @@ namespace qgrepControls.SearchWindow
                 mainWindow.Close();
             }
 
-            WrapperApp.IncludeFile(searchResult.FileAndLine);
+            IncludeFile = searchResult.FileAndLine;
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             SearchEngine.Instance.ForceStopDatabaseUpdate();
             StopButton.IsEnabled = false;
+        }
+
+        private void ToggleSearchFilter1_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(0);
+        }
+
+        private void ToggleSearchFilter2_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(1);
+        }
+
+        private void ToggleSearchFilter3_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(2);
+        }
+
+        private void ToggleSearchFilter4_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(3);
+        }
+
+        private void ToggleSearchFilter5_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(4);
+        }
+
+        private void ToggleSearchFilter6_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(5);
+        }
+
+        private void ToggleSearchFilter7_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(6);
+        }
+
+        private void ToggleSearchFilter8_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(7);
+        }
+
+        private void ToggleSearchFilter9_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ToggleSearchFilter(8);
+        }
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ToggleSearchFilter(int index)
+        {
+            if (index >= 0 && index < FiltersComboBox.Items.Count)
+            {
+                if (FiltersComboBox.SelectedItems.Contains(FiltersComboBox.Items[index]))
+                {
+                    FiltersComboBox.SelectedItems.Remove(FiltersComboBox.Items[index]);
+                }
+                else
+                {
+                    FiltersComboBox.SelectedItems.Add(FiltersComboBox.Items[index]);
+                }
+            }
+        }
+
+        private void SelectSearchFilter1_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(0);
+        }
+
+        private void SelectSearchFilter2_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(1);
+        }
+
+        private void SelectSearchFilter3_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(2);
+        }
+
+        private void SelectSearchFilter4_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(3);
+        }
+
+        private void SelectSearchFilter5_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(4);
+        }
+
+        private void SelectSearchFilter6_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(5);
+        }
+
+        private void SelectSearchFilter7_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(6);
+        }
+
+        private void SelectSearchFilter8_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(7);
+        }
+
+        private void SelectSearchFilter9_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SelectSearchFilter(8);
+        }
+
+        public void SelectSearchFilter(int index)
+        {
+            if (index >= 0 && index < FiltersComboBox.Items.Count)
+            {
+                FiltersComboBox.SelectedItems.Clear();
+                FiltersComboBox.SelectedItems.Add(FiltersComboBox.Items[index]);
+            }
         }
     }
 }

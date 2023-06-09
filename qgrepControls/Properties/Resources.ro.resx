@@ -637,4 +637,13 @@
   <data name="StopIndexTooltip" xml:space="preserve">
     <value>Oprirea forțată a actualizării indexului</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
 </root>

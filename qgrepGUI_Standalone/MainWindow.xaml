@@ -40,6 +40,15 @@
         <RoutedCommand x:Key="qgrep.ToggleSearchFilter7" />
         <RoutedCommand x:Key="qgrep.ToggleSearchFilter8" />
         <RoutedCommand x:Key="qgrep.ToggleSearchFilter9" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter1" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter2" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter3" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter4" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter5" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter6" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter7" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter8" />
+        <RoutedCommand x:Key="qgrep.SelectSearchFilter9" />
     </controlzEx:WindowChromeWindow.Resources>
     <controlzEx:WindowChromeWindow.InputBindings>
         <KeyBinding x:Name="ToggleCaseSensitive" Key="C" Modifiers="Alt" Command="{StaticResource qgrep.ToggleCaseSensitive}" />
@@ -61,6 +70,16 @@
         <KeyBinding x:Name="ToggleSearchFilter7" Key="D7" Modifiers="Alt" Command="{StaticResource qgrep.ToggleSearchFilter7}" />
         <KeyBinding x:Name="ToggleSearchFilter8" Key="D8" Modifiers="Alt" Command="{StaticResource qgrep.ToggleSearchFilter8}" />
         <KeyBinding x:Name="ToggleSearchFilter9" Key="D9" Modifiers="Alt" Command="{StaticResource qgrep.ToggleSearchFilter9}" />
+        <KeyBinding x:Name="SelectSearchFilter1" Key="D1" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter1}" />
+        <KeyBinding x:Name="SelectSearchFilter2" Key="D2" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter2}" />
+        <KeyBinding x:Name="SelectSearchFilter3" Key="D3" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter3}" />
+        <KeyBinding x:Name="SelectSearchFilter4" Key="D4" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter4}" />
+        <KeyBinding x:Name="SelectSearchFilter5" Key="D5" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter5}" />
+        <KeyBinding x:Name="SelectSearchFilter6" Key="D6" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter6}" />
+        <KeyBinding x:Name="SelectSearchFilter7" Key="D7" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter7}" />
+        <KeyBinding x:Name="SelectSearchFilter8" Key="D8" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter8}" />
+        <KeyBinding x:Name="SelectSearchFilter9" Key="D9" Modifiers="Ctrl" Command="{StaticResource qgrep.SelectSearchFilter9}" />
+
     </controlzEx:WindowChromeWindow.InputBindings>
     <controlzEx:WindowChromeWindow.CommandBindings>
         <CommandBinding Command="{StaticResource qgrep.ToggleCaseSensitive}" Executed="ToggleCaseSensitive_Executed" CanExecute="CommandBinding_CanExecute" />
@@ -82,6 +101,15 @@
         <CommandBinding Command="{StaticResource qgrep.ToggleSearchFilter7}" Executed="ToggleSearchFilter7_Executed" CanExecute="CommandBinding_CanExecute" />
         <CommandBinding Command="{StaticResource qgrep.ToggleSearchFilter8}" Executed="ToggleSearchFilter8_Executed" CanExecute="CommandBinding_CanExecute" />
         <CommandBinding Command="{StaticResource qgrep.ToggleSearchFilter9}" Executed="ToggleSearchFilter9_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter1}" Executed="SelectSearchFilter1_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter2}" Executed="SelectSearchFilter2_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter3}" Executed="SelectSearchFilter3_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter4}" Executed="SelectSearchFilter4_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter5}" Executed="SelectSearchFilter5_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter6}" Executed="SelectSearchFilter6_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter7}" Executed="SelectSearchFilter7_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter8}" Executed="SelectSearchFilter8_Executed" CanExecute="CommandBinding_CanExecute" />
+        <CommandBinding Command="{StaticResource qgrep.SelectSearchFilter9}" Executed="SelectSearchFilter9_Executed" CanExecute="CommandBinding_CanExecute" />
     </controlzEx:WindowChromeWindow.CommandBindings>
     <Grid x:Name="WindowContent">
     </Grid>

@@ -64,6 +64,8 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 - Toggle group by (Alt + G)
 - Toggle group expansion (Alt + X)
 - Open history (Alt + H)
+- Toggle search config (Alt + 1 ... Alt + 9)
+- Select search config (Ctrl + 1 ... Ctrl + 9)
 
 You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 

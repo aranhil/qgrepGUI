@@ -633,4 +633,13 @@
   <data name="StopIndexTooltip" xml:space="preserve">
     <value>Forcer l'arrêt de la mise à jour de l'index</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Maj</value>
+  </data>
 </root>
