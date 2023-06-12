@@ -15,32 +15,101 @@ namespace qgrepControls.SearchWindow
         public qgrepSearchWindowControl SearchWindow;
         public MainWindow Dialog = null;
         public bool IsOk = false;
-        public Dictionary<string, Hotkey> hotkeys = new Dictionary<string, Hotkey>();
+        public bool OpenSettings = false;
+        public Dictionary<string, Hotkey> hotkeys = null;
+        public Dictionary<string, Hotkey> readOnlyHotkeys = null;
 
         public HotkeysWindow(qgrepSearchWindowControl SearchWindow)
         {
             this.SearchWindow = SearchWindow;
             InitializeComponent();
 
-            Dictionary<string, Hotkey> bindings = SearchWindow.WrapperApp.ReadKeyBindings();
-            ToggleCaseSensitive.Hotkey = new Hotkey(bindings[ToggleCaseSensitive.Name].Key, bindings[ToggleCaseSensitive.Name].Modifiers);
-            ToggleWholeWord.Hotkey = new Hotkey(bindings[ToggleWholeWord.Name].Key, bindings[ToggleWholeWord.Name].Modifiers);
-            ToggleRegEx.Hotkey = new Hotkey(bindings[ToggleRegEx.Name].Key, bindings[ToggleRegEx.Name].Modifiers);
-            ToggleIncludeFiles.Hotkey = new Hotkey(bindings[ToggleIncludeFiles.Name].Key, bindings[ToggleIncludeFiles.Name].Modifiers);
-            ToggleExcludeFiles.Hotkey = new Hotkey(bindings[ToggleExcludeFiles.Name].Key, bindings[ToggleExcludeFiles.Name].Modifiers);
-            ToggleFilterResults.Hotkey = new Hotkey(bindings[ToggleFilterResults.Name].Key, bindings[ToggleFilterResults.Name].Modifiers);
-            ShowHistory.Hotkey = new Hotkey(bindings[ShowHistory.Name].Key, bindings[ShowHistory.Name].Modifiers);
-            OpenFileSearch.Hotkey = new Hotkey(bindings[OpenFileSearch.Name].Key, bindings[OpenFileSearch.Name].Modifiers);
-            ToggleGroupBy.Hotkey = new Hotkey(bindings[ToggleGroupBy.Name].Key, bindings[ToggleGroupBy.Name].Modifiers);
-            ToggleGroupExpand.Hotkey = new Hotkey(bindings[ToggleGroupExpand.Name].Key, bindings[ToggleGroupExpand.Name].Modifiers);
+            Dictionary<string, Hotkey> bindings = null;
+            if (SearchWindow.WrapperApp.CanEditKeyBindings())
+            {
+                bindings = SearchWindow.WrapperApp.ReadKeyBindings();
+            }
 
-            for(int i = 0; i < 9; i++)
+            if (bindings != null)
+            {
+                hotkeys = new Dictionary<string, Hotkey>();
+
+                ToggleCaseSensitive.Hotkey = bindings[ToggleCaseSensitive.Name];
+                ToggleWholeWord.Hotkey = bindings[ToggleWholeWord.Name];
+                ToggleRegEx.Hotkey = bindings[ToggleRegEx.Name];
+                ToggleIncludeFiles.Hotkey = bindings[ToggleIncludeFiles.Name];
+                ToggleExcludeFiles.Hotkey = bindings[ToggleExcludeFiles.Name];
+                ToggleFilterResults.Hotkey = bindings[ToggleFilterResults.Name];
+                ShowHistory.Hotkey = bindings[ShowHistory.Name];
+                ToggleGroupBy.Hotkey = bindings[ToggleGroupBy.Name];
+                ToggleGroupExpand.Hotkey = bindings[ToggleGroupExpand.Name];
+
+                if (bindings["View.qgrepSearchFile"].IsGlobal)
+                {
+                    OpenFileSearch.Hotkey = bindings["View.qgrepSearchFile"];
+                }
+
+                if(!SearchWindow.WrapperApp.IsStandalone)
+                {
+                    if (bindings["View.qgrepSearchTool"].IsGlobal)
+                    {
+                        OpenToolWindow.Hotkey = bindings["View.qgrepSearchTool"];
+                    }
+                }
+                else
+                {
+                    ToolWindowRow.Height = new GridLength(0);
+                    GlobalHotkeysRow.Height = new GridLength(0);
+                    LocalHotkeysRow.Height = new GridLength(2);
+                }
+
+                for (int i = 0; i < 9; i++)
+                {
+                    string toggleKey = $"ToggleSearchFilter{i + 1}";
+                    string selectKey = $"SelectSearchFilter{i + 1}";
+
+                    hotkeys[toggleKey] = bindings[toggleKey];
+                    hotkeys[selectKey] = bindings[selectKey];
+                }
+
+                Settings.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                readOnlyHotkeys = new Dictionary<string, Hotkey>();
+                Dictionary<string, string> readOnlyBindings = SearchWindow.WrapperApp.ReadKeyBindingsReadOnly();
+
+                ToggleCaseSensitive.Hotkey = new Hotkey(readOnlyBindings[ToggleCaseSensitive.Name]);
+                ToggleWholeWord.Hotkey = new Hotkey(readOnlyBindings[ToggleWholeWord.Name]);
+                ToggleRegEx.Hotkey = new Hotkey(readOnlyBindings[ToggleRegEx.Name]);
+                ToggleIncludeFiles.Hotkey = new Hotkey(readOnlyBindings[ToggleIncludeFiles.Name]);
+                ToggleExcludeFiles.Hotkey = new Hotkey(readOnlyBindings[ToggleExcludeFiles.Name]);
+                ToggleFilterResults.Hotkey = new Hotkey(readOnlyBindings[ToggleFilterResults.Name]);
+                ShowHistory.Hotkey = new Hotkey(readOnlyBindings[ShowHistory.Name]);
+                ToggleGroupBy.Hotkey = new Hotkey(readOnlyBindings[ToggleGroupBy.Name]);
+                ToggleGroupExpand.Hotkey = new Hotkey(readOnlyBindings[ToggleGroupExpand.Name]);
+
+                OpenFileSearch.Hotkey = new Hotkey(readOnlyBindings["View.qgrepSearchFile"]);
+                OpenToolWindow.Hotkey = new Hotkey(readOnlyBindings["View.qgrepSearchTool"]);
+
+                for (int i = 0; i < 9; i++)
+                {
+                    string toggleKey = $"ToggleSearchFilter{i + 1}";
+                    string selectKey = $"SelectSearchFilter{i + 1}";
+
+                    readOnlyHotkeys[toggleKey] = new Hotkey(readOnlyBindings[toggleKey]);
+                    readOnlyHotkeys[selectKey] = new Hotkey(readOnlyBindings[selectKey]);
+                }
+
+                Settings.Visibility = Visibility.Visible;
+                OK.Visibility = Visibility.Collapsed;
+                Cancel.Visibility = Visibility.Collapsed;
+            }
+
+            for (int i = 0; i < 9; i++)
             {
                 string toggleKey = $"ToggleSearchFilter{i + 1}";
                 string selectKey = $"SelectSearchFilter{i + 1}";
-
-                hotkeys[toggleKey] = new Hotkey(bindings[toggleKey].Key, bindings[toggleKey].Modifiers);
-                hotkeys[selectKey] = new Hotkey(bindings[selectKey].Key, bindings[selectKey].Modifiers);
 
                 ToggleSearchFilterComboBox.Items.Add(new HotkeyComboBoxItem() { Key = toggleKey, Value = string.Format(Properties.Resources.ToggleSearchFilter, i + 1) });
                 SelectSearchFilterComboBox.Items.Add(new HotkeyComboBoxItem() { Key = selectKey, Value = string.Format(Properties.Resources.SelectSearchFilter, i + 1) });
@@ -78,9 +147,17 @@ namespace qgrepControls.SearchWindow
             bindings[ToggleExcludeFiles.Name] = ToggleExcludeFiles.Hotkey;
             bindings[ToggleFilterResults.Name] = ToggleFilterResults.Hotkey;
             bindings[ShowHistory.Name] = ShowHistory.Hotkey;
-            bindings[OpenFileSearch.Name] = OpenFileSearch.Hotkey;
             bindings[ToggleGroupBy.Name] = ToggleGroupBy.Hotkey;
             bindings[ToggleGroupExpand.Name] = ToggleGroupExpand.Hotkey;
+
+            bindings["View.qgrepSearchFile"] = OpenFileSearch.Hotkey;
+            bindings["View.qgrepSearchFile"].IsGlobal = true;
+
+            if(!SearchWindow.WrapperApp.IsStandalone)
+            {
+                bindings["View.qgrepSearchTool"] = OpenToolWindow.Hotkey;
+                bindings["View.qgrepSearchTool"].IsGlobal = true;
+            }
 
             foreach (KeyValuePair<string, Hotkey> hotkey in hotkeys)
             {
@@ -109,7 +186,10 @@ namespace qgrepControls.SearchWindow
                 HotkeyComboBoxItem oldHotkey = e.RemovedItems[0] as HotkeyComboBoxItem;
                 if(oldHotkey != null)
                 {
-                    hotkeys[oldHotkey.Key] = new Hotkey(ToggleSearchFilter.Hotkey.Key, ToggleSearchFilter.Hotkey.Modifiers);
+                    if(hotkeys != null)
+                    {
+                        hotkeys[oldHotkey.Key] = new Hotkey(ToggleSearchFilter.Hotkey.Key, ToggleSearchFilter.Hotkey.Modifiers);
+                    }
                 }
             }
 
@@ -118,7 +198,14 @@ namespace qgrepControls.SearchWindow
                 HotkeyComboBoxItem newHotkey = e.AddedItems[0] as HotkeyComboBoxItem;
                 if(newHotkey != null)
                 {
-                    ToggleSearchFilter.Hotkey = hotkeys[newHotkey.Key];
+                    if (hotkeys != null)
+                    {
+                        ToggleSearchFilter.Hotkey = hotkeys[newHotkey.Key];
+                    }
+                    else if(readOnlyHotkeys != null)
+                    {
+                        ToggleSearchFilter.Hotkey = readOnlyHotkeys[newHotkey.Key];
+                    }
                 }
             }
         }
@@ -130,7 +217,10 @@ namespace qgrepControls.SearchWindow
                 HotkeyComboBoxItem oldHotkey = e.RemovedItems[0] as HotkeyComboBoxItem;
                 if (oldHotkey != null)
                 {
-                    hotkeys[oldHotkey.Key] = new Hotkey(SelectSearchFilter.Hotkey.Key, SelectSearchFilter.Hotkey.Modifiers);
+                    if (hotkeys != null)
+                    {
+                        hotkeys[oldHotkey.Key] = new Hotkey(SelectSearchFilter.Hotkey.Key, SelectSearchFilter.Hotkey.Modifiers);
+                    }
                 }
             }
 
@@ -139,8 +229,45 @@ namespace qgrepControls.SearchWindow
                 HotkeyComboBoxItem newHotkey = e.AddedItems[0] as HotkeyComboBoxItem;
                 if (newHotkey != null)
                 {
-                    SelectSearchFilter.Hotkey = hotkeys[newHotkey.Key];
+                    if (hotkeys != null)
+                    {
+                        SelectSearchFilter.Hotkey = hotkeys[newHotkey.Key];
+                    }
+                    else if(readOnlyHotkeys != null)
+                    {
+                        SelectSearchFilter.Hotkey = readOnlyHotkeys[newHotkey.Key];
+                    }
                 }
+            }
+        }
+
+        private void HotkeyChanged(object sender, System.EventArgs e)
+        {
+            List<string> conflicts = SearchWindow.WrapperApp.GetConflictingCommandsForBinding(GetBindings());
+            if(conflicts.Count > 0)
+            {
+                WarningText.Visibility = Visibility.Visible;
+                WarningText.Text = Properties.Resources.CommandsOverwritten;
+
+                foreach(string conflict in conflicts)
+                {
+                    WarningText.Text += "\n" + conflict;
+                }
+            }
+            else
+            {
+                WarningText.Visibility = Visibility.Collapsed;
+                WarningText.Text = "";
+            }
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            OpenSettings = true;
+
+            if (Dialog != null)
+            {
+                Dialog.Close();
             }
         }
     }

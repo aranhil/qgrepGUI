@@ -32,6 +32,7 @@ namespace qgrepGUI
         public StandaloneWrapper(Window window)
         {
             Window = window;
+            TaskRunner.RunInBackgroundAsync(QueueUpdate);
         }
 
         public bool SearchWindowOpened 
@@ -110,7 +111,7 @@ namespace qgrepGUI
             bindings["ToggleExcludeFiles"] = new Hotkey(mainWindow.ToggleExcludeFiles.Key, mainWindow.ToggleExcludeFiles.Modifiers);
             bindings["ToggleFilterResults"] = new Hotkey(mainWindow.ToggleFilterResults.Key, mainWindow.ToggleFilterResults.Modifiers);
             bindings["ShowHistory"] = new Hotkey(mainWindow.ShowHistory.Key, mainWindow.ShowHistory.Modifiers);
-            bindings["OpenFileSearch"] = new Hotkey(mainWindow.OpenFileSearch.Key, mainWindow.OpenFileSearch.Modifiers);
+            bindings["View.qgrepSearchFile"] = new Hotkey(mainWindow.OpenFileSearch.Key, mainWindow.OpenFileSearch.Modifiers);
             bindings["ToggleGroupBy"] = new Hotkey(mainWindow.ToggleGroupBy.Key, mainWindow.ToggleGroupBy.Modifiers);
             bindings["ToggleGroupExpand"] = new Hotkey(mainWindow.ToggleGroupExpand.Key, mainWindow.ToggleGroupExpand.Modifiers);
             bindings["ToggleSearchFilter1"] = new Hotkey(mainWindow.ToggleSearchFilter1.Key, mainWindow.ToggleSearchFilter1.Modifiers);
@@ -132,7 +133,6 @@ namespace qgrepGUI
             bindings["SelectSearchFilter8"] = new Hotkey(mainWindow.SelectSearchFilter8.Key, mainWindow.SelectSearchFilter8.Modifiers);
             bindings["SelectSearchFilter9"] = new Hotkey(mainWindow.SelectSearchFilter9.Key, mainWindow.SelectSearchFilter9.Modifiers);
 
-            SaveKeyBindings(bindings);
             return bindings;
         }
 
@@ -152,18 +152,22 @@ namespace qgrepGUI
                 }
                 catch { }
 
-                if (bindings.Count != 28)
+                Dictionary<string, Hotkey> defaultHotkeys = LoadDefaultKeyBindings();
+                if(bindings.Count != defaultHotkeys.Count || bindings.Any(x => !defaultHotkeys.ContainsKey(x.Key)))
                 {
-                    LoadDefaultKeyBindings();
+                    bindings = defaultHotkeys;
+                    SaveKeyBindings(bindings);
                 }
             }
 
             return bindings;
         }
 
-        public void ApplyKeyBindings(Dictionary<string, Hotkey> bindings)
+        public void ApplyKeyBindings()
         {
             MainWindow mainWindow = (Application.Current.MainWindow as MainWindow);
+
+            Dictionary<string, Hotkey> bindings = ReadKeyBindings();
 
             mainWindow.ToggleCaseSensitive.Key = bindings["ToggleCaseSensitive"].Key;
             mainWindow.ToggleCaseSensitive.Modifiers = bindings["ToggleCaseSensitive"].Modifiers;
@@ -186,8 +190,8 @@ namespace qgrepGUI
             mainWindow.ShowHistory.Key = bindings["ShowHistory"].Key;
             mainWindow.ShowHistory.Modifiers = bindings["ShowHistory"].Modifiers;
 
-            mainWindow.OpenFileSearch.Key = bindings["OpenFileSearch"].Key;
-            mainWindow.OpenFileSearch.Modifiers = bindings["OpenFileSearch"].Modifiers;
+            mainWindow.OpenFileSearch.Key = bindings["View.qgrepSearchFile"].Key;
+            mainWindow.OpenFileSearch.Modifiers = bindings["View.qgrepSearchFile"].Modifiers;
 
             mainWindow.ToggleGroupBy.Key = bindings["ToggleGroupBy"].Key;
             mainWindow.ToggleGroupBy.Modifiers = bindings["ToggleGroupBy"].Modifiers;
@@ -256,6 +260,11 @@ namespace qgrepGUI
             Settings.Default.Save();
         }
 
+        public Dictionary<string, string> ReadKeyBindingsReadOnly()
+        {
+            return ReadKeyBindings().ToDictionary(x => x.Key, x => x.Value.ToString());
+        }
+
         public Window GetMainWindow()
         {
             return null;
@@ -304,9 +313,33 @@ namespace qgrepGUI
         private Dictionary<string, BitmapSource> iconCache = new Dictionary<string, BitmapSource>();
         private readonly object lockObject = new object();
 
-        public void GetFileIcon(string filePath, SearchResult searchResult)
+        private ManualResetEvent queueEvent = new ManualResetEvent(false);
+        Queue<SearchResult> queuedIconRequests = new Queue<SearchResult>();
+        static uint Background = 0;
+
+        private void QueueUpdate()
         {
-            string fileExtension = Path.GetExtension(filePath);
+            while (true)
+            {
+                queueEvent.WaitOne();
+                while(queuedIconRequests.Count > 0)
+                {
+                    SearchResult searchResult = null;
+
+                    lock(lockObject)
+                    {
+                        searchResult = queuedIconRequests.Dequeue();
+                    }
+
+                    GetFileIcon(searchResult);
+                }
+                queueEvent.Reset();
+            }
+        }
+
+        public void GetFileIcon(SearchResult searchResult)
+        {
+            string fileExtension = Path.GetExtension(searchResult.FullResult);
 
             if (iconCache.ContainsKey(fileExtension))
             {
@@ -314,41 +347,22 @@ namespace qgrepGUI
             }
             else
             {
-                Task.Run(() =>
+                SHFILEINFO shfi = new SHFILEINFO();
+                uint flags = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES | SHGFI_SMALLICON;
+
+                SHGetFileInfo(searchResult.FullResult, FILE_ATTRIBUTE_NORMAL, ref shfi, (uint)System.Runtime.InteropServices.Marshal.SizeOf(shfi), flags);
+                System.Drawing.Icon icon = (System.Drawing.Icon)System.Drawing.Icon.FromHandle(shfi.hIcon).Clone();
+
+                DestroyIcon(shfi.hIcon);
+
+                TaskRunner.RunOnUIThread(() =>
                 {
-                    lock (lockObject)
+                    if (icon != null)
                     {
-                        BitmapSource iconSource = null;
-                        TaskRunner.RunOnUIThread(() =>
-                        {
-                            iconSource = iconCache.ContainsKey(fileExtension) ? iconCache[fileExtension] : null;
-                        });
-
-                        if (iconSource != null)
-                        {
-                            searchResult.ImageSource = iconSource;
-                        }
-                        else
-                        {
-                            SHFILEINFO shfi = new SHFILEINFO();
-                            uint flags = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES | SHGFI_SMALLICON;
-
-                            SHGetFileInfo(filePath, FILE_ATTRIBUTE_NORMAL, ref shfi, (uint)System.Runtime.InteropServices.Marshal.SizeOf(shfi), flags);
-                            System.Drawing.Icon icon = (System.Drawing.Icon)System.Drawing.Icon.FromHandle(shfi.hIcon).Clone();
-
-                            DestroyIcon(shfi.hIcon);
-
-                            TaskRunner.RunOnUIThread(() =>
-                            {
-                                if (icon != null)
-                                {
-                                    iconCache[fileExtension] = GetBitmapSourceFromIcon(icon);
-                                }
-
-                                searchResult.ImageSource = iconCache[fileExtension];
-                            });
-                        }
+                        iconCache[fileExtension] = GetBitmapSourceFromIcon(icon);
                     }
+
+                    searchResult.ImageSource = iconCache[fileExtension];
                 });
             }
         }
@@ -363,13 +377,16 @@ namespace qgrepGUI
             return bitmapSource;
         }
 
-        public void GetIcon(string document, uint background, SearchResult searchResult)
+        public void GetIcon(uint background, SearchResult searchResult)
         {
-            try
+            Background = background;
+
+            lock (lockObject)
             {
-                GetFileIcon(document, searchResult);
+                queuedIconRequests.Enqueue(searchResult);
             }
-            catch { }
+
+            queueEvent.Set();
         }
 
         public void StartBackgroundTask(string title)
@@ -400,6 +417,20 @@ namespace qgrepGUI
         public bool IsActiveDocumentCpp()
         {
             return false;
+        }
+
+        public List<string> GetConflictingCommandsForBinding(Dictionary<string, Hotkey> bindings)
+        {
+            return new List<string>();
+        }
+
+        public void OpenKeyBindingSettings()
+        {
+        }
+
+        public bool CanEditKeyBindings()
+        {
+            return true;
         }
     }
 }

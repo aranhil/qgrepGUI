@@ -1107,23 +1107,39 @@
                         <ScrollViewer x:Name="PART_ContentHost" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" MouseEnter="PART_ContentHost_MouseEnter" MouseLeave="PART_ContentHost_MouseLeave" LostFocus="PART_ContentHost_LostFocus" GotFocus="PART_ContentHost_GotFocus" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused" Value="true">
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsFocused" Value="true" />
+                                <Condition Property="IsEnabled" Value="true" />
+                            </MultiTrigger.Conditions>
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Border.IsSelected}"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true" />
+                                <Condition Property="IsEnabled" Value="true" />
+                            </MultiTrigger.Conditions>
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Border.IsMouseOver}"/>
-                        </Trigger>
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource Border.IsMouseOver}"/>
-            </Trigger>
-            <Trigger Property="IsFocused" Value="True">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsFocused" Value="true" />
+                    <Condition Property="IsEnabled" Value="true" />
+                </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush" Value="{DynamicResource Border.IsSelected}"/>
-            </Trigger>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="true" />
+                    <Condition Property="IsEnabled" Value="true" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" Value="{DynamicResource Border.IsMouseOver}"/>
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
     <Style TargetType="{x:Type Button}">
@@ -1371,7 +1387,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="8,0,0,0" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
     <Style x:Key="ResultPanel" TargetType="{x:Type DockPanel}">
         <Setter Property="Background" Value="Transparent"/>

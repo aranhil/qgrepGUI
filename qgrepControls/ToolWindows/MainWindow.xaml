@@ -21,6 +21,7 @@
         SizeToContent="Manual"
         SnapsToDevicePixels="True"
         Topmost="False"
+        SizeChanged="Window_SizeChanged"
         mc:Ignorable="d" KeyDown="Window_PreviewKeyDown" Closed="Window_Closed">
     <controlzEx:WindowChromeWindow.Resources>
         <ResourceDictionary Source="/qgrepControls;component/ResourceDictionary.xaml" />

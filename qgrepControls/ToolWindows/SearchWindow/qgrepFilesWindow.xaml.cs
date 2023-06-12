@@ -16,7 +16,7 @@ namespace qgrepControls.SearchWindow
     {
         public IWrapperApp WrapperApp;
         public bool IsActiveDocumentCpp = false;
-        public Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
+        public Dictionary<string, string> bindings = new Dictionary<string, string>();
         public string IncludeFile;
 
         public qgrepFilesWindowControl(IWrapperApp WrapperApp)
@@ -43,7 +43,7 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.ShowLastUpdateMessage();
             UpdateFilters();
 
-            bindings = WrapperApp.ReadKeyBindings();
+            bindings = WrapperApp.ReadKeyBindingsReadOnly();
             ConfigParser.ApplyKeyBindings(bindings);
             ApplyKeyBindings();
 
@@ -56,60 +56,63 @@ namespace qgrepControls.SearchWindow
 
         private void ApplyKeyBindings()
         {
-            ToggleSearchFilter1.Key = bindings["ToggleSearchFilter1"].Key;
-            ToggleSearchFilter1.Modifiers = bindings["ToggleSearchFilter1"].Modifiers;
+            Dictionary<string, Hotkey> bindings = WrapperApp.ReadKeyBindings();
+            if(bindings != null)
+            {
+                ToggleSearchFilter1.Key = bindings["ToggleSearchFilter1"].Key;
+                ToggleSearchFilter1.Modifiers = bindings["ToggleSearchFilter1"].Modifiers;
 
-            ToggleSearchFilter2.Key = bindings["ToggleSearchFilter2"].Key;
-            ToggleSearchFilter2.Modifiers = bindings["ToggleSearchFilter2"].Modifiers;
+                ToggleSearchFilter2.Key = bindings["ToggleSearchFilter2"].Key;
+                ToggleSearchFilter2.Modifiers = bindings["ToggleSearchFilter2"].Modifiers;
 
-            ToggleSearchFilter3.Key = bindings["ToggleSearchFilter3"].Key;
-            ToggleSearchFilter3.Modifiers = bindings["ToggleSearchFilter3"].Modifiers;
+                ToggleSearchFilter3.Key = bindings["ToggleSearchFilter3"].Key;
+                ToggleSearchFilter3.Modifiers = bindings["ToggleSearchFilter3"].Modifiers;
 
-            ToggleSearchFilter4.Key = bindings["ToggleSearchFilter4"].Key;
-            ToggleSearchFilter4.Modifiers = bindings["ToggleSearchFilter4"].Modifiers;
+                ToggleSearchFilter4.Key = bindings["ToggleSearchFilter4"].Key;
+                ToggleSearchFilter4.Modifiers = bindings["ToggleSearchFilter4"].Modifiers;
 
-            ToggleSearchFilter5.Key = bindings["ToggleSearchFilter5"].Key;
-            ToggleSearchFilter5.Modifiers = bindings["ToggleSearchFilter5"].Modifiers;
+                ToggleSearchFilter5.Key = bindings["ToggleSearchFilter5"].Key;
+                ToggleSearchFilter5.Modifiers = bindings["ToggleSearchFilter5"].Modifiers;
 
-            ToggleSearchFilter6.Key = bindings["ToggleSearchFilter6"].Key;
-            ToggleSearchFilter6.Modifiers = bindings["ToggleSearchFilter6"].Modifiers;
+                ToggleSearchFilter6.Key = bindings["ToggleSearchFilter6"].Key;
+                ToggleSearchFilter6.Modifiers = bindings["ToggleSearchFilter6"].Modifiers;
 
-            ToggleSearchFilter7.Key = bindings["ToggleSearchFilter7"].Key;
-            ToggleSearchFilter7.Modifiers = bindings["ToggleSearchFilter7"].Modifiers;
+                ToggleSearchFilter7.Key = bindings["ToggleSearchFilter7"].Key;
+                ToggleSearchFilter7.Modifiers = bindings["ToggleSearchFilter7"].Modifiers;
 
-            ToggleSearchFilter8.Key = bindings["ToggleSearchFilter8"].Key;
-            ToggleSearchFilter8.Modifiers = bindings["ToggleSearchFilter8"].Modifiers;
+                ToggleSearchFilter8.Key = bindings["ToggleSearchFilter8"].Key;
+                ToggleSearchFilter8.Modifiers = bindings["ToggleSearchFilter8"].Modifiers;
 
-            ToggleSearchFilter9.Key = bindings["ToggleSearchFilter9"].Key;
-            ToggleSearchFilter9.Modifiers = bindings["ToggleSearchFilter9"].Modifiers;
+                ToggleSearchFilter9.Key = bindings["ToggleSearchFilter9"].Key;
+                ToggleSearchFilter9.Modifiers = bindings["ToggleSearchFilter9"].Modifiers;
 
-            SelectSearchFilter1.Key = bindings["SelectSearchFilter1"].Key;
-            SelectSearchFilter1.Modifiers = bindings["SelectSearchFilter1"].Modifiers;
+                SelectSearchFilter1.Key = bindings["SelectSearchFilter1"].Key;
+                SelectSearchFilter1.Modifiers = bindings["SelectSearchFilter1"].Modifiers;
 
-            SelectSearchFilter2.Key = bindings["SelectSearchFilter2"].Key;
-            SelectSearchFilter2.Modifiers = bindings["SelectSearchFilter2"].Modifiers;
+                SelectSearchFilter2.Key = bindings["SelectSearchFilter2"].Key;
+                SelectSearchFilter2.Modifiers = bindings["SelectSearchFilter2"].Modifiers;
 
-            SelectSearchFilter3.Key = bindings["SelectSearchFilter3"].Key;
-            SelectSearchFilter3.Modifiers = bindings["SelectSearchFilter3"].Modifiers;
+                SelectSearchFilter3.Key = bindings["SelectSearchFilter3"].Key;
+                SelectSearchFilter3.Modifiers = bindings["SelectSearchFilter3"].Modifiers;
 
-            SelectSearchFilter4.Key = bindings["SelectSearchFilter4"].Key;
-            SelectSearchFilter4.Modifiers = bindings["SelectSearchFilter4"].Modifiers;
+                SelectSearchFilter4.Key = bindings["SelectSearchFilter4"].Key;
+                SelectSearchFilter4.Modifiers = bindings["SelectSearchFilter4"].Modifiers;
 
-            SelectSearchFilter5.Key = bindings["SelectSearchFilter5"].Key;
-            SelectSearchFilter5.Modifiers = bindings["SelectSearchFilter5"].Modifiers;
+                SelectSearchFilter5.Key = bindings["SelectSearchFilter5"].Key;
+                SelectSearchFilter5.Modifiers = bindings["SelectSearchFilter5"].Modifiers;
 
-            SelectSearchFilter6.Key = bindings["SelectSearchFilter6"].Key;
-            SelectSearchFilter6.Modifiers = bindings["SelectSearchFilter6"].Modifiers;
+                SelectSearchFilter6.Key = bindings["SelectSearchFilter6"].Key;
+                SelectSearchFilter6.Modifiers = bindings["SelectSearchFilter6"].Modifiers;
 
-            SelectSearchFilter7.Key = bindings["SelectSearchFilter7"].Key;
-            SelectSearchFilter7.Modifiers = bindings["SelectSearchFilter7"].Modifiers;
+                SelectSearchFilter7.Key = bindings["SelectSearchFilter7"].Key;
+                SelectSearchFilter7.Modifiers = bindings["SelectSearchFilter7"].Modifiers;
 
-            SelectSearchFilter8.Key = bindings["SelectSearchFilter8"].Key;
-            SelectSearchFilter8.Modifiers = bindings["SelectSearchFilter8"].Modifiers;
+                SelectSearchFilter8.Key = bindings["SelectSearchFilter8"].Key;
+                SelectSearchFilter8.Modifiers = bindings["SelectSearchFilter8"].Modifiers;
 
-            SelectSearchFilter9.Key = bindings["SelectSearchFilter9"].Key;
-            SelectSearchFilter9.Modifiers = bindings["SelectSearchFilter9"].Modifiers;
-
+                SelectSearchFilter9.Key = bindings["SelectSearchFilter9"].Key;
+                SelectSearchFilter9.Modifiers = bindings["SelectSearchFilter9"].Modifiers;
+            }
         }
 
         private void SearchInput_TextChanged(object sender, TextChangedEventArgs e)
@@ -269,7 +272,7 @@ namespace qgrepControls.SearchWindow
 
                         if (searchOptions.IsFileSearch)
                         {
-                            WrapperApp.GetIcon(fileAndLine, BackgroundColor, newSearchResult);
+                            WrapperApp.GetIcon(BackgroundColor, newSearchResult);
                         }
 
                         newSearchResults.Add(newSearchResult);

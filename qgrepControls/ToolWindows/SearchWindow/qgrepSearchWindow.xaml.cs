@@ -40,7 +40,7 @@ namespace qgrepControls.SearchWindow
     public partial class qgrepSearchWindowControl : UserControl, ISearchEngineEventsHandler
     {
         public IWrapperApp WrapperApp;
-        public Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
+        public Dictionary<string, string> bindings = new Dictionary<string, string>();
         public bool IsActiveDocumentCpp = false;
 
         private string LastResults = "";
@@ -114,13 +114,11 @@ namespace qgrepControls.SearchWindow
             SearchItemsListBox.Focusable = true;
             SearchItemsTreeView.Focusable = true;
 
-            bindings = WrapperApp.ReadKeyBindings();
+            bindings = WrapperApp.ReadKeyBindingsReadOnly();
             ConfigParser.ApplyKeyBindings(bindings);
-            WrapperApp.ApplyKeyBindings(bindings);
+            WrapperApp.ApplyKeyBindings();
 
-            KeyboardButton.Visibility = WrapperApp.IsStandalone ? Visibility.Visible : Visibility.Collapsed;
             UpdateShortcutHints();
-
             LoadCrashReports();
         }
 
@@ -248,6 +246,9 @@ namespace qgrepControls.SearchWindow
             ExcludeRegEx.ToolTip = string.Format(Properties.Resources.RegEx, bindings["ToggleRegEx"].ToString());
             FilterRegEx.ToolTip = string.Format(Properties.Resources.RegEx, bindings["ToggleRegEx"].ToString());
             HistoryButton.ToolTip = string.Format(Properties.Resources.HistoryButton, bindings["ShowHistory"].ToString());
+            IncludeFilesLabel.Text = string.Format(Properties.Resources.IncludeFilesLabel, bindings["ToggleIncludeFiles"].ToString());
+            ExcludeFilesLabel.Text = string.Format(Properties.Resources.ExcludeFilesLabel, bindings["ToggleExcludeFiles"].ToString());
+            FilterResultsLabel.Text = string.Format(Properties.Resources.FilterResultsLabel, bindings["ToggleFilterResults"].ToString());
         }
 
         public void UpdateFilters()
@@ -721,7 +722,7 @@ namespace qgrepControls.SearchWindow
 
                     if (searchOptions.IsFileSearch)
                     {
-                        WrapperApp.GetIcon(newSearchResult.FullResult, BackgroundColor, newSearchResult);
+                        WrapperApp.GetIcon(BackgroundColor, newSearchResult);
                     }
 
                     newSearchResults.Add(newSearchResult);
@@ -1937,11 +1938,17 @@ namespace qgrepControls.SearchWindow
 
             if (hotkeysWindow.IsOk)
             {
-                bindings = hotkeysWindow.GetBindings();
-                WrapperApp.SaveKeyBindings(bindings);
-                WrapperApp.ApplyKeyBindings(bindings);
+                Dictionary<string, Hotkey> newBindings = hotkeysWindow.GetBindings();
+
+                bindings = newBindings.ToDictionary(x => x.Key, x => x.Value.ToString());
+                WrapperApp.SaveKeyBindings(newBindings);
+                WrapperApp.ApplyKeyBindings();
                 ConfigParser.ApplyKeyBindings(bindings);
                 UpdateShortcutHints();
+            }
+            else if(hotkeysWindow.OpenSettings)
+            {
+                WrapperApp.OpenKeyBindingSettings();
             }
         }
 

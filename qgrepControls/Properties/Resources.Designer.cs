@@ -260,6 +260,24 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ({1} ({2})).
+        /// </summary>
+        public static string CommandAndShortcut {
+            get {
+                return ResourceManager.GetString("CommandAndShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global shortcuts currently used by:.
+        /// </summary>
+        public static string CommandsOverwritten {
+            get {
+                return ResourceManager.GetString("CommandsOverwritten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Config{0}.
         /// </summary>
         public static string ConfigFormat {
@@ -377,7 +395,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit hotkeys.
+        ///   Looks up a localized string similar to Edit shortcuts.
         /// </summary>
         public static string EditHotkeys {
             get {
@@ -440,7 +458,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exclude files....
+        ///   Looks up a localized string similar to Exclude files ({0}).
         /// </summary>
         public static string ExcludeFilesLabel {
             get {
@@ -521,7 +539,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter results....
+        ///   Looks up a localized string similar to Filter results ({0}).
         /// </summary>
         public static string FilterResultsLabel {
             get {
@@ -544,6 +562,24 @@ namespace qgrepControls.Properties {
         public static string FilterSearchScopeLabelContent {
             get {
                 return ResourceManager.GetString("FilterSearchScopeLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global.
+        /// </summary>
+        public static string Global {
+            get {
+                return ResourceManager.GetString("Global", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global shortcuts.
+        /// </summary>
+        public static string GlobalShortcuts {
+            get {
+                return ResourceManager.GetString("GlobalShortcuts", resourceCulture);
             }
         }
         
@@ -674,7 +710,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include files....
+        ///   Looks up a localized string similar to Include files ({0}).
         /// </summary>
         public static string IncludeFilesLabel {
             get {
@@ -787,6 +823,24 @@ namespace qgrepControls.Properties {
         public static string LastIndexUpdateLabelContent {
             get {
                 return ResourceManager.GetString("LastIndexUpdateLabelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to qgrep Search Tool.
+        /// </summary>
+        public static string Local {
+            get {
+                return ResourceManager.GetString("Local", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local shortcuts.
+        /// </summary>
+        public static string LocalShortcuts {
+            get {
+                return ResourceManager.GetString("LocalShortcuts", resourceCulture);
             }
         }
         
@@ -967,6 +1021,15 @@ namespace qgrepControls.Properties {
         public static string NoSolutionLoaded {
             get {
                 return ResourceManager.GetString("NoSolutionLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;not set&gt;.
+        /// </summary>
+        public static string NotSet {
+            get {
+                return ResourceManager.GetString("NotSet", resourceCulture);
             }
         }
         
@@ -1295,7 +1358,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search....
+        ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string SearchLabel {
             get {

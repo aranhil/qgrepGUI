@@ -988,13 +988,13 @@ namespace qgrepControls.Classes
             Instance.FileSelectedProjects.Clear();
         }
 
-        public static void ApplyKeyBindings(Dictionary<string, Hotkey> bindings)
+        public static void ApplyKeyBindings(Dictionary<string, string> bindings)
         {
             try
             {
                 for (int i = 0; i < Math.Min(9, Instance.ConfigProjects.Count); i++)
                 {
-                    Instance.ConfigProjects[i].GestureText = bindings["ToggleSearchFilter" + (i + 1)].ToString() + "/" + bindings["SelectSearchFilter" + (i + 1)].ToString();
+                    Instance.ConfigProjects[i].GestureText = bindings["ToggleSearchFilter" + (i + 1)] + "/" + bindings["SelectSearchFilter" + (i + 1)];
                 }
             }
             catch { }

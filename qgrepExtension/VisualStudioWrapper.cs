@@ -7,18 +7,22 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TaskStatusCenter;
 using qgrepControls.Classes;
 using qgrepControls.ModelViews;
+using qgrepControls.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 using Xceed.Wpf.Toolkit.Core.Input;
 
 namespace qgrepSearch
@@ -26,7 +30,7 @@ namespace qgrepSearch
     public class VisualStudioWrapper : IWrapperApp
     {
         private ExtensionData Data;
-
+        ResourceManager ResourceManager = new ResourceManager("Properties.VSPackage.en-US.resx", Assembly.GetExecutingAssembly());
         public VisualStudioWrapper(ExtensionData windowState)
         {
             Data = windowState;
@@ -142,22 +146,28 @@ namespace qgrepSearch
 
         public string GetConfigPath(bool useGlobalPath)
         {
-            if (useGlobalPath)
+            try
             {
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string appFolderPath = Path.Combine(appDataPath, "qgrepSearch");
-
-                if (!Directory.Exists(appFolderPath))
+                if (useGlobalPath)
                 {
-                    Directory.CreateDirectory(appFolderPath);
-                }
+                    string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    string appFolderPath = Path.Combine(appDataPath, "qgrepSearch");
 
-                return appFolderPath;
+                    if (!Directory.Exists(appFolderPath))
+                    {
+                        Directory.CreateDirectory(appFolderPath);
+                    }
+
+                    return appFolderPath;
+                }
+                else
+                {
+                    return System.IO.Path.GetDirectoryName(Data.DTE?.Solution?.FullName ?? "");
+                }
             }
-            else
-            {
-                return System.IO.Path.GetDirectoryName(Data.DTE?.Solution?.FullName ?? "");
-            }
+            catch { }
+
+            return "";
         }
 
         public void OpenFile(string path, string line)
@@ -535,101 +545,424 @@ namespace qgrepSearch
         {
         }
 
-        private Hotkey GetBindingForCommand(string commandString)
+        private string GetBinding(string binding)
+        {
+            int position = binding.IndexOf("::");
+
+            if (position >= 0)
+            {
+                string scope = binding.Substring(0, position);
+                return binding.Substring(position + 2);
+            }
+
+            return "";
+        }
+
+        private string GetBindingAndScope(string binding, out string scope)
+        {
+            scope = null;
+            int position = binding.IndexOf("::");
+
+            if (position >= 0)
+            {
+                scope = binding.Substring(0, position);
+                return binding.Substring(position + 2);
+            }
+
+            return "";
+        }
+
+        private string GetBindingForCommand(string commandString, List<Command> commands)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             try
             {
-                EnvDTE.Command command = Data.DTE.Commands.Item("qgrep." + commandString);
-
-                if (command.Bindings is object[] bindings && bindings.Length > 0 && bindings[0] is string binding)
+                Command command = commands.Find(x =>
                 {
-                    ModifierKeys modifiers = ModifierKeys.None;
-                    Key key = Key.None;
+                    ThreadHelper.ThrowIfNotOnUIThread();
+                    return x.Name.Contains(commandString);
+                });
 
-                    int position = binding.IndexOf("::");
+                if (command != null && command.Bindings is object[] bindings && bindings.Length > 0 && bindings[0] is string binding)
+                {
+                    return GetBinding(binding);
+                }
+            }
+            catch { }
 
-                    if (position >= 0)
+            return "";
+        }
+
+        private string GetGlobalBinding(string binding)
+        {
+            int position = binding.IndexOf("::");
+
+            if (position >= 0)
+            {
+                string scope = binding.Substring(0, position);
+                if(scope == Resources.Global)
+                {
+                    return binding.Substring(position + 2);
+                }
+            }
+
+            return "";
+        }
+
+        private bool GetBinding(string binding, ref Hotkey hotkey)
+        {
+            int position = binding.IndexOf("::");
+
+            if (position >= 0)
+            {
+                string result = binding.Substring(position + 2);
+                string scope = binding.Substring(0, position);
+                bool isGlobal = (scope == Resources.Global);
+
+                try
+                {
+                    hotkey = Hotkey.FromString(result);
+                    hotkey.Scope = scope;
+                    hotkey.IsGlobal = isGlobal;
+                }
+                catch
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool GetBindingForCommand(string commandString, List<Command> commands, ref Hotkey hotkey)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            try
+            {
+                Command command = commands.Find(x =>
+                {
+                    ThreadHelper.ThrowIfNotOnUIThread();
+                    return x.Name.Contains(commandString);
+                });
+
+                if (command != null && command.Bindings is object[] bindings)
+                {
+                    if(bindings.Length > 0 && bindings[0] is string binding)
                     {
-                        string result = binding.Substring(position + 2);
+                        GetBinding(binding, ref hotkey);
+                    }
+                    else
+                    {
+                        hotkey = new Hotkey();
+                    }
+                    return true;
+                }
+            }
+            catch { }
 
-                        string[] parts = result.Split('+');
+            return false;
+        }
 
-                        foreach (string part in parts)
+        private List<Hotkey> GetBindingsForCommand(string commandString)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            List<Hotkey> hotkeys = new List<Hotkey>();
+
+            try
+            {
+                EnvDTE.Command command = Data?.DTE?.Commands?.Item(commandString);
+                if (command != null && command.Bindings is object[] bindings)
+                {
+                    foreach (var binding in bindings)
+                    {
+                        if (binding is string bindingString)
                         {
-                            if (int.TryParse(part, out int number) && number >= 0 && number <= 9)
+                            Hotkey hotkey = null;
+                            if (GetBinding(bindingString, ref hotkey))
                             {
-                                if (Enum.TryParse($"D{number}", true, out Key numberKey))
-                                {
-                                    key = numberKey;
-                                }
-                            }
-                            else if (Enum.TryParse(part, true, out Key tempKey))
-                            {
-                                key = tempKey;
-                            }
-                            else
-                            {
-                                ModifierKeys keyModifier = LocalizationHelper.GetKeyModifier(part);
-                                if (keyModifier != ModifierKeys.None)
-                                {
-                                    modifiers |= keyModifier;
-                                }
+                                hotkeys.Add(hotkey);
                             }
                         }
-
-                        return new Hotkey(key, modifiers);
                     }
                 }
             }
             catch { }
 
-            return new Hotkey(Key.None, ModifierKeys.None);
+            return hotkeys;
         }
 
+        private List<string> GetCommandStrings()
+        {
+            return new List<string>
+            {
+                "ToggleCaseSensitive",
+                "ToggleWholeWord",
+                "ToggleRegEx",
+                "ToggleIncludeFiles",
+                "ToggleExcludeFiles",
+                "ToggleFilterResults",
+                "ShowHistory",
+                "ToggleGroupBy",
+                "ToggleGroupExpand",
+                "ToggleSearchFilter1",
+                "ToggleSearchFilter2",
+                "ToggleSearchFilter3",
+                "ToggleSearchFilter4",
+                "ToggleSearchFilter5",
+                "ToggleSearchFilter6",
+                "ToggleSearchFilter7",
+                "ToggleSearchFilter8",
+                "ToggleSearchFilter9",
+                "SelectSearchFilter1",
+                "SelectSearchFilter2",
+                "SelectSearchFilter3",
+                "SelectSearchFilter4",
+                "SelectSearchFilter5",
+                "SelectSearchFilter6",
+                "SelectSearchFilter7",
+                "SelectSearchFilter8",
+                "SelectSearchFilter9",
+                "View.qgrepSearchFile",
+                "View.qgrepSearchTool",
+            };
+        }
 
         public Dictionary<string, Hotkey> ReadKeyBindings()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
+            List<Command> commands = new List<Command>();
+
+            foreach (EnvDTE.Command command in Data?.DTE?.Commands)
+            {
+                if (!string.IsNullOrEmpty(command.Name) && 
+                    (command.Guid.ToLower() == "{d480acd1-c9b7-45da-a687-4cacc45acf16}" ||
+                    command.Guid.ToLower() == "{9cc1062b-4c82-46d2-adcb-f5c17d55fb85}"))
+                {
+                    commands.Add(command);
+                }
+                if (!string.IsNullOrEmpty(command.Name))
+                {
+                    System.Diagnostics.Debug.WriteLine(command.Name);
+                }
+            }
+
             Dictionary<string, Hotkey> bindings = new Dictionary<string, Hotkey>();
-            bindings["ToggleCaseSensitive"] = GetBindingForCommand("ToggleCaseSensitive");
-            bindings["ToggleWholeWord"] = GetBindingForCommand("ToggleWholeWord");
-            bindings["ToggleRegEx"] = GetBindingForCommand("ToggleRegEx");
-            bindings["ToggleIncludeFiles"] = GetBindingForCommand("ToggleIncludeFiles");
-            bindings["ToggleExcludeFiles"] = GetBindingForCommand("ToggleExcludeFiles");
-            bindings["ToggleFilterResults"] = GetBindingForCommand("ToggleFilterResults");
-            bindings["ShowHistory"] = GetBindingForCommand("ShowHistory");
-            bindings["ToggleGroupBy"] = GetBindingForCommand("ToggleGroupBy");
-            bindings["ToggleGroupExpand"] = GetBindingForCommand("ToggleGroupExpand");
-            bindings["ToggleSearchFilter1"] = GetBindingForCommand("ToggleSearchFilter1");
-            bindings["ToggleSearchFilter2"] = GetBindingForCommand("ToggleSearchFilter2");
-            bindings["ToggleSearchFilter3"] = GetBindingForCommand("ToggleSearchFilter3");
-            bindings["ToggleSearchFilter4"] = GetBindingForCommand("ToggleSearchFilter4");
-            bindings["ToggleSearchFilter5"] = GetBindingForCommand("ToggleSearchFilter5");
-            bindings["ToggleSearchFilter6"] = GetBindingForCommand("ToggleSearchFilter6");
-            bindings["ToggleSearchFilter7"] = GetBindingForCommand("ToggleSearchFilter7");
-            bindings["ToggleSearchFilter8"] = GetBindingForCommand("ToggleSearchFilter8");
-            bindings["ToggleSearchFilter9"] = GetBindingForCommand("ToggleSearchFilter9");
-            bindings["SelectSearchFilter1"] = GetBindingForCommand("SelectSearchFilter1");
-            bindings["SelectSearchFilter2"] = GetBindingForCommand("SelectSearchFilter2");
-            bindings["SelectSearchFilter3"] = GetBindingForCommand("SelectSearchFilter3");
-            bindings["SelectSearchFilter4"] = GetBindingForCommand("SelectSearchFilter4");
-            bindings["SelectSearchFilter5"] = GetBindingForCommand("SelectSearchFilter5");
-            bindings["SelectSearchFilter6"] = GetBindingForCommand("SelectSearchFilter6");
-            bindings["SelectSearchFilter7"] = GetBindingForCommand("SelectSearchFilter7");
-            bindings["SelectSearchFilter8"] = GetBindingForCommand("SelectSearchFilter8");
-            bindings["SelectSearchFilter9"] = GetBindingForCommand("SelectSearchFilter9");
+
+            List<string> commandStrings = GetCommandStrings();
+            foreach (string commandString in commandStrings)
+            {
+                Hotkey hotkey = null;
+                if(GetBindingForCommand(commandString, commands, ref hotkey))
+                {
+                    bindings[commandString] = hotkey;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return bindings;
+        }
+
+        public Dictionary<string, string> ReadKeyBindingsReadOnly()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            List<Command> commands = new List<Command>();
+
+            foreach (EnvDTE.Command command in Data?.DTE?.Commands)
+            {
+                if (!string.IsNullOrEmpty(command.Name) &&
+                    (command.Guid.ToLower() == "{d480acd1-c9b7-45da-a687-4cacc45acf16}" ||
+                    command.Guid.ToLower() == "{9cc1062b-4c82-46d2-adcb-f5c17d55fb85}"))
+                {
+                    commands.Add(command);
+                }
+            }
+
+            Dictionary<string, string> bindings = new Dictionary<string, string>();
+
+            List<string> commandStrings = GetCommandStrings();
+            foreach (string commandString in commandStrings)
+            {
+                string binding = GetBindingForCommand(commandString, commands);
+                bindings[commandString] = binding;
+            }
 
             return bindings;
         }
 
         public void SaveKeyBindings(Dictionary<string, Hotkey> bindings)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            try
+            {
+                List<Tuple<string, string, string>> oldShortcuts = new List<Tuple<string, string, string>>();
+                List<Tuple<string, string, bool>> newShortcuts = new List<Tuple<string, string, bool>>();
+
+                foreach (KeyValuePair<string, Hotkey> binding in bindings)
+                {
+                    List<Hotkey> hotkeys = GetBindingsForCommand(binding.Key);
+
+                    if(hotkeys.Count == 1 && 
+                        hotkeys[0].ToUnlocalizedString() == binding.Value.ToUnlocalizedString() && 
+                        hotkeys[0].IsGlobal == binding.Value.IsGlobal)
+                    {
+                        continue;
+                    }
+
+                    foreach (Hotkey hotkey in hotkeys)
+                    {
+                        oldShortcuts.Add(new Tuple<string, string, string>(binding.Key, hotkey.ToUnlocalizedString(), hotkey.Scope));
+                    }
+
+                    if(binding.Value.ToUnlocalizedString().Length > 0)
+                    {
+                        newShortcuts.Add(new Tuple<string, string, bool>(binding.Key, binding.Value.ToUnlocalizedString(), binding.Value.IsGlobal));
+                    }
+                }
+
+                if(oldShortcuts.Count > 0 || newShortcuts.Count > 0)
+                {
+                    var doc = new XDocument(
+                        new XElement("UserSettings",
+                            new XElement("ApplicationIdentity", new XAttribute("version", Data?.DTE?.Version)),
+                            new XElement("ToolsOptions",
+                                new XElement("ToolsOptionsCategory", new XAttribute("name", "Environment"), new XAttribute("RegisteredName", "Environment"))
+                            ),
+                            new XElement("Category", new XAttribute("name", "Environment_Group"), new XAttribute("RegisteredName", "Environment_Group"),
+                                new XElement("Category", new XAttribute("name", "Environment_KeyBindings"), 
+                                                         new XAttribute("Category", "{F09035F1-80D2-4312-8EC4-4D354A4BCB4C}"), 
+                                                         new XAttribute("Package", "{DA9FB551-C724-11d0-AE1F-00A0C90FFFC3}"), 
+                                                         new XAttribute("RegisteredName", "Environment_KeyBindings"), 
+                                                         new XAttribute("PackageName", "Visual Studio Environment Package"),
+                                    new XElement("Version", $"{Data?.DTE?.Version}.0.0.0"),
+                                    new XElement("KeyboardShortcuts",
+                                        new XElement("ShortcutsScheme"),
+                                        new XElement("UserShortcuts",
+                                            oldShortcuts.ConvertAll(x => new XElement("RemoveShortcut", new XAttribute("Command", x.Item1), 
+                                                new XAttribute("Scope", x.Item3), x.Item2)).ToArray(),
+                                            newShortcuts.ConvertAll(x => new XElement("Shortcut", new XAttribute("Command", x.Item1), 
+                                                new XAttribute("Scope", x.Item3 ? "{5EFC7975-14BC-11CF-9B2B-00AA00573819}" : "{E4E2BA26-A455-4C53-ADB3-8225FB696F8B}"), x.Item2)).ToArray()
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    );
+
+                    string settingsPath = Path.Combine(GetConfigPath(false), ".qgrep", "qgrep-shortcuts.vssettings");
+
+                    doc.Save(settingsPath);
+                    Data?.DTE?.ExecuteCommand("Tools.ImportandExportSettings", $"/import:\"{settingsPath}\"");
+                    File.Delete(settingsPath);
+                }
+            }
+            catch { }
         }
 
-        public void ApplyKeyBindings(Dictionary<string, Hotkey> bindings)
+        public List<string> GetConflictingCommandsForBinding(Dictionary<string, Hotkey> bindings)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            List<string> results = new List<string>();
+            List<string> cachedHotkeys = bindings.Where(x => x.Value.IsGlobal).Select(x => x.Value.ToString()).ToList();
+
+            try
+            {
+                foreach (EnvDTE.Command command in Data?.DTE?.Commands)
+                {
+                    if (!string.IsNullOrEmpty(command.Name) && command.Bindings is object[] commandBindings &&
+                        (command.Guid.ToLower() != "{d480acd1-c9b7-45da-a687-4cacc45acf16}" &&
+                        command.Guid.ToLower() != "{9cc1062b-4c82-46d2-adcb-f5c17d55fb85}"))
+                    {
+                        foreach (var binding in commandBindings)
+                        {
+                            if (binding is string bindingString)
+                            {
+                                string commandHotkey = GetBindingAndScope(bindingString, out string scope);
+                                if(commandHotkey.Length > 0)
+                                {
+                                    System.Diagnostics.Debug.WriteLine(commandHotkey);
+
+                                    if (cachedHotkeys.Contains(commandHotkey))
+                                    {
+                                        string conflictMessage = string.Format(Resources.CommandAndShortcut, command.LocalizedName, commandHotkey, scope);
+
+                                        if (scope == Resources.Global)
+                                        {
+                                            results.Insert(0 , conflictMessage);
+                                        }
+                                        else
+                                        {
+                                            results.Add(conflictMessage);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+
+            return results;
+        }
+
+        public bool CanEditKeyBindings()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            try
+            {
+                foreach (EnvDTE.Command command in Data?.DTE?.Commands)
+                {
+                    if (!string.IsNullOrEmpty(command.Name) && command.Bindings is object[] commandBindings &&
+                        (command.Guid.ToLower() != "{d480acd1-c9b7-45da-a687-4cacc45acf16}" &&
+                        command.Guid.ToLower() != "{9cc1062b-4c82-46d2-adcb-f5c17d55fb85}"))
+                    {
+                        foreach (var binding in commandBindings)
+                        {
+                            if (binding is string bindingString)
+                            {
+                                string commandHotkey = GetGlobalBinding(bindingString);
+                                if (commandHotkey.Length > 0)
+                                {
+                                    try
+                                    {
+                                        int commaPos = commandHotkey.IndexOf(", ");
+                                        if (commaPos >= 0)
+                                        {
+                                            commandHotkey = commandHotkey.Substring(0, commaPos);
+                                        }
+
+                                        Hotkey.FromString(commandHotkey);
+                                    }
+                                    catch
+                                    {
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+
+            return true;
+        }
+
+        public void ApplyKeyBindings()
         {
         }
 
@@ -710,13 +1043,11 @@ namespace qgrepSearch
 
         private Dictionary<string, BitmapSource> iconCache = new Dictionary<string, BitmapSource>();
 
-        public void GetIcon(string filePath, uint background, SearchResult searchResult)
+        public void GetIcon(uint background, SearchResult searchResult)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
-                string fileExtension = Path.GetExtension(filePath);
+                string fileExtension = Path.GetExtension(searchResult.FullResult);
 
                 if (iconCache.ContainsKey(fileExtension))
                 {
@@ -724,30 +1055,35 @@ namespace qgrepSearch
                 }
                 else
                 {
-                    ImageMoniker imageMoniker = Data.Package.ImageService.GetImageMonikerForFile(filePath);
-
-                    var atts = new ImageAttributes
+                    TaskRunner.RunOnUIThread(() =>
                     {
-                        StructSize = Marshal.SizeOf(typeof(ImageAttributes)),
-                        Format = (uint)_UIDataFormat.DF_WPF,
-                        LogicalHeight = 32,
-                        LogicalWidth = 32,
-                        Flags = (uint)_ImageAttributesFlags.IAF_RequiredFlags,
-                        ImageType = (uint)_UIImageType.IT_Bitmap,
-                        Background = background
-                    };
+                        ThreadHelper.ThrowIfNotOnUIThread();
 
-                    unchecked
-                    {
-                        atts.Flags |= (uint)-2147483648;
-                    }
+                        ImageMoniker imageMoniker = Data.Package.ImageService.GetImageMonikerForFile(searchResult.FullResult);
 
-                    var obj = Data.Package.ImageService.GetImage(imageMoniker, atts);
-                    if (obj == null)
-                        return;
+                        var atts = new ImageAttributes
+                        {
+                            StructSize = Marshal.SizeOf(typeof(ImageAttributes)),
+                            Format = (uint)_UIDataFormat.DF_WPF,
+                            LogicalHeight = 32,
+                            LogicalWidth = 32,
+                            Flags = (uint)_ImageAttributesFlags.IAF_RequiredFlags,
+                            ImageType = (uint)_UIImageType.IT_Bitmap,
+                            Background = background
+                        };
 
-                    obj.get_Data(out object data);
-                    searchResult.ImageSource = (BitmapSource)data;
+                        unchecked
+                        {
+                            atts.Flags |= (uint)-2147483648;
+                        }
+
+                        var obj = Data.Package.ImageService.GetImage(imageMoniker, atts);
+                        if (obj == null)
+                            return;
+
+                        obj.get_Data(out object data);
+                        searchResult.ImageSource = iconCache[fileExtension] = (BitmapSource)data;
+                    });
                 }
             }
             catch { }
@@ -823,6 +1159,13 @@ namespace qgrepSearch
             catch { }
 
             return false;
+        }
+
+        public void OpenKeyBindingSettings()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            Data?.DTE?.ExecuteCommand("Tools.CustomizeKeyboard");
         }
     }
 }

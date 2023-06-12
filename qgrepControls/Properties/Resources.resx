@@ -117,6 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AbsolutePathOptionContent" xml:space="preserve">
     <value>Absolute path</value>
   </data>
@@ -180,9 +181,14 @@
   <data name="ColorSchemeLabelContent" xml:space="preserve">
     <value>Color scheme:</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="colors_schemes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\colors-schemes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CommandAndShortcut" xml:space="preserve">
+    <value>{0} ({1} ({2}))</value>
+  </data>
+  <data name="CommandsOverwritten" xml:space="preserve">
+    <value>Global shortcuts currently used by:</value>
   </data>
   <data name="ConfigFormat" xml:space="preserve">
     <value>Config{0}</value>
@@ -224,7 +230,7 @@
     <value>Edit filter</value>
   </data>
   <data name="EditHotkeys" xml:space="preserve">
-    <value>Edit hotkeys</value>
+    <value>Edit shortcuts</value>
   </data>
   <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
     <value>Error opening data file {0} for writing</value>
@@ -245,7 +251,7 @@
     <value>Error saving data file {0}</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>Exclude files...</value>
+    <value>Exclude files ({0})</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value>Exclude files:</value>
@@ -272,13 +278,19 @@
     <value>{0} files, {1} Mb in, {2} Mb out</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>Filter results...</value>
+    <value>Filter results ({0})</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
     <value>Filter results:</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value>Filter search scope:</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="GlobalShortcuts" xml:space="preserve">
+    <value>Global shortcuts</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
     <value>Group by:</value>
@@ -323,7 +335,7 @@
     <value>Include file</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>Include files...</value>
+    <value>Include files ({0})</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value>Include files:</value>
@@ -360,6 +372,12 @@
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value>Last index update: {0}</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>qgrep Search Tool</value>
+  </data>
+  <data name="LocalShortcuts" xml:space="preserve">
+    <value>Local shortcuts</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value>Error reading data file {0}: malformed chunk</value>
@@ -420,6 +438,9 @@
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>No solution loaded.</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>&lt;not set&gt;</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Open file</value>
@@ -530,7 +551,7 @@
     <value>Search file...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>Search...</value>
+    <value>Search</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value>Search scope:</value>

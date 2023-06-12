@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:resx="clr-namespace:qgrepControls.Properties"
              x:Name="UserControl"
              d:DesignHeight="300"
              d:DesignWidth="300"
@@ -15,8 +16,8 @@
              IsReadOnlyCaretVisible="False"
              IsUndoEnabled="False"
              Height="22"
-             PreviewKeyDown="HotkeyTextBox_PreviewKeyDown"
-             Text="{Binding Hotkey, ElementName=UserControl, Mode=OneWay, TargetNullValue=&lt; not set &gt;}">
+             PreviewKeyDown="HotkeyTextBox_PreviewKeyDown" 
+             Text="{Binding Hotkey, ElementName=UserControl, Mode=OneWay, TargetNullValue={x:Static resx:Resources.NotSet}}">
         <TextBox.ContextMenu>
             <ContextMenu Visibility="Collapsed" />
         </TextBox.ContextMenu>

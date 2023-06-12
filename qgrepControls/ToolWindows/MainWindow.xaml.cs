@@ -77,6 +77,19 @@ namespace qgrepControls
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (ResizeMode == ResizeMode.NoResize)
+            {
+                Window window = sender as Window;
+
+                if (window != null)
+                {
+                    double widthDifference = e.NewSize.Width - e.PreviousSize.Width;
+                    double heightDifference = e.NewSize.Height - e.PreviousSize.Height;
+
+                    window.Left -= widthDifference / 2;
+                    window.Top -= heightDifference / 2;
+                }
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)

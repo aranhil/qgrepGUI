@@ -17,163 +17,163 @@
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidCaseSensitiveCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleCaseSensitive</LocCanonicalName>
-					<ButtonText>Toggle Case Sensitive</ButtonText>
+					<ButtonText>ToggleCaseSensitive</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidWholeWordCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleWholeWord</LocCanonicalName>
-					<ButtonText>Toggle Whole Word</ButtonText>
+					<ButtonText>ToggleWholeWord</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidRegExCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleRegEx</LocCanonicalName>
-					<ButtonText>Toggle Regular Expressions</ButtonText>
+					<ButtonText>ToggleRegEx</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidIncludeFilesCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleIncludeFiles</LocCanonicalName>
-					<ButtonText>Toggle Include Files</ButtonText>
+					<ButtonText>ToggleIncludeFiles</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidExcludeFilesCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleExcludeFiles</LocCanonicalName>
-					<ButtonText>Toggle Exclude Files</ButtonText>
+					<ButtonText>ToggleExcludeFiles</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidFilterResultsCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleFilterResults</LocCanonicalName>
-					<ButtonText>Toggle Filter Results</ButtonText>
+					<ButtonText>ToggleFilterResults</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidShowHistoryCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ShowHistory</LocCanonicalName>
-					<ButtonText>Show Recent History</ButtonText>
+					<ButtonText>ShowHistory</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidGroupByCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleGroupBy</LocCanonicalName>
-					<ButtonText>Toggle Grouping By</ButtonText>
+					<ButtonText>ToggleGroupBy</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidGroupExpandCommand" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleGroupExpand</LocCanonicalName>
-					<ButtonText>Toggle Grouping Expand</ButtonText>
+					<ButtonText>ToggleGroupExpand</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand1" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter1</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 1</ButtonText>
+					<ButtonText>ToggleSearchFilter1</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand2" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter2</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 2</ButtonText>
+					<ButtonText>ToggleSearchFilter2</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand3" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter3</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 3</ButtonText>
+					<ButtonText>ToggleSearchFilter3</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand4" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter4</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 4</ButtonText>
+					<ButtonText>ToggleSearchFilter4</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand5" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter5</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 5</ButtonText>
+					<ButtonText>ToggleSearchFilter5</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand6" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter6</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 6</ButtonText>
+					<ButtonText>ToggleSearchFilter6</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand7" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter7</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 7</ButtonText>
+					<ButtonText>ToggleSearchFilter7</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand8" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter8</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 8</ButtonText>
+					<ButtonText>ToggleSearchFilter8</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterToggleCommand9" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.ToggleSearchFilter9</LocCanonicalName>
-					<ButtonText>Toggle Search Filter 9</ButtonText>
+					<ButtonText>ToggleSearchFilter9</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand1" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter1</LocCanonicalName>
-					<ButtonText>Select Search Filter 1</ButtonText>
+					<ButtonText>SelectSearchFilter1</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand2" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter2</LocCanonicalName>
-					<ButtonText>Select Search Filter 2</ButtonText>
+					<ButtonText>SelectSearchFilter2</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand3" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter3</LocCanonicalName>
-					<ButtonText>Select Search Filter 3</ButtonText>
+					<ButtonText>SelectSearchFilter3</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand4" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter4</LocCanonicalName>
-					<ButtonText>Select Search Filter 4</ButtonText>
+					<ButtonText>SelectSearchFilter4</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand5" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter5</LocCanonicalName>
-					<ButtonText>Select Search Filter 5</ButtonText>
+					<ButtonText>SelectSearchFilter5</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand6" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter6</LocCanonicalName>
-					<ButtonText>Select Search Filter 6</ButtonText>
+					<ButtonText>SelectSearchFilter6</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand7" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter7</LocCanonicalName>
-					<ButtonText>Select Search Filter 7</ButtonText>
+					<ButtonText>SelectSearchFilter7</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand8" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter8</LocCanonicalName>
-					<ButtonText>Select Search Filter 8</ButtonText>
+					<ButtonText>SelectSearchFilter8</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidSearchFilterSelectCommand9" priority="0x0100" type="Button">
 				<Strings>
 					<LocCanonicalName>qgrep.SelectSearchFilter9</LocCanonicalName>
-					<ButtonText>Select Search Filter 9</ButtonText>
+					<ButtonText>SelectSearchFilter9</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidqgrepSearchPackageCmdSet" id="cmdidOpenSearchFiles" priority="0x9100" type="Button">

@@ -1,4 +1,5 @@
 ﻿using qgrepControls.ModelViews;
+using System;
 using System.Collections.Generic;
 
 namespace qgrepControls.Classes
@@ -18,10 +19,13 @@ namespace qgrepControls.Classes
         bool SearchWindowOpened { get; set; }
         bool IsStandalone { get; }
         Dictionary<string, Hotkey> ReadKeyBindings();
-        void ApplyKeyBindings(Dictionary<string, Hotkey> bindings);
+        Dictionary<string, string> ReadKeyBindingsReadOnly();
+        bool CanEditKeyBindings();
+        void ApplyKeyBindings();
         void SaveKeyBindings(Dictionary<string, Hotkey> bindings);
+        List<string> GetConflictingCommandsForBinding(Dictionary<string, Hotkey> bindings);
         System.Windows.Window GetMainWindow();
-        void GetIcon(string filePath, uint background, SearchResult searchResult);
+        void GetIcon(uint background, SearchResult searchResult);
         void StartBackgroundTask(string title);
         void UpdateBackgroundTaskPercentage(int progress);
         void UpdateBackgroundTaskMessage(string message);
@@ -29,5 +33,6 @@ namespace qgrepControls.Classes
         bool LoadConfigAtStartup();
         void IncludeFile(string path);
         bool IsActiveDocumentCpp();
+        void OpenKeyBindingSettings();
     }
 }
