@@ -132,6 +132,9 @@
   <data name="AdvancedToggleContent" xml:space="preserve">
     <value>‹‹ Pokročilý</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Vždy</value>
   </data>
@@ -177,6 +180,12 @@
   <data name="ColorSchemeLabelContent" xml:space="preserve">
     <value>Barevné schéma:</value>
   </data>
+  <data name="CommandAndShortcut" xml:space="preserve">
+    <value>{0} ({1} ({2}))</value>
+  </data>
+  <data name="CommandsOverwritten" xml:space="preserve">
+    <value>Globální zkratky aktuálně používané:</value>
+  </data>
   <data name="ConfigFormat" xml:space="preserve">
     <value>Konfigurace{0}</value>
   </data>
@@ -189,6 +198,12 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>Zahrnutí hlavičky C++:</value>
   </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>Vyhledávací nástroj qgrep zaznamenal při poslední relaci neošetřenou výjimku:</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Přizpůsobte si zkratky</value>
   </data>
@@ -200,6 +215,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>před {0} dny</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>Neposílejte</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Upravit přepsání barvy</value>
@@ -229,7 +247,7 @@
     <value>Chyba při ukládání datového souboru {0}</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>Vyloučit soubory...</value>
+    <value>Vyloučit soubory ({0})</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value>Vyloučit soubory:</value>
@@ -256,13 +274,19 @@
     <value>Soubory: {0}, vstup: {1} Mb, výstup: {2} Mb</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>Filtrovat výsledky...</value>
+    <value>Filtrovat výsledky ({0})</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
     <value>Filtrovat výsledky:</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value>Rozsah vyhledávání filtru:</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>Globální</value>
+  </data>
+  <data name="GlobalShortcuts" xml:space="preserve">
+    <value>Globální zkratky</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
     <value>Skupina vytvořená:</value>
@@ -307,13 +331,16 @@
     <value>Zahrnout soubor</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>Zahrnout soubory...</value>
+    <value>Zahrnout soubory ({0})</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value>Zahrnout soubory:</value>
   </data>
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>Zahrnout</value>
+  </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>Aktualizace indexu byla násilně zastavena.</value>
   </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>Chyba při analýze regulárního výrazu: neplatná třída znaků</value>
@@ -341,6 +368,12 @@
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value>Poslední aktualizace indexu: {0}</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>qgrep vyhledávací nástroj</value>
+  </data>
+  <data name="LocalShortcuts" xml:space="preserve">
+    <value>Místní zkratky</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value>Chyba při čtení datového souboru {0}: chybný blok</value>
@@ -401,6 +434,9 @@
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>Není načten žádný roztok.</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>&lt;nenastaveno&gt;</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Otevřít soubor</value>
@@ -511,7 +547,7 @@
     <value>Hledat soubor...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>Vyhledávání...</value>
+    <value>Vyhledávání</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value>Rozsah vyhledávání:</value>
@@ -525,8 +561,20 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Vyberte složku(y)</value>
   </data>
+  <data name="SelectSearchFilter" xml:space="preserve">
+    <value>Vyberte konfiguraci vyhledávání {0}</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Poslat zprávu</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Otevře formulář Google a vyplní jej pouze zásobníkem hovorů shora, žádné další informace se neodesílají</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Nastavení</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
     <value>Zkratka: {0}</value>
@@ -545,6 +593,9 @@
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Vynutit zastavení aktualizace indexu</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
     <value>Cílová:</value>
@@ -582,6 +633,9 @@
   <data name="ToggleRegexLabelContent" xml:space="preserve">
     <value>Přepnout regulární výrazy:</value>
   </data>
+  <data name="ToggleSearchFilter" xml:space="preserve">
+    <value>Přepnout konfiguraci vyhledávání {0}</value>
+  </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value>Přepnout celé slovo:</value>
   </data>
@@ -614,32 +668,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Použijte globální cestu</value>
-  </data>
-  <data name="CrashMessage" xml:space="preserve">
-    <value>Vyhledávací nástroj qgrep zaznamenal při poslední relaci neošetřenou výjimku:</value>
-  </data>
-  <data name="DontSend" xml:space="preserve">
-    <value>Neposílejte</value>
-  </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>Poslat zprávu</value>
-  </data>
-  <data name="SendReportTooltip" xml:space="preserve">
-    <value>Otevře formulář Google a vyplní jej pouze zásobníkem hovorů shora, žádné další informace se neodesílají</value>
-  </data>
-  <data name="IndexForceStop" xml:space="preserve">
-    <value>Aktualizace indexu byla násilně zastavena.</value>
-  </data>
-  <data name="StopIndexTooltip" xml:space="preserve">
-    <value>Vynutit zastavení aktualizace indexu</value>
-  </data>
-  <data name="Alt" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="Ctrl" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="Shift" xml:space="preserve">
-    <value>Shift</value>
   </data>
 </root>

@@ -132,6 +132,9 @@
   <data name="AdvancedToggleContent" xml:space="preserve">
     <value>‹‹ Avanzado</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Siempre</value>
   </data>
@@ -177,6 +180,12 @@
   <data name="ColorSchemeLabelContent" xml:space="preserve">
     <value>Esquema de colores:</value>
   </data>
+  <data name="CommandAndShortcut" xml:space="preserve">
+    <value>{0} ({1} ({2}))</value>
+  </data>
+  <data name="CommandsOverwritten" xml:space="preserve">
+    <value>Accesos directos globales utilizados actualmente por:</value>
+  </data>
   <data name="ConfigFormat" xml:space="preserve">
     <value>Configuración{0}</value>
   </data>
@@ -189,6 +198,12 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>Inclusiones de encabezado de C++:</value>
   </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>La herramienta de búsqueda qgrep encontró una excepción no controlada en la última sesión:</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Personalizar accesos directos</value>
   </data>
@@ -200,6 +215,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>hace {0} días</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>no enviar</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Editar anulación de color</value>
@@ -229,7 +247,7 @@
     <value>Error al guardar el archivo de datos {0}</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>Excluir archivos...</value>
+    <value>Excluir archivos ({0})</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value>Excluir archivos:</value>
@@ -256,13 +274,19 @@
     <value>{0} archivos, {1} Mb de entrada, {2} Mb de salida</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>Filtrar Resultados...</value>
+    <value>Filtrar resultados ({0})</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
     <value>Filtrar Resultados:</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value>Filtrar ámbito de búsqueda:</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="GlobalShortcuts" xml:space="preserve">
+    <value>Atajos globales</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
     <value>Agrupar por:</value>
@@ -307,13 +331,16 @@
     <value>Incluir archivo</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>Incluir archivos...</value>
+    <value>Incluir archivos ({0})</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value>Incluir archivos:</value>
   </data>
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>Incluir</value>
+  </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>La actualización del índice se detuvo a la fuerza.</value>
   </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>Error al analizar la expresión regular: clase de carácter no válida</value>
@@ -341,6 +368,12 @@
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value>Última actualización del índice: {0}</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>Herramienta de búsqueda qgrep</value>
+  </data>
+  <data name="LocalShortcuts" xml:space="preserve">
+    <value>Atajos locales</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value>Error al leer el archivo de datos {0}: fragmento con formato incorrecto</value>
@@ -401,6 +434,9 @@
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>No se ha cargado ninguna solución.</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>&lt;no establecido&gt;</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Abrir documento</value>
@@ -511,7 +547,7 @@
     <value>Buscar archivo...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>Buscar...</value>
+    <value>Buscar</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value>Ámbito de búsqueda:</value>
@@ -525,8 +561,20 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Seleccionar carpeta(s)</value>
   </data>
+  <data name="SelectSearchFilter" xml:space="preserve">
+    <value>Seleccionar configuración de búsqueda {0}</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Enviar reporte</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Abre un formulario de Google y lo llena solo con la pila de llamadas de arriba, no se envía ninguna otra información</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Ajustes</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Mayús.</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
     <value>Acceso directo: {0}</value>
@@ -545,6 +593,9 @@
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>Detener</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Forzar la detención de la actualización del índice</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
     <value>Objetivo:</value>
@@ -582,6 +633,9 @@
   <data name="ToggleRegexLabelContent" xml:space="preserve">
     <value>Alternar expresiones regulares:</value>
   </data>
+  <data name="ToggleSearchFilter" xml:space="preserve">
+    <value>Alternar configuración de búsqueda {0}</value>
+  </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value>Alternar palabra completa:</value>
   </data>
@@ -614,32 +668,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Usar ruta global</value>
-  </data>
-  <data name="CrashMessage" xml:space="preserve">
-    <value>La herramienta de búsqueda qgrep encontró una excepción no controlada en la última sesión:</value>
-  </data>
-  <data name="DontSend" xml:space="preserve">
-    <value>no enviar</value>
-  </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>Enviar reporte</value>
-  </data>
-  <data name="SendReportTooltip" xml:space="preserve">
-    <value>Abre un formulario de Google y lo llena solo con la pila de llamadas de arriba, no se envía ninguna otra información</value>
-  </data>
-  <data name="IndexForceStop" xml:space="preserve">
-    <value>La actualización del índice se detuvo a la fuerza.</value>
-  </data>
-  <data name="StopIndexTooltip" xml:space="preserve">
-    <value>Forzar la detención de la actualización del índice</value>
-  </data>
-  <data name="Alt" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="Ctrl" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="Shift" xml:space="preserve">
-    <value>Mayús.</value>
   </data>
 </root>

@@ -133,6 +133,9 @@
   <data name="AdvancedToggleContent" xml:space="preserve">
     <value>‹‹ Avansat</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Întotdeauna</value>
   </data>
@@ -181,6 +184,12 @@
   <data name="colors_schemes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\colors-schemes.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="CommandAndShortcut" xml:space="preserve">
+    <value>{0} ({1} ({2}))</value>
+  </data>
+  <data name="CommandsOverwritten" xml:space="preserve">
+    <value>Comenzi rapide globale utilizate în prezent de:</value>
+  </data>
   <data name="ConfigFormat" xml:space="preserve">
     <value>Configurația{0}</value>
   </data>
@@ -193,6 +202,12 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>Incluziuni de antet C++:</value>
   </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>Instrumentul de căutare qgrep a întâlnit o excepție netratată în ultima sesiune:</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Personalizează scurtăturile</value>
   </data>
@@ -204,6 +219,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>acum {0} zile</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>Nu trimite</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Editează suprascriere culoare</value>
@@ -233,7 +251,7 @@
     <value>Eroare la salvarea fișierului de date {0}</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>Excludeți fișierele...</value>
+    <value>Excludeți fișiere ({0})</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value>Excludere fișiere:</value>
@@ -260,13 +278,19 @@
     <value>{0} fișiere, {1} Mb intrare, {2} Mb ieșire</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>Filtrați rezultatele...</value>
+    <value>Filtrați rezultatele ({0})</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
     <value>Filtrare rezultate:</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value>Filtrare domeniu căutare:</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="GlobalShortcuts" xml:space="preserve">
+    <value>Comenzi rapide globale</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
     <value>Grupare după:</value>
@@ -311,13 +335,16 @@
     <value>Includeți fișierul</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>Includeti fișierele...</value>
+    <value>Includeți fișiere ({0})</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value>Includere fișiere:</value>
   </data>
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>Include</value>
+  </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>Actualizarea indexului a fost oprită forțat.</value>
   </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>Eroare la analizarea expresiei regulate: clasă de caractere nevalidă</value>
@@ -345,6 +372,12 @@
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value>Ultima actualizare a indexului: {0}</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>Instrumentul de căutare qgrep</value>
+  </data>
+  <data name="LocalShortcuts" xml:space="preserve">
+    <value>Comenzi rapide locale</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value>Eroare la citirea fișierului de date {0}: bucata neformatată corect</value>
@@ -405,6 +438,9 @@
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>Nicio soluție încărcată.</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>&lt;nesetat&gt;</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Deschide fișier</value>
@@ -515,7 +551,7 @@
     <value>Caută fișier...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>Caută...</value>
+    <value>Caută</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value>Domeniu căutare:</value>
@@ -529,8 +565,20 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Selectează folder(e)</value>
   </data>
+  <data name="SelectSearchFilter" xml:space="preserve">
+    <value>Selectați configurația de căutare {0}</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Trimite raport</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Deschide un formular Google și îl completează doar cu stiva de apeluri de mai sus, nu se trimite alte informații</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Setări</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
     <value>Scurtătură: {0}</value>
@@ -549,6 +597,9 @@
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>Oprește</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Oprirea forțată a actualizării indexului</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
     <value>Destinație:</value>
@@ -586,6 +637,9 @@
   <data name="ToggleRegexLabelContent" xml:space="preserve">
     <value>Comută expresiile regulate:</value>
   </data>
+  <data name="ToggleSearchFilter" xml:space="preserve">
+    <value>Comutați configurația căutării {0}</value>
+  </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value>Comută întreaga cuvânt:</value>
   </data>
@@ -618,32 +672,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
-  </data>
-  <data name="CrashMessage" xml:space="preserve">
-    <value>Instrumentul de căutare qgrep a întâlnit o excepție netratată în ultima sesiune:</value>
-  </data>
-  <data name="DontSend" xml:space="preserve">
-    <value>Nu trimite</value>
-  </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>Trimite raport</value>
-  </data>
-  <data name="SendReportTooltip" xml:space="preserve">
-    <value>Deschide un formular Google și îl completează doar cu stiva de apeluri de mai sus, nu se trimite alte informații</value>
-  </data>
-  <data name="IndexForceStop" xml:space="preserve">
-    <value>Actualizarea indexului a fost oprită forțat.</value>
-  </data>
-  <data name="StopIndexTooltip" xml:space="preserve">
-    <value>Oprirea forțată a actualizării indexului</value>
-  </data>
-  <data name="Alt" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="Ctrl" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="Shift" xml:space="preserve">
-    <value>Shift</value>
   </data>
 </root>

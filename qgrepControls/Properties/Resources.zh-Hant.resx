@@ -132,6 +132,9 @@
   <data name="AdvancedToggleContent" xml:space="preserve">
     <value>‹‹ 先進的</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>總是</value>
   </data>
@@ -177,6 +180,12 @@
   <data name="ColorSchemeLabelContent" xml:space="preserve">
     <value>配色方案：</value>
   </data>
+  <data name="CommandAndShortcut" xml:space="preserve">
+    <value>{0}（{1}（{2}））</value>
+  </data>
+  <data name="CommandsOverwritten" xml:space="preserve">
+    <value>當前使用的全局快捷方式：</value>
+  </data>
   <data name="ConfigFormat" xml:space="preserve">
     <value>配置{0}</value>
   </data>
@@ -189,6 +198,12 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>C++ 標頭包含：</value>
   </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>qgrep 搜索工具上次會話遇到未處理的異常：</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>自定義快捷方式</value>
   </data>
@@ -200,6 +215,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>{0} 天前</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>不要發送</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>編輯顏色覆蓋</value>
@@ -229,7 +247,7 @@
     <value>保存數據文件 {0} 時出錯</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>排除文件...</value>
+    <value>排除文件 ({0})</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value>排除文件：</value>
@@ -256,13 +274,19 @@
     <value>{0} 個文件，{1} Mb 輸入，{2} Mb 輸出</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>篩選結果...</value>
+    <value>篩選結果 ({0})</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
     <value>篩選結果：</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value>篩選搜索範圍：</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>全球的</value>
+  </data>
+  <data name="GlobalShortcuts" xml:space="preserve">
+    <value>全局快捷方式</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
     <value>通過...分組：</value>
@@ -307,13 +331,16 @@
     <value>包含文件</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>包含文件...</value>
+    <value>包含文件 ({0})</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value>包含文件：</value>
   </data>
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>包括</value>
+  </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>索引更新被強制停止。</value>
   </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>解析正則表達式時出錯：無效的字符類</value>
@@ -341,6 +368,12 @@
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value>上次索引更新：{0}</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>qgrep 搜索工具</value>
+  </data>
+  <data name="LocalShortcuts" xml:space="preserve">
+    <value>本地快捷方式</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value>讀取數據文件 {0} 時出錯：塊格式錯誤</value>
@@ -401,6 +434,9 @@
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>沒有加載解決方案。</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>&lt;未設置&gt;</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>打開文件</value>
@@ -511,7 +547,7 @@
     <value>搜索文件...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>搜索...</value>
+    <value>搜索</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value>搜索範圍：</value>
@@ -525,8 +561,20 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>選擇文件夾</value>
   </data>
+  <data name="SelectSearchFilter" xml:space="preserve">
+    <value>選擇搜索配置 {0}</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>發送報告</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>打開一個 Google 表單並僅使用上面的調用堆棧填充它，不發送其他信息</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>設置</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
     <value>快捷方式：{0}</value>
@@ -545,6 +593,9 @@
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>停止</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>強制停止索引更新</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
     <value>目標：</value>
@@ -582,6 +633,9 @@
   <data name="ToggleRegexLabelContent" xml:space="preserve">
     <value>切換正則表達式：</value>
   </data>
+  <data name="ToggleSearchFilter" xml:space="preserve">
+    <value>切換搜索配置 {0}</value>
+  </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value>切換整個單詞：</value>
   </data>
@@ -614,32 +668,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>使用全局路徑</value>
-  </data>
-  <data name="CrashMessage" xml:space="preserve">
-    <value>qgrep 搜索工具上次會話遇到未處理的異常：</value>
-  </data>
-  <data name="DontSend" xml:space="preserve">
-    <value>不要發送</value>
-  </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>發送報告</value>
-  </data>
-  <data name="SendReportTooltip" xml:space="preserve">
-    <value>打開一個 Google 表單並僅使用上面的調用堆棧填充它，不發送其他信息</value>
-  </data>
-  <data name="IndexForceStop" xml:space="preserve">
-    <value>索引更新被強制停止。</value>
-  </data>
-  <data name="StopIndexTooltip" xml:space="preserve">
-    <value>強制停止索引更新</value>
-  </data>
-  <data name="Alt" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="Ctrl" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="Shift" xml:space="preserve">
-    <value>Shift</value>
   </data>
 </root>

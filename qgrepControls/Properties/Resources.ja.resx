@@ -132,6 +132,9 @@
   <data name="AdvancedToggleContent" xml:space="preserve">
     <value>&lt;&lt; 高度</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>いつも</value>
   </data>
@@ -177,6 +180,12 @@
   <data name="ColorSchemeLabelContent" xml:space="preserve">
     <value>カラースキーム：</value>
   </data>
+  <data name="CommandAndShortcut" xml:space="preserve">
+    <value>{0} ({1} ({2}))</value>
+  </data>
+  <data name="CommandsOverwritten" xml:space="preserve">
+    <value>現在使用されているグローバル ショートカット:</value>
+  </data>
   <data name="ConfigFormat" xml:space="preserve">
     <value>設定{0}</value>
   </data>
@@ -191,6 +200,9 @@
   </data>
   <data name="CrashMessage" xml:space="preserve">
     <value>qgrep 検索ツールは最後のセッションで未処理の例外を検出しました:</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
   </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>ショートカットをカスタマイズする</value>
@@ -235,7 +247,7 @@
     <value>データ ファイル {0} の保存中にエラーが発生しました</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>ファイルを除外します...</value>
+    <value>ファイルを除外します ({0})</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value>除外ファイル:</value>
@@ -262,13 +274,19 @@
     <value>{0} ファイル、{1} MB 入力、{2} Mb 出力</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>結果をフィルタリング...</value>
+    <value>フィルタ結果 ({0})</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
     <value>フィルタ結果:</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value>フィルター検索範囲:</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>グローバル</value>
+  </data>
+  <data name="GlobalShortcuts" xml:space="preserve">
+    <value>グローバルショートカット</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
     <value>グループ化:</value>
@@ -313,13 +331,16 @@
     <value>インクルードファイル</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>ファイルを含める...</value>
+    <value>ファイルを含めます ({0})</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value>インクルードファイル:</value>
   </data>
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>含む</value>
+  </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>インデックス更新を強制停止しました。</value>
   </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>正規表現の解析エラー: 無効な文字クラス</value>
@@ -347,6 +368,12 @@
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value>最終インデックス更新: {0}</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>qgrep検索ツール</value>
+  </data>
+  <data name="LocalShortcuts" xml:space="preserve">
+    <value>ローカルショートカット</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value>データ ファイル {0} の読み取りエラー: 不正な形式のチャンク</value>
@@ -407,6 +434,9 @@
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>ソリューションが読み込まれていません。</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>&lt;未設定&gt;</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>ファイルを開く</value>
@@ -517,7 +547,7 @@
     <value>ファイルを検索...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>検索...</value>
+    <value>検索</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value>検索範囲:</value>
@@ -531,6 +561,9 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>フォルダーを選択してください</value>
   </data>
+  <data name="SelectSearchFilter" xml:space="preserve">
+    <value>検索構成 {0} を選択してください</value>
+  </data>
   <data name="SendReport" xml:space="preserve">
     <value>レポートの送信</value>
   </data>
@@ -539,6 +572,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>設定</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
     <value>ショートカット: {0}</value>
@@ -557,6 +593,9 @@
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>ストップ</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>インデックス更新を強制停止する</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
     <value>目標：</value>
@@ -594,6 +633,9 @@
   <data name="ToggleRegexLabelContent" xml:space="preserve">
     <value>正規表現を切り替えます:</value>
   </data>
+  <data name="ToggleSearchFilter" xml:space="preserve">
+    <value>検索構成を切り替えます {0}</value>
+  </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value>単語全体を切り替えます:</value>
   </data>
@@ -626,20 +668,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>グローバルパスを使用する</value>
-  </data>
-  <data name="IndexForceStop" xml:space="preserve">
-    <value>インデックス更新を強制停止しました。</value>
-  </data>
-  <data name="StopIndexTooltip" xml:space="preserve">
-    <value>インデックス更新を強制停止する</value>
-  </data>
-  <data name="Alt" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="Ctrl" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="Shift" xml:space="preserve">
-    <value>Shift</value>
   </data>
 </root>

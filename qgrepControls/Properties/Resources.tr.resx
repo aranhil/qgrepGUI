@@ -132,6 +132,9 @@
   <data name="AdvancedToggleContent" xml:space="preserve">
     <value>‹‹ Gelişmiş</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>Her zaman</value>
   </data>
@@ -177,6 +180,12 @@
   <data name="ColorSchemeLabelContent" xml:space="preserve">
     <value>Renk uyumu:</value>
   </data>
+  <data name="CommandAndShortcut" xml:space="preserve">
+    <value>{0} ({1} ({2}))</value>
+  </data>
+  <data name="CommandsOverwritten" xml:space="preserve">
+    <value>Şu anda kullanılan genel kısayollar:</value>
+  </data>
   <data name="ConfigFormat" xml:space="preserve">
     <value>Yapılandırma{0}</value>
   </data>
@@ -189,6 +198,12 @@
   <data name="CppHeaderInclusion" xml:space="preserve">
     <value>C++ başlık eklemeleri:</value>
   </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>qgrep Arama Aracı, son oturumda işlenmeyen bir özel durumla karşılaştı:</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>Kısayolları özelleştir</value>
   </data>
@@ -200,6 +215,9 @@
   </data>
   <data name="DaysAgoText" xml:space="preserve">
     <value>{0} gün önce</value>
+  </data>
+  <data name="DontSend" xml:space="preserve">
+    <value>gönderme</value>
   </data>
   <data name="EditColorOverrideTooltip" xml:space="preserve">
     <value>Renk geçersiz kılmayı düzenle</value>
@@ -229,7 +247,7 @@
     <value>{0} veri dosyası kaydedilirken hata oluştu</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>Dosyaları hariç tut...</value>
+    <value>Dosyaları hariç tut ({0})</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value>Dosyaları hariç tut:</value>
@@ -256,13 +274,19 @@
     <value>{0} dosya, {1} Mb giriş, {2} Mb çıkış</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>Sonuçları filtrele...</value>
+    <value>Sonuçları filtrele ({0})</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
     <value>Sonuçları filtrele:</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value>Arama kapsamını filtrele:</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>küresel</value>
+  </data>
+  <data name="GlobalShortcuts" xml:space="preserve">
+    <value>Genel kısayollar</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
     <value>Gruplandır:</value>
@@ -307,13 +331,16 @@
     <value>Dosyayı dahil et</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>Dosyaları dahil et...</value>
+    <value>Dosyaları dahil et ({0})</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value>Dosyaları dahil et:</value>
   </data>
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>Katmak</value>
+  </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>Dizin güncellemesi zorla durduruldu.</value>
   </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>Normal ifade ayrıştırılırken hata oluştu: geçersiz karakter sınıfı</value>
@@ -341,6 +368,12 @@
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value>Son dizin güncellemesi: {0}</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>qgrep Arama Aracı</value>
+  </data>
+  <data name="LocalShortcuts" xml:space="preserve">
+    <value>Yerel kısayollar</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value>{0} veri dosyası okunurken hata oluştu: hatalı biçimlendirilmiş öbek</value>
@@ -401,6 +434,9 @@
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>Çözüm yüklenmedi.</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>&lt;ayarlanmadı&gt;</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Açık dosya</value>
@@ -511,7 +547,7 @@
     <value>Dosya ara...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>Aramak...</value>
+    <value>Aramak</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value>Arama kapsamı:</value>
@@ -525,8 +561,20 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>Klasör(ler) seçin</value>
   </data>
+  <data name="SelectSearchFilter" xml:space="preserve">
+    <value>{0} arama yapılandırmasını seçin</value>
+  </data>
+  <data name="SendReport" xml:space="preserve">
+    <value>Rapor gönder</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Bir Google Formu açar ve onu yalnızca yukarıdan çağrı yığınıyla doldurur, başka hiçbir bilgi gönderilmez</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Ayarlar</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
     <value>Kısayol: {0}</value>
@@ -545,6 +593,9 @@
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>Durmak</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>Dizin güncellemesini durdurmaya zorla</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
     <value>Hedef:</value>
@@ -582,6 +633,9 @@
   <data name="ToggleRegexLabelContent" xml:space="preserve">
     <value>Normal ifadeleri değiştir:</value>
   </data>
+  <data name="ToggleSearchFilter" xml:space="preserve">
+    <value>Arama yapılandırmasını değiştir {0}</value>
+  </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value>Kelimenin tamamını değiştir:</value>
   </data>
@@ -614,32 +668,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Genel yolu kullan</value>
-  </data>
-  <data name="CrashMessage" xml:space="preserve">
-    <value>qgrep Arama Aracı, son oturumda işlenmeyen bir özel durumla karşılaştı:</value>
-  </data>
-  <data name="DontSend" xml:space="preserve">
-    <value>gönderme</value>
-  </data>
-  <data name="SendReport" xml:space="preserve">
-    <value>Rapor gönder</value>
-  </data>
-  <data name="SendReportTooltip" xml:space="preserve">
-    <value>Bir Google Formu açar ve onu yalnızca yukarıdan çağrı yığınıyla doldurur, başka hiçbir bilgi gönderilmez</value>
-  </data>
-  <data name="IndexForceStop" xml:space="preserve">
-    <value>Dizin güncellemesi zorla durduruldu.</value>
-  </data>
-  <data name="StopIndexTooltip" xml:space="preserve">
-    <value>Dizin güncellemesini durdurmaya zorla</value>
-  </data>
-  <data name="Alt" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="Ctrl" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="Shift" xml:space="preserve">
-    <value>Shift</value>
   </data>
 </root>

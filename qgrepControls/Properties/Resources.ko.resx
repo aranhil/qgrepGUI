@@ -132,6 +132,9 @@
   <data name="AdvancedToggleContent" xml:space="preserve">
     <value>‹‹ 고급의</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
   <data name="AlwaysOptionContent" xml:space="preserve">
     <value>언제나</value>
   </data>
@@ -177,6 +180,12 @@
   <data name="ColorSchemeLabelContent" xml:space="preserve">
     <value>색 구성표:</value>
   </data>
+  <data name="CommandAndShortcut" xml:space="preserve">
+    <value>{0} ({1} ({2}))</value>
+  </data>
+  <data name="CommandsOverwritten" xml:space="preserve">
+    <value>현재 다음에서 사용하는 전역 단축키:</value>
+  </data>
   <data name="ConfigFormat" xml:space="preserve">
     <value>구성{0}</value>
   </data>
@@ -191,6 +200,9 @@
   </data>
   <data name="CrashMessage" xml:space="preserve">
     <value>qgrep 검색 도구가 지난 세션에서 처리되지 않은 예외를 발견했습니다:</value>
+  </data>
+  <data name="Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
   </data>
   <data name="CustomizeShortcuts" xml:space="preserve">
     <value>바로가기 맞춤설정</value>
@@ -235,7 +247,7 @@
     <value>데이터 파일 {0} 저장 오류</value>
   </data>
   <data name="ExcludeFilesLabel" xml:space="preserve">
-    <value>파일 제외...</value>
+    <value>파일 제외 ({0})</value>
   </data>
   <data name="ExcludeFilesLabelContent" xml:space="preserve">
     <value>파일 제외:</value>
@@ -262,13 +274,19 @@
     <value>{0}개 파일, {1}Mb 입력, {2}Mb 출력</value>
   </data>
   <data name="FilterResultsLabel" xml:space="preserve">
-    <value>결과 필터링...</value>
+    <value>결과 필터링 ({0})</value>
   </data>
   <data name="FilterResultsLabelContent" xml:space="preserve">
     <value>필터 결과:</value>
   </data>
   <data name="FilterSearchScopeLabelContent" xml:space="preserve">
     <value>필터 검색 범위:</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>글로벌</value>
+  </data>
+  <data name="GlobalShortcuts" xml:space="preserve">
+    <value>글로벌 단축키</value>
   </data>
   <data name="GroupByLabelContent" xml:space="preserve">
     <value>그룹화 기준:</value>
@@ -313,13 +331,16 @@
     <value>파일 포함</value>
   </data>
   <data name="IncludeFilesLabel" xml:space="preserve">
-    <value>파일 포함...</value>
+    <value>파일 포함 ({0})</value>
   </data>
   <data name="IncludeFilesLabelContent" xml:space="preserve">
     <value>포함 파일:</value>
   </data>
   <data name="IncludeOptionContent" xml:space="preserve">
     <value>포함하다</value>
+  </data>
+  <data name="IndexForceStop" xml:space="preserve">
+    <value>인덱스 업데이트가 강제로 중지되었습니다.</value>
   </data>
   <data name="InvalidCharacterClass" xml:space="preserve">
     <value>정규식 구문 분석 오류: 잘못된 문자 클래스</value>
@@ -347,6 +368,12 @@
   </data>
   <data name="LastIndexUpdateLabelContent" xml:space="preserve">
     <value>마지막 색인 업데이트: {0}</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>qgrep 검색 도구</value>
+  </data>
+  <data name="LocalShortcuts" xml:space="preserve">
+    <value>로컬 바로 가기</value>
   </data>
   <data name="MalformedChunkErrorMessage" xml:space="preserve">
     <value>데이터 파일 {0} 읽기 오류: 잘못된 청크</value>
@@ -407,6 +434,9 @@
   </data>
   <data name="NoSolutionLoaded" xml:space="preserve">
     <value>로드된 솔루션이 없습니다.</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>&lt;설정되지 않음&gt;</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>파일 열기</value>
@@ -517,7 +547,7 @@
     <value>파일 검색...</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>찾다...</value>
+    <value>찾다</value>
   </data>
   <data name="SearchScopeLabelContent" xml:space="preserve">
     <value>검색 범위:</value>
@@ -531,6 +561,9 @@
   <data name="SelectFolderPrompt" xml:space="preserve">
     <value>폴더 선택</value>
   </data>
+  <data name="SelectSearchFilter" xml:space="preserve">
+    <value>검색 구성 선택 {0}</value>
+  </data>
   <data name="SendReport" xml:space="preserve">
     <value>보고서 보내기</value>
   </data>
@@ -539,6 +572,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>설정</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
   </data>
   <data name="ShortcutTooltipFormat" xml:space="preserve">
     <value>바로가기: {0}</value>
@@ -557,6 +593,9 @@
   </data>
   <data name="StopButtonContent" xml:space="preserve">
     <value>멈추다</value>
+  </data>
+  <data name="StopIndexTooltip" xml:space="preserve">
+    <value>인덱스 업데이트 강제 중지</value>
   </data>
   <data name="TargetLabelContent" xml:space="preserve">
     <value>표적:</value>
@@ -594,6 +633,9 @@
   <data name="ToggleRegexLabelContent" xml:space="preserve">
     <value>정규식 전환:</value>
   </data>
+  <data name="ToggleSearchFilter" xml:space="preserve">
+    <value>검색 구성 전환 {0}</value>
+  </data>
   <data name="ToggleWholeWordLabelContent" xml:space="preserve">
     <value>전체 단어 전환:</value>
   </data>
@@ -626,20 +668,5 @@
   </data>
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>전역 경로 사용</value>
-  </data>
-  <data name="IndexForceStop" xml:space="preserve">
-    <value>인덱스 업데이트가 강제로 중지되었습니다.</value>
-  </data>
-  <data name="StopIndexTooltip" xml:space="preserve">
-    <value>인덱스 업데이트 강제 중지</value>
-  </data>
-  <data name="Alt" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="Ctrl" xml:space="preserve">
-    <value>Ctrl</value>
-  </data>
-  <data name="Shift" xml:space="preserve">
-    <value>Shift</value>
   </data>
 </root>
