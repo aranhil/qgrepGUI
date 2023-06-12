@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace qgrepControls.Classes
 {
@@ -13,7 +17,7 @@ namespace qgrepControls.Classes
 
         public static void DebugToRoamingLog(string message)
         {
-            lock (padlock)
+            lock(padlock)
             {
                 try
                 {
@@ -33,10 +37,10 @@ namespace qgrepControls.Classes
             //System.Diagnostics.Debugger.Launch();
 
             string report = PrintExceptionDetails(ex);
-            if (report.Length > 0)
+            if(report.Length > 0)
             {
                 string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "qgrepSearch");
-                if (!Directory.Exists(folderPath))
+                if(!Directory.Exists(folderPath))
                 {
                     Directory.CreateDirectory(folderPath);
                 }
@@ -83,7 +87,7 @@ namespace qgrepControls.Classes
                 }
 
                 string errorsLogPath = Path.Combine(folderPath, "LogErrors.txt");
-                if (File.Exists(errorsLogPath))
+                if(File.Exists(errorsLogPath))
                 {
                     File.Delete(errorsLogPath);
                 }

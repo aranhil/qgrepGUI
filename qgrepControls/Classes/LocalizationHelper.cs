@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit.Core.Input;
 
 namespace qgrepControls.Classes
 {
@@ -68,15 +69,15 @@ namespace qgrepControls.Classes
 
         public static ModifierKeys GetKeyModifier(string translatedKeyModifier)
         {
-            if (translatedKeyModifier == Properties.Resources.Alt)
+            if(translatedKeyModifier == Properties.Resources.Alt)
             {
                 return ModifierKeys.Alt;
             }
-            else if (translatedKeyModifier == Properties.Resources.Shift)
+            else if(translatedKeyModifier == Properties.Resources.Shift)
             {
                 return ModifierKeys.Shift;
             }
-            else if (translatedKeyModifier == Properties.Resources.Ctrl)
+            else if(translatedKeyModifier == Properties.Resources.Ctrl)
             {
                 return ModifierKeys.Control;
             }

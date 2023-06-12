@@ -34,7 +34,7 @@ namespace qgrepControls.SearchWindow
             ToggleGroupBy.Hotkey = new Hotkey(bindings[ToggleGroupBy.Name].Key, bindings[ToggleGroupBy.Name].Modifiers);
             ToggleGroupExpand.Hotkey = new Hotkey(bindings[ToggleGroupExpand.Name].Key, bindings[ToggleGroupExpand.Name].Modifiers);
 
-            for (int i = 0; i < 9; i++)
+            for(int i = 0; i < 9; i++)
             {
                 string toggleKey = $"ToggleSearchFilter{i + 1}";
                 string selectKey = $"SelectSearchFilter{i + 1}";
@@ -104,19 +104,19 @@ namespace qgrepControls.SearchWindow
 
         private void ToggleSearchFilterComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (e.RemovedItems.Count > 0)
+            if(e.RemovedItems.Count > 0)
             {
                 HotkeyComboBoxItem oldHotkey = e.RemovedItems[0] as HotkeyComboBoxItem;
-                if (oldHotkey != null)
+                if(oldHotkey != null)
                 {
                     hotkeys[oldHotkey.Key] = new Hotkey(ToggleSearchFilter.Hotkey.Key, ToggleSearchFilter.Hotkey.Modifiers);
                 }
             }
 
-            if (e.AddedItems.Count > 0)
+            if(e.AddedItems.Count > 0)
             {
                 HotkeyComboBoxItem newHotkey = e.AddedItems[0] as HotkeyComboBoxItem;
-                if (newHotkey != null)
+                if(newHotkey != null)
                 {
                     ToggleSearchFilter.Hotkey = hotkeys[newHotkey.Key];
                 }

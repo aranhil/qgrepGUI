@@ -2,6 +2,7 @@
 using qgrepInterop;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -175,7 +176,7 @@ namespace qgrepControls.Classes
 
                     foreach (string cachedSearchResult in CachedSearch.Results)
                     {
-                        if (ForceStop)
+                        if(ForceStop)
                         {
                             break;
                         }
@@ -308,8 +309,8 @@ namespace qgrepControls.Classes
                     () => { return ForceStop; },
                     null,
                     (List<string> results) => { SearchLocalizedStringHandler(results, searchOptions); });
-
-                if (ForceStop)
+                
+                if(ForceStop)
                 {
                     searchOptions.WasForceStopped = true;
                     CachedSearch.SearchOptions = null;
@@ -329,7 +330,7 @@ namespace qgrepControls.Classes
 
         private void CheckQueue()
         {
-            if (QueuedDatabaseUpdate != null || QueuedSearchOptions != null || QueuedSearchFilesOptions != null)
+            if(QueuedDatabaseUpdate != null || QueuedSearchOptions != null || QueuedSearchFilesOptions != null)
             {
                 queueEvent.Set();
             }
@@ -606,7 +607,7 @@ namespace qgrepControls.Classes
                 }
                 catch { }
 
-                if (ForceDatabaseStop)
+                if(ForceDatabaseStop)
                 {
                     databaseUpdate.WasForceStopped = true;
                 }
@@ -647,7 +648,7 @@ namespace qgrepControls.Classes
 
         private void DatabaseMessageHandler(string result, DatabaseUpdate databaseUpdate)
         {
-            if (ForceDatabaseStop)
+            if(ForceDatabaseStop)
             {
                 return;
             }
