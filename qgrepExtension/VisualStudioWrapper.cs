@@ -208,6 +208,7 @@ namespace qgrepSearch
 
         private static string AppendDirectorySeparatorChar(string path)
         {
+            // Append a slash only if the path is a directory and does not have a slash.
             if (!Path.HasExtension(path) &&
                 !path.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {
@@ -667,7 +668,7 @@ namespace qgrepSearch
             IVsFontAndColorStorage Storage = Data.Package.GetService<IVsFontAndColorStorage, IVsFontAndColorStorage>();
             if (Storage != null)
             {
-                var Guid = new Guid("1F987C00-E7C4-4869-8A17-23FD602268B0");       
+                var Guid = new Guid("1F987C00-E7C4-4869-8A17-23FD602268B0"); // GUID for Environment Font  
                 if (Storage.OpenCategory(ref Guid, (uint)(__FCSTORAGEFLAGS.FCSF_READONLY | __FCSTORAGEFLAGS.FCSF_LOADDEFAULTS)) == 0)
                 {
                     LOGFONTW[] Fnt = new LOGFONTW[] { new LOGFONTW() };
@@ -750,6 +751,56 @@ namespace qgrepSearch
                 }
             }
             catch { }
+        }
+
+        TaskCompletionSource<bool> FakeTask;
+        ITaskHandler TaskHandler;
+        TaskProgressData TaskProgressData;
+
+        public void StartBackgroundTask(string title)
+        {
+            var options = default(TaskHandlerOptions);
+            options.Title = title;
+
+            //options.DisplayTaskDetails = task =>
+            //{
+            //    Data.Package.SearchWindowOpened = true;
+
+            //    Microsoft.VisualStudio.Threading.JoinableTask joinableTask = Data.Package.JoinableTaskFactory.RunAsync(async () =>
+            //    {
+            //        ToolWindowPane window = await Data.Package.ShowToolWindowAsync(
+            //            typeof(qgrepSearchWindow),
+            //            0,
+            //            create: true,
+            //            cancellationToken: Data.Package.DisposalToken);
+            //    });
+            //};
+
+            options.ActionsAfterCompletion = CompletionActions.None;
+
+            TaskProgressData = default;
+            TaskProgressData.CanBeCanceled = false;
+
+            TaskHandler = Data.Package.TaskStatusCenterService.PreRegister(options, TaskProgressData);
+            FakeTask = new TaskCompletionSource<bool>();
+            TaskHandler.RegisterTask(FakeTask.Task);
+        }
+
+        public void UpdateBackgroundTaskPercentage(int progress)
+        {
+            TaskProgressData.PercentComplete = progress;
+            TaskHandler?.Progress.Report(TaskProgressData);
+        }
+
+        public void UpdateBackgroundTaskMessage(string message)
+        {
+            TaskProgressData.ProgressText = message;
+            TaskHandler?.Progress.Report(TaskProgressData);
+        }
+
+        public void StopBackgroundTask()
+        {
+            FakeTask.SetResult(true);
         }
 
         public bool LoadConfigAtStartup()
