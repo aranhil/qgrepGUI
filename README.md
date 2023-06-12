@@ -75,7 +75,7 @@ You can change these as well, from **Tools >> Options >> Environment >> Keyboard
 
 - Made the shortcuts window available in the Visual Studio extension
 - Added shortcuts to toggle individual search configurations and also for exclusive selection of a single configuration
-- Fixed issue where only writing in the "Include files" field would make the extension unusable
+- Fixed issue where writing only in the "Include files" field would make the extension unusable
 - Fixed an issue where the automatic gathering of folders added duplicates
 - Fixed several issues with the automatic C++ header inclusion
 - Fixed issue with the shortcuts context missing its name in Visual Studio
