@@ -230,7 +230,7 @@
     <value>Edit filter</value>
   </data>
   <data name="EditHotkeys" xml:space="preserve">
-    <value>Edit shortcuts</value>
+    <value>Customize shortcuts</value>
   </data>
   <data name="ErrorOpeningDataFileForWriting" xml:space="preserve">
     <value>Error opening data file {0} for writing</value>
