@@ -55,17 +55,17 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
    
 ### Keyboard navigation
    You can cycle with the **Tab** key between the input TextBoxes and the search results. The **Down** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
-- Toggle case sensitive (Alt + C)
-- Toggle whole word (Alt + W)
-- Toggle regular expressions (Alt + R)
-- Toggle include files (Alt + I)
-- Toggle exclude files (Alt + E)
-- Toggle filter results (Alt + F)
-- Toggle group by (Alt + G)
-- Toggle group expansion (Alt + X)
-- Open history (Alt + H)
-- Toggle search config (Alt + 1 ... Alt + 9)
-- Select search config (Ctrl + 1 ... Ctrl + 9)
+- Toggle case sensitive (Alt+C)
+- Toggle whole word (Alt+W)
+- Toggle regular expressions (Alt+R)
+- Toggle include files (Alt+I)
+- Toggle exclude files (Alt+E)
+- Toggle filter results (Alt+F)
+- Toggle group by (Alt+G)
+- Toggle group expansion (Alt+X)
+- Open history (Alt+H)
+- Toggle search config (Alt+1 ... Alt+9)
+- Select search config (Ctrl+1 ... Ctrl+9)
 
 You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
