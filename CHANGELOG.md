@@ -63,7 +63,7 @@
 - Fixed several issues with the automatic C++ header inclusion
 - Fixed issue with the shortcuts context missing its name in Visual Studio
 
-## Version 2.12.1 (06/09/2023)
+## Version 2.12.1 (08/09/2023)
 
 - Fixed case insensitive search in the file search dialog
 - Removed silent indexing
