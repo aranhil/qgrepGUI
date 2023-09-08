@@ -499,12 +499,9 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                if (databaseUpdate == null || !databaseUpdate.IsSilent)
-                {
-                    InitProgress.Value = 0;
-                    InitButton.IsEnabled = false;
-                    CleanButton.IsEnabled = false;
-                }
+                InitProgress.Value = 0;
+                InitButton.IsEnabled = false;
+                CleanButton.IsEnabled = false;
 
                 StopButton.Visibility = Visibility.Visible;
                 StopButton.IsEnabled = true;
@@ -515,25 +512,22 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                if (databaseUpdate == null || !databaseUpdate.IsSilent)
+                InitProgress.Visibility = Visibility.Collapsed;
+                StopButton.Visibility = Visibility.Collapsed;
+                InitButton.IsEnabled = true;
+                CleanButton.IsEnabled = true;
+
+                if (databaseUpdate.WasForceStopped)
                 {
-                    InitProgress.Visibility = Visibility.Collapsed;
-                    StopButton.Visibility = Visibility.Collapsed;
-                    InitButton.IsEnabled = true;
-                    CleanButton.IsEnabled = true;
-
-                    if (databaseUpdate.WasForceStopped)
-                    {
-                        InitInfo.Text = Properties.Resources.IndexForceStop;
-                    }
-                    else
-                    {
-                        InitInfo.Text = lastMessage;
-                    }
-
-                    infoUpdateStopWatch.Stop();
-                    progressUpdateStopWatch.Stop();
+                    InitInfo.Text = Properties.Resources.IndexForceStop;
                 }
+                else
+                {
+                    InitInfo.Text = lastMessage;
+                }
+
+                infoUpdateStopWatch.Stop();
+                progressUpdateStopWatch.Stop();
             });
         }
 
@@ -543,10 +537,7 @@ namespace qgrepControls.SearchWindow
 
             TaskRunner.RunOnUIThread(() =>
             {
-                if (databaseUpdate == null || !databaseUpdate.IsSilent)
-                {
-                    InitInfo.Text = message;
-                }
+                InitInfo.Text = message;
             });
         }
 
@@ -558,11 +549,8 @@ namespace qgrepControls.SearchWindow
             {
                 TaskRunner.RunOnUIThread(() =>
                 {
-                    if (databaseUpdate == null || !databaseUpdate.IsSilent)
-                    {
-                        InitInfo.Text = message;
-                        infoUpdateStopWatch.Restart();
-                    }
+                    InitInfo.Text = message;
+                    infoUpdateStopWatch.Restart();
                 });
             }
         }
@@ -573,12 +561,9 @@ namespace qgrepControls.SearchWindow
             {
                 TaskRunner.RunOnUIThread(() =>
                 {
-                    if (databaseUpdate == null || !databaseUpdate.IsSilent)
-                    {
-                        InitProgress.Value = percentage;
-                        InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
-                        progressUpdateStopWatch.Restart();
-                    }
+                    InitProgress.Value = percentage;
+                    InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
+                    progressUpdateStopWatch.Restart();
                 });
             }
         }

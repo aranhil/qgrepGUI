@@ -369,7 +369,7 @@ static unsigned int filterCustom(const FilterEntries& entries, const FilterEntri
 	}
 
 	std::vector<std::string> searchWords;
-	std::stringstream ss(searchString);
+	std::stringstream ss(toLower(searchString));
 	std::string word;
 	while (ss >> word)
 	{

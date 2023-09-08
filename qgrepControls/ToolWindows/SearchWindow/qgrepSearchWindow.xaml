@@ -219,7 +219,7 @@ TextChanged="SearchInput_TextChanged" LostFocus="SearchInput_LostFocus" KeyDown=
         <Grid Grid.Row="6">
             <StackPanel x:Name="InitPanel" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,5,0">
                 <TextBlock x:Name="InitInfo" Margin="0" Style="{DynamicResource SomeHintLabel}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="16" Text="" />
-                <ProgressBar IsTabStop="False" x:Name="InitProgress" Width="250" Margin="3,3,0,3"/>
+                <ProgressBar IsTabStop="False" x:Name="UpdateProgress" Width="250" Margin="3,3,0,3"/>
                 <Button IsTabStop="False" x:Name="StopButton" Style="{StaticResource IconButton}" FontSize="18" Click="StopButton_Click" ToolTip="{x:Static resx:Resources.StopIndexTooltip}" Visibility="Collapsed">
                     <Path Style="{DynamicResource StopIcon}" />
                 </Button>

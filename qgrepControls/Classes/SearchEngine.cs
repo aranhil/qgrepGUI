@@ -77,7 +77,6 @@ namespace qgrepControls.Classes
     {
         public List<string> ConfigPaths { get; set; }
         public List<string> Files { get; set; }
-        public bool IsSilent { get; set; } = false;
         public bool WasForceStopped { get; internal set; }
     }
 

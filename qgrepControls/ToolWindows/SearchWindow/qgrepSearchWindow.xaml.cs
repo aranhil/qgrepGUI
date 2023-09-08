@@ -73,7 +73,7 @@ namespace qgrepControls.SearchWindow
             InitInfo.Visibility = Visibility.Collapsed;
             InitButton.Visibility = Visibility.Collapsed;
             CleanButton.Visibility = Visibility.Collapsed;
-            InitProgress.Visibility = Visibility.Collapsed;
+            UpdateProgress.Visibility = Visibility.Collapsed;
             Overlay.Visibility = Visibility.Collapsed;
             PathsButton.IsEnabled = false;
             SearchInput.IsEnabled = false;
@@ -347,7 +347,7 @@ namespace qgrepControls.SearchWindow
             InitInfo.Visibility = Visibility.Collapsed;
             InitButton.Visibility = Visibility.Collapsed;
             CleanButton.Visibility = Visibility.Collapsed;
-            InitProgress.Visibility = Visibility.Collapsed;
+            UpdateProgress.Visibility = Visibility.Collapsed;
             Overlay.Visibility = Visibility.Collapsed;
             PathsButton.IsEnabled = false;
             SearchInput.IsEnabled = false;
@@ -935,36 +935,23 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                if (databaseUpdate == null || !databaseUpdate.IsSilent)
+                StopButton.Visibility = Visibility.Visible;
+                StopButton.IsEnabled = true;
+                InitButton.IsEnabled = false;
+                CleanButton.IsEnabled = false;
+                PathsButton.IsEnabled = false;
+
+                if (SearchWindowControl.IsVisible || WrapperApp.IsStandalone)
                 {
-                    Overlay.Visibility = Visibility.Visible;
-                    StopButton.Visibility = Visibility.Visible;
-                    StopButton.IsEnabled = true;
-                    InitProgress.Value = 0;
-                    InitButton.IsEnabled = false;
-                    CleanButton.IsEnabled = false;
-                    PathsButton.IsEnabled = false;
+                    if (Settings.Default.SearchInstantly)
+                    {
+                        CacheUsageType = CacheUsageType.Bypass;
+                        Find();
+                    }
                 }
                 else
                 {
-                    StopButton.Visibility = Visibility.Visible;
-                    StopButton.IsEnabled = true;
-                    InitButton.IsEnabled = false;
-                    CleanButton.IsEnabled = false;
-                    PathsButton.IsEnabled = false;
-
-                    if (SearchWindowControl.IsVisible || WrapperApp.IsStandalone)
-                    {
-                        if (Settings.Default.SearchInstantly)
-                        {
-                            CacheUsageType = CacheUsageType.Bypass;
-                            Find();
-                        }
-                    }
-                    else
-                    {
-                        QueueFindWhenVisible = true;
-                    }
+                    QueueFindWhenVisible = true;
                 }
             });
         }
@@ -973,36 +960,26 @@ namespace qgrepControls.SearchWindow
         {
             TaskRunner.RunOnUIThread(() =>
             {
-                if (databaseUpdate == null || !databaseUpdate.IsSilent)
+                Overlay.Visibility = Visibility.Collapsed;
+                UpdateProgress.Visibility = Visibility.Collapsed;
+                StopButton.Visibility = Visibility.Collapsed;
+                InitButton.IsEnabled = true;
+                CleanButton.IsEnabled = true;
+                PathsButton.IsEnabled = true;
+
+                if (databaseUpdate != null && databaseUpdate.WasForceStopped)
                 {
-                    Overlay.Visibility = Visibility.Collapsed;
-                    InitProgress.Visibility = Visibility.Collapsed;
-                    StopButton.Visibility = Visibility.Collapsed;
-                    InitButton.IsEnabled = true;
-                    CleanButton.IsEnabled = true;
-                    PathsButton.IsEnabled = true;
-
-                    if (databaseUpdate.WasForceStopped)
-                    {
-                        InitInfo.Text = Properties.Resources.IndexForceStop;
-                    }
-                    else
-                    {
-                        InitInfo.Text = lastMessage;
-                    }
-
-                    infoUpdateStopWatch.Stop();
-                    progressUpdateStopWatch.Stop();
+                    InitInfo.Text = Properties.Resources.IndexForceStop;
                 }
                 else
                 {
-                    StopButton.Visibility = Visibility.Collapsed;
-                    InitButton.IsEnabled = true;
-                    CleanButton.IsEnabled = true;
-                    PathsButton.IsEnabled = true;
-
-                    SearchEngine.Instance.UpdateLastUpdated();
+                    InitInfo.Text = lastMessage;
                 }
+
+                SearchEngine.Instance.UpdateLastUpdated();
+
+                infoUpdateStopWatch.Stop();
+                progressUpdateStopWatch.Stop();
             });
         }
 
@@ -1012,10 +989,7 @@ namespace qgrepControls.SearchWindow
 
             TaskRunner.RunOnUIThread(() =>
             {
-                if (databaseUpdate == null || !databaseUpdate.IsSilent)
-                {
-                    InitInfo.Text = message;
-                }
+                InitInfo.Text = message;
             });
         }
 
@@ -1027,11 +1001,8 @@ namespace qgrepControls.SearchWindow
             {
                 TaskRunner.RunOnUIThread(() =>
                 {
-                    if (databaseUpdate == null || !databaseUpdate.IsSilent)
-                    {
-                        InitInfo.Text = message;
-                        infoUpdateStopWatch.Restart();
-                    }
+                    InitInfo.Text = message;
+                    infoUpdateStopWatch.Restart();
                 });
             }
         }
@@ -1042,12 +1013,9 @@ namespace qgrepControls.SearchWindow
             {
                 TaskRunner.RunOnUIThread(() =>
                 {
-                    if (databaseUpdate == null || !databaseUpdate.IsSilent)
-                    {
-                        InitProgress.Value = percentage;
-                        InitProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
-                        progressUpdateStopWatch.Restart();
-                    }
+                    UpdateProgress.Value = percentage;
+                    UpdateProgress.Visibility = percentage >= 0 ? Visibility.Visible : Visibility.Collapsed;
+                    progressUpdateStopWatch.Restart();
                 });
             }
         }
@@ -1062,7 +1030,7 @@ namespace qgrepControls.SearchWindow
             if (!silently)
             {
                 Overlay.Visibility = Visibility.Visible;
-                InitProgress.Value = 0;
+                UpdateProgress.Value = 0;
             }
 
             InitButton.IsEnabled = false;
@@ -1072,7 +1040,6 @@ namespace qgrepControls.SearchWindow
             SearchEngine.Instance.UpdateDatabaseAsync(new DatabaseUpdate()
             {
                 ConfigPaths = ConfigParser.Instance.ConfigProjects.Select(x => ConfigParser.ToUtf8(x.Path)).ToList(),
-                IsSilent = silently,
                 Files = modifiedFiles
             });
 
