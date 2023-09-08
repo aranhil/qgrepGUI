@@ -16,7 +16,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 ## Setting up in Visual Studio
 
-1. After installing the extension, the tool window can be opened from **View >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
+1. After installing the extension, the tool window can be opened from **View >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from the **Customize shortcuts** window or, in Visual Studio, from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
@@ -44,7 +44,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ![Configs](https://github.com/aranhil/qgrepGUI/assets/755601/08dce467-3ac5-4120-8703-21a157ce97ed)
       
 ### Open file
-   You can also search for files using unordered keywords, using a different window that can be opened from **View >> qgrep Open File** or using the shortcut (Alt+Shift+I). You can change this shortcut as well, the command name is **View.qgrepSearchFile**.
+   You can also search for files using unordered keywords, using a different window that can be opened from **View >> qgrep Open File** or using the shortcut (Alt+Shift+I). You can change this shortcut as well from the **Customize shortcuts** window, but it can also be changed in Visual Studio, the command name is **View.qgrepSearchFile**.
    
    ![OpenFile](https://github.com/aranhil/qgrepGUI/assets/755601/3c8974e7-e93f-4c45-9732-64626ec6e9e0)
       
@@ -55,19 +55,19 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
    
 ### Keyboard navigation
    You can cycle with the **Tab** key between the input TextBoxes and the search results. The **Down** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
-- Toggle case sensitive (Alt + C)
-- Toggle whole word (Alt + W)
-- Toggle regular expressions (Alt + R)
-- Toggle include files (Alt + I)
-- Toggle exclude files (Alt + E)
-- Toggle filter results (Alt + F)
-- Toggle group by (Alt + G)
-- Toggle group expansion (Alt + X)
-- Open history (Alt + H)
-- Toggle search config (Alt + 1 ... Alt + 9)
-- Select search config (Ctrl + 1 ... Ctrl + 9)
+- Toggle case sensitive (Alt+C)
+- Toggle whole word (Alt+W)
+- Toggle regular expressions (Alt+R)
+- Toggle include files (Alt+I)
+- Toggle exclude files (Alt+E)
+- Toggle filter results (Alt+F)
+- Toggle group by (Alt+G)
+- Toggle group expansion (Alt+X)
+- Open history (Alt+H)
+- Toggle search config (Alt+1 ... Alt+9)
+- Select search config (Ctrl+1 ... Ctrl+9)
 
-You can change these as well, from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
+You can change these as well from the **Customize shortcuts** window, but they can also be changed in Visual Studio from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
 ## Changelog
 
