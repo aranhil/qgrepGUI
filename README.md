@@ -71,7 +71,7 @@ You can change these as well from the **Customize shortcuts** window, but they c
 
 ## Changelog
 
-## Version 2.12.1 (08/09/2023)
+### Version 2.12.1 (08/09/2023)
 
 - Fixed case insensitive search in the file search dialog
 - Removed silent indexing
