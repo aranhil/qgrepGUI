@@ -71,6 +71,11 @@ You can change these as well from the **Customize shortcuts** window, but they c
 
 ## Changelog
 
+## Version 2.12.1 (08/09/2023)
+
+- Fixed case insensitive search in the file search dialog
+- Removed silent indexing
+
 ### Version 2.12 (12/06/2023)
 
 - Made the shortcuts window available in the Visual Studio extension
