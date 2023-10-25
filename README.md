@@ -2,7 +2,6 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/aranhil/qgrepGUI/msbuild.yml)
 ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/Stefan-IulianChivu.qgrepSearchTool-x64)
 ![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/Stefan-IulianChivu.qgrepSearchTool-x64)
-![GitHub issues](https://img.shields.io/github/issues/aranhil/qgrepGUI)
 ![GitHub](https://img.shields.io/github/license/aranhil/qgrepGUI)
 
 
