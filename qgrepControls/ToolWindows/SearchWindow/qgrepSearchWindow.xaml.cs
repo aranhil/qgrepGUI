@@ -1943,15 +1943,18 @@ namespace qgrepControls.SearchWindow
 
         private void SearchWindowControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (QueueFindWhenVisible)
+            if(SearchWindowControl.IsVisible)
             {
-                if (Settings.Default.SearchInstantly)
+                if (QueueFindWhenVisible)
                 {
-                    CacheUsageType = CacheUsageType.Bypass;
-                    Find();
-                }
+                    if (Settings.Default.SearchInstantly)
+                    {
+                        CacheUsageType = CacheUsageType.Bypass;
+                        Find();
+                    }
 
-                QueueFindWhenVisible = false;
+                    QueueFindWhenVisible = false;
+                }
             }
         }
 
