@@ -1598,13 +1598,16 @@ namespace qgrepControls.SearchWindow
             if (searchResult != null)
             {
                 int lastIndex = searchResult.FileAndLine.LastIndexOf('(');
-                string text = searchResult.FileAndLine.Substring(0, lastIndex);
-
-                try
+                if(lastIndex >= 0)
                 {
-                    Clipboard.SetText(text);
+                    string text = searchResult.FileAndLine.Substring(0, lastIndex);
+
+                    try
+                    {
+                        Clipboard.SetText(text);
+                    }
+                    catch { }
                 }
-                catch { }
             }
 
             SearchResultGroup searchGroup = GetSearchGroupFromMenuItem(sender);

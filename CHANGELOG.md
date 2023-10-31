@@ -67,3 +67,8 @@
 
 - Fixed case insensitive search in the file search dialog
 - Removed silent indexing
+
+### Version 2.13 (31/10/2023)
+
+- Fix for the tool window in "Auto Hide" mode breaking after extensive use (appearing partially unresponsive and without a title bar, most likely a Visual Studio bug)
+- Fix for reported crash on "Copy full path" menu command
