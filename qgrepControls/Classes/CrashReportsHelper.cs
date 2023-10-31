@@ -37,7 +37,7 @@ namespace qgrepControls.Classes
             //System.Diagnostics.Debugger.Launch();
 
             string report = PrintExceptionDetails(ex);
-            if(report.Length > 0)
+            if(report.Length > 0 && report.Contains("qgrep"))
             {
                 string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "qgrepSearch");
                 if(!Directory.Exists(folderPath))
