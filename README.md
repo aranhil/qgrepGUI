@@ -19,7 +19,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
-![Config](https://github.com/aranhil/qgrepGUI/assets/755601/41322877-d34d-4961-a290-21b394830246)
+![Config](https://github.com/aranhil/qgrepGUI/assets/755601/789bb28a-fbc1-4441-a58d-385deefe4349)
 
 ## Features overview
 
