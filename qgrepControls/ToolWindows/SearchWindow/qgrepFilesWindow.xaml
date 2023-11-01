@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:qgrepControls.SearchWindow"
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:modelViews="clr-namespace:qgrepControls.ModelViews"
+             xmlns:usercontrols="clr-namespace:qgrepControls.UserControls"
              xmlns:resx="clr-namespace:qgrepControls.Properties"
              mc:Ignorable="d" Style="{DynamicResource SomeWindow}" PreviewKeyDown="UserControl_PreviewKeyDown"
              d:DesignHeight="600" d:DesignWidth="1000" Width="800" Height="400">
@@ -90,7 +91,7 @@
                     <DataTemplate>
                         <DockPanel Style="{DynamicResource ResultPanel}" MouseDown="SearchResult_MouseDown">
                             <Image Margin="4,0,-8,0" Width="16" Height="16" Source="{Binding ImageSource}" Style="{x:Null}" />
-                            <TextBlock Style="{DynamicResource ResultTextStart}" Text="{Binding Path=TrimmedFileAndLine}" />
+                            <usercontrols:DynamicRunsTextBlock Style="{DynamicResource ResultTextStart}" Items="{Binding Path=TextModels}" />
                             <DockPanel.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem x:Name="MenuOpenFile" Header="{x:Static resx:Resources.OpenFile}" InputGestureText="Enter"  Click="MenuGoTo_Click"/>

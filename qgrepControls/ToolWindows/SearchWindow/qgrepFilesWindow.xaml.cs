@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace qgrepControls.SearchWindow
 {
@@ -267,7 +268,8 @@ namespace qgrepControls.SearchWindow
                             HighlightedText = highlight,
                             EndText = endText,
                             FullResult = fileAndLine + beginText + highlight + endText,
-                            IsActiveDocumentCpp = IsActiveDocumentCpp
+                            IsActiveDocumentCpp = IsActiveDocumentCpp,
+                            TextModels = GetTextModels(trimmedFileAndLine, searchOptions.Query)
                         };
 
                         if (searchOptions.IsFileSearch)
@@ -306,6 +308,49 @@ namespace qgrepControls.SearchWindow
                     newSearchResults.Clear();
                 }
             });
+        }
+
+        private TextModelCollection GetTextModels(string fullResult, string query)
+        {
+            var textModels = new TextModelCollection();
+            var queryWords = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var occurrences = new List<(int Index, string Word)>();
+
+            foreach (var word in queryWords)
+            {
+                var currentIndex = 0;
+                int wordIndex;
+                while ((wordIndex = fullResult.IndexOf(word, currentIndex, StringComparison.OrdinalIgnoreCase)) >= 0)
+                {
+                    occurrences.Add((wordIndex, fullResult.Substring(wordIndex, word.Length)));
+                    currentIndex = wordIndex + word.Length;
+                }
+            }
+
+            var sortedOccurrences = occurrences.OrderBy(o => o.Index).ToList();
+
+            var lastIndex = 0;
+
+            foreach (var occurrence in sortedOccurrences)
+            {
+                if (occurrence.Index > lastIndex)
+                {
+                    var precedingText = fullResult.Substring(lastIndex, occurrence.Index - lastIndex);
+                    textModels.Add(new TextModel { Text = precedingText, IsHighlight = false });
+                }
+
+                textModels.Add(new TextModel { Text = occurrence.Word, IsHighlight = true });
+
+                lastIndex = occurrence.Index + occurrence.Word.Length;
+            }
+
+            if (lastIndex < fullResult.Length)
+            {
+                var remainingText = fullResult.Substring(lastIndex);
+                textModels.Add(new TextModel { Text = remainingText });
+            }
+
+            return textModels;
         }
 
         int selectedSearchResult = -1;

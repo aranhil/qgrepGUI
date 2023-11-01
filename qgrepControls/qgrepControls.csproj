@@ -141,6 +141,7 @@
     <Compile Include="UserControls\ConfigListBox.xaml.cs">
       <DependentUpon>ConfigListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DynamicRunsTextBlock.cs" />
     <Compile Include="UserControls\HotkeyEditorControl.xaml.cs">
       <DependentUpon>HotkeyEditorControl.xaml</DependentUpon>
     </Compile>

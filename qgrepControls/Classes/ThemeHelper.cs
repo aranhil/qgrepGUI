@@ -43,7 +43,7 @@ namespace qgrepControls.Classes
 
         public static Dictionary<string, object> GetResourcesFromColorScheme(IWrapperApp WrapperApp)
         {
-            if (Instance.CachedResources == null)
+            if (Instance.CachedResources == null && WrapperApp != null)
             {
                 UpdateResourcesFromColorScheme(WrapperApp);
             }
@@ -187,6 +187,20 @@ namespace qgrepControls.Classes
         {
             System.Windows.Media.Color color = (System.Windows.Media.Color)userControl.Resources["Background.Color"];
             return ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | color.B;
+        }
+
+        public static System.Windows.Media.SolidColorBrush GetBrush(string name)
+        {
+            if(Instance.CachedResources != null)
+            {
+                System.Windows.Media.SolidColorBrush solidColorBrush = Instance.CachedResources[name] as System.Windows.Media.SolidColorBrush;
+                if(solidColorBrush != null)
+                {
+                    return solidColorBrush;
+                }
+            }
+
+            return new SolidColorBrush();
         }
     }
 }

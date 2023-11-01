@@ -1,13 +1,26 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace qgrepControls.ModelViews
 {
+    public class TextModel
+    {
+        public string Text { get; set; }
+        public bool IsHighlight { get; set; }
+    }
+
+    public class TextModelCollection : ObservableCollection<TextModel>
+    {
+    }
+
     public class SearchResult : INotifyPropertyChanged
     {
         private bool isSelected;
 
+        public TextModelCollection TextModels { get; set; }
         public string File { get; set; }
         public string Line { get; set; }
         public string TrimmedFileAndLine { get; set; }
