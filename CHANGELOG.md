@@ -68,8 +68,9 @@
 - Fixed case insensitive search in the file search dialog
 - Removed silent indexing
 
-### Version 2.13 (31/10/2023)
+### Version 2.13
 
+- Implemented highlighting in the file search results
 - Fix for the tool window in "Auto Hide" mode breaking after extensive use (appearing partially unresponsive and without a title bar, most likely a Visual Studio bug)
 - Fix for reported crash on "Copy full path" menu command
 - Crash reports are now saved only if the extension's name appears in the callstack
