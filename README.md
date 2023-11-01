@@ -24,10 +24,8 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ## Features overview
 
 ### Search Results
-   The search results can be shown as list or grouped by file, there is also a contextual menu.
+![Results](https://github.com/aranhil/qgrepGUI/assets/755601/6226fdf3-901e-4c74-9610-1c144cb116c6)
 
-![Results](https://github.com/aranhil/qgrepGUI/assets/755601/489b926a-e7d8-40da-85f4-8ef07b4c4886)
-      
 ### History
    The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
 
