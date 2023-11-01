@@ -19,12 +19,14 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
-![Config](https://github.com/aranhil/qgrepGUI/assets/755601/789bb28a-fbc1-4441-a58d-385deefe4349)
+![Config](https://github.com/aranhil/qgrepGUI/assets/755601/4bc73db0-1dde-4329-ae96-ea05bef72a91)
 
 ## Features overview
 
 ### Search Results
-![Results](https://github.com/aranhil/qgrepGUI/assets/755601/94f43c96-52f5-4474-8576-7d37a4ef9edc)
+   The search results can be shown as list or grouped by file and there is also a contextual menu.
+
+![Results](https://github.com/aranhil/qgrepGUI/assets/755601/20cbcd90-2326-4eca-846f-594cd369b4c2)
 
 ### History
    The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
