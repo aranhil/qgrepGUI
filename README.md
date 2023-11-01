@@ -66,7 +66,7 @@ You can change these as well from the **Customize shortcuts** window, but they c
 
 ## Changelog
 
-### Version 2.13
+### Version 2.13 (01/11/2023)
 
 - Implemented highlighting in the file search results
 - Fix for the tool window in "Auto Hide" mode breaking after extensive use (appearing partially unresponsive and without a title bar, most likely a Visual Studio bug)
