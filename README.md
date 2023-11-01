@@ -7,7 +7,7 @@
 
 *qgrep GUI* is a Visual Studio extension and GUI wrapper for [qgrep](https://github.com/zeux/qgrep) by Arseny Kapoulkine. As an indexing search tool, it's well-suited for large codebases, providing a user-friendly and responsive interface equipped with all the standard search tool features. Additionally, it offers fully customizable color themes for a more personalized user experience.
 
-![Intro](https://github.com/aranhil/qgrepGUI/assets/755601/1fd9db78-6186-49c3-ba15-bc6ba38ec6f7)
+![Intro](https://github.com/aranhil/qgrepGUI/assets/755601/c4348457-f3d2-47c2-813b-daa7151749d6)
 
 ## Installation
 
@@ -19,19 +19,13 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
-![Setup](https://github.com/aranhil/qgrepGUI/assets/755601/7b3a9acc-1ec9-4617-ad16-eafe1bf971fe)
-
-   If your projects have a format that can be parsed by MSBuild, you can use the **Gather from solution** button to automatically grab all the folders and file extensions from the solution.
-   
-   If you make changes to your files and want the changes to be visible in the search results, you have to reindex manually using the buttons from the lower right corner of the tool window.
+![Config](https://github.com/aranhil/qgrepGUI/assets/755601/789bb28a-fbc1-4441-a58d-385deefe4349)
 
 ## Features overview
 
 ### Search Results
-   The search results can be shown as list or grouped by file, there is also a contextual menu.
+![Results](https://github.com/aranhil/qgrepGUI/assets/755601/94f43c96-52f5-4474-8576-7d37a4ef9edc)
 
-![Results](https://github.com/aranhil/qgrepGUI/assets/755601/489b926a-e7d8-40da-85f4-8ef07b4c4886)
-      
 ### History
    The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
 
