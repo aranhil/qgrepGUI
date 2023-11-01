@@ -19,12 +19,14 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
-![Config](https://github.com/aranhil/qgrepGUI/assets/755601/789bb28a-fbc1-4441-a58d-385deefe4349)
+![Config](https://github.com/aranhil/qgrepGUI/assets/755601/4bc73db0-1dde-4329-ae96-ea05bef72a91)
 
 ## Features overview
 
 ### Search Results
-![Results](https://github.com/aranhil/qgrepGUI/assets/755601/94f43c96-52f5-4474-8576-7d37a4ef9edc)
+   The search results can be shown as list or grouped by file and there is also a contextual menu.
+
+![Results](https://github.com/aranhil/qgrepGUI/assets/755601/20cbcd90-2326-4eca-846f-594cd369b4c2)
 
 ### History
    The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
@@ -63,6 +65,13 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 You can change these as well from the **Customize shortcuts** window, but they can also be changed in Visual Studio from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
 ## Changelog
+
+### Version 2.13
+
+- Implemented highlighting in the file search results
+- Fix for the tool window in "Auto Hide" mode breaking after extensive use (appearing partially unresponsive and without a title bar, most likely a Visual Studio bug)
+- Fix for reported crash on "Copy full path" menu command
+- Crash reports are now saved only if the extension's name appears in the callstack
 
 ### Version 2.12.1 (08/09/2023)
 
