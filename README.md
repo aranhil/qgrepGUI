@@ -66,6 +66,13 @@ You can change these as well from the **Customize shortcuts** window, but they c
 
 ## Changelog
 
+### Version 2.13
+
+- Implemented highlighting in the file search results
+- Fix for the tool window in "Auto Hide" mode breaking after extensive use (appearing partially unresponsive and without a title bar, most likely a Visual Studio bug)
+- Fix for reported crash on "Copy full path" menu command
+- Crash reports are now saved only if the extension's name appears in the callstack
+
 ### Version 2.12.1 (08/09/2023)
 
 - Fixed case insensitive search in the file search dialog
