@@ -24,7 +24,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ## Features overview
 
 ### Search Results
-![Results](https://github.com/aranhil/qgrepGUI/assets/755601/6226fdf3-901e-4c74-9610-1c144cb116c6)
+![Results](https://github.com/aranhil/qgrepGUI/assets/755601/94f43c96-52f5-4474-8576-7d37a4ef9edc)
 
 ### History
    The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
