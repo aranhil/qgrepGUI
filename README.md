@@ -52,7 +52,9 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ### Customize colors
    There are three color schemes available: **Auto**, **Dark**, and **Light**. The **Auto** color scheme grabs the IDE's colors automatically, so you can use any custom theme you want. You also have the option to override any color used in the currently selected color scheme:
 
-![Colors](https://github.com/aranhil/qgrepGUI/assets/755601/92359355-4932-419c-ac32-d0fb56d93ed3)
+<p align="center">
+   <img src="https://github.com/aranhil/qgrepGUI/assets/755601/4dc82a9c-749c-4c10-b059-839d18bc2f68" />
+</p>
    
 ### Keyboard navigation
    You can cycle with the **Tab** key between the input TextBoxes and the search results. The **Down** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
