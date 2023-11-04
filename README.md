@@ -39,7 +39,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
    You can set up multiple search configurations and toggle between them:
 
 <p align="center">
-   <img src="https://github.com/aranhil/qgrepGUI/assets/755601/2363282e-8a66-4f84-b8cb-9b1405a36168" />
+   <img src="https://github.com/aranhil/qgrepGUI/assets/755601/e131c0bd-92a7-44e1-83d3-a21d42d569df" />
 </p>
       
 ### Open file
