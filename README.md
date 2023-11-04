@@ -65,6 +65,13 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 They can also be changed in Visual Studio from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
+## Standalone version
+There is also a standalone GUI Wrapper for Windows available, you can get it from the [Releases](https://github.com/aranhil/qgrepGUI/releases) section:
+
+<p align="center">
+   <img src="https://github.com/aranhil/qgrepGUI/assets/755601/2dc21ee5-1224-4c26-b665-1efc8b8bb114" />
+</p>
+
 ## Changelog
 
 ### Version 2.13 (01/11/2023)
