@@ -38,7 +38,9 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ### Advanced search configurations
    You can set up multiple search configurations and toggle between them:
 
-![Configs](https://github.com/aranhil/qgrepGUI/assets/755601/08dce467-3ac5-4120-8703-21a157ce97ed)
+<p align="center">
+   <img src="https://github.com/aranhil/qgrepGUI/assets/755601/e131c0bd-92a7-44e1-83d3-a21d42d569df" />
+</p>
       
 ### Open file
    You can also search for files using unordered keywords, using a different window that can be opened from **View >> qgrep Open File** or using the shortcut (Alt+Shift+I). You can change this shortcut as well from the **Customize shortcuts** window, but it can also be changed in Visual Studio, the command name is **View.qgrepSearchFile**.
@@ -50,7 +52,9 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ### Customize colors
    There are three color schemes available: **Auto**, **Dark**, and **Light**. The **Auto** color scheme grabs the IDE's colors automatically, so you can use any custom theme you want. You also have the option to override any color used in the currently selected color scheme:
 
-![Colors](https://github.com/aranhil/qgrepGUI/assets/755601/92359355-4932-419c-ac32-d0fb56d93ed3)
+<p align="center">
+   <img src="https://github.com/aranhil/qgrepGUI/assets/755601/89624b31-942d-416c-91c6-94e59fdcbe7f" />
+</p>
    
 ### Keyboard navigation
    You can cycle with the **Tab** key between the input TextBoxes and the search results. The **Down** key focuses on the results list. Here is a complete list with all the shortcuts and their default key combination:
