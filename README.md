@@ -29,9 +29,11 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 ![Results](https://github.com/aranhil/qgrepGUI/assets/755601/20cbcd90-2326-4eca-846f-594cd369b4c2)
 
 ### History
-   The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool. 
+   The history keeps all of your recent searches but it can also show all of your recently opened files from inside the tool.
 
-![History](https://github.com/aranhil/qgrepGUI/assets/755601/9d683c0e-6389-4052-85f5-27641dc09321)
+<p align="center">
+   <img src="https://github.com/aranhil/qgrepGUI/assets/755601/b75c183e-23b5-4370-92f1-888157d4fb44" />
+</p>
 
 ### Advanced search configurations
    You can set up multiple search configurations and toggle between them:
