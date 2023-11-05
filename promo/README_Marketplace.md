@@ -1,21 +1,12 @@
-# qgrep GUI
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/aranhil/qgrepGUI/msbuild.yml)
-![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/Stefan-IulianChivu.qgrepSearchTool-x64)
-![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/Stefan-IulianChivu.qgrepSearchTool-x64)
-![GitHub](https://img.shields.io/github/license/aranhil/qgrepGUI)
+qgrep Search Tool is a Visual Studio extension based on [qgrep](https://github.com/zeux/qgrep) by Arseny Kapoulkine. As an indexing search tool, it's well-suited for large codebases, providing a user-friendly and responsive interface equipped with all the standard search tool features. Additionally, it offers fully customizable color themes for a more personalized user experience.
 
-
-*qgrep GUI* is a Visual Studio extension and GUI wrapper for [qgrep](https://github.com/zeux/qgrep) by Arseny Kapoulkine. As an indexing search tool, it's well-suited for large codebases, providing a user-friendly and responsive interface equipped with all the standard search tool features. Additionally, it offers fully customizable color themes for a more personalized user experience.
+For the Visual Studio 2019 version, click [here](https://marketplace.visualstudio.com/items?itemName=Stefan-IulianChivu.qgrepSearchTool-x86)
 
 ![Intro](https://github.com/aranhil/qgrepGUI/assets/755601/c4348457-f3d2-47c2-813b-daa7151749d6)
 
-## Installation
+## How to set up
 
-Install the Visual Studio extension from [here](https://marketplace.visualstudio.com/items?itemName=Stefan-IulianChivu.qgrepSearchTool-x64) (for Visual Studio 2022) or from [here](https://marketplace.visualstudio.com/items?itemName=Stefan-IulianChivu.qgrepSearchTool-x86) (for Visual Studio 2019) and follow the setup instructions below.
-
-## Setting up in Visual Studio
-
-1. After installing the extension, the tool window can be opened from **View >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from the **Customize shortcuts** window or, in Visual Studio, from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
+1. After installing the extension, the tool window can be opened from **View >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
@@ -66,14 +57,13 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 They can also be changed in Visual Studio from **Tools >> Options >> Environment >> Keyboard**, all of the commands are prefixed with **qgrep.** and make sure to keep the same **qgrep Tool Window** context so that they only work when the tool window is focused.
 
 ## Standalone version
-There is also a standalone GUI Wrapper for Windows available, you can get it from the [Releases](https://github.com/aranhil/qgrepGUI/releases) section:
+There is also a standalone GUI Wrapper for Windows available, you can get it from the GitHub's [Releases](https://github.com/aranhil/qgrepGUI/releases) section:
 
 <p align="center">
    <img src="https://github.com/aranhil/qgrepGUI/assets/755601/2dc21ee5-1224-4c26-b665-1efc8b8bb114" />
 </p>
 
 ## Changelog
-
 ### Version 2.13 (01/11/2023)
 
 - Implemented highlighting in the file search results
@@ -96,6 +86,7 @@ There is also a standalone GUI Wrapper for Windows available, you can get it fro
 - Fixed issue with the shortcuts context missing its name in Visual Studio
 
 ### Version 2.11 (08/06/2023)
+
 - Added a stop button to allow forcible interruption of the index updates
 
 ### Version 2.10 (07/06/2023)
@@ -112,6 +103,7 @@ There is also a standalone GUI Wrapper for Windows available, you can get it fro
 - Fixed several issues with the search file window
 
 ### Version 2.8 (02/06/2023)
+
 - Fixed occasional crash when opening the tool window
 - Localized all strings and added some machine translations (Chinese Simplified, Chinese Traditional, Czech, French, German, Italian, Japanese, Korean, Polish, Romanian, Spanish, Portuguese and Turkish)
 - Improved the UI responsiveness for searches with lots of results
@@ -125,6 +117,7 @@ There is also a standalone GUI Wrapper for Windows available, you can get it fro
 - Fixed issue with backslashes ('\\') not being recognized as a valid path separator in all the fields that expect a path (file search, include files and exclude files)
 
 ### Version 2.7 (28/05/2023)
+
 - Added an experimental option to update the index automatically that tries its best to optimize index time if only a few files are updated
 - The word under the caret is now grabbed automatically when opening the tool window using the command
 - Added file icons to any file search (from the dialog or from the "include files" field)
@@ -134,8 +127,7 @@ There is also a standalone GUI Wrapper for Windows available, you can get it fro
 - All resizable windows now remember their size
 - Fixed the old search in files from the "include files" field to work as before the new window
 - Fixed issue where tree view items collapsed/expanded by the user were modified by a search that was still appending to the results
-- Fixed issue with escaped backslashes ("\\\\") in filters that were not being recognized by qgrep as a valid path separator
-
+- Fixed issue with escaped backslashes ("\\") in filters that were not being recognized by qgrep as a valid path separator
 ### Version 2.6 (21/05/2023)
 
 - Added a new window to search for files using unordered keywords (Shortcut: Shift+Alt+I)
