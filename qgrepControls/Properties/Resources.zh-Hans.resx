@@ -649,4 +649,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>使用全局路径</value>
   </data>
+  <data name="UseRelativePathsContent" xml:space="preserve">
+    <value>使用相对路径</value>
+  </data>
 </root>

@@ -669,4 +669,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>グローバルパスを使用する</value>
   </data>
+  <data name="UseRelativePathsContent" xml:space="preserve">
+    <value>相対パスを使用する</value>
+  </data>
 </root>

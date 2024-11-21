@@ -669,4 +669,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Použijte globální cestu</value>
   </data>
+  <data name="UseRelativePathsContent" xml:space="preserve">
+    <value>Použijte relativní cesty</value>
+  </data>
 </root>

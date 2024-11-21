@@ -19,6 +19,7 @@ namespace qgrepControls.Classes
     {
         public List<string> SelectedProjects = new List<string>();
         public List<string> FileSelectedProjects = new List<string>();
+        public string LastConfigPath = "";
     }
 
     public class ConfigPath
@@ -36,6 +37,16 @@ namespace qgrepControls.Classes
             {
                 path = System.IO.Path.GetFullPath(value);
             }
+        }
+
+        public string GetRelativePath()
+        {
+            return ConfigParser.GetRelativePath(Parent.Parent.Parent.LastConfigPath, Path);
+        }
+
+        public string GetFinalPath()
+        {
+            return ConfigParser.MakeAbsolutePath(Parent.Parent.Parent.Path, GetRelativePath());
         }
 
         public ConfigPath DeepClone()
@@ -302,7 +313,7 @@ namespace qgrepControls.Classes
             streamWriter.WriteLine(GroupName + configGroup.Name);
             foreach (ConfigPath path in configGroup.Paths)
             {
-                streamWriter.WriteLine(PathPrefix + path.Path);
+                streamWriter.WriteLine(PathPrefix + path.GetFinalPath());
             }
             foreach (ConfigRule rule in configGroup.Rules)
             {
@@ -360,6 +371,7 @@ namespace qgrepControls.Classes
         }
 
         public string Path = "";
+        public string RelativePath = "";
         public string PathSuffix = @"\.qgrep\";
 
         public ObservableCollection<ConfigProject> ConfigProjects = new ObservableCollection<ConfigProject>();
@@ -385,13 +397,19 @@ namespace qgrepControls.Classes
             return Encoding.UTF8.GetString(windows1252Bytes);
         }
 
-        public static void Initialize(string Path)
+        public static void Initialize(string ConfigPath)
         {
-            if (Instance.Path != Path)
+            if (Instance.Path != ConfigPath)
             {
                 UnloadConfig();
-                Instance.Path = Path;
+                Instance.Path = ConfigPath;
                 LoadConfig();
+                SaveConfig();
+
+                if (Instance.LastConfigPath.Length != 0)
+                    Instance.LastConfigPath = ConfigPath;
+
+                SaveSettings();
             }
         }
 
@@ -613,6 +631,59 @@ namespace qgrepControls.Classes
             }
 
             return commonPathPrefix;
+        }
+        public static string GetRelativePath(string fromPath, string toPath)
+        {
+            try
+            {
+                string fromFullPath = System.IO.Path.GetFullPath(fromPath.TrimEnd(System.IO.Path.DirectorySeparatorChar));
+                string toFullPath = System.IO.Path.GetFullPath(toPath.TrimEnd(System.IO.Path.DirectorySeparatorChar));
+
+                if (!System.IO.Path.IsPathRooted(fromFullPath) || !System.IO.Path.IsPathRooted(toFullPath))
+                {
+                    throw new ArgumentException("Both paths must be absolute.");
+                }
+
+                string[] fromDirectories = fromFullPath.Split(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar);
+                string[] toDirectories = toFullPath.Split(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar);
+
+                int commonLength = 0;
+                while (commonLength < fromDirectories.Length && commonLength < toDirectories.Length &&
+                       fromDirectories[commonLength].Equals(toDirectories[commonLength], StringComparison.OrdinalIgnoreCase))
+                {
+                    commonLength++;
+                }
+
+                int upwardMoves = fromDirectories.Length - commonLength;
+                string relativePath = string.Join(string.Empty, Enumerable.Repeat(".." + System.IO.Path.DirectorySeparatorChar.ToString(), upwardMoves));
+
+                if (toDirectories.Length > commonLength)
+                {
+                    relativePath = System.IO.Path.Combine(relativePath, string.Join(System.IO.Path.DirectorySeparatorChar.ToString(), toDirectories.Skip(commonLength)));
+                }
+
+                if (string.IsNullOrEmpty(relativePath) || (!relativePath.StartsWith("..") && !relativePath.Contains("..")))
+                {
+                    relativePath = ".\\" + relativePath.TrimStart(System.IO.Path.DirectorySeparatorChar);
+                }
+
+                if (!relativePath.EndsWith("\\"))
+                {
+                    relativePath += "\\";
+                }
+
+                return string.IsNullOrEmpty(relativePath) ? "." : relativePath;
+            }
+            catch
+            {
+                return toPath;
+            }
+        }
+
+        public static string MakeAbsolutePath(string basePath, string relativePath)
+        {
+            // Combine base path and relative path to get an absolute path
+            return System.IO.Path.GetFullPath(System.IO.Path.Combine(basePath, relativePath));
         }
 
         public static string RemovePaths(string file, int pathStyle)
@@ -962,6 +1033,7 @@ namespace qgrepControls.Classes
                 {
                     SelectedProjects = Instance.SelectedProjects,
                     FileSelectedProjects = Instance.FileSelectedProjects,
+                    LastConfigPath = Instance.LastConfigPath,
                 };
 
                 string json = JsonConvert.SerializeObject(ConfigSettings, Formatting.Indented);
@@ -979,6 +1051,7 @@ namespace qgrepControls.Classes
                 ConfigSettings ConfigSettings = JsonConvert.DeserializeObject<ConfigSettings>(json);
                 Instance.SelectedProjects = ConfigSettings.SelectedProjects;
                 Instance.FileSelectedProjects = ConfigSettings.FileSelectedProjects;
+                Instance.LastConfigPath = ConfigSettings.LastConfigPath;
             }
             catch { }
         }

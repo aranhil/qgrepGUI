@@ -669,4 +669,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Użyj ścieżki globalnej</value>
   </data>
+  <data name="UseRelativePathsContent" xml:space="preserve">
+    <value>Użyj ścieżek względnych</value>
+  </data>
 </root>

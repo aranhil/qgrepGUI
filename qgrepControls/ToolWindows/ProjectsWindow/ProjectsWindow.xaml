@@ -58,7 +58,10 @@
                 <ProgressBar Value="100" IsTabStop="False" x:Name="AutomaticProgress" Width="250" Margin="1,3,1,3" Visibility="Visible" HorizontalAlignment="Right"/>
                 <Button x:Name="StopButton" Content="{x:Static resx:Resources.StopButtonContent}" HorizontalAlignment="Center" Margin="5,0,5,0" Click="StopButton_Click" Padding="5,2,8,2" ToolTip="Stop automatic gathering"/>
             </DockPanel>
-            <CheckBox x:Name="UseGlobalPath" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="UseGlobalPath_Click" Content="{x:Static resx:Resources.UseGlobalPathContent}"/>
+            <DockPanel HorizontalAlignment="Right" Margin="0">
+                <CheckBox x:Name="UseRelativePaths" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="UseRelativePaths_Click" Content="{x:Static resx:Resources.UseRelativePathsContent}"/>
+                <CheckBox x:Name="UseGlobalPath" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{DynamicResource SomeCheckBox}" IsChecked="False" Click="UseGlobalPath_Click" Content="{x:Static resx:Resources.UseGlobalPathContent}"/>
+            </DockPanel>
         </DockPanel>
     </Grid>
 </UserControl>

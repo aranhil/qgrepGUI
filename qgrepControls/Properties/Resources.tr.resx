@@ -669,4 +669,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Genel yolu kullan</value>
   </data>
+  <data name="UseRelativePathsContent" xml:space="preserve">
+    <value>Bağıl yolları kullan</value>
+  </data>
 </root>

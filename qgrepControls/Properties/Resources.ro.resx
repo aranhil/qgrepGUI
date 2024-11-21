@@ -673,4 +673,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Folosește calea globală</value>
   </data>
+  <data name="UseRelativePathsContent" xml:space="preserve">
+    <value>Folosiți căi relative</value>
+  </data>
 </root>

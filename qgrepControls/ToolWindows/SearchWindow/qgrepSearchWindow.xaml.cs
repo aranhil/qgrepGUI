@@ -293,10 +293,13 @@ namespace qgrepControls.SearchWindow
 
         public void SolutionLoaded()
         {
-            string solutionPath = WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath);
-            if (solutionPath.Length > 0)
+            string configPath = WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath);
+            if (configPath.Length > 0)
             {
-                ConfigParser.Initialize(solutionPath);
+                string solutionPath = WrapperApp.GetConfigPath(false);
+
+                ConfigParser.Initialize(configPath);
+
                 ConfigParser.Instance.FilesChanged += FilesChanged;
                 ConfigParser.Instance.FilesAddedOrRemoved += FilesAddedOrRemoved; ;
 

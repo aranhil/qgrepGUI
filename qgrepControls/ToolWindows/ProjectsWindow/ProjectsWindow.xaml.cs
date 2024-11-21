@@ -77,6 +77,7 @@ namespace qgrepControls.SearchWindow
             }
 
             UseGlobalPath.IsChecked = Settings.Default.UseGlobalPath;
+            UseRelativePaths.IsChecked = ConfigParser.Instance.LastConfigPath.Length != 0;
         }
 
         private void AddNewRule_Click(object sender, RoutedEventArgs e)
@@ -317,6 +318,7 @@ namespace qgrepControls.SearchWindow
             AutomaticProgress.Visibility = IsAutomaticPopulationBusy ? Visibility.Visible : Visibility.Collapsed;
             StopButton.Visibility = IsAutomaticPopulationBusy ? Visibility.Visible : Visibility.Collapsed;
             UseGlobalPath.Visibility = !SearchWindow.WrapperApp.IsStandalone && isAdvanced ? Visibility.Visible : Visibility.Collapsed;
+            UseRelativePaths.Visibility = !SearchWindow.WrapperApp.IsStandalone && isAdvanced ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void AdvancedToggle_Click(object sender, RoutedEventArgs e)
@@ -451,6 +453,18 @@ namespace qgrepControls.SearchWindow
         {
             Settings.Default.UseGlobalPath = UseGlobalPath.IsChecked ?? false;
             Settings.Default.Save();
+
+            ConfigParser.Initialize(SearchWindow.WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath));
+            LoadFromConfig();
+
+            UseRelativePaths.IsChecked = ConfigParser.Instance.LastConfigPath.Length != 0;
+        }
+
+        private void UseRelativePaths_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigParser.SaveConfig();
+            ConfigParser.Instance.LastConfigPath = (UseRelativePaths.IsChecked ?? false) ? SearchWindow.WrapperApp.GetConfigPath(false) : "";
+            ConfigParser.SaveSettings();
 
             ConfigParser.Initialize(SearchWindow.WrapperApp.GetConfigPath(Settings.Default.UseGlobalPath));
             LoadFromConfig();

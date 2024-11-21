@@ -395,7 +395,7 @@ namespace qgrepControls.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit shortcuts.
+        ///   Looks up a localized string similar to Customize shortcuts.
         /// </summary>
         public static string EditHotkeys {
             get {
@@ -1723,6 +1723,15 @@ namespace qgrepControls.Properties {
         public static string UseGlobalPathContent {
             get {
                 return ResourceManager.GetString("UseGlobalPathContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use relative paths.
+        /// </summary>
+        public static string UseRelativePathsContent {
+            get {
+                return ResourceManager.GetString("UseRelativePathsContent", resourceCulture);
             }
         }
     }

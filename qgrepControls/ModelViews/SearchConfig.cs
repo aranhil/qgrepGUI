@@ -106,7 +106,7 @@ namespace qgrepControls.ModelViews
         public SearchPath(ConfigPath configPath)
         {
             ConfigPath = configPath;
-            Path = configPath.Path;
+            Path = configPath.GetRelativePath();
         }
     }
     public class SearchGroup : IEditableData

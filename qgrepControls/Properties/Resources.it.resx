@@ -669,4 +669,7 @@
   <data name="UseGlobalPathContent" xml:space="preserve">
     <value>Usa percorso globale</value>
   </data>
+  <data name="UseRelativePathsContent" xml:space="preserve">
+    <value>Utilizzare percorsi relativi</value>
+  </data>
 </root>
