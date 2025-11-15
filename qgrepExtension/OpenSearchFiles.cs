@@ -12,6 +12,7 @@ namespace qgrepSearch
         public const int CommandId = 4141;
         public static readonly Guid CommandSet = new Guid("d480acd1-c9b7-45da-a687-4cacc45acf16");
         private readonly AsyncPackage package;
+        private qgrepFilesWindowControl filesWindowControl = null;
 
         private OpenSearchFiles(AsyncPackage package, OleMenuCommandService commandService)
         {
@@ -52,8 +53,13 @@ namespace qgrepSearch
             qgrepSearchPackage qgrepPackage = package as qgrepSearchPackage;
             if (qgrepPackage != null)
             {
-                qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new VisualStudioWrapper(qgrepPackage.GetExtensionData()));
+                if(filesWindowControl == null)
+                {
+                    filesWindowControl = new qgrepFilesWindowControl(new VisualStudioWrapper(qgrepPackage.GetExtensionData()));
+                }
+
                 UIHelper.ShowDialog(filesWindowControl, qgrepControls.Properties.Resources.OpenFile, filesWindowControl.WrapperApp, null, true);
+                filesWindowControl.OnParentWindowOpened();
 
                 if (filesWindowControl.IncludeFile != null)
                 {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageLanguagePackManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+	<Metadata>
+		<DisplayName>Narzędzie wyszukiwania qgrep dla Visual Studio 2022</DisplayName>
+		<Description xml:space="preserve">Natychmiastowe wyszukiwanie w plikach dużych baz kodu</Description>
+	</Metadata>
+</PackageLanguagePackManifest>

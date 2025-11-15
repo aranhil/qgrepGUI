@@ -389,117 +389,121 @@ namespace qgrepControls.Classes
                 CachedSearch.Results.Add(result);
             }
 
-            string file = "", beginText, endText, highlightedText, lineNo = "";
-
-            int currentIndex = result.IndexOf('\xB0');
-            if (currentIndex >= 0)
+            try
             {
-                string fileAndLineNo = result.Substring(0, currentIndex);
-                result = currentIndex + 1 < result.Length ? result.Substring(currentIndex + 1) : "";
+                string file = "", beginText, endText, highlightedText, lineNo = "";
 
-                int indexOfParanthesis = fileAndLineNo.LastIndexOf('(');
-                if (indexOfParanthesis >= 0)
+                int currentIndex = result.IndexOf('\xB0');
+                if (currentIndex >= 0)
                 {
-                    lineNo = fileAndLineNo.Substring(indexOfParanthesis + 1, fileAndLineNo.Length - indexOfParanthesis - 2);
-                    file = ConfigParser.FromUtf8(fileAndLineNo.Substring(0, indexOfParanthesis));
+                    string fileAndLineNo = result.Substring(0, currentIndex);
+                    result = currentIndex + 1 < result.Length ? result.Substring(currentIndex + 1) : "";
 
-                    if (searchOptions.FilterResults.Length > 0)
+                    int indexOfParanthesis = fileAndLineNo.LastIndexOf('(');
+                    if (indexOfParanthesis >= 0 && fileAndLineNo.Length - indexOfParanthesis - 2 >= 0)
                     {
-                        if (searchOptions.FilterResultsRegEx)
+                        lineNo = fileAndLineNo.Substring(indexOfParanthesis + 1, fileAndLineNo.Length - indexOfParanthesis - 2);
+                        file = ConfigParser.FromUtf8(fileAndLineNo.Substring(0, indexOfParanthesis));
+
+                        if (searchOptions.FilterResults.Length > 0)
                         {
-                            bool matchesFilter = false;
-
-                            if (Settings.Default.FilterSearchScopeIndex == 1 || Settings.Default.FilterSearchScopeIndex == 2)
+                            if (searchOptions.FilterResultsRegEx)
                             {
-                                if (Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                                bool matchesFilter = false;
+
+                                if (Settings.Default.FilterSearchScopeIndex == 1 || Settings.Default.FilterSearchScopeIndex == 2)
                                 {
-                                    matchesFilter = true;
+                                    if (Regex.Match(file.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                                    {
+                                        matchesFilter = true;
+                                    }
+                                }
+
+                                if (Settings.Default.FilterSearchScopeIndex == 0 || Settings.Default.FilterSearchScopeIndex == 2)
+                                {
+                                    if (Regex.Match(result.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                                    {
+                                        matchesFilter = true;
+                                    }
+                                }
+
+                                if (!matchesFilter)
+                                {
+                                    return;
                                 }
                             }
-
-                            if (Settings.Default.FilterSearchScopeIndex == 0 || Settings.Default.FilterSearchScopeIndex == 2)
+                            else
                             {
-                                if (Regex.Match(result.ToLower(), searchOptions.FilterResults.ToLower()).Success)
+                                bool matchesFilter = false;
+
+                                if (Settings.Default.FilterSearchScopeIndex == 1 || Settings.Default.FilterSearchScopeIndex == 2)
                                 {
-                                    matchesFilter = true;
+                                    if (file.ToLower().Contains(searchOptions.FilterResults.ToLower()))
+                                    {
+                                        matchesFilter = true;
+                                    }
                                 }
-                            }
 
-                            if (!matchesFilter)
-                            {
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            bool matchesFilter = false;
-
-                            if (Settings.Default.FilterSearchScopeIndex == 1 || Settings.Default.FilterSearchScopeIndex == 2)
-                            {
-                                if (file.ToLower().Contains(searchOptions.FilterResults.ToLower()))
+                                if (Settings.Default.FilterSearchScopeIndex == 0 || Settings.Default.FilterSearchScopeIndex == 2)
                                 {
-                                    matchesFilter = true;
+                                    if (result.ToLower().Contains(searchOptions.FilterResults.ToLower()))
+                                    {
+                                        matchesFilter = true;
+                                    }
                                 }
-                            }
 
-                            if (Settings.Default.FilterSearchScopeIndex == 0 || Settings.Default.FilterSearchScopeIndex == 2)
-                            {
-                                if (result.ToLower().Contains(searchOptions.FilterResults.ToLower()))
+                                if (!matchesFilter)
                                 {
-                                    matchesFilter = true;
+                                    return;
                                 }
-                            }
-
-                            if (!matchesFilter)
-                            {
-                                return;
                             }
                         }
                     }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                if (!searchOptions.BypassHighlight)
+                {
+                    int highlightBegin = 0, highlightEnd = 0;
+                    Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);
+
+                    currentIndex = highlightBegin;
+                    if (currentIndex >= 0)
+                    {
+                        beginText = result.Substring(0, currentIndex);
+                        result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    currentIndex = highlightEnd;
+                    if (currentIndex >= 0)
+                    {
+                        highlightedText = result.Substring(0, currentIndex);
+                        result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    endText = result;
                 }
                 else
                 {
-                    return;
+                    beginText = result;
+                    highlightedText = "";
+                    endText = "";
                 }
+
+                searchOptions.EventsHandler.OnResultEvent(file, lineNo, beginText, highlightedText, endText, searchOptions);
             }
-
-            if (!searchOptions.BypassHighlight)
-            {
-                int highlightBegin = 0, highlightEnd = 0;
-                Highlight(result, ref highlightBegin, ref highlightEnd, searchOptions);
-
-                currentIndex = highlightBegin;
-                if (currentIndex >= 0)
-                {
-                    beginText = result.Substring(0, currentIndex);
-                    result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
-                }
-                else
-                {
-                    return;
-                }
-
-                currentIndex = highlightEnd;
-                if (currentIndex >= 0)
-                {
-                    highlightedText = result.Substring(0, currentIndex);
-                    result = currentIndex < result.Length ? result.Substring(currentIndex) : "";
-                }
-                else
-                {
-                    return;
-                }
-
-                endText = result;
-            }
-            else
-            {
-                beginText = result;
-                highlightedText = "";
-                endText = "";
-            }
-
-            searchOptions.EventsHandler.OnResultEvent(file, lineNo, beginText, highlightedText, endText, searchOptions);
+            catch { }
         }
 
         private void Highlight(string result, ref int begingHighlight, ref int endHighlight, SearchOptions searchOptions)

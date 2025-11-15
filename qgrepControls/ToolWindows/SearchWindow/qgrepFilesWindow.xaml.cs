@@ -55,6 +55,11 @@ namespace qgrepControls.SearchWindow
             Find();
         }
 
+        public void OnParentWindowOpened()
+        {
+            IncludeFilesInput.SelectAll();
+        }
+
         private void ApplyKeyBindings()
         {
             Dictionary<string, Hotkey> bindings = WrapperApp.ReadKeyBindings();

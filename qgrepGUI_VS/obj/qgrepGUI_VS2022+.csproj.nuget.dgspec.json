@@ -1,0 +1,228 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Development\\qgrepSearchTool\\qgrepGUI_VS2022\\qgrepGUI_VS2022+.csproj": {}
+  },
+  "projects": {
+    "C:\\Development\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Development\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj",
+        "projectName": "qgrepControls",
+        "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj",
+        "packagesPath": "C:\\Users\\Iulian\\.nuget\\packages\\",
+        "outputPath": "C:\\Development\\qgrepSearchTool\\qgrepControls\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Iulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+                "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj"
+              }
+            }
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "dependencies": {
+            "Extended.Wpf.Toolkit": {
+              "target": "Package",
+              "version": "[3.8.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Development\\qgrepSearchTool\\qgrepGUI_VS2022\\qgrepGUI_VS2022+.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Development\\qgrepSearchTool\\qgrepGUI_VS2022\\qgrepGUI_VS2022+.csproj",
+        "projectName": "qgrepGUI_VS2022",
+        "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepGUI_VS2022\\qgrepGUI_VS2022+.csproj",
+        "packagesPath": "C:\\Users\\Iulian\\.nuget\\packages\\",
+        "outputPath": "C:\\Development\\qgrepSearchTool\\qgrepGUI_VS2022\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Iulian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Development\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj": {
+                "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepControls\\qgrepControls.csproj"
+              },
+              "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+                "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj"
+              },
+              "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj": {
+                "projectPath": "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj"
+              }
+            }
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "dependencies": {
+            "Extended.Wpf.Toolkit": {
+              "target": "Package",
+              "version": "[3.8.2, )"
+            },
+            "Microsoft.Build": {
+              "target": "Package",
+              "version": "[17.5.0, )"
+            },
+            "Microsoft.Build.Framework": {
+              "target": "Package",
+              "version": "[17.8.43, )"
+            },
+            "Microsoft.Build.Tasks.Core": {
+              "target": "Package",
+              "version": "[17.8.43, )"
+            },
+            "Microsoft.Build.Utilities.Core": {
+              "target": "Package",
+              "version": "[17.8.43, )"
+            },
+            "Microsoft.VSSDK.BuildTools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[17.0.3177-preview3, )"
+            },
+            "Microsoft.VisualStudio.SDK": {
+              "target": "Package",
+              "version": "[17.0.0-previews-1-31410-273, )"
+            },
+            "Microsoft.VisualStudio.Text.Data": {
+              "target": "Package",
+              "version": "[17.0.255-preview-ga4c683bf62, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[17.0.32-alpha, )"
+            },
+            "Microsoft.VisualStudio.Validation": {
+              "target": "Package",
+              "version": "[17.0.21-alpha, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "StreamJsonRpc": {
+              "target": "Package",
+              "version": "[2.9.12-alpha, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj",
+        "projectName": "qgrepInterop",
+        "projectPath": "C:\\Development\\qgrepSearchTool\\qgrepInterop\\qgrepInterop.vcxproj",
+        "frameworks": {
+          "native": {
+            "projectReferences": {
+              "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj": {
+                "projectPath": "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "native": {}
+      }
+    },
+    "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj",
+        "projectName": "qgrep",
+        "projectPath": "C:\\Development\\qgrepSearchTool\\qgrep\\qgrep.vcxproj",
+        "frameworks": {
+          "native": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "native": {}
+      }
+    }
+  }
+}
