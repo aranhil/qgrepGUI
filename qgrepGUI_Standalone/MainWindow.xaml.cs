@@ -30,6 +30,7 @@ namespace qgrepGUI
         qgrepSearchWindowControl SearchWindow;
         string UpdateFilePath = "";
         bool UpdateQueued = false;
+        qgrepFilesWindowControl filesWindowControl = null;
 
         public MainWindow()
         {
@@ -226,8 +227,13 @@ namespace qgrepGUI
 
         private void OpenFileSearch_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            qgrepFilesWindowControl filesWindowControl = new qgrepFilesWindowControl(new StandaloneWrapper(this));
+            if(filesWindowControl == null)
+            {
+                filesWindowControl = new qgrepFilesWindowControl(new StandaloneWrapper(this));
+            }
+
             UIHelper.ShowDialog(filesWindowControl, qgrepControls.Properties.Resources.OpenFile, filesWindowControl.WrapperApp, SearchWindow, true);
+            filesWindowControl.OnParentWindowOpened();
         }
 
         private void ToggleGroupBy_Executed(object sender, ExecutedRoutedEventArgs e)
