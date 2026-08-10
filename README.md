@@ -1,3 +1,5 @@
+
+
 # qgrep GUI
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/aranhil/qgrepGUI/msbuild.yml)
 ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/Stefan-IulianChivu.qgrepSearchTool-x64)
@@ -16,7 +18,7 @@ Install the Visual Studio extension from [here](https://marketplace.visualstudio
 
 ## Setting up in Visual Studio
 
-1. After installing the extension, the tool window can be opened from **View >> qgrep Search Tool**. It also comes with a shorcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from the **Customize shortcuts** window or, in Visual Studio, from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
+1. After installing the extension, the tool window can be opened from **View >> qgrep Search Tool**. It also comes with a shortcut already assigned (Alt+Shift+F), but if it's already assigned or you want to change it, you can do that from the **Customize shortcuts** window or, in Visual Studio, from **Tools >> Options >> Environment >> Keyboard**, the command name is **View.qgrepSearchTool**.
 
 2. After opening the tool window, you have to set up the folders that will be indexed:
 
